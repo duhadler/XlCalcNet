@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>RoseCurve</Title>
+  <CameraAngleTheta>103</CameraAngleTheta>
+  <CameraAnglePhi>137</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <Plot3DType1>Parametric surface</Plot3DType1>
+  <Code>double a = 0.6;
+double h = 2.0;
+double n = 3.0;
+double ca = Math.Cos(a);
+
+var x = (h * Math.Abs(Math.Cos(n * u)) * ca) * Math.Cos(u);
+var y = (h * Math.Abs(Math.Cos(n * u)) * ca) * Math.Sin(u);
+var z = a * v;
+</Code>
+  <Resolution>192</Resolution>
+  <Resolution2>2</Resolution2>
+  <xmin>0.0</xmin>
+  <xmax>2 * Pi</xmax>
+  <zmin>0.0</zmin>
+  <zmax>1.0</zmax>
+  <RepeatStart>false</RepeatStart>
+  <PathEvalOrder>N/A</PathEvalOrder>
+  <FinalRotationOrder>X-Y-Z</FinalRotationOrder>
+  <FinalXRotation>0</FinalXRotation>
+  <FinalYRotation>0</FinalYRotation>
+  <FinalZRotation>0</FinalZRotation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>N/A</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>Gradient</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceGradient1>SequenceGradient0</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>16</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>true</ShowWireframe>
+  <WireframeThickness>0.0018</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0.005</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <SolidType>None</SolidType>
+  <GeneratorColorString>White</GeneratorColorString>
+  <BackgroundSolidTransparency>0</BackgroundSolidTransparency>
+</WpfGraphicsSettings>

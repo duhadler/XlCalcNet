@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Real Jacobi Amplitude</Title>
+  <CameraAngleTheta>125</CameraAngleTheta>
+  <CameraAnglePhi>100</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <RunAfterLoading>Always, clear previous</RunAfterLoading>
+  <Plot3DType1>Altitude surface, real function</Plot3DType1>
+  <Code>var res = math53.jacobi_amplitude(x:x, k:y);
+</Code>
+  <Resolution>128</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>-5</xmin>
+  <xmax>5</xmax>
+  <zmin>-5</zmin>
+  <zmax>5</zmax>
+  <RepeatStart>false</RepeatStart>
+  <PathEvalOrder>N/A</PathEvalOrder>
+  <FinalRotationOrder>X-Y-Z</FinalRotationOrder>
+  <FinalXRotation>0</FinalXRotation>
+  <FinalYRotation>0</FinalYRotation>
+  <FinalZRotation>0</FinalZRotation>
+  <Truncate>10</Truncate>
+  <LogLogTransform>true</LogLogTransform>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>None</SameScale>
+  <ComplexType>REAL</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>GlossyColor</SurfaceMaterial1>
+  <SurfaceColorString>LightSkyBlue</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>GridReal.png</SurfaceTexture1>
+  <SurfaceSmoothing>true</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>SameAsForeground</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0.002</WireframeThickness>
+  <WireframeColorString>Black</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <SolidType>None</SolidType>
+  <GeneratorColorString>White</GeneratorColorString>
+  <BackgroundSolidTransparency>0</BackgroundSolidTransparency>
+</WpfGraphicsSettings>

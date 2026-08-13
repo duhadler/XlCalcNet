@@ -1,0 +1,44 @@
+using System;
+using System.Numerics;
+using FixedPrecNet;
+using ArbPrecNet;
+using UserFixedPrecNet;
+using UserArbPrecNet;
+
+namespace EvaluateCS
+{
+    public class Program
+    {
+        public double[,,] test4()
+        {
+
+            int xResolution = 128;
+            int yResolution = 128;
+            double xmin = -10;
+            double xmax = 10;
+            double ymin = -10;
+            double ymax = 10;
+            double[,,] d3 = new double[4, xResolution+2, yResolution+2];
+            double dx = (xmax - xmin) / xResolution;
+            double dy = (ymax - ymin) / yResolution;
+            double x = 0.0;
+            double y = 0.0;
+            for (int ix = 0; ix <= xResolution + 1; ix++)
+            {
+                for (int iy = 0; iy <= yResolution + 1; iy++)
+                {
+                    x = xmin + ix * dx;
+                    y = ymin + iy * dy;
+                    Complex z = new Complex(x, y);
+                    // Start function definition
+var res = cmath53.airy_ai_scaled(z);                    // End function definition
+                    d3[0, ix, iy] = xmin + ix * dx;
+                    d3[1, ix, iy] = ymin + iy * dy;
+                    d3[2, ix, iy] = res.Real;
+                    d3[3, ix, iy] = res.Imaginary;
+                }
+            }
+            return d3;
+        }
+    }
+}

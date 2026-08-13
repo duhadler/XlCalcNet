@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Costa Minimal Surface</Title>
+  <Plot3DType1>Parametric surface</Plot3DType1>
+  <CameraAngleTheta>180</CameraAngleTheta>
+  <CameraAnglePhi>120</CameraAnglePhi>
+  <CameraRadius>2</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>false</ShowAxes>
+  <StyleOfAxes>FullCage</StyleOfAxes>
+  <AxesLabelsBackColor>false</AxesLabelsBackColor>
+  <FunctionType />
+  <Code>var u1 = u;
+var v1 = v;
+
+var b = 3.5;
+
+//var a = 1.0;
+var c = 189.7272;
+var e1 = 6.87519;
+var p4e = Math.PI / (4 * e1);
+var p2e = Math.PI / (2 * e1);
+
+Complex i = Complex.ImaginaryOne;
+Complex w = new Complex(u1, v1);
+var wh = w - 0.5;
+var wi = w - 0.5 * i;
+
+var Zw = cmath53.WeierstrassZeta(c, 0, w);
+var Zwh = cmath53.WeierstrassZeta(c, 0, wh);
+var Zwi = cmath53.WeierstrassZeta(c, 0, wi);
+var Pw = cmath53.WeierstrassP(c, 0, w);
+
+var x = (Math.PI * (u1 + p4e) - Zw + p2e * (Zwh - Zwi)).Real;
+var z = (Math.PI * (v1 + p4e) - i * Zw - i * p2e * (Zwh - Zwi)).Real;
+var y = Math.Sqrt(Math.PI / 2) * Math.Log(Complex.Abs((Pw - e1) / (Pw + e1)));
+
+if (x &gt; b) x = b;
+if (x &lt; -b) x = -b;
+if (y &gt; b) y = b;
+if (y &lt; -b) y = -b;
+if (z &gt; b) z = b;
+if (z &lt; -b) z = -b;
+</Code>
+  <Resolution>128</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>0.001</xmin>
+  <xmax>0.998</xmax>
+  <zmin>0.001</zmin>
+  <zmax>0.998</zmax>
+  <RepeatStart>false</RepeatStart>
+  <TransformRepeat>0</TransformRepeat>
+  <XRotation>0</XRotation>
+  <YRotation>0</YRotation>
+  <ZRotation>0</ZRotation>
+  <XTranslation>0</XTranslation>
+  <YTranslation>0</YTranslation>
+  <ZTranslation>0</ZTranslation>
+  <ReScalingFactor>0</ReScalingFactor>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>true</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>None</SameScale>
+  <ComplexType>REAL</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceColorMap1>LinearGradient0</SurfaceColorMap1>
+  <SurfaceTexture1>GridReal.png</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <HighlightGenerator>false</HighlightGenerator>
+  <GeneratorThickness>0</GeneratorThickness>
+</WpfGraphicsSettings>

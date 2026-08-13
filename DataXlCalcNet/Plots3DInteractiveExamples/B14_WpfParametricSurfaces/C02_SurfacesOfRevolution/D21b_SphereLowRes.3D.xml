@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Sphere, by sqrt</Title>
+  <CameraAngleTheta>113</CameraAngleTheta>
+  <CameraAnglePhi>95</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <Plot3DType1>Parametric surface</Plot3DType1>
+  <Code>var a = 1;
+var b = 1;
+var c = 1;
+var x = b * Math.Sqrt(1-u*u) * Math.Sin(v);
+var y = a * Math.Sqrt(1-u*u) * Math.Cos(v);
+var z =  c * u;
+</Code>
+  <Resolution>3</Resolution>
+  <Resolution2>3</Resolution2>
+  <xmin>-1</xmin>
+  <xmax>1</xmax>
+  <zmin>0</zmin>
+  <zmax>2.0 * Pi </zmax>
+  <RepeatStart>false</RepeatStart>
+  <PathEvalOrder>N/A</PathEvalOrder>
+  <FinalRotationOrder>X-Y-Z</FinalRotationOrder>
+  <FinalXRotation>0</FinalXRotation>
+  <FinalYRotation>0</FinalYRotation>
+  <FinalZRotation>0</FinalZRotation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>N/A</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-32768</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>LinearGradient0</SurfaceColorMap1>
+  <SurfaceTexture1>GridReal.png</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>96</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>true</ShowWireframe>
+  <WireframeThickness>0.012</WireframeThickness>
+  <WireframeColorString>Silver</WireframeColorString>
+  <HighlightVertices>true</HighlightVertices>
+  <VerticesThickness>0.018</VerticesThickness>
+  <VerticesColorString>Gold</VerticesColorString>
+  <SolidType>None</SolidType>
+  <GeneratorColorString>White</GeneratorColorString>
+  <BackgroundSolidTransparency>0</BackgroundSolidTransparency>
+</WpfGraphicsSettings>

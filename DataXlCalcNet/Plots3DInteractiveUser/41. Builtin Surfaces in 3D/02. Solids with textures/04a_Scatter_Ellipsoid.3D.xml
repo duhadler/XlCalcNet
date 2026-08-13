@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Ellipsoid</Title>
+  <Plot3DType1>Builtin solid</Plot3DType1>
+  <CameraAngleTheta>167</CameraAngleTheta>
+  <CameraAnglePhi>116</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <AxesLabelsBackColor>false</AxesLabelsBackColor>
+  <FunctionType />
+  <Code>var radius = 1.0;
+var factor1 = 1.5;
+var factor2 = 0.5;
+numTheta = 20;
+var numPhi = 20;
+var proc = BuiltIn.SetEllipsoid(radius, factor1, factor2, numTheta, numPhi);</Code>
+  <Resolution>1</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>-4</xmin>
+  <xmax>4</xmax>
+  <zmin>-4</zmin>
+  <zmax>4</zmax>
+  <RepeatStart>false</RepeatStart>
+  <TransformRepeat>0</TransformRepeat>
+  <ReScalingFactor>0</ReScalingFactor>
+  <XRotation>0</XRotation>
+  <YRotation>0</YRotation>
+  <ZRotation>0</ZRotation>
+  <XTranslation>0</XTranslation>
+  <YTranslation>0</YTranslation>
+  <ZTranslation>0</ZTranslation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>false</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>SCATTER</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>Texture</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>world.jpg</SurfaceTexture1>
+  <SurfaceSmoothing>true</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>SameAsForeground</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0.002</WireframeThickness>
+  <WireframeColorString>Black</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <HighlightGenerator>false</HighlightGenerator>
+  <GeneratorThickness>0</GeneratorThickness>
+  <GeneratorColorString>Green</GeneratorColorString>
+</WpfGraphicsSettings>

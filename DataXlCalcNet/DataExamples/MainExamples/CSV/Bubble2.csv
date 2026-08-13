@@ -1,0 +1,9 @@
+ChartType,ChartArea,Factor,XValue,YKind,YValue
+Bubble,1,A,1.0,YPos,3.8
+Bubble,1,A,2.0,YSize,3.3
+Bubble,1,A,3.0,YPos,3.7
+Bubble,1,A,4.0,YSize,3.1
+Bubble,1,A,5.0,YPos,3.5
+Bubble,1,A,6.0,YSize,3.9
+Bubble,1,A,7.0,YPos,3.4
+Bubble,1,A,7.0,YSize,3.4
