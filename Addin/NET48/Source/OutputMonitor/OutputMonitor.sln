@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyOutputMonitorControl", "FlexDlgUserControl\TinyOutputMonitorControl.csproj", "{B60A1724-CF1B-40EF-9E25-9390AB5CE0F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyOutputMonitor", "TinyEditorXL\TinyOutputMonitor.csproj", "{A7FAC61D-E968-4D6B-9648-A4F97E28ADA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B60A1724-CF1B-40EF-9E25-9390AB5CE0F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B60A1724-CF1B-40EF-9E25-9390AB5CE0F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B60A1724-CF1B-40EF-9E25-9390AB5CE0F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B60A1724-CF1B-40EF-9E25-9390AB5CE0F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FAC61D-E968-4D6B-9648-A4F97E28ADA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FAC61D-E968-4D6B-9648-A4F97E28ADA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FAC61D-E968-4D6B-9648-A4F97E28ADA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FAC61D-E968-4D6B-9648-A4F97E28ADA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4AFFA098-0318-4BAA-BB8C-292BD34E574C}
+	EndGlobalSection
+EndGlobal

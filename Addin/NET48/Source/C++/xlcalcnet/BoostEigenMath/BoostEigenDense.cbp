@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="BoostEigenDenseSparse" />
+		<Option pch_mode="2" />
+		<Option compiler="gnu_gcc_492_compiler_tdm" />
+		<Build>
+			<Target title="LibWin64_Single">
+				<Option output="../../../local/xlcalcnet/lib/EigenDenseSingle" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libEigenDenseSingle" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_Single" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra" />
+					<Add directory="../Extra/CppNumericalSolvers/include" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="LibWin64_Double">
+				<Option output="../../../local/xlcalcnet/lib/EigenDenseDouble" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libEigenDenseDouble" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_Double" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra" />
+					<Add directory="../Extra/CppNumericalSolvers/include" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="LibWin64_LongDouble">
+				<Option output="../../../local/xlcalcnet/lib/EigenDenseLongDouble" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libEigenDenseLongDouble" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_LongDouble" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra" />
+					<Add directory="../Extra/CppNumericalSolvers/include" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="LibWin64_Float128">
+				<Option output="../../../local/xlcalcnet/lib/EigenDenseFloat128" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libEigenDenseFloat128" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_Float128" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra" />
+					<Add directory="../Extra/CppNumericalSolvers/include" />
+					<Add directory="../../Boost" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="LibWin64_BinOct">
+				<Option output="../../../local/xlcalcnet/lib/EigenDenseBinOct" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libEigenDenseBinOct" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_BinOct" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra" />
+					<Add directory="../Extra/CppNumericalSolvers/include" />
+					<Add directory="../../Boost" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="Maps1">
+				<Option output="../../../local/xlcalcnet/lib/Maps1" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libMaps1" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-DUse_Double" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="../Extra" />
+		</Compiler>
+		<Unit filename="BoostEigenFFTW.cpp">
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="BoostEigenLinAlgNew.cpp">
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="BoostEigenMaps1.cpp">
+			<Option target="Maps1" />
+		</Unit>
+		<Unit filename="BoostEigenMatrixCplx.cpp">
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="BoostEigenMatrixReal.cpp">
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="BoostEigenMixed.cpp">
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="CppOptLib.cpp">
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="Include/libBoostEigen.h">
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="Include/libBoostEigenDense.h">
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="Include/libEigenSparse.h">
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="Include/mp_BoostEigenConstants.h" />
+		<Unit filename="SparseMatrixCplx.cpp">
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="SparseMatrixCplx_LinAlg.cpp">
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="SparseMatrixReal.cpp">
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="SparseMatrixReal_LinAlg.cpp">
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Unit filename="SparseTripletList.cpp">
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+			<Option target="LibWin64_BinOct" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

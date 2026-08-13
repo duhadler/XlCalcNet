@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<FileVersion major="1" minor="0" />
+	<ActiveTarget name="Maps1" />
+	<File name="BoostEigenMaps1.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2178" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Include\libEigenSparse.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1474" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Include\libBoostEigen.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="480" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="BoostEigenLinAlgNew.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="32" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="BoostEigenMixed.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="481" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="BoostEigenFFTW.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7372" topLine="251" />
+		</Cursor>
+	</File>
+	<File name="Include\libBoostEigenDense.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5948" topLine="73" />
+		</Cursor>
+	</File>
+	<File name="SparseTripletList.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1413" topLine="29" />
+		</Cursor>
+	</File>
+	<File name="BoostEigenMatrixReal.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="20378" topLine="283" />
+		</Cursor>
+		<Folding>
+			<Collapse line="20" />
+			<Collapse line="27" />
+			<Collapse line="34" />
+			<Collapse line="41" />
+			<Collapse line="47" />
+			<Collapse line="54" />
+			<Collapse line="86" />
+			<Collapse line="95" />
+			<Collapse line="101" />
+			<Collapse line="109" />
+			<Collapse line="114" />
+			<Collapse line="120" />
+			<Collapse line="158" />
+			<Collapse line="194" />
+			<Collapse line="202" />
+			<Collapse line="225" />
+			<Collapse line="256" />
+			<Collapse line="326" />
+			<Collapse line="356" />
+			<Collapse line="373" />
+			<Collapse line="430" />
+		</Folding>
+	</File>
+	<File name="Include\mp_BoostEigenConstants.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="45947" topLine="1672" />
+		</Cursor>
+	</File>
+	<File name="CppOptLib.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="1899" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="582" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="BoostEigenMatrixCplx.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14322" topLine="192" />
+		</Cursor>
+		<Folding>
+			<Collapse line="9" />
+			<Collapse line="15" />
+			<Collapse line="21" />
+			<Collapse line="27" />
+			<Collapse line="34" />
+			<Collapse line="40" />
+			<Collapse line="48" />
+			<Collapse line="94" />
+			<Collapse line="101" />
+			<Collapse line="106" />
+			<Collapse line="112" />
+			<Collapse line="119" />
+			<Collapse line="127" />
+			<Collapse line="134" />
+			<Collapse line="143" />
+			<Collapse line="193" />
+			<Collapse line="220" />
+			<Collapse line="229" />
+			<Collapse line="236" />
+			<Collapse line="243" />
+			<Collapse line="256" />
+			<Collapse line="289" />
+			<Collapse line="324" />
+			<Collapse line="373" />
+			<Collapse line="403" />
+		</Folding>
+	</File>
+</CodeBlocks_layout_file>

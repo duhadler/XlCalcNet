@@ -1,0 +1,40 @@
+
+
+
+Determinant 300 x 300 (dps = 34)
+
+Fpr: Elapsed Time 00:00:00.86
+
+Xpr: Elapsed Time 00:00:01.15
+
+Qpr: Elapsed Time 00:00:03.24
+
+Gpr: Elapsed Time Elapsed Time 00:00:06.16
+
+Dpr: Elapsed Time 00:00:15.44
+
+Mpr: Elapsed Time 00:00:07.91
+
+Apr: Elapsed Time 00:00:09.53 (at 80 dps)
+
+
+DReal: Elapsed Time 00:00:00.03
+
+XReal: Elapsed Time 00:00:00.09
+
+
+QReal: Elapsed Time 00:00:01.70
+
+
+
+Multiplication 600x600
+
+Dpr: Elapsed Time 00:00:18.43
+
+Qpr: Elapsed Time 00:00:08.68
+
+Gqpr: Elapsed Time 00:00:15.45
+
+QReal: Elapsed Time 00:00:09.24 (large)
+
+QReal: Elapsed Time 00:00:09.66 (small)

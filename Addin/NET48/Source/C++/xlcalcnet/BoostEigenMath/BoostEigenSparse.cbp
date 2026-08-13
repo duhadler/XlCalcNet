@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="BoostEigenSparse" />
+		<Option pch_mode="2" />
+		<Option compiler="gnu_gcc_492_compiler_tdm" />
+		<Build>
+			<Target title="LibWin64_Single">
+				<Option output="../../../local/Win64/lib/EigenSparseSingle" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/Win64/obj/libEigenSparseSingle" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++14" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_Single" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra/spectra/include" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="LibWin64_Double">
+				<Option output="../../../local/Win64/lib/EigenSparseDouble" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/Win64/obj/libEigenSparseDouble" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++14" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_Double" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra/spectra/include" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="LibWin64_LongDouble">
+				<Option output="../../../local/Win64/lib/EigenSparseLongDouble" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/Win64/obj/libEigenSparseLongDouble" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=c++11" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_LongDouble" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra/spectra/include" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="LibWin64_Float128">
+				<Option output="../../../local/Win64/lib/EigenSparseFloat128" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/Win64/obj/libEigenSparseFloat128" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++14" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_Float128" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra/spectra/include" />
+					<Add directory="../../Boost" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="LibWin64_MpAny">
+				<Option output="../../../local/Win64/lib/EigenSparseMpAny" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/Win64/obj/libEigenSparseApAny" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++14" />
+					<Add option="-m64" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-unused-local-typedefs" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_MpAny" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWIN32" />
+					<Add directory="Include" />
+					<Add directory="../Include" />
+					<Add directory="../Extra/spectra/include" />
+					<Add directory="../../MP64/eigen" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="Include/libBoostEigen.h" />
+		<Unit filename="Include/libEigenSparse.h" />
+		<Unit filename="Include/mp_BoostEigenConstants.h" />
+		<Unit filename="SparseMatrixCplx.cpp" />
+		<Unit filename="SparseMatrixCplx_LinAlg.cpp" />
+		<Unit filename="SparseMatrixReal.cpp" />
+		<Unit filename="SparseMatrixReal_LinAlg.cpp" />
+		<Unit filename="SparseTripletList.cpp" />
+		<Unit filename="SpectraDense.cpp">
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+		</Unit>
+		<Unit filename="SpectraSparse.cpp">
+			<Option target="LibWin64_Single" />
+			<Option target="LibWin64_Double" />
+			<Option target="LibWin64_LongDouble" />
+			<Option target="LibWin64_Float128" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

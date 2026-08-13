@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oor:component-data xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" oor:name="CalcAddIns" oor:package="org.openoffice.Office">
+<node oor:name="AddInInfo">
+<node oor:name="com.duhadler.release.MpFunlab.python.MpFunlabImpl" oor:op="replace">
+<node oor:name="AddInFunctions">
+  <node oor:name="asdouble" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">asdouble</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">Converts the string representation of a multiple-precision number into a double.</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.asdouble</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="MpString" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">MpString</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">String representation of a multiple-precision number</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy0" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy0</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with no parameter</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy0</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy1" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy1</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with one parameter</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy1</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy2" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy2</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with two parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy2</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy3" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy3</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with three parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy3</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy4" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy4</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with four parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy4</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy5" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy5</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with five parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy5</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy6" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy6</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with six parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy6</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Param6" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param6</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 6, to be referenced in Python code as P6</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy7" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy7</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with seven parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy7</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Param6" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param6</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 6, to be referenced in Python code as P6</value></prop>
+      </node>
+      <node oor:name="Param7" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param7</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 7, to be referenced in Python code as P7</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy8" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy8</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with eight parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy8</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Param6" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param6</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 6, to be referenced in Python code as P6</value></prop>
+      </node>
+      <node oor:name="Param7" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param7</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 7, to be referenced in Python code as P7</value></prop>
+      </node>
+      <node oor:name="Param8" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param8</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 8, to be referenced in Python code as P8</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apy9" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apy9</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function with nine parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apy9</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Param6" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param6</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 6, to be referenced in Python code as P6</value></prop>
+      </node>
+      <node oor:name="Param7" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param7</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 7, to be referenced in Python code as P7</value></prop>
+      </node>
+      <node oor:name="Param8" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param8</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 8, to be referenced in Python code as P8</value></prop>
+      </node>
+      <node oor:name="Param9" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param9</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 9, to be referenced in Python code as P9</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="aspy0" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">aspy0</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with no parameter</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.aspy0</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="aspy1" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">aspy1</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with one parameter</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.aspy1</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="aspy2" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">aspy2</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with two parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.aspy2</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="aspy3" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">aspy3</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with three parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.aspy3</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="aspy4" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">aspy4</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with four parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.aspy4</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="aspy5" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">aspy5</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with five parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.aspy5</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="aspy6" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">aspy6</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with six parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.aspy6</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Param6" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param6</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 6, to be referenced in Python code as P6</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="aspy7" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">aspy7</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with seven parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.aspy7</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Param6" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param6</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 6, to be referenced in Python code as P6</value></prop>
+      </node>
+      <node oor:name="Param7" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param7</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 7, to be referenced in Python code as P7</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="aspy8" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">aspy8</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with eight parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.aspy8</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Param6" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param6</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 6, to be referenced in Python code as P6</value></prop>
+      </node>
+      <node oor:name="Param7" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param7</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 7, to be referenced in Python code as P7</value></prop>
+      </node>
+      <node oor:name="Param8" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param8</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 8, to be referenced in Python code as P8</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+  <node oor:name="apsy9" oor:op="replace">
+    <prop oor:name="DisplayName"><value xml:lang="en">apsy9</value></prop>
+    <prop oor:name="Description"><value xml:lang="en">CPython function (server) with nine parameters</value></prop>
+    <prop oor:name="Category"><value>Add-In</value></prop>
+    <prop oor:name="CompatibilityName"><value xml:lang="en">AutoAddIn.MpFunlab.apsy9</value></prop>
+    <node oor:name="Parameters">
+      <node oor:name="Formula" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Formula</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Python code, using $n for newline and $t for indentation.</value></prop>
+      </node>
+      <node oor:name="Param1" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param1</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 1, to be referenced in Python code as P1</value></prop>
+      </node>
+      <node oor:name="Param2" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param2</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 2, to be referenced in Python code as P2</value></prop>
+      </node>
+      <node oor:name="Param3" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param3</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 3, to be referenced in Python code as P3</value></prop>
+      </node>
+      <node oor:name="Param4" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param4</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 4, to be referenced in Python code as P4</value></prop>
+      </node>
+      <node oor:name="Param5" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param5</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 5, to be referenced in Python code as P5</value></prop>
+      </node>
+      <node oor:name="Param6" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param6</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 6, to be referenced in Python code as P6</value></prop>
+      </node>
+      <node oor:name="Param7" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param7</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 7, to be referenced in Python code as P7</value></prop>
+      </node>
+      <node oor:name="Param8" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param8</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 8, to be referenced in Python code as P8</value></prop>
+      </node>
+      <node oor:name="Param9" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Param9</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Parameter 9, to be referenced in Python code as P9</value></prop>
+      </node>
+      <node oor:name="Transposed" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">Transposed</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the output will be transposed</value></prop>
+      </node>
+      <node oor:name="ShowShape" oor:op="replace">
+        <prop oor:name="DisplayName"><value xml:lang="en">ShowShape</value></prop>
+        <prop oor:name="Description"><value xml:lang="en">Optional: If set to a non-zero value, the shape will be indicated in the output</value></prop>
+      </node>
+    </node>
+  </node>
+</node>
+</node>
+</node>
+</oor:component-data>

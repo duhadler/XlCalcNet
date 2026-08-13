@@ -1,0 +1,14 @@
+In the directory /src, edit the following files:
+
+generate_xml.py
+mpfunlab.py
+
+In the directory /idl, edit the following file:
+
+XMpFunlab.idl
+
+
+Run make.bat
+
+Start Libreoffice as administrator
+Install the Add-In

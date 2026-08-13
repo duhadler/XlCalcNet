@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="XSF" />
+		<Option pch_mode="2" />
+		<Option compiler="null" />
+		<Build>
+			<Target title="LibWin64_XSF">
+				<Option output="../../../local/xlcalcnet/lib/XSF" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/XSF" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-unused-variable" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DUse_Double" />
+					<Add option="-DNDEBUG" />
+					<Add directory="/amos" />
+					<Add directory="/cephes" />
+					<Add directory="/specfun" />
+					<Add directory="/Faddeeva" />
+					<Add directory="/Carlson" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++11" />
+		</Compiler>
+		<Unit filename="Faddeeva/Faddeeva.cc" />
+		<Unit filename="Faddeeva/Faddeeva.hh" />
+		<Unit filename="XSF.cpp" />
+		<Unit filename="XSF.h" />
+		<Unit filename="airy.h" />
+		<Unit filename="bessel.h" />
+		<Unit filename="fresnel.h" />
+		<Unit filename="hyp2f1.h" />
+		<Unit filename="log_exp.h" />
+		<Unit filename="polylog/CMakeLists.txt" />
+		<Unit filename="polylog/Cl.cpp" />
+		<Unit filename="polylog/Cl.hpp" />
+		<Unit filename="polylog/Cl1.cpp" />
+		<Unit filename="polylog/Cl1.hpp" />
+		<Unit filename="polylog/Cl2.cpp" />
+		<Unit filename="polylog/Cl2.hpp" />
+		<Unit filename="polylog/Cl3.cpp" />
+		<Unit filename="polylog/Cl3.hpp" />
+		<Unit filename="polylog/Cl4.cpp" />
+		<Unit filename="polylog/Cl4.hpp" />
+		<Unit filename="polylog/Cl5.cpp" />
+		<Unit filename="polylog/Cl5.hpp" />
+		<Unit filename="polylog/Cl6.cpp" />
+		<Unit filename="polylog/Cl6.hpp" />
+		<Unit filename="polylog/Li.cpp" />
+		<Unit filename="polylog/Li.hpp" />
+		<Unit filename="polylog/Li2.cpp" />
+		<Unit filename="polylog/Li2.hpp" />
+		<Unit filename="polylog/Li3.cpp" />
+		<Unit filename="polylog/Li3.hpp" />
+		<Unit filename="polylog/Li4.cpp" />
+		<Unit filename="polylog/Li4.hpp" />
+		<Unit filename="polylog/Li5.cpp" />
+		<Unit filename="polylog/Li5.hpp" />
+		<Unit filename="polylog/Li6.cpp" />
+		<Unit filename="polylog/Li6.hpp" />
+		<Unit filename="polylog/Sl.cpp" />
+		<Unit filename="polylog/Sl.hpp" />
+		<Unit filename="polylog/eta.cpp" />
+		<Unit filename="polylog/eta.hpp" />
+		<Unit filename="polylog/factorial.cpp" />
+		<Unit filename="polylog/factorial.hpp" />
+		<Unit filename="polylog/harmonic.cpp" />
+		<Unit filename="polylog/harmonic.hpp" />
+		<Unit filename="polylog/horner.hpp" />
+		<Unit filename="polylog/log.hpp" />
+		<Unit filename="polylog/zeta.cpp" />
+		<Unit filename="polylog/zeta.hpp" />
+		<Unit filename="sici.h" />
+		<Unit filename="specfun.h" />
+		<Unit filename="sph_bessel.h" />
+		<Unit filename="w_elliptic.hpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

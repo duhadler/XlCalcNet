@@ -1,0 +1,29 @@
+library(reticulate)
+use_python("C:\\Users\\dietrichhadler\\Documents\\mpfunlab.office.cpy\\Python", required = TRUE)
+reticulate::repl_python()
+
+
+
+
+covar.h, line 9:
+        Scalar tol = std::sqrt(NumTraits<Scalar>::epsilon()) )   // error on float128
+
+change to 
+
+#if defined(Use_Double)
+  Scalar tol = std::sqrt(NumTraits<Scalar>::epsilon()) )
+#else
+Scalar tol = sqrt(NumTraits<Scalar>::epsilon()) )
+#endif
+
+
+
+
+
+In Eigen\src\core\NumTraits.h, line 67 - 71
+
+#if defined(Use_MpAny)
+    return (ceil(-log(NumTraits<Real>::epsilon())/log(static_cast<Real>(2)))).toInt();
+#else
+    return int(ceil(-log(NumTraits<Real>::epsilon())/log(static_cast<Real>(2))));
+#endif

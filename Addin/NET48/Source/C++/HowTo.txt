@@ -1,0 +1,38 @@
+1.
+The source code of the underlying libraries is in C:\msys64\home\MP64. 
+These include:
+arb-2.23.0
+eigen
+flint-2.9.0
+gmp-6.2.1
+math-boost
+mpc-1.3.1
+mpfr-4.2.0
+multiprecision-boost
+SQLiteCpp
+
+2. 
+C++ source code for the use of Boost (double, long double, quad, mpfr, dec50) in in C:\msys64\home\mpboost
+This includes:
+BoostMath64
+
+
+3. 
+C++ source code for the use of Eigen AND Boost (double, long double, quad) in in C:\msys64\home\mpeigen. 
+These include:
+EigenDense
+EigenCalculus
+Eigen64
+This exports both the functionality of Eigen AND Boost separately in 3 Dlls.
+To export into just 1 Dll, the file UseDblMat.cpp needs to be expanded into 3 different files.
+Same for mpNumC_Double.h. The name part Eigen_Dbl should changed to Eigen_Real everywhere.
+
+
+4. 
+C++ source code for the use of SQLite, Eigen (Dbl, Ext, Quad, Mpfr, Arf, Arb, Decr. Fmpq), and Mpfr, MPC, Flint, Arb in in C:\msys64\home\mpfunlab
+This includes:
+SQLite
+EigenDenseAny
+mpfunlab
+
+

@@ -1,0 +1,145 @@
+
+#ifndef MPNUMC_EIGENSREAL_H_INCLUDED
+#define MPNUMC_EIGENSREAL_H_INCLUDED
+
+
+
+
+/**************************** Dense Matrix: General *********************************************/
+
+MPNUMC_DLL_IMPORTEXPORT AnyPtr  __cdecl Lib_Eigen_SReal_Init_Func(int32_t mpCat, int32_t mpType);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_Clear(int32_t mpCat, int32_t mpType, AnyPtr x);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_GetCoeff(ScalarResPtr result, long row, long col, mpNumMatrixPtr Matrix);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_SetCoeff(mpNumMatrixPtr Matrix, ScalarResPtr result, long row, long col);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_Cplx_GetCoeff2(ScalarResPtr result1, ScalarResPtr result2, long row, long col, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_Cplx_SetCoeff2(mpNumMatrixPtr result, ScalarPtr source1, ScalarPtr source2, long row, long col);
+
+/* *********************************************************************************** */
+
+MPNUMC_DLL_IMPORTEXPORT uint32_t __cdecl  Lib_Eigen_SReal_GetInfo(int32_t mpCat, int32_t mpType, long what, mpNumMatrixPtr Matrix);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_Get_Block(int32_t mpCat, int32_t mpType, mpNumMatrixPtr result, long what, long i, long j, long p, long q, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_Put_Block(int32_t mpCat, int32_t mpType, mpNumMatrixPtr result, long what, long i, long j, long p, long q, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_SetSpecialValue(int32_t mpCat, int32_t mpType, mpNumMatrixPtr result, long what, long m, long n);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_SetSpecialValue2(int32_t mpCat, int32_t mpType, mpNumMatrixPtr result, long what, long Vertical, long Horizontal, long PartialMode, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT uint32_t __cdecl  Lib_Eigen_SReal_Compare(int32_t mpCat, int32_t mpType, long what, mpNumMatrixPtr x, mpNumMatrixPtr y);
+
+/* *********************************************************************************** */
+
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_ConvertRealCplx(mpNumMatrixPtr RMat, long what, mpNumMatrixPtr CMat);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_Real_CplxScalarArithmetic(mpNumMatrixPtr result, long what, mpNumMatrixPtr x, ScalarPtr y_re, ScalarPtr y_im);
+
+/* *********************************************************************************** */
+
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_BasicArithmetic(int32_t mpCat, int32_t mpType, mpNumMatrixPtr result, long what, mpNumMatrixPtr x, mpNumMatrixPtr y);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_Stats(int32_t mpCat, int32_t mpType, mpNumMatrixPtr result, long what, long PartialMode, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_Stats2(int32_t mpCat, int32_t mpType, mpNumMatrixPtr result, long *IndexX, long *IndexY, long what, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_Map_GetItemValue(int32_t mpCat, int32_t mpType, mpNumMatrixPtr ptr, MapPtr z, char *s);
+MPNUMC_DLL_IMPORTEXPORT void  __cdecl Lib_Eigen_SReal_MultipleResults(int32_t mpCat, int32_t mpType, MapPtr z, int32_t what, char *s, mpNumMatrixPtr A, mpNumMatrixPtr b);
+
+/**************************** Dense Matrix: Extras *********************************************************/
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_Eigen_SReal_Sort(int32_t numType, mpNumMatrixPtr x, int32_t SortOrder, int32_t SortCriterion);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_SortRowsByColumn(int32_t numType, mpNumMatrixPtr A, int32_t ColumnToSortBy, int32_t SortOrder, int32_t SortCriterion);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Select_Rows(int32_t numType, mpNumMatrixPtr res, mpNumMatrixPtr A);
+
+/* *********************************************************************************** */
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_Eigen_SReal_Real_Roots_To_MonicPolynomial(mpNumMatrixPtr polynomial_result, mpNumMatrixPtr roots_source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_Eigen_SReal_Real_Poly_Eval(mpNumMatrixPtr evaluation_result, mpNumMatrixPtr polynomial_source, mpNumMatrixPtr roots_source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_Eigen_SReal_Real_Poly_Eval_Complex(mpNumMatrixPtr evaluation_result, mpNumMatrixPtr polynomial_source, mpNumMatrixPtr cplxroots_source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_Eigen_SReal_Real_PolynomialSolver(mpNumMatrixPtr cplxroots_result, mpNumMatrixPtr polynomial_source);
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_Eigen_SReal_Cplx_Roots_To_MonicPolynomial(mpNumMatrixPtr polynomial_result, mpNumMatrixPtr roots_source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_Eigen_SReal_Cplx_Poly_Eval_Complex(mpNumMatrixPtr evaluation_result, mpNumMatrixPtr polynomial_source, mpNumMatrixPtr roots_source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_Eigen_SReal_Cplx_PolynomialSolver(mpNumMatrixPtr cplxroots_result, mpNumMatrixPtr polynomial_source);
+
+/* *********************************************************************************** */
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Cplx_FFT_Fwd(mpNumMatrixPtr result, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Cplx_FFT_Inv(mpNumMatrixPtr result, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_FFT_Real_Fwd(mpNumMatrixPtr result, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_FFT_Real_Inv(mpNumMatrixPtr result, mpNumMatrixPtr source);
+
+
+/* *********************************************************************************** */
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_MatrixFunction(mpNumMatrixPtr result, long what, mpNumMatrixPtr A);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Cplx_MatrixFunction(mpNumMatrixPtr result, long what, mpNumMatrixPtr A);
+
+
+
+/**************************** Eigen Calculus *********************************************************/
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_testHybrj_ext(FuncPtr f1, FuncPtr f2, mpNumMatrixPtr matX_, mpNumMatrixPtr matFvec_, mpNumMatrixPtr matFjac_, mpNumMatrixPtr matInput);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_testLmder_ext(FuncPtr f1, FuncPtr f2, mpNumMatrixPtr matX_, mpNumMatrixPtr matFvec_, mpNumMatrixPtr matFjac_, mpNumMatrixPtr matInput);
+
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_CppOptLib1(int32_t what, FuncPtr f1, mpNumMatrixPtr matX_, mpNumMatrixPtr matNorm_, mpNumMatrixPtr xPtr, mpNumMatrixPtr resPtr);
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_CppOptLib2(int32_t what, FuncPtr f1, FuncPtr f2, mpNumMatrixPtr matX_, mpNumMatrixPtr matGrad_, mpNumMatrixPtr matNorm_, mpNumMatrixPtr xPtr, mpNumMatrixPtr resPtr);
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_CppOptLib3(int32_t what, FuncPtr f1, FuncPtr f2, FuncPtr f3, mpNumMatrixPtr matX_, mpNumMatrixPtr matHessian_, mpNumMatrixPtr matGrad_, mpNumMatrixPtr matNorm_, mpNumMatrixPtr xPtr, mpNumMatrixPtr resPtr);//
+
+
+
+//MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_demoLinearRegression();
+//MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_Eigen_SReal_Real_demoLogisticRegression();
+
+
+
+/****************************Sparse Real Matrix*********************************************************/
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_SReal_PrintSparseMatrix(mpNumMatrixPtr M);
+
+MPNUMC_DLL_IMPORTEXPORT mpNumMatrixPtr __cdecl Lib_EigenSparse_SReal_Init_Func();
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Clear(mpNumMatrixPtr x);
+
+MPNUMC_DLL_IMPORTEXPORT uint32_t __cdecl  Lib_EigenSparse_SReal_GetInfo(long what, mpNumMatrixPtr SourceMatrix);
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Get_Block(mpNumMatrixPtr result, long what, long i, long j, long p, long q, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Put_Block(mpNumMatrixPtr result, long what, long i, long j, long p, long q, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_SetSpecialValue(mpNumMatrixPtr result, long what, long m, long n);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_SetSpecialValue2(mpNumMatrixPtr result, long what, long Vertical, long Horizontal, long PartialMode, mpNumMatrixPtr source);
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_BasicArithmetic(mpNumMatrixPtr result, long what, mpNumMatrixPtr x, mpNumMatrixPtr y);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Stats(mpNumMatrixPtr result, long what, long PartialMode, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  EigenSparseLib_SReal_Solve(mpNumMatrixPtr x, mpNumMatrixPtr A, mpNumMatrixPtr b, long Decomposition);
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  EigenSparseLib_SReal_DenseFromSparse(mpNumMatrixPtr result, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  EigenSparseLib_SReal_SparseFromDense(mpNumMatrixPtr result, mpNumMatrixPtr source);
+
+
+
+/**************************** Eigen: Sparse Complex Matrix***********************************************/
+
+
+MPNUMC_DLL_IMPORTEXPORT mpNumMatrixPtr __cdecl Lib_EigenSparse_SReal_Cplx_Init_Func();
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Cplx_Clear(mpNumMatrixPtr x);
+
+MPNUMC_DLL_IMPORTEXPORT uint32_t __cdecl  Lib_EigenSparse_SReal_Cplx_GetInfo(long what, mpNumMatrixPtr SourceMatrix);
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Cplx_Get_Block(mpNumMatrixPtr result, long what, long i, long j, long p, long q, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Cplx_Put_Block(mpNumMatrixPtr result, long what, long i, long j, long p, long q, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Cplx_SetSpecialValue(mpNumMatrixPtr result, long what, long m, long n);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Cplx_SetSpecialValue2(mpNumMatrixPtr result, long what, long Vertical, long Horizontal, long PartialMode, mpNumMatrixPtr source);
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  Lib_EigenSparse_SReal_Cplx_BasicArithmetic(mpNumMatrixPtr result, long what, mpNumMatrixPtr x, mpNumMatrixPtr y);
+
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  EigenSparseLib_SReal_Cplx_DenseFromSparse(mpNumMatrixPtr result, mpNumMatrixPtr source);
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  EigenSparseLib_SReal_Cplx_SparseFromDense(mpNumMatrixPtr result, mpNumMatrixPtr source);
+
+MPNUMC_DLL_IMPORTEXPORT void __cdecl  EigenSparseLib_SReal_Cplx_Solve(mpNumMatrixPtr x, mpNumMatrixPtr A, mpNumMatrixPtr b, long Decomposition);
+
+
+
+
+
+
+
+#endif // MPNUMC_EIGENSREAL_H_INCLUDED
+
+
+
+
+

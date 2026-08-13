@@ -1,0 +1,359 @@
+
+1. in mpmath\calculus\extrapolation.py:
+
+after line 1224: if TRY_EULER_MACLAURIN:
+
+replace
+
+if ctx.mpc(ctx.sign(partial[-1]) / ctx.sign(partial[-2])).ae(-1):
+
+with
+
+if ctx.almosteq(ctx.mpc(ctx.sign(partial[-1]) / ctx.sign(partial[-2])),-1):
+
+
+
+
+
+
+
+2. in mpmath\calculus\inverselaplace.py:
+
+in line 126, replace
+
+self.theta = self.ctx.linspace(0.0, self.ctx.pi, M+1)
+
+with
+
+self.theta = self.ctx.linspace(0.0, 1*self.ctx.pi, M+1)
+
+
+in line 427, replace
+
+self.p = (self.gamma + self.ctx.pi*
+
+with
+
+self.p = (self.gamma + 1*self.ctx.pi*
+
+
+
+
+
+
+
+3.  in mpmath\calculus\identification.py:
+
+
+in line 164, replace
+
+x = [None] + [ctx.to_fixed(ctx.mpf(xk), prec) for xk in x]
+
+with
+
+x = [None] + [ctx.to_fixed(ctx.mpf(1*xk), prec) for xk in x]
+
+
+
+
+
+
+
+
+
+
+4.  in mpmath\ctx_base.py:
+
+after line 197,
+
+        t = ctx.convert(t)
+
+insert
+
+        s = ctx.convert(s)  # Inserted by DH
+
+
+
+, and after line 145-146,
+
+        try:
+            x = ctx.convert(x)
+
+
+insert
+
+            tol = ctx.convert(tol)  # Inserted by DH
+
+
+
+
+4a.  in mpmath\ctx_iv.py:
+
+after line 257,
+
+        if isinstance(t, _matrix): return NotImplemented
+
+insert
+
+        if (str(type(t)) == "<class 'numpy.ndarray'>"): return NotImplemented  # Inserted by DH
+
+
+
+
+
+
+5.  in mpmath\functions.py:
+
+
+in line 181, replace
+
+return x + 0.5*x**2
+
+with
+
+return x + x*x/2
+
+
+in line 190, replace
+
+return x - 0.5*x**2
+
+with
+
+return x - x*x/2
+
+
+
+
+5.  in mpmath\optimization.py:
+
+
+in line 95, replace
+
+if not l:
+
+with
+
+if l == 0:
+
+
+in line 98, replace
+
+if not s:
+
+with
+
+if s == 0:
+
+
+
+
+
+
+
+
+#
+# autoprec
+# workprec
+# workdps
+# extraprec
+# extradps
+#
+# monitor
+# timing
+
+
+# Own implementation
+
+# zero
+# one
+# j
+# inf
+# ninf
+# nan
+# eps
+# pi
+# ln2
+# ln10
+# phi
+# e
+# euler
+# catalan
+# apery
+# degree
+
+# mpf
+# mpc
+# _mpq (still needs to be done)
+
+# prec
+# dps
+
+# _wrap_specfun(cls, name, f, wrap)
+# conj2
+
+# isnan
+# is_special
+# isnormal
+# _is_real_type
+# _is_complex_type
+# iszero
+# isinf
+# isfinite
+# isint
+# isnpint
+
+# fraction  (still needs to be done, is essential for hyper etc.)
+# frac
+# floor
+# ceil
+# ldexp
+# frexp
+# nint (still needs to be done, returns nearest integer)
+# nint_distance
+# mag
+
+# cos
+# sin
+# cospi
+# sinpi
+# tan
+# acos
+# asin
+# atan
+# atan2
+# cosh
+# sinh
+# tanh
+# acosh
+# asinh
+# atanh
+
+# exp
+# expj
+# expjpi
+# ln
+# sqrt
+# cbrt
+# _nthroot
+
+# gamma   (still needs to be done)
+# rgamma    (still needs to be done)
+# factorial, fac (still needs to be done)
+# loggamma    (still needs to be done)
+# _zeta_int
+# absmin = absmax = abs
+
+# agm1    (still needs to be done)
+# _agm    (still needs to be done)
+
+# convert
+# _convert_param
+# nstr
+# hypsum
+# to_fixed
+# rand
+
+
+# From ctx_base
+# warn
+# bad_domain
+# _re
+# _im
+# _as_points
+# fneg
+# fadd
+# fsub
+# fmul
+# fdiv
+# fsum
+# fdot
+# fprod
+# nprint
+# chop
+# almosteq
+# arange
+# linspace
+# cos_sin
+# cospi_sinpi
+# _default_hyper_maxprec
+#
+# _gcd
+# list_primes
+# isprime
+# bernfrac
+# moebius
+# _ifac
+# _eulernum
+# _stirling1
+# _stirling2
+#
+# sum_accurately
+# mul_accurately
+# power
+# _zeta_int
+# maxcalls
+# memoize
+# _erf (optional, only _is_real_type)
+# _erf (optional, only _is_real_type)
+
+
+# From functions.functions
+# cot
+# sec
+# csc
+# coth
+# sech
+# csch
+# acot
+# asec
+# acsc
+# acoth
+# asech
+# acsch
+# sign
+# agm (requires ctx.agm1 and ctx._agm)
+# sinc
+# sincpi
+# expm1
+# log1p
+# powm1
+# _rootof1
+# root (requires ctx._nthroot(x, n))
+# unitroots
+# arg
+# fabs
+# re
+# im
+# conj (crashes for gmpy2.mpc)
+# polar
+# rect
+# log (is logb; requires ctx.ln(x))
+# log10
+# fmod (requires x % y to work correctly)
+# degrees
+# radians
+# _lambertw_special
+# _lambertw_approx_hybrid
+# _lambertw_series
+# lambertw
+# bell
+# _polyexp
+# polyexp
+# cyclotomic
+# mangoldt
+# stirling1
+# stirling2
+
+
+# Required from calculus.polynomials ctx.func:
+# with ctx.extraprec(extraprec)
+# check for other autoprec and extraprec uses
+
+
+# Remaining problems with z.conjugate (only relevant for gmpy2):
+# \site-packages\mpmath\functions\zeta.py(197): return ctx.zetazero(-n).conjugate()
+# \site-packages\mpmath\functions\zetazeros.py(402): return ctx.zetazero(-n).conjugate()
+
+
+

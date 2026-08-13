@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="FixedPrecNetGCCK8" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="FixedPrecDll">
+				<Option output="../../../local/xlcalcnet/bin/FixedPrecGCC64K8" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../../../local/xlcalcnet/obj/FixedPrecGCC64K8" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-std=gnu++20" />
+					<Add option="-Wno-sign-compare" />
+					<Add option="-Wno-deprecated-declarations" />
+					<Add option="-Wno-return-local-addr" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-DBUILD_MPNUMC_DLL" />
+					<Add option="-DUSE_EIGEN" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D__MINGW64__" />
+					<Add option="-D__STDC_LIMIT_MACROS" />
+					<Add option="-DBOOST_MATH_INSTRUMENT2" />
+					<Add directory="Include" />
+					<Add directory="../BoostEigenMath/Include" />
+					<Add directory="../BoostMath/Include" />
+					<Add directory="../../Boost" />
+					<Add directory="../../MP64/eigen" />
+					<Add directory="../../../local/Win64/include" />
+					<Add directory="../XSF" />
+				</Compiler>
+				<Linker>
+					<Add option="-s -static -lquadmath" />
+					<Add library="libEigenDenseBinOct.a" />
+					<Add library="libEigenDenseFloat128.a" />
+					<Add library="libEigenDenseLongDouble.a" />
+					<Add library="libEigenDenseDouble.a" />
+					<Add library="libEigenDenseSingle.a" />
+					<Add library="libMaps1.a" />
+					<Add library="libXSF.a" />
+					<Add library="libBoostMathSingle.a" />
+					<Add library="libBoostMathDbl.a" />
+					<Add library="libBoostMathDouble.a" />
+					<Add library="libBoostMathLongDouble.a" />
+					<Add library="libBoostMathFloat128.a" />
+					<Add library="libBoostMathOReal.a" />
+					<Add directory="../../../local/xlcalcnet/lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="Include/mpNumC_Double.h" />
+		<Unit filename="Include/mpNumC_EigenFReal.h" />
+		<Unit filename="Include/mpNumC_EigenOReal.h" />
+		<Unit filename="Include/mpNumC_EigenQReal.h" />
+		<Unit filename="Include/mpNumC_EigenSReal.h" />
+		<Unit filename="Include/mpNumC_EigenXReal.h" />
+		<Unit filename="Include/mpNumC_FReal.h" />
+		<Unit filename="Include/mpNumC_Main.h" />
+		<Unit filename="Include/mpNumC_OReal.h" />
+		<Unit filename="Include/mpNumC_QReal.h" />
+		<Unit filename="Include/mpNumC_SReal.h" />
+		<Unit filename="Include/mpNumC_XReal.h" />
+		<Unit filename="Include/mpNumC_XSF.h" />
+		<Unit filename="UseDouble.cpp" />
+		<Unit filename="UseEigenFReal.cpp" />
+		<Unit filename="UseEigenOReal.cpp" />
+		<Unit filename="UseEigenQReal.cpp" />
+		<Unit filename="UseEigenSReal.cpp" />
+		<Unit filename="UseEigenXReal.cpp" />
+		<Unit filename="UseFReal.cpp" />
+		<Unit filename="UseOReal.cpp" />
+		<Unit filename="UseQReal.cpp" />
+		<Unit filename="UseSReal.cpp" />
+		<Unit filename="UseXReal.cpp" />
+		<Unit filename="UseXSF.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,10308 @@
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Numerics;
+
+namespace FixedPrecNet
+{
+
+    public delegate Extended cb1SExtended1S(Extended x);
+
+    public delegate void cbExtended1S1V(Extended t, ExtendedVec x);
+
+    public delegate void cbExtended1S2V(Extended t, ExtendedVec x, ExtendedVec y);
+
+    public delegate void cbExtended2M(ExtendedMat x, ExtendedMat y);
+
+
+    public delegate Extended cb1SExtended1V(ExtendedVec x);
+
+    public delegate void cbExtended2V(ExtendedVec x, ExtendedVec y);
+
+    public delegate void cbExtended1V1M(ExtendedVec x, ExtendedMat y);
+
+
+
+
+    /// <summary>
+    /// Represents an  extended-precision binary floating point number
+    /// </summary>
+    public partial class Extended 
+    {
+
+        #region Init
+
+        public IntPtr mpPtr = IntPtr.Zero;
+
+        private void Init()
+        {
+            xcn.Init();
+            mpPtr = Lib_XReal_Init_Func();
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Init_Func", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr Lib_XReal_Init_Func();
+
+
+        ~Extended()
+        {
+            Lib_XReal_Clear(mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Clear", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Clear(IntPtr x);
+
+        #endregion
+
+
+        #region Conversions
+
+        /// <summary>
+        /// Basic constructor of a Extended
+        /// </summary>
+        public Extended()
+        {
+            Init();
+        }
+
+
+        // See https://learn.microsoft.com/en-us/dotnet/api/system.iformattable?view=netframework-4.8
+
+        // See https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings
+
+        // See https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings
+
+
+        /// <summary>
+        /// Formatted output of a Extended
+        /// </summary>
+        public override string ToString()
+        {
+            if (0 == (Lib_XReal_Iszero(mpPtr)))
+            {
+                //Console.WriteLine("Non-zero");
+                return Get_XReal_Str(mpPtr);
+            }
+            else
+            {
+                //Console.WriteLine("zero");
+                return "0";
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Iszero", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Iszero(IntPtr x);
+
+
+        //public string ToString(string format)
+        //{
+        //    return Get_XReal_Str(mpPtr);
+        //}
+
+        //public string ToString(string format, IFormatProvider provider)
+        //{
+        //    return Get_XReal_Str(mpPtr);
+        //}
+
+
+        internal string Get_XReal_Str(IntPtr mpPtr)
+        {
+            int StrSize = 128;
+            var sb = new StringBuilder(StrSize + 10);
+            ShowExtNet(sb, mpPtr);
+            return (sb.ToString().Trim());
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "ShowExtNet", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void ShowExtNet(StringBuilder sb, IntPtr in1);
+
+
+
+
+        /// <summary>
+        /// Formatted output of a Extended
+        /// </summary>
+        public string __str__()
+        {
+            return ToString();
+        }
+
+        /// <summary>
+        /// Formatted output of a Extended
+        /// </summary>
+        public string __repr__()
+        {
+            return "Extended('" + ToString() + "')";
+        }
+
+
+
+        /// <summary>
+        /// Conversion to a string
+        /// </summary>
+        public string s
+        {
+            get
+            {
+                return ToString();
+            }
+        }
+
+
+
+
+
+        #endregion
+
+
+        #region Arithmetic operators
+
+
+
+
+        public static bool operator >=(Extended x, dynamic y)
+        {
+            return x >= ereal.t(y);
+        }
+        public static bool operator <=(Extended x, dynamic y)
+        {
+            return x <= ereal.t(y);
+        }
+
+        public static bool operator >=(dynamic x, Extended y)
+        {
+            return ereal.t(x) >= y;
+        }
+        public static bool operator <=(dynamic x, Extended y)
+        {
+            return ereal.t(x) <= y;
+        }
+
+
+        public static bool operator >(Extended x, dynamic y)
+        {
+            return x > ereal.t(y);
+        }
+        public static bool operator <(Extended x, dynamic y)
+        {
+            return x < ereal.t(y);
+        }
+
+
+        public static bool operator >(dynamic x, Extended y)
+        {
+            return ereal.t(x) > y;
+        }
+        public static bool operator <(dynamic x, Extended y)
+        {
+            return ereal.t(x) < y;
+        }
+
+
+
+        public static bool operator ==(Extended x, dynamic y)
+        {
+            return x == ereal.t(y);
+        }
+        public static bool operator !=(Extended x, dynamic y)
+        {
+            return x != ereal.t(y);
+        }
+
+        public static bool operator ==(dynamic x, Extended y)
+        {
+            return ereal.t(x) == y;
+        }
+        public static bool operator !=(dynamic x, Extended y)
+        {
+            return ereal.t(x) != y;
+        }
+
+
+
+
+
+        public static bool operator ==(Extended x, Extended y)
+        {
+            return 0 != (Lib_XReal_EQ(x.mpPtr, y.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_EQ", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_EQ(IntPtr x, IntPtr y);
+
+        public static bool operator !=(Extended x, Extended y)
+        {
+            return 0 != (Lib_XReal_NE(x.mpPtr, y.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NE", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_NE(IntPtr x, IntPtr y);
+
+
+
+        public static bool operator <=(Extended x, Extended y)
+        {
+            return 0 != (Lib_XReal_LE(x.mpPtr, y.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LE", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_LE(IntPtr x, IntPtr y);
+
+        public static bool operator >(Extended x, Extended y)
+        {
+            return 0 != (Lib_XReal_GT(x.mpPtr, y.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GT", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_GT(IntPtr x, IntPtr y);
+
+
+        public static bool operator >=(Extended x, Extended y)
+        {
+            return 0 != (Lib_XReal_GE(x.mpPtr, y.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GE", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_GE(IntPtr x, IntPtr y);
+
+        public static bool operator <(Extended x, Extended y)
+        {
+            return 0 != (Lib_XReal_LT(x.mpPtr, y.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LT", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_LT(IntPtr x, IntPtr y);
+
+
+
+
+
+
+
+
+
+
+        public static Extended operator +(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Set(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set(IntPtr res, IntPtr x);
+
+
+        public static Extended operator -(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Neg(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Neg", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Neg(IntPtr res, IntPtr x);
+
+
+
+
+
+
+
+
+
+        public static Extended operator +(Extended x, dynamic i)
+        {
+            return x + ereal.t(i);
+        }
+
+        public static Extended operator +(dynamic i, Extended x)
+        {
+            return ereal.t(i) + x;
+        }
+
+
+
+
+        public static ExtendedC operator +(Extended x, ExtendedC y)
+        {
+            var res = new ExtendedC();
+            Lib_XCplx_Add_XReal(res.mpPtr, y.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XCplx_Add_XReal", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XCplx_Add_XReal(IntPtr res, IntPtr y, IntPtr x);
+
+
+        public static Extended operator +(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Add(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Add", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Add(IntPtr res, IntPtr x, IntPtr y);
+
+
+        public static ExtendedMat operator +(Extended m2, ExtendedMat M1)
+        {
+            var Res = new ExtendedMat();
+            var t = ereal.mat_t(m2);
+            elib.Lib_Eigen_XReal_BasicArithmetic(constants.mp_eigen, constants.mp_real, Res.mpPtr, constants.mp_const_plus_scalar, M1.mpPtr, t.mpPtr);
+            return Res;
+        }
+
+
+
+
+
+
+        public static Extended operator -(Extended x, dynamic y)
+        {
+            return x - ereal.t(y);
+        }
+
+        public static Extended operator -(dynamic x, Extended y)
+        {
+            return ereal.t(x) - y;
+        }
+
+
+        public static ExtendedC operator -(Extended x, ExtendedC y)
+        {
+            var res = new ExtendedC();
+            Lib_XCplx_XReal_Sub(res.mpPtr, y.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XCplx_XReal_Sub", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XCplx_XReal_Sub(IntPtr res, IntPtr y, IntPtr x);
+
+
+        public static Extended operator -(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Sub(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Sub", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Sub(IntPtr res, IntPtr x, IntPtr y);
+
+
+        public static ExtendedMat operator -(Extended m2, ExtendedMat M1)
+        {
+            var Res = new ExtendedMat();
+            var t = ereal.mat_t(m2);
+            elib.Lib_Eigen_XReal_BasicArithmetic(constants.mp_eigen, constants.mp_real, Res.mpPtr, constants.mp_const_minus_scalar, M1.mpPtr, t.mpPtr);
+            return -Res;
+        }
+
+
+
+
+
+
+        public static Extended operator *(Extended x, dynamic y)
+        {
+            return x * ereal.t(y);
+        }
+
+        public static Extended operator *(dynamic x, Extended y)
+        {
+            return ereal.t(x) * y;
+        }
+
+
+        public static ExtendedC operator *(Extended x, ExtendedC y)
+        {
+            var res = new ExtendedC();
+            Lib_XCplx_Mul_XReal(res.mpPtr, y.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XCplx_Mul_XReal", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XCplx_Mul_XReal(IntPtr res, IntPtr x, IntPtr y);
+
+
+        public static Extended operator *(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Mul(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Mul", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Mul(IntPtr res, IntPtr x, IntPtr y);
+
+
+        public static ExtendedMat operator *(Extended m2, ExtendedMat M1)
+        {
+            var Res = new ExtendedMat();
+            var t = ereal.mat_t(m2);
+            elib.Lib_Eigen_XReal_BasicArithmetic(constants.mp_eigen, constants.mp_real, Res.mpPtr, constants.mp_const_times_scalar, M1.mpPtr, t.mpPtr);
+            return Res;
+        }
+
+
+
+
+
+
+
+        public static Extended operator /(Extended x, dynamic y)
+        {
+            return x / ereal.t(y);
+        }
+
+        public static Extended operator /(dynamic x, Extended y)
+        {
+            return ereal.t(x) / y;
+        }
+
+
+        public static ExtendedC operator /(Extended x, ExtendedC y)
+        {
+            var res = new ExtendedC();
+            Lib_XCplx_XReal_Div(res.mpPtr, y.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XCplx_XReal_Div", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XCplx_XReal_Div(IntPtr res, IntPtr x, IntPtr y);
+
+
+        public static Extended operator /(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Div(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Div", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Div(IntPtr res, IntPtr x, IntPtr y);
+
+
+
+
+
+
+
+
+        #endregion
+
+
+    }
+
+
+
+    public class ExtendedVec
+    {
+
+        public IntPtr mpPtr = IntPtr.Zero;
+
+        public ExtendedVec()
+        {
+            xcn.Init();
+            mpPtr = Lib_Eigen_XReal_Init_Func(constants.mp_eigen, constants.mp_real);
+        }
+
+        public ExtendedVec(int N)
+        {
+            xcn.Init();
+            mpPtr = Lib_Eigen_XReal_Init_Func(constants.mp_eigen, constants.mp_real);
+            Lib_Eigen_XReal_SetSpecialValue(constants.mp_eigen, constants.mp_real, mpPtr, constants.mp_Resize, N, 1);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_Eigen_XReal_Init_Func", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr Lib_Eigen_XReal_Init_Func(int mpCat, int mpType);
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_Eigen_XReal_SetSpecialValue", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_Eigen_XReal_SetSpecialValue(int mpCat, int mpType, IntPtr MatrixPtr_result, int what, int m, int n);
+
+
+        ~ExtendedVec()
+        {
+            Lib_Eigen_XReal_Clear(constants.mp_eigen, constants.mp_real, mpPtr);
+        }
+
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_Eigen_XReal_Clear", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_Eigen_XReal_Clear(int mpCat, int mpType, IntPtr AnyPtr);
+
+
+        public int Size
+        {
+            get
+            {
+                return Lib_Eigen_XReal_GetInfo(constants.mp_eigen, constants.mp_real, constants.mp_const_size, mpPtr);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_Eigen_XReal_GetInfo", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_Eigen_XReal_GetInfo(int mpCat, int mpType, int what, IntPtr MatrixPtr_source);
+
+
+        public Extended this[int row_i]
+        {
+            get
+            {
+                var result = new Extended();
+                Eigen_XReal_GetCoeff(result.mpPtr, row_i, 0, mpPtr);
+                return result;
+            }
+
+            set
+            {
+                Eigen_XReal_SetCoeff(mpPtr, value.mpPtr, row_i, 0);
+            }
+
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_Eigen_XReal_GetCoeff", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Eigen_XReal_GetCoeff(IntPtr result, int row, int col, IntPtr MatrixPtr_source);
+
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_Eigen_XReal_SetCoeff", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Eigen_XReal_SetCoeff(IntPtr MatrixPtr_result, IntPtr in1, int row, int col);
+
+    }
+
+
+
+
+
+
+    /// <summary>
+    /// Class which provides access to all functions which are based on the Extended data type
+    /// </summary>
+    public partial class ereal
+    {
+
+
+
+        public static String fmt(Extended x)
+        {
+            string s = " " + x.ToString();
+            return s;
+        }
+
+
+        public static String fmt(dynamic x)
+        {
+            return fmt(t(x));
+        }
+
+
+
+        #region VecParams, Linspace, ExtendedMatFunc
+
+
+        public static ExtendedVec VecParams(params dynamic[] args)
+        {
+            int N = args.Length;
+            var matX3 = new ExtendedVec(N);
+            for (int i = 0; i < N; i++)
+                matX3[i] = t(args[i]);
+            return matX3;
+        }
+
+
+        #endregion
+
+
+
+
+
+        #region General
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/name/*' />
+        public static String name
+        {
+            get { return "ereal"; }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/fmtname/*' />
+        public static String fmtname
+        {
+            get { return "  ereal"; }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/prec/*' />
+        public static Int32 prec
+        {
+            get { return 64; }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isrealctx/*' />
+        public static bool isrealctx
+        {
+            get { return true; }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/iscplxctx/*' />
+        public static bool iscplxctx
+        {
+            get { return false; }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isintervalorballctx/*' />
+        public static bool isintervalorballctx
+        {
+            get { return false; }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isdecimalctx/*' />
+        public static bool isdecimalctx
+        {
+            get { return false; }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isfractionctx/*' />
+        public static bool isfractionctx
+        {
+            get { return false; }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/hasnegativezero/*' />
+        public static bool hasnegativezero
+        {
+            get { return true; }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/supportsboost/*' />
+        public static bool supportsboost
+        {
+            get { return true; }
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/realctx/*' />
+        public static ereal realctx
+        {
+            get { return new ereal(); }
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/cplxctx/*' />
+        public static ecplx cplxctx
+        {
+            get { return new ecplx(); }
+        }
+
+
+
+        #endregion
+
+
+
+        #region Conversions
+
+        // Note: the conversion from dynamic needs to be at the top of this list
+
+        /// <summary>
+        /// Returns a Extended.t using a dynamic (an object whose operations will be resolved at runtime) as input
+        /// </summary>
+        public static Extended t(dynamic z)
+        {
+            //MessageBox.Show("In t dynamic: " + z.GetType().ToString());
+            string s = z.ToString();
+            if (s.Contains("/"))
+            {
+                var res = s.Split('/');
+                return t(res[0]) / t(res[1]);
+            }
+            else
+            {
+                return t(s);
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// Returns a new Extended using an Octuple as input
+        /// </summary>
+        public static Extended t(Octuple x)
+        {
+            var res = new Extended();
+            Lib_OReal_Get_LD(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_OReal_Get_LD", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_OReal_Get_LD(IntPtr res, IntPtr x);
+
+
+
+
+        /// <summary>
+        /// Returns a new Extended using using an Quadruple as input
+        /// </summary>
+        public static Extended t(Quadruple x)
+        {
+            var res = new Extended();
+            Lib_XReal_Set_QReal(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set_QReal", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set_QReal(IntPtr res, IntPtr x);
+
+
+
+        /// <summary>
+        /// Returns a new Extended using an Extended as input
+        /// </summary>
+        public static Extended t(Extended x)
+        {
+            return +x;
+        }
+
+
+
+        internal static Extended TDS(Double d)
+        {
+            var res = new Extended();
+            string s = d.ToString("G14", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
+            Lib_XReal_Set_Str(res.mpPtr, s);
+            return res;
+        }
+
+        /// <summary>
+        /// Returns a new Extended using a a Double (System.Double) as input
+        /// </summary>
+        public static Extended t(Double d)
+        {
+            if ((xcn.UseRawDouble) || (xcn.IsExactDouble(d)))
+            {
+                var res = new Extended();
+                Lib_XReal_Set_D(res.mpPtr, d);
+                return res;
+            }
+            else
+            {
+                return TDS(d);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set_D", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set_D(IntPtr mpfr_out1, Double d);
+
+
+
+        /// <summary>
+        /// Returns a new Extended using a Single (System.Single) as input
+        /// </summary>
+        public static Extended t(Single x)
+        {
+            var res = new Extended();
+            Lib_XReal_Set_S(res.mpPtr, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set_S", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set_S(IntPtr res, ref Single x);
+
+
+
+
+
+        /// <summary>
+        /// Returns a new Extended using a signed 32 bit integer (System.Int32) as input
+        /// </summary>
+        public static Extended t(Int32 si)
+        {
+            var res = new Extended();
+            Lib_XReal_Set_Si(res.mpPtr, si);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set_Si", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set_Si(IntPtr res, Int32 si);
+
+
+
+        /// <summary>
+        /// Returns a new Extended using an unsigned 32 bit integer (System.UInt32) as input
+        /// </summary>
+        public static Extended t(UInt32 ui)
+        {
+            var res = new Extended();
+            Lib_XReal_Set_Ui(res.mpPtr, ui);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set_Ui", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set_Ui(IntPtr res, UInt32 ui);
+
+
+
+        /// <summary>
+        /// Returns a new Extended using a signed 64 bit integer (System.Int64) as input
+        /// </summary>
+        public static Extended t(Int64 si64)
+        {
+            var res = new Extended();
+            Lib_XReal_Set_Si64(res.mpPtr, si64);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set_Si64", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set_Si64(IntPtr res, Int64 si64);
+
+
+        /// <summary>
+        /// Returns a new Extended using an unsigned 64 bit integer (System.UInt64) as input
+        /// </summary>
+        public static Extended t(UInt64 ui64)
+        {
+            var res = new Extended();
+            Lib_XReal_Set_Ui64(res.mpPtr, ui64);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set_Ui64", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set_Ui64(IntPtr res, UInt64 ui64);
+
+
+        /// <summary>
+        /// Returns a new Extended using an arbitrary precision integer (System.Numerics.BigInteger) as input
+        /// </summary>
+        public static Extended t(BigInteger i)
+        {
+            var res = new Extended();
+            string s = i.ToString();
+            Lib_XReal_Set_Str(res.mpPtr, s);
+            return res;
+        }
+
+
+        /// <summary>
+        /// Returns a new Extended using a decimal number (System.Decimal) as input
+        /// </summary>
+        public static Extended t(decimal dec)
+        {
+            var res = new Extended();
+            string s = dec.ToString();
+            Lib_XReal_Set_Str(res.mpPtr, s);
+            return res;
+        }
+
+
+
+
+        /// <summary>
+        /// Returns a new Extended using a string (System.String) as input
+        /// </summary>
+        public static Extended t(string s)
+        {
+            var res = new Extended();
+            Lib_XReal_Set_Str(res.mpPtr, s);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set_Str", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set_Str(IntPtr res, string s);
+
+
+
+
+        #endregion
+
+
+
+
+        #region Basic Arithmetic
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/add/*' />
+        public static Extended add(Extended x, Extended y)
+        {
+            return x + y;
+        }
+        public static Extended add(dynamic x, dynamic y)
+        {
+            return t(x) + t(y);
+        }
+
+        public static void rawadd(Extended res, Extended x, Extended y)
+        {
+            Lib_XReal_Add(res.mpPtr, x.mpPtr, y.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Add", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Add(IntPtr res, IntPtr x, IntPtr y);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/subtract/*' />
+        public static Extended subtract(Extended x, Extended y)
+        {
+            return x - y;
+        }
+        public static Extended subtract(dynamic x, dynamic y)
+        {
+            return t(x) - t(y);
+        }
+
+        public static void rawsub(Extended res, Extended x, Extended y)
+        {
+            Lib_XReal_Sub(res.mpPtr, x.mpPtr, y.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Sub", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Sub(IntPtr res, IntPtr x, IntPtr y);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/multiply/*' />
+        public static Extended multiply(Extended x, Extended y)
+        {
+            return x * y;
+        }
+        public static Extended multiply(dynamic x, dynamic y)
+        {
+            return t(x) * t(y);
+        }
+
+        public static void rawmul(Extended res, Extended x, Extended y)
+        {
+            Lib_XReal_Mul(res.mpPtr, x.mpPtr, y.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Mul", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Mul(IntPtr res, IntPtr x, IntPtr y);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/divide/*' />
+        public static Extended divide(Extended x, Extended y)
+        {
+            return x / y;
+        }
+        public static Extended divide(dynamic x, dynamic y)
+        {
+            return t(x) / t(y);
+        }
+
+        public static void rawdiv(Extended res, Extended x, Extended y)
+        {
+            Lib_XReal_Div(res.mpPtr, x.mpPtr, y.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Div", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Div(IntPtr res, IntPtr x, IntPtr y);
+
+
+        #endregion
+
+
+
+
+
+        #region Basic floating point functions
+
+
+
+        #region General functions for real numbers
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fma/*' />
+        public static Extended fma(Extended x, Extended y, Extended z)
+        {
+            var res = new Extended();
+            Lib_XReal_Fma(res.mpPtr, x.mpPtr, y.mpPtr, z.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Fma", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Fma(IntPtr res, IntPtr x, IntPtr y, IntPtr z);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fma/*' />
+        public static Extended fma(dynamic x, dynamic y, dynamic z)
+        {
+            return fma(ereal.t(x), ereal.t(y), ereal.t(z));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmax/*' />
+        public static Extended fmax(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Fmax(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Fmax", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Fmax(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmax/*' />
+        public static Extended fmax(dynamic x, dynamic y)
+        {
+            return fmax(ereal.t(x), ereal.t(y));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmin/*' />
+        public static Extended fmin(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Fmin(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Fmin", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Fmin(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmin/*' />
+        public static Extended fmin(dynamic x, dynamic y)
+        {
+            return fmin(ereal.t(x), ereal.t(y));
+        }
+
+
+        #endregion
+
+
+
+        #region Machine constants
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/zero/*' />
+        public static Extended zero()
+        {
+            var res = new Extended();
+            Lib_XReal_Zero(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Zero", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Zero(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/negzero/*' />
+        public static Extended negzero()
+        {
+            var res = new Extended();
+            Lib_XReal_NegZero(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NegZero", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_NegZero(IntPtr res);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/one/*' />
+        public static Extended one()
+        {
+            var res = new Extended();
+            Lib_XReal_One(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_One", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_One(IntPtr res);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/onej/*' />
+        public static ExtendedC onej()
+        {
+            return ecplx.t(0d, 1d);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isposinf/*' />
+        public static Extended inf()
+        {
+            var res = new Extended();
+            Lib_XReal_Inf(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Inf", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Inf(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/neginf/*' />
+        public static Extended neginf()
+        {
+            var res = new Extended();
+            Lib_XReal_NegInf(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NegInf", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_NegInf(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/nan/*' />
+        public static Extended nan()
+        {
+            var res = new Extended();
+            Lib_XReal_Nan(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Nan", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Nan(IntPtr res);
+
+
+
+        #endregion
+
+
+
+        #region Properties of numbers
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/signbit/*' />
+        public static int signbit(Extended x)
+        {
+            return Lib_XReal_Signbit(x.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Signbit", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Signbit(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/signbit/*' />
+        public static int signbit(dynamic x)
+        {
+            return signbit(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isfinite/*' />
+        public static bool isfinite(Extended x)
+        {
+            return 0 != Lib_XReal_Finite(x.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Finite", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Finite(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isfinite/*' />
+        public static bool isfinite(dynamic x)
+        {
+            return isfinite(t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinf/*' />
+        public static bool isinf(Extended x)
+        {
+            return 0 != (Lib_XReal_Isinf(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isinf", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isinf(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isinf/*' />
+        public static bool isinf(dynamic x)
+        {
+            return isinf(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isposinf/*' />
+        public static bool isposinf(Extended x)
+        {
+            return 0 != (Lib_XReal_Isposinf(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isposinf", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isposinf(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isposinf/*' />
+        public static bool isposinf(dynamic x)
+        {
+            return isposinf(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isneginf/*' />
+        public static bool isneginf(Extended x)
+        {
+            return 0 != (Lib_XReal_Isneginf(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isneginf", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isneginf(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isneginf/*' />
+        public static bool isneginf(dynamic x)
+        {
+            return isneginf(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnan/*' />
+        public static bool isnan(Extended x)
+        {
+            return 0 != (Lib_XReal_Isnan(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isnan", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isnan(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnan/*' />
+        public static bool isnan(dynamic x)
+        {
+            return isnan(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/iszero/*' />
+        public static bool iszero(Extended x)
+        {
+            return 0 != (Lib_XReal_Iszero(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Iszero", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Iszero(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/iszero/*' />
+        public static bool iszero(dynamic x)
+        {
+            return iszero(t(x));
+        }
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isone/*' />
+        public static bool isone(Extended x)
+        {
+            return 0 != (Lib_XReal_Isone(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isone", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isone(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isone/*' />
+        public static bool isone(dynamic x)
+        {
+            return isone(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinteger/*' />
+        public static bool isinteger(Extended x)
+        {
+            return 0 != (Lib_XReal_Isinteger(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isinteger", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isinteger(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isinteger/*' />
+        public static bool isinteger(dynamic x)
+        {
+            return isinteger(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnumber/*' />
+        public static bool isnumber(Extended x)
+        {
+            return 0 != (Lib_XReal_Isnumber(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isnumber", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isnumber(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnumber/*' />
+        public static bool isnumber(dynamic x)
+        {
+            return isnumber(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isregular/*' />
+        public static bool isregular(Extended x)
+        {
+            return 0 != (Lib_XReal_Isregular(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isregular", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isregular(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isregular/*' />
+        public static bool isregular(dynamic x)
+        {
+            return isregular(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnormal/*' />
+        public static bool isnormal(Extended x)
+        {
+            return 0 != (Lib_XReal_Isnormal(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isnormal", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isnormal(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnormal/*' />
+        public static bool isnormal(dynamic x)
+        {
+            return isnormal(t(x));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isunordered/*' />
+        public static bool isunordered(Extended x, Extended y)
+        {
+            return 0 != (Lib_XReal_Isunordered(x.mpPtr, y.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isunordered", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_Isunordered(IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isunordered/*' />
+        public static bool isunordered(dynamic x, dynamic y)
+        {
+            return isunordered(t(x), t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/fitsint32/*' />
+        public static bool fitsint32(Extended x)
+        {
+            return 0 != (Lib_XReal_FitsInt32(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_FitsInt32", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_FitsInt32(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fitsint32/*' />
+        public static bool fitsint32(dynamic x)
+        {
+            return fitsint32(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/fitsint64/*' />
+        public static bool fitsint64(Extended x)
+        {
+            return 0 != (Lib_XReal_FitsInt64(x.mpPtr));
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_FitsInt64", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int Lib_XReal_FitsInt64(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fitsint64/*' />
+        public static bool fitsint64(dynamic x)
+        {
+            return fitsint64(t(x));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Integer Related Functions
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nearbyint/*' />
+        public static Extended nearbyint(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Nearbyint(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Nearbyint", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Nearbyint(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nearbyint/*' />
+        public static Extended nearbyint(dynamic x)
+        {
+            return nearbyint(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rint/*' />
+        public static Extended rint(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Rint(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Rint", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Rint(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rint/*' />
+        public static Extended rint(dynamic x)
+        {
+            return rint(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lrint/*' />
+        public static Int32 lrint(Extended x)
+        {
+            return Lib_XReal_Lrint(x.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Lrint", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern Int32 Lib_XReal_Lrint(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lrint/*' />
+        public static Int32 lrint(dynamic x)
+        {
+            return lrint(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llrint/*' />
+        public static Int64 llrint(Extended x)
+        {
+            return Lib_XReal_Llrint(x.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Llrint", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern Int64 Lib_XReal_Llrint(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llrint/*' />
+        public static Int64 llrint(dynamic x)
+        {
+            return llrint(t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ceil/*' />
+        public static Extended ceil(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Ceil(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ceil", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ceil(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ceil/*' />
+        public static Extended ceil(dynamic x)
+        {
+            return ceil(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/floor/*' />
+        public static Extended floor(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Floor(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Floor", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Floor(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/floor/*' />
+        public static Extended floor(dynamic x)
+        {
+            return floor(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/trunc/*' />
+        public static Extended trunc(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Trunc(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Trunc", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Trunc(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/trunc/*' />
+        public static Extended trunc(dynamic x)
+        {
+            return trunc(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/round/*' />
+        public static Extended round(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Round(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Round", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Round(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/round/*' />
+        public static Extended round(dynamic x)
+        {
+            return round(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lround/*' />
+        public static Int32 lround(Extended x)
+        {
+            return Lib_XReal_Lround(x.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Lround", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern Int32 Lib_XReal_Lround(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lround/*' />
+        public static Int32 lround(dynamic x)
+        {
+            return lround(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llround/*' />
+        public static Int64 llround(Extended x)
+        {
+            return Lib_XReal_Llround(x.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Llround", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern Int64 Lib_XReal_Llround(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llround/*' />
+        public static Int64 llround(dynamic x)
+        {
+            return llround(t(x));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Floating point functions for real numbers
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/copysign/*' />
+        public static Extended copysign(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Copysign(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Copysign", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Copysign(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/copysign/*' />
+        public static Extended copysign(dynamic x, dynamic y)
+        {
+            return copysign(ereal.t(x), ereal.t(y));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/frexp/*' />
+        public static Tuple<Extended, Int32> frexp(Extended x)
+        {
+            var res = new Extended();
+            Int32 e = 0;
+            Lib_XReal_Frexp(res.mpPtr, x.mpPtr, ref e);
+            return new Tuple<Extended, int>(res, e);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Frexp", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Frexp(IntPtr res, IntPtr x, ref Int32 e);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/frexp/*' />
+        public static Tuple<Extended, Int32> frexp(dynamic x)
+        {
+            return frexp(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logb/*' />
+        public static Extended logb(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Logb(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Logb", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Logb(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logb/*' />
+        public static Extended logb(dynamic x)
+        {
+            return logb(t(x));
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ilogb/*' />
+        public static Int32 ilogb(Extended x)
+        {
+            return Lib_XReal_Ilogb(x.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ilogb", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern Int32 Lib_XReal_Ilogb(IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ilogb/*' />
+        public static Int32 ilogb(dynamic x)
+        {
+            return ilogb(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ldexp/*' />
+        public static Extended ldexp(Extended x, Int32 e)
+        {
+            var res = new Extended();
+            Lib_XReal_Ldexp(res.mpPtr, x.mpPtr, e);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ldexp", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ldexp(IntPtr res, IntPtr x, Int32 e);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ldexp/*' />
+        public static Extended ldexp(dynamic x, dynamic e)
+        {
+            return ldexp(t(x), lround(t(e)));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbn/*' />
+        public static Extended scalbn(Extended x, Int32 e)
+        {
+            var res = new Extended();
+            Lib_XReal_Scalbn(res.mpPtr, x.mpPtr, e);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Scalbn", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Scalbn(IntPtr res, IntPtr x, Int32 e);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbn/*' />
+        public static Extended scalbn(dynamic x, dynamic e)
+        {
+            return scalbn(t(x), lround(t(e)));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbln/*' />
+        public static Extended scalbln(Extended x, Int32 e)
+        {
+            var res = new Extended();
+            Lib_XReal_Scalbln(res.mpPtr, x.mpPtr, e);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Scalbln", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Scalbln(IntPtr res, IntPtr x, Int32 e);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbln/*' />
+        public static Extended scalbln(dynamic x, dynamic e)
+        {
+            return scalbln(t(x), lround(t(e)));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fdim/*' />
+        public static Extended fdim(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Fdim(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Fdim", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Fdim(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fdim/*' />
+        public static Extended fdim(dynamic x, dynamic y)
+        {
+            return fdim(ereal.t(x), ereal.t(y));
+        }
+
+
+        #endregion
+
+
+
+        #region Fraction and remainder related Functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/modf/*' />
+        public static Tuple<Extended, Extended> modf(Extended x)
+        {
+            Extended iptr = new Extended();
+            Extended frac = new Extended();
+            Lib_XReal_Modf(frac.mpPtr, x.mpPtr, iptr.mpPtr);
+            return new Tuple<Extended, Extended>(iptr, frac);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Modf", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Modf(IntPtr frac, IntPtr x, IntPtr iptr);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/modf/*' />
+        public static Tuple<Extended, Extended> modf(dynamic x)
+        {
+            return modf(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmod/*' />
+        public static Extended fmod(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Fmod(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Fmod", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Fmod(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmod/*' />
+        public static Extended fmod(dynamic x, dynamic y)
+        {
+            return fmod(ereal.t(x), ereal.t(y));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remainder/*' />
+        public static Extended remainder(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Remainder(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Remainder", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Remainder(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remainder/*' />
+        public static Extended remainder(dynamic x, dynamic y)
+        {
+            return remainder(ereal.t(x), ereal.t(y));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remquo/*' />
+        public static Tuple<Extended, Int32> remquo(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Int32 e = 0;
+            Lib_XReal_Remquo(res.mpPtr, x.mpPtr, y.mpPtr, ref e);
+            return new Tuple<Extended, int>(res, e);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Remquo", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Remquo(IntPtr res, IntPtr x, IntPtr y, ref Int32 e);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remquo/*' />
+        public static Tuple<Extended, Int32> remquo(dynamic x, dynamic y)
+        {
+            return remquo(t(x), t(y));
+        }
+
+        #endregion
+
+
+
+        #region Functions related to mantissa width and exponent range
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/epsilon/*' />
+        public static Extended epsilon()
+        {
+            var res = new Extended();
+            Lib_XReal_Epsilon(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Epsilon", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Epsilon(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ulp/*' />
+        public static Extended ulp(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Ulp(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ulp", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ulp(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ulp/*' />
+        public static Extended ulp(dynamic x)
+        {
+            return ulp(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/maxvalue/*' />
+        public static Extended maxvalue()
+        {
+            var res = new Extended();
+            Lib_XReal_Max(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Max", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Max(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/lowestvalue/*' />
+        public static Extended lowestvalue()
+        {
+            var res = new Extended();
+            Lib_XReal_Lowest(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Lowest", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Lowest(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/minposvalue/*' />
+        public static Extended minposvalue()
+        {
+            var res = new Extended();
+            Lib_XReal_Min(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Min", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Min(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextafter/*' />
+        public static Extended nextafter(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Nexttoward(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Nexttoward", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Nexttoward(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextafter/*' />
+        public static Extended nextafter(dynamic x, dynamic y)
+        {
+            return nextafter(ereal.t(x), ereal.t(y));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextabove/*' />
+        public static Extended nextabove(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Nextabove(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Nextabove", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Nextabove(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextabove/*' />
+        public static Extended nextabove(dynamic x)
+        {
+            return nextabove(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextbelow/*' />
+        public static Extended nextbelow(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Nextbelow(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Nextbelow", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Nextbelow(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextbelow/*' />
+        public static Extended nextbelow(dynamic x)
+        {
+            return nextbelow(t(x));
+        }
+
+
+        #endregion
+
+
+
+        #region Mathematical Constants
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/degree/*' />
+        public static Extended degree()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstDegree(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstDegree", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstDegree(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phi/*' />
+        public static Extended phi()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstPhi(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstPhi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstPhi(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ln2/*' />
+        public static Extended ln2()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstLog2(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstLog2", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstLog2(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ln10/*' />
+        public static Extended ln10()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstLog10(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstLog10", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstLog10(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pi/*' />
+        public static Extended pi()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstPi(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstPi(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/e/*' />
+        public static Extended e()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstE(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstE", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstE(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/egamma/*' />
+        public static Extended egamma()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstEulerGamma(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstEulerGamma", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstEulerGamma(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/apery/*' />
+        public static Extended apery()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstApery(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstApery", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstApery(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/catalan/*' />
+        public static Extended catalan()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstCatalan(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstCatalan", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstCatalan(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/glaisher/*' />
+        public static Extended glaisher()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstGlaisher(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstGlaisher", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstGlaisher(IntPtr res);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/khinchin/*' />
+        public static Extended khinchin()
+        {
+            var res = new Extended();
+            Lib_XReal_ConstKhinchin(res.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstKhinchin", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ConstKhinchin(IntPtr res);
+
+
+        #endregion
+
+
+
+
+        #endregion
+
+
+
+
+        #region Elementary scalar functions
+
+
+
+
+        #region Complex components
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        public static Extended abs(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Fabs(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Fabs", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Fabs(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        public static Extended abs(dynamic x)
+        {
+            return abs(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        public static Extended fabs(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Fabs(res.mpPtr, x.mpPtr);
+            return res;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        public static Extended fabs(dynamic x)
+        {
+            return fabs(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        public static Extended sign(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Sign(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Sign", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Sign(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        public static Extended sign(dynamic x)
+        {
+            return sign(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        public static Extended real(Extended x)
+        {
+            return x;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        public static Extended real(dynamic x)
+        {
+            return real(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        public static Extended imag(Extended x)
+        {
+            return zero();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        public static Extended imag(dynamic x)
+        {
+            return imag(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        public static Extended phase(Extended x)
+        {
+            if (x >= zero()) return zero();
+            else return pi();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        public static Extended phase(dynamic x)
+        {
+            return phase(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        public static Extended conj(Extended x)
+        {
+            return x;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        public static Extended conj(dynamic x)
+        {
+            return conj(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        public static Tuple<Extended, Extended> polar(Extended x)
+        {
+            return new Tuple<Extended, Extended>(abs(x), phase(x));
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        public static Tuple<Extended, Extended> polar(dynamic x)
+        {
+            return polar(ereal.t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        public static ExtendedC rect(Extended r, Extended phi)
+        {
+            return r * expj(phi);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        public static ExtendedC rect(dynamic r, dynamic phi)
+        {
+            return rect(ereal.t(r), ereal.t(phi));
+        }
+
+
+
+
+
+
+        #endregion
+
+
+
+        #region Roots and quadratic, cubic, and quartic 
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        public static Extended sqrt(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Sqrt(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Sqrt", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Sqrt(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        public static Extended sqrt(dynamic x)
+        {
+            return sqrt(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sqrt1pm1/*' />
+        public static Extended sqrt1pm1(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Sqrt1pm1(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Sqrt1pm1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Sqrt1pm1(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sqrt1pm1/*' />
+        public static Extended sqrt1pm1(dynamic x)
+        {
+            return sqrt1pm1(ereal.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        public static Extended rsqrt(Extended x)
+        {
+            return t(1) / sqrt(x);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        public static Extended rsqrt(dynamic x)
+        {
+            return rsqrt(t(x)); ;
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        public static Extended cbrt(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Cbrt(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Cbrt", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Cbrt(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        public static Extended cbrt(dynamic x)
+        {
+            return cbrt(t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        public static Extended root_si(Extended x, int k)
+        {
+            var res = new Extended();
+            Lib_XReal_Root_Si(res.mpPtr, x.mpPtr, k);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Root_Si", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Root_Si(IntPtr res, IntPtr x, int k);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        public static Extended root_si(dynamic x, int k)
+        {
+            return root_si(t(x), k);
+        }
+
+
+
+        #endregion
+
+
+
+        #region Exponential and related functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        public static Extended exp(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Exp(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Exp", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Exp(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        public static Extended exp(dynamic x)
+        {
+            return exp(t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        public static ExtendedC expj(Extended x)
+        {
+            return cos(x) + onej() * sin(x);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        public static ExtendedC expj(dynamic x)
+        {
+            return expj(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        public static ExtendedC expjpi(Extended x)
+        {
+            return cospi(x) + onej() * sinpi(x);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        public static ExtendedC expjpi(dynamic x)
+        {
+            return expjpi(t(x));
+        }
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        public static Extended exp2(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Exp2(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Exp2", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Exp2(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        public static Extended exp2(dynamic x)
+        {
+            return exp2(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        public static Extended exp10(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Exp10(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Exp10", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Exp10(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        public static Extended exp10(dynamic x)
+        {
+            return exp10(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        public static Extended expm1(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Expm1(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Expm1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Expm1(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        public static Extended expm1(dynamic x)
+        {
+            return expm1(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        public static Extended exp2m1(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Exp2m1(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Exp2m1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Exp2m1(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        public static Extended exp2m1(dynamic x)
+        {
+            return exp2m1(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        public static Extended exp10m1(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Exp10m1(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Exp10m1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Exp10m1(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        public static Extended exp10m1(dynamic x)
+        {
+            return exp10m1(t(x));
+        }
+
+
+
+        #endregion
+
+
+
+        #region Logarithms and related functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        public static Extended log(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Log(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Log", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Log(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        public static Extended log(dynamic x)
+        {
+            return log(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        public static Extended log2(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Log2(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Log2", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Log2(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        public static Extended log2(dynamic x)
+        {
+            return log2(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        public static Extended log10(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Log10(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Log10", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Log10(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        public static Extended log10(dynamic x)
+        {
+            return log10(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        public static Extended log1p(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Log1p(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Log1p", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Log1p(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        public static Extended log1p(dynamic x)
+        {
+            return log1p(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        public static Extended log2p1(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Log2p1(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Log2p1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Log2p1(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        public static Extended log2p1(dynamic x)
+        {
+            return log2p1(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        public static Extended log10p1(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Log10p1(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Log10p1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Log10p1(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        public static Extended log10p1(dynamic x)
+        {
+            return log10p1(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logaddexp/*' />
+        public static Extended logaddexp(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Logaddexp(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Logaddexp", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Logaddexp(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logaddexp/*' />
+        public static Extended logaddexp(dynamic x, dynamic y)
+        {
+            return logaddexp(t(x), t(y));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Power functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        public static Extended sqr(Extended x)
+        {
+            return x * x;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        public static Extended sqr(dynamic x)
+        {
+            return sqr(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        public static Extended cube(Extended x)
+        {
+            return x * x * x;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        public static Extended cube(dynamic x)
+        {
+            return cube(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        public static Extended hypot(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Hypot(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Hypot", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Hypot(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        public static Extended hypot(dynamic x, dynamic y)
+        {
+            return hypot(ereal.t(x), ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        public static Extended pow(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Pow(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Pow", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Pow(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        public static Extended pow(dynamic x, dynamic y)
+        {
+            return pow(ereal.t(x), ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/powm1/*' />
+        public static Extended powm1(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Powm1(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Powm1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Powm1(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/powm1/*' />
+        public static Extended powm1(dynamic x, dynamic y)
+        {
+            return powm1(ereal.t(x), ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pow1p/*' />
+        public static Extended pow1p(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Pow1p(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Pow1p", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Pow1p(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pow1p/*' />
+        public static Extended pow1p(dynamic x, dynamic y)
+        {
+            return pow1p(ereal.t(x), ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pow1pm1/*' />
+        public static Extended pow1pm1(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Pow1pm1(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Pow1pm1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Pow1pm1(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pow1pm1/*' />
+        public static Extended pow1pm1(dynamic x, dynamic y)
+        {
+            return pow1pm1(ereal.t(x), ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pow_si/*' />
+        public static Extended pow_si(Extended x, int k)
+        {
+            var res = new Extended();
+            Lib_XReal_Pow_Si(res.mpPtr, x.mpPtr, k);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Pow_Si", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Pow_Si(IntPtr res, IntPtr x, int k);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pow_si/*' />
+        public static Extended pow_si(dynamic x, int k)
+        {
+            return pow_si(ereal.t(x), k);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/compound_si/*' />
+        public static Extended compound_si(Extended x, int k)
+        {
+            var res = new Extended();
+            Lib_XReal_Compound_Si(res.mpPtr, x.mpPtr, k);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Compound_Si", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Compound_Si(IntPtr res, IntPtr x, int k);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/compound_si/*' />
+        public static Extended compound_si(dynamic x, int k)
+        {
+            return compound_si(ereal.t(x), k);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Trigonometric and related functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        public static Extended sin(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Sin(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Sin", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Sin(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        public static Extended sin(dynamic x)
+        {
+            return sin(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        public static Extended cos(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Cos(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Cos", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Cos(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        public static Extended cos(dynamic x)
+        {
+            return cos(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        public static Extended tan(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Tan(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Tan", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Tan(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        public static Extended tan(dynamic x)
+        {
+            return tan(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        public static Extended csc(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Csc(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Csc", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Csc(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        public static Extended csc(dynamic x)
+        {
+            return csc(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        public static Extended sec(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Sec(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Sec", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Sec(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        public static Extended sec(dynamic x)
+        {
+            return sec(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        public static Extended cot(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Cot(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Cot", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Cot(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        public static Extended cot(dynamic x)
+        {
+            return cot(t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sinpi/*' />
+        public static Extended sinpi(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_SinPi(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_SinPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_SinPi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sinpi/*' />
+        public static Extended sinpi(dynamic x)
+        {
+            return sinpi(ereal.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/cospi/*' />
+        public static Extended cospi(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_CosPi(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_CosPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_CosPi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/cospi/*' />
+        public static Extended cospi(dynamic x)
+        {
+            return cospi(ereal.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/tanpi/*' />
+        public static Extended tanpi(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_TanPi(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_TanPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_TanPi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/tanpi/*' />
+        public static Extended tanpi(dynamic x)
+        {
+            return tanpi(ereal.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/cscpi/*' />
+        public static Extended cscpi(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_CscPi(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_CscPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_CscPi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/cscpi/*' />
+        public static Extended cscpi(dynamic x)
+        {
+            return cscpi(ereal.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/secpi/*' />
+        public static Extended secpi(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_SecPi(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_SecPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_SecPi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/secpi/*' />
+        public static Extended secpi(dynamic x)
+        {
+            return secpi(ereal.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/cotpi/*' />
+        public static Extended cotpi(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_CotPi(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_CotPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_CotPi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/cotpi/*' />
+        public static Extended cotpi(dynamic x)
+        {
+            return cotpi(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sinc/*' />
+        public static Extended sinc(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_SincPi(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_SincPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_SincPi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sinc/*' />
+        public static Extended sinc(dynamic x)
+        {
+            return sinc(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sincpi/*' />
+        public static Extended sincpi(Extended x)
+        {
+            Extended x1 = x * ereal.pi();
+
+            if (ereal.abs(x) < 0.1)
+            {
+                return sinc(x1);
+            }
+            else return sinpi(x) / x1;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sinc/*' />
+        public static Extended sincpi(dynamic x)
+        {
+            return sincpi(t(x));
+        }
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sinhcpi/*' />
+        public static Extended sinhcpi(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_SinhcPi(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_SinhcPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_SinhcPi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sinhcpi/*' />
+        public static Extended sinhcpi(dynamic x)
+        {
+            return sinhcpi(ereal.t(x));
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Hyperbolic functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        public static Extended sinh(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Sinh(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Sinh", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Sinh(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        public static Extended sinh(dynamic x)
+        {
+            return sinh(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        public static Extended cosh(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Cosh(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Cosh", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Cosh(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        public static Extended cosh(dynamic x)
+        {
+            return cosh(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        public static Extended tanh(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Tanh(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Tanh", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Tanh(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        public static Extended tanh(dynamic x)
+        {
+            return tanh(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        public static Extended csch(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Csch(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Csch", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Csch(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        public static Extended csch(dynamic x)
+        {
+            return csch(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        public static Extended sech(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Sech(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Sech", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Sech(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        public static Extended sech(dynamic x)
+        {
+            return csch(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        public static Extended coth(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Coth(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Coth", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Coth(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        public static Extended coth(dynamic x)
+        {
+            return coth(t(x));
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Inverse trigonometric functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        public static Extended asin(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Asin(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Asin", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Asin(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        public static Extended asin(dynamic x)
+        {
+            return asin(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        public static Extended acos(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Acos(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Acos", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Acos(IntPtr res, IntPtr x);
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        public static Extended acos(dynamic x)
+        {
+            return acos(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        public static Extended atan(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Atan(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Atan", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Atan(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        public static Extended atan(dynamic x)
+        {
+            return atan(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan2/*' />
+        public static Extended atan2(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Atan2(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Atan2", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Atan2(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan2/*' />
+        public static Extended atan2(dynamic x, dynamic y)
+        {
+            return atan2(ereal.t(x), ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        public static Extended acsc(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Acsc(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Acsc", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Acsc(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        public static Extended acsc(dynamic x)
+        {
+            return acsc(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        public static Extended asec(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Asec(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Asec", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Asec(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        public static Extended asec(dynamic x)
+        {
+            return asec(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        public static Extended acot(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Acot(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Acot", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Acot(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        public static Extended acot(dynamic x)
+        {
+            return acot(t(x));
+        }
+
+
+
+        #endregion
+
+
+
+        #region Inverse hyperbolic functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        public static Extended asinh(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Asinh(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Asinh", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Asinh(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        public static Extended asinh(dynamic x)
+        {
+            return asinh(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        public static Extended acosh(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Acosh(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Acosh", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Acosh(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        public static Extended acosh(dynamic x)
+        {
+            return acosh(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        public static Extended atanh(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Atanh(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Atanh", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Atanh(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        public static Extended atanh(dynamic x)
+        {
+            return atanh(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        public static Extended acsch(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Acsch(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Acsch", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Acsch(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        public static Extended acsch(dynamic x)
+        {
+            return acsch(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        public static Extended asech(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Asech(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Asech", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Asech(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        public static Extended asech(dynamic x)
+        {
+            return asech(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        public static Extended acoth(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Acoth(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Acoth", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Acoth(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        public static Extended acoth(dynamic x)
+        {
+            return acoth(t(x));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Miscellaneous
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/lambert_w0/*' />
+        public static Extended lambert_w0(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_LambertW0(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LambertW0", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_LambertW0(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/lambert_w0/*' />
+        public static Extended lambert_w0(dynamic x)
+        {
+            return lambert_w0(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/lambert_wm1/*' />
+        public static Extended lambert_wm1(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_LambertWm1(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LambertWm1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_LambertWm1(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/lambert_wm1/*' />
+        public static Extended lambert_wm1(dynamic x)
+        {
+            return lambert_wm1(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/lambert_w0_prime/*' />
+        public static Extended lambert_w0_prime(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_LambertW0Prime(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LambertW0Prime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_LambertW0Prime(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/lambert_w0_prime/*' />
+        public static Extended lambert_w0_prime(dynamic x)
+        {
+            return lambert_w0_prime(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/lambert_wm1_prime/*' />
+        public static Extended lambert_wm1_prime(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_LambertWm1Prime(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LambertWm1Prime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_LambertWm1Prime(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/lambert_wm1_prime/*' />
+        public static Extended lambert_wm1_prime(dynamic x)
+        {
+            return lambert_wm1_prime(ereal.t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/agm/*' />
+        public static Extended agm(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Agm(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Agm", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Agm(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/agm/*' />
+        public static Extended agm(dynamic x, dynamic y)
+        {
+            return agm(ereal.t(x), ereal.t(y));
+        }
+
+
+
+
+        #endregion
+
+
+
+
+
+        #endregion
+
+
+
+
+
+        #region Special real functions
+
+
+
+        #region Error functions for real arguments
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndens/*' />
+        public static Extended ndens(Extended x)
+        {
+            return exp(-0.5 * x * x) / sqrt(2 * pi());
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndens/*' />
+        public static Extended ndens(dynamic x)
+        {
+            return ndens(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndis/*' />
+        public static Extended ndis(Extended x)
+        {
+            return 0.5 * erfc(-x / sqrt(2));
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndis/*' />
+        public static Extended ndis(dynamic x)
+        {
+            return ndis(t(x));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erf/*' />
+        public static Extended erf(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Erf_(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Erf_", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Erf_(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erf/*' />
+        public static Extended erf(dynamic x)
+        {
+            return erf(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erfc/*' />
+        public static Extended erfc(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Erfc_(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Erfc_", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Erfc_(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erfc/*' />
+        public static Extended erfc(dynamic x)
+        {
+            return erfc(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ErfInv/*' />
+        public static Extended erf_inv(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Erf_inv(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Erf_inv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Erf_inv(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ErfInv/*' />
+        public static Extended erf_inv(dynamic x)
+        {
+            return erf_inv(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ErfcInv/*' />
+        public static Extended erfc_inv(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Erfc_inv(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Erfc_inv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Erfc_inv(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ErfcInv/*' />
+        public static Extended erfc_inv(dynamic x)
+        {
+            return erfc_inv(ereal.t(x));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Gamma and related functions for real arguments and parameters
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        //public static Extended lgamma(Extended x)
+        //{
+        //    var res = new Extended();
+        //    Lib_XReal_Lgamma(res.mpPtr, x.mpPtr);
+        //    return res;
+        //}
+        //[DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Lgamma", CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void Lib_XReal_Lgamma(IntPtr res, IntPtr x);
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        //public static Extended lgamma(dynamic x)
+        //{
+        //    return lgamma(t(x));
+        //}
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rgamma/*' />
+        public static Extended rgamma(Extended x)
+        {
+            return t(1) / gamma(x);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rgamma/*' />
+        public static Extended rgamma(dynamic x)
+        {
+            return rgamma(t(x));
+        }
+
+
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        //public static Extended gamma(Extended x)
+        //{
+        //    var res = new Extended();
+        //    Lib_XReal_Tgamma(res.mpPtr, x.mpPtr);
+        //    return res;
+        //}
+        //[DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Tgamma", CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void Lib_XReal_Tgamma(IntPtr res, IntPtr x);
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        //public static Extended gamma(dynamic x)
+        //{
+        //    return gamma(t(x));
+        //}
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        public static Extended gamma(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Tgamma_(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Tgamma_", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Tgamma_(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        public static Extended gamma(dynamic x)
+        {
+            return gamma(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma1pm1/*' />
+        public static Extended gamma1pm1(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Tgamma1pm1(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Tgamma1pm1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Tgamma1pm1(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma1pm1/*' />
+        public static Extended gamma1pm1(dynamic x)
+        {
+            return gamma1pm1(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        public static Extended lgamma(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Lgamma_(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Lgamma_", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Lgamma_(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        public static Extended lgamma(dynamic x)
+        {
+            return lgamma(ereal.t(x));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/factorial/*' />
+        public static Extended factorial(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Factorial(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Factorial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Factorial(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/factorial/*' />
+        public static Extended factorial(dynamic x)
+        {
+            return factorial(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/doublefactorial/*' />
+        public static Extended doublefactorial(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_DoubleFactorial(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_DoubleFactorial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_DoubleFactorial(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/doublefactorial/*' />
+        public static Extended doublefactorial(dynamic x)
+        {
+            return doublefactorial(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_ratio/*' />
+        public static Extended gamma_ratio(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_TgammaRatio(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_TgammaRatio", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_TgammaRatio(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_ratio/*' />
+        public static Extended gamma_ratio(dynamic x, dynamic y)
+        {
+            return gamma_ratio(ereal.t(x), ereal.t(y));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_delta_ratio/*' />
+        public static Extended gamma_delta_ratio(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_TgammaDeltaRatio(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_TgammaDeltaRatio", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_TgammaDeltaRatio(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_delta_ratio/*' />
+        public static Extended gamma_delta_ratio(dynamic x, dynamic y)
+        {
+            return gamma_delta_ratio(ereal.t(x), ereal.t(y));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/binomial/*' />
+        public static Extended binomial(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_Binomial(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Binomial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Binomial(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/binomial/*' />
+        public static Extended binomial(dynamic x, dynamic y)
+        {
+            return binomial(ereal.t(x), ereal.t(y));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/rising_factorial/*' />
+        public static Extended rising_factorial(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_RisingFactorial(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_RisingFactorial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_RisingFactorial(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/rising_factorial/*' />
+        public static Extended rising_factorial(dynamic x, dynamic y)
+        {
+            return rising_factorial(ereal.t(x), ereal.t(y));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/falling_factorial/*' />
+        public static Extended falling_factorial(Extended x, Extended y)
+        {
+            var res = new Extended();
+            Lib_XReal_FallingFactorial(res.mpPtr, x.mpPtr, y.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_FallingFactorial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_FallingFactorial(IntPtr res, IntPtr x, IntPtr y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/falling_factorial/*' />
+        public static Extended falling_factorial(dynamic x, dynamic y)
+        {
+            return falling_factorial(ereal.t(x), ereal.t(y));
+        }
+
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/beta/*' />
+        public static Extended beta(Extended a, Extended b)
+        {
+            var res = new Extended();
+            Lib_XReal_Beta(res.mpPtr, a.mpPtr, b.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Beta", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Beta(IntPtr res, IntPtr a, IntPtr b);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/beta/*' />
+        public static Extended beta(dynamic a, dynamic b)
+        {
+            return beta(ereal.t(a), ereal.t(b));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
+        #region Incomplete gamma functions for real arguments and parameters
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p/*' />
+        public static Extended gamma_p(Extended a, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_GammaP(res.mpPtr, a.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GammaP", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_GammaP(IntPtr res, IntPtr a, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p/*' />
+        public static Extended gamma_p(dynamic a, dynamic x)
+        {
+            return gamma_p(ereal.t(a), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_q/*' />
+        public static Extended gamma_q(Extended a, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_GammaQ(res.mpPtr, a.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GammaQ", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_GammaQ(IntPtr res, IntPtr a, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_q/*' />
+        public static Extended gamma_q(dynamic a, dynamic x)
+        {
+            return gamma_q(ereal.t(a), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_lower/*' />
+        public static Extended gamma_lower(Extended a, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_TgammaLower(res.mpPtr, a.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_TgammaLower", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_TgammaLower(IntPtr res, IntPtr a, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_lower/*' />
+        public static Extended gamma_lower(dynamic a, dynamic x)
+        {
+            return gamma_lower(ereal.t(a), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_upper/*' />
+        public static Extended gamma_upper(Extended a, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_TgammaUpper(res.mpPtr, a.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_TgammaUpper", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_TgammaUpper(IntPtr res, IntPtr a, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_upper/*' />
+        public static Extended gamma_upper(dynamic a, dynamic x)
+        {
+            return gamma_upper(ereal.t(a), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p_inv/*' />
+        public static Extended gamma_p_inv(Extended a, Extended p)
+        {
+            var res = new Extended();
+            Lib_XReal_GammaPInv(res.mpPtr, a.mpPtr, p.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GammaPInv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_GammaPInv(IntPtr res, IntPtr a, IntPtr p);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p_inv/*' />
+        public static Extended gamma_p_inv(dynamic a, dynamic p)
+        {
+            return gamma_p_inv(ereal.t(a), ereal.t(p));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_q_inv/*' />
+        public static Extended gamma_q_inv(Extended a, Extended q)
+        {
+            var res = new Extended();
+            Lib_XReal_GammaQInv(res.mpPtr, a.mpPtr, q.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GammaQInv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_GammaQInv(IntPtr res, IntPtr a, IntPtr q);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_q_inv/*' />
+        public static Extended gamma_q_inv(dynamic a, dynamic q)
+        {
+            return gamma_q_inv(ereal.t(a), ereal.t(q));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p_inva/*' />
+        public static Extended gamma_p_inva(Extended x, Extended p)
+        {
+            var res = new Extended();
+            Lib_XReal_GammaPInva(res.mpPtr, x.mpPtr, p.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GammaPInva", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_GammaPInva(IntPtr res, IntPtr x, IntPtr p);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p_inva/*' />
+        public static Extended gamma_p_inva(dynamic x, dynamic p)
+        {
+            return gamma_p_inva(ereal.t(x), ereal.t(p));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_q_inva/*' />
+        public static Extended gamma_q_inva(Extended x, Extended q)
+        {
+            var res = new Extended();
+            Lib_XReal_GammaQInva(res.mpPtr, x.mpPtr, q.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GammaQInva", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_GammaQInva(IntPtr res, IntPtr x, IntPtr q);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_q_inva/*' />
+        public static Extended gamma_q_inva(dynamic x, dynamic q)
+        {
+            return gamma_q_inva(ereal.t(x), ereal.t(q));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p_prime/*' />
+        public static Extended gamma_p_prime(Extended a, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_GammaPDerivative(res.mpPtr, a.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GammaPDerivative", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_GammaPDerivative(IntPtr res, IntPtr a, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p_prime/*' />
+        public static Extended gamma_p_prime(dynamic a, dynamic x)
+        {
+            return gamma_p_prime(ereal.t(a), ereal.t(x));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Incomplete beta functions for real arguments and parameters
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta/*' />
+        public static Extended ibeta(Extended a, Extended b, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_IBeta(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBeta", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBeta(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta/*' />
+        public static Extended ibeta(dynamic a, dynamic b, dynamic x)
+        {
+            return ibeta(ereal.t(a), ereal.t(b), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibetac/*' />
+        public static Extended ibetac(Extended a, Extended b, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetac(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetac", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetac(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibetac/*' />
+        public static Extended ibetac(dynamic a, dynamic b, dynamic x)
+        {
+            return ibetac(ereal.t(a), ereal.t(b), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/beta_lower/*' />
+        public static Extended beta_lower(Extended a, Extended b, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetaNonNormalized(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetaNonNormalized", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetaNonNormalized(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/beta_lower/*' />
+        public static Extended beta_lower(dynamic a, dynamic b, dynamic x)
+        {
+            return beta_lower(ereal.t(a), ereal.t(b), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/beta_upper/*' />
+        public static Extended beta_upper(Extended a, Extended b, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetacNonNormalized(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetacNonNormalized", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetacNonNormalized(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/beta_upper/*' />
+        public static Extended beta_upper(dynamic a, dynamic b, dynamic x)
+        {
+            return beta_upper(ereal.t(a), ereal.t(b), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta_inv/*' />
+        public static Extended ibeta_inv(Extended a, Extended b, Extended p)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetaInv(res.mpPtr, a.mpPtr, b.mpPtr, p.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetaInv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetaInv(IntPtr res, IntPtr a, IntPtr b, IntPtr p);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta_inv/*' />
+        public static Extended ibeta_inv(dynamic a, dynamic b, dynamic p)
+        {
+            return ibeta_inv(ereal.t(a), ereal.t(b), ereal.t(p));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibetac_inv/*' />
+        public static Extended ibetac_inv(Extended a, Extended b, Extended q)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetacInv(res.mpPtr, a.mpPtr, b.mpPtr, q.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetacInv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetacInv(IntPtr res, IntPtr a, IntPtr b, IntPtr q);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibetac_inv/*' />
+        public static Extended ibetac_inv(dynamic a, dynamic b, dynamic q)
+        {
+            return ibetac_inv(ereal.t(a), ereal.t(b), ereal.t(q));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta_inva/*' />
+        public static Extended ibeta_inva(Extended b, Extended x, Extended p)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetaInva(res.mpPtr, b.mpPtr, x.mpPtr, p.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetaInva", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetaInva(IntPtr res, IntPtr b, IntPtr x, IntPtr p);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta_inva/*' />
+        public static Extended ibeta_inva(dynamic b, dynamic x, dynamic p)
+        {
+            return ibeta_inva(ereal.t(b), ereal.t(x), ereal.t(p));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibetac_inva/*' />
+        public static Extended ibetac_inva(Extended b, Extended x, Extended q)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetacInva(res.mpPtr, b.mpPtr, x.mpPtr, q.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetacInva", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetacInva(IntPtr res, IntPtr b, IntPtr x, IntPtr q);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibetac_inva/*' />
+        public static Extended ibetac_inva(dynamic b, dynamic x, dynamic q)
+        {
+            return ibetac_inva(ereal.t(b), ereal.t(x), ereal.t(q));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta_invb/*' />
+        public static Extended ibeta_invb(Extended a, Extended x, Extended p)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetaInvb(res.mpPtr, a.mpPtr, x.mpPtr, p.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetaInvb", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetaInvb(IntPtr res, IntPtr a, IntPtr x, IntPtr p);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta_invb/*' />
+        public static Extended ibeta_invb(dynamic a, dynamic x, dynamic p)
+        {
+            return ibeta_invb(ereal.t(a), ereal.t(x), ereal.t(p));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibetac_invb/*' />
+        public static Extended ibetac_invb(Extended a, Extended x, Extended q)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetacInvb(res.mpPtr, a.mpPtr, x.mpPtr, q.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetacInvb", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetacInvb(IntPtr res, IntPtr a, IntPtr x, IntPtr q);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibetac_invb/*' />
+        public static Extended ibetac_invb(dynamic a, dynamic x, dynamic q)
+        {
+            return ibetac_invb(ereal.t(a), ereal.t(x), ereal.t(q));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta_prime/*' />
+        public static Extended ibeta_prime(Extended a, Extended b, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_IBetaDerivative(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_IBetaDerivative", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_IBetaDerivative(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ibeta_prime/*' />
+        public static Extended ibeta_prime(dynamic a, dynamic b, dynamic x)
+        {
+            return ibeta_prime(ereal.t(a), ereal.t(b), ereal.t(x));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Miscellaneous real functions
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/owen_t/*' />
+        public static Extended owen_t(Extended h, Extended a)
+        {
+            var res = new Extended();
+            Lib_XReal_OwenT(res.mpPtr, h.mpPtr, a.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_OwenT", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_OwenT(IntPtr res, IntPtr h, IntPtr a);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/owen_t/*' />
+        public static Extended owen_t(dynamic h, dynamic a)
+        {
+            return owen_t(ereal.t(h), ereal.t(a));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #endregion
+
+
+
+
+
+
+
+        #region Boost Special Functions
+
+
+
+        #region Legendre elliptic integrals (elliptic modulus k), and related functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Ellint1K/*' />
+        public static Extended elliptic_k(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Ellint_1_K(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ellint_1_K", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ellint_1_K(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Ellint1K/*' />
+        public static Extended elliptic_k(dynamic x)
+        {
+            return elliptic_k(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Ellint2K/*' />
+        public static Extended elliptic_e(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Ellint_2_K(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ellint_2_K", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ellint_2_K(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Ellint2K/*' />
+        public static Extended elliptic_e(dynamic x)
+        {
+            return elliptic_e(ereal.t(x));
+        }
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rc/*' />
+        public static Extended elliptic_rc(Extended a, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_EllintRC(res.mpPtr, a.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_EllintRC", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_EllintRC(IntPtr res, IntPtr a, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rc/*' />
+        public static Extended elliptic_rc(dynamic a, dynamic x)
+        {
+            return elliptic_rc(ereal.t(a), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_f/*' />
+        public static Extended elliptic_f(Extended phi, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_Ellint1F(res.mpPtr, k.mpPtr, phi.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ellint1F", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ellint1F(IntPtr res, IntPtr a, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_f/*' />
+        public static Extended elliptic_f(dynamic phi, dynamic k)
+        {
+            return elliptic_f(ereal.t(phi), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_e_inc/*' />
+        public static Extended elliptic_e_inc(Extended phi, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_Ellint2F(res.mpPtr, k.mpPtr, phi.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ellint2F", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ellint2F(IntPtr res, IntPtr a, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_e_inc/*' />
+        public static Extended elliptic_e_inc(dynamic phi, dynamic k)
+        {
+            return elliptic_e_inc(ereal.t(phi), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_pi/*' />
+        public static Extended elliptic_pi(Extended n, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_Ellint3K(res.mpPtr, k.mpPtr, n.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ellint3K", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ellint3K(IntPtr res, IntPtr a, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_pi/*' />
+        public static Extended elliptic_pi(dynamic n, dynamic k)
+        {
+            return elliptic_pi(ereal.t(n), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_pi_inc/*' />
+        public static Extended elliptic_pi_inc(Extended n, Extended phi, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_Ellint3F(res.mpPtr, k.mpPtr, n.mpPtr, phi.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ellint3F", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ellint3F(IntPtr res, IntPtr k, IntPtr n, IntPtr phi);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_pi_inc/*' />
+        public static Extended elliptic_pi_inc(dynamic n, dynamic phi, dynamic k)
+        {
+            return elliptic_pi_inc(ereal.t(n), ereal.t(phi), ereal.t(k));
+        }
+
+
+
+
+
+
+
+
+        #endregion
+
+
+
+        #region Carlson symmetric elliptic integrals
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rf/*' />
+        public static Extended elliptic_rf(Extended x, Extended y, Extended z)
+        {
+            var res = new Extended();
+            Lib_XReal_EllipticRF(res.mpPtr, x.mpPtr, y.mpPtr, z.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_EllipticRF", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_EllipticRF(IntPtr res, IntPtr x, IntPtr y, IntPtr z);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rf/*' />
+        public static Extended elliptic_rf(dynamic x, dynamic y, dynamic z)
+        {
+            return elliptic_rf(ereal.t(x), ereal.t(y), ereal.t(z));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rd/*' />
+        public static Extended elliptic_rd(Extended x, Extended y, Extended z)
+        {
+            var res = new Extended();
+            Lib_XReal_EllipticRD(res.mpPtr, x.mpPtr, y.mpPtr, z.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_EllipticRD", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_EllipticRD(IntPtr res, IntPtr x, IntPtr y, IntPtr z);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rd/*' />
+        public static Extended elliptic_rd(dynamic x, dynamic y, dynamic z)
+        {
+            return elliptic_rd(ereal.t(x), ereal.t(y), ereal.t(z));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rg/*' />
+        public static Extended elliptic_rg(Extended x, Extended y, Extended z)
+        {
+            var res = new Extended();
+            Lib_XReal_EllipticRG(res.mpPtr, x.mpPtr, y.mpPtr, z.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_EllipticRG", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_EllipticRG(IntPtr res, IntPtr x, IntPtr y, IntPtr z);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rg/*' />
+        public static Extended elliptic_rg(dynamic x, dynamic y, dynamic z)
+        {
+            return elliptic_rg(ereal.t(x), ereal.t(y), ereal.t(z));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rj/*' />
+        public static Extended elliptic_rj(Extended x, Extended y, Extended z, Extended p)
+        {
+            var res = new Extended();
+            Lib_XReal_EllipticRJ(res.mpPtr, x.mpPtr, y.mpPtr, z.mpPtr, p.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_EllipticRJ", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_EllipticRJ(IntPtr res, IntPtr x, IntPtr y, IntPtr z, IntPtr p);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/elliptic_rj/*' />
+        public static Extended elliptic_rj(dynamic x, dynamic y, dynamic z, dynamic p)
+        {
+            return elliptic_rj(ereal.t(x), ereal.t(y), ereal.t(z), ereal.t(p));
+        }
+
+
+
+        #endregion
+
+
+
+        #region Jacobi theta functions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_theta1/*' />
+        public static Extended jacobi_theta1(Extended x, Extended q)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiTheta1(res.mpPtr, x.mpPtr, q.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiTheta1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiTheta1(IntPtr res, IntPtr x, IntPtr q);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_theta1/*' />
+        public static Extended jacobi_theta1(dynamic x, dynamic q)
+        {
+            return jacobi_theta1(ereal.t(x), ereal.t(q));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_theta2/*' />
+        public static Extended jacobi_theta2(Extended x, Extended q)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiTheta2(res.mpPtr, x.mpPtr, q.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiTheta2", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiTheta2(IntPtr res, IntPtr x, IntPtr q);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_theta2/*' />
+        public static Extended jacobi_theta2(dynamic x, dynamic q)
+        {
+            return jacobi_theta2(ereal.t(x), ereal.t(q));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_theta3/*' />
+        public static Extended jacobi_theta3(Extended x, Extended q)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiTheta3(res.mpPtr, x.mpPtr, q.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiTheta3", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiTheta3(IntPtr res, IntPtr x, IntPtr q);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_theta3/*' />
+        public static Extended jacobi_theta3(dynamic x, dynamic q)
+        {
+            return jacobi_theta3(ereal.t(x), ereal.t(q));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_theta3/*' />
+        public static Extended jacobi_theta4(Extended x, Extended q)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiTheta4(res.mpPtr, x.mpPtr, q.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiTheta4", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiTheta4(IntPtr res, IntPtr x, IntPtr q);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_theta3/*' />
+        public static Extended jacobi_theta4(dynamic x, dynamic q)
+        {
+            return jacobi_theta4(ereal.t(x), ereal.t(q));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Jacobi elliptic functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_cd/*' />
+        public static Extended jacobi_cd(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiCD(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiCD", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiCD(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_cd/*' />
+        public static Extended jacobi_cd(dynamic u, dynamic k)
+        {
+            return jacobi_cd(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_cn/*' />
+        public static Extended jacobi_cn(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiCN(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiCN", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiCN(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_cn/*' />
+        public static Extended jacobi_cn(dynamic u, dynamic k)
+        {
+            return jacobi_cn(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_cs/*' />
+        public static Extended jacobi_cs(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiCS(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiCS", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiCS(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_cs/*' />
+        public static Extended jacobi_cs(dynamic u, dynamic k)
+        {
+            return jacobi_cs(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_dc/*' />
+        public static Extended jacobi_dc(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiDC(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiDC", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiDC(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_dc/*' />
+        public static Extended jacobi_dc(dynamic u, dynamic k)
+        {
+            return jacobi_dc(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_dn/*' />
+        public static Extended jacobi_dn(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiDN(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiDN", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiDN(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_dn/*' />
+        public static Extended jacobi_dn(dynamic u, dynamic k)
+        {
+            return jacobi_dn(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_ds/*' />
+        public static Extended jacobi_ds(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiDS(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiDS", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiDS(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_ds/*' />
+        public static Extended jacobi_ds(dynamic u, dynamic k)
+        {
+            return jacobi_ds(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_nc/*' />
+        public static Extended jacobi_nc(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiNC(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiNC", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiNC(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_nc/*' />
+        public static Extended jacobi_nc(dynamic u, dynamic k)
+        {
+            return jacobi_nc(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_nd/*' />
+        public static Extended jacobi_nd(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiND(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiND", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiND(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_nd/*' />
+        public static Extended jacobi_nd(dynamic u, dynamic k)
+        {
+            return jacobi_nd(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_ns/*' />
+        public static Extended jacobi_ns(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiNS(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiNS", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiNS(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_ns/*' />
+        public static Extended jacobi_ns(dynamic u, dynamic k)
+        {
+            return jacobi_ns(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_sc/*' />
+        public static Extended jacobi_sc(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiSC(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiSC", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiSC(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_sc/*' />
+        public static Extended jacobi_sc(dynamic u, dynamic k)
+        {
+            return jacobi_sc(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_sd/*' />
+        public static Extended jacobi_sd(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiSD(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiSD", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiSD(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_sd/*' />
+        public static Extended jacobi_sd(dynamic u, dynamic k)
+        {
+            return jacobi_sd(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_sn/*' />
+        public static Extended jacobi_sn(Extended u, Extended k)
+        {
+            var res = new Extended();
+            Lib_XReal_JacobiSN(res.mpPtr, k.mpPtr, u.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_JacobiSN", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_JacobiSN(IntPtr res, IntPtr k, IntPtr u);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_sn/*' />
+        public static Extended jacobi_sn(dynamic u, dynamic k)
+        {
+            return jacobi_sn(ereal.t(u), ereal.t(k));
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region polygamma functions
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/polygamma/*' />
+        public static Extended polygamma(int n, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Polygamma(res.mpPtr, n, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Polygamma", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Polygamma(IntPtr res, int n, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/polygamma/*' />
+        public static Extended polygamma(int n, dynamic y)
+        {
+            return polygamma(n, ereal.t(y));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/digamma/*' />
+        public static Extended digamma(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Digamma(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Digamma", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Digamma(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/digamma/*' />
+        public static Extended digamma(dynamic x)
+        {
+            return digamma(ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/trigamma/*' />
+        public static Extended trigamma(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Trigamma(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Trigamma", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Trigamma(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/trigamma/*' />
+        public static Extended trigamma(dynamic x)
+        {
+            return trigamma(ereal.t(x));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Hurwitz zeta function and related functions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bernoulli/*' />
+        public static Extended bernoulli(int n)
+        {
+            if (n == 1) return t(-0.5);
+            if (n % 2 != 0) return zero();
+            var res = new Extended();
+            Lib_XReal_BernoulliB2n(res.mpPtr, n/2);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BernoulliB2n", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BernoulliB2n(IntPtr res, int n);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TangentT2n/*' />
+        public static Extended TangentT2n(int n)
+        {
+            var res = new Extended();
+            Lib_XReal_TangentT2n(res.mpPtr, n);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_TangentT2n", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_TangentT2n(IntPtr res, int n);
+
+
+
+        #endregion
+
+
+
+        #region Dirichlet L-Series, Riemann zeta function, and related functions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/zeta/*' />
+        public static Extended zeta(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Zeta(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Zeta", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Zeta(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/zeta/*' />
+        public static Extended zeta(dynamic x)
+        {
+            return zeta(ereal.t(x));
+        }
+
+
+        #endregion
+
+
+
+        #region 0F1: Overview
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_0f1/*' />
+        public static Extended hyperg_0f1(Extended b, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Hypergeo0F1(res.mpPtr, b.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Hypergeo0F1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Hypergeo0F1(IntPtr res, IntPtr b, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_0f1/*' />
+        public static Extended hyperg_0f1(dynamic b, dynamic x)
+        {
+            return hyperg_0f1(ereal.t(b), ereal.t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_0f1r/*' />
+        public static Extended hyperg_0f1r(Extended b, Extended x)
+        {
+            if (oreal.isinteger(b) && (b <= 0))
+            {
+                return pow(x, -b + 1) * hyperg_0f1(-b + 2, x) / gamma(-b + 2);
+            }
+            else
+            {
+                return hyperg_0f1(b, x) / gamma(b);
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_0f1r/*' />
+        public static Extended hyperg_0f1r(dynamic b, dynamic x)
+        {
+            return hyperg_0f1r(ereal.t(b), ereal.t(x));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #region Bessel functions and modified Bessel functions
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv/*' />
+        public static Extended bessel_jv(Extended nu, Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselJ(res.mpPtr, nu.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselJ", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselJ(IntPtr res, IntPtr nu, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv/*' />
+        public static Extended bessel_jv(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_jv(ereal.t(nu), ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv/*' />
+        public static Extended bessel_yv(Extended nu, Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselY(res.mpPtr, nu.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselY", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselY(IntPtr res, IntPtr nu, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv/*' />
+        public static Extended bessel_yv(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_yv(ereal.t(nu), ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_iv/*' />
+        public static Extended bessel_iv(Extended nu, Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselI(res.mpPtr, nu.mpPtr, x.mpPtr);
+            if (scaled) res *= exp(-abs(x));
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselI", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselI(IntPtr res, IntPtr nu, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_iv/*' />
+        public static Extended bessel_iv(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_iv(ereal.t(nu), ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_kv/*' />
+        public static Extended bessel_kv(Extended nu, Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselK(res.mpPtr, nu.mpPtr, x.mpPtr);
+            if (scaled) res *= exp(x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselK", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselK(IntPtr res, IntPtr nu, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_kv/*' />
+        public static Extended bessel_kv(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_kv(ereal.t(nu), ereal.t(x), scaled);
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv_prime/*' />
+        public static Extended bessel_jv_prime(Extended nu, Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselJPrime(res.mpPtr, nu.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselJPrime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselJPrime(IntPtr res, IntPtr nu, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv_prime/*' />
+        public static Extended bessel_jv_prime(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_jv_prime(ereal.t(nu), ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv_prime/*' />
+        public static Extended bessel_yv_prime(Extended nu, Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselYPrime(res.mpPtr, nu.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselYPrime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselYPrime(IntPtr res, IntPtr nu, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv_prime/*' />
+        public static Extended bessel_yv_prime(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_yv_prime(ereal.t(nu), ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_iv_prime/*' />
+        public static Extended bessel_iv_prime(Extended nu, Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselIPrime(res.mpPtr, nu.mpPtr, x.mpPtr);
+            if (scaled) res *= exp(-abs(x));
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselIPrime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselIPrime(IntPtr res, IntPtr nu, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_iv_prime/*' />
+        public static Extended bessel_iv_prime(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_iv_prime(ereal.t(nu), ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_kv_prime/*' />
+        public static Extended bessel_kv_prime(Extended nu, Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselKPrime(res.mpPtr, nu.mpPtr, x.mpPtr);
+            if (scaled) res *= exp(x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselKPrime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselKPrime(IntPtr res, IntPtr nu, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_kv_prime/*' />
+        public static Extended bessel_kv_prime(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_kv_prime(ereal.t(nu), ereal.t(x), scaled);
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv_zero/*' />
+        public static Extended bessel_jv_zero(Extended x, int m)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselJZero(res.mpPtr, x.mpPtr, m);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselJZero", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselJZero(IntPtr res, IntPtr x, int m);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv_zero/*' />
+        public static Extended bessel_jv_zero(dynamic x, int m)
+        {
+            return bessel_jv_zero(ereal.t(x), m);
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv_zero/*' />
+        public static Extended bessel_yv_zero(Extended x, int m)
+        {
+            var res = new Extended();
+            Lib_XReal_BesselYZero(res.mpPtr, x.mpPtr, m);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BesselYZero", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BesselYZero(IntPtr res, IntPtr x, int m);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv_zero/*' />
+        public static Extended bessel_yv_zero(dynamic x, int m)
+        {
+            return bessel_yv_zero(ereal.t(x), m);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn_zero/*' />
+        public static Extended sph_bessel_jn_zero(int n, int m)
+        {
+            return bessel_jv_zero(n + 0.5, m);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn_zero/*' />
+        public static Extended sph_bessel_yn_zero(int n, int m)
+        {
+            return bessel_yv_zero(n + 0.5, m);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+        #region Spherical Bessel functions and spherical modified Bessel functions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
+        public static Extended sph_bessel_jn(Extended n, Extended x, bool scaled = false)
+        {
+            var res = qreal.sph_bessel_jn(qreal.t(n), qreal.t(x), scaled);
+            return ereal.t(res);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
+        public static Extended sph_bessel_jn(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_jn(t(n), t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn' />
+        public static Extended sph_bessel_yn(Extended n, Extended x, bool scaled = false)
+        {
+            var res = qreal.sph_bessel_yn(qreal.t(n), qreal.t(x), scaled);
+            return ereal.t(res);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
+        public static Extended sph_bessel_yn(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_yn(t(n), t(x), scaled);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in/*' />
+        public static Extended sph_bessel_in(Extended n, Extended x, bool scaled = false)
+        {
+            var res = qreal.sph_bessel_in(qreal.t(n), qreal.t(x), scaled);
+            return ereal.t(res);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in/*' />
+        public static Extended sph_bessel_in(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_in(t(n), t(x), scaled);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn/*' />
+        public static Extended sph_bessel_kn(Extended n, Extended x, bool scaled = false)
+        {
+            var res = qreal.sph_bessel_kn(qreal.t(n), qreal.t(x), scaled);
+            return ereal.t(res);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn/*' />
+        public static Extended sph_bessel_kn(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_kn(t(n), t(x), scaled);
+        }
+
+
+
+        internal static Extended besselpoly_(int n, Extended x)
+        {
+            if (n < 0) n = Math.Abs(n) - 1;
+            if (n == 0) return t(1.0);
+            if (n == 1) return x + 1;
+            var y = new Extended[n + 2];
+            y[0] = t(1);
+            y[1] = x + 1;
+            for (int i = 2; i <= n; i++)
+            {
+                y[i] = (2 * i - 1) * x * y[i - 1] + y[i - 2];
+            }
+            return y[n];
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
+        public static Extended besselpoly(Extended n, Extended x, bool scaled = false)
+        {
+            if (!ereal.isinteger(n)) return ereal.nan();
+            if (abs(x) < t(0.01)) return besselpoly_(lrint(n), x);
+            else
+            {
+                Extended res = sph_bessel_kn(n, 1 / x);
+                res *= exp(1 / x) * 2 / (pi() * x);
+                return res;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
+        public static Extended besselpoly(dynamic n, dynamic x, bool scaled = false)
+        {
+            return besselpoly(t(n), t(x), scaled);
+        }
+
+
+
+
+
+        internal static Extended besseltheta_(int n, Extended x)
+        {
+            if (n < 0) n = Math.Abs(n) - 1;
+            if (n == 0) return t(1.0);
+            if (n == 1) return x + 1;
+            var y = new Extended[n + 2];
+            y[0] = t(1);
+            y[1] = x + 1;
+            for (int i = 2; i <= n; i++)
+            {
+                y[i] = (2 * i - 1) * y[i - 1] + x * x * y[i - 2];
+            }
+            return y[n];
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
+        public static Extended besseltheta(Extended n, Extended x, bool scaled = false)
+        {
+            if (!ereal.isinteger(n)) return ereal.nan();
+            if ((x == 0) && (n < 0)) return ereal.nan();
+            if ((abs(x) < t(0.01)) && (n >= 0)) return besseltheta_(lrint(n), x);
+            if (n < 0) return pow(x, n) * besselpoly(n, 1 / x);
+            else
+            {
+                Extended res = sph_bessel_kn(n, x);
+                res *= ereal.pow(x, n + 1) * exp(x) * 2 / pi();
+                return res;
+            }
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
+        public static Extended besseltheta(dynamic n, dynamic x, bool scaled = false)
+        {
+            return besseltheta(t(n), t(x), scaled);
+        }
+
+
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Spherical Bessel functions, first derivative
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn_prime/*' />
+        public static Extended sph_bessel_jn_prime(Extended n, Extended x, bool scaled = false)
+        {
+            var res = qreal.sph_bessel_jn_prime(qreal.t(n), qreal.t(x), scaled);
+            return ereal.t(res);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn_prime/*' />
+        public static Extended sph_bessel_jn_prime(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_jn_prime(t(n), t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn_prime/*' />
+        public static Extended sph_bessel_yn_prime(Extended n, Extended x, bool scaled = false)
+        {
+            var res = qreal.sph_bessel_yn_prime(qreal.t(n), qreal.t(x), scaled);
+            return ereal.t(res);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn_prime/*' />
+        public static Extended sph_bessel_yn_prime(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_yn_prime(t(n), t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in_prime/*' />
+        public static Extended sph_bessel_in_prime(Extended n, Extended x, bool scaled = false)
+        {
+            var res = qreal.sph_bessel_in_prime(qreal.t(n), qreal.t(x), scaled);
+            return ereal.t(res);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in_prime/*' />
+        public static Extended sph_bessel_in_prime(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_in_prime(t(n), t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn_prime/*' />
+        public static Extended sph_bessel_kn_prime(Extended n, Extended x, bool scaled = false)
+        {
+            var res = qreal.sph_bessel_kn_prime(qreal.t(n), qreal.t(x), scaled);
+            return ereal.t(res);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn_prime/*' />
+        public static Extended sph_bessel_kn_prime(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_kn_prime(t(n), t(x), scaled);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+        #region Hankel functions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
+        public static ExtendedC hankel_h1(Extended v, Extended x)
+        {
+            return bessel_jv(v, x) + ecplx.onej() * bessel_yv(v, x);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
+        public static ExtendedC hankel_h1(dynamic v, dynamic x)
+        {
+            return hankel_h1(t(v), t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
+        public static ExtendedC hankel_h2(Extended v, Extended x)
+        {
+            return bessel_jv(v, x) - ecplx.onej() * bessel_yv(v, x);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
+        public static ExtendedC hankel_h2(dynamic v, dynamic x)
+        {
+            return hankel_h2(t(v), t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
+        public static ExtendedC sph_hankel_h1(int n, Extended x)
+        {
+            return sph_bessel_jn(n, x) + ecplx.onej() * sph_bessel_yn(n, x);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
+        public static ExtendedC sph_hankel_h1(int n, dynamic x)
+        {
+            return sph_hankel_h1(n, t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
+        public static ExtendedC sph_hankel_h2(int n, Extended x)
+        {
+            return sph_bessel_jn(n, x) - ecplx.onej() * sph_bessel_yn(n, x);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
+        public static ExtendedC sph_hankel_h2(int n, dynamic x)
+        {
+            return sph_hankel_h2(n, t(x));
+        }
+
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Airy functions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_ai/*' />
+        public static Extended airy_ai(Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_AiryAi(res.mpPtr, x.mpPtr);
+            if ((scaled) && (x > 0)) res *= exp((ereal.t(2) / ereal.t(3)) * x * sqrt(x));
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_AiryAi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_AiryAi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_ai/*' />
+        public static Extended airy_ai(dynamic x, bool scaled = false)
+        {
+            return airy_ai(ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_bi/*' />
+        public static Extended airy_bi(Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_AiryBi(res.mpPtr, x.mpPtr);
+            if ((scaled) && (x > 0)) res *= exp(-abs(ereal.t(2) / ereal.t(3) * (x * sqrt(x))));
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_AiryBi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_AiryBi(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_bi/*' />
+        public static Extended airy_bi(dynamic x, bool scaled = false)
+        {
+            return airy_bi(ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_ai_prime/*' />
+        public static Extended airy_ai_prime(Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_AiryAiPrime(res.mpPtr, x.mpPtr);
+            if ((scaled) && (x > 0)) res *= exp((ereal.t(2) / ereal.t(3)) * x * sqrt(x));
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_AiryAiPrime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_AiryAiPrime(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_ai_prime/*' />
+        public static Extended airy_ai_prime(dynamic x, bool scaled = false)
+        {
+            return airy_ai_prime(ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_bi_prime/*' />
+        public static Extended airy_bi_prime(Extended x, bool scaled = false)
+        {
+            var res = new Extended();
+            Lib_XReal_AiryBiPrime(res.mpPtr, x.mpPtr);
+            if ((scaled) && (x > 0)) res *= exp(-abs(ereal.t(2) / ereal.t(3) * (x * sqrt(x))));
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_AiryBiPrime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_AiryBiPrime(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_bi_prime/*' />
+        public static Extended airy_bi_prime(dynamic x, bool scaled = false)
+        {
+            return airy_bi_prime(ereal.t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_ai_zero/*' />
+        public static Extended airy_ai_zero(int n)
+        {
+            var res = new Extended();
+            Lib_XReal_Aizero(res.mpPtr, n);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Aizero", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Aizero(IntPtr res, int n);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_ai_zero/*' />
+        public static Extended airy_bi_zero(int n)
+        {
+            var res = new Extended();
+            Lib_XReal_Bizero(res.mpPtr, n);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Bizero", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Bizero(IntPtr res, int n);
+
+
+
+        #endregion
+
+
+
+        #region 1F1 Overview
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_1f1/*' />
+        public static Extended hyperg_1f1(Extended a, Extended b, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Hypergeo1F1(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Hypergeo1F1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Hypergeo1F1(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_1f1/*' />
+        public static Extended hyperg_1f1(dynamic a, dynamic b, dynamic x)
+        {
+            return hyperg_1f1(ereal.t(a), ereal.t(b), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_1f1r/*' />
+        public static Extended hyperg_1f1r(Extended a, Extended b, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Hypergeo1F1r(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Hypergeo1F1r", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Hypergeo1F1r(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_1f1r/*' />
+        public static Extended hyperg_1f1r(dynamic a, dynamic b, dynamic x)
+        {
+            return hyperg_1f1r(ereal.t(a), ereal.t(b), ereal.t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
+        public static Extended log_hyperg_1f1(Extended a, Extended b, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_LogHypergeo1F1(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LogHypergeo1F1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_LogHypergeo1F1(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
+        public static Extended log_hyperg_1f1(dynamic a, dynamic b, dynamic x)
+        {
+            return log_hyperg_1f1(ereal.t(a), ereal.t(b), ereal.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/laguerre_l/*' />
+        public static Extended laguerre_l(int n, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Laguerre(res.mpPtr, n, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Laguerre", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Laguerre(IntPtr res, int n, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/laguerre_l/*' />
+        public static Extended laguerre_l(int n, dynamic y)
+        {
+            return laguerre_l(n, ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hermite_h/*' />
+        public static Extended hermite_h(int n, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Hermite(res.mpPtr, n, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Hermite", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Hermite(IntPtr res, int n, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hermite_h/*' />
+        public static Extended hermite_h(int n, dynamic y)
+        {
+            return hermite_h(n, ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hermite_he/*' />
+        public static Extended hermite_he(int n, Extended x)
+        {
+            return exp2(-n / 2) * hermite_h(n, x / sqrt(2));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hermite_he/*' />
+        public static Extended hermite_he(int n, dynamic x)
+        {
+            return hermite_he(n, ereal.t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/laguerre_l/*' />
+        public static Extended laguerre_l(int n, int m, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_LaguerreM(res.mpPtr, n, m, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LaguerreM", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_LaguerreM(IntPtr res, int n, int m, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hermite_h/*' />
+        public static Extended laguerre_l(int n, int m, dynamic y)
+        {
+            return laguerre_l(n, m, ereal.t(y));
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Exponential integrals and related functions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/exp_integral_ei/*' />
+        public static Extended exp_integral_ei(Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Ei(res.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ei", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ei(IntPtr res, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/exp_integral_ei/*' />
+        public static Extended exp_integral_ei(dynamic x)
+        {
+            return exp_integral_ei(ereal.t(x));
+        }
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/exp_integral_en/*' />
+        public static Extended exp_integral_en(int n, Extended x)
+        {
+            if (n < 0) return nan();
+            var res = new Extended();
+            Lib_XReal_expint(res.mpPtr, n, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_expint", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_expint(IntPtr res, int n, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/exp_integral_ei/*' />
+        public static Extended exp_integral_en(int n, dynamic x)
+        {
+            return exp_integral_en(n, t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp_integral_e1/*' />
+        public static Extended exp_integral_e1(Extended z)
+        {
+            if (z < 0) return -exp_integral_ei(-z);
+            else return exp_integral_en(1, z);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp_integral_e1/*' />
+        public static Extended exp_integral_e1(dynamic z)
+        {
+            return exp_integral_e1(ereal.t(z));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log_integral/*' />
+        public static Extended log_integral(Extended z)
+        {
+            if (z < 0) return nan();
+            if (z == 0) return zero();
+            else return exp_integral_ei(log(z));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log_integral/*' />
+        public static Extended log_integral(dynamic z)
+        {
+            return log_integral(t(z));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh_integral/*' />
+        public static Extended cosh_integral(Extended x)
+        {
+            return (exp_integral_ei(x) - exp_integral_e1(x)) / 2;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh_integral/*' />
+        public static Extended cosh_integral(dynamic z)
+        {
+            return cosh_integral(t(z));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh_integral/*' />
+        public static Extended sinh_integral(Extended x)
+        {
+            return (exp_integral_ei(x) + exp_integral_e1(x)) / 2;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh_integral/*' />
+        public static Extended sinh_integral(dynamic z)
+        {
+            return sinh_integral(t(z));
+        }
+
+
+
+
+
+
+        #endregion
+
+
+
+        #region 1F1-related orthogonal polynomials
+
+
+
+        #endregion
+
+
+
+        #region 2F1-related orthogonal polynomials
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_t/*' />
+        public static Extended chebyshev_t(int n, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_ChebyshevT(res.mpPtr, n, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ChebyshevT", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ChebyshevT(IntPtr res, int n, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_t/*' />
+        public static Extended chebyshev_t(int n, dynamic y)
+        {
+            return chebyshev_t(n, ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_u/*' />
+        public static Extended chebyshev_u(int n, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_ChebyshevU(res.mpPtr, n, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ChebyshevU", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ChebyshevU(IntPtr res, int n, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_u/*' />
+        public static Extended chebyshev_u(int n, dynamic y)
+        {
+            return chebyshev_u(n, ereal.t(y));
+        }
+
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_v/*' />
+        public static Extended chebyshev_v(int n, Extended x)  // same as t_n(x)
+        {
+            if (x < 0.0)
+            {
+                int m = -1; if (n % 2 == 0) m = 1; // m = exp(i * n * pi)
+                return m * chebyshev_w(n, -x);
+            }
+            else return sqrt(2 / (1 + x)) * chebyshev_t(2 * n + 1, sqrt((x + 1) / 2));
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_u/*' />
+        public static Extended chebyshev_v(int n, dynamic y)
+        {
+            return chebyshev_v(n, t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_w/*' />
+        public static Extended chebyshev_w(int n, Extended x)  // same as u_n(x)
+        {
+            if (x < 0.0)
+            {
+                int m = -1; if (n % 2 == 0) m = 1; // m = exp(i * n * pi)
+                return m * chebyshev_v(n, -x);
+            }
+            else return chebyshev_u(2 * n, sqrt((x + 1) / 2));
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_w/*' />
+        public static Extended chebyshev_w(int n, dynamic y)
+        {
+            return chebyshev_w(n, t(y));
+        }
+
+
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/legendre_p/*' />
+        public static Extended legendre_p(int n, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_LegendreP(res.mpPtr, n, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LegendreP", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_LegendreP(IntPtr res, int n, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/legendre_p/*' />
+        public static Extended legendre_p(int n, dynamic y)
+        {
+            return legendre_p(n, ereal.t(y));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/legendre_q/*' />
+        public static Extended legendre_q(int n, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_LegendreQ(res.mpPtr, n, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LegendreQ", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_LegendreQ(IntPtr res, int n, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/legendre_q/*' />
+        public static Extended legendre_q(int n, dynamic y)
+        {
+            return legendre_q(n, ereal.t(y));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/legendre_plm/*' />
+        public static Extended legendre_plm(int n, int m, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_LegendrePM(res.mpPtr, n, m, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LegendrePM", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_LegendrePM(IntPtr res, int n, int m, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/legendre_plm/*' />
+        public static Extended legendre_plm(int n, int m, dynamic y)
+        {
+            return legendre_plm(n, m, ereal.t(y));
+        }
+
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gegenbauer_c/*' />
+        public static Extended gegenbauer_c(int n, Extended lambda1, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Gegenbauer(res.mpPtr, n, lambda1.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Gegenbauer", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Gegenbauer(IntPtr res , int n, IntPtr lambda1, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gegenbauer_c/*' />
+        public static Extended gegenbauer_c(int n, dynamic lambda1, dynamic x)
+        {
+            return gegenbauer_c(n, t(lambda1), t(x));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_p/*' />
+        public static Extended jacobi_p(int n, Extended alpha, Extended beta, Extended x)
+        {
+            var res = new Extended();
+            Lib_XReal_Jacobi(res.mpPtr, n, alpha.mpPtr, beta.mpPtr, x.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Jacobi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Jacobi(IntPtr res, int n, IntPtr alpha, IntPtr beta, IntPtr x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_p/*' />
+        public static Extended jacobi_p(int n, dynamic alpha, dynamic beta, dynamic x)
+        {
+            return jacobi_p(n, t(alpha), t(beta), t(x));
+        }
+
+
+
+
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/spherical_harmonic_r/*' />
+        internal static Extended spherical_harmonic_r(int n, int m, Extended theta, Extended phi)
+        {
+            var res = new Extended();
+            Lib_XReal_SphericalHarmonicR(res.mpPtr, n, m, theta.mpPtr, phi.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_SphericalHarmonicR", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_SphericalHarmonicR(IntPtr res, int n, int m, IntPtr theta, IntPtr phi);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/spherical_harmonic_i/*' />
+        internal static Extended spherical_harmonic_i(int n, int m, Extended theta, Extended phi)
+        {
+            var res = new Extended();
+            Lib_XReal_SphericalHarmonicI(res.mpPtr, n, m, theta.mpPtr, phi.mpPtr);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_SphericalHarmonicI", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_SphericalHarmonicI(IntPtr res, int n, int m, IntPtr theta, IntPtr phi);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/spherical_y/*' />
+        public static ExtendedC spherical_y(Extended n, Extended m, Extended theta, Extended phi)
+        {
+            return ecplx.t(spherical_harmonic_r(lrint(n), lrint(m), theta, phi),
+                           spherical_harmonic_i(lrint(n), lrint(m), theta, phi));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/spherical_y/*' />
+        public static ExtendedC spherical_y(dynamic n, dynamic m, dynamic theta, dynamic phi)
+        {
+            return spherical_y(ereal.t(n), ereal.t(m), ereal.t(theta), ereal.t(phi));
+        }
+
+
+
+
+
+        #endregion
+
+
+
+        #endregion
+
+
+
+
+
+
+
+        #region Boost Distributions as classes
+
+
+        #region Base classes
+
+        public class BaseDistClass
+        {
+            internal static Extended nil = zero();
+            internal static int target = 1;
+            //internal static Extended a_;
+            //internal static Extended b_;
+            //internal static Extended c_;
+            //internal static Extended lambda1_;
+            //internal static Extended delta_;
+            //internal static Extended k_;
+            //internal static Extended m_;
+            //internal static Extended n_;
+            //internal static Extended p_;
+            //internal static Extended r_;
+            //internal static Extended mu_;
+            //internal static Extended sigma_;
+
+
+            internal virtual Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                return res;
+            }
+
+            public static ereal ctx
+            {
+                get { return new ereal(); }
+            }
+
+
+            //public ereal ctx()
+            //{
+            //    return new ereal();
+            //}
+
+
+
+            //public static String fmt(Extended x)
+            //{
+            //    string s = x.ToString();
+            //    return s;
+            //}
+
+
+            //public static String fmt(dynamic x)
+            //{
+            //    return fmt(t(x));
+            //}
+
+
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/cdf/*' />
+            public Extended cdf(Extended x)
+            {
+                target = 2;
+                return BaseDist(x);
+            }
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/cdf/*' />
+            public Extended cdf(dynamic x)
+            {
+                target = 2;
+                return BaseDist(ereal.t(x));
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/sf/*' />
+            public Extended sf(Extended x)
+            {
+                target = 3;
+                return BaseDist(x);
+            }
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/sf/*' />
+            public Extended sf(dynamic x)
+            {
+                target = 3;
+                return BaseDist(ereal.t(x));
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/hf/*' />
+            public Extended hf(Extended x)
+            {
+                target = 4;
+                return BaseDist(x);
+            }
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/hf/*' />
+            public Extended hf(dynamic x)
+            {
+                target = 4;
+                return BaseDist(ereal.t(x));
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/chf/*' />
+            public Extended chf(Extended x)
+            {
+                target = 5;
+                return BaseDist(x);
+            }
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/chf/*' />
+            public Extended chf(dynamic x)
+            {
+                target = 5;
+                return BaseDist(ereal.t(x));
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/qtf/*' />
+            public Extended qtf(Extended q)
+            {
+                target = 6;
+                return BaseDist(q);
+            }
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/qtf/*' />
+            public Extended qtf(dynamic q)
+            {
+                target = 6;
+                return BaseDist(ereal.t(q));
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/isf/*' />
+            public Extended isf(Extended q)
+            {
+                target = 7;
+                return BaseDist(q);
+            }
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/isf/*' />
+            public Extended isf(dynamic q)
+            {
+                target = 7;
+                return BaseDist(ereal.t(q));
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/mean/*' />
+            public Extended mean()
+            {
+                target = 8;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/median/*' />
+            public Extended median()
+            {
+                target = 9;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/mode/*' />
+            public Extended mode()
+            {
+                target = 10;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/variance/*' />
+            public Extended variance()
+            {
+                target = 11;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/stdev/*' />
+            public Extended stdev()
+            {
+                target = 12;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/skewness/*' />
+            public Extended skewness()
+            {
+                target = 13;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/kurtosis/*' />
+            public Extended kurtosis()
+            {
+                target = 14;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/kurtosis_excess/*' />
+            public Extended kurtosis_excess()
+            {
+                target = 15;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/support_lower_endpoint/*' />
+            public Extended support_lower_endpoint()
+            {
+                target = 16;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/support_upper_endpoint/*' />
+            public Extended support_upper_endpoint()
+            {
+                target = 17;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/range_lower_endpoint/*' />
+            public Extended range_lower_endpoint()
+            {
+                target = 18;
+                return BaseDist(nil);
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/range_upper_endpoint/*' />
+            public Extended range_upper_endpoint()
+            {
+                target = 19;
+                return BaseDist(nil);
+            }
+        }
+
+
+        public class BaseDistContClass : BaseDistClass
+        {
+
+            public bool IsContinuous()
+            {
+                return true;
+            }
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/pdf/*' />
+            public Extended pdf(Extended x)
+            {
+                target = 1;
+                return BaseDist(x);
+            }
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/pdf/*' />
+            public Extended pdf(dynamic x)
+            {
+                target = 1;
+                return BaseDist(ereal.t(x));
+            }
+        }
+
+
+        public class BaseDistDiscreteClass : BaseDistClass
+        {
+            public bool IsContinuous()
+            {
+                return false;
+            }
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/pmf/*' />
+            public Extended pmf(Extended x)
+            {
+                target = 1;
+                return BaseDist(x);
+            }
+
+
+            /// <include file="docs.xml" path='docs/members[@name="Boost"]/pmf/*' />
+            public Extended pmf(dynamic x)
+            {
+                target = 1;
+                return BaseDist(ereal.t(x));
+            }
+        }
+
+
+        #endregion
+
+
+
+        #region Discrete (lattice) distribution functions
+
+
+
+        #region BernoulliDist
+
+
+        public class BernoulliDistClass : BaseDistDiscreteClass
+        {
+            Extended p;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_BernoulliDist(target, res.mpPtr, xqp.mpPtr, p.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BernoulliDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_BernoulliDist(int target, IntPtr res, IntPtr xqp, IntPtr p);
+
+            public BernoulliDistClass(Extended _p)
+            {
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BernoulliDist/*' />
+        public static BernoulliDistClass dist_bernoulli(Extended p)
+        {
+            return new BernoulliDistClass(p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BernoulliDist/*' />
+        public static BernoulliDistClass dist_bernoulli(dynamic p)
+        {
+            return dist_bernoulli(ereal.t(p));
+        }
+
+        #endregion
+
+
+
+        #region GeometricDist
+
+
+        public class GeometricDistClass : BaseDistDiscreteClass
+        {
+            Extended p;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_GeometricDist(target, res.mpPtr, xqp.mpPtr, p.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GeometricDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_GeometricDist(int target, IntPtr res, IntPtr xqp, IntPtr p);
+
+            public GeometricDistClass(Extended _p)
+            {
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GeometricDist/*' />
+        public static GeometricDistClass dist_geometric(Extended p)
+        {
+            return new GeometricDistClass(p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GeometricDist/*' />
+        public static GeometricDistClass dist_geometric(dynamic p)
+        {
+            return dist_geometric(ereal.t(p));
+        }
+
+        #endregion
+
+
+
+        #region PoissonDist
+
+
+        public class PoissonDistClass : BaseDistDiscreteClass
+        {
+            Extended mu;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_PoissonDist(target, res.mpPtr, xqp.mpPtr, mu.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_PoissonDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_PoissonDist(int target, IntPtr res, IntPtr xqp, IntPtr mu);
+
+            public PoissonDistClass(Extended _mu)
+            {
+                mu = _mu;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/PoissonDist/*' />
+        public static PoissonDistClass dist_poisson(Extended mu)
+        {
+            return new PoissonDistClass(mu);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/PoissonDist/*' />
+        public static PoissonDistClass dist_poisson(dynamic mu)
+        {
+            return dist_poisson(ereal.t(mu));
+        }
+
+        #endregion
+
+
+
+        #region BinomialDist
+
+
+        public class BinomialDistClass : BaseDistDiscreteClass
+        {
+            Extended n;
+            Extended p;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_BinomialDist(target, res.mpPtr, xqp.mpPtr, n.mpPtr, p.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BinomialDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_BinomialDist(int target, IntPtr res, IntPtr xqp, IntPtr n, IntPtr p);
+
+            public BinomialDistClass(Extended _n, Extended _p)
+            {
+                n = _n;
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BinomialDist/*' />
+        public static BinomialDistClass dist_binomial(Extended n, Extended p)
+        {
+            return new BinomialDistClass(n, p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BinomialDist/*' />
+        public static BinomialDistClass dist_binomial(dynamic n, dynamic p)
+        {
+            return dist_binomial(ereal.t(n), ereal.t(p));
+        }
+
+        #endregion
+
+
+
+        #region NegBinomialDist
+
+
+        public class NegBinomialDistClass : BaseDistDiscreteClass
+        {
+            Extended r;
+            Extended p;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_NegBinomialDist(target, res.mpPtr, xqp.mpPtr, r.mpPtr, p.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NegBinomialDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_NegBinomialDist(int target, IntPtr res, IntPtr xqp, IntPtr r, IntPtr p);
+
+            public NegBinomialDistClass(Extended _r, Extended _p)
+            {
+                r = _r;
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NegBinomialDist/*' />
+        public static NegBinomialDistClass dist_negbinomial(Extended r, Extended p)
+        {
+            return new NegBinomialDistClass(r, p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NegBinomialDist/*' />
+        public static NegBinomialDistClass dist_negbinomial(dynamic r, dynamic p)
+        {
+            return dist_negbinomial(ereal.t(r), ereal.t(p));
+        }
+
+        #endregion
+
+
+
+        #region HypergeometricDist
+
+
+        public class HypergeometricDistClass : BaseDistDiscreteClass
+        {
+            internal UInt64 r__;
+            internal UInt64 n__;
+            internal UInt64 NN__;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_HypergeometricDist(target, res.mpPtr, xqp.mpPtr, r__, n__, NN__);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_HypergeometricDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_HypergeometricDist(int target, IntPtr res, IntPtr xqp, UInt64 r, UInt64 n, UInt64 NN);
+
+            public HypergeometricDistClass(UInt64 r, UInt64 n, UInt64 NN)
+            {
+                r__ = r;
+                n__ = n;
+                NN__ = NN;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HypergeometricDist/*' />
+        public static HypergeometricDistClass dist_hypergeometric(UInt64 r, UInt64 n, UInt64 NN)
+        {
+            return new HypergeometricDistClass(r, n, NN);
+        }
+
+        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/HypergeometricDist/*' />
+        //public static HypergeometricDistClass dist_hypergeometric(dynamic r, dynamic n, dynamic NN)
+        //{
+        //    return dist_hypergeometric(ereal.t(r), ereal.t(n), ereal.t(NN));
+        //}
+
+        #endregion
+
+
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Closed form distributions, based on elementary functions
+
+
+
+        #region ArcsineDist
+
+
+        public class ArcsineDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_ArcsineDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ArcsineDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_ArcsineDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public ArcsineDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ArcsineDist/*' />
+        public static ArcsineDistClass dist_arcsine(Extended a, Extended b)
+        {
+            return new ArcsineDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ArcsineDist/*' />
+        public static ArcsineDistClass dist_arcsine(dynamic a, dynamic b)
+        {
+            return dist_arcsine(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region CauchyDist
+
+
+        public class CauchyDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_CauchyDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_CauchyDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_CauchyDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public CauchyDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CauchyDist/*' />
+        public static CauchyDistClass dist_cauchy(Extended a, Extended b)
+        {
+            return new CauchyDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CauchyDist/*' />
+        public static CauchyDistClass dist_cauchy(dynamic a, dynamic b)
+        {
+            return dist_cauchy(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region ExponentialDist
+
+
+        public class ExponentialDistClass : BaseDistContClass
+        {
+            Extended lambda1;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_ExponentialDist(target, res.mpPtr, xqp.mpPtr, lambda1.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ExponentialDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_ExponentialDist(int target, IntPtr res, IntPtr xqp, IntPtr lambda1);
+
+            public ExponentialDistClass(Extended _lambda1)
+            {
+                lambda1 = _lambda1;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExponentialDist/*' />
+        public static ExponentialDistClass dist_exponential(Extended lambda1)
+        {
+            return new ExponentialDistClass(lambda1);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExponentialDist/*' />
+        public static ExponentialDistClass dist_exponential(dynamic lambda1)
+        {
+            return dist_exponential(ereal.t(lambda1));
+        }
+
+        #endregion
+
+
+
+
+        #region GumbelDist
+
+
+        public class GumbelDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_GumbelDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GumbelDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_GumbelDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public GumbelDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GumbelDist/*' />
+        public static GumbelDistClass dist_gumbel(Extended a, Extended b)
+        {
+            return new GumbelDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GumbelDist/*' />
+        public static GumbelDistClass dist_gumbel(dynamic a, dynamic b)
+        {
+            return dist_gumbel(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+        #region HyperexponentialDist
+
+
+        public class HyperexponentialDistClass : BaseDistContClass
+        {
+            private ExtendedVec matProb_ = new ExtendedVec();
+            private ExtendedVec matRate_ = new ExtendedVec();
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_HyperexponentialDist(target, res.mpPtr, xqp.mpPtr, matProb_.mpPtr, matRate_.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_HyperexponentialDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_HyperexponentialDist(int target, IntPtr res, IntPtr xqp, IntPtr Prob, IntPtr Rate);
+
+            public HyperexponentialDistClass(ExtendedVec Prob, ExtendedVec Rate)
+            {
+                matProb_ = Prob;
+                matRate_ = Rate;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HyperexponentialDist/*' />
+        public static HyperexponentialDistClass dist_hyperexponential(ExtendedVec Prob, ExtendedVec Rate)
+        {
+            return new HyperexponentialDistClass(Prob, Rate);
+        }
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/HyperexponentialDist/*' />
+        //public static HyperexponentialDistClass dist_hyperexponential(dynamic a, dynamic b)
+        //{
+        //    return dist_hyperexponential(t(a), t(b));
+        //}
+
+        #endregion
+
+
+
+
+        #region KumaraswamyDist
+
+
+        public class KumaraswamyDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                Extended res = t(0);
+                Extended pdf = t(0);
+                Extended sf = t(0);
+                if ((target == 1) || (target == 4))
+                {
+                    res = a * b * pow(xqp, a - 1);
+                    Extended temp = pow(-powm1(xqp, a), b - 1);
+                    pdf = res * temp;
+                }
+                if ((target == 3) || (target == 4) || (target == 5))
+                {
+                    sf = pow(-powm1(xqp, a), b);
+                }
+
+                switch (target)
+                {
+                    case 1: { res = pdf; break; } // pdf
+                    case 2: { res = -powm1(-powm1(xqp, a), b); break; } // cdf_P
+                    case 3: { res = sf; break; } // sf, cdf_Q
+                    case 4: { res = pdf / sf; break; } // Hazard
+                    case 5: { res = -log(sf); break; } // CHF
+                    case 6: { res = pow(-pow1pm1(-xqp, 1 / b), 1 / a); break; } // qtf, Pinv
+                    case 7: { res = pow(-powm1(xqp, 1 / b), 1 / a); break; } // isf, Qinv
+                    case 8: { res = t(8); break; } // Mean
+                    case 9: { res = t(9); break; } // Median
+                    case 10: { res = t(10); break; } // Mode
+                    case 11: { res = t(11); break; } // Variance
+                    case 12: { res = t(12); break; } // Stdev
+                    case 13: { res = t(13); break; } // Skewness
+                    case 14: { res = t(14); break; } // Kurtosis
+                    case 15: { res = t(15); break; } // KurtosisExcess
+                    case 16: { res = t(16); break; } // support_left
+                    case 17: { res = t(17); break; } // support_right
+                    case 18: { res = t(18); break; } // range_left
+                    case 19: { res = t(19); break; } // range_right
+                    default: break;
+                }
+                return res;
+            }
+
+            public KumaraswamyDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_kumaraswamy/*' />
+        public static KumaraswamyDistClass dist_kumaraswamy(Extended a, Extended b)
+        {
+            return new KumaraswamyDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_kumaraswamy/*' />
+        public static KumaraswamyDistClass dist_kumaraswamy(dynamic a, dynamic b)
+        {
+            return dist_kumaraswamy(t(a), t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region LaplaceDist
+
+
+        public class LaplaceDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_LaplaceDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LaplaceDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_LaplaceDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public LaplaceDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LaplaceDist/*' />
+        public static LaplaceDistClass dist_laplace(Extended a, Extended b)
+        {
+            return new LaplaceDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LaplaceDist/*' />
+        public static LaplaceDistClass dist_laplace(dynamic a, dynamic b)
+        {
+            return dist_laplace(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region LogisticDist
+
+
+        public class LogisticDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_LogisticDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LogisticDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_LogisticDist(int target, IntPtr res, IntPtr xqp, IntPtr loc, IntPtr scale);
+
+            public LogisticDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LogisticDist/*' />
+        public static LogisticDistClass dist_logistic(Extended a, Extended b)
+        {
+            return new LogisticDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LogisticDist/*' />
+        public static LogisticDistClass dist_logistic(dynamic a, dynamic b)
+        {
+            return dist_logistic(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region ParetoDist
+
+
+        public class ParetoDistClass : BaseDistContClass
+        {
+            Extended k;
+            Extended a;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_ParetoDist(target, res.mpPtr, xqp.mpPtr, k.mpPtr, a.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ParetoDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_ParetoDist(int target, IntPtr res, IntPtr xqp, IntPtr k, IntPtr a);
+
+            public ParetoDistClass(Extended _k, Extended _a)
+            {
+                k = _k;
+                a = _a;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ParetoDist/*' />
+        public static ParetoDistClass dist_pareto(Extended k, Extended a)
+        {
+            return new ParetoDistClass(k, a);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ParetoDist/*' />
+        public static ParetoDistClass dist_pareto(dynamic k, dynamic a)
+        {
+            return dist_pareto(ereal.t(k), ereal.t(a));
+        }
+
+        #endregion
+
+
+
+
+        #region RayleighDist
+
+
+        public class RayleighDistClass : BaseDistContClass
+        {
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_RayleighDist(target, res.mpPtr, xqp.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_RayleighDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_RayleighDist(int target, IntPtr res, IntPtr xqp, IntPtr b);
+
+            public RayleighDistClass(Extended _b)
+            {
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RayleighDist/*' />
+        public static RayleighDistClass dist_rayleigh(Extended b)
+        {
+            return new RayleighDistClass(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RayleighDist/*' />
+        public static RayleighDistClass dist_rayleigh(dynamic b)
+        {
+            return dist_rayleigh(ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region TriangularDist
+
+
+        public class TriangularDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended m;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_TriangularDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, m.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_TriangularDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_TriangularDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr m, IntPtr b);
+
+            public TriangularDistClass(Extended _a, Extended _m, Extended _b)
+            {
+                a = _a;
+                m = _m;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TriangularDist/*' />
+        public static TriangularDistClass dist_triangular(Extended a, Extended m, Extended b)
+        {
+            return new TriangularDistClass(a, m, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TriangularDist/*' />
+        public static TriangularDistClass dist_triangular(dynamic a, dynamic m, dynamic b)
+        {
+            return dist_triangular(ereal.t(a), ereal.t(m), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region UniformDist
+
+
+        public class UniformDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_UniformDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_UniformDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_UniformDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public UniformDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/UniformDist/*' />
+        public static UniformDistClass dist_uniform(Extended a, Extended b)
+        {
+            return new UniformDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/UniformDist/*' />
+        public static UniformDistClass dist_uniform(dynamic a, dynamic b)
+        {
+            return dist_uniform(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region WeibullDist
+
+
+        public class WeibullDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_WeibullDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_WeibullDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_WeibullDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public WeibullDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WeibullDist/*' />
+        public static WeibullDistClass dist_weibull(Extended a, Extended b)
+        {
+            return new WeibullDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WeibullDist/*' />
+        public static WeibullDistClass dist_weibull(dynamic a, dynamic b)
+        {
+            return dist_weibull(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+        #endregion
+
+
+
+        #region Closed form distributions, based on the error function
+
+
+
+        #region LevyDist
+
+
+        public class LevyDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                Extended res = t(0);
+                Extended pdf = t(0);
+                Extended sf = t(0);
+                if ((target == 1) || (target == 4))
+                {
+                    Extended s = sqrt(b / (2 * pi()));
+                    Extended t = exp(-b / (2 * (xqp - a)));
+                    Extended u = pow(xqp - a, 1.5);
+                    pdf = s * t / u;
+                }
+                if ((target == 3) || (target == 4) || (target == 5))
+                {
+                    Extended s = sqrt(b / (2 * (xqp - a)));
+                    sf = erf(s);
+                }
+
+                switch (target)
+                {
+                    case 1: { res = pdf; break; } // pdf
+                    case 2:
+                        {
+                            Extended s = sqrt(b / (2 * (xqp - a)));
+                            res = erfc(s); break;
+                        } // cdf_P
+                    case 3: { res = sf; break; } // sf, cdf_Q
+                    case 4: { res = pdf / sf; break; } // Hazard
+                    case 5: { res = -log(sf); break; } // CHF
+                    case 6:
+                        {
+                            Extended s1 = erfc_inv(xqp);
+                            s1 = 2 * s1 * s1;
+                            res = a + b / s1; break;
+                        } // qtf, Pinv
+                    case 7:
+                        {
+                            Extended s1 = erf_inv(xqp);
+                            s1 = 2 * s1 * s1;
+                            res = a + b / s1; break;
+                        } // isf, Qinv
+                    case 8: { res = t(8); break; } // Mean
+                    case 9: { res = t(9); break; } // Median
+                    case 10: { res = t(10); break; } // Mode
+                    case 11: { res = t(11); break; } // Variance
+                    case 12: { res = t(12); break; } // Stdev
+                    case 13: { res = t(13); break; } // Skewness
+                    case 14: { res = t(14); break; } // Kurtosis
+                    case 15: { res = t(15); break; } // KurtosisExcess
+                    case 16: { res = t(16); break; } // support_left
+                    case 17: { res = t(17); break; } // support_right
+                    case 18: { res = t(18); break; } // range_left
+                    case 19: { res = t(19); break; } // range_right
+                    default: break;
+                }
+                return res;
+            }
+
+            public LevyDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_levy/*' />
+        public static LevyDistClass dist_levy(Extended a, Extended b)
+        {
+            return new LevyDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_levy/*' />
+        public static LevyDistClass dist_levy(dynamic a, dynamic b)
+        {
+            return dist_levy(t(a), t(b));
+        }
+
+        #endregion
+
+
+
+
+
+        #region LognormalDist
+
+
+        public class LognormalDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_LognormalDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LognormalDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_LognormalDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public LognormalDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LognormalDist/*' />
+        public static LognormalDistClass dist_lognormal(Extended a, Extended b)
+        {
+            return new LognormalDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LognormalDist/*' />
+        public static LognormalDistClass dist_lognormal(dynamic a, dynamic b)
+        {
+            return dist_lognormal(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region MoyalDist
+
+
+        public class MoyalDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                Extended res = t(0);
+                Extended pdf = t(0);
+                Extended sf = t(0);
+                if ((target == 1) || (target == 4))
+                {
+                    Extended t1 = (xqp - a) / (2 * b);
+                    Extended t2 = t("0.5") * exp(-(xqp - a) / b);
+                    Extended s = b * sqrt(2 * pi());
+                    pdf = exp(-t1 - t2) / s;
+                }
+                if ((target == 3) || (target == 4) || (target == 5))
+                {
+                    Extended s = exp(-(xqp - a) / (2 * b)) / sqrt(2);
+                    sf = erf(s);
+                }
+
+                switch (target)
+                {
+                    case 1: { res = pdf; break; } // pdf
+                    case 2:
+                        {
+                            Extended s = exp(-(xqp - a) / (2 * b)) / sqrt(2);
+                            res = erfc(s); break;
+                        } // cdf_P
+                    case 3: { res = sf; break; } // sf, cdf_Q
+                    case 4: { res = pdf / sf; break; } // Hazard
+                    case 5: { res = -log(sf); break; } // CHF
+                    case 6:
+                        {
+                            Extended s1 = erfc_inv(xqp);
+                            s1 = 2 * s1 * s1;
+                            res = a - b * log(s1); break;
+                        } // qtf, Pinv
+                    case 7:
+                        {
+                            Extended s1 = erf_inv(xqp);
+                            s1 = 2 * s1 * s1;
+                            res = a - b * log(s1); break;
+                        } // isf, Qinv
+                    case 8: { res = t(8); break; } // Mean
+                    case 9: { res = t(9); break; } // Median
+                    case 10: { res = t(10); break; } // Mode
+                    case 11: { res = t(11); break; } // Variance
+                    case 12: { res = t(12); break; } // Stdev
+                    case 13: { res = t(13); break; } // Skewness
+                    case 14: { res = t(14); break; } // Kurtosis
+                    case 15: { res = t(15); break; } // KurtosisExcess
+                    case 16: { res = t(16); break; } // support_left
+                    case 17: { res = t(17); break; } // support_right
+                    case 18: { res = t(18); break; } // range_left
+                    case 19: { res = t(19); break; } // range_right
+                    default: break;
+                }
+                return res;
+            }
+
+            public MoyalDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_moyal/*' />
+        public static MoyalDistClass dist_moyal(Extended a, Extended b)
+        {
+            return new MoyalDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_moyal/*' />
+        public static MoyalDistClass dist_moyal(dynamic a, dynamic b)
+        {
+            return dist_moyal(t(a), t(b));
+        }
+
+        #endregion
+
+
+
+
+
+
+        #region NormalDist
+
+
+        public class NormalDistClass : BaseDistContClass
+        {
+            Extended mu;
+            Extended sigma;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_NormalDist(target, res.mpPtr, xqp.mpPtr, mu.mpPtr, sigma.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NormalDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_NormalDist(int target, IntPtr res, IntPtr xqp, IntPtr mu, IntPtr sigma);
+
+            public NormalDistClass(Extended _mu, Extended _sigma)
+            {
+                mu = _mu;
+                sigma = _sigma;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NormalDist/*' />
+        public static NormalDistClass dist_normal(Extended mu, Extended sigma)
+        {
+            return new NormalDistClass(mu, sigma);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NormalDist/*' />
+        public static NormalDistClass dist_normal(dynamic mu, dynamic sigma)
+        {
+            return dist_normal(ereal.t(mu), ereal.t(sigma));
+        }
+
+        #endregion
+
+
+
+
+        #region SkewNormalDist
+
+
+        public class SkewNormalDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            Extended c;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_SkewNormalDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr, c.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_SkewNormalDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_SkewNormalDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b, IntPtr c);
+
+            public SkewNormalDistClass(Extended _a, Extended _b, Extended _c)
+            {
+                a = _a;
+                b = _b;
+                c = _c;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SkewNormalDist/*' />
+        public static SkewNormalDistClass dist_skewnormal(Extended a, Extended b, Extended c)
+        {
+            return new SkewNormalDistClass(a, b, c);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SkewNormalDist/*' />
+        public static SkewNormalDistClass dist_skewnormal(dynamic a, dynamic b, dynamic c)
+        {
+            return dist_skewnormal(ereal.t(a), ereal.t(b), ereal.t(c));
+        }
+
+        #endregion
+
+
+
+
+        #region WaldDist
+        // InverseGaussianDist
+
+        public class WaldDistClass : BaseDistContClass
+        {
+            Extended mu;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_WaldDist(target, res.mpPtr, xqp.mpPtr, mu.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_WaldDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_WaldDist(int target, IntPtr res, IntPtr xqp, IntPtr mu, IntPtr b);
+
+            public WaldDistClass(Extended _mu, Extended _b)
+            {
+                mu = _mu;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WaldDist/*' />
+        public static WaldDistClass dist_wald(Extended mu, Extended b)
+        {
+            return new WaldDistClass(mu, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WaldDist/*' />
+        public static WaldDistClass dist_wald(dynamic mu, dynamic b)
+        {
+            return dist_wald(ereal.t(mu), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+
+        #endregion
+
+
+
+        #region Closed form distributions, based on the incomplete gamma function
+
+
+
+        #region ChiDist
+
+
+        public class ChiDistClass : BaseDistContClass
+        {
+            Extended n;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                Extended res = t(0);
+                Extended pdf = t(0);
+                Extended sf = t(0);
+                if ((target == 1) || (target == 4))
+                {
+                    pdf = 2 * xqp * dist_chi2(n).pdf(xqp * xqp);
+                }
+                if ((target == 3) || (target == 4) || (target == 5))
+                {
+                    sf = dist_chi2(n).sf(xqp * xqp);
+                }
+
+                switch (target)
+                {
+                    case 1: { res = pdf; break; } // pdf
+                    case 2:
+                        {
+                            res = dist_chi2(n).cdf(xqp * xqp); break;
+                        } // cdf_P
+                    case 3: { res = sf; break; } // sf, cdf_Q
+                    case 4: { res = pdf / sf; break; } // Hazard
+                    case 5: { res = -log(sf); break; } // CHF
+                    case 6:
+                        {
+                            res = sqrt(dist_chi2(n).qtf(xqp)); break;
+                        } // qtf, Pinv
+                    case 7:
+                        {
+                            res = sqrt(dist_chi2(n).isf(xqp)); break;
+                        } // isf, Qinv
+                    case 8: { res = t(8); break; } // Mean
+                    case 9: { res = t(9); break; } // Median
+                    case 10: { res = t(10); break; } // Mode
+                    case 11: { res = t(11); break; } // Variance
+                    case 12: { res = t(12); break; } // Stdev
+                    case 13: { res = t(13); break; } // Skewness
+                    case 14: { res = t(14); break; } // Kurtosis
+                    case 15: { res = t(15); break; } // KurtosisExcess
+                    case 16: { res = t(16); break; } // support_left
+                    case 17: { res = t(17); break; } // support_right
+                    case 18: { res = t(18); break; } // range_left
+                    case 19: { res = t(19); break; } // range_right
+                    default: break;
+                }
+                return res;
+            }
+
+            public ChiDistClass(Extended _n)
+            {
+                n = _n;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi/*' />
+        public static ChiDistClass dist_chi(Extended n)
+        {
+            return new ChiDistClass(n);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi/*' />
+        public static ChiDistClass dist_chi(dynamic n)
+        {
+            return dist_chi(t(n));
+        }
+
+        #endregion
+
+
+
+
+
+        #region Chi2Dist
+
+
+        public class Chi2DistClass : BaseDistContClass
+        {
+            Extended n;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_Chi2Dist(target, res.mpPtr, xqp.mpPtr, n.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Chi2Dist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_Chi2Dist(int target, IntPtr res, IntPtr xqp, IntPtr n);
+
+            public Chi2DistClass(Extended _n)
+            {
+                n = _n;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2Dist/*' />
+        public static Chi2DistClass dist_chi2(Extended n)
+        {
+            return new Chi2DistClass(n);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2Dist/*' />
+        public static Chi2DistClass dist_chi2(dynamic n)
+        {
+            return dist_chi2(ereal.t(n));
+        }
+
+        #endregion
+
+
+
+
+        #region GammaDist
+
+
+        public class GammaDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_GammaDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GammaDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_GammaDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public GammaDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GammaDist/*' />
+        public static GammaDistClass dist_gamma(Extended a, Extended b)
+        {
+            return new GammaDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GammaDist/*' />
+        public static GammaDistClass dist_gamma(dynamic a, dynamic b)
+        {
+            return dist_gamma(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region InverseChi2Dist
+        // a = df, b = scale
+
+        public class InverseChi2DistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_InverseChi2Dist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_InverseChi2Dist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_InverseChi2Dist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public InverseChi2DistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseChi2Dist/*' />
+        public static InverseChi2DistClass dist_inverse_chi2(Extended a, Extended b)
+        {
+            return new InverseChi2DistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseChi2Dist/*' />
+        public static InverseChi2DistClass dist_inverse_chi2(dynamic a, dynamic b)
+        {
+            return dist_inverse_chi2(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+
+        #region InverseGammaDist
+        // a = df, b = scale
+
+        public class InverseGammaDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_InverseGammaDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_InverseGammaDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_InverseGammaDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public InverseGammaDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseGammaDist/*' />
+        public static InverseGammaDistClass dist_inverse_gamma(Extended a, Extended b)
+        {
+            return new InverseGammaDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseGammaDist/*' />
+        public static InverseGammaDistClass dist_inverse_gamma(dynamic a, dynamic b)
+        {
+            return dist_inverse_gamma(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+        #region MaxwellDist
+
+
+        public class MaxwellDistClass : BaseDistContClass
+        {
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                Extended res = t(0);
+                Extended pdf = t(0);
+                Extended sf = t(0);
+                if ((target == 1) || (target == 4))
+                {
+                    Extended s = sqrt(2 / pi());
+                    Extended t = (xqp * xqp) / (b * b * b);
+                    Extended u = exp(-(xqp * xqp) / (2 * b * b));
+                    pdf = s * t * u;
+                }
+                if ((target == 3) || (target == 4) || (target == 5))
+                {
+                    Extended n = t(1.5);
+                    Extended t2 = (xqp * xqp) / (2 * b * b);
+                    sf = gamma_q(n, t2);
+                }
+
+                switch (target)
+                {
+                    case 1: { res = pdf; break; } // pdf
+                    case 2:
+                        {
+                            Extended n = t(1.5);
+                            Extended t2 = (xqp * xqp) / (2 * b * b);
+                            res = gamma_p(n, t2);
+                            break;
+                        } // cdf_P
+                    case 3: { res = sf; break; } // sf, cdf_Q
+                    case 4: { res = pdf / sf; break; } // Hazard
+                    case 5: { res = -log(sf); break; } // CHF
+                    case 6:
+                        {
+                            Extended n = t(1.5);
+                            Extended t2 = (xqp * xqp) / (2 * b * b);
+                            res = b * sqrt(2 * gamma_p_inv(n, xqp));
+                            break;
+                        } // qtf, Pinv
+                    case 7:
+                        {
+                            Extended n = t(1.5);
+                            Extended t2 = (xqp * xqp) / (2 * b * b);
+                            res = b * sqrt(2 * gamma_q_inv(n, xqp));
+                            break;
+                        } // isf, Qinv
+                    case 8: { res = t(8); break; } // Mean
+                    case 9: { res = t(9); break; } // Median
+                    case 10: { res = t(10); break; } // Mode
+                    case 11: { res = t(11); break; } // Variance
+                    case 12: { res = t(12); break; } // Stdev
+                    case 13: { res = t(13); break; } // Skewness
+                    case 14: { res = t(14); break; } // Kurtosis
+                    case 15: { res = t(15); break; } // KurtosisExcess
+                    case 16: { res = t(16); break; } // support_left
+                    case 17: { res = t(17); break; } // support_right
+                    case 18: { res = t(18); break; } // range_left
+                    case 19: { res = t(19); break; } // range_right
+                    default: break;
+                }
+                return res;
+            }
+
+            public MaxwellDistClass(Extended _b)
+            {
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_maxwell/*' />
+        public static MaxwellDistClass dist_maxwell(Extended b)
+        {
+            return new MaxwellDistClass(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_maxwell/*' />
+        public static MaxwellDistClass dist_maxwell(dynamic b)
+        {
+            return dist_maxwell(t(b));
+        }
+
+        #endregion
+
+
+
+        #region NakagamiDist
+
+
+        public class NakagamiDistClass : BaseDistContClass
+        {
+            Extended m;
+            Extended w;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                Extended res = t(0);
+                Extended pdf = t(0);
+                Extended sf = t(0);
+                if ((target == 1) || (target == 4))
+                {
+                    Extended s = exp(-m * xqp * xqp / w) * 2 * pow(m / w, m) * pow(xqp, 2 * m - 1);
+                    Extended t = gamma(m);
+                    pdf = s / t;
+                }
+                if ((target == 3) || (target == 4) || (target == 5))
+                {
+                    sf = gamma_q(m, m * xqp * xqp / w);
+                }
+
+                switch (target)
+                {
+                    case 1: { res = pdf; break; } // pdf
+                    case 2:
+                        {
+                            res = gamma_p(m, m * xqp * xqp / w);
+                            break;
+                        } // cdf_P
+                    case 3: { res = sf; break; } // sf, cdf_Q
+                    case 4: { res = pdf / sf; break; } // Hazard
+                    case 5: { res = -log(sf); break; } // CHF
+                    case 6:
+                        {
+                            res = sqrt((w / m) * gamma_p_inv(m, xqp));
+                            break;
+                        } // qtf, Pinv
+                    case 7:
+                        {
+                            res = sqrt((w / m) * gamma_q_inv(m, xqp));
+                            break;
+                        } // isf, Qinv
+                    case 8: { res = t(8); break; } // Mean
+                    case 9: { res = t(9); break; } // Median
+                    case 10: { res = t(10); break; } // Mode
+                    case 11: { res = t(11); break; } // Variance
+                    case 12: { res = t(12); break; } // Stdev
+                    case 13: { res = t(13); break; } // Skewness
+                    case 14: { res = t(14); break; } // Kurtosis
+                    case 15: { res = t(15); break; } // KurtosisExcess
+                    case 16: { res = t(16); break; } // support_left
+                    case 17: { res = t(17); break; } // support_right
+                    case 18: { res = t(18); break; } // range_left
+                    case 19: { res = t(19); break; } // range_right
+                    default: break;
+                }
+                return res;
+            }
+
+            public NakagamiDistClass(Extended _m, Extended _w)
+            {
+                m = _m;
+                w = _w;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_nakagami/*' />
+        public static NakagamiDistClass dist_nakagami(Extended m, Extended w)
+        {
+            return new NakagamiDistClass(m, w);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_nakagami/*' />
+        public static NakagamiDistClass dist_nakagami(dynamic m, dynamic w)
+        {
+            return dist_nakagami(t(m), t(w));
+        }
+
+        #endregion
+
+
+
+
+
+
+
+        #endregion
+
+
+
+        #region Closed form distributions, based on the incomplete beta function
+
+
+        #region BetaDist
+
+
+        public class BetaDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_BetaDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BetaDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_BetaDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public BetaDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaDist/*' />
+        public static BetaDistClass dist_beta(Extended a, Extended b)
+        {
+            return new BetaDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaDist/*' />
+        public static BetaDistClass dist_beta(dynamic a, dynamic b)
+        {
+            return dist_beta(ereal.t(a), ereal.t(b));
+        }
+
+        #endregion
+
+
+
+        #region FisherFDist
+
+
+        public class FisherFDistClass : BaseDistContClass
+        {
+            Extended m;
+            Extended n;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_FisherFDist(target, res.mpPtr, xqp.mpPtr, m.mpPtr, n.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_FisherFDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_FisherFDist(int target, IntPtr res, IntPtr xqp, IntPtr m, IntPtr n);
+
+            public FisherFDistClass(Extended _m, Extended _n)
+            {
+                m = _m;
+                n = _n;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherFDist/*' />
+        public static FisherFDistClass dist_fisher_f(Extended m, Extended n)
+        {
+            return new FisherFDistClass(m, n);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherFDist/*' />
+        public static FisherFDistClass dist_fisher_f(dynamic m, dynamic n)
+        {
+            return dist_fisher_f(ereal.t(m), ereal.t(n));
+        }
+
+        #endregion
+
+
+
+        #region StudentTDist
+
+
+        public class StudentTDistClass : BaseDistContClass
+        {
+            Extended n;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_StudentTDist(target, res.mpPtr, xqp.mpPtr, n.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_StudentTDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_StudentTDist(int target, IntPtr res, IntPtr xqp, IntPtr n);
+
+            public StudentTDistClass(Extended _n)
+            {
+                n = _n;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTDist/*' />
+        public static StudentTDistClass dist_student_t(Extended n)
+        {
+            return new StudentTDistClass(n);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTDist/*' />
+        public static StudentTDistClass dist_student_t(dynamic n)
+        {
+            return dist_student_t(ereal.t(n));
+        }
+
+        #endregion
+
+
+        #endregion
+
+
+
+        #region Non-central distribution functions
+
+
+        #region Chi2NcDist
+
+
+        public class Chi2NcDistClass : BaseDistContClass
+        {
+            Extended n;
+            Extended lambda1;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_Chi2NcDist(target, res.mpPtr, xqp.mpPtr, n.mpPtr, lambda1.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Chi2NcDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_Chi2NcDist(int target, IntPtr res, IntPtr xqp, IntPtr n, IntPtr lambda1);
+
+            public Chi2NcDistClass(Extended _n, Extended _lambda1)
+            {
+                n = _n;
+                lambda1 = _lambda1;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2NcDist/*' />
+        public static Chi2NcDistClass dist_chi2_nc(Extended n, Extended lambda1)
+        {
+            return new Chi2NcDistClass(n, lambda1);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2NcDist/*' />
+        public static Chi2NcDistClass dist_chi2_nc(dynamic n, dynamic lambda1)
+        {
+            return dist_chi2_nc(ereal.t(n), ereal.t(lambda1));
+        }
+
+        #endregion
+
+
+
+        #region StudentTNcDist
+
+
+        public class StudentTNcDistClass : BaseDistContClass
+        {
+            Extended n;
+            Extended delta;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_StudentTNcDist(target, res.mpPtr, xqp.mpPtr, n.mpPtr, delta.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_StudentTNcDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_StudentTNcDist(int target, IntPtr res, IntPtr xqp, IntPtr n, IntPtr delta);
+
+            public StudentTNcDistClass(Extended _n, Extended _delta)
+            {
+                n = _n;
+                delta = _delta;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTNcDist/*' />
+        public static StudentTNcDistClass dist_student_t_nc(Extended n, Extended delta)
+        {
+            return new StudentTNcDistClass(n, delta);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTNcDist/*' />
+        public static StudentTNcDistClass dist_student_t_nc(dynamic n, dynamic delta)
+        {
+            return dist_student_t_nc(ereal.t(n), ereal.t(delta));
+        }
+
+        #endregion
+
+
+
+        #region FisherFNcDist
+
+
+        public class FisherFNcDistClass : BaseDistContClass
+        {
+            Extended m;
+            Extended n;
+            Extended lambda1;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_FisherNcDist(target, res.mpPtr, xqp.mpPtr, m.mpPtr, n.mpPtr, lambda1.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_FisherNcDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_FisherNcDist(int target, IntPtr res, IntPtr xqp, IntPtr m, IntPtr n, IntPtr lambda1);
+
+            public FisherFNcDistClass(Extended _m, Extended _n, Extended _lambda1)
+            {
+                m = _m;
+                n = _n;
+                lambda1 = _lambda1;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherNcDist/*' />
+        public static FisherFNcDistClass dist_fisher_f_nc(Extended m, Extended n, Extended lambda1)
+        {
+            return new FisherFNcDistClass(m, n, lambda1);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherNcDist/*' />
+        public static FisherFNcDistClass dist_fisher_f_nc(dynamic m, dynamic n, dynamic lambda1)
+        {
+            return dist_fisher_f_nc(ereal.t(m), ereal.t(n), ereal.t(lambda1));
+        }
+
+        #endregion
+
+
+
+        #region BetaNcDist
+
+
+        public class BetaNcDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            Extended lambda1;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_BetaNcDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr, lambda1.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BetaNcDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_BetaNcDist(int target, IntPtr res, IntPtr xqp, IntPtr nu, IntPtr mu, IntPtr lambda1);
+
+            public BetaNcDistClass(Extended _a, Extended _b, Extended _lambda1)
+            {
+                a = _a;
+                b = _b;
+                lambda1 = _lambda1;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaNcDist/*' />
+        public static BetaNcDistClass dist_beta_nc(Extended a, Extended b, Extended lambda1)
+        {
+            return new BetaNcDistClass(a, b, lambda1);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaNcDist/*' />
+        public static BetaNcDistClass dist_beta_nc(dynamic a, dynamic b, dynamic lambda1)
+        {
+            return dist_beta_nc(ereal.t(a), ereal.t(b), ereal.t(lambda1));
+        }
+
+        #endregion
+
+
+
+        #endregion
+
+
+
+
+        #region Miscellaneous continuous distributions
+
+
+
+        #region KolmogorovSmirnovDist
+
+
+        public class KolmogorovSmirnovDistClass : BaseDistContClass
+        {
+            Extended n;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_KolmogorovSmirnovDist(target, res.mpPtr, xqp.mpPtr, n.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_KolmogorovSmirnovDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_KolmogorovSmirnovDist(int target, IntPtr res, IntPtr xqp, IntPtr a);
+
+            public KolmogorovSmirnovDistClass(Extended _n)
+            {
+                n = _n;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/KolmogorovSmirnovDist/*' />
+        public static KolmogorovSmirnovDistClass dist_kolmogorov_smirnov(Extended n)
+        {
+            return new KolmogorovSmirnovDistClass(n);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/KolmogorovSmirnovDist/*' />
+        public static KolmogorovSmirnovDistClass dist_kolmogorov_smirnov(dynamic n)
+        {
+            return dist_kolmogorov_smirnov(t(n));
+        }
+
+        #endregion
+
+
+
+        #region HoltsmarkDist
+
+
+        public class HoltsmarkDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_HoltsmarkDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_HoltsmarkDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_HoltsmarkDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public HoltsmarkDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HoltsmarkDist/*' />
+        public static HoltsmarkDistClass dist_holtsmark(Extended a, Extended b)
+        {
+            return new HoltsmarkDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HoltsmarkDist/*' />
+        public static HoltsmarkDistClass dist_holtsmark(dynamic a, dynamic b)
+        {
+            return dist_holtsmark(t(a), t(b));
+        }
+
+        #endregion
+
+
+
+        #region LandauDist
+
+
+        public class LandauDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_LandauDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LandauDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_LandauDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public LandauDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LandauDist/*' />
+        public static LandauDistClass dist_landau(Extended a, Extended b)
+        {
+            return new LandauDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LandauDist/*' />
+        public static LandauDistClass dist_landau(dynamic a, dynamic b)
+        {
+            return dist_landau(t(a), t(b));
+        }
+
+        #endregion
+
+
+
+        #region MapAiryDist
+
+
+        public class MapAiryDistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_MapAiryDist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_MapAiryDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_MapAiryDist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public MapAiryDistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/MapAiryDist/*' />
+        public static MapAiryDistClass dist_mapairy(Extended a, Extended b)
+        {
+            return new MapAiryDistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/MapAiryDist/*' />
+        public static MapAiryDistClass dist_mapairy(dynamic a, dynamic b)
+        {
+            return dist_mapairy(t(a), t(b));
+        }
+
+        #endregion
+
+
+
+        #region Saspoint5Dist
+
+
+        public class Saspoint5DistClass : BaseDistContClass
+        {
+            Extended a;
+            Extended b;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_Saspoint5Dist(target, res.mpPtr, xqp.mpPtr, a.mpPtr, b.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Saspoint5Dist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_Saspoint5Dist(int target, IntPtr res, IntPtr xqp, IntPtr a, IntPtr b);
+
+            public Saspoint5DistClass(Extended _a, Extended _b)
+            {
+                a = _a;
+                b = _b;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Saspoint5Dist/*' />
+        public static Saspoint5DistClass dist_saspoint5(Extended a, Extended b)
+        {
+            return new Saspoint5DistClass(a, b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Saspoint5Dist/*' />
+        public static Saspoint5DistClass dist_saspoint5(dynamic a, dynamic b)
+        {
+            return dist_saspoint5(t(a), t(b));
+        }
+
+        #endregion
+
+
+
+        #endregion
+
+
+
+
+        #endregion
+
+
+
+
+
+
+        #region Boost Calculus
+
+
+
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Set", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Set(IntPtr res, IntPtr x);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BracketRoot/*' />
+        public static Tuple<Extended, Extended, int> BracketRoot(cb1SExtended1S f, dynamic guess, dynamic factor, bool is_rising, int get_digits, uint maxit)
+        {
+            return BracketRoot(f, ereal.t(guess), ereal.t(factor), is_rising, get_digits, maxit);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BracketRoot/*' />
+        public static Tuple<Extended, Extended, int> BracketRoot(cb1SExtended1S f, Extended guess, Extended factor, bool is_rising, int get_digits, uint maxit)
+        {
+            var XBracketRoot1 = new XBracketRoot(f, guess, factor, is_rising, get_digits, maxit);
+            return XBracketRoot1.Find();
+        }
+        internal class XBracketRoot
+        {
+            private cb1SExtended1S F1_;
+            private Extended guess_;
+            private Extended factor_;
+            private bool is_rising_;
+            private int get_digits_;
+            private uint maxit_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XBracketRoot(cb1SExtended1S F1, Extended guess, Extended factor, bool is_rising, int get_digits, uint maxit)
+            {
+                F1_ = F1;
+                guess_ = guess;
+                factor_ = factor;
+                is_rising_ = is_rising;
+                get_digits_ = get_digits;
+                maxit_ = maxit;
+            }
+            public Tuple<Extended, Extended, int> Find()
+            {
+                var res1 = new Extended();
+                var res2 = new Extended();
+                int iter = 0;
+                Lib_XReal_BracketRoot(res1.mpPtr, res2.mpPtr, ref iter, funcptr1, guess_.mpPtr, factor_.mpPtr, is_rising_, get_digits_, maxit_);
+                return new Tuple<Extended, Extended, int>(res1, res2, iter);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BracketRoot", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_BracketRoot(IntPtr res1, IntPtr res2, ref int iter, cbProc2Ptr f, IntPtr guess, IntPtr factor, bool is_rising, int get_digits, uint maxit);
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NewtonRaphson/*' />
+        public static Tuple<Extended, int> NewtonRaphson(cb1SExtended1S f, cb1SExtended1S df, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        {
+            return NewtonRaphson(f, df, ereal.t(guess), ereal.t(xmin), ereal.t(xmax), get_digits, maxit);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NewtonRaphson/*' />
+        public static Tuple<Extended, int> NewtonRaphson(cb1SExtended1S f, cb1SExtended1S df, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+        {
+            var XNewtonRaphson1 = new XNewtonRaphson(f, df, guess, xmin, xmax, get_digits, maxit);
+            return XNewtonRaphson1.Find();
+        }
+        internal class XNewtonRaphson
+        {
+            private cb1SExtended1S F1_;
+            private cb1SExtended1S DF1_;
+            private Extended guess_;
+            private Extended xmin_;
+            private Extended xmax_;
+            private int get_digits_;
+            private uint maxit_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            private Extended DX1 = new Extended();
+            private Extended DY1 = new Extended();
+            public void funcptr0(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public void funcptr1(IntPtr dxPtr, IntPtr dfxPtr)
+            {
+                Lib_XReal_Set(DX1.mpPtr, dxPtr);
+                DY1 = DF1_(DX1);
+                Lib_XReal_Set(dfxPtr, DY1.mpPtr);
+            }
+            public XNewtonRaphson(cb1SExtended1S F1, cb1SExtended1S DF1, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+            {
+                F1_ = F1;
+                DF1_ = DF1;
+                guess_ = guess;
+                xmin_ = xmin;
+                xmax_ = xmax;
+                get_digits_ = get_digits;
+                maxit_ = maxit;
+            }
+            public Tuple<Extended, int> Find()
+            {
+                var res1 = new Extended();
+                int iter = 0;
+                Lib_XReal_NewtonRaphson(res1.mpPtr, ref iter, funcptr0, funcptr1, guess_.mpPtr, xmin_.mpPtr, xmax_.mpPtr, get_digits_, maxit_);
+                return new Tuple<Extended, int>(res1, iter);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NewtonRaphson", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_NewtonRaphson(IntPtr res, ref int iter, cbProc2Ptr f1, cbProc2Ptr df1, IntPtr guess, IntPtr xmin, IntPtr xmax, int get_digits, uint maxit);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Halley/*' />
+        public static Tuple<Extended, int> Halley(cb1SExtended1S f, cb1SExtended1S df1, cb1SExtended1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        {
+            return Halley(f, df1, df2, ereal.t(guess), ereal.t(xmin), ereal.t(xmax), get_digits, maxit);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Halley/*' />
+        public static Tuple<Extended, int> Halley(cb1SExtended1S f, cb1SExtended1S df1, cb1SExtended1S df2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+        {
+            var XHalley1 = new XHalley(f, df1, df2, guess, xmin, xmax, get_digits, maxit);
+            return XHalley1.Find();
+        }
+        internal class XHalley
+        {
+            private cb1SExtended1S F1_;
+            private cb1SExtended1S DF1_;
+            private cb1SExtended1S DF2_;
+            private Extended guess_;
+            private Extended xmin_;
+            private Extended xmax_;
+            private int get_digits_;
+            private uint maxit_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            private Extended DX1 = new Extended();
+            private Extended DY1 = new Extended();
+            private Extended D2X1 = new Extended();
+            private Extended D2Y1 = new Extended();
+            public void funcptr0(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public void funcptr1(IntPtr dxPtr, IntPtr dfxPtr)
+            {
+                Lib_XReal_Set(DX1.mpPtr, dxPtr);
+                DY1 = DF1_(DX1);
+                Lib_XReal_Set(dfxPtr, DY1.mpPtr);
+            }
+            public void funcptr2(IntPtr d2xPtr, IntPtr d2fxPtr)
+            {
+                Lib_XReal_Set(D2X1.mpPtr, d2xPtr);
+                D2Y1 = DF2_(DX1);
+                Lib_XReal_Set(d2fxPtr, D2Y1.mpPtr);
+            }
+            public XHalley(cb1SExtended1S F1, cb1SExtended1S DF1, cb1SExtended1S DF2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+            {
+                F1_ = F1;
+                DF1_ = DF1;
+                DF2_ = DF2;
+                guess_ = guess;
+                xmin_ = xmin;
+                xmax_ = xmax;
+                get_digits_ = get_digits;
+                maxit_ = maxit;
+            }
+            public Tuple<Extended, int> Find()
+            {
+                var res1 = new Extended();
+                int iter = 0;
+                Lib_XReal_Halley(res1.mpPtr, ref iter, funcptr0, funcptr1, funcptr2, guess_.mpPtr, xmin_.mpPtr, xmax_.mpPtr, get_digits_, maxit_);
+                return new Tuple<Extended, int>(res1, iter);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Halley", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Halley(IntPtr res, ref int iter, cbProc2Ptr f1, cbProc2Ptr df1, cbProc2Ptr df2, IntPtr guess, IntPtr xmin, IntPtr xmax, int get_digits, uint maxit);
+
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Schroder/*' />
+        public static Tuple<Extended, int> Schroder(cb1SExtended1S f, cb1SExtended1S df1, cb1SExtended1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        {
+            return Schroder(f, df1, df2, ereal.t(guess), ereal.t(xmin), ereal.t(xmax), get_digits, maxit);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Schroder/*' />
+        public static Tuple<Extended, int> Schroder(cb1SExtended1S f, cb1SExtended1S df1, cb1SExtended1S df2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+        {
+            var XSchroder1 = new XSchroder(f, df1, df2, guess, xmin, xmax, get_digits, maxit);
+            return XSchroder1.Find();
+        }
+        internal class XSchroder
+        {
+            private cb1SExtended1S F1_;
+            private cb1SExtended1S DF1_;
+            private cb1SExtended1S DF2_;
+            private Extended guess_;
+            private Extended xmin_;
+            private Extended xmax_;
+            private int get_digits_;
+            private uint maxit_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            private Extended DX1 = new Extended();
+            private Extended DY1 = new Extended();
+            private Extended D2X1 = new Extended();
+            private Extended D2Y1 = new Extended();
+            public void funcptr0(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public void funcptr1(IntPtr dxPtr, IntPtr dfxPtr)
+            {
+                Lib_XReal_Set(DX1.mpPtr, dxPtr);
+                DY1 = DF1_(DX1);
+                Lib_XReal_Set(dfxPtr, DY1.mpPtr);
+            }
+            public void funcptr2(IntPtr d2xPtr, IntPtr d2fxPtr)
+            {
+                Lib_XReal_Set(D2X1.mpPtr, d2xPtr);
+                D2Y1 = DF2_(DX1);
+                Lib_XReal_Set(d2fxPtr, D2Y1.mpPtr);
+            }
+            public XSchroder(cb1SExtended1S F1, cb1SExtended1S DF1, cb1SExtended1S DF2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+            {
+                F1_ = F1;
+                DF1_ = DF1;
+                DF2_ = DF2;
+                guess_ = guess;
+                xmin_ = xmin;
+                xmax_ = xmax;
+                get_digits_ = get_digits;
+                maxit_ = maxit;
+            }
+            public Tuple<Extended, int> Find()
+            {
+                var res1 = new Extended();
+                int iter = 0;
+                Lib_XReal_Schroder(res1.mpPtr, ref iter, funcptr0, funcptr1, funcptr2, guess_.mpPtr, xmin_.mpPtr, xmax_.mpPtr, get_digits_, maxit_);
+                return new Tuple<Extended, int>(res1, iter);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Schroder", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Schroder(IntPtr res, ref int iter, cbProc2Ptr f1, cbProc2Ptr df1, cbProc2Ptr df2, IntPtr guess, IntPtr xmin, IntPtr xmax, int get_digits, uint maxit);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BrentMinimum/*' />
+        public static Tuple<Extended, Extended, int> Brent_Minimum(cb1SExtended1S f, dynamic bracket_min, dynamic bracket_max, int bits, uint maxit)
+        {
+            return Brent_Minimum(f, ereal.t(bracket_min), ereal.t(bracket_max), bits, maxit);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BrentMinimum/*' />
+        public static Tuple<Extended, Extended, int> Brent_Minimum(cb1SExtended1S f, Extended bracket_min, Extended bracket_max, int bits, uint maxit)
+        {
+            var XBrent_Minimum1 = new XBrent_Minimum(f, bracket_min, bracket_max, bits, maxit);
+            return XBrent_Minimum1.Find();
+        }
+        internal class XBrent_Minimum
+        {
+            private cb1SExtended1S F1_;
+            private Extended bracket_min_;
+            private Extended bracket_max_;
+            private int bits_;
+            private uint maxit_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XBrent_Minimum(cb1SExtended1S F1, Extended bracket_min, Extended bracket_max, int bits, uint maxit)
+            {
+                F1_ = F1;
+                bracket_min_ = bracket_min;
+                bracket_max_ = bracket_max;
+                bits_ = bits;
+                maxit_ = maxit;
+            }
+            public Tuple<Extended, Extended, int> Find()
+            {
+                var result = new Extended();
+                var resultFx = new Extended();
+                int iter = 0;
+                Lib_XReal_Brent_Minimum(result.mpPtr, resultFx.mpPtr, ref iter, funcptr1, bracket_min_.mpPtr, bracket_max_.mpPtr, bits_, maxit_);
+                return new Tuple<Extended, Extended, int>(result, resultFx, iter);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Brent_Minimum", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Brent_Minimum(IntPtr res, IntPtr resFx, ref int iter, cbProc2Ptr f, IntPtr bracket_min, IntPtr bracket_max, int bits, uint maxit);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Trapezoidal/*' />
+        public static Tuple<Extended, Extended, Extended> Trapezoidal(cb1SExtended1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
+        {
+            if (tol == null) { tol = t(0); }
+            return Trapezoidal(f, ereal.t(a), ereal.t(b), ereal.t(tol), max_refinements);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Trapezoidal/*' />
+        public static Tuple<Extended, Extended, Extended> Trapezoidal(cb1SExtended1S f, Extended a, Extended b, Extended tol, uint max_refinements = 12)
+        {
+            var XTrapezoidal1 = new XTrapezoidal(f, a, b);
+            return XTrapezoidal1.Integrate();
+        }
+        internal class XTrapezoidal
+        {
+            private cb1SExtended1S F1_;
+            private Extended a_;
+            private Extended b_;
+            //private Extended tol_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XTrapezoidal(cb1SExtended1S F1, Extended a, Extended b)
+            {
+                F1_ = F1;
+                a_ = a;
+                b_ = b;
+            }
+            public Tuple<Extended, Extended, Extended> Integrate()
+            {
+                Extended res1 = new Extended(), res2 = new Extended(), res3 = new Extended();
+                Lib_XReal_Trapezoidal(res1.mpPtr, res2.mpPtr, res3.mpPtr, funcptr1, a_.mpPtr, b_.mpPtr);
+                return new Tuple<Extended, Extended, Extended>(res1, res2, res3);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Trapezoidal", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Trapezoidal(IntPtr res1, IntPtr res2, IntPtr res3, cbProc2Ptr f, IntPtr a, IntPtr b);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussLegendre/*' />
+        public static Tuple<Extended, Extended> GaussLegendre(cb1SExtended1S f, dynamic a, dynamic b)
+        {
+            return GaussLegendre(f, ereal.t(a), ereal.t(b));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussLegendre/*' />
+        public static Tuple<Extended, Extended> GaussLegendre(cb1SExtended1S f, Extended a, Extended b)
+        {
+            var XGaussLegendre1 = new XGaussLegendre(f, a, b);
+            return XGaussLegendre1.Integrate();
+        }
+        internal class XGaussLegendre
+        {
+            private cb1SExtended1S F1_;
+            private Extended a_;
+            private Extended b_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XGaussLegendre(cb1SExtended1S F1, Extended a, Extended b)
+            {
+                F1_ = F1;
+                a_ = a;
+                b_ = b;
+            }
+            public Tuple<Extended, Extended> Integrate()
+            {
+                Extended res1 = new Extended(), res3 = new Extended();
+                Lib_XReal_GaussLegendre(res1.mpPtr, res3.mpPtr, funcptr1, a_.mpPtr, b_.mpPtr);
+                return new Tuple<Extended, Extended>(res1, res3);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GaussLegendre", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_GaussLegendre(IntPtr res1, IntPtr res3, cbProc2Ptr f, IntPtr a, IntPtr b);
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussKronrod/*' />
+        public static Tuple<Extended, Extended, Extended> GaussKronrod(cb1SExtended1S f, dynamic a, dynamic b, dynamic tol = null, uint max_depth = 12)
+        {
+            if (tol == null) { tol = t(0); }
+            return GaussKronrod(f, ereal.t(a), ereal.t(b), ereal.t(tol), max_depth);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussKronrod/*' />
+        public static Tuple<Extended, Extended, Extended> GaussKronrod(cb1SExtended1S f, Extended a, Extended b, Extended tol, uint max_depth = 12)
+        {
+            var XGaussKronrod1 = new XGaussKronrod(f, a, b);
+            return XGaussKronrod1.Integrate();
+        }
+        internal class XGaussKronrod
+        {
+            private cb1SExtended1S F1_;
+            private Extended a_;
+            private Extended b_;
+            //private Extended tol_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XGaussKronrod(cb1SExtended1S F1, Extended a, Extended b)
+            {
+                F1_ = F1;
+                a_ = a;
+                b_ = b;
+            }
+            public Tuple<Extended, Extended, Extended> Integrate()
+            {
+                Extended res1 = new Extended(), res2 = new Extended(), res3 = new Extended();
+                Lib_XReal_GaussKronrod(res1.mpPtr, res2.mpPtr, res3.mpPtr, funcptr1, a_.mpPtr, b_.mpPtr);
+                return new Tuple<Extended, Extended, Extended>(res1, res2, res3);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GaussKronrod", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_GaussKronrod(IntPtr res1, IntPtr res2, IntPtr res3, cbProc2Ptr f, IntPtr a, IntPtr b);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TanhSinh/*' />
+        public static Tuple<Extended, Extended, Extended, int> TanhSinh(cb1SExtended1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
+        {
+            if (tol == null) { tol = t(0); }
+            return TanhSinh(f, ereal.t(a), ereal.t(b), ereal.t(tol), max_refinements);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TanhSinh/*' />
+        public static Tuple<Extended, Extended, Extended, int> TanhSinh(cb1SExtended1S f, Extended a, Extended b, Extended tol, uint max_refinements = 12)
+        {
+            var XTanhSinh1 = new XTanhSinh(f, a, b);
+            return XTanhSinh1.Integrate();
+        }
+        internal class XTanhSinh
+        {
+            private cb1SExtended1S F1_;
+            private Extended a_;
+            private Extended b_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XTanhSinh(cb1SExtended1S F1, Extended a, Extended b)
+            {
+                F1_ = F1;
+                a_ = a;
+                b_ = b;
+            }
+            public Tuple<Extended, Extended, Extended, int> Integrate()
+            {
+                Extended res1 = new Extended(), res2 = new Extended(), res3 = new Extended();
+                int levels = 0;
+                Lib_XReal_TanhSinh(res1.mpPtr, res2.mpPtr, res3.mpPtr, ref levels, funcptr1, a_.mpPtr, b_.mpPtr);
+                return new Tuple<Extended, Extended, Extended, int>(res1, res2, res3, levels);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_TanhSinh", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_TanhSinh(IntPtr res1, IntPtr res2, IntPtr res3, ref int levels, cbProc2Ptr f, IntPtr a, IntPtr b);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SinhSinh/*' />
+        public static Tuple<Extended, Extended, Extended, int> SinhSinh(cb1SExtended1S f, dynamic tol = null, uint max_refinements = 12)
+        {
+            if (tol == null) { tol = t(0); }
+            return SinhSinh(f, ereal.t(tol), max_refinements);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SinhSinh/*' />
+        public static Tuple<Extended, Extended, Extended, int> SinhSinh(cb1SExtended1S f, Extended tol, uint max_refinements = 12)
+        {
+            var XSinhSinh1 = new XSinhSinh(f);
+            return XSinhSinh1.Integrate();
+        }
+        internal class XSinhSinh
+        {
+            private cb1SExtended1S F1_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XSinhSinh(cb1SExtended1S F1)
+            {
+                F1_ = F1;
+            }
+            public Tuple<Extended, Extended, Extended, int> Integrate()
+            {
+                Extended res1 = new Extended(), res2 = new Extended(), res3 = new Extended();
+                int levels = 0;
+                Lib_XReal_SinhSinh(res1.mpPtr, res2.mpPtr, res3.mpPtr, ref levels, funcptr1);
+                return new Tuple<Extended, Extended, Extended, int>(res1, res2, res3, levels);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_SinhSinh", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_SinhSinh(IntPtr res1, IntPtr res2, IntPtr res3, ref int levels, cbProc2Ptr f);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExpSinh/*' />
+        public static Tuple<Extended, Extended, Extended, int> ExpSinh(cb1SExtended1S f, dynamic tol = null, uint max_refinements = 12)
+        {
+            if (tol == null) { tol = t(0); }
+            return ExpSinh(f, ereal.t(tol), max_refinements);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExpSinh/*' />
+        public static Tuple<Extended, Extended, Extended, int> ExpSinh(cb1SExtended1S f, Extended tol, uint max_refinements = 12)
+        {
+            var XExpSinh1 = new XExpSinh(f);
+            return XExpSinh1.Integrate();
+        }
+        internal class XExpSinh
+        {
+            private cb1SExtended1S F1_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XExpSinh(cb1SExtended1S F1)
+            {
+                F1_ = F1;
+            }
+            public Tuple<Extended, Extended, Extended, int> Integrate()
+            {
+                Extended res1 = new Extended(), res2 = new Extended(), res3 = new Extended();
+                int levels = 0;
+                Lib_XReal_ExpSinh(res1.mpPtr, res2.mpPtr, res3.mpPtr, ref levels, funcptr1);
+                return new Tuple<Extended, Extended, Extended, int>(res1, res2, res3, levels);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ExpSinh", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_ExpSinh(IntPtr res1, IntPtr res2, IntPtr res3, ref int levels, cbProc2Ptr f);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraCos/*' />
+        public static Tuple<Extended, Extended> Ooura_Cos(cb1SExtended1S f)
+        {
+            var XOoura_Cos1 = new XOoura_Cos(f);
+            return XOoura_Cos1.Integrate();
+        }
+        internal class XOoura_Cos
+        {
+            private cb1SExtended1S F1_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XOoura_Cos(cb1SExtended1S F1)
+            {
+                F1_ = F1;
+            }
+            public Tuple<Extended, Extended> Integrate()
+            {
+                Extended result1 = new Extended(), result2 = new Extended();
+                Lib_XReal_Ooura_Cos(result1.mpPtr, result2.mpPtr, funcptr1);
+                return new Tuple<Extended, Extended>(result1, result2);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ooura_Cos", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ooura_Cos(IntPtr res1, IntPtr res2, cbProc2Ptr f);
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraSin/*' />
+        public static Tuple<Extended, Extended> Ooura_Sin(cb1SExtended1S f)
+        {
+            var XOoura_Sin1 = new XOoura_Sin(f);
+            return XOoura_Sin1.Integrate();
+        }
+        internal class XOoura_Sin
+        {
+            private cb1SExtended1S F1_;
+            private Extended X1 = new Extended();
+            private Extended Y1 = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                Lib_XReal_Set(X1.mpPtr, xPtr);
+                Y1 = F1_(X1);
+                Lib_XReal_Set(fxPtr, Y1.mpPtr);
+            }
+            public XOoura_Sin(cb1SExtended1S F1)
+            {
+                F1_ = F1;
+            }
+            public Tuple<Extended, Extended> Integrate()
+            {
+                Extended result1 = new Extended(), result2 = new Extended();
+                Lib_XReal_Ooura_Sin(result1.mpPtr, result2.mpPtr, funcptr1);
+                return new Tuple<Extended, Extended>(result1, result2);
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Ooura_Sin", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Ooura_Sin(IntPtr res1, IntPtr res2, cbProc2Ptr f);
+
+
+
+
+
+
+        #endregion
+
+
+
+
+
+        #region Boost Odeint
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RungeKutta4Const/*' />
+        public static void RungeKutta4Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            var XOdeint1 = new XOdeintConst(1, F1, F2, matInput, StartTime, EndTime, dt);
+            XOdeint1.Integrate();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RungeKutta4Const/*' />
+        public static void RungeKutta4Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        {
+            RungeKutta4Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
+        }
+
+
+        public static void CashKarp54Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            var XOdeint1 = new XOdeintConst(2, F1, F2, matInput, StartTime, EndTime, dt);
+            XOdeint1.Integrate();
+        }
+
+
+        public static void CashKarp54Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        {
+            CashKarp54Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
+        }
+
+
+        public static void DormandPrince5Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            var XOdeint1 = new XOdeintConst(3, F1, F2, matInput, StartTime, EndTime, dt);
+            XOdeint1.Integrate();
+        }
+
+
+        public static void DormandPrince5Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        {
+            DormandPrince5Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
+        }
+
+
+        public static void Fehlberg78Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            var XOdeint1 = new XOdeintConst(4, F1, F2, matInput, StartTime, EndTime, dt);
+            XOdeint1.Integrate();
+        }
+
+
+        public static void Fehlberg78Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        {
+            Fehlberg78Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
+        }
+
+
+        public static void AdamsBashforthMoultonConst(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            var XOdeint1 = new XOdeintConst(5, F1, F2, matInput, StartTime, EndTime, dt);
+            XOdeint1.Integrate();
+        }
+
+
+        public static void AdamsBashforthMoultonConst(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        {
+            AdamsBashforthMoultonConst(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
+        }
+
+
+        internal class XOdeintConst
+        {
+            private int what_;
+            private cbExtended1S2V F1_;
+            private cbExtended1S1V F2_;
+            private ExtendedVec matInit_ = new ExtendedVec();
+            private ExtendedVec matX = new ExtendedVec();
+            private ExtendedVec matY = new ExtendedVec();
+            private Extended t = new Extended();
+            private Extended StartTime_ = new Extended();
+            private Extended EndTime_ = new Extended();
+            private Extended dt_ = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr, IntPtr tPtr)
+            {
+                IntPtr tempxPtr = matX.mpPtr;
+                matX.mpPtr = xPtr;
+                IntPtr tempyPtr = matY.mpPtr;
+                matY.mpPtr = fxPtr;
+                IntPtr temptPtr = t.mpPtr;
+                t.mpPtr = tPtr;
+                F1_(t, matX, matY);
+                matX.mpPtr = tempxPtr;
+                matY.mpPtr = tempyPtr;
+                t.mpPtr = temptPtr;
+            }
+            public void funcptr2(IntPtr xPtr, IntPtr tPtr)
+            {
+                IntPtr tempxPtr = matX.mpPtr;
+                matX.mpPtr = xPtr;
+                IntPtr temptPtr = t.mpPtr;
+                t.mpPtr = tPtr;
+                F2_(t, matX);
+                matX.mpPtr = tempxPtr;
+                t.mpPtr = temptPtr;
+            }
+            internal XOdeintConst(int what, cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInit, Extended StartTime, Extended EndTime, Extended dt)
+            {
+                what_ = what;
+                StartTime_ = StartTime;
+                EndTime_ = EndTime;
+                dt_ = dt;
+                matInit_ = matInit; // Shallow copy
+                F1_ = F1;
+                F2_ = F2;
+            }
+            internal void Integrate()
+            {
+                switch (what_)
+                {
+                    case 1:
+                        XReal_Const_RungeKutta4(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_);
+                        break;
+                    case 2:
+                        XReal_Const_CashKarp54(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_);
+                        break;
+                    case 3:
+                        XReal_Const_Dopri5(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_);
+                        break;
+                    case 4:
+                        XReal_Const_Fehlberg78(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_);
+                        break;
+                    case 5:
+                        XReal_Const_AdamsBashforthMoulton(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_);
+                        break;
+                    default:
+                        Console.WriteLine("Not found");
+                        break;
+                }
+            }
+        }
+
+        public static void XReal_Const_RungeKutta4(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            Lib_XReal_Const_RungeKutta4(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Const_RungeKutta4", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Const_RungeKutta4(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt);
+
+
+        public static void XReal_Const_CashKarp54(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            Lib_XReal_Const_CashKarp54(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Const_CashKarp54", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Const_CashKarp54(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt);
+
+
+        public static void XReal_Const_Dopri5(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            Lib_XReal_Const_Dopri5(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Const_Dopri5", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Const_Dopri5(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt);
+
+
+        public static void XReal_Const_Fehlberg78(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            Lib_XReal_Const_Fehlberg78(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Const_Fehlberg78", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Const_Fehlberg78(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt);
+
+
+        public static void XReal_Const_AdamsBashforthMoulton(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt)
+        {
+            Lib_XReal_Const_AdamsBashforthMoulton(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Const_AdamsBashforthMoulton", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Const_AdamsBashforthMoulton(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt);
+
+
+
+
+
+
+
+
+
+        // ***********************************************************************************************************
+
+
+
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Adaptive/*' />
+        public static void DormandPrince5Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            var XOdeint1 = new XOdeintAdaptiveDenseOutput(1, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
+            XOdeint1.Integrate();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Adaptive/*' />
+        public static void DormandPrince5Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        {
+            DormandPrince5Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
+        }
+
+
+        public static void CashKarp54Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            var XOdeint1 = new XOdeintAdaptiveDenseOutput(2, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
+            XOdeint1.Integrate();
+        }
+
+
+        public static void CashKarp54Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        {
+            CashKarp54Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
+        }
+
+
+        public static void Fehlberg78Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            var XOdeint1 = new XOdeintAdaptiveDenseOutput(3, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
+            XOdeint1.Integrate();
+        }
+
+
+        public static void Fehlberg78Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        {
+            Fehlberg78Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
+        }
+
+
+        public static void BulirschStoerAdaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            var XOdeint1 = new XOdeintAdaptiveDenseOutput(4, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
+            XOdeint1.Integrate();
+        }
+
+
+        public static void BulirschStoerAdaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        {
+            BulirschStoerAdaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
+        }
+
+
+        public static void DormandPrince5DenseOutput(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            var XOdeint1 = new XOdeintAdaptiveDenseOutput(5, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
+            XOdeint1.Integrate();
+        }
+
+
+        public static void DormandPrince5DenseOutput(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        {
+            DormandPrince5DenseOutput(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
+        }
+
+
+        public static void BulirschStoerDenseOutput(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            var XOdeint1 = new XOdeintAdaptiveDenseOutput(6, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
+            XOdeint1.Integrate();
+        }
+
+
+        public static void BulirschStoerDenseOutput(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        {
+            BulirschStoerDenseOutput(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
+        }
+
+
+        internal class XOdeintAdaptiveDenseOutput
+        {
+            int what_;
+            private cbExtended1S2V F1_;
+            private cbExtended1S1V F2_;
+            private ExtendedVec matInit_ = new ExtendedVec();
+            private ExtendedVec matX = new ExtendedVec();
+            private ExtendedVec matY = new ExtendedVec();
+            private Extended t = new Extended();
+            private Extended StartTime_ = new Extended();
+            private Extended EndTime_ = new Extended();
+            private Extended dt_ = new Extended();
+            private Extended epsabs_ = new Extended();
+            private Extended epsrel_ = new Extended();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr, IntPtr tPtr)
+            {
+                IntPtr tempxPtr = matX.mpPtr;
+                matX.mpPtr = xPtr;
+                IntPtr tempyPtr = matY.mpPtr;
+                matY.mpPtr = fxPtr;
+                IntPtr temptPtr = t.mpPtr;
+                t.mpPtr = tPtr;
+                F1_(t, matX, matY);
+                matX.mpPtr = tempxPtr;
+                matY.mpPtr = tempyPtr;
+                t.mpPtr = temptPtr;
+            }
+            public void funcptr2(IntPtr xPtr, IntPtr tPtr)
+            {
+                IntPtr tempxPtr = matX.mpPtr;
+                matX.mpPtr = xPtr;
+                IntPtr temptPtr = t.mpPtr;
+                t.mpPtr = tPtr;
+                F2_(t, matX);
+                matX.mpPtr = tempxPtr;
+                t.mpPtr = temptPtr;
+            }
+            internal XOdeintAdaptiveDenseOutput(int what, cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInit, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+            {
+                what_ = what;
+                StartTime_ = StartTime;
+                EndTime_ = EndTime;
+                dt_ = dt;
+                matInit_ = matInit; // Shallow copy
+                F1_ = F1;
+                F2_ = F2;
+                epsabs_ = epsabs;
+                epsrel_ = epsrel;
+            }
+            internal void Integrate()
+            {
+                switch (what_)
+                {
+                    case 1:
+                        XReal_Adaptive_RungeKuttaDopri5(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_, epsabs_, epsrel_);
+                        break;
+                    case 2:
+                        XReal_Adaptive_CashKarp54(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_, epsabs_, epsrel_);
+                        break;
+                    case 3:
+                        XReal_Adaptive_Fehlberg78(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_, epsabs_, epsrel_);
+                        break;
+                    case 4:
+                        XReal_Adaptive_BulirschStoer(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_, epsabs_, epsrel_);
+                        break;
+                    //case 5:
+                    //    XReal_DenseOutput_Dopri5(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_, epsabs_, epsrel_);
+                    //    break;
+                    //case 6:
+                    //    XReal_DenseOutput_BulirschStoer(funcptr1, funcptr2, matInit_, StartTime_, EndTime_, dt_, epsabs_, epsrel_);
+                        //break;
+                    default:
+                        Console.WriteLine("Not found");
+                        break;
+                }
+            }
+        }
+        public static void XReal_Adaptive_RungeKuttaDopri5(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            Lib_XReal_Adaptive_Dopri5(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr, epsabs.mpPtr, epsrel.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Adaptive_Dopri5", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Adaptive_Dopri5(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt, IntPtr epsabs, IntPtr epsrel);
+
+
+        public static void XReal_Adaptive_CashKarp54(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            Lib_XReal_Adaptive_CashKarp54(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr, epsabs.mpPtr, epsrel.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Adaptive_CashKarp54", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Adaptive_CashKarp54(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt, IntPtr epsabs, IntPtr epsrel);
+
+
+        public static void XReal_Adaptive_Fehlberg78(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            Lib_XReal_Adaptive_Fehlberg78(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr, epsabs.mpPtr, epsrel.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Adaptive_Fehlberg78", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Adaptive_Fehlberg78(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt, IntPtr epsabs, IntPtr epsrel);
+
+
+        public static void XReal_Adaptive_BulirschStoer(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        {
+            Lib_XReal_Adaptive_BulirschStoer(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr, epsabs.mpPtr, epsrel.mpPtr);
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Adaptive_BulirschStoer", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_XReal_Adaptive_BulirschStoer(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt, IntPtr epsabs, IntPtr epsrel);
+
+
+        //public static void XReal_DenseOutput_Dopri5(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        //{
+        //    Lib_XReal_DenseOutput_Dopri5(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr, epsabs.mpPtr, epsrel.mpPtr);
+        //}
+        //[DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_DenseOutput_Dopri5", CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void Lib_XReal_DenseOutput_Dopri5(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt, IntPtr epsabs, IntPtr epsrel);
+
+
+        //public static void XReal_DenseOutput_BulirschStoer(cbProc3Ptr F1, cbProc2Ptr F2, ExtendedVec matX, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        //{
+        //    Lib_XReal_DenseOutput_BulirschStoer(F1, F2, matX.mpPtr, StartTime.mpPtr, EndTime.mpPtr, dt.mpPtr, epsabs.mpPtr, epsrel.mpPtr);
+        //}
+        //[DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_DenseOutput_BulirschStoer", CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void Lib_XReal_DenseOutput_BulirschStoer(cbProc3Ptr F1, cbProc2Ptr F2, IntPtr MatrixPtr_source, IntPtr StartTime, IntPtr EndTime, IntPtr dt, IntPtr epsabs, IntPtr epsrel);
+
+
+
+
+
+
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen calculus
+
+
+        public static ExtendedMat PowellHybrd(cbExtended2M F1, cbExtended2M F2, ExtendedMat matInput)
+        {
+            var EPowellHybrd1 = new EPowellHybrd(F1, F2, matInput);
+            var matX = EPowellHybrd1.Solve();
+            return matX;
+        }
+        internal class EPowellHybrd
+        {
+            private cbExtended2M F1_;
+            private cbExtended2M F2_;
+            private ExtendedMat matX1 = new ExtendedMat();
+            private ExtendedMat matY1 = new ExtendedMat();
+            private ExtendedMat matX2 = new ExtendedMat();
+            private ExtendedMat matY2 = new ExtendedMat();
+            private ExtendedMat matInput_ = new ExtendedMat();
+            private ExtendedMat matX = new ExtendedMat();
+            private ExtendedMat matFvec = new ExtendedMat();
+            private ExtendedMat matFjac = new ExtendedMat();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX1.mpPtr;
+                matX1.mpPtr = xPtr;
+                IntPtr tempyPtr = matY1.mpPtr;
+                matY1.mpPtr = fxPtr;
+                F1_(matX1, matY1);
+                matX1.mpPtr = tempxPtr;
+                matY1.mpPtr = tempyPtr;
+            }
+            public void funcptr2(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX2.mpPtr;
+                matX2.mpPtr = xPtr;
+                IntPtr tempyPtr = matY2.mpPtr;
+                matY2.mpPtr = fxPtr;
+                F2_(matX2, matY2);
+                matX2.mpPtr = tempxPtr;
+                matY2.mpPtr = tempyPtr;
+            }
+            internal EPowellHybrd(cbExtended2M F1, cbExtended2M F2, ExtendedMat matInput)
+            {
+                int n = matInput.rows;
+                matX.Resize(n, 1);
+                matFvec.Resize(n, 1);
+                matFjac.Resize(n, n);
+                matInput_ = matInput; // Shallow copy
+                F1_ = F1;
+                F2_ = F2;
+            }
+            internal ExtendedMat Solve()
+            {
+                elib.testHybrj_ext(funcptr1, funcptr2, matX, matFvec, matFjac, matInput_);
+                return matX;
+            }
+        }
+
+
+
+
+        public static ExtendedMat Levenberg(cbExtended2M F1, cbExtended2M F2, ExtendedMat matInput, int n, int m)
+        {
+            var ELevenberg1 = new ELevenberg(F1, F2, matInput, n, m);
+            var matX = ELevenberg1.Solve();
+            return matX;
+        }
+        internal class ELevenberg
+        {
+            private cbExtended2M F1_;
+            private cbExtended2M F2_;
+            private ExtendedMat matX1 = new ExtendedMat();
+            private ExtendedMat matY1 = new ExtendedMat();
+            private ExtendedMat matX2 = new ExtendedMat();
+            private ExtendedMat matY2 = new ExtendedMat();
+            private ExtendedMat matInput_ = new ExtendedMat();
+            private ExtendedMat matX = new ExtendedMat();
+            private ExtendedMat matFvec = new ExtendedMat();
+            private ExtendedMat matFjac = new ExtendedMat();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX1.mpPtr;
+                matX1.mpPtr = xPtr;
+                IntPtr tempyPtr = matY1.mpPtr;
+                matY1.mpPtr = fxPtr;
+                F1_(matX1, matY1);
+                matX1.mpPtr = tempxPtr;
+                matY1.mpPtr = tempyPtr;
+            }
+            public void funcptr2(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX2.mpPtr;
+                matX2.mpPtr = xPtr;
+                IntPtr tempyPtr = matY2.mpPtr;
+                matY2.mpPtr = fxPtr;
+                F2_(matX2, matY2);
+                matX2.mpPtr = tempxPtr;
+                matY2.mpPtr = tempyPtr;
+            }
+            internal ELevenberg(cbExtended2M F1, cbExtended2M F2, ExtendedMat matInput, int n, int m)
+            {
+                matX.Resize(n, 1);
+                matFvec.Resize(m, 1);
+                matFjac.Resize(n, n);
+                matInput_ = matInput; // Shallow copy
+                F1_ = F1;
+                F2_ = F2;
+            }
+            internal ExtendedMat Solve()
+            {
+                elib.testLmder_ext(funcptr1, funcptr2, matX, matFvec, matFjac, matInput_);
+                return matX;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+        #region Boost/CppOptLib
+
+
+        public static ExtendedVec NelderMeadSolver(cb1SExtended1V F1, ExtendedVec matInput)
+        {
+            var ESolver11 = new EOptSolver1(constants.mp_nelder_mead_solver, F1, matInput);
+            return ESolver11.Solve();
+        }
+
+        public static ExtendedVec CMAesSolver(cb1SExtended1V F1, ExtendedVec matInput)
+        {
+            var ESolver11 = new EOptSolver1(constants.mp_cma_es_solver, F1, matInput);
+            return ESolver11.Solve();
+        }
+
+        internal class EOptSolver1
+        {
+            private int what_;
+            private cb1SExtended1V F1_;
+            private ExtendedVec matX1 = new ExtendedVec();
+            private ExtendedVec matY1 = new ExtendedVec();
+            private ExtendedVec matX_ = new ExtendedVec();
+            private ExtendedVec matNorm_ = new ExtendedVec();
+            private ExtendedVec X_ = new ExtendedVec();
+            private ExtendedVec FX_ = new ExtendedVec();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX1.mpPtr;
+                matX1.mpPtr = xPtr;
+                IntPtr tempyPtr = matY1.mpPtr;
+                matY1.mpPtr = fxPtr;
+                matY1[0] = F1_(matX1);
+                matX1.mpPtr = tempxPtr;
+                matY1.mpPtr = tempyPtr;
+            }
+            internal EOptSolver1(int what, cb1SExtended1V F1, ExtendedVec X)
+            {
+                what_ = what;
+                matX_ = new ExtendedVec(X.Size);
+                X_ = X; // Shallow copy
+                F1_ = F1;
+            }
+            internal ExtendedVec Solve()
+            {
+                Lib_Eigen_XReal_Real_CppOptLib1(what_, funcptr1, matX_.mpPtr, matNorm_.mpPtr, X_.mpPtr, FX_.mpPtr);
+                return matX_;
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_Eigen_XReal_Real_CppOptLib1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_Eigen_XReal_Real_CppOptLib1(int what, cbProc2Ptr F1, IntPtr matXPtr, IntPtr matNormPtr, IntPtr xPtr, IntPtr fxPtr);
+
+
+        public static ExtendedVec LbfgsSolver(cb1SExtended1V F1, cbExtended2V F2, ExtendedVec matInput)
+        {
+            var ESolver21 = new EOptSolver2(constants.mp_lbfgs_solver, F1, F2, matInput);
+            return ESolver21.Solve();
+        }
+
+        public static ExtendedVec BfgsSolver(cb1SExtended1V F1, cbExtended2V F2, ExtendedVec matInput)
+        {
+            var ESolver21 = new EOptSolver2(constants.mp_bfgs_solver, F1, F2, matInput);
+            return ESolver21.Solve();
+        }
+
+        public static ExtendedVec GradientDescentSolver(cb1SExtended1V F1, cbExtended2V F2, ExtendedVec matInput)
+        {
+            var ESolver21 = new EOptSolver2(constants.mp_gradient_descent_solver, F1, F2, matInput);
+            return ESolver21.Solve();
+        }
+
+        public static ExtendedVec ConjugatedGradientDescentSolver(cb1SExtended1V F1, cbExtended2V F2, ExtendedVec matInput)
+        {
+            var ESolver21 = new EOptSolver2(constants.mp_conjugated_gradient_descent_solver, F1, F2, matInput);
+            return ESolver21.Solve();
+        }
+
+        internal class EOptSolver2
+        {
+            private int what_;
+            private cb1SExtended1V F1_;
+            private cbExtended2V F2_;
+            private ExtendedVec matX1 = new ExtendedVec();
+            private ExtendedVec matY1 = new ExtendedVec();
+            private ExtendedVec matX2 = new ExtendedVec();
+            private ExtendedVec matY2 = new ExtendedVec();
+            private ExtendedVec matX_ = new ExtendedVec();
+            private ExtendedVec matGrad_ = new ExtendedVec();
+            private ExtendedVec matNorm_ = new ExtendedVec();
+            private ExtendedVec X_ = new ExtendedVec();
+            private ExtendedVec FX_ = new ExtendedVec();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX1.mpPtr;
+                matX1.mpPtr = xPtr;
+                IntPtr tempyPtr = matY1.mpPtr;
+                matY1.mpPtr = fxPtr;
+                matY1[0] = F1_(matX1);
+                matX1.mpPtr = tempxPtr;
+                matY1.mpPtr = tempyPtr;
+            }
+            public void funcptr2(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX2.mpPtr;
+                matX2.mpPtr = xPtr;
+                IntPtr tempyPtr = matY2.mpPtr;
+                matY2.mpPtr = fxPtr;
+                F2_(matX2, matY2);
+                matX2.mpPtr = tempxPtr;
+                matY2.mpPtr = tempyPtr;
+            }
+            internal EOptSolver2(int what, cb1SExtended1V F1, cbExtended2V F2, ExtendedVec X)
+            {
+                what_ = what;
+                matX_ = new ExtendedVec(X.Size);
+                matGrad_ = new ExtendedVec(X.Size);
+                X_ = X; // Shallow copy
+                F1_ = F1;
+                F2_ = F2;
+            }
+            internal ExtendedVec Solve()
+            {
+                Lib_Eigen_XReal_Real_CppOptLib2(what_, funcptr1, funcptr2, matX_.mpPtr, matGrad_.mpPtr, matNorm_.mpPtr, X_.mpPtr, FX_.mpPtr);
+                return matX_;
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_Eigen_XReal_Real_CppOptLib2", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_Eigen_XReal_Real_CppOptLib2(int what, cbProc2Ptr F1, cbProc2Ptr F2, IntPtr matXPtr, IntPtr matGradPtr, IntPtr matNormPtr, IntPtr xPtr, IntPtr fxPtr);
+
+
+
+        public static ExtendedVec NewtonDescentSolver(cb1SExtended1V F1, cbExtended2V F2, cbExtended1V1M F3, ExtendedVec matInput)
+        {
+            var ESolver31 = new EOptSolver3(constants.mp_newton_descent_solver, F1, F2, F3, matInput);
+            return ESolver31.Solve();
+        }
+
+        internal class EOptSolver3
+        {
+            private int what_;
+            private cb1SExtended1V F1_;
+            private cbExtended2V F2_;
+            private cbExtended1V1M F3_;
+            private ExtendedVec matX1 = new ExtendedVec();
+            private ExtendedVec matY1 = new ExtendedVec();
+            private ExtendedVec matX2 = new ExtendedVec();
+            private ExtendedVec matY2 = new ExtendedVec();
+            private ExtendedVec matX3 = new ExtendedVec();
+            private ExtendedMat matY3 = new ExtendedMat();
+            private ExtendedVec matX_ = new ExtendedVec();
+            private ExtendedVec matGrad_ = new ExtendedVec();
+            private ExtendedVec matNorm_ = new ExtendedVec();
+            private ExtendedMat matHessian_ = new ExtendedMat();
+            private ExtendedVec X_ = new ExtendedVec();
+            private ExtendedVec FX_ = new ExtendedVec();
+            public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX1.mpPtr;
+                matX1.mpPtr = xPtr;
+                IntPtr tempyPtr = matY1.mpPtr;
+                matY1.mpPtr = fxPtr;
+                matY1[0] = F1_(matX1);
+                matX1.mpPtr = tempxPtr;
+                matY1.mpPtr = tempyPtr;
+            }
+            public void funcptr2(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX2.mpPtr;
+                matX2.mpPtr = xPtr;
+                IntPtr tempyPtr = matY2.mpPtr;
+                matY2.mpPtr = fxPtr;
+                F2_(matX2, matY2);
+                matX2.mpPtr = tempxPtr;
+                matY2.mpPtr = tempyPtr;
+            }
+            public void funcptr3(IntPtr xPtr, IntPtr fxPtr)
+            {
+                IntPtr tempxPtr = matX3.mpPtr;
+                matX3.mpPtr = xPtr;
+                IntPtr tempyPtr = matY3.mpPtr;
+                matY3.mpPtr = fxPtr;
+                F3_(matX3, matY3);
+                matX3.mpPtr = tempxPtr;
+                matY3.mpPtr = tempyPtr;
+            }
+            internal EOptSolver3(int what, cb1SExtended1V F1, cbExtended2V F2, cbExtended1V1M F3, ExtendedVec X)
+            {
+                what_ = what;
+                matX_ = new ExtendedVec(X.Size);
+                matGrad_ = new ExtendedVec(X.Size);
+                matHessian_.Resize(X.Size, X.Size);
+                X_ = X; // Shallow copy
+                F1_ = F1;
+                F2_ = F2;
+                F3_ = F3;
+            }
+            internal ExtendedVec Solve()
+            {
+                Lib_Eigen_XReal_Real_CppOptLib3(what_, funcptr1, funcptr2, funcptr3, matX_.mpPtr, matHessian_.mpPtr, matGrad_.mpPtr, matNorm_.mpPtr, X_.mpPtr, FX_.mpPtr);
+                return matX_;
+            }
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_Eigen_XReal_Real_CppOptLib3", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_Eigen_XReal_Real_CppOptLib3(int what, cbProc2Ptr F1, cbProc2Ptr F2, cbProc2Ptr F3, IntPtr matXPtr, IntPtr matHessianPtr, IntPtr matGradPtr, IntPtr matNormPtr, IntPtr xPtr, IntPtr fxPtr);
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+        #region Matrix Creation
+
+        /// <summary>
+        /// Converts from a real scalar of type dreal
+        /// </summary>
+        public static ExtendedMat mat_t(Extended x)
+        {
+            var matA = new ExtendedMat();
+            matA[0, 0] = x;
+            return matA;
+        }
+
+
+        /* *********************** */
+
+        public static ExtendedMatC mat_cplx_t(ExtendedMat matA)
+        {
+            return ecplx.mat_t(matA);
+        }
+
+
+        public static ExtendedMatC mat_cplx_zeros(int n, int m)
+        {
+            return ecplx.mat_zeros(n, m);
+        }
+
+        /* *********************** */
+
+
+
+
+
+        public static ExtendedMat mat_zeros(int n, int m)
+        {
+            var resout = new ExtendedMat();
+            elib.Call_Eigen_SetSpecialValue(constants.mp_eigen, constants.mp_real, resout, constants.mp_setZero, n, m);
+            return resout;
+        }
+
+
+
+        public static ExtendedMat mat_ones(int n, int m)
+        {
+            var resout = new ExtendedMat();
+            elib.Call_Eigen_SetSpecialValue(constants.mp_eigen, constants.mp_real, resout, constants.mp_setOnes, n, m);
+            return resout;
+        }
+
+
+
+        public static ExtendedMat mat_identity(int n, int m)
+        {
+            var resout = new ExtendedMat();
+            elib.Call_Eigen_SetSpecialValue(constants.mp_eigen, constants.mp_real, resout, constants.mp_setIdentity, n, m);
+            return resout;
+        }
+
+
+
+        public static ExtendedMat mat_random(int n, int m)
+        {
+            var resout = new ExtendedMat();
+            elib.Call_Eigen_SetSpecialValue(constants.mp_eigen, constants.mp_real, resout, constants.mp_setRandom_nm, n, m);
+            return resout;
+        }
+
+
+
+        public static ExtendedMat mat_random_symmetric(int n)
+        {
+            var resout = new ExtendedMat();
+            elib.Call_Eigen_SetSpecialValue(constants.mp_eigen, constants.mp_real, resout, constants.mp_setRandomSymmetric, n, n);
+            return resout;
+        }
+
+
+
+        public static ExtendedMat mat_random_selfadjoint(int n)
+        {
+            var resout = new ExtendedMat();
+            elib.Call_Eigen_SetSpecialValue(constants.mp_eigen, constants.mp_real, resout, constants.mp_setRandomSA, n, n);
+            return resout;
+        }
+
+
+        public static ExtendedMat mat_random_selfadjoint_posdef(int n)
+        {
+            var resout = new ExtendedMat();
+            elib.Call_Eigen_SetSpecialValue(constants.mp_eigen, constants.mp_real, resout, constants.mp_setRandomSAPosDef, n, n);
+            return resout;
+        }
+
+        public static ExtendedMat mat_fill_linear(int n, int m)
+        {
+            var resout = new ExtendedMat();
+            elib.Call_Eigen_SetSpecialValue(constants.mp_eigen, constants.mp_real, resout, constants.mp_FillLinear, n, m);
+            return resout;
+        }
+
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+}

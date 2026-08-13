@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MpPrecNet", "MpPrecNet.csproj", "{B8CC1402-B137-0E4C-0161-7F77CF6F5B33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8CC1402-B137-0E4C-0161-7F77CF6F5B33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8CC1402-B137-0E4C-0161-7F77CF6F5B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8CC1402-B137-0E4C-0161-7F77CF6F5B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8CC1402-B137-0E4C-0161-7F77CF6F5B33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62C9F7B9-2807-4E37-9D21-DB808E154471}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="BoostMathOdeintRandom" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Boost64Double">
+				<Option output="../../../local/xlcalcnet/lib/BoostMathDbl" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libBoostMathDbl" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-Wno-reorder" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-pessimizing-move" />
+					<Add option="-Wno-deprecated-declarations" />
+					<Add option="-DBUILD_DLL" />
+					<Add option="-DUse_Double" />
+					<Add directory="Include" />
+					<Add directory="../../Boost" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+					<Add library="user32" />
+				</Linker>
+			</Target>
+			<Target title="Boost64SReal">
+				<Option output="../../../local/xlcalcnet/lib/BoostMathSingle" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libBoostMathSingle" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-Wno-reorder" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-pessimizing-move" />
+					<Add option="-Wno-deprecated-declarations" />
+					<Add option="-DBUILD_DLL" />
+					<Add option="-DUse_Single" />
+					<Add directory="Include" />
+					<Add directory="../../Boost" />
+					<Add directory="../../MP64/eigen" />
+					<Add directory="../Extra/CppNumericalSolvers" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+					<Add library="user32" />
+				</Linker>
+			</Target>
+			<Target title="Boost64FReal">
+				<Option output="../../../local/xlcalcnet/lib/BoostMathDouble" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libBoostMathDouble" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-Wno-reorder" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-pessimizing-move" />
+					<Add option="-Wno-deprecated-declarations" />
+					<Add option="-DBUILD_DLL" />
+					<Add option="-DUse_Double" />
+					<Add directory="Include" />
+					<Add directory="../../Boost" />
+					<Add directory="../../MP64/eigen" />
+					<Add directory="../Extra/CppNumericalSolvers" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+					<Add library="user32" />
+				</Linker>
+			</Target>
+			<Target title="Boost64XReal">
+				<Option output="../../../local/xlcalcnet/lib/BoostMathLongDouble" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libBoostMathLongDouble" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-O3" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-Wno-reorder" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-pessimizing-move" />
+					<Add option="-Wno-deprecated-declarations" />
+					<Add option="-DBUILD_DLL" />
+					<Add directory="Include" />
+					<Add directory="../../Boost" />
+					<Add directory="../../MP64/eigen" />
+					<Add directory="../Extra/CppNumericalSolvers" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+					<Add library="user32" />
+				</Linker>
+			</Target>
+			<Target title="Boost64QReal">
+				<Option output="../../../local/xlcalcnet/lib/BoostMathFloat128" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libBoostMathFloat128" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-Wno-reorder" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-pessimizing-move" />
+					<Add option="-Wno-deprecated-declarations" />
+					<Add option="-DBUILD_DLL" />
+					<Add directory="Include" />
+					<Add directory="../../Boost" />
+					<Add directory="../../MP64/eigen" />
+					<Add directory="../Extra/CppNumericalSolvers" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+					<Add library="user32" />
+				</Linker>
+			</Target>
+			<Target title="Boost64OReal">
+				<Option output="../../../local/xlcalcnet/lib/BoostMathOReal" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../local/xlcalcnet/obj/libBoostMathOReal" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-march=k8" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++14" />
+					<Add option="-m64" />
+					<Add option="-Wno-maybe-uninitialized" />
+					<Add option="-Wno-reorder" />
+					<Add option="-Wno-unused-but-set-variable" />
+					<Add option="-Wno-pessimizing-move" />
+					<Add option="-Wno-deprecated-declarations" />
+					<Add option="-DBUILD_DLL" />
+					<Add directory="Include" />
+					<Add directory="../../Boost" />
+					<Add directory="../../MP64/eigen" />
+					<Add directory="../Extra/CppNumericalSolvers" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+					<Add library="user32" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="BoostDouble.cpp">
+			<Option target="Boost64Double" />
+		</Unit>
+		<Unit filename="BoostFReal.cpp">
+			<Option target="Boost64FReal" />
+		</Unit>
+		<Unit filename="BoostOReal.cpp">
+			<Option target="Boost64OReal" />
+		</Unit>
+		<Unit filename="BoostQReal.cpp">
+			<Option target="Boost64QReal" />
+		</Unit>
+		<Unit filename="BoostSReal.cpp">
+			<Option target="Boost64SReal" />
+		</Unit>
+		<Unit filename="BoostXReal.cpp">
+			<Option target="Boost64XReal" />
+		</Unit>
+		<Unit filename="Include/BoostDouble.h">
+			<Option target="Boost64Double" />
+		</Unit>
+		<Unit filename="Include/BoostFReal.h">
+			<Option target="Boost64FReal" />
+		</Unit>
+		<Unit filename="Include/BoostOReal.h">
+			<Option target="Boost64OReal" />
+		</Unit>
+		<Unit filename="Include/BoostQReal.h">
+			<Option target="Boost64QReal" />
+		</Unit>
+		<Unit filename="Include/BoostSReal.h">
+			<Option target="Boost64SReal" />
+		</Unit>
+		<Unit filename="Include/BoostXReal.h">
+			<Option target="Boost64XReal" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

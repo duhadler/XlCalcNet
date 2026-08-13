@@ -1,0 +1,2018 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<docs>
+
+
+    <members name="Contexts">
+        <name>
+            <summary>
+                Returns the name of the context
+            </summary>
+        </name>
+        <isrealctx>
+            <summary>
+                Returns true if the underlying data type is real, and false otherwise
+            </summary>
+        </isrealctx>
+        <iscplxctx>
+            <summary>
+                Returns true if the underlying data type is complex, and false otherwise
+            </summary>
+        </iscplxctx>
+        <isintervalorballctx>
+            <summary>
+                Returns true if the underlying data type is an interval or a ball, and false otherwise
+            </summary>
+        </isintervalorballctx>
+        <isdecimalctx>
+            <summary>
+                Returns true if the underlying data type is a decimal type, and false otherwise
+            </summary>
+        </isdecimalctx>
+        <isfractionctx>
+            <summary>
+                Returns true if the underlying data type is a fraction, and false otherwise
+            </summary>
+        </isfractionctx>
+        <hasnegativezero>
+            <summary>
+                Returns true if the underlying data type is supports a negative zero, and false otherwise
+            </summary>
+        </hasnegativezero>
+        <supportsboost>
+            <summary>
+                Returns true if the underlying data type is supports Boost, and false otherwise
+            </summary>
+        </supportsboost>
+        <Mat>
+            <summary>
+                Returns the corresponding matrix context
+            </summary>
+        </Mat>
+        <Flint>
+            <summary>
+                Returns the corresponding Flint context
+            </summary>
+        </Flint>
+        <Boost>
+            <summary>
+                Returns the corresponding Boost context
+            </summary>
+        </Boost>
+        <realctx>
+            <summary>
+                Returns the corresponding real context context
+            </summary>
+        </realctx>
+        <cplxctx>
+            <summary>
+                Returns the corresponding complex context context
+            </summary>
+        </cplxctx>
+
+
+    </members>
+
+
+    <members name="ConstantsAndProperties">
+        <isinf>
+            <summary>
+                Returns True if x is infinite
+            </summary>
+        </isinf>
+        <isnan>
+            <summary>
+                Returns True if x is nan
+            </summary>
+        </isnan>
+        <isfinite>
+            <summary>
+                Returns True if x is Finite
+            </summary>
+        </isfinite>
+        <isneginf>
+            <summary>
+                Returns True if x is Negative Infinity
+            </summary>
+        </isneginf>
+        <isposinf>
+            <summary>
+                Returns True if x is IsPositive Infinity
+            </summary>
+        </isposinf>
+        <inf>
+            <summary>
+                Returns Positive Infinity
+            </summary>
+        </inf>
+        <neginf>
+            <summary>
+                Returns Negative Infinity
+            </summary>
+        </neginf>
+        <PI>
+            <summary>
+                Returns PI
+            </summary>
+        </PI>
+        <E>
+            <summary>
+                Returns E
+            </summary>
+        </E>
+        <epsilon>
+            <summary>
+                Returns epsilon
+            </summary>
+        </epsilon>
+        <maxvalue>
+            <summary>
+                Returns maxvalue
+            </summary>
+        </maxvalue>
+        <minvalue>
+            <summary>
+                Returns minvalue
+            </summary>
+        </minvalue>
+        <zero>
+            <summary>
+                Returns zero
+            </summary>
+        </zero>
+        <one>
+            <summary>
+                Returns one
+            </summary>
+        </one>
+        <ImaginaryOne>
+            <summary>
+                Returns ImaginaryOne
+            </summary>
+        </ImaginaryOne>
+        <nan>
+            <summary>
+                Returns nan
+            </summary>
+        </nan>
+
+    </members>    
+
+
+
+    <members name="ScalarAndArrayFunctions">
+        <Test>
+            <summary>
+                Summary text for Test.
+            </summary>
+            <remarks>
+                Remark text for Test.
+            </remarks>
+        </Test>
+        <add>
+            <summary>
+                Calculates the sum of the numbers x and y and returns the result
+            </summary>
+        </add>
+        <subtract>
+            <summary>
+                Calculates the difference of the numbers x and y and returns the result
+            </summary>
+        </subtract>
+        <multiply>
+            <summary>
+                Calculates the product of the numbers x and y and returns the result
+            </summary>
+        </multiply>
+        <divide>
+            <summary>
+                Calculates the quotient of the numbers x and y and returns the result
+            </summary>
+        </divide>
+        <pow>
+            <summary>
+                Calculates x^y and returns the result
+            </summary>
+        </pow>
+        <abs>
+            <summary>
+                Returns the absolute value of x
+            </summary>
+        </abs>
+        <phase>
+            <summary>
+                Returns the argument or phase value of x
+            </summary>
+        </phase>
+       <acos>
+            <summary>
+                Returns the acos of x
+            </summary>
+        </acos>
+        <acosh>
+            <summary>
+                Returns the acosh of x
+            </summary>
+        </acosh>
+        <asin>
+            <summary>
+                Returns the asin of x
+            </summary>
+        </asin>
+        <asinh>
+            <summary>
+                Returns the asinh of x
+            </summary>
+        </asinh>
+        <atan>
+            <summary>
+                Returns the atan of x
+            </summary>
+        </atan>
+        <atanh>
+            <summary>
+                Returns the atanh of x
+            </summary>
+        </atanh>
+        <atan2>
+            <summary>
+                Returns the atan2 of x and y
+            </summary>
+        </atan2>
+        <cbrt>
+            <summary>
+                Returns the cbrt of x
+            </summary>
+        </cbrt>
+        <ceil>
+            <summary>
+                Returns the ceil of x
+            </summary>
+        </ceil>
+        <conj>
+            <summary>
+                Returns the Conjugate of x
+            </summary>
+        </conj>
+        <copysign>
+            <summary>
+                Returns the copysign of x and y
+            </summary>
+        </copysign>
+        <cosh>
+            <summary>
+                Returns the cosh of x
+            </summary>
+        </cosh>
+        <cos>
+            <summary>
+                Returns the cos of x
+            </summary>
+        </cos>
+        <erf>
+            <summary>
+                Returns the erf of x
+            </summary>
+        </erf>
+        <erfc>
+            <summary>
+                Returns the erfc of x
+            </summary>
+        </erfc>
+        <exp2>
+            <summary>
+                Returns the exp2 of x
+            </summary>
+        </exp2>
+        <exp>
+            <summary>
+                Returns the exp of x
+            </summary>
+        </exp>
+        <expj>
+            <summary>
+                Returns the expj of x
+            </summary>
+        </expj>
+        <expm1>
+            <summary>
+                Returns the expm1 of x
+            </summary>
+        </expm1>
+        <fabs>
+            <summary>
+                Returns the fabs of x
+            </summary>
+        </fabs>
+        <fdim>
+            <summary>
+                Returns the fdim of x and y
+            </summary>
+        </fdim>
+        <Finite>
+            <summary>
+                Returns the Finite of x
+            </summary>
+        </Finite>
+        <floor>
+            <summary>
+                Returns the floor of x
+            </summary>
+        </floor>
+        <fma>
+            <summary>
+                Returns the fma of x and y
+            </summary>
+        </fma>
+        <fmax>
+            <summary>
+                Returns the fmax of x and y
+            </summary>
+        </fmax>
+        <fmin>
+            <summary>
+                Returns the fmin of x and y
+            </summary>
+        </fmin>
+        <fmod>
+            <summary>
+                Returns the fmod of x and y
+            </summary>
+        </fmod>
+        <frexp>
+            <summary>
+                Returns the frexp of x
+            </summary>
+        </frexp>
+        <hypot>
+            <summary>
+                Returns the hypot of x and y
+            </summary>
+        </hypot>
+        <ilogb>
+            <summary>
+                Returns the ilogb of x
+            </summary>
+        </ilogb>
+        <ldexp>
+            <summary>
+                Returns the ldexp of x and e
+            </summary>
+        </ldexp>
+        <lgamma>
+            <summary>
+                Returns the lgamma of x
+            </summary>
+        </lgamma>
+        <llrint>
+            <summary>
+                Returns the llrint of x
+            </summary>
+        </llrint>
+        <llround>
+            <summary>
+                Returns the llround of x
+            </summary>
+        </llround>
+        <logb>
+            <summary>
+                Returns the logb of x
+            </summary>
+        </logb>
+        <log>
+            <summary>
+                Returns the log of x
+            </summary>
+        </log>
+        <log10>
+            <summary>
+                Returns the log10 of x
+            </summary>
+        </log10>
+        <log2>
+            <summary>
+                Returns the log2 of x
+            </summary>
+        </log2>
+        <log1p>
+            <summary>
+                Returns the log1p of x
+            </summary>
+        </log1p>
+        <lrint>
+            <summary>
+                Returns the lrint of x
+            </summary>
+        </lrint>
+        <lround>
+            <summary>
+                Returns the lround of x
+            </summary>
+        </lround>
+        <modf>
+            <summary>
+                Returns the modf of x and y
+            </summary>
+        </modf>
+        <nearbyint>
+            <summary>
+                Returns the nearbyint of x 
+            </summary>
+        </nearbyint>
+        <Nextafter>
+            <summary>
+                Returns the Nextafter of x 
+            </summary>
+        </Nextafter>
+        <Proj>
+            <summary>
+                Returns the Riemann projection of x 
+            </summary>
+        </Proj>
+        <remainder>
+            <summary>
+                Returns the remainder of x and y
+            </summary>
+        </remainder>
+        <remquo>
+            <summary>
+                Returns the remquo of x and y
+            </summary>
+        </remquo>
+        <rint>
+            <summary>
+                Returns the rint of x
+            </summary>
+        </rint>
+        <round>
+            <summary>
+                Returns the round of x
+            </summary>
+        </round>
+        <scalbln>
+            <summary>
+                Returns the scalbln of x, e
+            </summary>
+        </scalbln>
+        <scalbn>
+            <summary>
+                Returns the scalbn of x, e
+            </summary>
+        </scalbn>
+        <signbit>
+            <summary>
+                Returns the signbit of x
+            </summary>
+        </signbit>
+        <Sincos>
+            <summary>
+                Returns the Sincos of x
+            </summary>
+        </Sincos>
+        <sinh>
+            <summary>
+                Returns the sinh of x
+            </summary>
+        </sinh>
+        <sin>
+            <summary>
+                Returns the sin of x
+            </summary>
+            <seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+        </sin>
+        <sqrt>
+            <summary>
+                Returns the sqrt of x
+            </summary>
+        </sqrt>
+        <rsqrt>
+            <summary>
+                Returns the inverse sqr root of x
+            </summary>
+        </rsqrt>
+        <tan>
+            <summary>
+                Returns the tan of x
+            </summary>
+        </tan>
+        <tanh>
+            <summary>
+                Returns the tanh of x
+            </summary>
+        </tanh>
+        <gamma>
+            <summary>
+                Returns the gamma of x
+            </summary>
+        </gamma>
+        <trunc>
+            <summary>
+                Returns the trunc of x
+            </summary>
+        </trunc>
+    </members>
+
+
+    <members name="DAMath">
+        <squadx>
+            <summary>
+                Solves the quadratic equation a*x^2 + b*x + c = 0. 
+            </summary>
+            <param name="a"> coeffient in the quadratic equation.</param>
+            <param name="b"> coeffient in the quadratic equation.</param>
+            <param name="c"> coeffient in the quadratic equation.</param>
+            <returns>
+                A tuple (z1, z2):<br/>
+                <em>z1</em>: the first complex root.<br/>
+                <em>z2</em>: the second complex root.<br/>
+            </returns>
+        </squadx>
+        <cubsolve>
+            <summary>
+                Solves the cubic equation ax^3 + bx^2 + cx + d = 0.
+            </summary>
+            <seealso href="">08NumericalCalculus/02DAmathRootfinding.html#ctx.cubsolve</seealso>
+            <param name="a"> coeffient in the cubic equation.</param>
+            <param name="b"> coeffient in the cubic equation.</param>
+            <param name="c"> coeffient in the cubic equation.</param>
+            <param name="d"> coeffient in the cubic equation.</param>
+            <returns>
+                A tuple (x, z1, z2):<br/>
+                <em>x</em>: the real root.<br/>
+                <em>z1</em>: the first complex root.<br/>
+                <em>z2</em>: the second complex root.<br/>
+            </returns>
+        </cubsolve>
+        <localmin>
+            <summary>
+                Brent's algorithm (with guaranteed convergence) for finding a local minimum of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which a local minimum is to be found.</param>
+            <param name="a"> the left border of the search interval.</param>
+            <param name="b"> the right border of the search interval.</param>
+            <param name="eps"> defines a tolerance eps*|x| + tol. eps should not be less than 2*eps_x, preferably not smaller than sqrt(eps_x).</param>
+            <param name="tol"> defines a tolerance eps*|x| + tol.</param>
+            <returns>
+                A tuple (localmin, fx, ic):<br/>
+                <em>localmin</em>: an approximation to a local minimum of the function.<br/>
+                <em>fx</em>: the value of f(localmin).<br/>
+                <em>ic</em>: iteration count, -1 if a=b, 0 if max.=5000 exceeded.<br/>
+            </returns>
+        </localmin>
+        <mbrent>
+            <summary>
+                Simplified version of Brent's algorithmfor finding a local minimum with fixed eps=0.5*sqrt(eps_x).
+            </summary>
+            <param name="f"> the function for which a local minimum is to be found.</param>
+            <param name="a"> the left border of the search interval.</param>
+            <param name="b"> the right border of the search interval.</param>
+            <param name="tol"> defines a tolerance eps*|x| + tol.</param>
+            <returns>
+                A tuple (localmin, fx, ic):<br/>
+                <em>localmin</em>: an approximation to a local minimum of the function.<br/>
+                <em>fx</em>: the value of f(localmin).<br/>
+                <em>ic</em>: iteration count, -1 if a=b, 0 if max.=5000 exceeded.<br/>
+            </returns>
+        </mbrent>
+        <zbrent>
+            <summary>
+                Brent/Dekker algorithm with guaranteed convergence for finding a zero of a function; 
+                assumes that f(a) and f(b) have different signs.
+            </summary>
+            <param name="f"> the function for which a zero is sought.</param>
+            <param name="a"> the left border of the search interval.</param>
+            <param name="b"> the right border of the search interval.</param>
+            <param name="tol"> a positive tolerance.</param>
+            <returns>
+                A tuple (localmin, fx, ic):<br/>
+                <em>root</em>: an approximation to a zero (root) of the function.<br/>
+                <em>ic</em>: iteration count, -1 if a=b, 0 if max.=5000 exceeded.<br/>
+                <em>err</em>: error code (0: no error, -1: if f(a) and f(b) have the same sign, -2: max. iteration count exceeded).<br/>
+            </returns>
+        </zbrent>
+        <zeroin>
+            <summary>
+                Simplified version of the Brent/Dekker algorithm for finding a zero of a function;
+                assumes that f(a) and f(b) have different signs.
+            </summary>
+            <param name="f"> the function for which a zero is sought.</param>
+            <param name="a"> the left border of the search interval.</param>
+            <param name="b"> the right border of the search interval.</param>
+            <param name="tol"> a positive tolerance.</param>
+            <returns>
+                <em>root</em>: an approximation to a zero (root) of the function.<br/>
+            </returns>
+        </zeroin>
+        <quanc8>
+            <summary>
+                Global adaptive quadrature of f over (a,b) based on a Fortran subroutine by Forsythe, Malcolm, Moler.
+            </summary>
+            <param name="f"> the function function defining the integrand.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="b"> the right border of the integration interval.</param>
+            <param name="abserr"> the absolute accuracy requested.</param>
+            <param name="relerr"> the relative accuracy requested.</param>
+            <returns>
+                A tuple (integral, err, flag, neval):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>err</em>: an estimate of the magnitude of the actual error.<br/>
+                <em>flag</em>: a reliability indicator: if flag is zero, then result probably satisfies the error tolerance.<br/>
+                <em>neval</em>: the number of function values used in the calculation of result.<br/>
+            </returns>
+        </quanc8>
+        <qags>
+            <summary>
+                Global adaptive quadrature of f over (a,b) based on 21-point Gauss-Kronrod rule for the subintervals, with acceleration by Wynn's epsilon algorithm.
+            </summary>
+            <param name="f"> the function function defining the integrand.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="b"> the right border of the integration interval.</param>
+            <param name="epsabs"> the absolute accuracy requested.</param>
+            <param name="epsrel"> the relative accuracy requested.</param>
+            <param name="limit"> upper bound on the number of subintervals, 0: use default limit (5000)</param>
+            <returns>
+                A tuple (integral, err, flag, neval):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>err</em>: an estimate of the magnitude of the actual error.<br/>
+                <em>neval</em>: the number of function values used in the calculation of result.<br/>
+                <em>ier</em>: error code (success=0, error &gt; 0: see manual for details).<br/>
+            </returns>
+        </qags>
+        <qagi>
+            <summary>
+                Global adaptive quadrature of f over an infinite interval based on transformed 15-point Gauss-Kronrod rule for the subintervals, with acceleration by Wynn's epsilon algorithm.
+            </summary>
+            <param name="f"> the function function defining the integrand.</param>
+            <param name="bound"> finite bound of integration range (if any).</param>
+            <param name="inf"> indicating the kind of integration range involved:<br/>
+                inf = 1 corresponds to (bound, +infinity).<br/>
+                inf = -1 corresponds to (-infinity, bound).<br/>
+                inf = 2 corresponds  to (-infinity, +infinity)
+            </param>
+            <param name="epsabs"> a positive tolerance.</param>
+            <param name="epsrel"> a positive tolerance.</param>
+            <param name="limit"> upper bound on the number of subintervals, 0: use default limit (5000)</param>
+            <returns>
+                A tuple (integral, err, flag, neval):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>err</em>: an estimate of the magnitude of the actual error.<br/>
+                <em>neval</em>: the number of function values used in the calculation of result.<br/>
+                <em>ier</em>: error code (success=0, error &gt; 0: see manual for details).<br/>
+            </returns>
+        </qagi>
+        <qawc>
+            <summary>
+                Adaptive quadrature of the function f(x)/(x-c) over the finite interval (a,b) with the singularity at c with c not equal a or b. The routine calculates an approximation to the Cauchy principal value.
+            </summary>
+            <param name="f"> the function function defining the integrand.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="b"> the right border of the integration interval.</param>
+            <param name="c"> the singularity, ier=6 if c=a or c=b.</param>
+            <param name="epsabs"> the absolute accuracy requested.</param>
+            <param name="epsrel"> the relative accuracy requested.</param>
+            <param name="limit"> upper bound on the number of subintervals, 0: use default limit (5000)</param>
+            <returns>
+                A tuple (integral, err, flag, neval):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>err</em>: an estimate of the magnitude of the actual error.<br/>
+                <em>neval</em>: the number of function values used in the calculation of result.<br/>
+                <em>ier</em>: error code (success=0, error &gt; 0: see manual for details).<br/>
+            </returns>
+        </qawc>
+        <intde>
+            <summary>
+                Automatic quadrature of f(x) over the finite interval (a,b) using Double Exponential (DE) transformation.
+            </summary>
+            <param name="f"> the function function defining the integrand.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="b"> the right border of the integration interval.</param>
+            <param name="eps"> the absolute accuracy requested.</param>
+            <returns>
+                A tuple (integral, err, neval, ier):<br/>
+                <em>integral</em>: an approximation to the integral, if ier=0 or 3<br/>
+                <em>err</em>: an estimate of the magnitude of the actual error, if ier=0 or 3<br/>
+                <em>neval</em>: the number of function values used in the calculation of result.<br/>
+                <em>ier</em>: 0: OK, 1: eps &lt; 8*eps_x, 2: roundoff problems, 3: max. iterations, result/abserr have values.<br/>
+            </returns>
+        </intde>
+        <intdei>
+            <summary>
+                Automatic quadrature of f(x) over (a,INF) using Double Exponential transformation when f(x) has no oscillatory factor.
+            </summary>
+            <param name="f"> the function function defining the integrand.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="eps"> the absolute accuracy requested.</param>
+            <returns>
+                A tuple (integral, err, neval, ier):<br/>
+                <em>integral</em>: an approximation to the integral, if ier=0 or 3<br/>
+                <em>err</em>: an estimate of the magnitude of the actual error, if ier=0 or 3<br/>
+                <em>neval</em>: the number of function values used in the calculation of result.<br/>
+                <em>ier</em>: 0: OK, 1: eps &lt; 8*eps_x, 2: roundoff problems, 3: max. iterations, result/abserr have values.<br/>
+            </returns>
+        </intdei>
+        <intdeo>
+            <summary>
+                Automatic quadrature of f(x) over (a,INF) using Double Exponential transformation when f(x) has an oscillatory factor.
+            </summary>
+            <param name="f"> the function function defining the integrand.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="omega"> frequency of oscillation, i.e. f has the form f(x) = g(x)*sin(omega*x + theta) as x -> INF.</param>
+            <param name="eps"> the relative error requested.</param>
+            <returns>
+                A tuple (integral, err, neval, ier):<br/>
+                <em>integral</em>: an approximation to the integral, if ier=0 or 3<br/>
+                <em>err</em>: an estimate of the magnitude of the actual error, if ier=0 or 3<br/>
+                <em>neval</em>: the number of function values used in the calculation of result.<br/>
+                <em>ier</em>: 0: OK, 1: eps &lt; 8*eps_x, 2: roundoff problems, 3: max. iterations, result/abserr have values.<br/>
+            </returns>
+        </intdeo>
+    </members>
+
+
+    <members name="Boost">
+        <bernoulli>
+            <summary>
+                Returns the bernoulli
+            </summary>
+        </bernoulli>
+        <TangentT2n>
+            <summary>
+                Returns the TangentT2n
+            </summary>
+        </TangentT2n>
+        <sqrt1pm1>
+            <summary>
+                Returns the sqrt1pm1
+            </summary>
+        </sqrt1pm1>
+        <sinpi>
+            <summary>
+                Returns the sinpi
+            </summary>
+        </sinpi>
+        <cospi>
+            <summary>
+                Returns the cospi
+            </summary>
+        </cospi>
+        <sincpi>
+            <summary>
+                Returns the sincpi
+            </summary>
+        </sincpi>
+        <sinhcpi>
+            <summary>
+                Returns the sinhcpi
+            </summary>
+        </sinhcpi>
+        <gamma1pm1>
+            <summary>
+                Returns the gamma1pm1
+            </summary>
+        </gamma1pm1>
+        <digamma>
+            <summary>
+                Returns the digamma
+            </summary>
+        </digamma>
+        <trigamma>
+            <summary>
+                Returns the trigamma
+            </summary>
+        </trigamma>
+        <factorial>
+            <summary>
+                Returns the factorial
+            </summary>
+        </factorial>
+        <doublefactorial>
+            <summary>
+                Returns the doublefactorial
+            </summary>
+        </doublefactorial>
+        <ErfInv>
+            <summary>
+                Returns the ErfInv
+            </summary>
+        </ErfInv>
+        <ErfcInv>
+            <summary>
+                Returns the ErfcInv
+            </summary>
+        </ErfcInv>
+        <airy_ai>
+            <summary>
+                Returns the airy_ai
+            </summary>
+        </airy_ai>
+        <airy_bi>
+            <summary>
+                Returns the airy_bi
+            </summary>
+        </airy_bi>
+        <airy_ai_prime>
+            <summary>
+                Returns the airy_ai_prime
+            </summary>
+        </airy_ai_prime>
+        <airy_bi_prime>
+            <summary>
+                Returns the airy_bi_prime
+            </summary>
+        </airy_bi_prime>
+        <airy_ai_zero>
+            <summary>
+                Returns the airy_ai_zero
+            </summary>
+        </airy_ai_zero>
+        <airy_bi_zero>
+            <summary>
+                Returns the airy_bi_zero
+            </summary>
+        </airy_bi_zero>
+        <Ellint1K>
+            <summary>
+                Returns the Ellint1K
+            </summary>
+        </Ellint1K>
+        <Ellint2K>
+            <summary>
+                Returns the Ellint2K
+            </summary>
+        </Ellint2K>
+        <zeta>
+            <summary>
+                Returns the zeta
+            </summary>
+        </zeta>
+        <exp_integral_ei>
+            <summary>
+                Returns the exp_integral_ei
+            </summary>
+        </exp_integral_ei>
+        <lambert_w0>
+            <summary>
+                Returns the lambert_w0
+            </summary>
+        </lambert_w0>
+        <lambert_wm1>
+            <summary>
+                Returns the lambert_wm1
+            </summary>
+        </lambert_wm1>
+        <lambert_w0_prime>
+            <summary>
+                Returns the lambert_w0_prime
+            </summary>
+        </lambert_w0_prime>
+        <lambert_wm1_prime>
+            <summary>
+                Returns the lambert_wm1_prime
+            </summary>
+        </lambert_wm1_prime>
+        <powm1>
+            <summary>
+                Returns the powm1
+            </summary>
+        </powm1>
+        <real_gamma_ratio>
+            <summary>
+                Returns the real_gamma_ratio
+            </summary>
+        </real_gamma_ratio>
+        <real_gamma_delta_ratio>
+            <summary>
+                Returns the real_gamma_delta_ratio
+            </summary>
+        </real_gamma_delta_ratio>
+        <binomial>
+            <summary>
+                Returns the binomial
+            </summary>
+        </binomial>
+        <rising_factorial>
+            <summary>
+                Returns the rising_factorial
+            </summary>
+        </rising_factorial>
+        <falling_factorial>
+            <summary>
+                Returns the falling_factorial
+            </summary>
+        </falling_factorial>
+        <bessel_jv>
+            <summary>
+                Returns the bessel_jv
+            </summary>
+        </bessel_jv>
+        <bessel_yv>
+            <summary>
+                Returns the bessel_yv
+            </summary>
+        </bessel_yv>
+        <bessel_iv>
+            <summary>
+                Returns the bessel_iv
+            </summary>
+        </bessel_iv>
+        <bessel_kv>
+            <summary>
+                Returns the bessel_kv
+            </summary>
+        </bessel_kv>
+        <sph_bessel_jn>
+            <summary>
+                Returns the sph_bessel_jn
+            </summary>
+        </sph_bessel_jn>
+        <sph_bessel_yn>
+            <summary>
+                Returns the sph_bessel_yn
+            </summary>
+        </sph_bessel_yn>
+        <bessel_jv_prime>
+            <summary>
+                Returns the bessel_jv_prime
+            </summary>
+        </bessel_jv_prime>
+        <bessel_yv_prime>
+            <summary>
+                Returns the bessel_yv_prime
+            </summary>
+        </bessel_yv_prime>
+        <bessel_iv_prime>
+            <summary>
+                Returns the bessel_iv_prime
+            </summary>
+        </bessel_iv_prime>
+        <bessel_kv_prime>
+            <summary>
+                Returns the bessel_kv_prime
+            </summary>
+        </bessel_kv_prime>
+        <sph_bessel_jn_prime>
+            <summary>
+                Returns the sph_bessel_jn_prime
+            </summary>
+        </sph_bessel_jn_prime>
+        <sph_bessel_yn_prime>
+            <summary>
+                Returns the sph_bessel_yn_prime
+            </summary>
+        </sph_bessel_yn_prime>
+        <bessel_jv_zero>
+            <summary>
+                Returns the bessel_jv_zero
+            </summary>
+        </bessel_jv_zero>
+        <bessel_yv_zero>
+            <summary>
+                Returns the bessel_yv_zero
+            </summary>
+        </bessel_yv_zero>
+        <gamma_p>
+            <summary>
+                Returns the gamma_p
+            </summary>
+        </gamma_p>
+        <gamma_q>
+            <summary>
+                Returns the gamma_q
+            </summary>
+        </gamma_q>
+        <gamma_lower>
+            <summary>
+                Returns the gamma_lower
+            </summary>
+        </gamma_lower>
+        <gamma_upper>
+            <summary>
+                Returns the gamma_upper
+            </summary>
+        </gamma_upper>
+        <real_gamma_p_inv>
+            <summary>
+                Returns the real_gamma_p_inv
+            </summary>
+        </real_gamma_p_inv>
+        <real_gamma_q_inv>
+            <summary>
+                Returns the real_gamma_q_inv
+            </summary>
+        </real_gamma_q_inv>
+        <real_gamma_p_inva>
+            <summary>
+                Returns the real_gamma_p_inva
+            </summary>
+        </real_gamma_p_inva>
+        <real_gamma_q_inva>
+            <summary>
+                Returns the real_gamma_q_inva
+            </summary>
+        </real_gamma_q_inva>
+        <real_gamma_p_prime>
+            <summary>
+                Returns the real_gamma_p_prime
+            </summary>
+        </real_gamma_p_prime>
+        <beta>
+            <summary>
+                Returns the beta
+            </summary>
+        </beta>
+        <legendre_p>
+            <summary>
+                Returns the legendre_p
+            </summary>
+        </legendre_p>
+        <legendre_q>
+            <summary>
+                Returns the legendre_q
+            </summary>
+        </legendre_q>
+        <laguerre_l>
+            <summary>
+                Returns the laguerre_l
+            </summary>
+        </laguerre_l>
+        <hermite_h>
+            <summary>
+                Returns the hermite_h
+            </summary>
+        </hermite_h>
+        <chebyshev_t>
+            <summary>
+                Returns the chebyshev_t
+            </summary>
+        </chebyshev_t>
+        <chebyshev_u>
+            <summary>
+                Returns the chebyshev_u
+            </summary>
+        </chebyshev_u>
+        <polygamma>
+            <summary>
+                Returns the polygamma
+            </summary>
+        </polygamma>
+        <elliptic_rc>
+            <summary>
+                Returns the elliptic_rc
+            </summary>
+        </elliptic_rc>
+        <elliptic_f>
+            <summary>
+                Returns the elliptic_f
+            </summary>
+        </elliptic_f>
+        <elliptic_e_inc>
+            <summary>
+                Returns the elliptic_e_inc
+            </summary>
+        </elliptic_e_inc>
+        <elliptic_pi>
+            <summary>
+                Returns the elliptic_pi
+            </summary>
+        </elliptic_pi>
+        <jacobi_cd>
+            <summary>
+                Returns the jacobi_cd
+            </summary>
+        </jacobi_cd>
+        <jacobi_cn>
+            <summary>
+                Returns the jacobi_cn
+            </summary>
+        </jacobi_cn>
+        <jacobi_cs>
+            <summary>
+                Returns the jacobi_cs
+            </summary>
+        </jacobi_cs>
+        <jacobi_dc>
+            <summary>
+                Returns the jacobi_dc
+            </summary>
+        </jacobi_dc>
+        <jacobi_dn>
+            <summary>
+                Returns the jacobi_dn
+            </summary>
+        </jacobi_dn>
+        <jacobi_ds>
+            <summary>
+                Returns the jacobi_ds
+            </summary>
+        </jacobi_ds>
+        <jacobi_nc>
+            <summary>
+                Returns the jacobi_nc
+            </summary>
+        </jacobi_nc>
+        <jacobi_nd>
+            <summary>
+                Returns the jacobi_nd
+            </summary>
+        </jacobi_nd>
+        <jacobi_ns>
+            <summary>
+                Returns the jacobi_ns
+            </summary>
+        </jacobi_ns>
+        <jacobi_sc>
+            <summary>
+                Returns the jacobi_sc
+            </summary>
+        </jacobi_sc>
+        <jacobi_sd>
+            <summary>
+                Returns the jacobi_sd
+            </summary>
+        </jacobi_sd>
+        <jacobi_sn>
+            <summary>
+                Returns the jacobi_sn
+            </summary>
+        </jacobi_sn>
+        <exp_integral_en>
+            <summary>
+                Returns the exp_integral_en
+            </summary>
+        </exp_integral_en>
+        <owen_t>
+            <summary>
+                Returns the owen_t
+            </summary>
+        </owen_t>
+        <hyperg_0f1>
+            <summary>
+                Returns the hyperg_0f1
+            </summary>
+        </hyperg_0f1>
+        <jacobi_theta1>
+            <summary>
+                Returns the jacobi_theta1
+            </summary>
+        </jacobi_theta1>
+        <jacobi_theta2>
+            <summary>
+                Returns the jacobi_theta2
+            </summary>
+        </jacobi_theta2>
+        <jacobi_theta3>
+            <summary>
+                Returns the jacobi_theta3
+            </summary>
+        </jacobi_theta3>
+        <jacobi_theta4>
+            <summary>
+                Returns the jacobi_theta4
+            </summary>
+        </jacobi_theta4>
+        <ibeta>
+            <summary>
+                Returns the ibeta
+            </summary>
+        </ibeta>
+        <ibetac>
+            <summary>
+                Returns the ibetac
+            </summary>
+        </ibetac>
+        <beta_lower>
+            <summary>
+                Returns the beta_lower
+            </summary>
+        </beta_lower>
+        <beta_upper>
+            <summary>
+                Returns the beta_lower
+            </summary>
+        </beta_upper>
+        <real_ibeta_inv>
+            <summary>
+                Returns the real_ibeta_inv
+            </summary>
+        </real_ibeta_inv>
+        <real_ibetac_inv>
+            <summary>
+                Returns the real_ibetac_inv
+            </summary>
+        </real_ibetac_inv>
+        <real_ibeta_inva>
+            <summary>
+                Returns the real_ibeta_inva
+            </summary>
+        </real_ibeta_inva>
+        <real_ibetac_inva>
+            <summary>
+                Returns the real_ibetac_inva
+            </summary>
+        </real_ibetac_inva>
+        <real_ibeta_invb>
+            <summary>
+                Returns the real_ibeta_invb
+            </summary>
+        </real_ibeta_invb>
+        <real_ibetac_invb>
+            <summary>
+                Returns the real_ibetac_invb
+            </summary>
+        </real_ibetac_invb>
+        <real_ibeta_prime>
+            <summary>
+                Returns the real_ibeta_prime
+            </summary>
+        </real_ibeta_prime>
+        <legendre_plm>
+            <summary>
+                Returns the legendre_plm
+            </summary>
+        </legendre_plm>
+        <laguerre_ass>
+            <summary>
+                Returns the laguerre_ass
+            </summary>
+        </laguerre_ass>
+        <elliptic_rf>
+            <summary>
+                Returns the elliptic_rf
+            </summary>
+        </elliptic_rf>
+        <elliptic_rd>
+            <summary>
+                Returns the elliptic_rd
+            </summary>
+        </elliptic_rd>
+        <elliptic_pi_inc>
+            <summary>
+                Returns the elliptic_pi_inc
+            </summary>
+        </elliptic_pi_inc>
+        <hyperg_1f1>
+            <summary>
+                Returns the hyperg_1f1
+            </summary>
+        </hyperg_1f1>
+        <hyperg_1f1r>
+            <summary>
+                Returns the hyperg_1f1r
+            </summary>
+        </hyperg_1f1r>
+        <log_hyperg_1f1>
+            <summary>
+                Returns the log_hyperg_1f1
+            </summary>
+        </log_hyperg_1f1>
+        <spherical_harmonic_r>
+            <summary>
+                Returns the spherical_harmonic_r
+            </summary>
+        </spherical_harmonic_r>
+        <spherical_harmonic_i>
+            <summary>
+                Returns the spherical_harmonic_i
+            </summary>
+        </spherical_harmonic_i>
+        <elliptic_rj>
+            <summary>
+                Returns the elliptic_rj
+            </summary>
+        </elliptic_rj>
+
+        <pdf>
+            <summary>
+                Returns the pdf
+            </summary>
+        </pdf>
+        <pmf>
+            <summary>
+                Returns the pmf
+            </summary>
+        </pmf>
+        <cdf>
+            <summary>
+                Returns the cdf
+            </summary>
+        </cdf>
+        <sf>
+            <summary>
+                Returns the sf
+            </summary>
+        </sf>
+        <hf>
+            <summary>
+                Returns the hf
+            </summary>
+        </hf>
+        <chf>
+            <summary>
+                Returns the chf
+            </summary>
+        </chf>
+        <qtf>
+            <summary>
+                Returns the qtf
+            </summary>
+        </qtf>
+        <isf>
+            <summary>
+                Returns the isf
+            </summary>
+        </isf>
+        <mean>
+            <summary>
+                Returns the mean
+            </summary>
+        </mean>
+        <median>
+            <summary>
+                Returns the median
+            </summary>
+        </median>
+        <mode>
+            <summary>
+                Returns the mode
+            </summary>
+        </mode>
+        <variance>
+            <summary>
+                Returns the variance
+            </summary>
+        </variance>
+        <stdev>
+            <summary>
+                Returns the stdev
+            </summary>
+        </stdev>
+        <skewness>
+            <summary>
+                Returns the skewness
+            </summary>
+        </skewness>
+        <kurtosis>
+            <summary>
+                Returns the kurtosis
+            </summary>
+        </kurtosis>
+        <kurtosis_excess>
+            <summary>
+                Returns the kurtosis_excess
+            </summary>
+        </kurtosis_excess>
+        <supportleft>
+            <summary>
+                Returns the supportleft
+            </summary>
+        </supportleft>
+        <supportright>
+            <summary>
+                Returns the supportright
+            </summary>
+        </supportright>
+        <rangeleft>
+            <summary>
+                Returns the rangeleft
+            </summary>
+        </rangeleft>
+        <rangeright>
+            <summary>
+                Returns the rangeright
+            </summary>
+        </rangeright>
+
+        <ArcsineDist>
+            <summary>
+                Returns the ArcsineDist
+            </summary>
+        </ArcsineDist>
+        <BetaDist>
+            <summary>
+                Returns the BetaDist
+            </summary>
+        </BetaDist>
+        <BinomialDist>
+            <summary>
+                Returns the BinomialDist
+            </summary>
+        </BinomialDist>
+        <CauchyDist>
+            <summary>
+                Returns the CauchyDist
+            </summary>
+        </CauchyDist>
+        <Chi2Dist>
+            <summary>
+                Returns the Chi2Dist
+            </summary>
+        </Chi2Dist>
+        <ExponentialDist>
+            <summary>
+                Returns the ExponentialDist
+            </summary>
+        </ExponentialDist>
+        <ExtremeValueDist>
+            <summary>
+                Returns the ExtremeValueDist
+            </summary>
+        </ExtremeValueDist>
+        <FisherFDist>
+            <summary>
+                Returns the FisherFDist
+            </summary>
+        </FisherFDist>
+        <GammaDist>
+            <summary>
+                Returns the GammaDist
+            </summary>
+        </GammaDist>
+        <GeometricDist>
+            <summary>
+                Returns the GeometricDist
+            </summary>
+        </GeometricDist>
+        <HypergeometricDist>
+            <summary>
+                Returns the HypergeometricDist
+            </summary>
+        </HypergeometricDist>
+        <InverseChi2Dist>
+            <summary>
+                Returns the InverseChi2Dist
+            </summary>
+        </InverseChi2Dist>
+        <InverseGammaDist>
+            <summary>
+                Returns the InverseGammaDist
+            </summary>
+        </InverseGammaDist>
+        <InverseGaussianDist>
+            <summary>
+                Returns the InverseGaussianDist
+            </summary>
+        </InverseGaussianDist>
+        <LaplaceDist>
+            <summary>
+                Returns the LaplaceDist
+            </summary>
+        </LaplaceDist>
+        <LogisticDist>
+            <summary>
+                Returns the LogisticDist
+            </summary>
+        </LogisticDist>
+        <LognormalDist>
+            <summary>
+                Returns the LognormalDist
+            </summary>
+        </LognormalDist>
+        <NegBinomialDist>
+            <summary>
+                Returns the NegBinomialDist
+            </summary>
+        </NegBinomialDist>
+        <Chi2NCDist>
+            <summary>
+                Returns the Chi2NCDist
+            </summary>
+        </Chi2NCDist>
+        <StudentTNCDist>
+            <summary>
+                Returns the StudentTNCDist
+            </summary>
+        </StudentTNCDist>
+        <FisherNCDist>
+            <summary>
+                Returns the FisherNCDist
+            </summary>
+        </FisherNCDist>
+        <BetaNCDist>
+            <summary>
+                Returns the BetaNCDist
+            </summary>
+        </BetaNCDist>
+        <NormalDist>
+            <summary>
+                Returns the NormalDist
+            </summary>
+        </NormalDist>
+        <ParetoDist>
+            <summary>
+                Returns the ParetoDist
+            </summary>
+        </ParetoDist>
+        <PoissonDist>
+            <summary>
+                Returns the PoissonDist
+            </summary>
+        </PoissonDist>
+        <RayleighDist>
+            <summary>
+                Returns the RayleighDist
+            </summary>
+        </RayleighDist>
+        <SkewNormalDist>
+            <summary>
+                Returns the SkewNormalDist
+            </summary>
+        </SkewNormalDist>
+        <StudentTDist>
+            <summary>
+                Returns the StudentTDist
+            </summary>
+        </StudentTDist>
+        <TriangularDist>
+            <summary>
+                Returns the TriangularDist
+            </summary>
+        </TriangularDist>
+        <UniformDist>
+            <summary>
+                Returns the UniformDist
+            </summary>
+        </UniformDist>
+        <WeibullDist>
+            <summary>
+                Returns the WeibullDist
+            </summary>
+        </WeibullDist>
+
+
+        <BracketRoot>
+            <summary>
+                The TOM 748 algorithm for finding a zero of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which a root is determined.</param>
+            <param name="guess"> an intial guess for the root.</param>
+            <param name="factor"> a multiplication factor used when searching for the bracket.</param>
+            <param name="is_rising"> an indicator whether the function is rising.</param>
+            <param name="get_digits"> the number of targeted accurate digits.</param>
+            <param name="maxit"> the maximal number of iterations.</param>
+            <returns>
+                A tuple (result, abserr, neval):<br/>
+                <em>result</em>: an approximation to the root.<br/>
+                <em>abserr</em>: an estimate of the modulus of the error of the approximation.<br/>
+                <em>neval</em>: the number of iterations.<br/>
+            </returns>        
+        </BracketRoot>
+
+
+        <NewtonRaphson>
+            <summary>
+                The Newton-Raphson algorithm for finding a zero of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which a root is determined.</param>
+            <param name="df"> the first derivative of the function f.</param>
+            <param name="guess"> an intial guess for the root.</param>
+            <param name="xmin"> the left border of the search interval</param>
+            <param name="xmax"> the right border of the search interval</param>
+            <param name="get_digits"> the number of targeted accurate digits.</param>
+            <param name="maxit"> the maximal number of iterations.</param>
+            <returns>
+                A tuple (result, neval):<br/>
+                <em>result</em>: an approximation to the root.<br/>
+                <em>neval</em>: the number of iterations.<br/>
+            </returns>
+        </NewtonRaphson>
+
+        <Halley>
+            <summary>
+                Halley's algorithm for finding a zero of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which a root is determined.</param>
+            <param name="df1"> the first derivative of the function f.</param>
+            <param name="df2"> the second derivative of the function f.</param>
+            <param name="guess"> an intial guess for the root.</param>
+            <param name="xmin"> the left border of the search interval</param>
+            <param name="xmax"> the right border of the search interval</param>
+            <param name="get_digits"> the number of targeted accurate digits.</param>
+            <param name="maxit"> the maximal number of iterations.</param>
+            <returns>
+                A tuple (result, neval):<br/>
+                <em>result</em>: an approximation to the root.<br/>
+                <em>neval</em>: the number of iterations.<br/>
+            </returns>
+        </Halley>
+
+        <Schroder>
+            <summary>
+                Schröder's algorithm for finding a zero of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which a root is determined.</param>
+            <param name="df1"> the first derivative of the function f.</param>
+            <param name="df2"> the second derivative of the function f.</param>
+            <param name="guess"> an intial guess for the root.</param>
+            <param name="xmin"> the left border of the search interval</param>
+            <param name="xmax"> the right border of the search interval</param>
+            <param name="get_digits"> the number of targeted accurate digits.</param>
+            <param name="maxit"> the maximal number of iterations.</param>
+            <returns>
+                A tuple (result, neval):<br/>
+                <em>result</em>: an approximation to the root.<br/>
+                <em>neval</em>: the number of iterations.<br/>
+            </returns>
+        </Schroder>
+
+        <BrentMinimum>
+            <summary>
+                Brent's algorithm (with guaranteed convergence) for finding a local minimum of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which a local minimum is determined.</param>
+            <param name="bracket_min"> the left border of the search interval</param>
+            <param name="bracket_max"> the left border of the search interval</param>
+            <param name="bits"> the number of targeted accurate digits</param>
+            <param name="maxit"> the maximal number of iterations.</param>
+            <returns>
+                A tuple (result, neval):<br/>
+                <em>localmin</em>: an approximation to the local minimum.<br/>
+                <em>fx0</em>: an approximation to the local minimum.<br/>
+                <em>neval</em>: the number of iterations.<br/>
+            </returns>
+        </BrentMinimum>
+
+
+
+        <Trapezoidal>
+            <summary>
+                Trapezoidal integration of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which the integral is determined.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="b"> the right border of the integration interval.</param>
+            <param name="tol"> the requested tolerance.</param>
+            <param name="max_refinements"> the maximal number of refinements. The default is 12.</param>
+            <returns>
+                A tuple (integral, error, L1):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>error</em>: an estimate of the error.<br/>
+                <em>L1</em>: an estimate of the L1 value.<br/>
+            </returns>
+        </Trapezoidal>
+
+        <GaussLegendre>
+            <summary>
+                Gauss-Legendre integration of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which the integral is determined.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="b"> the right border of the integration interval.</param>
+            <returns>
+                A tuple (integral, L1):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>L1</em>: an estimate of the L1 value.<br/>
+            </returns>
+        </GaussLegendre>
+
+
+        <GaussKronrod>
+            <summary>
+                Gauss-Kronrod integration of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which the integral is determined.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="b"> the right border of the integration interval.</param>
+            <param name="max_depth"> the maximal number of levels</param>
+            <param name="tol"> the requested tolerance.</param>
+            <returns>
+                A tuple (integral, error, L1):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>error</em>: an estimate of the error.<br/>
+                <em>L1</em>: an estimate of the L1 value.<br/>
+            </returns>
+        </GaussKronrod>
+
+        <TanhSinh>
+            <summary>
+                Tanh-Sinh integration of the function f in the interval (a,b).
+            </summary>
+            <param name="f"> the function for which the integral is determined.</param>
+            <param name="a"> the left border of the integration interval.</param>
+            <param name="b"> the right border of the integration interval.</param>
+            <param name="tol"> the requested tolerance.</param>
+            <param name="max_refinements"> the maximal number of refinements. The default is 12.</param>
+            <returns>
+                A tuple (integral, error, L1, levels):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>error</em>: an estimate of the error.<br/>
+                <em>L1</em>: an estimate of the L1 value.<br/>
+                <em>levels</em>: the number of levels used.<br/>
+            </returns>
+        </TanhSinh>
+
+        <SinhSinh>
+            <summary>
+                Sinh-Sinh integration of the function f in the interval (-inf, +inf).
+            </summary>
+            <param name="f"> the function for which the integral is determined.</param>
+            <param name="tol"> the requested tolerance.</param>
+            <param name="max_refinements"> the maximal number of refinements. The default is 12.</param>
+            <returns>
+                A tuple (integral, error, L1, levels):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>error</em>: an estimate of the error.<br/>
+                <em>L1</em>: an estimate of the L1 value.<br/>
+                <em>levels</em>: the number of levels used.<br/>
+            </returns>
+        </SinhSinh>
+
+        <ExpSinh>
+            <summary>
+                Exp-Sinh integration of the function f in the interval (0, +inf).
+            </summary>
+            <param name="f"> the function for which the integral is determined.</param>
+            <param name="tol"> the requested tolerance.</param>
+            <param name="max_refinements"> the maximal number of refinements. The default is 12.</param>
+            <returns>
+                A tuple (integral, error, L1, levels):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>error</em>: an estimate of the error.<br/>
+                <em>L1</em>: an estimate of the L1 value.<br/>
+                <em>levels</em>: the number of levels used.<br/>
+            </returns>
+        </ExpSinh>
+
+        <OouraCos>
+            <summary>
+                Ooura cos integration of the function f in the interval (0, +inf).
+            </summary>
+            <param name="f"></param>
+            <returns>
+                A tuple (integral, error):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>error</em>: an estimate of the error.<br/>
+            </returns>
+        </OouraCos>
+
+        <OouraSin>
+            <summary>
+                Ooura sin integration of the function f in the interval (0, +inf).
+            </summary>
+            <param name="f"></param>
+            <returns>
+                A tuple (integral, error):<br/>
+                <em>integral</em>: an approximation to the integral.<br/>
+                <em>error</em>: an estimate of the error.<br/>
+            </returns>
+        </OouraSin>
+
+
+
+
+        <RungeKutta4Const>
+            <summary>
+                Returns RungeKutta4Const, based on Boost-Odeint.
+            </summary>
+            <param name="F1"></param>
+            <param name="F2"></param>
+            <param name="matInput"></param>
+            <param name="StartTime"></param>
+            <param name="EndTime"></param>
+            <param name="dt"></param>
+            <returns></returns>
+        </RungeKutta4Const>
+
+        <DormandPrince5Adaptive>
+            <summary>
+                Returns DormandPrince5Adaptive, based on Boost-Odeint.
+            </summary>
+            <param name="F1"></param>
+            <param name="F2"></param>
+            <param name="matInput"></param>
+            <param name="StartTime"></param>
+            <param name="EndTime"></param>
+            <param name="dt"></param>
+            <param name="epsabs"></param>
+            <param name="epsrel"></param>
+            <returns></returns>
+        </DormandPrince5Adaptive>
+
+        <GradientDescentSolverFunc>
+            <summary>
+                Returns GradientDescentSolverFunc, based on Boost/CppOptLib
+            </summary>
+            <param name="F1"></param>
+            <param name="F2"></param>
+            <param name="matInput"></param>
+            <returns></returns>
+        </GradientDescentSolverFunc>
+
+
+
+    </members>
+
+
+
+    <members name="Charts">
+        <Point>
+            <summary>
+                Returns the Point Chart
+            </summary>
+        </Point>
+        <FastPoint>
+            <summary>
+                Returns the FastPoint Chart
+            </summary>
+        </FastPoint>
+        <Bubble>
+            <summary>
+                Returns the Bubble Chart
+            </summary>
+        </Bubble>
+        <Line>
+            <summary>
+                Returns the Line Chart
+            </summary>
+        </Line>
+        <Spline>
+            <summary>
+                Returns the Spline Chart
+            </summary>
+        </Spline>
+        <Stepline>
+            <summary>
+                Returns the Stepline Chart
+            </summary>
+        </Stepline>
+        <FastLine>
+            <summary>
+                Returns the FastLine Chart
+            </summary>
+        </FastLine>
+        <Bar>
+            <summary>
+                Returns the Bar Chart
+            </summary>
+        </Bar>
+        <StackedBar>
+            <summary>
+                Returns the StackedBar Chart
+            </summary>
+        </StackedBar>
+        <StackedBar100>
+            <summary>
+                Returns the StackedBar100 Chart
+            </summary>
+        </StackedBar100>
+        <Column>
+            <summary>
+                Returns the Column Chart
+            </summary>
+        </Column>
+        <StackedColumn>
+            <summary>
+                Returns the StackedColumn Chart
+            </summary>
+        </StackedColumn>
+        <StackedColumn100>
+            <summary>
+                Returns the StackedColumn100 Chart
+            </summary>
+        </StackedColumn100>
+        <Area>
+            <summary>
+                Returns the Area Chart
+            </summary>
+        </Area>
+        <SplineArea>
+            <summary>
+                Returns the SplineArea Chart
+            </summary>
+        </SplineArea>
+        <StackedArea>
+            <summary>
+                Returns the StackedArea Chart
+            </summary>
+        </StackedArea>
+        <Pie>
+            <summary>
+                Returns the Pie Chart
+            </summary>
+        </Pie>
+        <Doughnut>
+            <summary>
+                Returns the Doughnut Chart
+            </summary>
+        </Doughnut>
+        <CandleStick>
+            <summary>
+                Returns the CandleStick Chart
+            </summary>
+        </CandleStick>
+        <Range>
+            <summary>
+                Returns the Range Chart
+            </summary>
+        </Range>
+        <SplineRange>
+            <summary>
+                Returns the SplineRange Chart
+            </summary>
+        </SplineRange>
+        <RangeBar>
+            <summary>
+                Returns the RangeBar Chart
+            </summary>
+        </RangeBar>
+        <RangeColumn>
+            <summary>
+                Returns the RangeColumn Chart
+            </summary>
+        </RangeColumn>
+        <Radar>
+            <summary>
+                Returns the Radar Chart
+            </summary>
+        </Radar>
+        <Polar>
+            <summary>
+                Returns the Polar Chart
+            </summary>
+        </Polar>
+        <ErrorBar>
+            <summary>
+                Returns the ErrorBar Chart
+            </summary>
+        </ErrorBar>
+        <Boxplots>
+            <summary>
+                Returns the Boxplots Chart
+            </summary>
+        </Boxplots>
+        <Renko>
+            <summary>
+                Returns the Renko Chart
+            </summary>
+        </Renko>
+        <ThreeLineBreak>
+            <summary>
+                Returns the ThreeLineBreak Chart
+            </summary>
+        </ThreeLineBreak>
+        <Kagi>
+            <summary>
+                Returns the Kagi Chart
+            </summary>
+        </Kagi>
+        <PointAndFigure>
+            <summary>
+                Returns the PointAndFigure Chart
+            </summary>
+        </PointAndFigure>
+        <Funnel>
+            <summary>
+                Returns the Funnel Chart
+            </summary>
+        </Funnel>
+        <Pyramid>
+            <summary>
+                Returns the Pyramid Chart
+            </summary>
+        </Pyramid>
+
+    </members>
+
+
+
+
+    <members name="Plot3D">
+        <BuiltIn>
+            <summary>
+                Returns the BuiltIn Surface
+            </summary>
+        </BuiltIn>
+        <Translation>
+            <summary>
+                Returns the Translation Surface
+            </summary>
+        </Translation>
+        <Revolution>
+            <summary>
+                Returns the Revolution Surface
+            </summary>
+        </Revolution>
+        <Path>
+            <summary>
+                Returns the Path Surface
+            </summary>
+        </Path>
+        <RealAltitude>
+            <summary>
+                Returns the RealAltitude Surface
+            </summary>
+        </RealAltitude>
+        <ComplexAltitude>
+            <summary>
+                Returns the ComplexAltitude Surface
+            </summary>
+        </ComplexAltitude>
+        <Parametric>
+            <summary>
+                Returns the Parametric Surface
+            </summary>
+        </Parametric>
+    </members>
+
+
+
+
+</docs>
