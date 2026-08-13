@@ -1,0 +1,11 @@
+
+10. mpmath: implement conversion to and from Decimal for mpf and mpc
+
+11. mpmath: implement conversion to and from gmpy2.mpfr and gmpy2.mpc to mpf and mpc
+
+
+
+
+
+
+
