@@ -1,5 +1,5 @@
-### Welcome to mpFormulaC!
-The mpFormulaC library provides a comprehensive set of number-theoretical functions, and elementary and special real and complex functions in multiprecision ball arithmetic. It is based on a number of well-established libraries, which implement or support multiprecision, interval, or ball arithmetic: [GMP](https://gmplib.org/), [MPFR](http://www.mpfr.org/), [FLINT](http://flintlib.org/), [ARB](http://fredrikj.net/arb/), [libmpdec](http://www.bytereef.org/mpdecimal/), [MPFRC++](http://www.holoborodko.com/pavel/mpfr/), [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page), [Boost Math Toolkit](http://www.boost.org/doc/libs/1_58_0/libs/math/doc/html/index.html) and [Boost Random](http://www.boost.org/doc/libs/1_58_0/doc/html/boost_random.html). Additional planned functionality includes integration in  [LibreOffice Calc](https://www.libreoffice.org/) (Windows, Mac OSX, GNU/Linux), with multiprecision support for the numerical functions of this spreadsheet program.
+### Welcome to XlCalcNet!
+The XlCalcNet library provides a comprehensive set of number-theoretical functions, and elementary and special real and complex functions in multiprecision ball arithmetic. It is based on a number of well-established libraries, which implement or support multiprecision, interval, or ball arithmetic: [GMP](https://gmplib.org/), [MPFR](http://www.mpfr.org/), [FLINT](http://flintlib.org/), [ARB](http://fredrikj.net/arb/), [libmpdec](http://www.bytereef.org/mpdecimal/), [MPFRC++](http://www.holoborodko.com/pavel/mpfr/), [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page), [Boost Math Toolkit](http://www.boost.org/doc/libs/1_58_0/libs/math/doc/html/index.html) and [Boost Random](http://www.boost.org/doc/libs/1_58_0/doc/html/boost_random.html). Additional planned functionality includes integration in  [LibreOffice Calc](https://www.libreoffice.org/) (Windows, Mac OSX, GNU/Linux), with multiprecision support for the numerical functions of this spreadsheet program.
 The library is currently still in pre-alpha stage, and much of the planned functionality is still missing.
 
 
@@ -26,7 +26,7 @@ Within the manual, navigate to `Getting Started - Tutorials`, and follow the exa
 You can copy and paste the Python code of the examples from the manual into the Python Console.
 
 
-### Quick start with LibreOffice Calc (Windows, Mac OSX, GNU/Linux)
+### Quick start with LibreOffice Calc (Windows)
 To use the mpFormulaC functions from within LibreOffice Calc, you need to install the mpFormulaC add-in for LibreOffice (see the manual for details).
 
 
