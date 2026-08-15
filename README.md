@@ -6,6 +6,7 @@ The manual is available online in html format: [XlCalcNet.html](https://duhadler
 The manual is also available separately as pdf file: [XlCalcNet.pdf](https://github.com/duhadler/DocsXlCalcNet/raw/master/pdf/xlcalcnet.pdf), which is intended to be downloaded for offline use with a proper pdf reader.
 
 
+This is a direct jump to Beesel functions: [Bessel functions](https://duhadler.github.io/XlCalcNetDocsOnline/B10_Hypergeometric0F1/C02_BesselGeneral.html).
 
 
 A few simple examples:
