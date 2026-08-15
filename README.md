@@ -1,10 +1,45 @@
 ### Welcome to XlCalcNet!
-The XlCalcNet library provides a comprehensive set of number-theoretical functions, and elementary and special real and complex functions in multiprecision ball arithmetic. It is based on a number of well-established libraries, which implement or support multiprecision, interval, or ball arithmetic: [GMP](https://gmplib.org/), [MPFR](http://www.mpfr.org/), [FLINT](http://flintlib.org/), [ARB](http://fredrikj.net/arb/), [libmpdec](http://www.bytereef.org/mpdecimal/), [MPFRC++](http://www.holoborodko.com/pavel/mpfr/), [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page), [Boost Math Toolkit](http://www.boost.org/doc/libs/1_58_0/libs/math/doc/html/index.html) and [Boost Random](http://www.boost.org/doc/libs/1_58_0/doc/html/boost_random.html). Additional planned functionality includes integration in  [LibreOffice Calc](https://www.libreoffice.org/) (Windows, Mac OSX, GNU/Linux), with multiprecision support for the numerical functions of this spreadsheet program.
-The library is currently still in pre-alpha stage, and much of the planned functionality is still missing.
+The main goal of XlCalcNet (an addin for MS E**x**ce**l** and LibreOffice **Calc**, based on Python**Net**) is to enable the use of functions written in CPython or C# within spreadsheet formualas.
+
+This is achieved by interacting with a socket server written in CPython. 
+
+A few simple examples:
+
+Example 1 (calling a function in double precision):
+
+```
+=APY0("result =  platform.processor()")
+```
 
 
-### Manual
+Example 2 (calling the sqrt function in arbitrary precision):
+
+```
+=APY0("from mpfunlab import mpm $n  mpm.dps=40 $n result = str(mpm.sqrt(2))")
+```
+
+Example 3 (array formula):
+
+```
+{=APY0("result = sys.path";1;0)}
+```
+
+Example 4: (a simple loop)
+
+```
+=APY0("from mpfunlab import mpm $n  mpm.dps=40 $n result = str(mpm.sqrt(2))")
+```
+
+
+
+### Manual1
 The manual is also available separately as pdf file: [mpFormulaC.pdf](https://github.com/mpFormula/C/raw/master/Manual/mpFormulaC.pdf). Like the library itself, the manual is still very incomplete.
+
+
+### Manual2
+The manual is also available separately as pdf file: [XlCalcNet.pdf](https://github.com/duhadler/DocsXlCalcNet/raw/master/pdf/xlcalcnet.pdf). 
+
+
 
 
 ### Quick start under Windows.
@@ -28,15 +63,6 @@ You can copy and paste the Python code of the examples from the manual into the 
 
 ### Quick start with LibreOffice Calc (Windows)
 To use the mpFormulaC functions from within LibreOffice Calc, you need to install the mpFormulaC add-in for LibreOffice (see the manual for details).
-
-
-### Additional Information
-The site ["Numerical Explorations"](https://duhadler.wordpress.com/) contains background information related to Python and Verified Computing in general, and mpFormulaC in particular.
-
-
-### License
-The mpFormulaC Library and Toolbox is free software. It is licensed under the GNU General Public License, Version 3 ([GPLv3](https://www.gnu.org/licenses/gpl.html)).
-
 
 
 
