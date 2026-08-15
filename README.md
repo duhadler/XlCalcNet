@@ -1,5 +1,5 @@
 ### Welcome to XlCalcNet!
-The main goal of XlCalcNet (an addin for MS E**x**ce**l** and LibreOffice **Calc**, based on Python**Net**) is to enable the use of functions written in CPython or C# within spreadsheet formualas.
+The main goal of XlCalcNet (an addin for MS E**x**ce**l** and LibreOffice **Calc**, based on Python**Net**) is to enable the use of functions written in CPython or C# within spreadsheet formulas.
 
 This is achieved by interacting with a socket server written in CPython. 
 
@@ -33,11 +33,11 @@ Example 4: (a simple loop)
 
 
 ### Manual1
-The manual is also available separately as pdf file: [mpFormulaC.pdf](https://github.com/mpFormula/C/raw/master/Manual/mpFormulaC.pdf). Like the library itself, the manual is still very incomplete.
+The manual is available online in html format: [XlCalcNet.html](https://duhadler.github.io/XlCalcNetDocsOnline/). The manual can be downloaded as a folder for offline use.
 
 
 ### Manual2
-The manual is also available separately as pdf file: [XlCalcNet.pdf](https://github.com/duhadler/DocsXlCalcNet/raw/master/pdf/xlcalcnet.pdf). 
+The manual is also available separately as pdf file: [XlCalcNet.pdf](https://github.com/duhadler/DocsXlCalcNet/raw/master/pdf/xlcalcnet.pdf), which is intended to be downloaded for offline use with a proper pdf reader.
 
 
 
@@ -48,21 +48,6 @@ System requirements: Windows (Desktop) with [.NET Framework 4.x (Full)](http://w
 Download the .zip file and unzip it into a directory for which you have write access.
 Within the unzipped directory double-click on `mpFormulaC.bat`. This will start the Python Console of the  [SharpDevelop](http://www.icsharpcode.net/OpenSource/SD/) IDE.
 To confirm that mpFormulaC is working, type the following within the Python Console:
-
-```
->>> from mpFormulaC import *
->>> pi
-﻿mpf('3.141592653589793238462643402')
->>>
-```
-Still in the Sharpdevelop IDE, click on `Tools -> mpFormulaC Manual`, to open the manual in your default pdf viewer.
-
-Within the manual, navigate to `Getting Started - Tutorials`, and follow the examples.
-You can copy and paste the Python code of the examples from the manual into the Python Console.
-
-
-### Quick start with LibreOffice Calc (Windows)
-To use the mpFormulaC functions from within LibreOffice Calc, you need to install the mpFormulaC add-in for LibreOffice (see the manual for details).
 
 
 
