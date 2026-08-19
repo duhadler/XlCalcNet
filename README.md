@@ -1,4 +1,7 @@
 ### Welcome to XlCalcNet!
+
+XlCalcNet is a library with parts written in Python and other parts written in C\#, C++, C and Pascal, focussing on numerical calculations in multiple precision and data visualisation.
+
 The main goal of **XlCalcNet** (a Microsoft E**X**ce**l** addin for **Calc**ulations in multiprecision, based on Python**Net**) is to enable the use of functions written in Python or C# within spreadsheet formulas. It is therefore assumed that Microsoft Excel (2010 or later, 64 bit) is installed on the users system, running under Windows (7.1 or later, 64 bit), with .NET Framework 4.8/4.8.1 installed.
 
 
@@ -10,45 +13,17 @@ The manual is also available separately as pdf file: [XlCalcNet.pdf](https://git
 This is a direct jump to Bessel functions: [Bessel functions](https://duhadler.github.io/XlCalcNetDocsOnline/B10_Hypergeometric0F1/C02_BesselGeneral.html).
 
 
-A few simple examples:
+Since the main goal is to give access to software written in Python (or via PythonNet software written in C\#) from within spreadsheet formulas, a dedicated CPython installation is strongly recommend, to make it easier to configure the interaction with Microsoft Excel, without disturbing existing Python installations.
 
-Example 1 (calling a function in double precision):
+The interaction with Microsoft Excel is achieved by running a socket server written in Python, which is called from spreadsheet formulas using the functionality provided by Excel.Dna.
 
-```
-=APY0("result =  platform.processor()")
-```
+The code which is necessary to make this work overall contains much more C\# and C/C++ than Python, so the project is not really suitable as a project on PyPI, but is provided as a Github project only. Both the source code and precompiled binaries are included, since compiling all of the source code requires MSYS2, Free Pascal and Visual Studio, which not all Excel users will be familiar with.
 
+On the Python side XlCalcNet uses Mpmath 4.0 to provide a rich set of functions in arbitrary precision, using not only Mpmath's binary and interval data types, but also Python's built-in Decimal and Fraction data types. If GMP2 is installed, its data types can be used in many cases instead of Mpmath's binary data types, being much faster. Likewise, if Python-Flint is installed, its data types  can be used in many cases instead of Mpmath's interval data types, being much faster, and often also more accurate.
 
-Example 2 (calling the sqrt function in arbitrary precision):
+On the C/C++ side, XlCalcNet uses DAMath, Boost Math, Boost Multiprecision and Eigen to provide numerical functions in single, double, extended, quadruple and octuple precision, which are available to the user both from C\# and Python.
 
-```
-=APY0("from mpfunlab import mpm $n  mpm.dps=40 $n result = str(mpm.sqrt(2))")
-```
+The XlCalcNet2 library, which is licensed under the LGPL-3.0 and is therefore provided as a separate project, is based on Boost Math, Boost Multiprecision, Eigen, GMP, MPFR, MPC and Flint and provides functions for the same data types as XlCalcNet and also in arbitrary precision.
 
-Example 3 (array formula):
-
-```
-{=APY0("result = sys.path";1;0)}
-```
-
-Example 4: (a simple loop)
-
-```
-=APY0("from mpfunlab import mpm $n  mpm.dps=40 $n result = str(mpm.sqrt(2))")
-```
-
-
-
-### Quick start under Windows.
-
-This is achieved by interacting with a socket server written in CPython. 
-
-System requirements: Windows (Desktop) with [.NET Framework 4.x (Full)](http://www.microsoft.com/en-us/download/details.aspx?id=17718).
-
-Download the .zip file and unzip it into a directory for which you have write access.
-Within the unzipped directory double-click on `mpFormulaC.bat`. This will start the Python Console of the  [SharpDevelop](http://www.icsharpcode.net/OpenSource/SD/) IDE.
-To confirm that mpFormulaC is working, type the following within the Python Console:
-
-
-
+XlCalcNet is intended to be used together with existing Python libraries like NumPy, Matplotlib, Pandas, SciPy. It can also be used from recent versions of RStudio and R, using the reticulate package.
 
