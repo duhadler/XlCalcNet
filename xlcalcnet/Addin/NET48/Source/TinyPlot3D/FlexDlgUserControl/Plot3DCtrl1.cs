@@ -1443,7 +1443,26 @@ namespace TinyPlot3DCtrl
             }
         }
 
+        private void toolStripTop_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
 
+        }
+
+        private void xlCalcNetManualonlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/");
+        }
+
+        private void interactive3DPlotsTutorialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C02_GuiFunctions.html#starting-the-interactive-3d-wpf-plots");
+        }
+
+        private void xlCalcNetSectionHelponlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string target = comboBoxDirectories.Text + "/" + comboBoxFiles.Text + ".html";
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/" + target);
+        }
     }
 
 

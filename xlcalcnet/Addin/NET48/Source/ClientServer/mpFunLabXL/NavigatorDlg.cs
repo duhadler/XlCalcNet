@@ -153,6 +153,11 @@ namespace MpFunLabAddin64
                 MessageBox.Show("Could not find: " + PyExe);
             }
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

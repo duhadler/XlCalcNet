@@ -38,8 +38,8 @@ namespace TinyPlot2DCtrl
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Plot2DCtrl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.toolStripTop = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButtonFile = new System.Windows.Forms.ToolStripDropDownButton();
@@ -57,6 +57,9 @@ namespace TinyPlot2DCtrl
             this.matplotlib2DSVGPlotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dViewerexternalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tinyDataViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButtonHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.xlCalcNetManualonlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.galeryOfPlotsTutorialonlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMain1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonRun = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparatorMain2 = new System.Windows.Forms.ToolStripSeparator();
@@ -93,6 +96,8 @@ namespace TinyPlot2DCtrl
             this.contextMenu3D = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.xlCalcNetSectionHelponlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tableLayoutPanelMain.SuspendLayout();
             this.toolStripTop.SuspendLayout();
             this.toolStripBottom.SuspendLayout();
@@ -139,6 +144,7 @@ namespace TinyPlot2DCtrl
             this.toolStripTop.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButtonFile,
             this.toolStripDropDownButtonTools,
+            this.toolStripDropDownButtonHelp,
             this.toolStripSeparatorMain1,
             this.toolStripButtonRun,
             this.toolStripSeparatorMain2,
@@ -152,6 +158,7 @@ namespace TinyPlot2DCtrl
             this.toolStripTop.Size = new System.Drawing.Size(1164, 50);
             this.toolStripTop.TabIndex = 0;
             this.toolStripTop.Text = "toolStrip1";
+            this.toolStripTop.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripTop_ItemClicked);
             // 
             // toolStripDropDownButtonFile
             // 
@@ -276,6 +283,36 @@ namespace TinyPlot2DCtrl
             this.tinyDataViewerToolStripMenuItem.Size = new System.Drawing.Size(404, 44);
             this.tinyDataViewerToolStripMenuItem.Text = "Tiny Data Viewer";
             this.tinyDataViewerToolStripMenuItem.Click += new System.EventHandler(this.tinyDataViewerToolStripMenuItem_Click);
+            // 
+            // toolStripDropDownButtonHelp
+            // 
+            this.toolStripDropDownButtonHelp.AutoToolTip = false;
+            this.toolStripDropDownButtonHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButtonHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xlCalcNetManualonlineToolStripMenuItem,
+            this.xlCalcNetSectionHelponlineToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.galeryOfPlotsTutorialonlineToolStripMenuItem});
+            this.toolStripDropDownButtonHelp.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonHelp.Image")));
+            this.toolStripDropDownButtonHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButtonHelp.Name = "toolStripDropDownButtonHelp";
+            this.toolStripDropDownButtonHelp.ShowDropDownArrow = false;
+            this.toolStripDropDownButtonHelp.Size = new System.Drawing.Size(68, 44);
+            this.toolStripDropDownButtonHelp.Text = "Help";
+            // 
+            // xlCalcNetManualonlineToolStripMenuItem
+            // 
+            this.xlCalcNetManualonlineToolStripMenuItem.Name = "xlCalcNetManualonlineToolStripMenuItem";
+            this.xlCalcNetManualonlineToolStripMenuItem.Size = new System.Drawing.Size(498, 44);
+            this.xlCalcNetManualonlineToolStripMenuItem.Text = "XlCalcNet Manual (online)...";
+            this.xlCalcNetManualonlineToolStripMenuItem.Click += new System.EventHandler(this.xlCalcNetManualonlineToolStripMenuItem_Click);
+            // 
+            // galeryOfPlotsTutorialonlineToolStripMenuItem
+            // 
+            this.galeryOfPlotsTutorialonlineToolStripMenuItem.Name = "galeryOfPlotsTutorialonlineToolStripMenuItem";
+            this.galeryOfPlotsTutorialonlineToolStripMenuItem.Size = new System.Drawing.Size(498, 44);
+            this.galeryOfPlotsTutorialonlineToolStripMenuItem.Text = "Gallery of Plots Tutorial (online)...";
+            this.galeryOfPlotsTutorialonlineToolStripMenuItem.Click += new System.EventHandler(this.galeryOfPlotsTutorialonlineToolStripMenuItem_Click);
             // 
             // toolStripSeparatorMain1
             // 
@@ -449,24 +486,24 @@ namespace TinyPlot2DCtrl
             this.dataGridViewProject.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewProject.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewProject.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewProject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewProject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewProject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProject.ColumnHeadersVisible = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewProject.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewProject.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewProject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewProject.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewProject.Location = new System.Drawing.Point(0, 150);
@@ -693,6 +730,18 @@ namespace TinyPlot2DCtrl
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
             this.toolStripMenuItem7.Size = new System.Drawing.Size(74, 24);
             // 
+            // xlCalcNetSectionHelponlineToolStripMenuItem
+            // 
+            this.xlCalcNetSectionHelponlineToolStripMenuItem.Name = "xlCalcNetSectionHelponlineToolStripMenuItem";
+            this.xlCalcNetSectionHelponlineToolStripMenuItem.Size = new System.Drawing.Size(498, 44);
+            this.xlCalcNetSectionHelponlineToolStripMenuItem.Text = "XlCalcNet Section Help (online)...";
+            this.xlCalcNetSectionHelponlineToolStripMenuItem.Click += new System.EventHandler(this.xlCalcNetSectionHelponlineToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(495, 6);
+            // 
             // Plot2DCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
@@ -776,5 +825,10 @@ namespace TinyPlot2DCtrl
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label labelGraphicsSVD;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonHelp;
+        private System.Windows.Forms.ToolStripMenuItem xlCalcNetManualonlineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem galeryOfPlotsTutorialonlineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xlCalcNetSectionHelponlineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }

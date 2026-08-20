@@ -59,7 +59,7 @@ namespace MpFunLabAddin64
             this.TableLayoutPanel1.Controls.Add(this.Label1, 0, 0);
             this.TableLayoutPanel1.Controls.Add(this.Label2, 1, 0);
             this.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.TableLayoutPanel1.Location = new System.Drawing.Point(6, 6);
             this.TableLayoutPanel1.Name = "TableLayoutPanel1";
             this.TableLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
             this.TableLayoutPanel1.RowCount = 4;
@@ -67,7 +67,7 @@ namespace MpFunLabAddin64
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 125F));
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.TableLayoutPanel1.Size = new System.Drawing.Size(901, 613);
+            this.TableLayoutPanel1.Size = new System.Drawing.Size(889, 601);
             this.TableLayoutPanel1.TabIndex = 0;
             // 
             // TableLayoutPanel2
@@ -82,31 +82,34 @@ namespace MpFunLabAddin64
             this.TableLayoutPanel2.Controls.Add(this.btnOK, 2, 0);
             this.TableLayoutPanel2.Controls.Add(this.button1, 0, 0);
             this.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TableLayoutPanel2.Location = new System.Drawing.Point(6, 553);
+            this.TableLayoutPanel2.Location = new System.Drawing.Point(6, 541);
             this.TableLayoutPanel2.Name = "TableLayoutPanel2";
             this.TableLayoutPanel2.RowCount = 1;
             this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel2.Size = new System.Drawing.Size(889, 54);
+            this.TableLayoutPanel2.Size = new System.Drawing.Size(877, 54);
             this.TableLayoutPanel2.TabIndex = 0;
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCancel.Location = new System.Drawing.Point(732, 3);
+            this.btnCancel.Location = new System.Drawing.Point(723, 3);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(154, 48);
+            this.btnCancel.Size = new System.Drawing.Size(151, 48);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnOK.Location = new System.Drawing.Point(572, 3);
+            this.btnOK.Location = new System.Drawing.Point(560, 3);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(154, 48);
+            this.btnOK.Size = new System.Drawing.Size(151, 48);
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -126,10 +129,11 @@ namespace MpFunLabAddin64
             // 
             this.TableLayoutPanel1.SetColumnSpan(this.RichTextBox1, 2);
             this.RichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RichTextBox1.Location = new System.Drawing.Point(6, 428);
+            this.RichTextBox1.Location = new System.Drawing.Point(9, 419);
+            this.RichTextBox1.Margin = new System.Windows.Forms.Padding(6);
             this.RichTextBox1.Name = "RichTextBox1";
             this.RichTextBox1.ReadOnly = true;
-            this.RichTextBox1.Size = new System.Drawing.Size(889, 119);
+            this.RichTextBox1.Size = new System.Drawing.Size(871, 113);
             this.RichTextBox1.TabIndex = 1;
             this.RichTextBox1.Text = "Description of selected procedure";
             // 
@@ -139,9 +143,10 @@ namespace MpFunLabAddin64
             this.lbLibrary.FormattingEnabled = true;
             this.lbLibrary.IntegralHeight = false;
             this.lbLibrary.ItemHeight = 29;
-            this.lbLibrary.Location = new System.Drawing.Point(6, 56);
+            this.lbLibrary.Location = new System.Drawing.Point(9, 59);
+            this.lbLibrary.Margin = new System.Windows.Forms.Padding(6);
             this.lbLibrary.Name = "lbLibrary";
-            this.lbLibrary.Size = new System.Drawing.Size(441, 366);
+            this.lbLibrary.Size = new System.Drawing.Size(429, 348);
             this.lbLibrary.TabIndex = 2;
             this.lbLibrary.SelectedIndexChanged += new System.EventHandler(this.lbLibrary_SelectedIndexChanged);
             // 
@@ -151,9 +156,10 @@ namespace MpFunLabAddin64
             this.lbProc.FormattingEnabled = true;
             this.lbProc.IntegralHeight = false;
             this.lbProc.ItemHeight = 29;
-            this.lbProc.Location = new System.Drawing.Point(453, 56);
+            this.lbProc.Location = new System.Drawing.Point(450, 59);
+            this.lbProc.Margin = new System.Windows.Forms.Padding(6);
             this.lbProc.Name = "lbProc";
-            this.lbProc.Size = new System.Drawing.Size(442, 366);
+            this.lbProc.Size = new System.Drawing.Size(430, 348);
             this.lbProc.TabIndex = 3;
             this.lbProc.SelectedIndexChanged += new System.EventHandler(this.lbProc_SelectedIndexChanged);
             // 
@@ -163,7 +169,7 @@ namespace MpFunLabAddin64
             this.Label1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Label1.Location = new System.Drawing.Point(6, 24);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(441, 29);
+            this.Label1.Size = new System.Drawing.Size(435, 29);
             this.Label1.TabIndex = 4;
             this.Label1.Text = "Library";
             // 
@@ -171,9 +177,9 @@ namespace MpFunLabAddin64
             // 
             this.Label2.AutoSize = true;
             this.Label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Label2.Location = new System.Drawing.Point(453, 24);
+            this.Label2.Location = new System.Drawing.Point(447, 24);
             this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(442, 29);
+            this.Label2.Size = new System.Drawing.Size(436, 29);
             this.Label2.TabIndex = 5;
             this.Label2.Text = "Procedure";
             // 
@@ -187,6 +193,7 @@ namespace MpFunLabAddin64
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NavigatorDlg";
+            this.Padding = new System.Windows.Forms.Padding(6);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

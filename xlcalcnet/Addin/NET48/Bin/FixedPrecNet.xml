@@ -625,12 +625,12 @@
         <member name="M:FixedPrecNet.cmath53.sin(System.Numerics.Complex)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.cmath53.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.cmath53.tan(System.Numerics.Complex)">
             <summary>
@@ -2827,12 +2827,12 @@
         <member name="M:FixedPrecNet.dcplx.sin(System.Numerics.Complex)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.dcplx.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.dcplx.cos(System.Numerics.Complex)">
             <summary>
@@ -4014,12 +4014,12 @@
         <member name="M:FixedPrecNet.dreal.sin(System.Double)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.dreal.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.dreal.cos(System.Double)">
             <summary>
@@ -10198,12 +10198,12 @@
         <member name="M:FixedPrecNet.ocplx.sin(FixedPrecNet.OctupleC)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.ocplx.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.ocplx.cos(FixedPrecNet.OctupleC)">
             <summary>
@@ -11022,12 +11022,12 @@
         <member name="M:FixedPrecNet.qcplx.sin(FixedPrecNet.QuadrupleC)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.qcplx.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.qcplx.cos(FixedPrecNet.QuadrupleC)">
             <summary>
@@ -11823,12 +11823,12 @@
         <member name="M:FixedPrecNet.scplx.sin(FixedPrecNet.SingleC)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.scplx.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.scplx.cos(FixedPrecNet.SingleC)">
             <summary>
@@ -13010,12 +13010,12 @@
         <member name="M:FixedPrecNet.sreal.sin(System.Single)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.sreal.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.sreal.cos(System.Single)">
             <summary>
@@ -16170,12 +16170,12 @@
         <member name="M:FixedPrecNet.oreal.sin(FixedPrecNet.Octuple)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.oreal.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.oreal.cos(FixedPrecNet.Octuple)">
             <summary>
@@ -19262,12 +19262,12 @@
         <member name="M:FixedPrecNet.qreal.sin(FixedPrecNet.Quadruple)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.qreal.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.qreal.cos(FixedPrecNet.Quadruple)">
             <summary>
@@ -22433,12 +22433,12 @@
         <member name="M:FixedPrecNet.ereal.sin(FixedPrecNet.Extended)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.ereal.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.ereal.cos(FixedPrecNet.Extended)">
             <summary>
@@ -25203,12 +25203,12 @@
         <member name="M:FixedPrecNet.ecplx.sin(FixedPrecNet.ExtendedC)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.ecplx.sin(System.Object)">
             <summary>
                 Returns the sin of x
-            </summary><seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            </summary><seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </member>
         <member name="M:FixedPrecNet.ecplx.cos(FixedPrecNet.ExtendedC)">
             <summary>

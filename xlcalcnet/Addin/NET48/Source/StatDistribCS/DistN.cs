@@ -17,30 +17,30 @@ namespace NewDistrib
 
         public static double gamma(double x)
         {
-            return dreal.real_gamma(x);
+            return dreal.gamma(x);
         }
 
 
         public static double gamma_delta_ratio(double x, double y)
         {
-            return dreal.real_gamma_delta_ratio(x, y);
+            return dreal.gamma_delta_ratio(x, y);
         }
 
 
         public static double gamma_p_derivative(double a, double x)
         {
-            return dreal.real_gamma_p_prime(a, x);
+            return dreal.gamma_p_prime(a, x);
         }
 
 
         public static double gamma_q(double a, double x)
         {
-            return dreal.real_gamma_q(a, x);
+            return dreal.gamma_q(a, x);
         }
 
         public static double gamma_p(double a, double x)
         {
-            return dreal.real_gamma_p(a, x);
+            return dreal.gamma_p(a, x);
         }
 
 
@@ -53,13 +53,13 @@ namespace NewDistrib
 
         public static double ibeta_derivative(double a, double b, double x)
         {
-            return dreal.real_ibeta_prime(a, b, x);
+            return dreal.ibeta_prime(a, b, x);
         }
 
 
         public static double ibeta(double a, double b, double x)
         {
-            return dreal.real_ibeta(a, b, x);
+            return dreal.ibeta(a, b, x);
         }
 
 

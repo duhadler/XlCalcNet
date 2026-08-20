@@ -504,5 +504,20 @@ namespace TinyDataViewerCtrl
             dataGridViewProject.FirstDisplayedScrollingRowIndex = dataGridViewProject.SelectedRows[0].Index;
             dataGridViewProject.Update();
         }
+
+        private void toolStripDropDownButtonView_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void xlCalcNetManualonlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/");
+        }
+
+        private void tinyDataViewerTutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C02_GuiFunctions.html#starting-the-data-viewer");
+        }
     }
 }

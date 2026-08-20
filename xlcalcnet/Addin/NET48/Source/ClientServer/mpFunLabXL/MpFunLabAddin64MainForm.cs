@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using ExcelDna.Integration;
 using ExcelDna.Integration.CustomUI;
@@ -73,6 +75,9 @@ namespace MpFunLabAddin64
         // Const Parameter9Desc = "the ninth" + PD1 + "9" + PD2
         private const string TransposeDesc = "Optional: If set to a non-zero value, the output will be transposed";
         private const string ShowShapeDesc = "Optional: If set to a non-zero value, the shape will be indicated in the output";
+
+        private const string HelpRef = "https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C01_Setup.html#installing-and-using-the-tiny-ide-as-a-python-application";
+
 
         private const string P2Desc = "the second" + PD1 + "2";
         private const string P3Desc = "the third" + PD1 + "3";
@@ -157,7 +162,7 @@ namespace MpFunLabAddin64
             return ResultFinal;
         }
 
-        private static dynamic CallSocketServer0(string Code2, bool Transpose, bool ShowShape)
+        private static dynamic CallSocketServer0OLD(string Code2, bool Transpose, bool ShowShape)
         {
             var scc = new MpFunLabSocketClientClass();
             string Result = scc.CallSocketServer(Code2);
@@ -218,7 +223,113 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "Converts the string representation of a multiple-precision number into a double", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+
+
+
+
+
+        private static dynamic CallSocketServer0(string Code, bool Transpose, bool ShowShape)
+        {
+            int TotalBytesThreshold = 1000;
+            var scc = new MpFunLabSocketClientClass();
+            var utf8WithoutBOM = new UTF8Encoding(false);
+            string ResultStr;
+            Console.WriteLine("Code1.Length(): {0}", Code.Length);
+            int TotalBytes = Encoding.UTF8.GetBytes(Code).Length;
+            Console.WriteLine("Code2.Length(): {0}", TotalBytes);
+            if (TotalBytes > TotalBytesThreshold)
+            {
+                Console.WriteLine("C#: write to file");
+                string MyPath = @"C:\Temp\FileTempIn.txt";
+                File.WriteAllText(MyPath, Code, utf8WithoutBOM);
+                string Code2 = "$file:$" + MyPath;
+                ResultStr = scc.CallSocketServer(Code2);
+            }
+            else
+            {
+                Console.WriteLine("C#: no write to file");
+                ResultStr = scc.CallSocketServer(Code);
+            }
+
+
+
+            if (ResultStr.StartsWith("$file:$"))
+            {
+                Console.WriteLine("C#: read from file");
+                string ResultPath = @"C:\Temp\FileTempOut.txt";
+                ResultStr = File.ReadAllText(ResultPath, utf8WithoutBOM);
+                Console.WriteLine("ResultStr: {0}", ResultStr);
+            }
+            else
+            {
+                Console.WriteLine("C#: no read from file");
+            }
+
+
+            if (ResultStr.StartsWith("$list$"))
+            {
+                dynamic[,] oTable;
+                string[] ResArray = Strings.Split(ResultStr, "§__§");
+                //string[] ResArray = string.Split(ResultStr, "§__§");
+                int NoOfRows = ResArray.Length;
+                string Row = ResArray[1];
+                string[] RowArray = Strings.Split(Row, "§_§");
+                int NoOfCols = RowArray.Length;
+                if (Transpose)
+                {
+                    oTable = new dynamic[NoOfCols, NoOfRows - 2 + 1];
+                }
+                else
+                {
+                    oTable = new dynamic[NoOfRows - 2 + 1, NoOfCols];
+                }
+                for (int i = 0, loopTo = NoOfRows - 2; i <= loopTo; i++)
+                {
+                    Row = ResArray[i + 1];
+                    RowArray = Strings.Split(Row, "§_§");
+                    for (int j = 0, loopTo1 = RowArray.Length - 1; j <= loopTo1; j++)
+                    {
+                        string Val = RowArray[j];
+                        if (Transpose)
+                        {
+                            oTable[j, i] = GetTypedData(Val);
+                        }
+                        else
+                        {
+                            oTable[i, j] = GetTypedData(Val);
+                        }
+                    }
+                }
+                if (ShowShape)
+                {
+                    string RxC;
+                    if (Transpose)
+                    {
+                        RxC = "R" + NoOfCols.ToString().Trim() + "xC" + (NoOfRows - 1).ToString().Trim() + "| ";
+                    }
+                    else
+                    {
+                        RxC = "R" + (NoOfRows - 1).ToString().Trim() + "xC" + NoOfCols.ToString().Trim() + "| ";
+                    }
+                    oTable[0, 0] = RxC + oTable[0, 0].ToString();
+                }
+                return oTable;
+            }
+            else
+            {
+                return GetTypedData(ResultStr);
+            }
+        }
+
+
+
+
+
+
+
+
+
+        [ExcelFunction(Description = "Converts the string representation of a multiple-precision number into a double", HelpTopic = HelpRef)]
         public static dynamic ASDOUBLE([ExcelArgument(Description = PythonCodeDesc)] string MpString)
         {
             string Result;
@@ -229,7 +340,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code without parameters.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code without parameters.", HelpTopic = HelpRef)]
         public static dynamic CPY_0([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;
@@ -241,7 +352,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code with 1 parameter.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code with 1 parameter.", HelpTopic = HelpRef)]
         public static dynamic CPY_1([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = P1Desc)] dynamic P1, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;
@@ -255,7 +366,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code with 2 parameters.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code with 2 parameters.", HelpTopic = HelpRef)]
         public static dynamic CPY_2([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = P1Desc)] dynamic P1, [ExcelArgument(Description = P2Desc)] dynamic P2, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;
@@ -265,7 +376,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code with 3 parameters.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code with 3 parameters.", HelpTopic = HelpRef)]
         public static dynamic CPY_3([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = P1Desc)] dynamic P1, [ExcelArgument(Description = P2Desc)] dynamic P2, [ExcelArgument(Description = P3Desc)] dynamic P3, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;
@@ -275,7 +386,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code with 4 parameters.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code with 4 parameters.", HelpTopic = HelpRef)]
         public static dynamic CPY_4([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = P1Desc)] dynamic P1, [ExcelArgument(Description = P2Desc)] dynamic P2, [ExcelArgument(Description = P3Desc)] dynamic P3, [ExcelArgument(Description = P4Desc)] dynamic P4, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;
@@ -285,7 +396,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code with 5 parameters.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code with 5 parameters.", HelpTopic = HelpRef)]
         public static dynamic CPY_5([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = P1Desc)] dynamic P1, [ExcelArgument(Description = P2Desc)] dynamic P2, [ExcelArgument(Description = P3Desc)] dynamic P3, [ExcelArgument(Description = P4Desc)] dynamic P4, [ExcelArgument(Description = P5Desc)] dynamic P5, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;
@@ -295,7 +406,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code with 6 parameters.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code with 6 parameters.", HelpTopic = HelpRef)]
         public static dynamic CPY_6([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = P1Desc)] dynamic P1, [ExcelArgument(Description = P2Desc)] dynamic P2, [ExcelArgument(Description = P3Desc)] dynamic P3, [ExcelArgument(Description = P4Desc)] dynamic P4, [ExcelArgument(Description = P5Desc)] dynamic P5, [ExcelArgument(Description = P6Desc)] dynamic P6, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;
@@ -305,7 +416,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code with 7 parameters.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code with 7 parameters.", HelpTopic = HelpRef)]
         public static dynamic CPY_7([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = P1Desc)] dynamic P1, [ExcelArgument(Description = P2Desc)] dynamic P2, [ExcelArgument(Description = P3Desc)] dynamic P3, [ExcelArgument(Description = P4Desc)] dynamic P4, [ExcelArgument(Description = P5Desc)] dynamic P5, [ExcelArgument(Description = P6Desc)] dynamic P6, [ExcelArgument(Description = P7Desc)] dynamic P7, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;
@@ -315,7 +426,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code with 8 parameters.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code with 8 parameters.", HelpTopic = HelpRef)]
         public static dynamic CPY_8([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = P1Desc)] dynamic P1, [ExcelArgument(Description = P2Desc)] dynamic P2, [ExcelArgument(Description = P3Desc)] dynamic P3, [ExcelArgument(Description = P4Desc)] dynamic P4, [ExcelArgument(Description = P5Desc)] dynamic P5, [ExcelArgument(Description = P6Desc)] dynamic P6, [ExcelArgument(Description = P7Desc)] dynamic P7, [ExcelArgument(Description = P8Desc)] dynamic P8, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;
@@ -325,7 +436,7 @@ namespace MpFunLabAddin64
 
 
 
-        [ExcelFunction(Description = "CPython code with 9 parameters.", HelpTopic = "https://github.com/Excel-DNA/ExcelDnaDoc")]
+        [ExcelFunction(Description = "CPython code with 9 parameters.", HelpTopic = HelpRef)]
         public static dynamic CPY_9([ExcelArgument(Description = PythonCodeDesc)] string PythonCode, [ExcelArgument(Description = P1Desc)] dynamic P1, [ExcelArgument(Description = P2Desc)] dynamic P2, [ExcelArgument(Description = P3Desc)] dynamic P3, [ExcelArgument(Description = P4Desc)] dynamic P4, [ExcelArgument(Description = P5Desc)] dynamic P5, [ExcelArgument(Description = P6Desc)] dynamic P6, [ExcelArgument(Description = P7Desc)] dynamic P7, [ExcelArgument(Description = P8Desc)] dynamic P8, [ExcelArgument(Description = P9Desc)] dynamic P9, [ExcelArgument(Description = TransposeDesc)] double Transposed = 0.0d, [ExcelArgument(Description = ShowShapeDesc)] double ShowShape = 0.0d)
         {
             dynamic Result;

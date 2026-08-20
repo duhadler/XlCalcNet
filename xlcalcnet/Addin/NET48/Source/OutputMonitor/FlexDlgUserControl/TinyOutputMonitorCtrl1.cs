@@ -564,5 +564,15 @@ namespace TinyOutputMonitorCtrl
             dataGridViewProject.Update();
         }
 
+        private void xlCalcNetManualonlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/");
+        }
+
+        private void tinyOutputMonitorTutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C02_GuiFunctions.html#starting-the-output-monitor");
+
+        }
     }
 }

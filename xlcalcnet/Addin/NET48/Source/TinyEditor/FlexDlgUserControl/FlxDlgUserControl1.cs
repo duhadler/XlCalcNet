@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace FlexDlgUserCtrl
 {
@@ -853,43 +854,59 @@ namespace FlexDlgUserCtrl
 
 
 
+        private void xlCalcNetManualHTMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/");
+        }
+
+
+        private void xlCalcNetSectionHelponlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string filetarget = comboBoxFiles.Text;
+            if (filetarget.Contains("&"))
+            {
+                filetarget=filetarget.Replace("&", "/");
+            }
+            string target = comboBoxDirectories.Text + "/" + filetarget + ".html";
+
+            //string target = comboBoxDirectories.Text + "/" + comboBoxFiles.Text + ".html";
+
+
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/" + target);
+        }
+
+        private void tinyIDETutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C01_Setup.html#installing-and-using-the-tiny-ide-as-a-python-application");
+        }
+
+
+        private void xlCalcNetManualPDFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string filePath = _LocalAppDataDir + @"\XlCalcNetIDE\Docs\pdf\xlcalcnet.pdf";
+            if (System.IO.File.Exists(filePath))
+            {
+                Process.Start(filePath);
+            }
+            else
+            {
+                MessageBox.Show("Could not find " + filePath);
+            }
+        }
+
 
 
         private void pythonTutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://docs.python.org/3.9/tutorial/index.html");
+            Process.Start("https://docs.python.org/3/tutorial/index.html");
         }
-
-
-        private void mpmath11onlineToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("http://mpmath.org/doc/1.3.0/");
-        }
-
-
-        void NumericalExplorationsToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            Process.Start("https://duhadler.wordpress.com/");
-        }
-
-        void PythonAnywhereToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            Process.Start("https://www.pythonanywhere.com/");
-        }
-
-
         #endregion
 
+        private void cTutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/overview");
+        }
 
-
-
-
-        //private void scriptEditorexternalToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    string FullDLLPath = GetBinPath();
-        //    FullDLLPath = FullDLLPath + @"\TinyCSharpPythonIDE.exe";
-        //    Process.Start(FullDLLPath);
-        //}
 
 
         private void characterMapToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1035,7 +1052,7 @@ namespace FlexDlgUserCtrl
             //string MainPath = GetCPythonPath();
             //if (MainPath == "") return;
             string PyExe = _PythonRootDir + @"\python.exe";
-            if (File.Exists(PyExe))
+            if (System.IO.File.Exists(PyExe))
             {
                 var process = new Process();
                 process.StartInfo.FileName = PyExe;
@@ -1094,10 +1111,15 @@ namespace FlexDlgUserCtrl
         {
             string res = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string site = "";
+
+
             if (DocFileHtml == "xlcalcnet")
-                site = "file:///" + res + @"/Docs/XlCalcNet/html/";
-            if (DocFileHtml == "mpfunlab")
-                site = "file:///" + res + @"/Docs/mpfunlab/html/";
+                //site = "file:///" + res + @"/Docs/XlCalcNet/html/";
+
+                site = "https://duhadler.github.io/XlCalcNetDocsOnline/";
+
+            //if (DocFileHtml == "mpfunlab")
+            //    site = "file:///" + res + @"/Docs/mpfunlab/html/";
             if (DocFileHtml == "userlibnet")
             {
                 res = _LocalAppDataDir;
@@ -1111,9 +1133,7 @@ namespace FlexDlgUserCtrl
             //Process.Start("firefox", site + topic);
             //richTextBoxLog.Text = site + topic;
 
-            // file:///C:/Users/DUHad/Documents/DataXlCalcNet/A05UserLibsDocs/htmlUserDoc/_z06NumericalCalculus/01Polynomials.html
 
-            // file:///C:/Users/DUHad/Documents/Docs/mpfunlab/html/03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin
         }
 
         private void infoOnFunctionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1125,7 +1145,7 @@ namespace FlexDlgUserCtrl
             int curpos = startpos;
             int LastLen = 0;
             char c = (char)scintilla1.GetCharAt(curpos);
-            while ((c != '.') && (curpos>10) && (LastLen < 100))
+            while ((c != '.') && (curpos > 10) && (LastLen < 100))
             {
                 curpos--;
                 LastLen++;
@@ -1136,17 +1156,12 @@ namespace FlexDlgUserCtrl
             //MessageBox.Show(LastCat);
 
             if (XlCalcKeyWords1.Contains(LastCat) && !XlCalcKeyWords1.Contains(MethodName))
-            { 
-            AutoCSelectionChange2(LastCat, MethodName);
-            tabControl1.SelectedTab = tabFunctionInfo;
+            {
+                AutoCSelectionChange2(LastCat, MethodName);
+                tabControl1.SelectedTab = tabFunctionInfo;
             }
         }
 
-
-        private void contextMenuStripEditor_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
 
     }
 }

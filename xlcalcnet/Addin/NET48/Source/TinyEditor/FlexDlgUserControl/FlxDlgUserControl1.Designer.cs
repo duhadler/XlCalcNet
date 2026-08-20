@@ -106,11 +106,14 @@ namespace FlexDlgUserCtrl
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButtonHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.xlCalcNetManualHTMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xlCalcNetSectionHelponlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.tinyIDETutorialonlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pythonTutorialonlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
-            this.mpmath11onlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.numericalExplorationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pythonAnywhereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cTutorialonlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator25 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorMain1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonRun = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonHideProjectPanel = new System.Windows.Forms.ToolStripButton();
@@ -748,49 +751,70 @@ namespace FlexDlgUserCtrl
             this.toolStripDropDownButtonHelp.AutoToolTip = false;
             this.toolStripDropDownButtonHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButtonHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xlCalcNetManualHTMLToolStripMenuItem,
+            this.xlCalcNetSectionHelponlineToolStripMenuItem,
+            this.toolStripSeparator14,
+            this.tinyIDETutorialonlineToolStripMenuItem,
             this.pythonTutorialonlineToolStripMenuItem,
-            this.toolStripSeparator10,
-            this.mpmath11onlineToolStripMenuItem,
-            this.numericalExplorationsToolStripMenuItem,
-            this.pythonAnywhereToolStripMenuItem});
+            this.cTutorialonlineToolStripMenuItem,
+            this.toolStripSeparator25,
+            this.aboutToolStripMenuItem});
             this.toolStripDropDownButtonHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonHelp.Name = "toolStripDropDownButtonHelp";
             this.toolStripDropDownButtonHelp.ShowDropDownArrow = false;
             this.toolStripDropDownButtonHelp.Size = new System.Drawing.Size(68, 44);
             this.toolStripDropDownButtonHelp.Text = "Help";
             // 
+            // xlCalcNetManualHTMLToolStripMenuItem
+            // 
+            this.xlCalcNetManualHTMLToolStripMenuItem.Name = "xlCalcNetManualHTMLToolStripMenuItem";
+            this.xlCalcNetManualHTMLToolStripMenuItem.Size = new System.Drawing.Size(481, 44);
+            this.xlCalcNetManualHTMLToolStripMenuItem.Text = "XlCalcNet Manual (online)...";
+            this.xlCalcNetManualHTMLToolStripMenuItem.Click += new System.EventHandler(this.xlCalcNetManualHTMLToolStripMenuItem_Click);
+            // 
+            // xlCalcNetSectionHelponlineToolStripMenuItem
+            // 
+            this.xlCalcNetSectionHelponlineToolStripMenuItem.Name = "xlCalcNetSectionHelponlineToolStripMenuItem";
+            this.xlCalcNetSectionHelponlineToolStripMenuItem.Size = new System.Drawing.Size(481, 44);
+            this.xlCalcNetSectionHelponlineToolStripMenuItem.Text = "XlCalcNet Section Help (online)";
+            this.xlCalcNetSectionHelponlineToolStripMenuItem.Click += new System.EventHandler(this.xlCalcNetSectionHelponlineToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(478, 6);
+            // 
+            // tinyIDETutorialonlineToolStripMenuItem
+            // 
+            this.tinyIDETutorialonlineToolStripMenuItem.Name = "tinyIDETutorialonlineToolStripMenuItem";
+            this.tinyIDETutorialonlineToolStripMenuItem.Size = new System.Drawing.Size(481, 44);
+            this.tinyIDETutorialonlineToolStripMenuItem.Text = "Tiny IDE Tutorial (online)";
+            this.tinyIDETutorialonlineToolStripMenuItem.Click += new System.EventHandler(this.tinyIDETutorialonlineToolStripMenuItem_Click);
+            // 
             // pythonTutorialonlineToolStripMenuItem
             // 
             this.pythonTutorialonlineToolStripMenuItem.Name = "pythonTutorialonlineToolStripMenuItem";
-            this.pythonTutorialonlineToolStripMenuItem.Size = new System.Drawing.Size(413, 44);
+            this.pythonTutorialonlineToolStripMenuItem.Size = new System.Drawing.Size(481, 44);
             this.pythonTutorialonlineToolStripMenuItem.Text = "Python Tutorial (online)...";
             this.pythonTutorialonlineToolStripMenuItem.Click += new System.EventHandler(this.pythonTutorialonlineToolStripMenuItem_Click);
             // 
-            // toolStripSeparator10
+            // cTutorialonlineToolStripMenuItem
             // 
-            this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(410, 6);
+            this.cTutorialonlineToolStripMenuItem.Name = "cTutorialonlineToolStripMenuItem";
+            this.cTutorialonlineToolStripMenuItem.Size = new System.Drawing.Size(481, 44);
+            this.cTutorialonlineToolStripMenuItem.Text = "C# Tutorial (online)...";
+            this.cTutorialonlineToolStripMenuItem.Click += new System.EventHandler(this.cTutorialonlineToolStripMenuItem_Click);
             // 
-            // mpmath11onlineToolStripMenuItem
+            // toolStripSeparator25
             // 
-            this.mpmath11onlineToolStripMenuItem.Name = "mpmath11onlineToolStripMenuItem";
-            this.mpmath11onlineToolStripMenuItem.Size = new System.Drawing.Size(413, 44);
-            this.mpmath11onlineToolStripMenuItem.Text = "mpmath 1.3 (online)...";
-            this.mpmath11onlineToolStripMenuItem.Click += new System.EventHandler(this.mpmath11onlineToolStripMenuItem_Click);
+            this.toolStripSeparator25.Name = "toolStripSeparator25";
+            this.toolStripSeparator25.Size = new System.Drawing.Size(478, 6);
             // 
-            // numericalExplorationsToolStripMenuItem
+            // aboutToolStripMenuItem
             // 
-            this.numericalExplorationsToolStripMenuItem.Name = "numericalExplorationsToolStripMenuItem";
-            this.numericalExplorationsToolStripMenuItem.Size = new System.Drawing.Size(413, 44);
-            this.numericalExplorationsToolStripMenuItem.Text = "Numerical Explorations";
-            this.numericalExplorationsToolStripMenuItem.Click += new System.EventHandler(this.NumericalExplorationsToolStripMenuItemClick);
-            // 
-            // pythonAnywhereToolStripMenuItem
-            // 
-            this.pythonAnywhereToolStripMenuItem.Name = "pythonAnywhereToolStripMenuItem";
-            this.pythonAnywhereToolStripMenuItem.Size = new System.Drawing.Size(413, 44);
-            this.pythonAnywhereToolStripMenuItem.Text = "PythonAnywhere";
-            this.pythonAnywhereToolStripMenuItem.Click += new System.EventHandler(this.PythonAnywhereToolStripMenuItemClick);
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(481, 44);
+            this.aboutToolStripMenuItem.Text = "About";
             // 
             // toolStripSeparatorMain1
             // 
@@ -1221,7 +1245,6 @@ namespace FlexDlgUserCtrl
             this.nextBookmarkToolStripMenuItem2});
             this.contextMenuStripEditor.Name = "contextMenuStripEditor";
             this.contextMenuStripEditor.Size = new System.Drawing.Size(352, 288);
-            this.contextMenuStripEditor.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripEditor_Opening);
             // 
             // infoOnFunctionToolStripMenuItem
             // 
@@ -1310,8 +1333,6 @@ namespace FlexDlgUserCtrl
 
         }
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pythonAnywhereToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem numericalExplorationsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem startStandardPythonIDLEShellToolStripMenuItem;
@@ -1330,8 +1351,6 @@ namespace FlexDlgUserCtrl
         private System.Windows.Forms.ToolStripMenuItem printPreviewToolStripMenuItem2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTextData;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ToolStripMenuItem mpmath11onlineToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem pythonTutorialonlineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ironpython32BitConsoleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllBookmarksToolStripMenuItem;
@@ -1430,5 +1449,12 @@ namespace FlexDlgUserCtrl
         private System.Windows.Forms.ToolStripLabel toolStripLabelBuild;
         private System.Windows.Forms.ToolStripLabel LabelWorkFile;
         private System.Windows.Forms.ToolStripMenuItem matplotlib2DSVGPlotsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xlCalcNetManualHTMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
+        private System.Windows.Forms.ToolStripMenuItem cTutorialonlineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xlCalcNetSectionHelponlineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tinyIDETutorialonlineToolStripMenuItem;
     }
 }

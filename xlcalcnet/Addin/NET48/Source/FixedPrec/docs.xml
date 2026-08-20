@@ -477,7 +477,7 @@
             <summary>
                 Returns the sin of x
             </summary>
-            <seealso href="">03ElementaryScalarFunctions/06TrigonometricA.html#ctx.sin</seealso>
+            <seealso href="">B03_ElementaryScalarFunctions/C06_Trigonometric.html#ctx.sin</seealso>
         </sin>
         <sqrt>
             <summary>

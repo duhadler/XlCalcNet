@@ -37,16 +37,16 @@ namespace TinyOutputMonitorCtrl
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.toolStripBottom = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButtonFile = new System.Windows.Forms.ToolStripDropDownButton();
@@ -56,19 +56,14 @@ namespace TinyOutputMonitorCtrl
             this.openBinaryFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripDropDownButtonView = new System.Windows.Forms.ToolStripDropDownButton();
-            this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewTopic1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.getTodayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hideTop3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButtonTools = new System.Windows.Forms.ToolStripDropDownButton();
             this.tinyIDEexternalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.interactive2DPlotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.interactive3DPlotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButtonHelp = new System.Windows.Forms.ToolStripDropDownButton();
-            this.helpTopic1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpTopic2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xlCalcNetManualonlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tinyOutputMonitorTutorialonlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButtonHideProjectPanel = new System.Windows.Forms.ToolStripButton();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabText = new System.Windows.Forms.TabPage();
@@ -166,7 +161,6 @@ namespace TinyOutputMonitorCtrl
             this.toolStripBottom.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStripBottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButtonFile,
-            this.toolStripDropDownButtonView,
             this.toolStripDropDownButtonTools,
             this.toolStripDropDownButtonHelp,
             this.toolStripButtonHideProjectPanel});
@@ -233,46 +227,6 @@ namespace TinyOutputMonitorCtrl
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(437, 44);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
-            // toolStripDropDownButtonView
-            // 
-            this.toolStripDropDownButtonView.AutoToolTip = false;
-            this.toolStripDropDownButtonView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButtonView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.alwaysOnTopToolStripMenuItem,
-            this.viewTopic1ToolStripMenuItem,
-            this.getTodayToolStripMenuItem,
-            this.hideTop3ToolStripMenuItem});
-            this.toolStripDropDownButtonView.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButtonView.Name = "toolStripDropDownButtonView";
-            this.toolStripDropDownButtonView.ShowDropDownArrow = false;
-            this.toolStripDropDownButtonView.Size = new System.Drawing.Size(69, 44);
-            this.toolStripDropDownButtonView.Text = "View";
-            // 
-            // alwaysOnTopToolStripMenuItem
-            // 
-            this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(304, 44);
-            this.alwaysOnTopToolStripMenuItem.Text = "Always On Top";
-            // 
-            // viewTopic1ToolStripMenuItem
-            // 
-            this.viewTopic1ToolStripMenuItem.Name = "viewTopic1ToolStripMenuItem";
-            this.viewTopic1ToolStripMenuItem.Size = new System.Drawing.Size(304, 44);
-            this.viewTopic1ToolStripMenuItem.Text = "View Topic 1";
-            // 
-            // getTodayToolStripMenuItem
-            // 
-            this.getTodayToolStripMenuItem.Name = "getTodayToolStripMenuItem";
-            this.getTodayToolStripMenuItem.Size = new System.Drawing.Size(304, 44);
-            this.getTodayToolStripMenuItem.Text = "Get Today";
-            this.getTodayToolStripMenuItem.Click += new System.EventHandler(this.getTodayToolStripMenuItem_Click);
-            // 
-            // hideTop3ToolStripMenuItem
-            // 
-            this.hideTop3ToolStripMenuItem.Name = "hideTop3ToolStripMenuItem";
-            this.hideTop3ToolStripMenuItem.Size = new System.Drawing.Size(304, 44);
-            this.hideTop3ToolStripMenuItem.Text = "FreezeTop3";
-            // 
             // toolStripDropDownButtonTools
             // 
             this.toolStripDropDownButtonTools.AutoToolTip = false;
@@ -321,25 +275,27 @@ namespace TinyOutputMonitorCtrl
             this.toolStripDropDownButtonHelp.AutoToolTip = false;
             this.toolStripDropDownButtonHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButtonHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpTopic1ToolStripMenuItem,
-            this.helpTopic2ToolStripMenuItem});
+            this.xlCalcNetManualonlineToolStripMenuItem,
+            this.tinyOutputMonitorTutorialonlineToolStripMenuItem});
             this.toolStripDropDownButtonHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonHelp.Name = "toolStripDropDownButtonHelp";
             this.toolStripDropDownButtonHelp.ShowDropDownArrow = false;
             this.toolStripDropDownButtonHelp.Size = new System.Drawing.Size(68, 44);
             this.toolStripDropDownButtonHelp.Text = "Help";
             // 
-            // helpTopic1ToolStripMenuItem
+            // xlCalcNetManualonlineToolStripMenuItem
             // 
-            this.helpTopic1ToolStripMenuItem.Name = "helpTopic1ToolStripMenuItem";
-            this.helpTopic1ToolStripMenuItem.Size = new System.Drawing.Size(280, 44);
-            this.helpTopic1ToolStripMenuItem.Text = "Help Topic 1";
+            this.xlCalcNetManualonlineToolStripMenuItem.Name = "xlCalcNetManualonlineToolStripMenuItem";
+            this.xlCalcNetManualonlineToolStripMenuItem.Size = new System.Drawing.Size(559, 44);
+            this.xlCalcNetManualonlineToolStripMenuItem.Text = "XlCalcNet Manual (online)...";
+            this.xlCalcNetManualonlineToolStripMenuItem.Click += new System.EventHandler(this.xlCalcNetManualonlineToolStripMenuItem_Click);
             // 
-            // helpTopic2ToolStripMenuItem
+            // tinyOutputMonitorTutorialonlineToolStripMenuItem
             // 
-            this.helpTopic2ToolStripMenuItem.Name = "helpTopic2ToolStripMenuItem";
-            this.helpTopic2ToolStripMenuItem.Size = new System.Drawing.Size(280, 44);
-            this.helpTopic2ToolStripMenuItem.Text = "Help Topic 2";
+            this.tinyOutputMonitorTutorialonlineToolStripMenuItem.Name = "tinyOutputMonitorTutorialonlineToolStripMenuItem";
+            this.tinyOutputMonitorTutorialonlineToolStripMenuItem.Size = new System.Drawing.Size(559, 44);
+            this.tinyOutputMonitorTutorialonlineToolStripMenuItem.Text = "Tiny Output Monitor Tutorial (online)...";
+            this.tinyOutputMonitorTutorialonlineToolStripMenuItem.Click += new System.EventHandler(this.tinyOutputMonitorTutorialonlineToolStripMenuItem_Click);
             // 
             // toolStripButtonHideProjectPanel
             // 
@@ -448,23 +404,23 @@ namespace TinyOutputMonitorCtrl
             this.dataGridViewTablesOutput.AllowUserToDeleteRows = false;
             this.dataGridViewTablesOutput.AllowUserToResizeRows = false;
             this.dataGridViewTablesOutput.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTablesOutput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle41.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTablesOutput.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle41;
             this.dataGridViewTablesOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTablesOutput.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle42.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle42.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTablesOutput.DefaultCellStyle = dataGridViewCellStyle42;
             this.dataGridViewTablesOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTablesOutput.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewTablesOutput.Location = new System.Drawing.Point(0, 0);
@@ -472,14 +428,14 @@ namespace TinyOutputMonitorCtrl
             this.dataGridViewTablesOutput.MultiSelect = false;
             this.dataGridViewTablesOutput.Name = "dataGridViewTablesOutput";
             this.dataGridViewTablesOutput.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTablesOutput.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle43.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle43.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle43.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTablesOutput.RowHeadersDefaultCellStyle = dataGridViewCellStyle43;
             this.dataGridViewTablesOutput.RowHeadersVisible = false;
             this.dataGridViewTablesOutput.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewTablesOutput.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
@@ -519,37 +475,37 @@ namespace TinyOutputMonitorCtrl
             this.dataGridViewSQLiteDb.AllowUserToDeleteRows = false;
             this.dataGridViewSQLiteDb.AllowUserToResizeRows = false;
             this.dataGridViewSQLiteDb.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewSQLiteDb.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle44.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle44.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewSQLiteDb.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle44;
             this.dataGridViewSQLiteDb.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewSQLiteDb.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle45.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle45.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle45.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle45.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewSQLiteDb.DefaultCellStyle = dataGridViewCellStyle45;
             this.dataGridViewSQLiteDb.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewSQLiteDb.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewSQLiteDb.Location = new System.Drawing.Point(3, 514);
             this.dataGridViewSQLiteDb.MultiSelect = false;
             this.dataGridViewSQLiteDb.Name = "dataGridViewSQLiteDb";
             this.dataGridViewSQLiteDb.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewSQLiteDb.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle46.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle46.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle46.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle46.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle46.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewSQLiteDb.RowHeadersDefaultCellStyle = dataGridViewCellStyle46;
             this.dataGridViewSQLiteDb.RowHeadersVisible = false;
             this.dataGridViewSQLiteDb.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewSQLiteDb.RowTemplate.Height = 33;
@@ -706,23 +662,23 @@ namespace TinyOutputMonitorCtrl
             this.dataGridViewProject.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewProject.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewProject.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewProject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle47.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle47.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle47.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle47.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewProject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle47;
             this.dataGridViewProject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewProject.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle48.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle48.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle48.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle48.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle48.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewProject.DefaultCellStyle = dataGridViewCellStyle48;
             this.dataGridViewProject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewProject.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewProject.Location = new System.Drawing.Point(0, 60);
@@ -821,24 +777,24 @@ namespace TinyOutputMonitorCtrl
             this.dataGridViewTables.AllowUserToResizeRows = false;
             this.dataGridViewTables.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewTables.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewTables.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle49.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle49.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle49.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle49.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTables.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle49;
             this.dataGridViewTables.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTables.ColumnHeadersVisible = false;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTables.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle50.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle50.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle50.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle50.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle50.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle50.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTables.DefaultCellStyle = dataGridViewCellStyle50;
             this.dataGridViewTables.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTables.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewTables.Location = new System.Drawing.Point(3, 542);
@@ -1044,7 +1000,6 @@ namespace TinyOutputMonitorCtrl
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelProject;
         private System.Windows.Forms.DataGridView dataGridViewProject;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonFile;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonView;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonHelp;
         private System.Windows.Forms.ToolStripMenuItem openContainingFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openAppdataLocalFolderToolStripMenuItem;
@@ -1054,10 +1009,6 @@ namespace TinyOutputMonitorCtrl
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonTools;
         private System.Windows.Forms.ToolStripMenuItem tinyIDEexternalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem outputViewerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpTopic1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem helpTopic2ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewTopic1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem alwaysOnTopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openProjectPanelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem interactive2DPlotsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem interactive3DPlotsToolStripMenuItem;
@@ -1082,8 +1033,8 @@ namespace TinyOutputMonitorCtrl
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button buttonOffice;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.ToolStripMenuItem getTodayToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hideTop3ToolStripMenuItem;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.ToolStripMenuItem xlCalcNetManualonlineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tinyOutputMonitorTutorialonlineToolStripMenuItem;
     }
 }

@@ -100,7 +100,7 @@ namespace NewDistrib
                 int r = j + 2 * k;
                 s = s + B[r, k] 
                     * H[r - 1] 
-                    / dreal.real_gamma(r + 1);
+                    / dreal.gamma(r + 1);
             }
             return s;
         }

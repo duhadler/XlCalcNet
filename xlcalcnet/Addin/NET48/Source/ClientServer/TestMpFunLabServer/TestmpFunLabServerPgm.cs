@@ -96,7 +96,7 @@ namespace TestServer
             Console.WriteLine("Code2.Length(): {0}", TotalBytes);
             if (TotalBytes > TotalBytesThreshold)
             {
-                Console.WriteLine("VB: write to file");
+                Console.WriteLine("C#: write to file");
                 string MyPath = @"C:\Temp\FileTempIn.txt";
                 File.WriteAllText(MyPath, Code, utf8WithoutBOM);
                 string Code2 = "$file:$" + MyPath;
@@ -104,12 +104,16 @@ namespace TestServer
             }
             else
             {
+                Console.WriteLine("C#: no write to file");
                 ResultStr = scc.CallSocketServer(Code);
             }
 
+
+
+
             if (ResultStr.StartsWith("$file:$"))
             {
-                Console.WriteLine("VB: read from file");
+                Console.WriteLine("C#: read from file");
                 string ResultPath = @"C:\Temp\FileTempOut.txt";
                 string ResultFinal2 = File.ReadAllText(ResultPath, utf8WithoutBOM);
                 Console.WriteLine("ResultFinal2: {0}", ResultFinal2);
@@ -117,8 +121,10 @@ namespace TestServer
             }
             else
             {
+                Console.WriteLine("C#: no read from file");
                 return ResultStringTodynamic(ResultStr, Transpose, ShowShape);
             }
+
         }
 
 
@@ -182,6 +188,100 @@ namespace TestServer
             }
         }
 
+
+
+        private static dynamic CallSocketServer0NEW(string Code, bool Transpose, bool ShowShape)
+        {
+            int TotalBytesThreshold = 1000;
+            var scc = new MpFunLabSocketClientClass();
+            var utf8WithoutBOM = new UTF8Encoding(false);
+            string ResultStr;
+            Console.WriteLine("Code1.Length(): {0}", Code.Length);
+            int TotalBytes = Encoding.UTF8.GetBytes(Code).Length;
+            Console.WriteLine("Code2.Length(): {0}", TotalBytes);
+            if (TotalBytes > TotalBytesThreshold)
+            {
+                Console.WriteLine("C#: write to file");
+                string MyPath = @"C:\Temp\FileTempIn.txt";
+                File.WriteAllText(MyPath, Code, utf8WithoutBOM);
+                string Code2 = "$file:$" + MyPath;
+                ResultStr = scc.CallSocketServer(Code2);
+            }
+            else
+            {
+                Console.WriteLine("C#: no write to file");
+                ResultStr = scc.CallSocketServer(Code);
+            }
+
+
+
+            if (ResultStr.StartsWith("$file:$"))
+            {
+                Console.WriteLine("C#: read from file");
+                string ResultPath = @"C:\Temp\FileTempOut.txt";
+                ResultStr = File.ReadAllText(ResultPath, utf8WithoutBOM);
+                Console.WriteLine("ResultStr: {0}", ResultStr);
+            }
+            else
+            {
+                Console.WriteLine("C#: no read from file");
+            }
+
+
+            if (ResultStr.StartsWith("$list$"))
+            {
+                dynamic[,] oTable;
+                string[] ResArray = Strings.Split(ResultStr, "§__§");
+                //string[] ResArray = string.Split(ResultStr, "§__§");
+                int NoOfRows = ResArray.Length;
+                string Row = ResArray[1];
+                string[] RowArray = Strings.Split(Row, "§_§");
+                int NoOfCols = RowArray.Length;
+                if (Transpose)
+                {
+                    oTable = new dynamic[NoOfCols, NoOfRows - 2 + 1];
+                }
+                else
+                {
+                    oTable = new dynamic[NoOfRows - 2 + 1, NoOfCols];
+                }
+                for (int i = 0, loopTo = NoOfRows - 2; i <= loopTo; i++)
+                {
+                    Row = ResArray[i + 1];
+                    RowArray = Strings.Split(Row, "§_§");
+                    for (int j = 0, loopTo1 = RowArray.Length - 1; j <= loopTo1; j++)
+                    {
+                        string Val = RowArray[j];
+                        if (Transpose)
+                        {
+                            oTable[j, i] = GetTypedData(Val);
+                        }
+                        else
+                        {
+                            oTable[i, j] = GetTypedData(Val);
+                        }
+                    }
+                }
+                if (ShowShape)
+                {
+                    string RxC;
+                    if (Transpose)
+                    {
+                        RxC = "R" + NoOfCols.ToString().Trim() + "xC" + (NoOfRows - 1).ToString().Trim() + "| ";
+                    }
+                    else
+                    {
+                        RxC = "R" + (NoOfRows - 1).ToString().Trim() + "xC" + NoOfCols.ToString().Trim() + "| ";
+                    }
+                    oTable[0, 0] = RxC + oTable[0, 0].ToString();
+                }
+                return oTable;
+            }
+            else
+            {
+                return GetTypedData(ResultStr);
+            }
+        }
 
 
 
@@ -258,11 +358,23 @@ namespace TestServer
             //string Code2 = "x = 5.0; y = math.sqrt(x); z = x + y; result = z > x"
 
             //string Code2 = "result = getmatB()";
-            string Code2 = "result = sys.path";
+            //string Code2 = "result = sys.path";
+            string Code2 = "result = P1";
+
+
+            string s1 = new string('A', 800);
+            string s2 = new string('B', 800);
+            string s3 = new string('C', 800);
+
+            dynamic[,] P1;
+            P1 = new dynamic[,] { { s1, s2, s3 }, { "A1", "B1", "C1" } };
+
+            Code2 = Code2 + MakeParam(P1);
+            Console.WriteLine(Code2);
 
 
             // Dim ResultFinal = CallSocketServer0(Code2, Transpose, ShowShape)
-            dynamic[,] ResultFinal = CallSocketServer1(Code2, Transpose, ShowShape);
+            dynamic[,] ResultFinal = CallSocketServer0NEW(Code2, Transpose, ShowShape);
             Console.WriteLine("{0}, {1}", ResultFinal.ToString(), ResultFinal.GetType());
             int U0 = ResultFinal.GetUpperBound(0);
             int U1 = ResultFinal.GetUpperBound(1);
@@ -368,28 +480,41 @@ namespace TestServer
             var scc = new MpFunLabSocketClientClass();
             //string Code2 = "x = 5.0; y = math.sqrt(x); z = x + y; result = P1";
 
-            string Code2 = "from xlcalcnet import gui; gui.adduserpath();";
-            Code2 += "from A01_XlcalcnetExamplesPython.B19_FunctionsPlots.C02_BasicCurves import D02_Circle;";
+            string Code2 = "from A01_ExamplesPython.B18_FunctionsAndCurvesPlots.C02_BasicCurves import D02_Circle;";
             Code2 += "D02_Circle.CircleXY(); result = 'Done'";
 
             dynamic[,] P1;
             P1 = new dynamic[,] { { 3.1111d, 4.2222d, 5.3333d }, { "A", "B1", "C" } };
 
             Code2 = Code2 + MakeParam(P1);
+            Console.WriteLine(" Code2 + MakeParam(P1):");
             Console.WriteLine(Code2);
+            Console.WriteLine();
 
             dynamic ResultFinal = CallSocketServer0(Code2, Transpose, ShowShape);
-            //Console.WriteLine("{0}, {1}", ResultFinal.ToString(), ResultFinal.GetType());
-            //int U0 = ResultFinal.GetUpperBound(0);
-            //int U1 = ResultFinal.GetUpperBound(1);
-            //Console.WriteLine("U0: {0}, U1: {1}", U0, U1);
-            //for (int i = 0; i <= U0; i++)
-            //{
-            //    for (int j = 0; j <= U1; j++)
-            //    {
-            //        Console.WriteLine("{0}, {1}", ResultFinal[i, j], ResultFinal[i, j].GetType());
-            //    }
-            //}
+            Console.WriteLine();
+
+            Console.WriteLine("Returned:");
+            Console.WriteLine("{0}, {1}", ResultFinal.ToString(), ResultFinal.GetType());
+
+            try
+            {
+                int U0 = ResultFinal.GetUpperBound(0);
+                int U1 = ResultFinal.GetUpperBound(1);
+                Console.WriteLine("U0: {0}, U1: {1}", U0, U1);
+                for (int i = 0; i <= U0; i++)
+                {
+                    for (int j = 0; j <= U1; j++)
+                    {
+                        Console.WriteLine("{0}, {1}", ResultFinal[i, j], ResultFinal[i, j].GetType());
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            Console.WriteLine();
+
         }
 
 
@@ -402,9 +527,9 @@ namespace TestServer
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            //TestSocketServer();
+            TestSocketServer();
             //TestSocketServerP1();
-            TestSocketServerP2();
+            //TestSocketServerP2();
 
             stopWatch.Stop();
             var ts = stopWatch.Elapsed;
