@@ -1,8 +1,8 @@
-### Welcome to XlCalcNet!
+### XlCalcNet
 
-**XlCalcNet** (a Microsoft E**X**ce**l** addin for **Calc**ulations in multiprecision, based on Python**Net**) focusses on numerical calculations in multiple precision and data visualisation.
+XlCalcNet (a Microsoft E**X**ce**l** addin for **Calc**ulations in multiprecision, based on Python**Net**) focusses on numerical calculations in multiple precision and data visualisation.
 
-The main goal of XlCalcNet is to enable the use of functions written in Python or C# within Microsoft Excel spreadsheet formulas. It is therefore assumed that Microsoft Excel (2010 or later, 64 bit) is installed on the users system, running under Windows (7.1 or later, 64 bit), with .NET Framework 4.8/4.8.1 installed. Detailed instructions regarding the installation and general usage of XlCalcNet can be found [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C01_Setup.html).
+The main goal of XlCalcNet is to enable the use of functions written in Python or C# within Microsoft Excel spreadsheet formulas. It is therefore assumed that Microsoft Excel (2010 or later, 64 bit) is installed on the users system, running under Windows (7.1 or later, 64 bit), with .NET Framework 4.8/4.8.1 installed. Detailed information regarding the installation and general usage of XlCalcNet can be found [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C01_Setup.html).
 
 The full manual is available online in HTML format: [XlCalcNet.html](https://duhadler.github.io/XlCalcNetDocsOnline/).
 
