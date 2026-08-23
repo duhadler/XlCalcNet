@@ -856,7 +856,7 @@ namespace FlexDlgUserCtrl
 
         private void xlCalcNetManualHTMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/");
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsHTML/");
         }
 
 
@@ -872,7 +872,7 @@ namespace FlexDlgUserCtrl
             //string target = comboBoxDirectories.Text + "/" + comboBoxFiles.Text + ".html";
 
 
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/" + target);
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsHTML/" + target);
         }
 
         private void tinyIDETutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)

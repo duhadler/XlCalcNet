@@ -545,6 +545,10 @@ class dpm():
     def realctx(self):
         return self
 
+    @property
+    def cplxctx(self):
+        return self
+
     def fmt(self, z):
         z = self.t(z)
         s1 = str(z.real)
@@ -1011,7 +1015,7 @@ class dpm():
         z = self.t(z)
         if isinstance(z, D):
             z = DecCplx(z, D(0))
-        return self._f1(ipm.expj, z * self.pi)
+        return self._f1(ipm.expjpi, z)
 
     def exp10(self, z):
         z = self.t(z)

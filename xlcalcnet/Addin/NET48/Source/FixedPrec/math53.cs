@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.Eventing.Reader;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
@@ -35,8 +36,8 @@ namespace FixedPrecNet
 
     public partial class math53
     {
-
-
+        
+        
         public static String fmt(Double x)
         {
             string s = " " + x.ToString("G15", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
@@ -51,9 +52,6 @@ namespace FixedPrecNet
 
 
 
-        #region Basic floating point functions
-
-
         #region General
 
         /// <include file="docs.xml" path='docs/members[@name="Contexts"]/name/*' />
@@ -65,7 +63,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Contexts"]/fmtname/*' />
         public static String fmtname
         {
-            get { return " math53"; }
+            get { return "  dreal"; }
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Contexts"]/prec/*' />
@@ -74,8 +72,8 @@ namespace FixedPrecNet
             get { return 53; }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isrealctx/*' />
-        public static bool isrealctx
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isboostctx/*' />
+        public static bool isboostctx
         {
             get { return true; }
         }
@@ -117,28 +115,27 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/Boost/*' />
-        public static dreal Boost
-        {
-            get { return new dreal(); }
-        }
-
-
-
         /// <include file="docs.xml" path='docs/members[@name="Contexts"]/realctx/*' />
         public static math53 realctx
         {
             get { return new math53(); }
         }
 
-        ///// <include file="docs.xml" path='docs/members[@name="Contexts"]/cplxctx/*' />
-        //public static cmath53 cplxctx
-        //{
-        //    get { return new cmath53(); }
-        //}
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/cplxctx/*' />
+        public static cmath53 cplxctx
+        {
+            get { return new cmath53(); }
+        }
+
+
+
 
 
         #endregion
+
+
+
+        #region Basic floating point functions
 
 
 

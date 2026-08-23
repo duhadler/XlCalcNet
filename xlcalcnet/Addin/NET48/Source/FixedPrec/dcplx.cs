@@ -974,7 +974,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
         public static Complex exp2m1(Complex x)
         {
-            return cplx_expm1(x) * dreal.ln2();
+            return cplx_expm1(x * dreal.ln2());
         }
 
 
@@ -989,14 +989,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
         public static Complex exp10m1(Complex x)
         {
-            return cplx_expm1(x) * dreal.ln10();
+            return cplx_expm1(x * dreal.ln10());
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
         public static Complex exp10m1(dynamic x)
         {
-            return exp2m1(t(x));
+            return exp10m1(t(x));
         }
 
 

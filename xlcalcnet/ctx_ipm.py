@@ -48,6 +48,10 @@ class ipm():
     def realctx(self):
         return self
 
+    @property
+    def cplxctx(self):
+        return self
+
     def fmt(self, z):
         z = self.t(z)
         if self.ismpf(z):

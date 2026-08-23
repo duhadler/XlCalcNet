@@ -1512,7 +1512,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
         public static SingleC exp10m1(dynamic x)
         {
-            return exp2m1(t(x));
+            return exp10m1(t(x));
         }
 
 

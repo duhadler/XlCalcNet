@@ -5879,10 +5879,8 @@
         <member name="P:FixedPrecNet.math53.prec">
             <!-- No matching elements were found for the following include tag --><include file="docs.xml" path="docs/members[@name=&quot;Contexts&quot;]/prec/*" />
         </member>
-        <member name="P:FixedPrecNet.math53.isrealctx">
-            <summary>
-                Returns true if the underlying data type is real, and false otherwise
-            </summary>
+        <member name="P:FixedPrecNet.math53.isboostctx">
+            <!-- No matching elements were found for the following include tag --><include file="docs.xml" path="docs/members[@name=&quot;Contexts&quot;]/isboostctx/*" />
         </member>
         <member name="P:FixedPrecNet.math53.iscplxctx">
             <summary>
@@ -5914,14 +5912,14 @@
                 Returns true if the underlying data type is supports Boost, and false otherwise
             </summary>
         </member>
-        <member name="P:FixedPrecNet.math53.Boost">
-            <summary>
-                Returns the corresponding Boost context
-            </summary>
-        </member>
         <member name="P:FixedPrecNet.math53.realctx">
             <summary>
                 Returns the corresponding real context context
+            </summary>
+        </member>
+        <member name="P:FixedPrecNet.math53.cplxctx">
+            <summary>
+                Returns the corresponding complex context context
             </summary>
         </member>
         <member name="M:FixedPrecNet.math53.t(System.Double)">

@@ -42,6 +42,10 @@ class apm():
     def realctx(self):
         return self
 
+    @property
+    def cplxctx(self):
+        return self
+
     def fmt(self, z):
         z = self.t(z)
         s1 = str(z.real)
@@ -544,7 +548,7 @@ class apm():
 
     def expj(self, z):
         z = self.t(z)
-        return self.cos(z) + self.sin(z) * 1j
+        return self.cos(z) + self.sin(z) * self.j
 
 
     def expjpi(self, z):
@@ -554,13 +558,13 @@ class apm():
 
     def exp10(self, z):
         z = self.t(z)
-        if isinstance(z, arb): return arb(z).exp10()
-        return acb(z).exp10()
+        if isinstance(z, arb): return arb(z*self.ln10).exp()
+        return acb(z*self.ln10).exp()
 
     def exp2(self, z):
         z = self.t(z)
-        if isinstance(z, arb): return arb(z).exp2()
-        return acb(z).exp2()
+        if isinstance(z, arb): return arb(z*self.ln2).exp()
+        return acb(z*self.ln2).exp()
 
     def expm1(self, z):
         z = self.t(z)

@@ -129,6 +129,10 @@ class mpm():
     def realctx(self):
         return self
 
+    @property
+    def cplxctx(self):
+        return self
+
     def fmt(self, z):
         z = self.t(z)
         s1 = str(z.real)
