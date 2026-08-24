@@ -27,19 +27,32 @@ XlCalcNet is intended to be used together with existing Python libraries like [N
 
 ### Use with Microsoft Excel
 
+
+
+
+
 This shows Excel's function dialog with a python script example
 
-![Excel's function dialog](images/FunctionArguments.png)
+<p align="center">
+  <img src="images/FunctionArguments.png" alt="Excel's function dialog" width="600">
+</p>
+
 
 XlCalcNet can also be used for procedures. To access the relevant dialog, right-click anywhere on the spreadsheet. The following context menu will appear:
 
 
-![Excel's context menu](images/ContextMenu.png)
+<p align="center">
+  <img src="images/ContextMenu.png" alt="Excel's context menu" width="400">
+</p>
+
 
 Click on Navigator for XlCalcNet. The following dialog box will appear:
 
 
-![Navigator for XlCalcNet](images/NavigatorXlCalcNet.png)
+<p align="center">
+  <img src="images/NavigatorXlCalcNet.png" alt="Navigator for XlCalcNet" width="500">
+</p>
+
 
 
 ### SourceOfBasicLibraries
