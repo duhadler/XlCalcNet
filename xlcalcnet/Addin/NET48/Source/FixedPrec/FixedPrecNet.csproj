@@ -74,6 +74,7 @@
     <Compile Include="dmatrix.cs" />
     <Compile Include="dreal.cs" />
     <Compile Include="ematrix.cs" />
+    <Compile Include="fromjulia.cs" />
     <Compile Include="math53.cs" />
     <Compile Include="ocplx.cs" />
     <Compile Include="omatrix.cs" />

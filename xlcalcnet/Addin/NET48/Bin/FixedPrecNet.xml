@@ -4,169 +4,6 @@
         <name>FixedPrecNet</name>
     </assembly>
     <members>
-        <member name="M:FixedPrecNet.EllipticFunctions.qfromtau(System.Numerics.Complex)">
-            <summary>
-            The nome `q` given the `tau` parameter.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.taufromq(System.Numerics.Complex)">
-            <summary>
-            The `tau` parameter given the complex nome `q`.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.taufromq(System.Double)">
-            <summary>
-            The `tau` parameter given the real nome `q`.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.ljtheta1(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Logarithm of the first Jacobi theta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.jtheta1(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            First Jacobi theta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.ljtheta2(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Logarithm of the second Jacobi theta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.jtheta2(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Second Jacobi theta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.ljtheta3(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Logarithm of the third Jacobi theta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.jtheta3(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Third Jacobi theta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.ljtheta4(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Logarithm of the fourth Jacobi theta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.jtheta4(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Fourth Jacobi theta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.jtheta_ab(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Jacobi theta function with characteristics. This is a family of functions parameterized by `a` and `b`, which contains the opposite of the first Jacobi theta function(`a= b = 0.5`), the second Jacobi theta function(`a= 0.5, b= 0`), the third Jacobi theta function(`a= b = 0`), and the fourth Jacobi theta function(`a= 0, b= 0.5`).
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.jtheta1dash(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Derivative of the first Jacobi theta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.etaDedekind(System.Numerics.Complex)">
-            <summary>
-            Dedekind eta function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.lambda(System.Numerics.Complex)">
-            <summary>
-            Lambda modular function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.kleinj(System.Numerics.Complex)">
-            <summary>
-            Klein j-invariant function.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.kleinjinv(System.Numerics.Complex)">
-            <summary>
-            Inverse of the Klein j-invariant function.
-            </summary>
-            <param name="j">real or complex number</param>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.EisensteinE2(System.Numerics.Complex)">
-            <summary>
-            Eisenstein E-series of weight 2.
-            </summary>
-            <param name="q">Nome</param>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.EisensteinE4(System.Numerics.Complex)">
-            <summary>
-            Eisenstein E-series of weight 4.
-            </summary>
-            <param name="q">Nome</param>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.EisensteinE6(System.Numerics.Complex)">
-            <summary>
-            Eisenstein E-series of weight 6.
-            </summary>
-            <param name="q">Nome</param>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.halfPeriods(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Half-periods omega_1 and omega_2 from the elliptic invariants.
-            </summary>
-            <param name="g2">Weierstrass elliptic invariant, real or complex number</param>
-            <param name="g3">Weierstrass elliptic invariant, real or complex number</param>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.ellipticInvariants(System.Numerics.Complex,System.Numerics.Complex)">
-            <summary>
-            Weierstrass elliptic invariants g_2 and g_3 from the half-periods.
-            </summary>
-            <param name="omega1">Weierstrass half period, real or complex number</param>
-            <param name="omega2">Weierstrass half period, real or complex number</param>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.wp(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Int32,System.String)">
-            <summary>
-            Weierstrass p-function. one and only one of the parameters `tau`, `omega` or `g` must be given.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.wsigma(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Int32,System.String)">
-            <summary>
-            Weierstrass sigma-function. one and only one of the parameters `tau`, `omega` or `g` must be given.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.wzeta(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Int32,System.String)">
-            <summary>
-            Weierstrass zeta-function. one and only one of the parameters `tau`, `omega` or `g` must be given.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.thetaS(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
-            <summary>
-            Neville S-theta function. Only one of the parameters `tau` or `m` must be supplied.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.thetaC(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
-            <summary>
-            Neville C-theta function. Only one of the parameters `tau` or `m` must be supplied.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.thetaD(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
-            <summary>
-            Neville D-theta function. Only one of the parameters `tau` or `m` must be supplied.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.thetaN(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
-            <summary>
-            Neville N-theta function. Only one of the parameters `tau` or `m` must be supplied.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.jellip(System.String,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
-            <summary>
-            Jacobi elliptic functions. . Only one of the parameters `tau` or `m` must be supplied.
-            </summary>
-        </member>
-        <member name="M:FixedPrecNet.EllipticFunctions.Am(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
-            <summary>
-            Amplitude function. Only one of the parameters `tau` or `m` must be supplied.
-            </summary>
-        </member>
         <member name="P:FixedPrecNet.cmath53.name">
             <summary>
                 Returns the name of the context
@@ -5867,6 +5704,169 @@
             <param name="j"></param>
             <param name="p"></param>
             <param name="q"></param>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.qfromtau(System.Numerics.Complex)">
+            <summary>
+            The nome `q` given the `tau` parameter.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.taufromq(System.Numerics.Complex)">
+            <summary>
+            The `tau` parameter given the complex nome `q`.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.taufromq(System.Double)">
+            <summary>
+            The `tau` parameter given the real nome `q`.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.ljtheta1(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Logarithm of the first Jacobi theta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.jtheta1(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            First Jacobi theta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.ljtheta2(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Logarithm of the second Jacobi theta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.jtheta2(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Second Jacobi theta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.ljtheta3(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Logarithm of the third Jacobi theta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.jtheta3(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Third Jacobi theta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.ljtheta4(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Logarithm of the fourth Jacobi theta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.jtheta4(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Fourth Jacobi theta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.jtheta_ab(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Jacobi theta function with characteristics. This is a family of functions parameterized by `a` and `b`, which contains the opposite of the first Jacobi theta function(`a= b = 0.5`), the second Jacobi theta function(`a= 0.5, b= 0`), the third Jacobi theta function(`a= b = 0`), and the fourth Jacobi theta function(`a= 0, b= 0.5`).
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.jtheta1dash(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Derivative of the first Jacobi theta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.etaDedekind(System.Numerics.Complex)">
+            <summary>
+            Dedekind eta function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.lambda(System.Numerics.Complex)">
+            <summary>
+            Lambda modular function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.kleinj(System.Numerics.Complex)">
+            <summary>
+            Klein j-invariant function.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.kleinjinv(System.Numerics.Complex)">
+            <summary>
+            Inverse of the Klein j-invariant function.
+            </summary>
+            <param name="j">real or complex number</param>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.EisensteinE2(System.Numerics.Complex)">
+            <summary>
+            Eisenstein E-series of weight 2.
+            </summary>
+            <param name="q">Nome</param>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.EisensteinE4(System.Numerics.Complex)">
+            <summary>
+            Eisenstein E-series of weight 4.
+            </summary>
+            <param name="q">Nome</param>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.EisensteinE6(System.Numerics.Complex)">
+            <summary>
+            Eisenstein E-series of weight 6.
+            </summary>
+            <param name="q">Nome</param>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.halfPeriods(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Half-periods omega_1 and omega_2 from the elliptic invariants.
+            </summary>
+            <param name="g2">Weierstrass elliptic invariant, real or complex number</param>
+            <param name="g3">Weierstrass elliptic invariant, real or complex number</param>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.ellipticInvariants(System.Numerics.Complex,System.Numerics.Complex)">
+            <summary>
+            Weierstrass elliptic invariants g_2 and g_3 from the half-periods.
+            </summary>
+            <param name="omega1">Weierstrass half period, real or complex number</param>
+            <param name="omega2">Weierstrass half period, real or complex number</param>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.wp(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Int32,System.String)">
+            <summary>
+            Weierstrass p-function. one and only one of the parameters `tau`, `omega` or `g` must be given.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.wsigma(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Int32,System.String)">
+            <summary>
+            Weierstrass sigma-function. one and only one of the parameters `tau`, `omega` or `g` must be given.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.wzeta(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.Int32,System.String)">
+            <summary>
+            Weierstrass zeta-function. one and only one of the parameters `tau`, `omega` or `g` must be given.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.thetaS(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
+            <summary>
+            Neville S-theta function. Only one of the parameters `tau` or `m` must be supplied.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.thetaC(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
+            <summary>
+            Neville C-theta function. Only one of the parameters `tau` or `m` must be supplied.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.thetaD(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
+            <summary>
+            Neville D-theta function. Only one of the parameters `tau` or `m` must be supplied.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.thetaN(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
+            <summary>
+            Neville N-theta function. Only one of the parameters `tau` or `m` must be supplied.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.jellip(System.String,System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
+            <summary>
+            Jacobi elliptic functions. . Only one of the parameters `tau` or `m` must be supplied.
+            </summary>
+        </member>
+        <member name="M:FixedPrecNet.EllipticFunctions.Am(System.Numerics.Complex,System.Numerics.Complex,System.Numerics.Complex,System.String)">
+            <summary>
+            Amplitude function. Only one of the parameters `tau` or `m` must be supplied.
+            </summary>
         </member>
         <member name="P:FixedPrecNet.math53.name">
             <summary>
