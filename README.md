@@ -25,6 +25,21 @@ The [XlCalcNet2](https://duhadler.github.io/XlCalcNet2/) library, which is licen
 XlCalcNet is intended to be used together with existing Python libraries like [NumPy](https://numpy.org/) (described in the manual [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C08_Numpy.html)), [Matplotlib](https://matplotlib.org/) (described in the manual [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C09_Matplotlib.html)), [Pandas](https://pandas.pydata.org/) (described in the manual [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C10_Pandas.html)), [SciPy](https://scipy.org/) (described in the manual [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C11_Scipy.html)). 
 
 
+### Use with Microsoft Excel
+
+This shows Excel's function dialog with a python script example
+
+![Excel's function dialog](images/FunctionArguments.png)
+
+XlCalcNet can also be used for procedures. To access the relevant dialog, right-click anywhere on the spreadsheet. The following context menu will appear:
+
+
+![Excel's context menu](images/ContextMenu.png)
+
+Click on Navigator for XlCalcNet. The following dialog box will appear:
+
+
+![Navigator for XlCalcNet](images/NavigatorXlCalcNet.png)
 
 
 ### SourceOfBasicLibraries
