@@ -827,55 +827,6 @@ namespace TestXlCalcNetPrecCS
 
 
 
-        public static void TestComplex4()
-        {
-            int m;
-
-            // Complex s = new Complex(-3.1, 0)
-            // Complex z = new Complex(7.2, 0)
-
-            var s = new Complex(-3.1d, 1.1d);
-            var z = new Complex(7.2d, 0.1d);
-
-            var res1 = FromJulia.GenZeta(s, z);
-            Console.WriteLine("res1 = FromJulia.GenZeta(s, z): {0}", res1);
-            // Dim res2 = flintc53.hurwitz_zeta(s, z)
-            // Console.WriteLine("res2 = flintc53.hurwitz_zeta(s, z): {0}", res2)
-
-            Console.WriteLine();
-
-            m = 1; // m = 1 For trigamma
-            z = new Complex(0.000000000001d, 8.0d); // real part Not zero
-
-            m = 1; // m = 1 For trigamma
-            z = new Complex(-3.2d, 0.1d); // negative real part
-
-            m = 2; // m = 2 For tetragamma
-            z = new Complex(8.1d, 0.0d); // real part Not zero
-
-            m = 3; // m = 3 For pentagamma
-            z = new Complex(2.1d, 1.0d); // real part Not zero
-
-            m = 13; // 
-            z = new Complex(5.2d, -2.0d); // real part Not zero
-
-
-            m = 2; // m = 1 For trigamma
-            z = new Complex(-3.2d, 0.1d); // negative real part
-
-
-            m = 5;  // m=1 for trigamma
-            z = new Complex(-13.2d, 1.1d);  // negative real part
-
-            res1 = FromJulia.polygamma(m, z);
-            Console.WriteLine("res1 = FromJulia.polygamma(m, z): {0}", res1);
-            // res2 = flintc53.polygamma(m, z)
-            // Console.WriteLine("res2 = flintc53.polygamma(m, z): {0}", res2)
-
-        }
-
-
-
 
 
 
@@ -890,7 +841,6 @@ namespace TestXlCalcNetPrecCS
             TestComplex1();
             TestComplex2();
             TestComplex3();
-            TestComplex4();
         }
 
 

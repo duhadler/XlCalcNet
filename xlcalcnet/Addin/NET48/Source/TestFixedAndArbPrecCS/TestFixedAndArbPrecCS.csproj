@@ -102,6 +102,10 @@
     <Compile Include="B02_BasicFloatingPoint.cs" />
     <Compile Include="B03a_RealElementaryFunctions.cs" />
     <Compile Include="B03b_CplxElementaryFunctions.cs" />
+    <Compile Include="B06a_MatAll.cs" />
+    <Compile Include="B06b_MatFp.cs" />
+    <Compile Include="B06c_MatFpReal.cs" />
+    <Compile Include="B06d_SpMat.cs" />
     <Compile Include="B08a_RealEllipticFunctions.cs" />
     <Compile Include="B08b_CplxEllipticFunctions.cs" />
     <Compile Include="B09a_RealLerchPhi.cs" />
@@ -133,9 +137,6 @@
     <Compile Include="B01_Conversions.cs" />
     <Compile Include="B05b_FlintNumericalCalculus.cs" />
     <Compile Include="B01_RealCompare.cs" />
-    <Compile Include="B06_SpMat.cs" />
-    <Compile Include="B06_MatAll.cs" />
-    <Compile Include="B06_MatFp.cs" />
     <Compile Include="B04_Distributions.cs" />
     <Compile Include="Test_Math53_.cs" />
     <Compile Include="Test_MathC53_.cs" />
