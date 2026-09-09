@@ -16,7 +16,7 @@ Since one of the main goals of XlCalcNet is to enable the use of functions writt
 ### Use with Microsoft Excel
 
 
-This shows Excel's function dialog with a python script example
+Once MS Excel has been prepared for using XlCalcNet (see [here](https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C01_Setup.html#preparing-ms-excel-for-using-xlcalcnet-first-steps) for details), one can call small Python scripts in spreadsheet formulas and pass parameters from other spreadsheet cells. If the example workbook “Simple.xlsx” has been loaded, the following dialog box will appear when the user clicks on the “Insert Function” button in Excel’s formula bar:
 
 <p align="center">
   <img src="images/FunctionArguments.png" alt="Excel's function dialog" width="600">
@@ -38,6 +38,7 @@ Click on Navigator for XlCalcNet. The following dialog box will appear:
   <img src="images/NavigatorXlCalcNet.png" alt="Navigator for XlCalcNet" width="500">
 </p>
 
+This can be used to call external procedures, which are not used in spreadsheet formulas. The procedures can be used to generate plots, for example. The generated plots can be saved as bitmap files or as interactive 3D plots in a separate window.
 
 
 
