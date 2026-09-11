@@ -89,7 +89,6 @@
 		<Unit filename="sici.h" />
 		<Unit filename="specfun.h" />
 		<Unit filename="sph_bessel.h" />
-		<Unit filename="w_elliptic.hpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

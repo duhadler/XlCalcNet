@@ -5,6 +5,7 @@ using System.IO;
 using System.Numerics;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -86,6 +87,28 @@ namespace TinyPlot3DCtrl
         }
 
 
+        private string GetXlcalcnetLocalAppDataTempFolder()
+        {
+            string _LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string rootPath = _LocalAppDataDir + @"\XlCalcNetIDE\Temp";
+            string retValue = rootPath;
+
+            //If the folder does not exist, it will be created.
+            try
+            {
+                if (!Directory.Exists(rootPath))
+                {
+                    Directory.CreateDirectory(rootPath);
+                }
+            }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show("Error: Unable to create the folder: " + rootPath, "Folder Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return retValue;
+        }
+
+
 
         private void ReadData(string FName, out double[,] ResultDoubles)
         {
@@ -118,7 +141,12 @@ namespace TinyPlot3DCtrl
                 ymin_out = 0;
                 ymax_out = 0;
 
-                string FName = FlexDlg.GetTemplatePath() + "CodeTest.txt";
+                //string FName = FlexDlg.GetTemplatePath() + "CodeTest.txt";
+
+                string UniqueFileName = string.Format(@"{0}.txt", DateTime.Now.Ticks);
+                string FName = GetXlcalcnetLocalAppDataTempFolder() + @"\" + UniqueFileName + "CodeTest.txt";
+
+
                 string s1 = wpfSettings.Code;
                 string Code = FlexDlg.GetCodeParams(s1, xResolution, zResolution, xmin, xmax, zmin, zmax);
                 File.WriteAllText(FName, Code);
@@ -130,6 +158,15 @@ namespace TinyPlot3DCtrl
                     Console.WriteLine(FName);
                     Proc = "test4";
                     Result = FlexDlg.RunScriptFromFile(FName, Proc);
+                    try
+                    {
+                        File.Delete(FName);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Windows.Forms.MessageBox.Show(ex.ToString());
+                    }
+
                     string RS = Result.ToString();
                     Console.WriteLine(RS);
                     if (RS.StartsWith("System.Double"))
@@ -144,13 +181,13 @@ namespace TinyPlot3DCtrl
                         }
                     else
                     {
-                        MessageBox.Show(RS);
+                        System.Windows.Forms.MessageBox.Show(RS);
                         return;
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
                     return;
                 }
 
@@ -183,7 +220,12 @@ namespace TinyPlot3DCtrl
                     ymin_out = 0;
                     ymax_out = 0;
 
-                    string FName = FlexDlg.GetTemplatePath() + "CodeTest.txt";
+                    //string FName = FlexDlg.GetTemplatePath() + "CodeTest.txt";
+
+                    string UniqueFileName = string.Format(@"{0}.txt", DateTime.Now.Ticks);
+                    string FName = GetXlcalcnetLocalAppDataTempFolder() + @"\" + UniqueFileName + "CodeTest.txt";
+
+
                     string s1 = wpfSettings.Code;
                     string Code = FlexDlg.GetCodeComplex(s1, xResolution, zResolution, xmin, xmax, zmin, zmax);
                     File.WriteAllText(FName, Code);
@@ -195,6 +237,15 @@ namespace TinyPlot3DCtrl
                         Console.WriteLine(FName);
                         Proc = "test4";
                         Result = FlexDlg.RunScriptFromFile(FName, Proc);
+                        try
+                        {
+                            File.Delete(FName);
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Windows.Forms.MessageBox.Show(ex.ToString());
+                        }
+
                         string RS = Result.ToString();
                         Console.WriteLine(RS);
                         if (RS.StartsWith("System.Double"))
@@ -208,13 +259,13 @@ namespace TinyPlot3DCtrl
                             }
                         else
                         {
-                            MessageBox.Show(RS);
+                            System.Windows.Forms.MessageBox.Show(RS);
                             return;
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.ToString());
+                        System.Windows.Forms.MessageBox.Show(ex.ToString());
                         return;
                     }
 
@@ -405,7 +456,12 @@ namespace TinyPlot3DCtrl
                     ymin_out = 0;
                     ymax_out = 0;
 
-                    string FName = FlexDlg.GetTemplatePath() + "CodeTest.txt";
+                    //string FName = FlexDlg.GetTemplatePath() + "CodeTest.txt";
+
+                    string UniqueFileName = string.Format(@"{0}.txt", DateTime.Now.Ticks);
+                    string FName = GetXlcalcnetLocalAppDataTempFolder() + @"\" + UniqueFileName + "CodeTest.txt";
+
+
                     string s1 = wpfSettings.Code;
                     string Code = FlexDlg.GetCodeReal(s1, xResolution, zResolution, xmin, xmax, zmin, zmax);
                     File.WriteAllText(FName, Code);
@@ -417,6 +473,15 @@ namespace TinyPlot3DCtrl
                         Console.WriteLine(FName);
                         Proc = "test4";
                         Result = FlexDlg.RunScriptFromFile(FName, Proc);
+                        try
+                        {
+                            File.Delete(FName);
+                        }
+                        catch (Exception ex)
+                        {
+                            System.Windows.Forms.MessageBox.Show(ex.ToString());
+                        }
+
                         string RS = Result.ToString();
                         Console.WriteLine(RS);
                         if (RS.StartsWith("System.Double"))
@@ -429,13 +494,13 @@ namespace TinyPlot3DCtrl
                             }
                         else
                         {
-                            MessageBox.Show(RS);
+                            System.Windows.Forms.MessageBox.Show(RS);
                             return;
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.ToString());
+                        System.Windows.Forms.MessageBox.Show(ex.ToString());
                         return;
                     }
                     double dx = (xmax - xmin) / xResolution;

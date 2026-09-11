@@ -512,12 +512,12 @@ namespace TinyDataViewerCtrl
 
         private void xlCalcNetManualonlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/");
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsHTML/");
         }
 
         private void tinyDataViewerTutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C02_GuiFunctions.html#starting-the-data-viewer");
+            Process.Start("https://https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C02_GuiFunctions.html#starting-the-data-viewer");
         }
     }
 }

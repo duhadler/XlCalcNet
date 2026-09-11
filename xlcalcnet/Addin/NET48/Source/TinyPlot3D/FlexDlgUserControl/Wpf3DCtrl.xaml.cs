@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
@@ -40,6 +41,28 @@ namespace TinyPlot3DCtrl
             ModelVisual3D model_visual = new ModelVisual3D();
             model_visual.Content = MainModel3Dgroup;
             MainViewport.Children.Add(model_visual);
+        }
+
+
+        private string GetXlcalcnetLocalAppDataTempFolder()
+        {
+            string _LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string rootPath = _LocalAppDataDir + @"\XlCalcNetIDE\Temp";
+            string retValue = rootPath;
+
+            //If the folder does not exist, it will be created.
+            try
+            {
+                if (!Directory.Exists(rootPath))
+                {
+                    Directory.CreateDirectory(rootPath);
+                }
+            }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show("Error: Unable to create the folder: " + rootPath, "Folder Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return retValue;
         }
 
 
@@ -581,7 +604,11 @@ namespace TinyPlot3DCtrl
             // Generate the points.
             Point3D[] points = new Point3D[numPoints + ExtraDt];
 
-            string FName = FlexDlg.GetTemplatePath() + "CodeTest.txt";
+            //string FName = FlexDlg.GetTemplatePath() + "CodeTest.txt";
+
+            string UniqueFileName = string.Format(@"{0}.txt", DateTime.Now.Ticks);
+            string FName = GetXlcalcnetLocalAppDataTempFolder() + @"\" + UniqueFileName + "CodeTest.txt";
+
             string s1 = wpfGraphicsSettings.Code;
             string Code = FlexDlg.GetCodePath(s1, numPoints, ExtraDt, tMin, tMax);
             File.WriteAllText(FName, Code);
@@ -593,6 +620,15 @@ namespace TinyPlot3DCtrl
                 Console.WriteLine(FName);
                 Proc = "test4";
                 Result = FlexDlg.RunScriptFromFile(FName, Proc);
+                try
+                {
+                    File.Delete(FName);
+                }
+                catch (Exception ex)
+                {
+                    System.Windows.Forms.MessageBox.Show(ex.ToString());
+                }
+
                 string RS = Result.ToString();
                 Console.WriteLine(RS);
                 if (RS.StartsWith("System.Double"))
@@ -602,13 +638,13 @@ namespace TinyPlot3DCtrl
                     }
                 else
                 {
-                    MessageBox.Show(RS);
+                    System.Windows.Forms.MessageBox.Show(RS);
                     return points;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                System.Windows.Forms.MessageBox.Show(ex.ToString());
                 return points;
             }
 

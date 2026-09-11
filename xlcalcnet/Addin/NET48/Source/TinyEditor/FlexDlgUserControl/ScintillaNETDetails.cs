@@ -312,7 +312,9 @@ namespace FlexDlgUserCtrl
                     scintilla1.Text = scintilla1.Text.Replace(s2, s1);
                     if (!hasArb) scintilla1.Text = scintilla1.Text.Replace(s1, s2);
 
-                    string UserBinPath = _LocalAppDataDir + @"\XlCalcNetIDE\Bin";
+                    string UserBinPath = GetXlcalcnetLocalAppDataBinFolder();
+
+
                     string UserFixedLibPath = UserBinPath + @"\UserFixedPrecNet.dll";
                     //MessageBox.Show(UserFixedLibPath);
                     bool hasUserFixedLib = File.Exists(UserFixedLibPath);
@@ -524,7 +526,7 @@ namespace FlexDlgUserCtrl
 
             string GetBinPath1 = GetBinPath();
             string GetBinPath2 = GetBinPath1.Replace("xlcalcnet", "xlcalcnet2");
-            string GetBinPath3 = _LocalAppDataDir + @"\XlCalcNetIDE\Bin";
+            string GetBinPath3 = GetXlcalcnetLocalAppDataBinFolder();
 
             if (((LastCategory.Length == 4) && LastCategory.EndsWith("lib")) && "sdeqo".Contains(LastCategory.Substring(0, 1)) || (LastCategory.Length == 5) && LastCategory.EndsWith("libc") && "sdeqo".Contains(LastCategory.Substring(0, 1)))
             {
@@ -953,7 +955,7 @@ namespace FlexDlgUserCtrl
 
             string GetBinPath1 = GetBinPath();
             string GetBinPath2 = GetBinPath1.Replace("xlcalcnet", "xlcalcnet2");
-            string GetBinPath3 = _LocalAppDataDir + @"\XlCalcNetIDE\Bin";
+            string GetBinPath3 = GetXlcalcnetLocalAppDataBinFolder();
 
             Add_Assembly(GetBinPath1 + @"\FixedPrecNet.dll");
             Add_Assembly(GetBinPath1 + @"\MpPrecNet.dll");

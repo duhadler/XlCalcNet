@@ -3819,65 +3819,6 @@ namespace FixedPrecNet
 
 
 
-        #region Weierstrass elliptic functions, in terms of (real) lattice invariants g2, g3
-
-
-
-        /// <summary>
-        /// Returns the real Weierstrass P function.
-        /// </summary>
-        public static Double weierstrass_p(Double g2, Double g3, Double x)
-        {
-            Double res = 0.0;
-            Lib_xsf_weierstrass_p(g2, g3, x, ref res);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_xsf_weierstrass_p", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_xsf_weierstrass_p(Double g2, Double g3, Double x, ref Double res);
-
-
-        /// <summary>
-        /// Returns the real Weierstrass PPrime function.
-        /// </summary>
-        public static Double weierstrass_p_prime(Double g2, Double g3, Double x)
-        {
-            Double res = 0.0;
-            Lib_xsf_weierstrass_pprime(g2, g3, x, ref res);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_xsf_weierstrass_pprime", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_xsf_weierstrass_pprime(Double g2, Double g3, Double x, ref Double res);
-
-
-        /// <summary>
-        /// Returns the real Weierstrass zeta function.
-        /// </summary>
-        public static Double weierstrass_zeta_g(Double g2, Double g3, Double x)
-        {
-            Double res = 0.0;
-            Lib_xsf_cplx_weierstrass_zeta(g2, g3, x, ref res);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_xsf_cplx_weierstrass_zeta", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_xsf_cplx_weierstrass_zeta(Double g2, Double g3, Double x, ref Double res);
-
-
-        /// <summary>
-        /// Returns the real Weierstrass Sigma function.
-        /// </summary>
-        public static Double weierstrass_sigma_g(Double g2, Double g3, Double x)
-        {
-            Double res = 0.0;
-            Lib_xsf_cplx_weierstrass_sigma(g2, g3, x, ref res);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_xsf_cplx_weierstrass_sigma", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_xsf_cplx_weierstrass_sigma(Double g2, Double g3, Double x, ref Double res);
-
-
-        #endregion
-
-
 
         #endregion
 

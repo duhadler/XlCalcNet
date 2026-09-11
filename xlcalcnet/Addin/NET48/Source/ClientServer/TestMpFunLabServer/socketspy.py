@@ -215,12 +215,13 @@ class xlcalcnetTCPHandler(socketserver.BaseRequestHandler):
         #print("instr: ", instr)
 
         if instr.startswith("$file:$"):
-            print("python: read from file")
-            in1 = r"C:\Temp\FileTempIn.txt"
+            #print("python: read from file")
+            in1 = instr[7:]
+            #print("python, in1: ", in1)
             file = open (in1, mode = "r", encoding="utf-8")
             instr = file.read()
             file.close()
-            print("instr: ", instr)
+            #print("instr: ", instr)
 
         res = pyexec_instr(instr)
         my_str = ""
@@ -234,21 +235,25 @@ class xlcalcnetTCPHandler(socketserver.BaseRequestHandler):
             my_str = "$float$" + str(res)
         else:
             my_str = str(res)
-        print("my_str:", my_str, type(my_str))
+        #print("my_str:", my_str, type(my_str))
 
         TotalBytesThreshold = 1000
         #TotalBytesThreshold = 1
         my_str_as_bytes = my_str.encode(encoding='utf-8')
         TotalBytes = len(my_str_as_bytes)
-        print("TotalBytes: ", TotalBytes)
+        #print("TotalBytes: ", TotalBytes)
 
         if TotalBytes > TotalBytesThreshold:
-            print("python: write to file")
-            out1 = r"C:\Temp\FileTempOut.txt"
+            #print("python: write to file")
+            LocalAppData = gui.get_local_appdata()
+            tempdir = os.sep.join([LocalAppData, 'XlCalcNetIDE', 'Temp'])
+            if not os.path.exists(tempdir): os.makedirs(tempdir)
+            out1 = os.sep.join([tempdir, gui.get_date_time_stamp() + ".txt"])
+            #print("out1: ", out1)
             writer = open (out1,  mode = "w", encoding="utf-8")
             writer.write(my_str)
             writer.close()
-            my_str = "$file:$"
+            my_str = "$file:$" + out1
             my_str_as_bytes = my_str.encode(encoding='utf-8')
             self.request.sendall(my_str_as_bytes)
         else:

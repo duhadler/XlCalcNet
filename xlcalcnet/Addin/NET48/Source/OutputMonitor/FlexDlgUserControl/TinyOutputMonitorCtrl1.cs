@@ -566,7 +566,7 @@ namespace TinyOutputMonitorCtrl
 
         private void xlCalcNetManualonlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/");
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsHTML/");
         }
 
         private void tinyOutputMonitorTutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)

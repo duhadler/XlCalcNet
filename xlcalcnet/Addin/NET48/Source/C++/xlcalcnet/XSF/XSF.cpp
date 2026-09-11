@@ -1,6 +1,5 @@
 #include <complex>
 #include <iostream>
-#include "w_elliptic.hpp"
 
 #include "XSF.h"
 
@@ -49,106 +48,6 @@ void xsf_cplx_polylog(int n, double z_re, double z_im, double* res_re, double* r
     *res_re = std::real(res);
     *res_im = std::imag(res);
 }
-
-
-
-void xsf_weierstrass()
-{
-    w_elliptic::we<double> w(1,2);
-    std::cout << w.P(1.2) << '\n';
-    std::cout << w.P(std::complex<double>(1.2,3.4)) << '\n';
-    std::cout << w.Pprime(1.2) << '\n';
-    std::cout << w.Pprime(std::complex<double>(1.2,3.4)) << '\n';
-    std::cout << w.zeta(0.12) << '\n';
-    std::cout << w.zeta(std::complex<double>(1.2,3.4)) << '\n';
-    std::cout << w.sigma(0.12) << '\n';
-    std::cout << w.sigma(std::complex<double>(1.2,3.4)) << '\n';
-    auto Pinv = w.Pinv(-4.);
-    std::cout << Pinv[0] << '\n';
-    std::cout << Pinv[1] << '\n';
-    std::cout << w << '\n';
-}
-
-
-
-
-void xsf_weierstrass_p(double g2, double g3, double x, double* res)
-{
-    w_elliptic::we<double> w(g2,g3);
-    *res = w.P(x);
-}
-
-
-void xsf_weierstrass_prime(double g2, double g3, double x, double* res)
-{
-    w_elliptic::we<double> w(g2,g3);
-    *res = w.Pprime(x);
-}
-
-
-void xsf_weierstrass_zeta(double g2, double g3, double x, double* res)
-{
-    w_elliptic::we<double> w(g2,g3);
-    *res = w.zeta(x);
-}
-
-
-void xsf_weierstrass_sigma(double g2, double g3, double x, double* res)
-{
-    w_elliptic::we<double> w(g2,g3);
-    *res = w.sigma(x);
-}
-
-
-void xsf_cplx_weierstrass_p(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im)
-{
-    std::complex<double> z = std::complex<double>(z_re, z_im);
-    std::complex<double> res = std::complex<double>(0, 0);
-
-    w_elliptic::we<double> w(g2,g3);
-    res = w.P(z);
-
-    *res_re = std::real(res);
-    *res_im = std::imag(res);
-}
-
-void xsf_cplx_weierstrass_pprime(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im)
-{
-    std::complex<double> z = std::complex<double>(z_re, z_im);
-    std::complex<double> res = std::complex<double>(0, 0);
-
-    w_elliptic::we<double> w(g2,g3);
-    res = w.Pprime(z);
-
-    *res_re = std::real(res);
-    *res_im = std::imag(res);
-}
-
-void xsf_cplx_weierstrass_zeta(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im)
-{
-    std::complex<double> z = std::complex<double>(z_re, z_im);
-    std::complex<double> res = std::complex<double>(0, 0);
-
-    w_elliptic::we<double> w(g2,g3);
-    res = w.zeta(z);
-
-    *res_re = std::real(res);
-    *res_im = std::imag(res);
-}
-
-void xsf_cplx_weierstrass_sigma(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im)
-{
-    std::complex<double> z = std::complex<double>(z_re, z_im);
-    std::complex<double> res = std::complex<double>(0, 0);
-
-    w_elliptic::we<double> w(g2,g3);
-    res = w.sigma(z);
-
-    *res_re = std::real(res);
-    *res_im = std::imag(res);
-}
-
-
 
 
 

@@ -785,23 +785,9 @@ namespace TestXlCalcNetPrecCS
 
 
             var z1 = new Complex(-1.2d, 4.1d);
-            double g2 = 2.2d;
-            double g3 = 3.2d;
-
-            var z4 = cmath53.WeierstrassP(g2, g3, z1);
-            Console.WriteLine("z4 = mathC53.WeierstrassP(g2, g3, z1): {0}", z4);
-
-            z4 = cmath53.WeierstrassPPrime(g2, g3, z1);
-            Console.WriteLine("z4 = mathC53.WeierstrassPPrime(g2, g3, z1): {0}", z4);
-
-            z4 = cmath53.WeierstrassZeta(g2, g3, z1);
-            Console.WriteLine("z4 = mathC53.WeierstrassZeta(g2, g3, z1): {0}", z4);
-
-            z4 = cmath53.WeierstrassSigma(g2, g3, z1);
-            Console.WriteLine("z4 = mathC53.WeierstrassSigma(g2, g3, z1): {0}", z4);
 
             z1 = new Complex((double)-1.2m, 4.1d);
-            z4 = cmath53.hardy_theta(z1);
+            Complex z4 = cmath53.hardy_theta(z1);
             Console.WriteLine("z4 = mathC53.HardyTheta(z1): {0}", z4);
 
             // z4 = flintc53.hardy_theta(z1)

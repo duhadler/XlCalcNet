@@ -8,6 +8,7 @@ using ExcelDna.Integration;
 using ExcelDna.Integration.CustomUI;
 using Microsoft.VisualBasic;
 using MpFunLabClient;
+using System.Windows.Forms;
 
 namespace MpFunLabAddin64
 {
@@ -15,6 +16,28 @@ namespace MpFunLabAddin64
 
     public static class MpFunctions
     {
+
+        public static string GetXlcalcnetLocalAppDataTempFolder()
+        {
+            string _LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string rootPath = _LocalAppDataDir + @"\XlCalcNetIDE\Temp";
+            string retValue = rootPath;
+
+            //If the folder does not exist, it will be created.
+            try
+            {
+                if (!Directory.Exists(rootPath))
+                {
+                    Directory.CreateDirectory(rootPath);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error: Unable to create the folder: " + rootPath, "Folder Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return retValue;
+        }
+
 
 
         private static MpFunLabSocketClientClass scc = null;
@@ -63,16 +86,6 @@ namespace MpFunLabAddin64
 
         private const string P1Desc = "the first" + PD1 + "1" + PD2;
 
-        // Const FunctionNameDesc = "specifies the function name (which is case sensitive)."
-        // Const Parameter1Desc = "the first" + PD1 + "1" + PD2
-        // Const Parameter2Desc = "the second" + PD1 + "2" + PD2
-        // Const Parameter3Desc = "the third" + PD1 + "3" + PD2
-        // Const Parameter4Desc = "the fourth" + PD1 + "4" + PD2
-        // Const Parameter5Desc = "the fifth" + PD1 + "5" + PD2
-        // Const Parameter6Desc = "the sixth" + PD1 + "6" + PD2
-        // Const Parameter7Desc = "the seventh" + PD1 + "7" + PD2
-        // Const Parameter8Desc = "the eigth" + PD1 + "8" + PD2
-        // Const Parameter9Desc = "the ninth" + PD1 + "9" + PD2
         private const string TransposeDesc = "Optional: If set to a non-zero value, the output will be transposed";
         private const string ShowShapeDesc = "Optional: If set to a non-zero value, the shape will be indicated in the output";
 
@@ -162,103 +175,45 @@ namespace MpFunLabAddin64
             return ResultFinal;
         }
 
-        private static dynamic CallSocketServer0OLD(string Code2, bool Transpose, bool ShowShape)
-        {
-            var scc = new MpFunLabSocketClientClass();
-            string Result = scc.CallSocketServer(Code2);
-            // MsgBox(Code2)
-            if (Result.StartsWith("$list$"))
-            {
-                dynamic[,] oTable;
-                string[] ResArray = Strings.Split(Result, "§__§");
-                int NoOfRows = ResArray.Length;
-                string Row = ResArray[1];
-                string[] RowArray = Strings.Split(Row, "§_§");
-                int NoOfCols = RowArray.Length;
-                if (Transpose)
-                {
-                    oTable = new dynamic[NoOfCols, NoOfRows - 2 + 1];
-                }
-                else
-                {
-                    oTable = new dynamic[NoOfRows - 2 + 1, NoOfCols];
-                }
-                for (int i = 0, loopTo = NoOfRows - 2; i <= loopTo; i++)
-                {
-                    Row = ResArray[i + 1];
-                    RowArray = Strings.Split(Row, "§_§");
-                    for (int j = 0, loopTo1 = RowArray.Length - 1; j <= loopTo1; j++)
-                    {
-                        string Val = RowArray[j];
-                        if (Transpose)
-                        {
-                            oTable[j, i] = GetTypedData(Val);
-                        }
-                        else
-                        {
-                            oTable[i, j] = GetTypedData(Val);
-                        }
-                    }
-                }
-                if (ShowShape)
-                {
-                    string RxC;
-                    if (Transpose)
-                    {
-                        RxC = "R" + NoOfCols.ToString().Trim() + "xC" + (NoOfRows - 1).ToString().Trim() + "| ";
-                    }
-                    else
-                    {
-                        RxC = "R" + (NoOfRows - 1).ToString().Trim() + "xC" + NoOfCols.ToString().Trim() + "| ";
-                    }
-                    oTable[0, 0] = RxC + oTable[0, 0].ToString();
-                }
-                return oTable;
-            }
-            else
-            {
-                return GetTypedData(Result);
-            }
-        }
-
-
-
-
-
-
 
 
         private static dynamic CallSocketServer0(string Code, bool Transpose, bool ShowShape)
         {
             int TotalBytesThreshold = 1000;
-            var scc = new MpFunLabSocketClientClass();
+            //var scc = new MpFunLabSocketClientClass();
             var utf8WithoutBOM = new UTF8Encoding(false);
+            string InputPath = "";
             string ResultStr;
             Console.WriteLine("Code1.Length(): {0}", Code.Length);
             int TotalBytes = Encoding.UTF8.GetBytes(Code).Length;
             Console.WriteLine("Code2.Length(): {0}", TotalBytes);
             if (TotalBytes > TotalBytesThreshold)
             {
-                Console.WriteLine("C#: write to file");
-                string MyPath = @"C:\Temp\FileTempIn.txt";
-                File.WriteAllText(MyPath, Code, utf8WithoutBOM);
-                string Code2 = "$file:$" + MyPath;
-                ResultStr = scc.CallSocketServer(Code2);
+                //Console.WriteLine("C#: write to file");
+
+                string UniqueFileName = string.Format(@"{0}.txt", DateTime.Now.Ticks);
+                InputPath = GetXlcalcnetLocalAppDataTempFolder() + @"\" + UniqueFileName;
+                //Console.WriteLine("InputPath: {0}", InputPath);
+
+                File.WriteAllText(InputPath, Code, utf8WithoutBOM);
+                string Code2 = "$file:$" + InputPath;
+                ResultStr = MpFunLabSocketClientClass.CallSocketServer(Code2);
             }
             else
             {
                 Console.WriteLine("C#: no write to file");
-                ResultStr = scc.CallSocketServer(Code);
+                ResultStr = MpFunLabSocketClientClass.CallSocketServer(Code);
             }
 
 
-
+            if (InputPath != "") File.Delete(InputPath);
             if (ResultStr.StartsWith("$file:$"))
             {
-                Console.WriteLine("C#: read from file");
-                string ResultPath = @"C:\Temp\FileTempOut.txt";
+                //Console.WriteLine("C#: read from file");
+                string ResultPath = ResultStr.Substring(7);
                 ResultStr = File.ReadAllText(ResultPath, utf8WithoutBOM);
-                Console.WriteLine("ResultStr: {0}", ResultStr);
+                //Console.WriteLine("ResultStr: {0}", ResultStr);
+                File.Delete(ResultPath);
             }
             else
             {
@@ -333,7 +288,7 @@ namespace MpFunLabAddin64
         public static dynamic ASDOUBLE([ExcelArgument(Description = PythonCodeDesc)] string MpString)
         {
             string Result;
-            Result = scc.CallSocketServer("result = float(" + MpString + ")");
+            Result = MpFunLabSocketClientClass.CallSocketServer("result = float(" + MpString + ")");
             return Result;
         }
 

@@ -13,24 +13,6 @@ double xsf_exprel(double x);
 
 void xsf_cplx_polylog(int n, double z_re, double z_im, double* res_re, double* res_im);
 
-void xsf_weierstrass_p(double g2, double g3, double x, double* res);
-
-void xsf_weierstrass_prime(double g2, double g3, double x, double* res);
-
-void xsf_weierstrass_zeta(double g2, double g3, double x, double* res);
-
-void xsf_weierstrass_sigma(double g2, double g3, double x, double* res);
-
-
-void xsf_cplx_weierstrass_p(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im);
-
-void xsf_cplx_weierstrass_pprime(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im);
-
-void xsf_cplx_weierstrass_zeta(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im);
-
-void xsf_cplx_weierstrass_sigma(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im);
-
-
 
 void xsf_cplx_ellint_rc(double x_re, double x_im, double y_re, double y_im, double* res_re, double* res_im);
 

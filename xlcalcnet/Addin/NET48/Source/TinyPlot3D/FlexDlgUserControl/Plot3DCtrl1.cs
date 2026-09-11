@@ -101,7 +101,7 @@ namespace TinyPlot3DCtrl
             _PythonRootDir = PythonRootDir;
             _MyDocDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             _WorkDir = _MyDocDir + @"\DataXlCalcNet";
-            _TexturePath = _WorkDir + @"\DataExamples\MainExamples\Pics"; // + Texture1; ;
+            _TexturePath = _WorkDir + @"\DataExamples\MainExamples\Textures"; // + Texture1; ;
             _LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
             LibArbPrecNet = _PythonRootDir + @"\Lib\site-packages\xlcalcnet2\Addin\NET48\Bin\ArbPrecNet.dll";
@@ -1450,7 +1450,7 @@ namespace TinyPlot3DCtrl
 
         private void xlCalcNetManualonlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/");
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsHTML/");
         }
 
         private void interactive3DPlotsTutorialToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1460,8 +1460,17 @@ namespace TinyPlot3DCtrl
 
         private void xlCalcNetSectionHelponlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string target = comboBoxDirectories.Text + "/" + comboBoxFiles.Text + ".html";
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/" + target);
+            string filetarget = comboBoxFiles.Text;
+            if (filetarget.Contains("&"))
+            {
+                filetarget = filetarget.Replace("&", "/");
+            }
+            string target = comboBoxDirectories.Text + "/" + filetarget + ".html";
+
+            //string target = comboBoxDirectories.Text + "/" + comboBoxFiles.Text + ".html";
+
+
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsHTML/" + target);
         }
     }
 

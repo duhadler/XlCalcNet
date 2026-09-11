@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 
 namespace FlexDlgUserCtrl
 {
@@ -14,7 +13,7 @@ namespace FlexDlgUserCtrl
     {
 
 
-
+        
         #region Init
 
         private string ActiveFileName = "";
@@ -52,6 +51,48 @@ namespace FlexDlgUserCtrl
         }
 
 
+        public static string GetXlcalcnetLocalAppDataFolder()
+        {
+            string _LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string rootPath = _LocalAppDataDir + @"\XlCalcNetIDE";
+            string retValue = rootPath;
+
+            //If the folder does not exist, it will be created.
+            try
+            {
+                if (!Directory.Exists(rootPath))
+                {
+                    Directory.CreateDirectory(rootPath);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error: Unable to create the folder: " + rootPath, "Folder Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return retValue;
+        }
+
+
+        public static string GetXlcalcnetLocalAppDataBinFolder()
+        {
+            string _LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string rootPath = _LocalAppDataDir + @"\XlCalcNetIDE\Bin";
+            string retValue = rootPath;
+
+            //If the folder does not exist, it will be created.
+            try
+            {
+                if (!Directory.Exists(rootPath))
+                {
+                    Directory.CreateDirectory(rootPath);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error: Unable to create the folder: " + rootPath, "Folder Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return retValue;
+        }
 
 
 
@@ -497,7 +538,7 @@ namespace FlexDlgUserCtrl
 
         private void openAppdataFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", _LocalAppDataDir + @"\XlCalcNetIDE");
+            Process.Start("explorer.exe", GetXlcalcnetLocalAppDataFolder());
         }
 
         private void openBinFolderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -878,20 +919,6 @@ namespace FlexDlgUserCtrl
         private void tinyIDETutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C01_Setup.html#installing-and-using-the-tiny-ide-as-a-python-application");
-        }
-
-
-        private void xlCalcNetManualPDFToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string filePath = _LocalAppDataDir + @"\XlCalcNetIDE\Docs\pdf\xlcalcnet.pdf";
-            if (System.IO.File.Exists(filePath))
-            {
-                Process.Start(filePath);
-            }
-            else
-            {
-                MessageBox.Show("Could not find " + filePath);
-            }
         }
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_layout_file>
 	<FileVersion major="1" minor="0" />
-	<ActiveProject path="BoostMath/BoostMath.cbp" />
-	<PreferredTarget name="Boost64OReal" />
+	<ActiveProject path="mpNum/mpFunLab.cbp" />
+	<PreferredTarget name="LibWin64_XSF" />
 </CodeBlocks_workspace_layout_file>

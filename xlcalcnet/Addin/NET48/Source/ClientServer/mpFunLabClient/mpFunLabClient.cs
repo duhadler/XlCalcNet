@@ -1,12 +1,10 @@
-﻿using System;
-using System.Diagnostics;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
-using Microsoft.VisualBasic;
+using System.Windows.Forms;
 
 namespace MpFunLabClient
 {
@@ -15,152 +13,8 @@ namespace MpFunLabClient
     public class MpFunLabSocketClientClass
     {
 
-
-
-        //public const short SWP_NOMOVE = 0x2;
-        //public const short SWP_NOSIZE = 1;
-        //public const short SWP_NOZORDER = 0x4;
-        //public const short SWP_SHOWWINDOW = 0x40;
-
-        //public const int SW_SHOWNORMAL = 1;
-        //public const int SW_SHOWMINIMIZED = 2;
-
-        //private static readonly IntPtr HWND_BOTTOM = new IntPtr(1);
-
-        //[DllImport("user32.dll", EntryPoint = "SetWindowPos")]
-        //public static extern IntPtr SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, int wFlags);
-
-        //[DllImport("user32.dll", EntryPoint = "ShowWindow")]
-        //private static extern bool ShowWindow(IntPtr hwnd, int nCmdShow);
-
-
-        //public static void HookWindow()
-        //{
-
-        //    Process[] Processes = Process.GetProcessesByName("Notepad");
-
-        //    foreach (Process p in Processes)
-        //    {
-
-        //        var handle = p.MainWindowHandle;
-        //        if (handle != IntPtr.Zero)
-        //        {
-        //            SetWindowPos(handle, HWND_BOTTOM, 200, 200, 0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_SHOWWINDOW);
-        //        }
-        //    }
-
-        //}
-
-
-        //public string GetCPythonPath()
-        //{
-        //    string BinPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        //    // MessageBox.Show(BinPath);
-        //    bool found = false;
-        //    while (!found)
-        //    {
-        //        try
-        //        {
-        //            BinPath = Directory.GetParent(BinPath).FullName;
-        //            string Temp = BinPath + @"\python.exe";
-        //            // MessageBox.Show(Temp);
-        //            if (File.Exists(Temp))
-        //                found = true;
-        //        }
-        //        catch (Exception)
-        //        {
-        //            found = true;
-        //            BinPath = "";
-        //            Interaction.MsgBox("Could not find path to python.exe");
-        //        }
-        //    }
-        //    // MessageBox.Show(BinPath);
-        //    return BinPath;
-        //}
-
-
-        //public void StartSocketServer()
-        //{
-        //    string AddInPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        //    string PyExe = GetCPythonPath() + @"\python.exe";
-        //    if (File.Exists(PyExe))
-        //    {
-        //        var process = new Process();
-        //        process.StartInfo.FileName = PyExe;
-        //        process.StartInfo.Arguments = AddInPath + @"\socketspy.py";
-        //        process.StartInfo.CreateNoWindow = false;
-        //        // process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-        //        // process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-        //        process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-        //        process.StartInfo.UseShellExecute = true;
-        //        process.Start();
-
-        //        //var handle = IntPtr.Zero;
-        //        //while (handle == IntPtr.Zero)
-        //        //{
-        //        //    handle = process.MainWindowHandle;
-        //        //    Console.WriteLine("handle: {0}", handle);
-        //        //}
-        //        //SetWindowPos(handle, HWND_BOTTOM, 1400, 600, 900, 400, SWP_NOZORDER | SWP_SHOWWINDOW);
-
-        //        //string Result = CallSocketServer("StartingSocketServer");
-        //        //ShowWindow(handle, SW_SHOWMINIMIZED);
-        //    }
-        //    // Console.WriteLine(Result)
-        //    else
-        //    {
-        //        Interaction.MsgBox("Could not find: " + PyExe);
-        //    }
-        //}
-
-
-        //public bool SocketServerIsRunning()
-        //{
-        //    bool Found = false;
-        //    Process[] aProc1 = Process.GetProcessesByName("python");
-        //    for (int i = 0, loopTo = aProc1.Length - 1; i <= loopTo; i++)
-        //    {
-        //        string Title = aProc1[i].MainWindowTitle;
-        //        Console.WriteLine(Title);
-        //        // Dim ProcName As String = aProc1(i).ProcessName
-        //        // Console.WriteLine(ProcName)
-        //        //Found = Title.Contains("mpfunlab socket server 64 bit on port 11958");
-        //        Found = Title.Contains("mpfunlab socket server 64 bit");
-        //        if (Found)
-        //        {
-        //            Found = true;
-        //            break;
-        //        }
-        //    }
-        //    return Found;
-        //}
-
-        //public void SocketServerShow()
-        //{
-        //    Process[] aProc1 = Process.GetProcessesByName("python");
-        //    for (int i = 0, loopTo = aProc1.Length - 1; i <= loopTo; i++)
-        //    {
-        //        string Title = aProc1[i].MainWindowTitle;
-        //        Console.WriteLine(Title);
-        //        //bool Found = Title.Contains("mpfunlab socket server 64 bit on port 11958");
-        //        bool Found = Title.Contains("mpfunlab socket server 64 bit");
-        //        if (Found)
-        //        {
-        //            var handle = aProc1[i].MainWindowHandle;
-        //            ShowWindow(handle, SW_SHOWNORMAL);
-        //            break;
-        //        }
-        //    }
-        //}
-
-
-        public string CallSocketServer(string Code)
+        public static string CallSocketServer(string Code)
         {
-            //if (Code != "StartingSocketServer")
-            //{
-            //    if (!SocketServerIsRunning())
-            //        StartSocketServer();
-            //}
 
             string Result = "";
             // Data buffer for incoming data.  
@@ -180,7 +34,7 @@ namespace MpFunLabClient
                     byte[] msg = Encoding.UTF8.GetBytes(Code);
                     // Send the data through the socket.  
                     int bytesSent = sender.Send(msg);
-                    Console.WriteLine("bytesSent: {0}", bytesSent);
+                    //Console.WriteLine("bytesSent: {0}", bytesSent);
 
                     // Receive the response from the remote device.  
                     int bytesRec = sender.Receive(bytes);
@@ -191,23 +45,281 @@ namespace MpFunLabClient
                 }
                 catch (ArgumentNullException ane)
                 {
-                    Result = "ArgumentNullException: " + ane.ToString();
+                    //Result = "ArgumentNullException: " + ane.ToString();
+                    Result = "ArgumentNullException: " + ane.Message;
                 }
                 catch (SocketException se)
                 {
-                    Result = "SocketException: " + se.ToString();
+                    //Result = "SocketException: " + se.ToString();
+                    Result = "SocketException: " + se.Message;
                 }
                 catch (Exception e)
                 {
-                    Result = "Exception: " + e.ToString();
+                    Result = "Exception: " + e.Message;
                 }
             }
             catch (Exception e)
             {
-                Result = "Exception: " + e.ToString();
+                Result = "Exception: " + e.Message;
             }
             return Result;
         }
+
+
+        private static string GetXlcalcnetLocalAppDataTempFolder()
+        {
+            string _LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string rootPath = _LocalAppDataDir + @"\XlCalcNetIDE\Temp";
+            string retValue = rootPath;
+
+            //If the folder does not exist, it will be created.
+            try
+            {
+                if (!Directory.Exists(rootPath))
+                {
+                    Directory.CreateDirectory(rootPath);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error: Unable to create the folder: " + rootPath, "Folder Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return retValue;
+        }
+
+
+
+        private static dynamic GetTypedData(string Result2)
+        {
+            dynamic ResultFinal;
+            if (Result2.StartsWith("$float$"))
+            {
+                string ResultTemp = Result2.Substring(7);
+                ResultFinal = double.Parse(ResultTemp);
+            }
+            else if (Result2.StartsWith("$bool$"))
+            {
+                string ResultTemp = Result2.Substring(6);
+                ResultFinal = bool.Parse(ResultTemp);
+            }
+            else if (Result2.StartsWith("$datetime$"))
+            {
+                string ResultTemp = Result2.Substring(10);
+                ResultFinal = double.Parse(ResultTemp);
+            }
+            else
+            {
+                ResultFinal = Result2;
+            }
+            return ResultFinal;
+        }
+
+
+        private static dynamic ResultStringTodynamic(string Result, bool Transpose, bool ShowShape)
+        {
+            if (Result.StartsWith("$list$"))
+            {
+                dynamic[,] oTable;
+                string[] ResArray = Strings.Split(Result, "§__§");
+                int NoOfRows = ResArray.Length;
+                string Row = ResArray[1];
+                string[] RowArray = Strings.Split(Row, "§_§");
+                int NoOfCols = RowArray.Length;
+                if (Transpose)
+                {
+                    oTable = new dynamic[NoOfCols, NoOfRows - 2 + 1];
+                }
+                else
+                {
+                    oTable = new dynamic[NoOfRows - 2 + 1, NoOfCols];
+                }
+                for (int i = 0, loopTo = NoOfRows - 2; i <= loopTo; i++)
+                {
+                    Row = ResArray[i + 1];
+                    // Console.WriteLine(Row)
+                    RowArray = Strings.Split(Row, "§_§");
+                    for (int j = 0, loopTo1 = RowArray.Length - 1; j <= loopTo1; j++)
+                    {
+                        string Val = RowArray[j];
+                        if (Transpose)
+                        {
+                            oTable[j, i] = GetTypedData(Val);
+                        }
+                        else
+                        {
+                            oTable[i, j] = GetTypedData(Val);
+                        }
+                        // Console.WriteLine("i:{0}, j:{1}, val:{2}", i, j, Val)
+                    }
+                }
+                if (ShowShape)
+                {
+                    string RxC;
+                    if (Transpose)
+                    {
+                        RxC = "R" + NoOfCols.ToString().Trim() + "xC" + (NoOfRows - 1).ToString().Trim() + "| ";
+                    }
+                    else
+                    {
+                        RxC = "R" + (NoOfRows - 1).ToString().Trim() + "xC" + NoOfCols.ToString().Trim() + "| ";
+                    }
+                    oTable[0, 0] = RxC + oTable[0, 0].ToString();
+                }
+                return oTable;
+            }
+            else
+            {
+                return GetTypedData(Result);
+            }
+        }
+
+
+
+        public static string MakeParam(dynamic P)
+        {
+            string PStr = "";
+            if (P is Array)
+            {
+                dynamic[,] oTable = (dynamic[,])P;
+                int NoOfRows, NoOfCols;
+                NoOfRows = oTable.GetUpperBound(0);
+                NoOfCols = oTable.GetUpperBound(1);
+                var RowsJoined = new string[NoOfRows + 1 + 1];
+                RowsJoined[0] = "||" + "$list$";
+                for (int i = 0, loopTo = NoOfRows - 0; i <= loopTo; i++)
+                {
+                    var ColsJoined = new string[NoOfCols + 1];
+                    for (int j = 0, loopTo1 = NoOfCols - 0; j <= loopTo1; j++)
+                    {
+                        if (oTable[i, j] is double)
+                        {
+                            ColsJoined[j] = "$float$" + oTable[i, j].ToString();
+                        }
+                        else if (oTable[i, j] is bool)
+                        {
+                            ColsJoined[j] = "$bool$" + oTable[i, j].ToString();
+                        }
+                        else
+                        {
+                            ColsJoined[j] = oTable[i, j].ToString();
+                        }
+                    }
+                    RowsJoined[i + 1] = string.Join("§_§", ColsJoined);
+                }
+                PStr = string.Join("§__§", RowsJoined);
+            }
+            else if (P is double)
+            {
+                PStr = "||" + "$float$" + P.ToString();
+            }
+            else if (P is bool)
+            {
+                PStr = "||" + "$bool$" + P.ToString();
+            }
+            return PStr;
+        }
+
+
+
+        public static dynamic CallSocketServer0(string Code, bool Transpose, bool ShowShape)
+        {
+            int TotalBytesThreshold = 1000;
+            //var scc = new MpFunLabSocketClientClass();
+            var utf8WithoutBOM = new UTF8Encoding(false);
+            string InputPath = "";
+            string ResultStr = "";
+            //Console.WriteLine("Code1.Length(): {0}", Code.Length);
+            int TotalBytes = Encoding.UTF8.GetBytes(Code).Length;
+            //Console.WriteLine("Code2.Length(): {0}", TotalBytes);
+            if (TotalBytes > TotalBytesThreshold)
+            {
+                //Console.WriteLine("C#: write to file");
+
+                string UniqueFileName = string.Format(@"{0}.txt", DateTime.Now.Ticks);
+                InputPath = GetXlcalcnetLocalAppDataTempFolder() + @"\" + UniqueFileName;
+                //Console.WriteLine("InputPath: {0}", InputPath);
+
+                File.WriteAllText(InputPath, Code, utf8WithoutBOM);
+                string Code2 = "$file:$" + InputPath;
+                ResultStr = CallSocketServer(Code2);
+            }
+            else
+            {
+                //Console.WriteLine("C#: no write to file");
+                ResultStr = CallSocketServer(Code);
+            }
+
+            if (InputPath != "") File.Delete(InputPath);
+            if (ResultStr.StartsWith("$file:$"))
+            {
+                //Console.WriteLine("C#: read from file");
+                string ResultPath = ResultStr.Substring(7);
+                ResultStr = File.ReadAllText(ResultPath, utf8WithoutBOM);
+                //Console.WriteLine("ResultStr: {0}", ResultStr);
+                File.Delete(ResultPath);
+            }
+            else
+            {
+                //Console.WriteLine("C#: no read from file");
+            }
+
+            if (ResultStr.StartsWith("$list$"))
+            {
+                dynamic[,] oTable;
+                string[] ResArray = Strings.Split(ResultStr, "§__§");
+                //string[] ResArray = string.Split(ResultStr, "§__§");
+                int NoOfRows = ResArray.Length;
+                string Row = ResArray[1];
+                string[] RowArray = Strings.Split(Row, "§_§");
+                int NoOfCols = RowArray.Length;
+                if (Transpose)
+                {
+                    oTable = new dynamic[NoOfCols, NoOfRows - 2 + 1];
+                }
+                else
+                {
+                    oTable = new dynamic[NoOfRows - 2 + 1, NoOfCols];
+                }
+                for (int i = 0, loopTo = NoOfRows - 2; i <= loopTo; i++)
+                {
+                    Row = ResArray[i + 1];
+                    RowArray = Strings.Split(Row, "§_§");
+                    for (int j = 0, loopTo1 = RowArray.Length - 1; j <= loopTo1; j++)
+                    {
+                        string Val = RowArray[j];
+                        if (Transpose)
+                        {
+                            oTable[j, i] = GetTypedData(Val);
+                        }
+                        else
+                        {
+                            oTable[i, j] = GetTypedData(Val);
+                        }
+                    }
+                }
+                if (ShowShape)
+                {
+                    string RxC;
+                    if (Transpose)
+                    {
+                        RxC = "R" + NoOfCols.ToString().Trim() + "xC" + (NoOfRows - 1).ToString().Trim() + "| ";
+                    }
+                    else
+                    {
+                        RxC = "R" + (NoOfRows - 1).ToString().Trim() + "xC" + NoOfCols.ToString().Trim() + "| ";
+                    }
+                    oTable[0, 0] = RxC + oTable[0, 0].ToString();
+                }
+                return oTable;
+            }
+            else
+            {
+                return GetTypedData(ResultStr);
+            }
+        }
+
+
+
 
     }
 }

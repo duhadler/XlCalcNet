@@ -62,7 +62,7 @@ namespace FlexDlgUserCtrl
 
             string[] FWarray = { "mscorlib.dll", "System.dll", "System.Core.dll", "System.Windows.Forms.dll", "System.Drawing.dll", "System.Numerics.dll", "System.Data.dll", "System.Data.Linq.dll", "Microsoft.CSharp.dll", "Microsoft.VisualBasic.dll", "netstandard.dll" };
 
-            string[] Rootarray1 = { "FixedPrecNet.dll", "TinyPlot3DUserCtrl.dll", "System.Data.SQLite.dll" };
+            string[] Rootarray1 = { "FixedPrecNet.dll", "TinyPlot3DUserCtrl.dll", "System.Data.SQLite.dll", "MpFunLabClient.dll" };
 
             string[] Rootarray2 = { "ArbPrecNet.dll" };
 
@@ -102,7 +102,7 @@ namespace FlexDlgUserCtrl
 
 
 
-            string RootDir3 = _LocalAppDataDir + @"\XlCalcNetIDE\Bin\";
+            string RootDir3 = GetXlcalcnetLocalAppDataBinFolder() + @"\";
 
             string UserFixedLibPath = RootDir3 + @"UserFixedPrecNet.dll";
             //MessageBox.Show(UserFixedLibPath);
@@ -142,7 +142,7 @@ namespace FlexDlgUserCtrl
 
             MyArg += MyArg1 + MyArg2 + MyArg3 + MyArg4a + MyArg4b + MyArg5;
 
-            string Outputpath = _LocalAppDataDir + @"\XlCalcNetIDE\Bin";
+            string Outputpath = GetXlcalcnetLocalAppDataBinFolder();
 
 
 
@@ -216,7 +216,8 @@ namespace FlexDlgUserCtrl
             LogScintilla.AppendText("Program execution has started..." + Environment.NewLine);
             LogScintilla.Update();
 
-            string Outputpath = _LocalAppDataDir + @"\XlCalcNetIDE\Bin";
+            string Outputpath = GetXlcalcnetLocalAppDataBinFolder();
+
 
             Process process = new Process();
             process.StartInfo.WorkingDirectory = Outputpath;
@@ -515,7 +516,7 @@ namespace FlexDlgUserCtrl
             string DirectorytoSearch = ScriptDir.Substring(0, p + PrecNetDLLStr.Length) + @"\";
 
             string GetBinPath1 = GetBinPath();
-            string RootDir = _LocalAppDataDir + @"\XlCalcNetIDE\Bin\";
+            string RootDir = GetXlcalcnetLocalAppDataBinFolder() + @"\";
 
             string FWDir = Environment.GetEnvironmentVariable("SystemRoot") + @"\Microsoft.NET\Framework64\v4.0.30319\";
             string CompilerPath = FWDir;

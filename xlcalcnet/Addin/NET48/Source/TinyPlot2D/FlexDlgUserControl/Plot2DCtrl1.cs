@@ -11,7 +11,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration;
 using TinyPlot2DUserCtrl;
 
 
@@ -47,10 +46,6 @@ namespace TinyPlot2DCtrl
 
         public PropertyGrid propertyGrid1;
 
-        //private ElementHost elementHost3D = new ElementHost();
-        //private Boolean WpfIsInitializing = true;
-
-
 
         public Plot2DCtrl(string PythonRootDir)
         {
@@ -69,20 +64,6 @@ namespace TinyPlot2DCtrl
             Thread.CurrentThread.CurrentCulture = ci;
             InitCtrl();
         }
-
-
-        //private void InitWpfGraphics()
-        //{
-        //    WpfIsInitializing = false;
-        //}
-
-        //void NewModel()
-        //{
-        //    string Title = "Evaluation has started ...";
-
-        //    Title = wpfSettings1.Title;
-
-        //}
 
 
 
@@ -202,7 +183,7 @@ namespace TinyPlot2DCtrl
             foreach (var element in folders0)
             {
                 string s = Path.GetFileName(element);
-                if (s.ToLower().StartsWith("plots2d"))
+                if (s.ToLower().StartsWith("gallery"))
                 { comboBoxLanguage.Items.Add(s); }
             }
 
@@ -220,10 +201,6 @@ namespace TinyPlot2DCtrl
 
             evaluator.Variables = new Dictionary<string, object>() { };
             evaluator.Variables["START1"] = 2.5;
-            //evaluator.Types.Add(typeof(BuiltIn));
-
-            //InitWpfGraphics();
-            //wpfSettings1.SetParams(pictureBox1, tabControl1, lblPictures);
 
             InitWpfSVG();
             CallServer1.SetParams1(this);
@@ -244,8 +221,46 @@ namespace TinyPlot2DCtrl
             ResumeLayout();
 
             tabControl1.SelectedTab = tabSVG;
+            string ResultFinalString= CallServer.TestSocketServerP2();
+            ProcessResultFinalString(ResultFinalString);
 
         }
+
+
+
+        public string GetFullTempPathTop()
+        {
+            string LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            return LocalAppDataDir + @"\XlCalcNetIDE\Temp";
+        }
+
+        public void ProcessResultFinalString(string ResultFinalString)
+        {
+            if (ResultFinalString != "Done")
+            {
+                //MessageBox.Show(ResultFinalString);
+                richTextBox1.Text = ResultFinalString + Environment.NewLine;   
+                tabControl1.SelectedTab = tabLog;
+
+                //tabControl1.SelectedTab = tabSVG;
+                //tabControl1.SelectedTab = tabLog;
+                //tabControl1.SelectedTab = tabPicture;
+
+            }
+            else
+            {
+                string FileName = GetFullTempPathTop() + @"\" + "Temp.svg";
+                WpfSVGCtrl1.SetFileName(FileName);
+                string Title = "";
+                if (!string.IsNullOrEmpty(wpfSettings1.Title)) { Title = wpfSettings1.Title; }
+                labelGraphicsSVD.Text = Title;
+
+            }
+
+        }
+
+
+
 
 
         public string GetFullOutputPathTop()
@@ -572,10 +587,10 @@ namespace TinyPlot2DCtrl
                         //if (!WpfIsInitializing) Wpf3DCtrl1.ClearModel(); ;
 
                         string RunAfterLoading = "Always";
-                        string SvgPath = "Lituus";
+                        //string SvgPath = "Lituus";
                         if (!string.IsNullOrEmpty(wpfSettings1.RunAfterLoading)) { RunAfterLoading = wpfSettings1.RunAfterLoading; }
-                        if (!string.IsNullOrEmpty(wpfSettings1.SvgPath)) 
-                            { SvgPath = wpfSettings1.SvgPath; }
+                        //if (!string.IsNullOrEmpty(wpfSettings1.SvgPath)) 
+                        //    { SvgPath = wpfSettings1.SvgPath; }
                         if (RunAfterLoading.Contains("Always"))
                         {
                             if (RunAfterLoading.Contains("clear previous"))
@@ -584,13 +599,16 @@ namespace TinyPlot2DCtrl
                                 WpfSVGCtrl1.Clear();
                                 await Task.Delay(10);
                             }
+
                             tabControl1.SelectedTab = tabSVG;
+                            string ResultFinalString = CallServer.TestSocketServerP2();
+                            ProcessResultFinalString(ResultFinalString);
 
-                            CallServer.TestSocketServerP2();
+                            //CallServer.TestSocketServerP2(tabControl1);
 
-                            string Title = "";
-                            if (!string.IsNullOrEmpty(wpfSettings1.Title)) { Title = wpfSettings1.Title; }
-                            labelGraphicsSVD.Text = Title;
+                            //string Title = "";
+                            //if (!string.IsNullOrEmpty(wpfSettings1.Title)) { Title = wpfSettings1.Title; }
+                            //labelGraphicsSVD.Text = Title;
                         }
                         else
                         {
@@ -681,47 +699,22 @@ namespace TinyPlot2DCtrl
 
 
 
-        private async Task RunScriptAsync()
-        {
-            if (ActiveFileName.ToLower().EndsWith("2d.xml"))
-            {
-                Save();
-                string RunAfterLoading = "Always";
-                if (!string.IsNullOrEmpty(wpfSettings1.RunAfterLoading)) { RunAfterLoading = wpfSettings1.RunAfterLoading; }
-                if (RunAfterLoading.Contains("Always"))
-                {
-                    if (RunAfterLoading.Contains("clear previous"))
-                    {
-                        //if (!WpfIsInitializing) Wpf3DCtrl1.ClearModel();
-                        await Task.Delay(20);
-                    }
-                    //if (!WpfIsInitializing) NewModel();
-                }
-                //if (!WpfIsInitializing) NewModel();
-            }
-        }
-
 
 
         private void toolStripButtonRun_Click(object sender, EventArgs e)
         {
+            Save();
+
             tabControl1.SelectedTab = tabSVG;
-            //RunScript();
-            _ = RunScriptAsync();
+            string ResultFinalString = CallServer.TestSocketServerP2();
+            ProcessResultFinalString(ResultFinalString);
+
+            //CallServer.TestSocketServerP2(tabControl1);
+
+            //string Title = "";
+            //if (!string.IsNullOrEmpty(wpfSettings1.Title)) { Title = wpfSettings1.Title; }
+            //labelGraphicsSVD.Text = Title;
         }
-
-
-        private void btnTest_Click(object sender, EventArgs e)
-        {
-            CallServer.TestSocketServerP2();
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            WpfSVGCtrl1.Clear();
-
-        }
-
 
 
 
@@ -1029,7 +1022,7 @@ namespace TinyPlot2DCtrl
 
         private void xlCalcNetManualonlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/");
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsHTML/");
         }
 
         private void galeryOfPlotsTutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1039,8 +1032,17 @@ namespace TinyPlot2DCtrl
 
         private void xlCalcNetSectionHelponlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string target = comboBoxDirectories.Text + "/" + comboBoxFiles.Text + ".html";
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/" + target);
+            string filetarget = comboBoxFiles.Text;
+            if (filetarget.Contains("&"))
+            {
+                filetarget = filetarget.Replace("&", "/");
+            }
+            string target = comboBoxDirectories.Text + "/" + filetarget + ".html";
+
+            //string target = comboBoxDirectories.Text + "/" + comboBoxFiles.Text + ".html";
+
+
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsHTML/" + target);
         }
     }
 

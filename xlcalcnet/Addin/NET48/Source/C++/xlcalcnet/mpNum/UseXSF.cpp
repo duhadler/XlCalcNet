@@ -17,50 +17,6 @@ void Lib_xsf_cplx_polylog(int n, double z_re, double z_im, double* res_re, doubl
 
 
 
-void Lib_xsf_weierstrass_p(double g2, double g3, double x, double* res)
-{
-    xsf_weierstrass_p(g2, g3, x, res);
-}
-
-void Lib_xsf_weierstrass_pprime(double g2, double g3, double x, double* res)
-{
-    xsf_weierstrass_p(g2, g3, x, res);
-}
-
-void Lib_xsf_weierstrass_zeta(double g2, double g3, double x, double* res)
-{
-    xsf_weierstrass_zeta(g2, g3, x, res);
-}
-
-void Lib_xsf_weierstrass_sigma(double g2, double g3, double x, double* res)
-{
-    xsf_weierstrass_sigma(g2, g3, x, res);
-}
-
-
-
-void Lib_xsf_cplx_weierstrass_p(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im)
-{
-    xsf_cplx_weierstrass_p(g2, g3, z_re, z_im, res_re, res_im);
-}
-
-void Lib_xsf_cplx_weierstrass_pprime(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im)
-{
-    xsf_cplx_weierstrass_pprime(g2, g3, z_re, z_im, res_re, res_im);
-}
-
-void Lib_xsf_cplx_weierstrass_zeta(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im)
-{
-    xsf_cplx_weierstrass_zeta(g2, g3, z_re, z_im, res_re, res_im);
-}
-
-void Lib_xsf_cplx_weierstrass_sigma(double g2, double g3, double z_re, double z_im, double* res_re, double* res_im)
-{
-    xsf_cplx_weierstrass_sigma(g2, g3, z_re, z_im, res_re, res_im);
-}
-
-
-
 
 void Lib_xsf_cplx_ellint_rc(double x_re, double x_im, double y_re, double y_im, double* res_re, double* res_im)
 {

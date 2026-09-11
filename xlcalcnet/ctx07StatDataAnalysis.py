@@ -5,8 +5,6 @@ Created on Fri Apr  3 20:13:25 2015
 @author: DH
 """
 
-import numpy as np
-import pandas as pd
 
 # 7 Inferential statistics
 
