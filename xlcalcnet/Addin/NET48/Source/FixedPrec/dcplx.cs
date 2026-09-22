@@ -326,42 +326,42 @@ namespace FixedPrecNet
         #region Machine constants and properties of numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isreal/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isreal/*' />
         public static bool isreal(Complex z)
         {
             return (z.Imaginary == dreal.t(0.0d));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/iszero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/iszero/*' />
         public static bool iszero(Complex z)
         {
             return (z.Real == dreal.t(0.0d)) && (z.Imaginary == dreal.t(0.0d));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isone/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isone/*' />
         public static bool isone(Complex z)
         {
             return (z.Real == dreal.t(1.0d)) && (z.Imaginary == dreal.t(0.0d));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinf/*' />
         public static bool isinf(Complex z)
         {
             return (dreal.isinf(z.Real)) || (dreal.isinf(z.Imaginary));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnan/*' />
         public static bool isnan(Complex z)
         {
             return (dreal.isnan(z.Real)) || (dreal.isnan(z.Imaginary));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isfinite/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isfinite/*' />
         public static bool isfinite(Complex z)
         {
             return (dreal.isfinite(z.Real)) && (dreal.isfinite(z.Imaginary));
@@ -371,34 +371,46 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/zero/*' />
-        public static Complex zero()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zero/*' />
+        public static Complex zero
         {
-            return dcplx.t(0d, 0d);
+            get
+            {
+                return dcplx.t(0d, 0d);
+            }
         }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/one/*' />
-        public static Complex one()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/one/*' />
+        public static Complex one
         {
-            return dcplx.t(1d, 0d);
+            get
+            {
+                return dcplx.t(1d, 0d);
+            }
         }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/onej/*' />
-        public static Complex onej()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/onej/*' />
+        public static Complex onej
         {
-            return dcplx.t(0d, 1d);
+            get
+            {
+                return dcplx.t(0d, 1d);
+            }
         }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/nan/*' />
-        public static Complex nan()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nan/*' />
+        public static Complex nan
         {
-            return dcplx.t(dreal.nan(), dreal.nan());
+            get
+            {
+                return dcplx.t(dreal.nan, dreal.nan);
+            }
         }
 
 
@@ -427,14 +439,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Double abs(Complex z)
         {
             return Complex.Abs(z);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Double abs(dynamic z)
         {
             return abs(t(z));
@@ -442,56 +454,56 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Double fabs(Complex z)
         {
             return Complex.Abs(z);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Double fabs(dynamic z)
         {
             return fabs(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static Complex sign(Complex z)
         {
-            if (iszero(z)) return zero();
+            if (iszero(z)) return zero;
             else return z / abs(z);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static Complex sign(dynamic z)
         {
             return sign(t(z));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Double real(Complex z)
         {
             return z.Real;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Double real(dynamic z)
         {
             return real(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Double imag(Complex z)
         {
             return z.Imaginary;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Double imag(dynamic z)
         {
             return imag(t(z));
@@ -500,14 +512,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Double phase(Complex z)
         {
             return z.Phase;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Double phase(dynamic z)
         {
             return phase(t(z));
@@ -515,14 +527,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static Complex conj(Complex z)
         {
             return Complex.Conjugate(z);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static Complex conj(dynamic z)
         {
             return conj(t(z));
@@ -530,13 +542,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Double, Double> polar(Complex x)
         {
             return new Tuple<Double, Double>(abs(x), phase(x));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Double, Double> polar(dynamic x)
         {
             return polar(dcplx.t(x));
@@ -544,13 +556,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static Complex rect(Double r, Double phi)
         {
             return r * expj(phi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static Complex rect(dynamic r, dynamic phi)
         {
             return rect(dreal.t(r), dreal.t(phi));
@@ -604,14 +616,14 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static Complex sqrt(Complex x)
         {
             return Complex.Sqrt(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static Complex sqrt(dynamic x)
         {
             return sqrt(t(x));
@@ -619,14 +631,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt1pm1/*' />
         public static Complex sqrt1pm1(Complex x)
         {
             return cplx_expm1(cplx_log1p(x) * 0.5);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt1pm1/*' />
         public static Complex sqrt1pm1(dynamic x)
         {
             return sqrt1pm1(t(x));
@@ -634,14 +646,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static Complex rsqrt(Complex x)
         {
             return (1.0) / Complex.Sqrt(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static Complex rsqrt(dynamic x)
         {
             return rsqrt(t(x));
@@ -649,14 +661,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static Complex cbrt(Complex x)
         {
             return Complex.Pow(x, (1.0) / 3);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static Complex cbrt(dynamic x)
         {
             return cbrt(t(x));
@@ -665,14 +677,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/unitroot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/unitroot/*' />
         public static Complex unitroot(Int32 k)
         {
             return Complex.Pow(1.0, (1.0) / k);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/unitroot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/unitroot/*' />
         public static Complex unitroot(dynamic x)
         {
             return unitroot(t(x));
@@ -681,14 +693,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static Complex root_si(Complex x, Int32 k)
         {
             return Complex.Pow(x, (1.0) / k);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static Complex root_si(dynamic x, Int32 k)
         {
             return root_si(t(x), k);
@@ -781,8 +793,8 @@ namespace FixedPrecNet
                 Console.WriteLine("B: {0}", B);
 
                 x1 = (A + B) - a / 3;
-                x2 = -0.5 * (A + B) - a / 3 + 0.5 * Complex.ImaginaryOne * Math.Sqrt(3) * (A - B);
-                x3 = -0.5 * (A + B) - a / 3 - 0.5 * Complex.ImaginaryOne * Math.Sqrt(3) * (A - B);
+                x2 = -0.5 * (A + B) - a / 3 + 0.5 * dcplx.onej * Math.Sqrt(3) * (A - B);
+                x3 = -0.5 * (A + B) - a / 3 - 0.5 * dcplx.onej * Math.Sqrt(3) * (A - B);
             }
             return new Tuple<Complex, Complex, Complex>(x1, x2, x3);
         }
@@ -886,14 +898,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static Complex exp(Complex x)
         {
             return Complex.Exp(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static Complex exp(dynamic x)
         {
             return exp(t(x));
@@ -901,26 +913,26 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static Complex expj(Complex x)
         {
-            return cos(x) + onej() * sin(x);
+            return cos(x) + onej * sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static Complex expj(dynamic x)
         {
             return expj(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static Complex expjpi(Complex x)
         {
-            return cospi(x) + onej() * sinpi(x);
+            return cospi(x) + onej * sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static Complex expjpi(dynamic x)
         {
             return expjpi(t(x));
@@ -932,53 +944,53 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static Complex exp2(Complex x)
         {
-            return Complex.Exp(x) * dreal.ln2();
+            return Complex.Exp(x) * dreal.ln2;
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static Complex exp2(dynamic x)
         {
             return exp2(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static Complex exp10(Complex x)
         {
-            return Complex.Exp(x) * dreal.ln10();
+            return Complex.Exp(x) * dreal.ln10;
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static Complex exp10(dynamic x)
         {
             return exp10(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static Complex expm1(Complex x)
         {
             return cplx_expm1(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static Complex expm1(dynamic x)
         {
             return expm1(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static Complex exp2m1(Complex x)
         {
-            return cplx_expm1(x * dreal.ln2());
+            return cplx_expm1(x * dreal.ln2);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static Complex exp2m1(dynamic x)
         {
             return exp2m1(t(x));
@@ -986,14 +998,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static Complex exp10m1(Complex x)
         {
-            return cplx_expm1(x * dreal.ln10());
+            return cplx_expm1(x * dreal.ln10);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static Complex exp10m1(dynamic x)
         {
             return exp10m1(t(x));
@@ -1013,14 +1025,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Complex log(Complex x)
         {
             return Complex.Log(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Complex log(dynamic x)
         {
             return log(t(x));
@@ -1028,14 +1040,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Complex log2(Complex x)
         {
-            return Complex.Log(x) / dreal.ln2();
+            return Complex.Log(x) / dreal.ln2;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Complex log2(dynamic x)
         {
             return log2(t(x));
@@ -1043,14 +1055,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static Complex log10(Complex x)
         {
-            return Complex.Log(x) / dreal.ln10();
+            return Complex.Log(x) / dreal.ln10;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static Complex log10(dynamic x)
         {
             return log10(t(x));
@@ -1058,14 +1070,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static Complex log1p(Complex x)
         {
             return cplx_log1p(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static Complex log1p(dynamic x)
         {
             return log1p(t(x));
@@ -1073,14 +1085,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static Complex log2p1(Complex x)
         {
-            return cplx_log1p(x) / dreal.ln2();
+            return cplx_log1p(x) / dreal.ln2;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static Complex log2p1(dynamic x)
         {
             return log2p1(t(x));
@@ -1088,14 +1100,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static Complex log10p1(Complex x)
         {
-            return cplx_log1p(x) / dreal.ln10();
+            return cplx_log1p(x) / dreal.ln10;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static Complex log10p1(dynamic x)
         {
             return log10p1(t(x));
@@ -1113,28 +1125,28 @@ namespace FixedPrecNet
         #region Power functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static Complex sqr(Complex x)
         {
             return x * x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static Complex sqr(dynamic x)
         {
             return sqr(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static Complex cube(Complex x)
         {
             return x * x * x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static Complex cube(dynamic x)
         {
             return cube(t(x));
@@ -1142,14 +1154,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static Complex hypot(Complex x, Complex y)
         {
             return sqrt(x * x + y * y);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static Complex hypot(dynamic x, dynamic y)
         {
             return hypot(t(x), t(y));
@@ -1158,14 +1170,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static Complex pow(Complex x, Complex y)
         {
             return Complex.Pow(x, y);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static Complex pow(dynamic x, dynamic y)
         {
             return pow(t(x), t(y));
@@ -1173,14 +1185,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/powm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/powm1/*' />
         public static Complex powm1(Complex x, Complex y)
         {
             return cplx_expm1(Complex.Log(x) * y);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/powm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/powm1/*' />
         public static Complex powm1(dynamic x, dynamic y)
         {
             return powm1(t(x), t(y));
@@ -1188,14 +1200,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1p/*' />
         public static Complex pow1p(Complex x, Complex y)
         {
             return Complex.Exp(cplx_log1p(x) * y);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1p/*' />
         public static Complex pow1p(dynamic x, dynamic y)
         {
             return pow1p(t(x), t(y));
@@ -1203,14 +1215,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1pm1/*' />
         public static Complex pow1pm1(Complex x, Complex y)
         {
             return cplx_expm1(cplx_log1p(x) * y);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1pm1/*' />
         public static Complex pow1pm1(dynamic x, dynamic y)
         {
             return pow1pm1(t(x), t(y));
@@ -1218,14 +1230,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow_si/*' />
         public static Complex pow_si(Complex x, Int32 k)
         {
             return Complex.Pow(x, k);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow_si/*' />
         public static Complex pow_si(dynamic x, Int32 k)
         {
             return pow_si(t(x), k);
@@ -1233,14 +1245,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/compound_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/compound_si/*' />
         public static Complex compound_si(Complex x, Int32 k)
         {
             return Complex.Pow(1.0 + x, k);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/compound_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/compound_si/*' />
         public static Complex compound_si(dynamic x, Int32 k)
         {
             return compound_si(t(x), k);
@@ -1257,78 +1269,78 @@ namespace FixedPrecNet
         #region Trigonometric and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static Complex sin(Complex x)
         {
             return Complex.Sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static Complex sin(dynamic x)
         {
             return sin(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static Complex cos(Complex x)
         {
             return Complex.Cos(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static Complex cos(dynamic x)
         {
             return cos(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static Complex tan(Complex x)
         {
             return Complex.Tan(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static Complex tan(dynamic x)
         {
             return tan(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static Complex csc(Complex x)
         {
             return 1.0 / Complex.Sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static Complex csc(dynamic x)
         {
             return csc(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static Complex sec(Complex x)
         {
             return 1.0 / Complex.Cos(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static Complex sec(dynamic x)
         {
             return sec(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static Complex cot(Complex x)
         {
             return 1.0 / Complex.Tan(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static Complex cot(dynamic x)
         {
             return cot(t(x));
@@ -1343,12 +1355,12 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinpi/*' />
         public static Complex sinpi(Complex x)
         {
             if (x.Real < 0) return -sinpi(-x);
             var n_r = divmod(x.Real, 0.5);
-            x = dcplx.t(n_r.Item2, x.Imaginary) * dreal.pi();
+            x = dcplx.t(n_r.Item2, x.Imaginary) * dreal.pi;
             Int32 n = dreal.lrint(dreal.fmod(n_r.Item1, 4));
             if (n == 0) return dcplx.sin(x);
             else if (n == 1) return dcplx.cos(x);
@@ -1356,19 +1368,19 @@ namespace FixedPrecNet
             else return -dcplx.cos(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinpi/*' />
         public static Complex sinpi(dynamic x)
         {
             return sinpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cospi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cospi/*' />
         public static Complex cospi(Complex x)
         {
             if (x.Real < 0) x = -x;
             var n_r = divmod(x.Real, 0.5);
-            x = dcplx.t(n_r.Item2, x.Imaginary) * dreal.pi();
+            x = dcplx.t(n_r.Item2, x.Imaginary) * dreal.pi;
             Int32 n = dreal.lrint(dreal.fmod(n_r.Item1, 4));
             if (n == 0) return dcplx.cos(x);
             else if (n == 1) return -dcplx.sin(x);
@@ -1376,73 +1388,73 @@ namespace FixedPrecNet
             else return dcplx.sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cospi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cospi/*' />
         public static Complex cospi(dynamic x)
         {
             return cospi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanpi/*' />
         public static Complex tanpi(Complex x)
         {
             return dcplx.sinpi(x) / dcplx.cospi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanpi/*' />
         public static Complex tanpi(dynamic x)
         {
             return tanpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cscpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cscpi/*' />
         public static Complex cscpi(Complex x)
         {
             return 1.0 / dcplx.sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cscpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cscpi/*' />
         public static Complex cscpi(dynamic x)
         {
             return cscpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/secpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/secpi/*' />
         public static Complex secpi(Complex x)
         {
             return 1.0 / dcplx.cospi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/secpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/secpi/*' />
         public static Complex secpi(dynamic x)
         {
             return secpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cotpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cotpi/*' />
         public static Complex cotpi(Complex x)
         {
             return dcplx.cospi(x) / dcplx.sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cotpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cotpi/*' />
         public static Complex cotpi(dynamic x)
         {
             return cotpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinc/*' />
         public static Complex sinc(Complex x)
         {
             if (dcplx.iszero(x)) return new Complex(1, 0);
             else return dcplx.sin(x) / (x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinc/*' />
         public static Complex sinc(dynamic x)
         {
             return sinc(t(x));
@@ -1450,14 +1462,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sincpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sincpi/*' />
         public static Complex sincpi(Complex x)
         {
             if (dcplx.iszero(x)) return new Complex(1, 0);
-            else return dcplx.sinpi(x) / (x * dreal.pi());
+            else return dcplx.sinpi(x) / (x * dreal.pi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sincpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sincpi/*' />
         public static Complex sincpi(dynamic x)
         {
             return sincpi(t(x));
@@ -1473,78 +1485,78 @@ namespace FixedPrecNet
         #region Hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static Complex sinh(Complex x)
         {
             return Complex.Sinh(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static Complex sinh(dynamic x)
         {
             return sinh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static Complex cosh(Complex x)
         {
             return Complex.Cosh(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static Complex cosh(dynamic x)
         {
             return cosh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static Complex tanh(Complex x)
         {
             return Complex.Tanh(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static Complex tanh(dynamic x)
         {
             return tanh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static Complex csch(Complex x)
         {
             return 1.0 / Complex.Sinh(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static Complex csch(dynamic x)
         {
             return csch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static Complex sech(Complex x)
         {
             return 1.0 / Complex.Cosh(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static Complex sech(dynamic x)
         {
             return sech(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static Complex coth(Complex x)
         {
             return 1.0 / Complex.Tanh(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static Complex coth(dynamic x)
         {
             return coth(t(x));
@@ -1560,78 +1572,78 @@ namespace FixedPrecNet
         #region Inverse trigonometric functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static Complex asin(Complex x)
         {
             return Complex.Asin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static Complex asin(dynamic x)
         {
             return asin(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static Complex acos(Complex x)
         {
             return Complex.Acos(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static Complex acos(dynamic x)
         {
             return acos(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static Complex atan(Complex x)
         {
             return Complex.Atan(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static Complex atan(dynamic x)
         {
             return atan(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static Complex acsc(Complex x)
         {
             return Complex.Asin((1.0) / x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static Complex acsc(dynamic x)
         {
             return acsc(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static Complex asec(Complex x)
         {
             return Complex.Acos((1.0) / x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static Complex asec(dynamic x)
         {
             return asec(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static Complex acot(Complex x)
         {
             return Complex.Atan((1.0) / x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static Complex acot(dynamic x)
         {
             return acot(t(x));
@@ -1645,79 +1657,79 @@ namespace FixedPrecNet
         #region Inverse hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static Complex asinh(Complex x)
         {
-            return Complex.Asin(Complex.ImaginaryOne * x) / Complex.ImaginaryOne;
+            return Complex.Asin(dcplx.onej * x) / dcplx.onej;
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static Complex asinh(dynamic x)
         {
             return asinh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static Complex acosh(Complex x)
         {
             return  Complex.Sqrt(x-1) * Complex.Acos(x) / Complex.Sqrt(1 - x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static Complex acosh(dynamic x)
         {
             return acosh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static Complex atanh(Complex x)
         {
-            return Complex.Atan(Complex.ImaginaryOne * x) / Complex.ImaginaryOne;
+            return Complex.Atan(dcplx.onej * x) / dcplx.onej;
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static Complex atanh(dynamic x)
         {
             return atanh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static Complex acsch(Complex x)
         {
             return asinh((1.0) / x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static Complex acsch(dynamic x)
         {
             return acsch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static Complex asech(Complex x)
         {
             return acosh((1.0) / x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static Complex asech(dynamic x)
         {
             return asech(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static Complex acoth(Complex x)
         {
             return atanh((1.0) / x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static Complex acoth(dynamic x)
         {
             return acoth(t(x));
@@ -1736,10 +1748,16 @@ namespace FixedPrecNet
 
 
 
+
+
+        #region Eigen 
+
+
+
         #region Matrix Creation
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static ComplexMat mat_t(Complex x)
         {
             var matA = new ComplexMat();
@@ -1748,6 +1766,7 @@ namespace FixedPrecNet
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static ComplexMat mat_t(DoubleMat matA)
         {
             var x = mat_zeros(matA.rows, matA.cols);
@@ -1758,9 +1777,7 @@ namespace FixedPrecNet
         internal static extern void Lib_Eigen_FReal_ConvertRealCplx(IntPtr RMat, int what, IntPtr CMat);
 
 
-        /// <summary>
-        /// Makes a deep copy from a complex matrix of type YCplxMatT
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static ComplexMat mat_t(ComplexMat matA)
         {
             var matX = mat_zeros(matA.rows, matA.cols);
@@ -1768,6 +1785,8 @@ namespace FixedPrecNet
             return matX;
         }
 
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_zeros/*' />
         public static ComplexMat mat_zeros(int n, int m)
         {
             var resout = new ComplexMat();
@@ -1775,26 +1794,22 @@ namespace FixedPrecNet
             return resout;
         }
 
-        /* *********************** */
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static ComplexMat mat_cplx_t(ComplexMat matA)
         {
             return mat_t(matA);
         }
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_zeros/*' />
         public static ComplexMat mat_cplx_zeros(int n, int m)
         {
             return mat_zeros(n, m);
         }
 
-        /* *********************** */
 
 
-
-
-
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ones/*' />
         public static ComplexMat mat_ones(int n, int m)
         {
             var resout = new ComplexMat();
@@ -1803,7 +1818,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_identity/*' />
         public static ComplexMat mat_identity(int n, int m)
         {
             var resout = new ComplexMat();
@@ -1812,7 +1827,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random/*' />
         public static ComplexMat mat_random(int n, int m)
         {
             var resout = new ComplexMat();
@@ -1821,7 +1836,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_symmetric/*' />
         public static ComplexMat mat_random_symmetric(int n)
         {
             var resout = new ComplexMat();
@@ -1830,7 +1845,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint/*' />
         public static ComplexMat mat_random_selfadjoint(int n)
         {
             var resout = new ComplexMat();
@@ -1839,7 +1854,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint_posdef/*' />
         public static ComplexMat mat_random_selfadjoint_posdef(int n)
         {
             var resout = new ComplexMat();
@@ -1848,7 +1863,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fill_linear/*' />
         public static ComplexMat mat_fill_linear(int n, int m)
         {
             var resout = new ComplexMat();
@@ -1861,6 +1876,591 @@ namespace FixedPrecNet
         #endregion
 
 
+
+
+
+        #region Read-only properties
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_rows/*' />
+        public static int mat_rows(ComplexMat matA)
+        {
+            return matA.rows;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_cols(ComplexMat matA)
+        {
+            return matA.cols;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_size(ComplexMat matA)
+        {
+            return matA.size;
+        }
+
+
+        #endregion
+
+
+
+        #region Accessing and setting parts of a matrix
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_block/*' />
+        public static ComplexMat mat_get_block(ComplexMat matA, int i, int j, int p, int q)
+        {
+            return matA.get_Block(i, j, p, q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_block/*' />
+        public static void mat_set_block(ComplexMat matA, int i, int j, int p, int q, ComplexMat matB)
+        {
+            matA.set_Block(i, j, p, q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_row/*' />
+        public static ComplexMat mat_get_row(ComplexMat matA, int i)
+        {
+            return matA.get_Row(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_row/*' />
+        public static void mat_set_row(ComplexMat matA, int i, ComplexMat matB)
+        {
+            matA.set_Row(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_col/*' />
+        public static ComplexMat mat_get_col(ComplexMat matA, int i)
+        {
+            return matA.get_Col(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_col/*' />
+        public static void mat_set_col(ComplexMat matA, int i, ComplexMat matB)
+        {
+            matA.set_Col(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_diagonal/*' />
+        public static ComplexMat mat_get_diagonal(ComplexMat matA, int q = 0)
+        {
+            return matA.get_Diagonal(q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_diagonal/*' />
+        public static void mat_set_diagonal(ComplexMat matA, int q, ComplexMat matB)
+        {
+            matA.set_Diagonal(q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_triangular_view/*' />
+        public static ComplexMat mat_get_triangular_view(ComplexMat matA, int view = 1)
+        {
+            return matA.get_TriangularView(view);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_triangular_view/*' />
+        public static void mat_set_triangular_view(ComplexMat matA, int view, ComplexMat matB)
+        {
+            matA.set_TriangularView(view, matB);
+        }
+
+
+
+        #endregion
+
+
+
+
+        #region Changing the shape of a matrix and/or the order of coefficients
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort/*' />
+        public static void mat_sort(ComplexMat matA, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.Sort(sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort_rows_by_col/*' />
+        public static void mat_sort_rows_by_col(ComplexMat matA, int column_to_sort_by = 0, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.SortRowsByCol(column_to_sort_by, sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize/*' />
+        public static void mat_resize(ComplexMat matA, int r, int c)
+        {
+            matA.Resize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize_like/*' />
+        public static void mat_resize_like(ComplexMat matA, ComplexMat matB)
+        {
+            matA.ResizeLike(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conservative_resize/*' />
+        public static void mat_conservative_resize(ComplexMat matA, int r, int c)
+        {
+            matA.ConservativeResize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_as_diagonal/*' />
+        public static ComplexMat mat_as_diagonal(ComplexMat matA)
+        {
+            return matA.AsDiagonal();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_adjoint/*' />
+        public static ComplexMat mat_adjoint(ComplexMat matA)
+        {
+            return matA.Adjoint();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conjugate/*' />
+        public static ComplexMat mat_conjugate(ComplexMat matA)
+        {
+            return matA.Conjugate();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_transpose/*' />
+        public static ComplexMat mat_transpose(ComplexMat matA)
+        {
+            return matA.Transpose();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_full/*' />
+        public static ComplexMat mat_reverse_full(ComplexMat matA)
+        {
+            return matA.ReverseFull();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_row_wise/*' />
+        public static ComplexMat mat_reverse_row_wise(ComplexMat matA)
+        {
+            return matA.ReverseRowwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_col_wise/*' />
+        public static ComplexMat mat_reverse_col_wise(ComplexMat matA)
+        {
+            return matA.ReverseColwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_full/*' />
+        public static ComplexMat mat_replicate_full(ComplexMat matA, int vertical, int horizontal)
+        {
+            return matA.ReplicateFull(vertical, horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_row_wise/*' />
+        public static ComplexMat mat_replicate_row_wise(ComplexMat matA, int horizontal)
+        {
+            return matA.ReplicateRowwise(horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_col_wise/*' />
+        public static ComplexMat mat_replicate_col_wise(ComplexMat matA, int vertical)
+        {
+            return matA.ReplicateColwise(vertical);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_horizontal/*' />
+        public static ComplexMat mat_concat_horizontal(ComplexMat matA, ComplexMat matB)
+        {
+            return matA.ConcatHorizontal(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_vertical/*' />
+        public static ComplexMat mat_concat_vertical(ComplexMat matA, ComplexMat matB)
+        {
+            return matA.ConcatVertical(matB);
+        }
+
+
+
+        #endregion
+
+
+
+        #region Basic arithmetic operations
+
+
+
+
+
+        #endregion
+
+
+
+
+
+        #region Standard decompositions and linear solving
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ldlt/*' />
+        public static ComplexMatMap mat_ldlt(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.LDLT(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_partial_piv_lu/*' />
+        public static ComplexMatMap mat_partial_piv_lu(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.PartialPivLU(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_lu/*' />
+        public static ComplexMatMap mat_full_piv_lu(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.FullPivLU(query, matB);
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        //public static ComplexMatMap mat_llt(ComplexMat matA, string query, [Optional] ComplexMat matB)
+        //{
+        //    return matA.LLT(query, matB);
+        //}
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        public static ComplexMatMap mat_llt(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.LLT(query, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_householder_qr/*' />
+        public static ComplexMatMap mat_householder_qr(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.HouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_col_piv_householder_qr/*' />
+        public static ComplexMatMap mat_col_piv_householder_qr(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.ColPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_householder_qr/*' />
+        public static ComplexMatMap mat_full_piv_householder_qr(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.FullPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cod_householder_qr/*' />
+        public static ComplexMatMap mat_cod_householder_qr(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.COD(query, matB);
+        }
+
+
+
+
+        #endregion
+
+
+
+
+        #region Singular Value and Eigen (selfadjoint) decompositions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd/*' />
+        public static ComplexMatMap mat_jacobi_svd(ComplexMat matA, string query)
+        {
+            return matA.JacobiSVD(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_thin/*' />
+        public static ComplexMatMap mat_jacobi_svd_thin(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.JacobiSvdThin(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_full/*' />
+        public static ComplexMatMap mat_jacobi_svd_full(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.JacobiSvdFull(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_values/*' />
+        public static ComplexMatMap mat_self_adjoint_eigen_values(ComplexMat matA, string query)
+        {
+            return matA.SelfAdjointEigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_system/*' />
+        public static ComplexMatMap mat_self_adjoint_eigen_system(ComplexMat matA, string query)
+        {
+            return matA.SelfAdjointEigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_values/*' />
+        public static ComplexMatMap mat_generalized_self_adjoint_eigen_values(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenValues(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_system/*' />
+        public static ComplexMatMap mat_generalized_self_adjoint_eigen_system(ComplexMat matA, string query, ComplexMat matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenSolver(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_tridiagonalization/*' />
+        public static ComplexMatMap mat_tridiagonalization(ComplexMat matA, string query)
+        {
+            return matA.Tridiag(query);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen decompositions of general square matrices
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_hessenberg/*' />
+        public static ComplexMatMap mat_hessenberg(ComplexMat matA, string query)
+        {
+            return matA.Hessenberg(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_schur/*' />
+        public static ComplexMatMap mat_schur(ComplexMat matA, string query)
+        {
+            return matA.Schur(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_values/*' />
+        public static ComplexMatMap mat_eigen_values(ComplexMat matA, string query)
+        {
+            return matA.EigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_system/*' />
+        public static ComplexMatMap mat_eigen_system(ComplexMat matA, string query)
+        {
+            return matA.EigenSystem(query);
+        }
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Fast Fourier Transform
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_fwd/*' />
+        public static ComplexMat mat_fft_fwd(ComplexMat matA)
+        {
+            return matA.FFTFwd();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_inv/*' />
+        public static ComplexMat mat_fft_inv(ComplexMat matA)
+        {
+            return matA.FFTCplxInv();
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Functions of matrix argument
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_expm/*' />
+        public static ComplexMat mat_expm(ComplexMat matA)
+        {
+            return matA.ExpMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinm/*' />
+        public static ComplexMat mat_sinm(ComplexMat matA)
+        {
+            return matA.SinMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cosm/*' />
+        public static ComplexMat mat_cosm(ComplexMat matA)
+        {
+            return matA.CosMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinhm/*' />
+        public static ComplexMat mat_sinhm(ComplexMat matA)
+        {
+            return matA.SinhMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_coshm/*' />
+        public static ComplexMat mat_coshm(ComplexMat matA)
+        {
+            return matA.CoshMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sqrtm/*' />
+        public static ComplexMat mat_sqrtm(ComplexMat matA)
+        {
+            return matA.SqrtMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_logm/*' />
+        public static ComplexMat mat_logm(ComplexMat matA)
+        {
+            return matA.LogMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_powm/*' />
+        public static ComplexMat mat_powm(ComplexMat matA, Double r)
+        {
+            return matA.PowMat();
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Eigen: Polynomials
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/roots_to_monic_poly/*' />
+        public static ComplexMat roots_to_monic_poly(ComplexMat vecA)
+        {
+            return vecA.RootsToMonicPolynomial();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_eval/*' />
+        public static ComplexMat poly_eval(ComplexMat polyA, ComplexMat roots)
+        {
+            return polyA.PolyEval(roots);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_solve/*' />
+        public static ComplexMat poly_solve(ComplexMat polyA)
+        {
+            return polyA.PolynomialSolver();
+        }
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+        #endregion
 
 
 

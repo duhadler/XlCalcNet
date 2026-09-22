@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices;
-using System.Text;
 
 
 namespace FixedPrecNet
@@ -46,55 +41,55 @@ namespace FixedPrecNet
 
         #region General
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/name/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/name/*' />
         public static String name
         {
             get { return "gpm"; }
         }
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/prec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/prec/*' />
         public static Int32 prec
         {
             get { return 64; }
         }
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/isrealctx/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isrealctx/*' />
         public static bool isrealctx
         {
             get { return false; }
         }
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/iscplxctx/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/iscplxctx/*' />
         public static bool iscplxctx
         {
             get { return true; }
         }
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/isintervalorballctx/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isintervalorballctx/*' />
         public static bool isintervalorballctx
         {
             get { return false; }
         }
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/isdecimalctx/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isdecimalctx/*' />
         public static bool isdecimalctx
         {
             get { return false; }
         }
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/isfractionctx/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/isfractionctx/*' />
         public static bool isfractionctx
         {
             get { return false; }
         }
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/hasnegativezero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/hasnegativezero/*' />
         public static bool hasnegativezero
         {
             get { return true; }
         }
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/supportsboost/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/supportsboost/*' />
         public static bool supportsboost
         {
             get { return false; }
@@ -104,13 +99,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/realctx/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/realctx/*' />
         public static gpm realctx
         {
             get { return new gpm(); }
         }
 
-        /// <include file="xcn.xml" path='docs/members[@name="Contexts"]/cplxctx/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Contexts"]/cplxctx/*' />
         public static gpm cplxctx
         {
             get { return new gpm(); }
@@ -139,7 +134,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static gmp2_mpfr real(dynamic z)
         {
             return new gmp2_mpfr();
@@ -147,7 +142,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static gmp2_mpfr imag(dynamic z)
         {
             return new gmp2_mpfr();
@@ -155,7 +150,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static gmp2_mpfr abs(dynamic z)
         {
             return new gmp2_mpfr();
@@ -164,14 +159,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static gmp2_mpfr phase(dynamic z)
         {
             return new gmp2_mpfr();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static gmp2_mpfr_or_mpc conj(dynamic z)
         {
             return new gmp2_mpfr_or_mpc();
@@ -194,7 +189,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static gmp2_mpfr_or_mpc sqrt(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -202,14 +197,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt1pm1/*' />
         public static gmp2_mpfr_or_mpc sqrt1pm1(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static gmp2_mpfr_or_mpc rsqrt(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -217,7 +212,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static gmp2_mpfr_or_mpc cbrt(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -225,7 +220,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/unitroot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/unitroot/*' />
         public static gmp2_mpfr_or_mpc unitroot(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -233,7 +228,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static gmp2_mpfr_or_mpc root_si(dynamic x, Int32 k)
         {
             return new gmp2_mpfr_or_mpc();
@@ -250,28 +245,28 @@ namespace FixedPrecNet
         #region Exponential and related functions
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static gmp2_mpfr_or_mpc exp(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static gmp2_mpfr_or_mpc exp2(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static gmp2_mpfr_or_mpc exp10(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static gmp2_mpfr_or_mpc expm1(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -279,7 +274,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static gmp2_mpfr_or_mpc exp2m1(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -288,7 +283,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static gmp2_mpfr_or_mpc exp10m1(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -298,7 +293,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static gmp2_mpfr_or_mpc expj(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -319,7 +314,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static gmp2_mpfr_or_mpc log(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -328,7 +323,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static gmp2_mpfr_or_mpc log2(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -336,7 +331,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static gmp2_mpfr_or_mpc log10(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -344,7 +339,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static gmp2_mpfr_or_mpc log1p(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -353,7 +348,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static gmp2_mpfr_or_mpc log2p1(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -362,7 +357,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static gmp2_mpfr_or_mpc log10p1(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -381,7 +376,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static gmp2_mpfr_or_mpc sqr(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -389,7 +384,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static gmp2_mpfr_or_mpc cube(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -399,7 +394,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static gmp2_mpfr_or_mpc pow(dynamic x, dynamic y)
         {
             return new gmp2_mpfr_or_mpc();
@@ -408,7 +403,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/powm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/powm1/*' />
         public static gmp2_mpfr_or_mpc powm1(dynamic x, dynamic y)
         {
             return new gmp2_mpfr_or_mpc();
@@ -416,7 +411,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1p/*' />
         public static gmp2_mpfr_or_mpc pow1p(dynamic x, dynamic y)
         {
             return new gmp2_mpfr_or_mpc();
@@ -426,7 +421,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1pm1/*' />
         public static gmp2_mpfr_or_mpc pow1pm1(dynamic x, dynamic y)
         {
             return new gmp2_mpfr_or_mpc();
@@ -435,7 +430,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow_si/*' />
         public static gmp2_mpfr_or_mpc pow_si(dynamic x, Int32 k)
         {
             return new gmp2_mpfr_or_mpc();
@@ -444,7 +439,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/compound_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/compound_si/*' />
         public static gmp2_mpfr_or_mpc compound_si(dynamic x, Int32 k)
         {
             return new gmp2_mpfr_or_mpc();
@@ -461,7 +456,7 @@ namespace FixedPrecNet
         #region Trigonometric and related functions
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static gmp2_mpfr_or_mpc sin(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -470,35 +465,35 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static gmp2_mpfr_or_mpc cos(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static gmp2_mpfr_or_mpc tan(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static gmp2_mpfr_or_mpc csc(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static gmp2_mpfr_or_mpc sec(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static gmp2_mpfr_or_mpc cot(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -514,42 +509,42 @@ namespace FixedPrecNet
         #region Hyperbolic functions
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static gmp2_mpfr_or_mpc sinh(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static gmp2_mpfr_or_mpc cosh(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static gmp2_mpfr_or_mpc tanh(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static gmp2_mpfr_or_mpc csch(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static gmp2_mpfr_or_mpc sech(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static gmp2_mpfr_or_mpc coth(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -565,42 +560,42 @@ namespace FixedPrecNet
         #region Inverse trigonometric functions
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static gmp2_mpfr_or_mpc asin(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static gmp2_mpfr_or_mpc acos(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static gmp2_mpfr_or_mpc atan(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static gmp2_mpfr_or_mpc acsc(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static gmp2_mpfr_or_mpc asec(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static gmp2_mpfr_or_mpc acot(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -614,28 +609,28 @@ namespace FixedPrecNet
         #region Inverse hyperbolic functions
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static gmp2_mpfr_or_mpc asinh(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static gmp2_mpfr_or_mpc acosh(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static gmp2_mpfr_or_mpc atanh(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
         }
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static gmp2_mpfr_or_mpc acsch(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();
@@ -644,7 +639,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="xcn.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static gmp2_mpfr_or_mpc acoth(dynamic x)
         {
             return new gmp2_mpfr_or_mpc();

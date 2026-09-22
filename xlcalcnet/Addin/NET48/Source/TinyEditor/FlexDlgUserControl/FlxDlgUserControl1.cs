@@ -918,7 +918,7 @@ namespace FlexDlgUserCtrl
 
         private void tinyIDETutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C01_Setup.html#installing-and-using-the-tiny-ide-as-a-python-application");
+            Process.Start("https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C01_Setup.html#installing-and-using-the-tiny-ide-as-a-python-application");
         }
 
 
@@ -971,7 +971,7 @@ namespace FlexDlgUserCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowEditor.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C01_Setup\D03_ShowEditor.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -988,7 +988,7 @@ namespace FlexDlgUserCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowOutputMonitor.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C02_GuiFunctions\D01_ShowOutputMonitor.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -1005,7 +1005,7 @@ namespace FlexDlgUserCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowDataViewer.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C02_GuiFunctions\D04_ShowDataViewer.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -1022,7 +1022,7 @@ namespace FlexDlgUserCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowPlot2d.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C02_GuiFunctions\D02_ShowPlot2d.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -1040,7 +1040,7 @@ namespace FlexDlgUserCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowPlot3d.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C02_GuiFunctions\D03_ShowPlot3d.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -1143,7 +1143,7 @@ namespace FlexDlgUserCtrl
             if (DocFileHtml == "xlcalcnet")
                 //site = "file:///" + res + @"/Docs/XlCalcNet/html/";
 
-                site = "https://duhadler.github.io/XlCalcNetDocsOnline/";
+                site = "https://duhadler.github.io/XlCalcNetDocsHTML/";
 
             //if (DocFileHtml == "mpfunlab")
             //    site = "file:///" + res + @"/Docs/mpfunlab/html/";

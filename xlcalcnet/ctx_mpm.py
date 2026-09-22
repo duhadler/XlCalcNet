@@ -107,6 +107,7 @@ class mpm():
         return self._dps
 
 
+
 # %% 02 Contexts and a minimal set of context functions
 
 
@@ -2020,33 +2021,6 @@ class mpm():
         return res
 
 
-# 14.2.2 Newton
-
-# 14.2.3 Secant
-
-# 14.2.4 MNewton
-
-# 14.2.5 Halley
-
-# 14.2.6 Muller
-
-# 14.2.7 Bisection
-
-# 14.2.8 Illinois
-
-# 14.2.9 Pegasus
-
-# 14.2.10 Anderson
-
-# 14.2.11 Ridder
-
-# 14.2.12 MDNewton
-
-# 14.2.13 Multiplicity of roots
-
-# 14.2.14 Steffensen acceleration
-
-# 14.2.15 Jacobian Matrix
 
 
 # %%%  14.3 Sums, products, limits and extrapolation

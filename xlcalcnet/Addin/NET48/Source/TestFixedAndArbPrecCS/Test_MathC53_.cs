@@ -371,9 +371,9 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine();
 
             z3 = Complex.Exp(2.0d * Math.PI * i / 3.0d);
-            z4 = cmath53.nroot1(3);
+            z4 = cmath53.unitroot(3);
             Console.WriteLine("z3 = Complex.Exp(2 * Math.PI * i / 3.0): {0}", z3);
-            Console.WriteLine("z4 = mathC53.Nroot1(3):    {0}", z4);
+            Console.WriteLine("z4 = mathC53.Unitroot(3):    {0}", z4);
             Console.WriteLine();
 
             z3 = Complex.Pow(z1, z2);
@@ -623,14 +623,14 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine();
 
 
-            z4 = cmath53.airy_ai_scaled(z1);
-            Console.WriteLine("z4 =  mathC53.airy_ai_scaled(z1): {0}", z4);
-            Console.WriteLine();
+            //z4 = cmath53.airy_ai_scaled(z1);
+            //Console.WriteLine("z4 =  mathC53.airy_ai_scaled(z1): {0}", z4);
+            //Console.WriteLine();
 
 
-            z4 = cmath53.airy_bi_scaled(z1);
-            Console.WriteLine("z4 =  mathC53.airy_bi_scaled(z1): {0}", z4);
-            Console.WriteLine();
+            //z4 = cmath53.airy_bi_scaled(z1);
+            //Console.WriteLine("z4 =  mathC53.airy_bi_scaled(z1): {0}", z4);
+            //Console.WriteLine();
 
 
 
@@ -649,14 +649,14 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine();
 
 
-            z4 = cmath53.airy_ai_scaled_prime(z1);
-            Console.WriteLine("z4 =  mathC53.airy_ai_scaled_prime(z1): {0}", z4);
-            Console.WriteLine();
+            //z4 = cmath53.airy_ai_scaled_prime(z1);
+            //Console.WriteLine("z4 =  mathC53.airy_ai_scaled_prime(z1): {0}", z4);
+            //Console.WriteLine();
 
 
-            z4 = cmath53.airy_bi_scaled_prime(z1);
-            Console.WriteLine("z4 =  mathC53.airy_bi_scaled_prime(z1): {0}", z4);
-            Console.WriteLine();
+            //z4 = cmath53.airy_bi_scaled_prime(z1);
+            //Console.WriteLine("z4 =  mathC53.airy_bi_scaled_prime(z1): {0}", z4);
+            //Console.WriteLine();
 
 
 

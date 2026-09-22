@@ -53,7 +53,7 @@ namespace FixedPrecNet
 
         private static Complex xcispi(Complex x)
         {
-            return Complex.Exp(Complex.ImaginaryOne * (Math.PI * x));
+            return Complex.Exp(dcplx.onej * (Math.PI * x));
         }
 
 
@@ -88,8 +88,8 @@ namespace FixedPrecNet
             {
                 n++;
                 Complex qWeight =
-                    Complex.Exp(n * Complex.ImaginaryOne * (Math.PI * (n * tau + 2.0 * z))) +
-                    Complex.Exp(n * Complex.ImaginaryOne * (Math.PI * (n * tau - 2.0 * z)));
+                    Complex.Exp(n * dcplx.onej * (Math.PI * (n * tau + 2.0 * z))) +
+                    Complex.Exp(n * dcplx.onej * (Math.PI * (n * tau - 2.0 * z)));
                 output += qWeight;
                 Double modulus = Complex.Abs(output);
 
@@ -127,9 +127,9 @@ namespace FixedPrecNet
             {
                 Double quotient = Math.Floor(zImg / tauImg + 0.5);
                 Complex zMin = zUse - quotient * tau;
-                output = -2.0 * Complex.ImaginaryOne * quotient * zMin * Math.PI +
+                output = -2.0 * dcplx.onej * quotient * zMin * Math.PI +
                           argtheta3(zMin, tau, passes) -
-                          Complex.ImaginaryOne * tau * quotient * quotient * Math.PI;
+                          dcplx.onej * tau * quotient * quotient * Math.PI;
             }
             else
             {
@@ -166,9 +166,9 @@ namespace FixedPrecNet
             {
                 Complex tauPrime = -1.0 / tau2;
                 output =
-                    Complex.ImaginaryOne * tauPrime * z * z * Math.PI +
+                    dcplx.onej * tauPrime * z * z * Math.PI +
                     dologtheta3(z * tauPrime, tauPrime, passes) -
-                    Complex.Log(csqrt(tau2) / csqrt(Complex.One * Complex.One * Complex.ImaginaryOne));
+                    Complex.Log(csqrt(tau2) / csqrt(Complex.One * Complex.One * dcplx.onej));
             }
             else if (tau2Real >= 0.6)
             {
@@ -187,7 +187,7 @@ namespace FixedPrecNet
 
         private static Complex M(Complex z, Complex tau)
         {
-            return Complex.ImaginaryOne * (z + tau / 4.0) * Math.PI;
+            return dcplx.onej * (z + tau / 4.0) * Math.PI;
         }
 
         private static Complex _l_jtheta2_raw(Complex z, Complex tau)
@@ -289,7 +289,7 @@ namespace FixedPrecNet
         {
             Complex alpha = a * tau;
             Complex beta = b + z * (1.0 / Math.PI);
-            //Complex C = Complex.Exp(Complex.ImaginaryOne * Math.PI * a * (alpha + 2 * beta));
+            //Complex C = Complex.Exp(dcplx.onej * Math.PI * a * (alpha + 2 * beta));
             Complex C = xcispi(a * (alpha + 2.0 * beta));
             return C * _jtheta3_raw(alpha + beta, tau);
         }
@@ -335,7 +335,7 @@ namespace FixedPrecNet
         {
             Complex chi = 1.0 / tau;
             return xcispi(-chi / 12.0) *
-                   _jtheta3_raw(-chi / 2.0 + 1.0 / 2.0, -3.0 * chi) / Complex.Sqrt(-tau * Complex.ImaginaryOne);
+                   _jtheta3_raw(-chi / 2.0 + 1.0 / 2.0, -3.0 * chi) / Complex.Sqrt(-tau * dcplx.onej);
             //return xcispi(-chi / 12) *
             //       _jtheta3_raw(-chi / 2 + 1 / 2, -3 * chi) / Complex.Sqrt(-tau.Imaginary);
         }
@@ -357,7 +357,7 @@ namespace FixedPrecNet
         private static Complex _jtheta1dash0(Complex tau)
         {
             Complex jab = _jtheta_ab(1.0 / (6.0 * Complex.One), 1.0 / 2.0, 0.0, 3.0 * tau);
-            return -2.0 * Complex.ImaginaryOne * jab * jab * jab;
+            return -2.0 * dcplx.onej * jab * jab * jab;
         }
 
         private static Complex _jtheta1dashdashdash0(Complex tau)
@@ -444,7 +444,7 @@ namespace FixedPrecNet
             {
                 double gam = math53.gamma(1.0 / 3.0);
                 omega1 = gam * gam * gam * (1.0 / (4 * Math.PI)) / Complex.Pow(g3, 1.0 / 6.0);
-                tau = 0.5 + Complex.ImaginaryOne * Math.Sqrt(3.0) / 2.0;
+                tau = 0.5 + dcplx.onej * Math.Sqrt(3.0) / 2.0;
             }
             else
             {
@@ -452,15 +452,15 @@ namespace FixedPrecNet
                 Complex j = 1728.0 * g2Cube / (g2Cube - 27.0 * g3 * g3);
                 if (IsInfinite(j))
                 {
-                    new Tuple<Complex, Complex>(-Complex.ImaginaryOne * 0.5 * Math.PI / Math.Sqrt(3), new Complex(Double.PositiveInfinity, Double.PositiveInfinity));
+                    new Tuple<Complex, Complex>(-dcplx.onej * 0.5 * Math.PI / Math.Sqrt(3), new Complex(Double.PositiveInfinity, Double.PositiveInfinity));
 
-                    //return (-Complex.ImaginaryOne * 0.5 * Math.PI / Math.Sqrt(3), new Complex(Double.PositiveInfinity, Double.PositiveInfinity));
+                    //return (-dcplx.onej * 0.5 * Math.PI / Math.Sqrt(3), new Complex(Double.PositiveInfinity, Double.PositiveInfinity));
                 }
                 tau = kleinjinv(j);
                 if (g3 == 0)
                 {
                     // !!! Check formula !!!
-                    omega1 = Complex.ImaginaryOne * Math.PI * Complex.Sqrt(Complex.Sqrt(1.0 / g2 / 12 * _E4(tau)));
+                    omega1 = dcplx.onej * Math.PI * Complex.Sqrt(Complex.Sqrt(1.0 / g2 / 12 * _E4(tau)));
                 }
                 else
                 {
@@ -531,7 +531,7 @@ namespace FixedPrecNet
 
         public static Complex _tau_from_m(Complex m)
         {
-            return Complex.ImaginaryOne * EllipticK(1 - m) / EllipticK(m);
+            return dcplx.onej * EllipticK(1 - m) / EllipticK(m);
         }
 
         private static Complex _check_and_get_tau_from_m(Complex tau, Complex m)
@@ -580,13 +580,13 @@ namespace FixedPrecNet
         public static Complex taufromq(Complex q)
         {
             validateq(q);
-            return -Complex.ImaginaryOne * (Complex.Log(q) / Math.PI);
+            return -dcplx.onej * (Complex.Log(q) / Math.PI);
         }
 
         public static Complex _taufromq(Complex q)
         {
             //validateq(q);
-            return -Complex.ImaginaryOne * (Complex.Log(q) / Math.PI);
+            return -dcplx.onej * (Complex.Log(q) / Math.PI);
         }
 
 
@@ -596,7 +596,7 @@ namespace FixedPrecNet
         public static Complex taufromq(Double q)
         {
             validateq(q);
-            return q < 0 ? new Complex(1, -Math.Log(Math.Abs(q)) / Math.PI) : -Complex.ImaginaryOne * (Math.Log(q) / Math.PI);
+            return q < 0 ? new Complex(1, -Math.Log(Math.Abs(q)) / Math.PI) : -dcplx.onej * (Math.Log(q) / Math.PI);
         }
 
 
@@ -1107,8 +1107,8 @@ namespace FixedPrecNet
             return EllipticE(Math.PI / 2, m);
         }
 
-        // dflintc.m_elliptic_pi_inc(n:2, phi:dreal.pi()/2, m:z);
-        // EllipticFunctions.EllipticE(n:2, phi:dreal.pi()/2, m:z);
+        // dflintc.m_elliptic_pi_inc(n:2, phi:dreal.pi/2, m:z);
+        // EllipticFunctions.EllipticE(n:2, phi:dreal.pi/2, m:z);
 
 
         public static Complex EllipticPI(Complex phi, Complex n, Complex m)
@@ -1185,7 +1185,7 @@ namespace FixedPrecNet
                 x = (1.0 / 768.0) * t - (1536.0 * j - j2) / (768.0 * t) + (1 - j / 768.0);
             }
             Complex lbd = -(-1 - Complex.Sqrt(1 - 4.0 * x)) / 2.0;
-            return Complex.ImaginaryOne * cmath53.agm(1.0, Complex.Sqrt(1.0 - lbd)) / cmath53.agm(1.0, Complex.Sqrt(lbd));
+            return dcplx.onej * cmath53.agm(1.0, Complex.Sqrt(1.0 - lbd)) / cmath53.agm(1.0, Complex.Sqrt(lbd));
         }
 
 
@@ -1236,7 +1236,7 @@ namespace FixedPrecNet
             if (g2 == 0)
             {
                 omega1 = math53.gamma(1.0 / 3.0) * math53.gamma(1.0 / 3.0) * math53.gamma(1.0 / 3.0) / (4.0 * Math.PI * Complex.Pow(g3, 1.0 / 6.0));
-                tau = 0.5 + Complex.ImaginaryOne * Math.Sqrt(3.0) / 2.0;
+                tau = 0.5 + dcplx.onej * Math.Sqrt(3.0) / 2.0;
             }
             else
             {
@@ -1244,14 +1244,14 @@ namespace FixedPrecNet
                 Complex j = 1728.0 * g2cube / (g2cube - 27.0 * g3 * g3);
                 if (IsInfinite(j))
                 {
-                    return new Tuple<Complex, Complex>(-Complex.ImaginaryOne * Math.PI / 2.0 / Math.Sqrt(3.0), new Complex(Double.PositiveInfinity, Double.PositiveInfinity));
+                    return new Tuple<Complex, Complex>(-dcplx.onej * Math.PI / 2.0 / Math.Sqrt(3.0), new Complex(Double.PositiveInfinity, Double.PositiveInfinity));
 
-                    //return (-Complex.ImaginaryOne * Math.PI / 2.0 / Math.Sqrt(3.0), new Complex(Double.PositiveInfinity, Double.PositiveInfinity));
+                    //return (-dcplx.onej * Math.PI / 2.0 / Math.Sqrt(3.0), new Complex(Double.PositiveInfinity, Double.PositiveInfinity));
                 }
                 tau = kleinjinv(j);
                 if (g3 == 0)
                 {
-                    omega1 = Complex.ImaginaryOne * Math.PI * Complex.Sqrt(Complex.Sqrt(1.0 / g2 / 12.0 * _E4(tau)));
+                    omega1 = dcplx.onej * Math.PI * Complex.Sqrt(Complex.Sqrt(1.0 / g2 / 12.0 * _E4(tau)));
                 }
                 else
                 {
@@ -1624,7 +1624,7 @@ namespace FixedPrecNet
             // handle nan cases
             if (Double.IsNaN(s.Real) || Double.IsNaN(z.Real))
             {
-                return Double.IsNaN(s.Real) ? Double.NaN : Double.NaN + Double.NaN * Complex.ImaginaryOne;
+                return Double.IsNaN(s.Real) ? Double.NaN : Double.NaN + Double.NaN * dcplx.onej;
             }
 
             Double x = z.Real;

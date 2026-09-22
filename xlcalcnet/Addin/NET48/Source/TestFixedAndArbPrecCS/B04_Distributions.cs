@@ -554,7 +554,7 @@ namespace TestXlCalcNetPrecCS
 
             if (DistArray.Contains("all") | DistArray.Contains("dist_lognormal"))
             {
-                XInputArray = new[] { 0.0, 1.0 , 10.0, 100.0, 1000.0, dreal.inf()};
+                XInputArray = new[] { 0.0, 1.0 , 10.0, 100.0, 1000.0, dreal.inf};
                 QInputArray = new[] { 0.0d, 0.333d, 0.75d, 1.0d };
                 foreach (var a in new[] { 1.5d, 2.5d, 3.5d })
                 {

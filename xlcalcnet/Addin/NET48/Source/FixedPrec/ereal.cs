@@ -6,20 +6,20 @@ using System.Numerics;
 namespace FixedPrecNet
 {
 
-    public delegate Extended cb1SExtended1S(Extended x);
+    //public delegate Extended cb1SRet1S(Extended x);
 
-    public delegate void cbExtended1S1V(Extended t, ExtendedVec x);
+    //public delegate void cb1S1V(Extended t, ExtendedVec x);
 
-    public delegate void cbExtended1S2V(Extended t, ExtendedVec x, ExtendedVec y);
+    //public delegate void cb1S2V(Extended t, ExtendedVec x, ExtendedVec y);
 
-    public delegate void cbExtended2M(ExtendedMat x, ExtendedMat y);
+    //public delegate void cb2M(ExtendedMat x, ExtendedMat y);
 
 
-    public delegate Extended cb1SExtended1V(ExtendedVec x);
+    //public delegate Extended cb1VRet1S(ExtendedVec x);
 
-    public delegate void cbExtended2V(ExtendedVec x, ExtendedVec y);
+    //public delegate void cb2V(ExtendedVec x, ExtendedVec y);
 
-    public delegate void cbExtended1V1M(ExtendedVec x, ExtendedMat y);
+    //public delegate void cb1V1M(ExtendedVec x, ExtendedMat y);
 
 
 
@@ -555,6 +555,26 @@ namespace FixedPrecNet
     public partial class ereal
     {
 
+        public delegate Extended cb1SRet1S(Extended x);
+
+        public delegate Extended cb1VRet1S(ExtendedVec x);
+
+        public delegate void cb2V(ExtendedVec x, ExtendedVec y);
+
+        public delegate void cb1V1M(ExtendedVec x, ExtendedMat y);
+
+        public delegate void cb2M(ExtendedMat x, ExtendedMat y);
+
+        public delegate void cb1S1V(Extended t, ExtendedVec x);
+
+        public delegate void cb1S2V(Extended t, ExtendedVec x, ExtendedVec y);
+
+
+
+
+
+
+
 
 
         public static String fmt(Extended x)
@@ -884,7 +904,7 @@ namespace FixedPrecNet
         #region Basic Arithmetic
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/add/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/add/*' />
         public static Extended add(Extended x, Extended y)
         {
             return x + y;
@@ -903,7 +923,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/subtract/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/subtract/*' />
         public static Extended subtract(Extended x, Extended y)
         {
             return x - y;
@@ -922,7 +942,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/multiply/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/multiply/*' />
         public static Extended multiply(Extended x, Extended y)
         {
             return x * y;
@@ -941,7 +961,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/divide/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/divide/*' />
         public static Extended divide(Extended x, Extended y)
         {
             return x / y;
@@ -972,7 +992,7 @@ namespace FixedPrecNet
         #region General functions for real numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fma/*' />
         public static Extended fma(Extended x, Extended y, Extended z)
         {
             var res = new Extended();
@@ -983,7 +1003,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Fma(IntPtr res, IntPtr x, IntPtr y, IntPtr z);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fma/*' />
         public static Extended fma(dynamic x, dynamic y, dynamic z)
         {
             return fma(ereal.t(x), ereal.t(y), ereal.t(z));
@@ -992,7 +1012,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmax/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmax/*' />
         public static Extended fmax(Extended x, Extended y)
         {
             var res = new Extended();
@@ -1003,14 +1023,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Fmax(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmax/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmax/*' />
         public static Extended fmax(dynamic x, dynamic y)
         {
             return fmax(ereal.t(x), ereal.t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmin/*' />
         public static Extended fmin(Extended x, Extended y)
         {
             var res = new Extended();
@@ -1021,7 +1041,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Fmin(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmin/*' />
         public static Extended fmin(dynamic x, dynamic y)
         {
             return fmin(ereal.t(x), ereal.t(y));
@@ -1035,35 +1055,44 @@ namespace FixedPrecNet
         #region Machine constants
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/zero/*' />
-        public static Extended zero()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zero/*' />
+        public static Extended zero
         {
-            var res = new Extended();
+            get
+            {
+                var res = new Extended();
             Lib_XReal_Zero(res.mpPtr);
             return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Zero", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_Zero(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/negzero/*' />
-        public static Extended negzero()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/negzero/*' />
+        public static Extended negzero
         {
-            var res = new Extended();
+            get
+            {
+                var res = new Extended();
             Lib_XReal_NegZero(res.mpPtr);
             return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NegZero", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_NegZero(IntPtr res);
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/one/*' />
-        public static Extended one()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/one/*' />
+        public static Extended one
         {
-            var res = new Extended();
+            get
+            {
+                var res = new Extended();
             Lib_XReal_One(res.mpPtr);
             return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_One", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_One(IntPtr res);
@@ -1071,43 +1100,55 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/onej/*' />
-        public static ExtendedC onej()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/onej/*' />
+        public static ExtendedC onej
         {
-            return ecplx.t(0d, 1d);
+            get
+            {
+                return ecplx.t(0d, 1d);
+            }
         }
 
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isposinf/*' />
-        public static Extended inf()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isposinf/*' />
+        public static Extended inf
         {
-            var res = new Extended();
+            get
+            {
+                var res = new Extended();
             Lib_XReal_Inf(res.mpPtr);
             return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Inf", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_Inf(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/neginf/*' />
-        public static Extended neginf()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/neginf/*' />
+        public static Extended neginf
         {
-            var res = new Extended();
-            Lib_XReal_NegInf(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_NegInf(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NegInf", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_NegInf(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/nan/*' />
-        public static Extended nan()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nan/*' />
+        public static Extended nan
         {
-            var res = new Extended();
-            Lib_XReal_Nan(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_Nan(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Nan", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_Nan(IntPtr res);
@@ -1121,7 +1162,7 @@ namespace FixedPrecNet
         #region Properties of numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/signbit/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/signbit/*' />
         public static int signbit(Extended x)
         {
             return Lib_XReal_Signbit(x.mpPtr);
@@ -1130,7 +1171,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Signbit(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/signbit/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/signbit/*' />
         public static int signbit(dynamic x)
         {
             return signbit(t(x));
@@ -1138,7 +1179,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isfinite/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isfinite/*' />
         public static bool isfinite(Extended x)
         {
             return 0 != Lib_XReal_Finite(x.mpPtr);
@@ -1147,7 +1188,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Finite(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isfinite/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isfinite/*' />
         public static bool isfinite(dynamic x)
         {
             return isfinite(t(x));
@@ -1156,7 +1197,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinf/*' />
         public static bool isinf(Extended x)
         {
             return 0 != (Lib_XReal_Isinf(x.mpPtr));
@@ -1165,7 +1206,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isinf(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinf/*' />
         public static bool isinf(dynamic x)
         {
             return isinf(t(x));
@@ -1173,7 +1214,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isposinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isposinf/*' />
         public static bool isposinf(Extended x)
         {
             return 0 != (Lib_XReal_Isposinf(x.mpPtr));
@@ -1182,7 +1223,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isposinf(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isposinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isposinf/*' />
         public static bool isposinf(dynamic x)
         {
             return isposinf(t(x));
@@ -1190,7 +1231,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isneginf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isneginf/*' />
         public static bool isneginf(Extended x)
         {
             return 0 != (Lib_XReal_Isneginf(x.mpPtr));
@@ -1199,7 +1240,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isneginf(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isneginf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isneginf/*' />
         public static bool isneginf(dynamic x)
         {
             return isneginf(t(x));
@@ -1207,7 +1248,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnan/*' />
         public static bool isnan(Extended x)
         {
             return 0 != (Lib_XReal_Isnan(x.mpPtr));
@@ -1216,7 +1257,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isnan(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnan/*' />
         public static bool isnan(dynamic x)
         {
             return isnan(t(x));
@@ -1224,7 +1265,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/iszero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/iszero/*' />
         public static bool iszero(Extended x)
         {
             return 0 != (Lib_XReal_Iszero(x.mpPtr));
@@ -1233,7 +1274,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Iszero(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/iszero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/iszero/*' />
         public static bool iszero(dynamic x)
         {
             return iszero(t(x));
@@ -1244,7 +1285,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isone/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isone/*' />
         public static bool isone(Extended x)
         {
             return 0 != (Lib_XReal_Isone(x.mpPtr));
@@ -1253,7 +1294,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isone(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isone/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isone/*' />
         public static bool isone(dynamic x)
         {
             return isone(t(x));
@@ -1261,7 +1302,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinteger/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(Extended x)
         {
             return 0 != (Lib_XReal_Isinteger(x.mpPtr));
@@ -1270,7 +1311,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isinteger(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isinteger/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(dynamic x)
         {
             return isinteger(t(x));
@@ -1278,7 +1319,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnumber/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnumber/*' />
         public static bool isnumber(Extended x)
         {
             return 0 != (Lib_XReal_Isnumber(x.mpPtr));
@@ -1287,7 +1328,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isnumber(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnumber/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnumber/*' />
         public static bool isnumber(dynamic x)
         {
             return isnumber(t(x));
@@ -1295,7 +1336,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isregular/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isregular/*' />
         public static bool isregular(Extended x)
         {
             return 0 != (Lib_XReal_Isregular(x.mpPtr));
@@ -1304,7 +1345,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isregular(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isregular/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isregular/*' />
         public static bool isregular(dynamic x)
         {
             return isregular(t(x));
@@ -1312,7 +1353,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnormal/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnormal/*' />
         public static bool isnormal(Extended x)
         {
             return 0 != (Lib_XReal_Isnormal(x.mpPtr));
@@ -1321,7 +1362,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isnormal(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnormal/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnormal/*' />
         public static bool isnormal(dynamic x)
         {
             return isnormal(t(x));
@@ -1331,7 +1372,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isunordered/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isunordered/*' />
         public static bool isunordered(Extended x, Extended y)
         {
             return 0 != (Lib_XReal_Isunordered(x.mpPtr, y.mpPtr));
@@ -1340,7 +1381,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_Isunordered(IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isunordered/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isunordered/*' />
         public static bool isunordered(dynamic x, dynamic y)
         {
             return isunordered(t(x), t(y));
@@ -1348,7 +1389,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/fitsint32/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint32/*' />
         public static bool fitsint32(Extended x)
         {
             return 0 != (Lib_XReal_FitsInt32(x.mpPtr));
@@ -1357,7 +1398,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_FitsInt32(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fitsint32/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint32/*' />
         public static bool fitsint32(dynamic x)
         {
             return fitsint32(t(x));
@@ -1365,7 +1406,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/fitsint64/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint64/*' />
         public static bool fitsint64(Extended x)
         {
             return 0 != (Lib_XReal_FitsInt64(x.mpPtr));
@@ -1374,7 +1415,7 @@ namespace FixedPrecNet
         internal static extern int Lib_XReal_FitsInt64(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fitsint64/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint64/*' />
         public static bool fitsint64(dynamic x)
         {
             return fitsint64(t(x));
@@ -1390,7 +1431,7 @@ namespace FixedPrecNet
 
         #region Integer Related Functions
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nearbyint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nearbyint/*' />
         public static Extended nearbyint(Extended x)
         {
             var res = new Extended();
@@ -1401,7 +1442,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Nearbyint(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nearbyint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nearbyint/*' />
         public static Extended nearbyint(dynamic x)
         {
             return nearbyint(t(x));
@@ -1409,7 +1450,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rint/*' />
         public static Extended rint(Extended x)
         {
             var res = new Extended();
@@ -1420,14 +1461,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Rint(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rint/*' />
         public static Extended rint(dynamic x)
         {
             return rint(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lrint/*' />
         public static Int32 lrint(Extended x)
         {
             return Lib_XReal_Lrint(x.mpPtr);
@@ -1436,7 +1477,7 @@ namespace FixedPrecNet
         internal static extern Int32 Lib_XReal_Lrint(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lrint/*' />
         public static Int32 lrint(dynamic x)
         {
             return lrint(t(x));
@@ -1444,7 +1485,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llrint/*' />
         public static Int64 llrint(Extended x)
         {
             return Lib_XReal_Llrint(x.mpPtr);
@@ -1453,7 +1494,7 @@ namespace FixedPrecNet
         internal static extern Int64 Lib_XReal_Llrint(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llrint/*' />
         public static Int64 llrint(dynamic x)
         {
             return llrint(t(x));
@@ -1462,7 +1503,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ceil/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ceil/*' />
         public static Extended ceil(Extended x)
         {
             var res = new Extended();
@@ -1473,7 +1514,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Ceil(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ceil/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ceil/*' />
         public static Extended ceil(dynamic x)
         {
             return ceil(t(x));
@@ -1481,7 +1522,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/floor/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/floor/*' />
         public static Extended floor(Extended x)
         {
             var res = new Extended();
@@ -1492,14 +1533,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Floor(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/floor/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/floor/*' />
         public static Extended floor(dynamic x)
         {
             return floor(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/trunc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/trunc/*' />
         public static Extended trunc(Extended x)
         {
             var res = new Extended();
@@ -1510,14 +1551,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Trunc(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/trunc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/trunc/*' />
         public static Extended trunc(dynamic x)
         {
             return trunc(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/round/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/round/*' />
         public static Extended round(Extended x)
         {
             var res = new Extended();
@@ -1528,14 +1569,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Round(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/round/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/round/*' />
         public static Extended round(dynamic x)
         {
             return round(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lround/*' />
         public static Int32 lround(Extended x)
         {
             return Lib_XReal_Lround(x.mpPtr);
@@ -1544,7 +1585,7 @@ namespace FixedPrecNet
         internal static extern Int32 Lib_XReal_Lround(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lround/*' />
         public static Int32 lround(dynamic x)
         {
             return lround(t(x));
@@ -1552,7 +1593,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llround/*' />
         public static Int64 llround(Extended x)
         {
             return Lib_XReal_Llround(x.mpPtr);
@@ -1561,7 +1602,7 @@ namespace FixedPrecNet
         internal static extern Int64 Lib_XReal_Llround(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llround/*' />
         public static Int64 llround(dynamic x)
         {
             return llround(t(x));
@@ -1578,7 +1619,7 @@ namespace FixedPrecNet
         #region Floating point functions for real numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/copysign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/copysign/*' />
         public static Extended copysign(Extended x, Extended y)
         {
             var res = new Extended();
@@ -1589,14 +1630,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Copysign(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/copysign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/copysign/*' />
         public static Extended copysign(dynamic x, dynamic y)
         {
             return copysign(ereal.t(x), ereal.t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/frexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frexp/*' />
         public static Tuple<Extended, Int32> frexp(Extended x)
         {
             var res = new Extended();
@@ -1608,7 +1649,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Frexp(IntPtr res, IntPtr x, ref Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/frexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frexp/*' />
         public static Tuple<Extended, Int32> frexp(dynamic x)
         {
             return frexp(t(x));
@@ -1616,7 +1657,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logb/*' />
         public static Extended logb(Extended x)
         {
             var res = new Extended();
@@ -1627,13 +1668,13 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Logb(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logb/*' />
         public static Extended logb(dynamic x)
         {
             return logb(t(x));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ilogb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ilogb/*' />
         public static Int32 ilogb(Extended x)
         {
             return Lib_XReal_Ilogb(x.mpPtr);
@@ -1642,7 +1683,7 @@ namespace FixedPrecNet
         internal static extern Int32 Lib_XReal_Ilogb(IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ilogb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ilogb/*' />
         public static Int32 ilogb(dynamic x)
         {
             return ilogb(t(x));
@@ -1650,7 +1691,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ldexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ldexp/*' />
         public static Extended ldexp(Extended x, Int32 e)
         {
             var res = new Extended();
@@ -1661,7 +1702,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Ldexp(IntPtr res, IntPtr x, Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ldexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ldexp/*' />
         public static Extended ldexp(dynamic x, dynamic e)
         {
             return ldexp(t(x), lround(t(e)));
@@ -1669,7 +1710,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbn/*' />
         public static Extended scalbn(Extended x, Int32 e)
         {
             var res = new Extended();
@@ -1680,7 +1721,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Scalbn(IntPtr res, IntPtr x, Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbn/*' />
         public static Extended scalbn(dynamic x, dynamic e)
         {
             return scalbn(t(x), lround(t(e)));
@@ -1688,7 +1729,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbln/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbln/*' />
         public static Extended scalbln(Extended x, Int32 e)
         {
             var res = new Extended();
@@ -1699,7 +1740,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Scalbln(IntPtr res, IntPtr x, Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbln/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbln/*' />
         public static Extended scalbln(dynamic x, dynamic e)
         {
             return scalbln(t(x), lround(t(e)));
@@ -1707,7 +1748,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fdim/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fdim/*' />
         public static Extended fdim(Extended x, Extended y)
         {
             var res = new Extended();
@@ -1718,7 +1759,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Fdim(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fdim/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fdim/*' />
         public static Extended fdim(dynamic x, dynamic y)
         {
             return fdim(ereal.t(x), ereal.t(y));
@@ -1732,7 +1773,7 @@ namespace FixedPrecNet
         #region Fraction and remainder related Functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/modf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/modf/*' />
         public static Tuple<Extended, Extended> modf(Extended x)
         {
             Extended iptr = new Extended();
@@ -1744,7 +1785,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Modf(IntPtr frac, IntPtr x, IntPtr iptr);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/modf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/modf/*' />
         public static Tuple<Extended, Extended> modf(dynamic x)
         {
             return modf(t(x));
@@ -1752,7 +1793,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmod/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmod/*' />
         public static Extended fmod(Extended x, Extended y)
         {
             var res = new Extended();
@@ -1763,14 +1804,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Fmod(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmod/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmod/*' />
         public static Extended fmod(dynamic x, dynamic y)
         {
             return fmod(ereal.t(x), ereal.t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remainder/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remainder/*' />
         public static Extended remainder(Extended x, Extended y)
         {
             var res = new Extended();
@@ -1781,14 +1822,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Remainder(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remainder/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remainder/*' />
         public static Extended remainder(dynamic x, dynamic y)
         {
             return remainder(ereal.t(x), ereal.t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remquo/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remquo/*' />
         public static Tuple<Extended, Int32> remquo(Extended x, Extended y)
         {
             var res = new Extended();
@@ -1800,7 +1841,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Remquo(IntPtr res, IntPtr x, IntPtr y, ref Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remquo/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remquo/*' />
         public static Tuple<Extended, Int32> remquo(dynamic x, dynamic y)
         {
             return remquo(t(x), t(y));
@@ -1813,7 +1854,7 @@ namespace FixedPrecNet
         #region Functions related to mantissa width and exponent range
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/epsilon/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/epsilon/*' />
         public static Extended epsilon()
         {
             var res = new Extended();
@@ -1824,7 +1865,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Epsilon(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ulp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ulp/*' />
         public static Extended ulp(Extended x)
         {
             var res = new Extended();
@@ -1835,14 +1876,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Ulp(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ulp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ulp/*' />
         public static Extended ulp(dynamic x)
         {
             return ulp(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/maxvalue/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/maxvalue/*' />
         public static Extended maxvalue()
         {
             var res = new Extended();
@@ -1853,7 +1894,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Max(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/lowestvalue/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lowestvalue/*' />
         public static Extended lowestvalue()
         {
             var res = new Extended();
@@ -1864,7 +1905,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Lowest(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/minposvalue/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/minposvalue/*' />
         public static Extended minposvalue()
         {
             var res = new Extended();
@@ -1875,7 +1916,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Min(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextafter/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextafter/*' />
         public static Extended nextafter(Extended x, Extended y)
         {
             var res = new Extended();
@@ -1886,14 +1927,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Nexttoward(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextafter/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextafter/*' />
         public static Extended nextafter(dynamic x, dynamic y)
         {
             return nextafter(ereal.t(x), ereal.t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextabove/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextabove/*' />
         public static Extended nextabove(Extended x)
         {
             var res = new Extended();
@@ -1904,14 +1945,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Nextabove(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextabove/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextabove/*' />
         public static Extended nextabove(dynamic x)
         {
             return nextabove(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextbelow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextbelow/*' />
         public static Extended nextbelow(Extended x)
         {
             var res = new Extended();
@@ -1922,7 +1963,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Nextbelow(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextbelow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextbelow/*' />
         public static Extended nextbelow(dynamic x)
         {
             return nextbelow(t(x));
@@ -1936,122 +1977,155 @@ namespace FixedPrecNet
         #region Mathematical Constants
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/degree/*' />
-        public static Extended degree()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/degree/*' />
+        public static Extended degree
         {
-            var res = new Extended();
-            Lib_XReal_ConstDegree(res.mpPtr);
-            return res;
+            get 
+            {
+                var res = new Extended();
+                Lib_XReal_ConstDegree(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstDegree", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstDegree(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phi/*' />
-        public static Extended phi()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phi/*' />
+        public static Extended phi
         {
-            var res = new Extended();
-            Lib_XReal_ConstPhi(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstPhi(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstPhi", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstPhi(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ln2/*' />
-        public static Extended ln2()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ln2/*' />
+        public static Extended ln2
         {
-            var res = new Extended();
-            Lib_XReal_ConstLog2(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstLog2(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstLog2", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstLog2(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ln10/*' />
-        public static Extended ln10()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ln10/*' />
+        public static Extended ln10
         {
-            var res = new Extended();
-            Lib_XReal_ConstLog10(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstLog10(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstLog10", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstLog10(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pi/*' />
-        public static Extended pi()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pi/*' />
+        public static Extended pi
         {
-            var res = new Extended();
-            Lib_XReal_ConstPi(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstPi(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstPi", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstPi(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/e/*' />
-        public static Extended e()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/e/*' />
+        public static Extended e
         {
-            var res = new Extended();
-            Lib_XReal_ConstE(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstE(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstE", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstE(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/egamma/*' />
-        public static Extended egamma()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/egamma/*' />
+        public static Extended egamma
         {
-            var res = new Extended();
-            Lib_XReal_ConstEulerGamma(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstEulerGamma(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstEulerGamma", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstEulerGamma(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/apery/*' />
-        public static Extended apery()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/apery/*' />
+        public static Extended apery
         {
-            var res = new Extended();
-            Lib_XReal_ConstApery(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstApery(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstApery", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstApery(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/catalan/*' />
-        public static Extended catalan()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/catalan/*' />
+        public static Extended catalan
         {
-            var res = new Extended();
-            Lib_XReal_ConstCatalan(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstCatalan(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstCatalan", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstCatalan(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/glaisher/*' />
-        public static Extended glaisher()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/glaisher/*' />
+        public static Extended glaisher
         {
-            var res = new Extended();
-            Lib_XReal_ConstGlaisher(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstGlaisher(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstGlaisher", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstGlaisher(IntPtr res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/khinchin/*' />
-        public static Extended khinchin()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/khinchin/*' />
+        public static Extended khinchin
         {
-            var res = new Extended();
-            Lib_XReal_ConstKhinchin(res.mpPtr);
-            return res;
+            get
+            {
+                var res = new Extended();
+                Lib_XReal_ConstKhinchin(res.mpPtr);
+                return res;
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_ConstKhinchin", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_ConstKhinchin(IntPtr res);
@@ -2075,7 +2149,7 @@ namespace FixedPrecNet
         #region Complex components
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Extended abs(Extended x)
         {
             var res = new Extended();
@@ -2086,7 +2160,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Fabs(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Extended abs(dynamic x)
         {
             return abs(t(x));
@@ -2094,7 +2168,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Extended fabs(Extended x)
         {
             var res = new Extended();
@@ -2103,7 +2177,7 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Extended fabs(dynamic x)
         {
             return fabs(t(x));
@@ -2111,7 +2185,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static Extended sign(Extended x)
         {
             var res = new Extended();
@@ -2122,7 +2196,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Sign(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static Extended sign(dynamic x)
         {
             return sign(t(x));
@@ -2130,14 +2204,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Extended real(Extended x)
         {
             return x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Extended real(dynamic x)
         {
             return real(t(x));
@@ -2145,29 +2219,29 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Extended imag(Extended x)
         {
-            return zero();
+            return zero;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Extended imag(dynamic x)
         {
             return imag(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Extended phase(Extended x)
         {
-            if (x >= zero()) return zero();
-            else return pi();
+            if (x >= zero) return zero;
+            else return pi;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Extended phase(dynamic x)
         {
             return phase(t(x));
@@ -2175,27 +2249,27 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static Extended conj(Extended x)
         {
             return x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static Extended conj(dynamic x)
         {
             return conj(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Extended, Extended> polar(Extended x)
         {
             return new Tuple<Extended, Extended>(abs(x), phase(x));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Extended, Extended> polar(dynamic x)
         {
             return polar(ereal.t(x));
@@ -2203,13 +2277,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static ExtendedC rect(Extended r, Extended phi)
         {
             return r * expj(phi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static ExtendedC rect(dynamic r, dynamic phi)
         {
             return rect(ereal.t(r), ereal.t(phi));
@@ -2227,7 +2301,7 @@ namespace FixedPrecNet
         #region Roots and quadratic, cubic, and quartic 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static Extended sqrt(Extended x)
         {
             var res = new Extended();
@@ -2238,7 +2312,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Sqrt(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static Extended sqrt(dynamic x)
         {
             return sqrt(t(x));
@@ -2263,13 +2337,13 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static Extended rsqrt(Extended x)
         {
             return t(1) / sqrt(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static Extended rsqrt(dynamic x)
         {
             return rsqrt(t(x)); ;
@@ -2277,7 +2351,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static Extended cbrt(Extended x)
         {
             var res = new Extended();
@@ -2288,7 +2362,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Cbrt(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static Extended cbrt(dynamic x)
         {
             return cbrt(t(x));
@@ -2297,7 +2371,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static Extended root_si(Extended x, int k)
         {
             var res = new Extended();
@@ -2308,7 +2382,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Root_Si(IntPtr res, IntPtr x, int k);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static Extended root_si(dynamic x, int k)
         {
             return root_si(t(x), k);
@@ -2323,7 +2397,7 @@ namespace FixedPrecNet
         #region Exponential and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static Extended exp(Extended x)
         {
             var res = new Extended();
@@ -2334,7 +2408,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Exp(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static Extended exp(dynamic x)
         {
             return exp(t(x));
@@ -2343,13 +2417,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static ExtendedC expj(Extended x)
         {
-            return cos(x) + onej() * sin(x);
+            return cos(x) + onej * sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static ExtendedC expj(dynamic x)
         {
             return expj(t(x));
@@ -2357,13 +2431,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static ExtendedC expjpi(Extended x)
         {
-            return cospi(x) + onej() * sinpi(x);
+            return cospi(x) + onej * sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static ExtendedC expjpi(dynamic x)
         {
             return expjpi(t(x));
@@ -2374,7 +2448,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static Extended exp2(Extended x)
         {
             var res = new Extended();
@@ -2385,14 +2459,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Exp2(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static Extended exp2(dynamic x)
         {
             return exp2(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static Extended exp10(Extended x)
         {
             var res = new Extended();
@@ -2403,14 +2477,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Exp10(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static Extended exp10(dynamic x)
         {
             return exp10(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static Extended expm1(Extended x)
         {
             var res = new Extended();
@@ -2421,14 +2495,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Expm1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static Extended expm1(dynamic x)
         {
             return expm1(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static Extended exp2m1(Extended x)
         {
             var res = new Extended();
@@ -2439,14 +2513,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Exp2m1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static Extended exp2m1(dynamic x)
         {
             return exp2m1(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static Extended exp10m1(Extended x)
         {
             var res = new Extended();
@@ -2457,7 +2531,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Exp10m1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static Extended exp10m1(dynamic x)
         {
             return exp10m1(t(x));
@@ -2472,7 +2546,7 @@ namespace FixedPrecNet
         #region Logarithms and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Extended log(Extended x)
         {
             var res = new Extended();
@@ -2483,14 +2557,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Log(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Extended log(dynamic x)
         {
             return log(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Extended log2(Extended x)
         {
             var res = new Extended();
@@ -2501,14 +2575,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Log2(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Extended log2(dynamic x)
         {
             return log2(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static Extended log10(Extended x)
         {
             var res = new Extended();
@@ -2519,14 +2593,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Log10(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static Extended log10(dynamic x)
         {
             return log10(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static Extended log1p(Extended x)
         {
             var res = new Extended();
@@ -2537,14 +2611,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Log1p(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static Extended log1p(dynamic x)
         {
             return log1p(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static Extended log2p1(Extended x)
         {
             var res = new Extended();
@@ -2555,14 +2629,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Log2p1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static Extended log2p1(dynamic x)
         {
             return log2p1(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static Extended log10p1(Extended x)
         {
             var res = new Extended();
@@ -2573,7 +2647,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Log10p1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static Extended log10p1(dynamic x)
         {
             return log10p1(t(x));
@@ -2581,7 +2655,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logaddexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logaddexp/*' />
         public static Extended logaddexp(Extended x, Extended y)
         {
             var res = new Extended();
@@ -2592,7 +2666,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Logaddexp(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logaddexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logaddexp/*' />
         public static Extended logaddexp(dynamic x, dynamic y)
         {
             return logaddexp(t(x), t(y));
@@ -2609,28 +2683,28 @@ namespace FixedPrecNet
         #region Power functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static Extended sqr(Extended x)
         {
             return x * x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static Extended sqr(dynamic x)
         {
             return sqr(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static Extended cube(Extended x)
         {
             return x * x * x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static Extended cube(dynamic x)
         {
             return cube(t(x));
@@ -2638,7 +2712,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static Extended hypot(Extended x, Extended y)
         {
             var res = new Extended();
@@ -2649,7 +2723,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Hypot(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static Extended hypot(dynamic x, dynamic y)
         {
             return hypot(ereal.t(x), ereal.t(y));
@@ -2657,7 +2731,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static Extended pow(Extended x, Extended y)
         {
             var res = new Extended();
@@ -2668,7 +2742,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Pow(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static Extended pow(dynamic x, dynamic y)
         {
             return pow(ereal.t(x), ereal.t(y));
@@ -2780,7 +2854,7 @@ namespace FixedPrecNet
         #region Trigonometric and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static Extended sin(Extended x)
         {
             var res = new Extended();
@@ -2791,14 +2865,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Sin(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static Extended sin(dynamic x)
         {
             return sin(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static Extended cos(Extended x)
         {
             var res = new Extended();
@@ -2809,14 +2883,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Cos(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static Extended cos(dynamic x)
         {
             return cos(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static Extended tan(Extended x)
         {
             var res = new Extended();
@@ -2827,14 +2901,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Tan(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static Extended tan(dynamic x)
         {
             return tan(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static Extended csc(Extended x)
         {
             var res = new Extended();
@@ -2845,14 +2919,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Csc(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static Extended csc(dynamic x)
         {
             return csc(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static Extended sec(Extended x)
         {
             var res = new Extended();
@@ -2863,14 +2937,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Sec(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static Extended sec(dynamic x)
         {
             return sec(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static Extended cot(Extended x)
         {
             var res = new Extended();
@@ -2881,7 +2955,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Cot(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static Extended cot(dynamic x)
         {
             return cot(t(x));
@@ -3020,10 +3094,10 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sincpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sincpi/*' />
         public static Extended sincpi(Extended x)
         {
-            Extended x1 = x * ereal.pi();
+            Extended x1 = x * ereal.pi;
 
             if (ereal.abs(x) < 0.1)
             {
@@ -3071,7 +3145,7 @@ namespace FixedPrecNet
         #region Hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static Extended sinh(Extended x)
         {
             var res = new Extended();
@@ -3082,14 +3156,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Sinh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static Extended sinh(dynamic x)
         {
             return sinh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static Extended cosh(Extended x)
         {
             var res = new Extended();
@@ -3100,14 +3174,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Cosh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static Extended cosh(dynamic x)
         {
             return cosh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static Extended tanh(Extended x)
         {
             var res = new Extended();
@@ -3118,14 +3192,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Tanh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static Extended tanh(dynamic x)
         {
             return tanh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static Extended csch(Extended x)
         {
             var res = new Extended();
@@ -3136,14 +3210,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Csch(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static Extended csch(dynamic x)
         {
             return csch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static Extended sech(Extended x)
         {
             var res = new Extended();
@@ -3154,14 +3228,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Sech(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static Extended sech(dynamic x)
         {
             return csch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static Extended coth(Extended x)
         {
             var res = new Extended();
@@ -3172,7 +3246,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Coth(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static Extended coth(dynamic x)
         {
             return coth(t(x));
@@ -3188,7 +3262,7 @@ namespace FixedPrecNet
         #region Inverse trigonometric functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static Extended asin(Extended x)
         {
             var res = new Extended();
@@ -3199,14 +3273,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Asin(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static Extended asin(dynamic x)
         {
             return asin(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static Extended acos(Extended x)
         {
             var res = new Extended();
@@ -3216,14 +3290,14 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Acos", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_Acos(IntPtr res, IntPtr x);
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static Extended acos(dynamic x)
         {
             return acos(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static Extended atan(Extended x)
         {
             var res = new Extended();
@@ -3234,14 +3308,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Atan(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static Extended atan(dynamic x)
         {
             return atan(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />
         public static Extended atan2(Extended x, Extended y)
         {
             var res = new Extended();
@@ -3252,7 +3326,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Atan2(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />
         public static Extended atan2(dynamic x, dynamic y)
         {
             return atan2(ereal.t(x), ereal.t(y));
@@ -3260,7 +3334,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static Extended acsc(Extended x)
         {
             var res = new Extended();
@@ -3271,14 +3345,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Acsc(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static Extended acsc(dynamic x)
         {
             return acsc(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static Extended asec(Extended x)
         {
             var res = new Extended();
@@ -3289,14 +3363,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Asec(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static Extended asec(dynamic x)
         {
             return asec(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static Extended acot(Extended x)
         {
             var res = new Extended();
@@ -3307,7 +3381,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Acot(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static Extended acot(dynamic x)
         {
             return acot(t(x));
@@ -3322,7 +3396,7 @@ namespace FixedPrecNet
         #region Inverse hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static Extended asinh(Extended x)
         {
             var res = new Extended();
@@ -3333,14 +3407,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Asinh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static Extended asinh(dynamic x)
         {
             return asinh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static Extended acosh(Extended x)
         {
             var res = new Extended();
@@ -3351,14 +3425,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Acosh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static Extended acosh(dynamic x)
         {
             return acosh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static Extended atanh(Extended x)
         {
             var res = new Extended();
@@ -3369,14 +3443,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Atanh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static Extended atanh(dynamic x)
         {
             return atanh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static Extended acsch(Extended x)
         {
             var res = new Extended();
@@ -3387,14 +3461,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Acsch(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static Extended acsch(dynamic x)
         {
             return acsch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static Extended asech(Extended x)
         {
             var res = new Extended();
@@ -3405,14 +3479,14 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Asech(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static Extended asech(dynamic x)
         {
             return asech(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static Extended acoth(Extended x)
         {
             var res = new Extended();
@@ -3423,7 +3497,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Acoth(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static Extended acoth(dynamic x)
         {
             return acoth(t(x));
@@ -3522,7 +3596,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/agm/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/agm/*' />
         public static Extended agm(Extended x, Extended y)
         {
             var res = new Extended();
@@ -3533,7 +3607,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Agm(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/agm/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/agm/*' />
         public static Extended agm(dynamic x, dynamic y)
         {
             return agm(ereal.t(x), ereal.t(y));
@@ -3561,26 +3635,26 @@ namespace FixedPrecNet
         #region Error functions for real arguments
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndens/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndens/*' />
         public static Extended ndens(Extended x)
         {
-            return exp(-0.5 * x * x) / sqrt(2 * pi());
+            return exp(-0.5 * x * x) / sqrt(2 * pi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndens/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndens/*' />
         public static Extended ndens(dynamic x)
         {
             return ndens(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndis/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndis/*' />
         public static Extended ndis(Extended x)
         {
             return 0.5 * erfc(-x / sqrt(2));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndis/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndis/*' />
         public static Extended ndis(dynamic x)
         {
             return ndis(t(x));
@@ -3590,7 +3664,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erf/*' />
         public static Extended erf(Extended x)
         {
             var res = new Extended();
@@ -3601,7 +3675,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Erf_(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erf/*' />
         public static Extended erf(dynamic x)
         {
             return erf(ereal.t(x));
@@ -3610,7 +3684,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erfc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erfc/*' />
         public static Extended erfc(Extended x)
         {
             var res = new Extended();
@@ -3621,7 +3695,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Erfc_(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erfc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erfc/*' />
         public static Extended erfc(dynamic x)
         {
             return erfc(ereal.t(x));
@@ -3678,7 +3752,7 @@ namespace FixedPrecNet
         #region Gamma and related functions for real arguments and parameters
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma/*' />
         //public static Extended lgamma(Extended x)
         //{
         //    var res = new Extended();
@@ -3689,21 +3763,21 @@ namespace FixedPrecNet
         //internal static extern void Lib_XReal_Lgamma(IntPtr res, IntPtr x);
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma/*' />
         //public static Extended lgamma(dynamic x)
         //{
         //    return lgamma(t(x));
         //}
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rgamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rgamma/*' />
         public static Extended rgamma(Extended x)
         {
             return t(1) / gamma(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rgamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rgamma/*' />
         public static Extended rgamma(dynamic x)
         {
             return rgamma(t(x));
@@ -3713,7 +3787,7 @@ namespace FixedPrecNet
 
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma/*' />
         //public static Extended gamma(Extended x)
         //{
         //    var res = new Extended();
@@ -3724,7 +3798,7 @@ namespace FixedPrecNet
         //internal static extern void Lib_XReal_Tgamma(IntPtr res, IntPtr x);
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma/*' />
         //public static Extended gamma(dynamic x)
         //{
         //    return gamma(t(x));
@@ -3734,7 +3808,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma/*' />
         public static Extended gamma(Extended x)
         {
             var res = new Extended();
@@ -3745,7 +3819,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Tgamma_(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma/*' />
         public static Extended gamma(dynamic x)
         {
             return gamma(ereal.t(x));
@@ -3774,7 +3848,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma/*' />
         public static Extended lgamma(Extended x)
         {
             var res = new Extended();
@@ -3785,7 +3859,7 @@ namespace FixedPrecNet
         internal static extern void Lib_XReal_Lgamma_(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma/*' />
         public static Extended lgamma(dynamic x)
         {
             return lgamma(ereal.t(x));
@@ -5081,7 +5155,7 @@ namespace FixedPrecNet
         public static Extended bernoulli(int n)
         {
             if (n == 1) return t(-0.5);
-            if (n % 2 != 0) return zero();
+            if (n % 2 != 0) return zero;
             var res = new Extended();
             Lib_XReal_BernoulliB2n(res.mpPtr, n/2);
             return res;
@@ -5511,12 +5585,12 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
         public static Extended besselpoly(Extended n, Extended x, bool scaled = false)
         {
-            if (!ereal.isinteger(n)) return ereal.nan();
+            if (!ereal.isinteger(n)) return ereal.nan;
             if (abs(x) < t(0.01)) return besselpoly_(lrint(n), x);
             else
             {
                 Extended res = sph_bessel_kn(n, 1 / x);
-                res *= exp(1 / x) * 2 / (pi() * x);
+                res *= exp(1 / x) * 2 / (pi * x);
                 return res;
             }
         }
@@ -5550,14 +5624,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
         public static Extended besseltheta(Extended n, Extended x, bool scaled = false)
         {
-            if (!ereal.isinteger(n)) return ereal.nan();
-            if ((x == 0) && (n < 0)) return ereal.nan();
+            if (!ereal.isinteger(n)) return ereal.nan;
+            if ((x == 0) && (n < 0)) return ereal.nan;
             if ((abs(x) < t(0.01)) && (n >= 0)) return besseltheta_(lrint(n), x);
             if (n < 0) return pow(x, n) * besselpoly(n, 1 / x);
             else
             {
                 Extended res = sph_bessel_kn(n, x);
-                res *= ereal.pow(x, n + 1) * exp(x) * 2 / pi();
+                res *= ereal.pow(x, n + 1) * exp(x) * 2 / pi;
                 return res;
             }
         }
@@ -5665,7 +5739,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
         public static ExtendedC hankel_h1(Extended v, Extended x)
         {
-            return bessel_jv(v, x) + ecplx.onej() * bessel_yv(v, x);
+            return bessel_jv(v, x) + ecplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
@@ -5679,7 +5753,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
         public static ExtendedC hankel_h2(Extended v, Extended x)
         {
-            return bessel_jv(v, x) - ecplx.onej() * bessel_yv(v, x);
+            return bessel_jv(v, x) - ecplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
@@ -5693,7 +5767,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
         public static ExtendedC sph_hankel_h1(int n, Extended x)
         {
-            return sph_bessel_jn(n, x) + ecplx.onej() * sph_bessel_yn(n, x);
+            return sph_bessel_jn(n, x) + ecplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
@@ -5707,7 +5781,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
         public static ExtendedC sph_hankel_h2(int n, Extended x)
         {
-            return sph_bessel_jn(n, x) - ecplx.onej() * sph_bessel_yn(n, x);
+            return sph_bessel_jn(n, x) - ecplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
@@ -5943,14 +6017,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hermite_he/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
         public static Extended hermite_he(int n, Extended x)
         {
             return exp2(-n / 2) * hermite_h(n, x / sqrt(2));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hermite_he/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
         public static Extended hermite_he(int n, dynamic x)
         {
             return hermite_he(n, ereal.t(x));
@@ -6011,7 +6085,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/exp_integral_en/*' />
         public static Extended exp_integral_en(int n, Extended x)
         {
-            if (n < 0) return nan();
+            if (n < 0) return nan;
             var res = new Extended();
             Lib_XReal_expint(res.mpPtr, n, x.mpPtr);
             return res;
@@ -6027,7 +6101,7 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp_integral_e1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_e1/*' />
         public static Extended exp_integral_e1(Extended z)
         {
             if (z < 0) return -exp_integral_ei(-z);
@@ -6035,51 +6109,51 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp_integral_e1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_e1/*' />
         public static Extended exp_integral_e1(dynamic z)
         {
             return exp_integral_e1(ereal.t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log_integral/*' />
         public static Extended log_integral(Extended z)
         {
-            if (z < 0) return nan();
-            if (z == 0) return zero();
+            if (z < 0) return nan;
+            if (z == 0) return zero;
             else return exp_integral_ei(log(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log_integral/*' />
         public static Extended log_integral(dynamic z)
         {
             return log_integral(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh_integral/*' />
         public static Extended cosh_integral(Extended x)
         {
             return (exp_integral_ei(x) - exp_integral_e1(x)) / 2;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh_integral/*' />
         public static Extended cosh_integral(dynamic z)
         {
             return cosh_integral(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh_integral/*' />
         public static Extended sinh_integral(Extended x)
         {
             return (exp_integral_ei(x) + exp_integral_e1(x)) / 2;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh_integral/*' />
         public static Extended sinh_integral(dynamic z)
         {
             return sinh_integral(t(z));
@@ -6326,7 +6400,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/spherical_y/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/spherical_y/*' />
         public static ExtendedC spherical_y(Extended n, Extended m, Extended theta, Extended phi)
         {
             return ecplx.t(spherical_harmonic_r(lrint(n), lrint(m), theta, phi),
@@ -6334,7 +6408,7 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/spherical_y/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/spherical_y/*' />
         public static ExtendedC spherical_y(dynamic n, dynamic m, dynamic theta, dynamic phi)
         {
             return spherical_y(ereal.t(n), ereal.t(m), ereal.t(theta), ereal.t(phi));
@@ -6363,7 +6437,7 @@ namespace FixedPrecNet
 
         public class BaseDistClass
         {
-            internal static Extended nil = zero();
+            internal static Extended nil = zero;
             internal static int target = 1;
             //internal static Extended a_;
             //internal static Extended b_;
@@ -6643,251 +6717,6 @@ namespace FixedPrecNet
 
 
 
-        #region Discrete (lattice) distribution functions
-
-
-
-        #region BernoulliDist
-
-
-        public class BernoulliDistClass : BaseDistDiscreteClass
-        {
-            Extended p;
-            internal override Extended BaseDist(Extended xqp)
-            {
-                var res = new Extended();
-                Lib_XReal_BernoulliDist(target, res.mpPtr, xqp.mpPtr, p.mpPtr);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BernoulliDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_XReal_BernoulliDist(int target, IntPtr res, IntPtr xqp, IntPtr p);
-
-            public BernoulliDistClass(Extended _p)
-            {
-                p = _p;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BernoulliDist/*' />
-        public static BernoulliDistClass dist_bernoulli(Extended p)
-        {
-            return new BernoulliDistClass(p);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BernoulliDist/*' />
-        public static BernoulliDistClass dist_bernoulli(dynamic p)
-        {
-            return dist_bernoulli(ereal.t(p));
-        }
-
-        #endregion
-
-
-
-        #region GeometricDist
-
-
-        public class GeometricDistClass : BaseDistDiscreteClass
-        {
-            Extended p;
-
-            internal override Extended BaseDist(Extended xqp)
-            {
-                var res = new Extended();
-                Lib_XReal_GeometricDist(target, res.mpPtr, xqp.mpPtr, p.mpPtr);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GeometricDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_XReal_GeometricDist(int target, IntPtr res, IntPtr xqp, IntPtr p);
-
-            public GeometricDistClass(Extended _p)
-            {
-                p = _p;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GeometricDist/*' />
-        public static GeometricDistClass dist_geometric(Extended p)
-        {
-            return new GeometricDistClass(p);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GeometricDist/*' />
-        public static GeometricDistClass dist_geometric(dynamic p)
-        {
-            return dist_geometric(ereal.t(p));
-        }
-
-        #endregion
-
-
-
-        #region PoissonDist
-
-
-        public class PoissonDistClass : BaseDistDiscreteClass
-        {
-            Extended mu;
-            internal override Extended BaseDist(Extended xqp)
-            {
-                var res = new Extended();
-                Lib_XReal_PoissonDist(target, res.mpPtr, xqp.mpPtr, mu.mpPtr);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_PoissonDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_XReal_PoissonDist(int target, IntPtr res, IntPtr xqp, IntPtr mu);
-
-            public PoissonDistClass(Extended _mu)
-            {
-                mu = _mu;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/PoissonDist/*' />
-        public static PoissonDistClass dist_poisson(Extended mu)
-        {
-            return new PoissonDistClass(mu);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/PoissonDist/*' />
-        public static PoissonDistClass dist_poisson(dynamic mu)
-        {
-            return dist_poisson(ereal.t(mu));
-        }
-
-        #endregion
-
-
-
-        #region BinomialDist
-
-
-        public class BinomialDistClass : BaseDistDiscreteClass
-        {
-            Extended n;
-            Extended p;
-            internal override Extended BaseDist(Extended xqp)
-            {
-                var res = new Extended();
-                Lib_XReal_BinomialDist(target, res.mpPtr, xqp.mpPtr, n.mpPtr, p.mpPtr);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BinomialDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_XReal_BinomialDist(int target, IntPtr res, IntPtr xqp, IntPtr n, IntPtr p);
-
-            public BinomialDistClass(Extended _n, Extended _p)
-            {
-                n = _n;
-                p = _p;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BinomialDist/*' />
-        public static BinomialDistClass dist_binomial(Extended n, Extended p)
-        {
-            return new BinomialDistClass(n, p);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BinomialDist/*' />
-        public static BinomialDistClass dist_binomial(dynamic n, dynamic p)
-        {
-            return dist_binomial(ereal.t(n), ereal.t(p));
-        }
-
-        #endregion
-
-
-
-        #region NegBinomialDist
-
-
-        public class NegBinomialDistClass : BaseDistDiscreteClass
-        {
-            Extended r;
-            Extended p;
-
-            internal override Extended BaseDist(Extended xqp)
-            {
-                var res = new Extended();
-                Lib_XReal_NegBinomialDist(target, res.mpPtr, xqp.mpPtr, r.mpPtr, p.mpPtr);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NegBinomialDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_XReal_NegBinomialDist(int target, IntPtr res, IntPtr xqp, IntPtr r, IntPtr p);
-
-            public NegBinomialDistClass(Extended _r, Extended _p)
-            {
-                r = _r;
-                p = _p;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NegBinomialDist/*' />
-        public static NegBinomialDistClass dist_negbinomial(Extended r, Extended p)
-        {
-            return new NegBinomialDistClass(r, p);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NegBinomialDist/*' />
-        public static NegBinomialDistClass dist_negbinomial(dynamic r, dynamic p)
-        {
-            return dist_negbinomial(ereal.t(r), ereal.t(p));
-        }
-
-        #endregion
-
-
-
-        #region HypergeometricDist
-
-
-        public class HypergeometricDistClass : BaseDistDiscreteClass
-        {
-            internal UInt64 r__;
-            internal UInt64 n__;
-            internal UInt64 NN__;
-            internal override Extended BaseDist(Extended xqp)
-            {
-                var res = new Extended();
-                Lib_XReal_HypergeometricDist(target, res.mpPtr, xqp.mpPtr, r__, n__, NN__);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_HypergeometricDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_XReal_HypergeometricDist(int target, IntPtr res, IntPtr xqp, UInt64 r, UInt64 n, UInt64 NN);
-
-            public HypergeometricDistClass(UInt64 r, UInt64 n, UInt64 NN)
-            {
-                r__ = r;
-                n__ = n;
-                NN__ = NN;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HypergeometricDist/*' />
-        public static HypergeometricDistClass dist_hypergeometric(UInt64 r, UInt64 n, UInt64 NN)
-        {
-            return new HypergeometricDistClass(r, n, NN);
-        }
-
-        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/HypergeometricDist/*' />
-        //public static HypergeometricDistClass dist_hypergeometric(dynamic r, dynamic n, dynamic NN)
-        //{
-        //    return dist_hypergeometric(ereal.t(r), ereal.t(n), ereal.t(NN));
-        //}
-
-        #endregion
-
-
-
-
-
-
-
-        #endregion
-
-
-
-
         #region Closed form distributions, based on elementary functions
 
 
@@ -6915,13 +6744,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ArcsineDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_arcsine/*' />
         public static ArcsineDistClass dist_arcsine(Extended a, Extended b)
         {
             return new ArcsineDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ArcsineDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_arcsine/*' />
         public static ArcsineDistClass dist_arcsine(dynamic a, dynamic b)
         {
             return dist_arcsine(ereal.t(a), ereal.t(b));
@@ -6955,13 +6784,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CauchyDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_cauchy/*' />
         public static CauchyDistClass dist_cauchy(Extended a, Extended b)
         {
             return new CauchyDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CauchyDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_cauchy/*' />
         public static CauchyDistClass dist_cauchy(dynamic a, dynamic b)
         {
             return dist_cauchy(ereal.t(a), ereal.t(b));
@@ -6993,13 +6822,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExponentialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_exponential/*' />
         public static ExponentialDistClass dist_exponential(Extended lambda1)
         {
             return new ExponentialDistClass(lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExponentialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_exponential/*' />
         public static ExponentialDistClass dist_exponential(dynamic lambda1)
         {
             return dist_exponential(ereal.t(lambda1));
@@ -7033,13 +6862,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GumbelDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gumbel/*' />
         public static GumbelDistClass dist_gumbel(Extended a, Extended b)
         {
             return new GumbelDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GumbelDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gumbel/*' />
         public static GumbelDistClass dist_gumbel(dynamic a, dynamic b)
         {
             return dist_gumbel(ereal.t(a), ereal.t(b));
@@ -7073,7 +6902,7 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HyperexponentialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_hyperexponential/*' />
         public static HyperexponentialDistClass dist_hyperexponential(ExtendedVec Prob, ExtendedVec Rate)
         {
             return new HyperexponentialDistClass(Prob, Rate);
@@ -7189,13 +7018,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LaplaceDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_laplace/*' />
         public static LaplaceDistClass dist_laplace(Extended a, Extended b)
         {
             return new LaplaceDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LaplaceDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_laplace/*' />
         public static LaplaceDistClass dist_laplace(dynamic a, dynamic b)
         {
             return dist_laplace(ereal.t(a), ereal.t(b));
@@ -7229,13 +7058,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LogisticDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_logistic/*' />
         public static LogisticDistClass dist_logistic(Extended a, Extended b)
         {
             return new LogisticDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LogisticDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_logistic/*' />
         public static LogisticDistClass dist_logistic(dynamic a, dynamic b)
         {
             return dist_logistic(ereal.t(a), ereal.t(b));
@@ -7269,13 +7098,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ParetoDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_pareto/*' />
         public static ParetoDistClass dist_pareto(Extended k, Extended a)
         {
             return new ParetoDistClass(k, a);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ParetoDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_pareto/*' />
         public static ParetoDistClass dist_pareto(dynamic k, dynamic a)
         {
             return dist_pareto(ereal.t(k), ereal.t(a));
@@ -7307,13 +7136,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RayleighDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_rayleigh/*' />
         public static RayleighDistClass dist_rayleigh(Extended b)
         {
             return new RayleighDistClass(b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RayleighDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_rayleigh/*' />
         public static RayleighDistClass dist_rayleigh(dynamic b)
         {
             return dist_rayleigh(ereal.t(b));
@@ -7349,13 +7178,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TriangularDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_triangular/*' />
         public static TriangularDistClass dist_triangular(Extended a, Extended m, Extended b)
         {
             return new TriangularDistClass(a, m, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TriangularDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_triangular/*' />
         public static TriangularDistClass dist_triangular(dynamic a, dynamic m, dynamic b)
         {
             return dist_triangular(ereal.t(a), ereal.t(m), ereal.t(b));
@@ -7389,13 +7218,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/UniformDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_uniform/*' />
         public static UniformDistClass dist_uniform(Extended a, Extended b)
         {
             return new UniformDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/UniformDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_uniform/*' />
         public static UniformDistClass dist_uniform(dynamic a, dynamic b)
         {
             return dist_uniform(ereal.t(a), ereal.t(b));
@@ -7429,13 +7258,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WeibullDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_weibull/*' />
         public static WeibullDistClass dist_weibull(Extended a, Extended b)
         {
             return new WeibullDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WeibullDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_weibull/*' />
         public static WeibullDistClass dist_weibull(dynamic a, dynamic b)
         {
             return dist_weibull(ereal.t(a), ereal.t(b));
@@ -7466,7 +7295,7 @@ namespace FixedPrecNet
                 Extended sf = t(0);
                 if ((target == 1) || (target == 4))
                 {
-                    Extended s = sqrt(b / (2 * pi()));
+                    Extended s = sqrt(b / (2 * pi));
                     Extended t = exp(-b / (2 * (xqp - a)));
                     Extended u = pow(xqp - a, 1.5);
                     pdf = s * t / u;
@@ -7565,13 +7394,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LognormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_lognormal/*' />
         public static LognormalDistClass dist_lognormal(Extended a, Extended b)
         {
             return new LognormalDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LognormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_lognormal/*' />
         public static LognormalDistClass dist_lognormal(dynamic a, dynamic b)
         {
             return dist_lognormal(ereal.t(a), ereal.t(b));
@@ -7598,7 +7427,7 @@ namespace FixedPrecNet
                 {
                     Extended t1 = (xqp - a) / (2 * b);
                     Extended t2 = t("0.5") * exp(-(xqp - a) / b);
-                    Extended s = b * sqrt(2 * pi());
+                    Extended s = b * sqrt(2 * pi);
                     pdf = exp(-t1 - t2) / s;
                 }
                 if ((target == 3) || (target == 4) || (target == 5))
@@ -7697,13 +7526,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_normal/*' />
         public static NormalDistClass dist_normal(Extended mu, Extended sigma)
         {
             return new NormalDistClass(mu, sigma);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_normal/*' />
         public static NormalDistClass dist_normal(dynamic mu, dynamic sigma)
         {
             return dist_normal(ereal.t(mu), ereal.t(sigma));
@@ -7739,13 +7568,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SkewNormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_skewnormal/*' />
         public static SkewNormalDistClass dist_skewnormal(Extended a, Extended b, Extended c)
         {
             return new SkewNormalDistClass(a, b, c);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SkewNormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_skewnormal/*' />
         public static SkewNormalDistClass dist_skewnormal(dynamic a, dynamic b, dynamic c)
         {
             return dist_skewnormal(ereal.t(a), ereal.t(b), ereal.t(c));
@@ -7779,13 +7608,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WaldDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_wald/*' />
         public static WaldDistClass dist_wald(Extended mu, Extended b)
         {
             return new WaldDistClass(mu, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WaldDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_wald/*' />
         public static WaldDistClass dist_wald(dynamic mu, dynamic b)
         {
             return dist_wald(ereal.t(mu), ereal.t(b));
@@ -7905,13 +7734,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2/*' />
         public static Chi2DistClass dist_chi2(Extended n)
         {
             return new Chi2DistClass(n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2/*' />
         public static Chi2DistClass dist_chi2(dynamic n)
         {
             return dist_chi2(ereal.t(n));
@@ -7945,13 +7774,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gamma/*' />
         public static GammaDistClass dist_gamma(Extended a, Extended b)
         {
             return new GammaDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gamma/*' />
         public static GammaDistClass dist_gamma(dynamic a, dynamic b)
         {
             return dist_gamma(ereal.t(a), ereal.t(b));
@@ -7985,13 +7814,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseChi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_chi2/*' />
         public static InverseChi2DistClass dist_inverse_chi2(Extended a, Extended b)
         {
             return new InverseChi2DistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseChi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_chi2/*' />
         public static InverseChi2DistClass dist_inverse_chi2(dynamic a, dynamic b)
         {
             return dist_inverse_chi2(ereal.t(a), ereal.t(b));
@@ -8026,13 +7855,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseGammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_gamma/*' />
         public static InverseGammaDistClass dist_inverse_gamma(Extended a, Extended b)
         {
             return new InverseGammaDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseGammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_gamma/*' />
         public static InverseGammaDistClass dist_inverse_gamma(dynamic a, dynamic b)
         {
             return dist_inverse_gamma(ereal.t(a), ereal.t(b));
@@ -8055,7 +7884,7 @@ namespace FixedPrecNet
                 Extended sf = t(0);
                 if ((target == 1) || (target == 4))
                 {
-                    Extended s = sqrt(2 / pi());
+                    Extended s = sqrt(2 / pi);
                     Extended t = (xqp * xqp) / (b * b * b);
                     Extended u = exp(-(xqp * xqp) / (2 * b * b));
                     pdf = s * t * u;
@@ -8252,13 +8081,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta/*' />
         public static BetaDistClass dist_beta(Extended a, Extended b)
         {
             return new BetaDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta/*' />
         public static BetaDistClass dist_beta(dynamic a, dynamic b)
         {
             return dist_beta(ereal.t(a), ereal.t(b));
@@ -8291,13 +8120,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherFDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f/*' />
         public static FisherFDistClass dist_fisher_f(Extended m, Extended n)
         {
             return new FisherFDistClass(m, n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherFDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f/*' />
         public static FisherFDistClass dist_fisher_f(dynamic m, dynamic n)
         {
             return dist_fisher_f(ereal.t(m), ereal.t(n));
@@ -8328,13 +8157,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t/*' />
         public static StudentTDistClass dist_student_t(Extended n)
         {
             return new StudentTDistClass(n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t/*' />
         public static StudentTDistClass dist_student_t(dynamic n)
         {
             return dist_student_t(ereal.t(n));
@@ -8373,13 +8202,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2NcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2_nc/*' />
         public static Chi2NcDistClass dist_chi2_nc(Extended n, Extended lambda1)
         {
             return new Chi2NcDistClass(n, lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2NcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2_nc/*' />
         public static Chi2NcDistClass dist_chi2_nc(dynamic n, dynamic lambda1)
         {
             return dist_chi2_nc(ereal.t(n), ereal.t(lambda1));
@@ -8412,13 +8241,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t_nc/*' />
         public static StudentTNcDistClass dist_student_t_nc(Extended n, Extended delta)
         {
             return new StudentTNcDistClass(n, delta);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t_nc/*' />
         public static StudentTNcDistClass dist_student_t_nc(dynamic n, dynamic delta)
         {
             return dist_student_t_nc(ereal.t(n), ereal.t(delta));
@@ -8453,13 +8282,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f_nc/*' />
         public static FisherFNcDistClass dist_fisher_f_nc(Extended m, Extended n, Extended lambda1)
         {
             return new FisherFNcDistClass(m, n, lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f_nc/*' />
         public static FisherFNcDistClass dist_fisher_f_nc(dynamic m, dynamic n, dynamic lambda1)
         {
             return dist_fisher_f_nc(ereal.t(m), ereal.t(n), ereal.t(lambda1));
@@ -8494,13 +8323,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta_nc/*' />
         public static BetaNcDistClass dist_beta_nc(Extended a, Extended b, Extended lambda1)
         {
             return new BetaNcDistClass(a, b, lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta_nc/*' />
         public static BetaNcDistClass dist_beta_nc(dynamic a, dynamic b, dynamic lambda1)
         {
             return dist_beta_nc(ereal.t(a), ereal.t(b), ereal.t(lambda1));
@@ -8540,13 +8369,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/KolmogorovSmirnovDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_kolmogorov_smirnov/*' />
         public static KolmogorovSmirnovDistClass dist_kolmogorov_smirnov(Extended n)
         {
             return new KolmogorovSmirnovDistClass(n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/KolmogorovSmirnovDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_kolmogorov_smirnov/*' />
         public static KolmogorovSmirnovDistClass dist_kolmogorov_smirnov(dynamic n)
         {
             return dist_kolmogorov_smirnov(t(n));
@@ -8580,13 +8409,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HoltsmarkDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_holtsmark/*' />
         public static HoltsmarkDistClass dist_holtsmark(Extended a, Extended b)
         {
             return new HoltsmarkDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HoltsmarkDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_holtsmark/*' />
         public static HoltsmarkDistClass dist_holtsmark(dynamic a, dynamic b)
         {
             return dist_holtsmark(t(a), t(b));
@@ -8619,13 +8448,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LandauDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_landau/*' />
         public static LandauDistClass dist_landau(Extended a, Extended b)
         {
             return new LandauDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LandauDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_landau/*' />
         public static LandauDistClass dist_landau(dynamic a, dynamic b)
         {
             return dist_landau(t(a), t(b));
@@ -8658,13 +8487,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/MapAiryDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_mapairy/*' />
         public static MapAiryDistClass dist_mapairy(Extended a, Extended b)
         {
             return new MapAiryDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/MapAiryDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_mapairy/*' />
         public static MapAiryDistClass dist_mapairy(dynamic a, dynamic b)
         {
             return dist_mapairy(t(a), t(b));
@@ -8697,13 +8526,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Saspoint5Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_saspoint5/*' />
         public static Saspoint5DistClass dist_saspoint5(Extended a, Extended b)
         {
             return new Saspoint5DistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Saspoint5Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_saspoint5/*' />
         public static Saspoint5DistClass dist_saspoint5(dynamic a, dynamic b)
         {
             return dist_saspoint5(t(a), t(b));
@@ -8714,6 +8543,251 @@ namespace FixedPrecNet
 
 
         #endregion
+
+
+
+        #region Discrete (lattice) distribution functions
+
+
+
+        #region BernoulliDist
+
+
+        public class BernoulliDistClass : BaseDistDiscreteClass
+        {
+            Extended p;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_BernoulliDist(target, res.mpPtr, xqp.mpPtr, p.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BernoulliDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_BernoulliDist(int target, IntPtr res, IntPtr xqp, IntPtr p);
+
+            public BernoulliDistClass(Extended _p)
+            {
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_bernoulli/*' />
+        public static BernoulliDistClass dist_bernoulli(Extended p)
+        {
+            return new BernoulliDistClass(p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_bernoulli/*' />
+        public static BernoulliDistClass dist_bernoulli(dynamic p)
+        {
+            return dist_bernoulli(ereal.t(p));
+        }
+
+        #endregion
+
+
+
+        #region GeometricDist
+
+
+        public class GeometricDistClass : BaseDistDiscreteClass
+        {
+            Extended p;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_GeometricDist(target, res.mpPtr, xqp.mpPtr, p.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_GeometricDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_GeometricDist(int target, IntPtr res, IntPtr xqp, IntPtr p);
+
+            public GeometricDistClass(Extended _p)
+            {
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_geometric/*' />
+        public static GeometricDistClass dist_geometric(Extended p)
+        {
+            return new GeometricDistClass(p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_geometric/*' />
+        public static GeometricDistClass dist_geometric(dynamic p)
+        {
+            return dist_geometric(ereal.t(p));
+        }
+
+        #endregion
+
+
+
+        #region PoissonDist
+
+
+        public class PoissonDistClass : BaseDistDiscreteClass
+        {
+            Extended mu;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_PoissonDist(target, res.mpPtr, xqp.mpPtr, mu.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_PoissonDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_PoissonDist(int target, IntPtr res, IntPtr xqp, IntPtr mu);
+
+            public PoissonDistClass(Extended _mu)
+            {
+                mu = _mu;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_poisson/*' />
+        public static PoissonDistClass dist_poisson(Extended mu)
+        {
+            return new PoissonDistClass(mu);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_poisson/*' />
+        public static PoissonDistClass dist_poisson(dynamic mu)
+        {
+            return dist_poisson(ereal.t(mu));
+        }
+
+        #endregion
+
+
+
+        #region BinomialDist
+
+
+        public class BinomialDistClass : BaseDistDiscreteClass
+        {
+            Extended n;
+            Extended p;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_BinomialDist(target, res.mpPtr, xqp.mpPtr, n.mpPtr, p.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_BinomialDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_BinomialDist(int target, IntPtr res, IntPtr xqp, IntPtr n, IntPtr p);
+
+            public BinomialDistClass(Extended _n, Extended _p)
+            {
+                n = _n;
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_binomial/*' />
+        public static BinomialDistClass dist_binomial(Extended n, Extended p)
+        {
+            return new BinomialDistClass(n, p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_binomial/*' />
+        public static BinomialDistClass dist_binomial(dynamic n, dynamic p)
+        {
+            return dist_binomial(ereal.t(n), ereal.t(p));
+        }
+
+        #endregion
+
+
+
+        #region NegBinomialDist
+
+
+        public class NegBinomialDistClass : BaseDistDiscreteClass
+        {
+            Extended r;
+            Extended p;
+
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_NegBinomialDist(target, res.mpPtr, xqp.mpPtr, r.mpPtr, p.mpPtr);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_NegBinomialDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_NegBinomialDist(int target, IntPtr res, IntPtr xqp, IntPtr r, IntPtr p);
+
+            public NegBinomialDistClass(Extended _r, Extended _p)
+            {
+                r = _r;
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_negbinomial/*' />
+        public static NegBinomialDistClass dist_negbinomial(Extended r, Extended p)
+        {
+            return new NegBinomialDistClass(r, p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_negbinomial/*' />
+        public static NegBinomialDistClass dist_negbinomial(dynamic r, dynamic p)
+        {
+            return dist_negbinomial(ereal.t(r), ereal.t(p));
+        }
+
+        #endregion
+
+
+
+        #region HypergeometricDist
+
+
+        public class HypergeometricDistClass : BaseDistDiscreteClass
+        {
+            internal UInt64 r__;
+            internal UInt64 n__;
+            internal UInt64 NN__;
+            internal override Extended BaseDist(Extended xqp)
+            {
+                var res = new Extended();
+                Lib_XReal_HypergeometricDist(target, res.mpPtr, xqp.mpPtr, r__, n__, NN__);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_HypergeometricDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_XReal_HypergeometricDist(int target, IntPtr res, IntPtr xqp, UInt64 r, UInt64 n, UInt64 NN);
+
+            public HypergeometricDistClass(UInt64 r, UInt64 n, UInt64 NN)
+            {
+                r__ = r;
+                n__ = n;
+                NN__ = NN;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_hypergeometric/*' />
+        public static HypergeometricDistClass dist_hypergeometric(UInt64 r, UInt64 n, UInt64 NN)
+        {
+            return new HypergeometricDistClass(r, n, NN);
+        }
+
+        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_hypergeometric/*' />
+        //public static HypergeometricDistClass dist_hypergeometric(dynamic r, dynamic n, dynamic NN)
+        //{
+        //    return dist_hypergeometric(ereal.t(r), ereal.t(n), ereal.t(NN));
+        //}
+
+        #endregion
+
+
+
+
+
+
+
+        #endregion
+
 
 
 
@@ -8736,21 +8810,21 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BracketRoot/*' />
-        public static Tuple<Extended, Extended, int> BracketRoot(cb1SExtended1S f, dynamic guess, dynamic factor, bool is_rising, int get_digits, uint maxit)
+        public static Tuple<Extended, Extended, int> BracketRoot(cb1SRet1S f, dynamic guess, dynamic factor, bool is_rising, int get_digits, uint maxit)
         {
             return BracketRoot(f, ereal.t(guess), ereal.t(factor), is_rising, get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BracketRoot/*' />
-        public static Tuple<Extended, Extended, int> BracketRoot(cb1SExtended1S f, Extended guess, Extended factor, bool is_rising, int get_digits, uint maxit)
+        public static Tuple<Extended, Extended, int> BracketRoot(cb1SRet1S f, Extended guess, Extended factor, bool is_rising, int get_digits, uint maxit)
         {
             var XBracketRoot1 = new XBracketRoot(f, guess, factor, is_rising, get_digits, maxit);
             return XBracketRoot1.Find();
         }
         internal class XBracketRoot
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended guess_;
             private Extended factor_;
             private bool is_rising_;
@@ -8764,7 +8838,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XBracketRoot(cb1SExtended1S F1, Extended guess, Extended factor, bool is_rising, int get_digits, uint maxit)
+            public XBracketRoot(cb1SRet1S F1, Extended guess, Extended factor, bool is_rising, int get_digits, uint maxit)
             {
                 F1_ = F1;
                 guess_ = guess;
@@ -8790,22 +8864,22 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/NewtonRaphson/*' />
-        public static Tuple<Extended, int> NewtonRaphson(cb1SExtended1S f, cb1SExtended1S df, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        public static Tuple<Extended, int> NewtonRaphson(cb1SRet1S f, cb1SRet1S df, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
         {
             return NewtonRaphson(f, df, ereal.t(guess), ereal.t(xmin), ereal.t(xmax), get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/NewtonRaphson/*' />
-        public static Tuple<Extended, int> NewtonRaphson(cb1SExtended1S f, cb1SExtended1S df, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+        public static Tuple<Extended, int> NewtonRaphson(cb1SRet1S f, cb1SRet1S df, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
         {
             var XNewtonRaphson1 = new XNewtonRaphson(f, df, guess, xmin, xmax, get_digits, maxit);
             return XNewtonRaphson1.Find();
         }
         internal class XNewtonRaphson
         {
-            private cb1SExtended1S F1_;
-            private cb1SExtended1S DF1_;
+            private cb1SRet1S F1_;
+            private cb1SRet1S DF1_;
             private Extended guess_;
             private Extended xmin_;
             private Extended xmax_;
@@ -8827,7 +8901,7 @@ namespace FixedPrecNet
                 DY1 = DF1_(DX1);
                 Lib_XReal_Set(dfxPtr, DY1.mpPtr);
             }
-            public XNewtonRaphson(cb1SExtended1S F1, cb1SExtended1S DF1, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+            public XNewtonRaphson(cb1SRet1S F1, cb1SRet1S DF1, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
             {
                 F1_ = F1;
                 DF1_ = DF1;
@@ -8854,23 +8928,23 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Halley/*' />
-        public static Tuple<Extended, int> Halley(cb1SExtended1S f, cb1SExtended1S df1, cb1SExtended1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        public static Tuple<Extended, int> Halley(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
         {
             return Halley(f, df1, df2, ereal.t(guess), ereal.t(xmin), ereal.t(xmax), get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Halley/*' />
-        public static Tuple<Extended, int> Halley(cb1SExtended1S f, cb1SExtended1S df1, cb1SExtended1S df2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+        public static Tuple<Extended, int> Halley(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
         {
             var XHalley1 = new XHalley(f, df1, df2, guess, xmin, xmax, get_digits, maxit);
             return XHalley1.Find();
         }
         internal class XHalley
         {
-            private cb1SExtended1S F1_;
-            private cb1SExtended1S DF1_;
-            private cb1SExtended1S DF2_;
+            private cb1SRet1S F1_;
+            private cb1SRet1S DF1_;
+            private cb1SRet1S DF2_;
             private Extended guess_;
             private Extended xmin_;
             private Extended xmax_;
@@ -8900,7 +8974,7 @@ namespace FixedPrecNet
                 D2Y1 = DF2_(DX1);
                 Lib_XReal_Set(d2fxPtr, D2Y1.mpPtr);
             }
-            public XHalley(cb1SExtended1S F1, cb1SExtended1S DF1, cb1SExtended1S DF2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+            public XHalley(cb1SRet1S F1, cb1SRet1S DF1, cb1SRet1S DF2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
             {
                 F1_ = F1;
                 DF1_ = DF1;
@@ -8929,23 +9003,23 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Schroder/*' />
-        public static Tuple<Extended, int> Schroder(cb1SExtended1S f, cb1SExtended1S df1, cb1SExtended1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        public static Tuple<Extended, int> Schroder(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
         {
             return Schroder(f, df1, df2, ereal.t(guess), ereal.t(xmin), ereal.t(xmax), get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Schroder/*' />
-        public static Tuple<Extended, int> Schroder(cb1SExtended1S f, cb1SExtended1S df1, cb1SExtended1S df2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+        public static Tuple<Extended, int> Schroder(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
         {
             var XSchroder1 = new XSchroder(f, df1, df2, guess, xmin, xmax, get_digits, maxit);
             return XSchroder1.Find();
         }
         internal class XSchroder
         {
-            private cb1SExtended1S F1_;
-            private cb1SExtended1S DF1_;
-            private cb1SExtended1S DF2_;
+            private cb1SRet1S F1_;
+            private cb1SRet1S DF1_;
+            private cb1SRet1S DF2_;
             private Extended guess_;
             private Extended xmin_;
             private Extended xmax_;
@@ -8975,7 +9049,7 @@ namespace FixedPrecNet
                 D2Y1 = DF2_(DX1);
                 Lib_XReal_Set(d2fxPtr, D2Y1.mpPtr);
             }
-            public XSchroder(cb1SExtended1S F1, cb1SExtended1S DF1, cb1SExtended1S DF2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
+            public XSchroder(cb1SRet1S F1, cb1SRet1S DF1, cb1SRet1S DF2, Extended guess, Extended xmin, Extended xmax, int get_digits, uint maxit)
             {
                 F1_ = F1;
                 DF1_ = DF1;
@@ -9003,21 +9077,21 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BrentMinimum/*' />
-        public static Tuple<Extended, Extended, int> Brent_Minimum(cb1SExtended1S f, dynamic bracket_min, dynamic bracket_max, int bits, uint maxit)
+        public static Tuple<Extended, Extended, int> Brent_Minimum(cb1SRet1S f, dynamic bracket_min, dynamic bracket_max, int bits, uint maxit)
         {
             return Brent_Minimum(f, ereal.t(bracket_min), ereal.t(bracket_max), bits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BrentMinimum/*' />
-        public static Tuple<Extended, Extended, int> Brent_Minimum(cb1SExtended1S f, Extended bracket_min, Extended bracket_max, int bits, uint maxit)
+        public static Tuple<Extended, Extended, int> Brent_Minimum(cb1SRet1S f, Extended bracket_min, Extended bracket_max, int bits, uint maxit)
         {
             var XBrent_Minimum1 = new XBrent_Minimum(f, bracket_min, bracket_max, bits, maxit);
             return XBrent_Minimum1.Find();
         }
         internal class XBrent_Minimum
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended bracket_min_;
             private Extended bracket_max_;
             private int bits_;
@@ -9030,7 +9104,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XBrent_Minimum(cb1SExtended1S F1, Extended bracket_min, Extended bracket_max, int bits, uint maxit)
+            public XBrent_Minimum(cb1SRet1S F1, Extended bracket_min, Extended bracket_max, int bits, uint maxit)
             {
                 F1_ = F1;
                 bracket_min_ = bracket_min;
@@ -9056,7 +9130,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Trapezoidal/*' />
-        public static Tuple<Extended, Extended, Extended> Trapezoidal(cb1SExtended1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Extended, Extended, Extended> Trapezoidal(cb1SRet1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return Trapezoidal(f, ereal.t(a), ereal.t(b), ereal.t(tol), max_refinements);
@@ -9064,14 +9138,14 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Trapezoidal/*' />
-        public static Tuple<Extended, Extended, Extended> Trapezoidal(cb1SExtended1S f, Extended a, Extended b, Extended tol, uint max_refinements = 12)
+        public static Tuple<Extended, Extended, Extended> Trapezoidal(cb1SRet1S f, Extended a, Extended b, Extended tol, uint max_refinements = 12)
         {
             var XTrapezoidal1 = new XTrapezoidal(f, a, b);
             return XTrapezoidal1.Integrate();
         }
         internal class XTrapezoidal
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended a_;
             private Extended b_;
             //private Extended tol_;
@@ -9083,7 +9157,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XTrapezoidal(cb1SExtended1S F1, Extended a, Extended b)
+            public XTrapezoidal(cb1SRet1S F1, Extended a, Extended b)
             {
                 F1_ = F1;
                 a_ = a;
@@ -9105,21 +9179,21 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussLegendre/*' />
-        public static Tuple<Extended, Extended> GaussLegendre(cb1SExtended1S f, dynamic a, dynamic b)
+        public static Tuple<Extended, Extended> GaussLegendre(cb1SRet1S f, dynamic a, dynamic b)
         {
             return GaussLegendre(f, ereal.t(a), ereal.t(b));
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussLegendre/*' />
-        public static Tuple<Extended, Extended> GaussLegendre(cb1SExtended1S f, Extended a, Extended b)
+        public static Tuple<Extended, Extended> GaussLegendre(cb1SRet1S f, Extended a, Extended b)
         {
             var XGaussLegendre1 = new XGaussLegendre(f, a, b);
             return XGaussLegendre1.Integrate();
         }
         internal class XGaussLegendre
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended a_;
             private Extended b_;
             private Extended X1 = new Extended();
@@ -9130,7 +9204,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XGaussLegendre(cb1SExtended1S F1, Extended a, Extended b)
+            public XGaussLegendre(cb1SRet1S F1, Extended a, Extended b)
             {
                 F1_ = F1;
                 a_ = a;
@@ -9151,7 +9225,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussKronrod/*' />
-        public static Tuple<Extended, Extended, Extended> GaussKronrod(cb1SExtended1S f, dynamic a, dynamic b, dynamic tol = null, uint max_depth = 12)
+        public static Tuple<Extended, Extended, Extended> GaussKronrod(cb1SRet1S f, dynamic a, dynamic b, dynamic tol = null, uint max_depth = 12)
         {
             if (tol == null) { tol = t(0); }
             return GaussKronrod(f, ereal.t(a), ereal.t(b), ereal.t(tol), max_depth);
@@ -9159,14 +9233,14 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussKronrod/*' />
-        public static Tuple<Extended, Extended, Extended> GaussKronrod(cb1SExtended1S f, Extended a, Extended b, Extended tol, uint max_depth = 12)
+        public static Tuple<Extended, Extended, Extended> GaussKronrod(cb1SRet1S f, Extended a, Extended b, Extended tol, uint max_depth = 12)
         {
             var XGaussKronrod1 = new XGaussKronrod(f, a, b);
             return XGaussKronrod1.Integrate();
         }
         internal class XGaussKronrod
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended a_;
             private Extended b_;
             //private Extended tol_;
@@ -9178,7 +9252,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XGaussKronrod(cb1SExtended1S F1, Extended a, Extended b)
+            public XGaussKronrod(cb1SRet1S F1, Extended a, Extended b)
             {
                 F1_ = F1;
                 a_ = a;
@@ -9200,7 +9274,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/TanhSinh/*' />
-        public static Tuple<Extended, Extended, Extended, int> TanhSinh(cb1SExtended1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Extended, Extended, Extended, int> TanhSinh(cb1SRet1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return TanhSinh(f, ereal.t(a), ereal.t(b), ereal.t(tol), max_refinements);
@@ -9208,14 +9282,14 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/TanhSinh/*' />
-        public static Tuple<Extended, Extended, Extended, int> TanhSinh(cb1SExtended1S f, Extended a, Extended b, Extended tol, uint max_refinements = 12)
+        public static Tuple<Extended, Extended, Extended, int> TanhSinh(cb1SRet1S f, Extended a, Extended b, Extended tol, uint max_refinements = 12)
         {
             var XTanhSinh1 = new XTanhSinh(f, a, b);
             return XTanhSinh1.Integrate();
         }
         internal class XTanhSinh
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended a_;
             private Extended b_;
             private Extended X1 = new Extended();
@@ -9226,7 +9300,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XTanhSinh(cb1SExtended1S F1, Extended a, Extended b)
+            public XTanhSinh(cb1SRet1S F1, Extended a, Extended b)
             {
                 F1_ = F1;
                 a_ = a;
@@ -9249,7 +9323,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/SinhSinh/*' />
-        public static Tuple<Extended, Extended, Extended, int> SinhSinh(cb1SExtended1S f, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Extended, Extended, Extended, int> SinhSinh(cb1SRet1S f, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return SinhSinh(f, ereal.t(tol), max_refinements);
@@ -9257,14 +9331,14 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/SinhSinh/*' />
-        public static Tuple<Extended, Extended, Extended, int> SinhSinh(cb1SExtended1S f, Extended tol, uint max_refinements = 12)
+        public static Tuple<Extended, Extended, Extended, int> SinhSinh(cb1SRet1S f, Extended tol, uint max_refinements = 12)
         {
             var XSinhSinh1 = new XSinhSinh(f);
             return XSinhSinh1.Integrate();
         }
         internal class XSinhSinh
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended X1 = new Extended();
             private Extended Y1 = new Extended();
             public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
@@ -9273,7 +9347,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XSinhSinh(cb1SExtended1S F1)
+            public XSinhSinh(cb1SRet1S F1)
             {
                 F1_ = F1;
             }
@@ -9294,7 +9368,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExpSinh/*' />
-        public static Tuple<Extended, Extended, Extended, int> ExpSinh(cb1SExtended1S f, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Extended, Extended, Extended, int> ExpSinh(cb1SRet1S f, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return ExpSinh(f, ereal.t(tol), max_refinements);
@@ -9302,14 +9376,14 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExpSinh/*' />
-        public static Tuple<Extended, Extended, Extended, int> ExpSinh(cb1SExtended1S f, Extended tol, uint max_refinements = 12)
+        public static Tuple<Extended, Extended, Extended, int> ExpSinh(cb1SRet1S f, Extended tol, uint max_refinements = 12)
         {
             var XExpSinh1 = new XExpSinh(f);
             return XExpSinh1.Integrate();
         }
         internal class XExpSinh
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended X1 = new Extended();
             private Extended Y1 = new Extended();
             public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
@@ -9318,7 +9392,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XExpSinh(cb1SExtended1S F1)
+            public XExpSinh(cb1SRet1S F1)
             {
                 F1_ = F1;
             }
@@ -9339,14 +9413,14 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraCos/*' />
-        public static Tuple<Extended, Extended> Ooura_Cos(cb1SExtended1S f)
+        public static Tuple<Extended, Extended> Ooura_Cos(cb1SRet1S f)
         {
             var XOoura_Cos1 = new XOoura_Cos(f);
             return XOoura_Cos1.Integrate();
         }
         internal class XOoura_Cos
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended X1 = new Extended();
             private Extended Y1 = new Extended();
             public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
@@ -9355,7 +9429,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XOoura_Cos(cb1SExtended1S F1)
+            public XOoura_Cos(cb1SRet1S F1)
             {
                 F1_ = F1;
             }
@@ -9374,14 +9448,14 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraSin/*' />
-        public static Tuple<Extended, Extended> Ooura_Sin(cb1SExtended1S f)
+        public static Tuple<Extended, Extended> Ooura_Sin(cb1SRet1S f)
         {
             var XOoura_Sin1 = new XOoura_Sin(f);
             return XOoura_Sin1.Integrate();
         }
         internal class XOoura_Sin
         {
-            private cb1SExtended1S F1_;
+            private cb1SRet1S F1_;
             private Extended X1 = new Extended();
             private Extended Y1 = new Extended();
             public void funcptr1(IntPtr xPtr, IntPtr fxPtr)
@@ -9390,7 +9464,7 @@ namespace FixedPrecNet
                 Y1 = F1_(X1);
                 Lib_XReal_Set(fxPtr, Y1.mpPtr);
             }
-            public XOoura_Sin(cb1SExtended1S F1)
+            public XOoura_Sin(cb1SRet1S F1)
             {
                 F1_ = F1;
             }
@@ -9421,7 +9495,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/RungeKutta4Const/*' />
-        public static void RungeKutta4Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        public static void RungeKutta4Const(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
         {
             var XOdeint1 = new XOdeintConst(1, F1, F2, matInput, StartTime, EndTime, dt);
             XOdeint1.Integrate();
@@ -9429,59 +9503,59 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/RungeKutta4Const/*' />
-        public static void RungeKutta4Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void RungeKutta4Const(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             RungeKutta4Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
 
-        public static void CashKarp54Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        public static void CashKarp54Const(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
         {
             var XOdeint1 = new XOdeintConst(2, F1, F2, matInput, StartTime, EndTime, dt);
             XOdeint1.Integrate();
         }
 
 
-        public static void CashKarp54Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void CashKarp54Const(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             CashKarp54Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
 
-        public static void DormandPrince5Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        public static void DormandPrince5Const(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
         {
             var XOdeint1 = new XOdeintConst(3, F1, F2, matInput, StartTime, EndTime, dt);
             XOdeint1.Integrate();
         }
 
 
-        public static void DormandPrince5Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void DormandPrince5Const(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             DormandPrince5Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
 
-        public static void Fehlberg78Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        public static void Fehlberg78Const(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
         {
             var XOdeint1 = new XOdeintConst(4, F1, F2, matInput, StartTime, EndTime, dt);
             XOdeint1.Integrate();
         }
 
 
-        public static void Fehlberg78Const(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void Fehlberg78Const(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             Fehlberg78Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
 
-        public static void AdamsBashforthMoultonConst(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
+        public static void AdamsBashforthMoultonConst(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt)
         {
             var XOdeint1 = new XOdeintConst(5, F1, F2, matInput, StartTime, EndTime, dt);
             XOdeint1.Integrate();
         }
 
 
-        public static void AdamsBashforthMoultonConst(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void AdamsBashforthMoultonConst(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             AdamsBashforthMoultonConst(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
@@ -9490,8 +9564,8 @@ namespace FixedPrecNet
         internal class XOdeintConst
         {
             private int what_;
-            private cbExtended1S2V F1_;
-            private cbExtended1S1V F2_;
+            private cb1S2V F1_;
+            private cb1S1V F2_;
             private ExtendedVec matInit_ = new ExtendedVec();
             private ExtendedVec matX = new ExtendedVec();
             private ExtendedVec matY = new ExtendedVec();
@@ -9522,7 +9596,7 @@ namespace FixedPrecNet
                 matX.mpPtr = tempxPtr;
                 t.mpPtr = temptPtr;
             }
-            internal XOdeintConst(int what, cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInit, Extended StartTime, Extended EndTime, Extended dt)
+            internal XOdeintConst(int what, cb1S2V F1, cb1S1V F2, ExtendedVec matInit, Extended StartTime, Extended EndTime, Extended dt)
             {
                 what_ = what;
                 StartTime_ = StartTime;
@@ -9616,7 +9690,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Adaptive/*' />
-        public static void DormandPrince5Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        public static void DormandPrince5Adaptive(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
         {
             var XOdeint1 = new XOdeintAdaptiveDenseOutput(1, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             XOdeint1.Integrate();
@@ -9624,72 +9698,72 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Adaptive/*' />
-        public static void DormandPrince5Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void DormandPrince5Adaptive(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             DormandPrince5Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void CashKarp54Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        public static void CashKarp54Adaptive(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
         {
             var XOdeint1 = new XOdeintAdaptiveDenseOutput(2, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             XOdeint1.Integrate();
         }
 
 
-        public static void CashKarp54Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void CashKarp54Adaptive(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             CashKarp54Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void Fehlberg78Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        public static void Fehlberg78Adaptive(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
         {
             var XOdeint1 = new XOdeintAdaptiveDenseOutput(3, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             XOdeint1.Integrate();
         }
 
 
-        public static void Fehlberg78Adaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void Fehlberg78Adaptive(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             Fehlberg78Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void BulirschStoerAdaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        public static void BulirschStoerAdaptive(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
         {
             var XOdeint1 = new XOdeintAdaptiveDenseOutput(4, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             XOdeint1.Integrate();
         }
 
 
-        public static void BulirschStoerAdaptive(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void BulirschStoerAdaptive(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             BulirschStoerAdaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void DormandPrince5DenseOutput(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        public static void DormandPrince5DenseOutput(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
         {
             var XOdeint1 = new XOdeintAdaptiveDenseOutput(5, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             XOdeint1.Integrate();
         }
 
 
-        public static void DormandPrince5DenseOutput(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void DormandPrince5DenseOutput(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             DormandPrince5DenseOutput(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void BulirschStoerDenseOutput(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+        public static void BulirschStoerDenseOutput(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
         {
             var XOdeint1 = new XOdeintAdaptiveDenseOutput(6, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             XOdeint1.Integrate();
         }
 
 
-        public static void BulirschStoerDenseOutput(cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void BulirschStoerDenseOutput(cb1S2V F1, cb1S1V F2, ExtendedVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             BulirschStoerDenseOutput(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
@@ -9698,8 +9772,8 @@ namespace FixedPrecNet
         internal class XOdeintAdaptiveDenseOutput
         {
             int what_;
-            private cbExtended1S2V F1_;
-            private cbExtended1S1V F2_;
+            private cb1S2V F1_;
+            private cb1S1V F2_;
             private ExtendedVec matInit_ = new ExtendedVec();
             private ExtendedVec matX = new ExtendedVec();
             private ExtendedVec matY = new ExtendedVec();
@@ -9732,7 +9806,7 @@ namespace FixedPrecNet
                 matX.mpPtr = tempxPtr;
                 t.mpPtr = temptPtr;
             }
-            internal XOdeintAdaptiveDenseOutput(int what, cbExtended1S2V F1, cbExtended1S1V F2, ExtendedVec matInit, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
+            internal XOdeintAdaptiveDenseOutput(int what, cb1S2V F1, cb1S1V F2, ExtendedVec matInit, Extended StartTime, Extended EndTime, Extended dt, Extended epsabs, Extended epsrel)
             {
                 what_ = what;
                 StartTime_ = StartTime;
@@ -9837,7 +9911,7 @@ namespace FixedPrecNet
         #region Eigen calculus
 
 
-        public static ExtendedMat PowellHybrd(cbExtended2M F1, cbExtended2M F2, ExtendedMat matInput)
+        public static ExtendedMat PowellHybrd(cb2M F1, cb2M F2, ExtendedMat matInput)
         {
             var EPowellHybrd1 = new EPowellHybrd(F1, F2, matInput);
             var matX = EPowellHybrd1.Solve();
@@ -9845,8 +9919,8 @@ namespace FixedPrecNet
         }
         internal class EPowellHybrd
         {
-            private cbExtended2M F1_;
-            private cbExtended2M F2_;
+            private cb2M F1_;
+            private cb2M F2_;
             private ExtendedMat matX1 = new ExtendedMat();
             private ExtendedMat matY1 = new ExtendedMat();
             private ExtendedMat matX2 = new ExtendedMat();
@@ -9875,7 +9949,7 @@ namespace FixedPrecNet
                 matX2.mpPtr = tempxPtr;
                 matY2.mpPtr = tempyPtr;
             }
-            internal EPowellHybrd(cbExtended2M F1, cbExtended2M F2, ExtendedMat matInput)
+            internal EPowellHybrd(cb2M F1, cb2M F2, ExtendedMat matInput)
             {
                 int n = matInput.rows;
                 matX.Resize(n, 1);
@@ -9895,7 +9969,7 @@ namespace FixedPrecNet
 
 
 
-        public static ExtendedMat Levenberg(cbExtended2M F1, cbExtended2M F2, ExtendedMat matInput, int n, int m)
+        public static ExtendedMat LevenbergMarquardt(cb2M F1, cb2M F2, ExtendedMat matInput, int n, int m)
         {
             var ELevenberg1 = new ELevenberg(F1, F2, matInput, n, m);
             var matX = ELevenberg1.Solve();
@@ -9903,8 +9977,8 @@ namespace FixedPrecNet
         }
         internal class ELevenberg
         {
-            private cbExtended2M F1_;
-            private cbExtended2M F2_;
+            private cb2M F1_;
+            private cb2M F2_;
             private ExtendedMat matX1 = new ExtendedMat();
             private ExtendedMat matY1 = new ExtendedMat();
             private ExtendedMat matX2 = new ExtendedMat();
@@ -9933,7 +10007,7 @@ namespace FixedPrecNet
                 matX2.mpPtr = tempxPtr;
                 matY2.mpPtr = tempyPtr;
             }
-            internal ELevenberg(cbExtended2M F1, cbExtended2M F2, ExtendedMat matInput, int n, int m)
+            internal ELevenberg(cb2M F1, cb2M F2, ExtendedMat matInput, int n, int m)
             {
                 matX.Resize(n, 1);
                 matFvec.Resize(m, 1);
@@ -9970,13 +10044,13 @@ namespace FixedPrecNet
         #region Boost/CppOptLib
 
 
-        public static ExtendedVec NelderMeadSolver(cb1SExtended1V F1, ExtendedVec matInput)
+        public static ExtendedVec NelderMeadSolver(cb1VRet1S F1, ExtendedVec matInput)
         {
             var ESolver11 = new EOptSolver1(constants.mp_nelder_mead_solver, F1, matInput);
             return ESolver11.Solve();
         }
 
-        public static ExtendedVec CMAesSolver(cb1SExtended1V F1, ExtendedVec matInput)
+        public static ExtendedVec CMAesSolver(cb1VRet1S F1, ExtendedVec matInput)
         {
             var ESolver11 = new EOptSolver1(constants.mp_cma_es_solver, F1, matInput);
             return ESolver11.Solve();
@@ -9985,7 +10059,7 @@ namespace FixedPrecNet
         internal class EOptSolver1
         {
             private int what_;
-            private cb1SExtended1V F1_;
+            private cb1VRet1S F1_;
             private ExtendedVec matX1 = new ExtendedVec();
             private ExtendedVec matY1 = new ExtendedVec();
             private ExtendedVec matX_ = new ExtendedVec();
@@ -10002,7 +10076,7 @@ namespace FixedPrecNet
                 matX1.mpPtr = tempxPtr;
                 matY1.mpPtr = tempyPtr;
             }
-            internal EOptSolver1(int what, cb1SExtended1V F1, ExtendedVec X)
+            internal EOptSolver1(int what, cb1VRet1S F1, ExtendedVec X)
             {
                 what_ = what;
                 matX_ = new ExtendedVec(X.Size);
@@ -10019,25 +10093,25 @@ namespace FixedPrecNet
         internal static extern void Lib_Eigen_XReal_Real_CppOptLib1(int what, cbProc2Ptr F1, IntPtr matXPtr, IntPtr matNormPtr, IntPtr xPtr, IntPtr fxPtr);
 
 
-        public static ExtendedVec LbfgsSolver(cb1SExtended1V F1, cbExtended2V F2, ExtendedVec matInput)
+        public static ExtendedVec LbfgsSolver(cb1VRet1S F1, cb2V F2, ExtendedVec matInput)
         {
             var ESolver21 = new EOptSolver2(constants.mp_lbfgs_solver, F1, F2, matInput);
             return ESolver21.Solve();
         }
 
-        public static ExtendedVec BfgsSolver(cb1SExtended1V F1, cbExtended2V F2, ExtendedVec matInput)
+        public static ExtendedVec BfgsSolver(cb1VRet1S F1, cb2V F2, ExtendedVec matInput)
         {
             var ESolver21 = new EOptSolver2(constants.mp_bfgs_solver, F1, F2, matInput);
             return ESolver21.Solve();
         }
 
-        public static ExtendedVec GradientDescentSolver(cb1SExtended1V F1, cbExtended2V F2, ExtendedVec matInput)
+        public static ExtendedVec GradientDescentSolver(cb1VRet1S F1, cb2V F2, ExtendedVec matInput)
         {
             var ESolver21 = new EOptSolver2(constants.mp_gradient_descent_solver, F1, F2, matInput);
             return ESolver21.Solve();
         }
 
-        public static ExtendedVec ConjugatedGradientDescentSolver(cb1SExtended1V F1, cbExtended2V F2, ExtendedVec matInput)
+        public static ExtendedVec ConjugatedGradientDescentSolver(cb1VRet1S F1, cb2V F2, ExtendedVec matInput)
         {
             var ESolver21 = new EOptSolver2(constants.mp_conjugated_gradient_descent_solver, F1, F2, matInput);
             return ESolver21.Solve();
@@ -10046,8 +10120,8 @@ namespace FixedPrecNet
         internal class EOptSolver2
         {
             private int what_;
-            private cb1SExtended1V F1_;
-            private cbExtended2V F2_;
+            private cb1VRet1S F1_;
+            private cb2V F2_;
             private ExtendedVec matX1 = new ExtendedVec();
             private ExtendedVec matY1 = new ExtendedVec();
             private ExtendedVec matX2 = new ExtendedVec();
@@ -10077,7 +10151,7 @@ namespace FixedPrecNet
                 matX2.mpPtr = tempxPtr;
                 matY2.mpPtr = tempyPtr;
             }
-            internal EOptSolver2(int what, cb1SExtended1V F1, cbExtended2V F2, ExtendedVec X)
+            internal EOptSolver2(int what, cb1VRet1S F1, cb2V F2, ExtendedVec X)
             {
                 what_ = what;
                 matX_ = new ExtendedVec(X.Size);
@@ -10097,7 +10171,7 @@ namespace FixedPrecNet
 
 
 
-        public static ExtendedVec NewtonDescentSolver(cb1SExtended1V F1, cbExtended2V F2, cbExtended1V1M F3, ExtendedVec matInput)
+        public static ExtendedVec NewtonDescentSolver(cb1VRet1S F1, cb2V F2, cb1V1M F3, ExtendedVec matInput)
         {
             var ESolver31 = new EOptSolver3(constants.mp_newton_descent_solver, F1, F2, F3, matInput);
             return ESolver31.Solve();
@@ -10106,9 +10180,9 @@ namespace FixedPrecNet
         internal class EOptSolver3
         {
             private int what_;
-            private cb1SExtended1V F1_;
-            private cbExtended2V F2_;
-            private cbExtended1V1M F3_;
+            private cb1VRet1S F1_;
+            private cb2V F2_;
+            private cb1V1M F3_;
             private ExtendedVec matX1 = new ExtendedVec();
             private ExtendedVec matY1 = new ExtendedVec();
             private ExtendedVec matX2 = new ExtendedVec();
@@ -10151,7 +10225,7 @@ namespace FixedPrecNet
                 matX3.mpPtr = tempxPtr;
                 matY3.mpPtr = tempyPtr;
             }
-            internal EOptSolver3(int what, cb1SExtended1V F1, cbExtended2V F2, cbExtended1V1M F3, ExtendedVec X)
+            internal EOptSolver3(int what, cb1VRet1S F1, cb2V F2, cb1V1M F3, ExtendedVec X)
             {
                 what_ = what;
                 matX_ = new ExtendedVec(X.Size);
@@ -10183,14 +10257,14 @@ namespace FixedPrecNet
 
 
 
+        #region Eigen 
+
 
 
 
         #region Matrix Creation
 
-        /// <summary>
-        /// Converts from a real scalar of type dreal
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static ExtendedMat mat_t(Extended x)
         {
             var matA = new ExtendedMat();
@@ -10199,25 +10273,21 @@ namespace FixedPrecNet
         }
 
 
-        /* *********************** */
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static ExtendedMatC mat_cplx_t(ExtendedMat matA)
         {
             return ecplx.mat_t(matA);
         }
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static ExtendedMatC mat_cplx_zeros(int n, int m)
         {
             return ecplx.mat_zeros(n, m);
         }
 
-        /* *********************** */
 
 
-
-
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static ExtendedMat mat_zeros(int n, int m)
         {
             var resout = new ExtendedMat();
@@ -10226,7 +10296,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ones/*' />
         public static ExtendedMat mat_ones(int n, int m)
         {
             var resout = new ExtendedMat();
@@ -10235,7 +10305,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_identity/*' />
         public static ExtendedMat mat_identity(int n, int m)
         {
             var resout = new ExtendedMat();
@@ -10244,7 +10314,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random/*' />
         public static ExtendedMat mat_random(int n, int m)
         {
             var resout = new ExtendedMat();
@@ -10253,7 +10323,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_symmetric/*' />
         public static ExtendedMat mat_random_symmetric(int n)
         {
             var resout = new ExtendedMat();
@@ -10262,7 +10332,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint/*' />
         public static ExtendedMat mat_random_selfadjoint(int n)
         {
             var resout = new ExtendedMat();
@@ -10271,6 +10341,7 @@ namespace FixedPrecNet
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint_posdef/*' />
         public static ExtendedMat mat_random_selfadjoint_posdef(int n)
         {
             var resout = new ExtendedMat();
@@ -10278,6 +10349,7 @@ namespace FixedPrecNet
             return resout;
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fill_linear/*' />
         public static ExtendedMat mat_fill_linear(int n, int m)
         {
             var resout = new ExtendedMat();
@@ -10291,6 +10363,724 @@ namespace FixedPrecNet
 
 
         #endregion
+
+
+
+
+
+        #region Read-only properties
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_rows/*' />
+        public static int mat_rows(ExtendedMat matA)
+        {
+            return matA.rows;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_cols(ExtendedMat matA)
+        {
+            return matA.cols;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_size(ExtendedMat matA)
+        {
+            return matA.size;
+        }
+
+
+        #endregion
+
+
+
+        #region Accessing and setting parts of a matrix
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_block/*' />
+        public static ExtendedMat mat_get_block(ExtendedMat matA, int i, int j, int p, int q)
+        {
+            return matA.get_Block(i, j, p, q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_block/*' />
+        public static void mat_set_block(ExtendedMat matA, int i, int j, int p, int q, ExtendedMat matB)
+        {
+            matA.set_Block(i, j, p, q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_row/*' />
+        public static ExtendedMat mat_get_row(ExtendedMat matA, int i)
+        {
+            return matA.get_Row(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_row/*' />
+        public static void mat_set_row(ExtendedMat matA, int i, ExtendedMat matB)
+        {
+            matA.set_Row(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_col/*' />
+        public static ExtendedMat mat_get_col(ExtendedMat matA, int i)
+        {
+            return matA.get_Col(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_col/*' />
+        public static void mat_set_col(ExtendedMat matA, int i, ExtendedMat matB)
+        {
+            matA.set_Col(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_diagonal/*' />
+        public static ExtendedMat mat_get_diagonal(ExtendedMat matA, int q = 0)
+        {
+            return matA.get_Diagonal(q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_diagonal/*' />
+        public static void mat_set_diagonal(ExtendedMat matA, int q, ExtendedMat matB)
+        {
+            matA.set_Diagonal(q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_triangular_view/*' />
+        public static ExtendedMat mat_get_triangular_view(ExtendedMat matA, int view = 1)
+        {
+            return matA.get_TriangularView(view);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_triangular_view/*' />
+        public static void mat_set_triangular_view(ExtendedMat matA, int view, ExtendedMat matB)
+        {
+            matA.set_TriangularView(view, matB);
+        }
+
+
+
+        #endregion
+
+
+
+
+        #region Changing the shape of a matrix and/or the order of coefficients
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort/*' />
+        public static void mat_sort(ExtendedMat matA, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.Sort(sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort_rows_by_col/*' />
+        public static void mat_sort_rows_by_col(ExtendedMat matA, int column_to_sort_by = 0, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.SortRowsByCol(column_to_sort_by, sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize/*' />
+        public static void mat_resize(ExtendedMat matA, int r, int c)
+        {
+            matA.Resize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize_like/*' />
+        public static void mat_resize_like(ExtendedMat matA, ExtendedMat matB)
+        {
+            matA.ResizeLike(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conservative_resize/*' />
+        public static void mat_conservative_resize(ExtendedMat matA, int r, int c)
+        {
+            matA.ConservativeResize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_as_diagonal/*' />
+        public static ExtendedMat mat_as_diagonal(ExtendedMat matA)
+        {
+            return matA.AsDiagonal();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_adjoint/*' />
+        public static ExtendedMat mat_adjoint(ExtendedMat matA)
+        {
+            return matA.Adjoint();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conjugate/*' />
+        public static ExtendedMat mat_conjugate(ExtendedMat matA)
+        {
+            return matA.Conjugate();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_transpose/*' />
+        public static ExtendedMat mat_transpose(ExtendedMat matA)
+        {
+            return matA.Transpose();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_full/*' />
+        public static ExtendedMat mat_reverse_full(ExtendedMat matA)
+        {
+            return matA.ReverseFull();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_row_wise/*' />
+        public static ExtendedMat mat_reverse_row_wise(ExtendedMat matA)
+        {
+            return matA.ReverseRowwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_col_wise/*' />
+        public static ExtendedMat mat_reverse_col_wise(ExtendedMat matA)
+        {
+            return matA.ReverseColwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_full/*' />
+        public static ExtendedMat mat_replicate_full(ExtendedMat matA, int vertical, int horizontal)
+        {
+            return matA.ReplicateFull(vertical, horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_row_wise/*' />
+        public static ExtendedMat mat_replicate_row_wise(ExtendedMat matA, int horizontal)
+        {
+            return matA.ReplicateRowwise(horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_col_wise/*' />
+        public static ExtendedMat mat_replicate_col_wise(ExtendedMat matA, int vertical)
+        {
+            return matA.ReplicateColwise(vertical);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_horizontal/*' />
+        public static ExtendedMat mat_concat_horizontal(ExtendedMat matA, ExtendedMat matB)
+        {
+            return matA.ConcatHorizontal(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_vertical/*' />
+        public static ExtendedMat mat_concat_vertical(ExtendedMat matA, ExtendedMat matB)
+        {
+            return matA.ConcatVertical(matB);
+        }
+
+
+
+        #endregion
+
+
+
+        #region Basic arithmetic operations
+
+
+
+
+
+        #endregion
+
+
+
+        #region Descriptive Statistics
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sum/*' />
+        public static ExtendedMat mat_sum(ExtendedMat matA, int partialmode)
+        {
+            //#define mp_const_full_matrix 1
+            //#define mp_const_rowwise 2
+            //#define mp_const_colwise 3
+            return matA.sum(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_prod/*' />
+        public static ExtendedMat mat_prod(ExtendedMat matA, int partialmode)
+        {
+
+            return matA.prod(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_mean/*' />
+        public static ExtendedMat mat_mean(ExtendedMat matA, int partialmode)
+        {
+            return matA.mean(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_min_coeff/*' />
+        public static ExtendedMat mat_min_coeff(ExtendedMat matA, int partialmode)
+        {
+            return matA.minCoeff(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_max_coeff/*' />
+        public static ExtendedMat mat_max_coeff(ExtendedMat matA, int partialmode)
+        {
+            return matA.maxCoeff(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_trace/*' />
+        public static Extended mat_trace(ExtendedMat matA, int partialmode)
+        {
+            return matA.get_Diagonal(0).sum(1)[0];
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_squared_norm/*' />
+        public static ExtendedMat mat_squared_norm(ExtendedMat matA, int partialmode)
+        {
+            return matA.squaredNorm(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_norm/*' />
+        public static ExtendedMat mat_norm(ExtendedMat matA, int partialmode)
+        {
+            return matA.Norm(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_stable_norm/*' />
+        public static ExtendedMat mat_stable_norm(ExtendedMat matA, int partialmode)
+        {
+            return matA.stableNorm(partialmode);
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_covariance/*' />
+        //public static ExtendedMat mat_covariance(ExtendedMat matA)
+        //{
+        //    return matA.Covariance();
+        //}
+
+
+
+        #endregion
+
+
+
+        #region Standard decompositions and linear solving
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ldlt/*' />
+        public static ExtendedMatMap mat_ldlt(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.LDLT(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_partial_piv_lu/*' />
+        public static ExtendedMatMap mat_partial_piv_lu(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.PartialPivLU(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_lu/*' />
+        public static ExtendedMatMap mat_full_piv_lu(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.FullPivLU(query, matB);
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        //public static ExtendedMatMap mat_llt(ExtendedMat matA, string query, [Optional] ExtendedMat matB)
+        //{
+        //    return matA.LLT(query, matB);
+        //}
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        public static ExtendedMatMap mat_llt(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.LLT(query, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_householder_qr/*' />
+        public static ExtendedMatMap mat_householder_qr(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.HouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_col_piv_householder_qr/*' />
+        public static ExtendedMatMap mat_col_piv_householder_qr(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.ColPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_householder_qr/*' />
+        public static ExtendedMatMap mat_full_piv_householder_qr(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.FullPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cod_householder_qr/*' />
+        public static ExtendedMatMap mat_cod_householder_qr(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.COD(query, matB);
+        }
+
+
+
+
+        #endregion
+
+
+
+
+        #region Singular Value and Eigen (selfadjoint) decompositions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd/*' />
+        public static ExtendedMatMap mat_jacobi_svd(ExtendedMat matA, string query)
+        {
+            return matA.JacobiSVD(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_thin/*' />
+        public static ExtendedMatMap mat_jacobi_svd_thin(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.JacobiSvdThin(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_full/*' />
+        public static ExtendedMatMap mat_jacobi_svd_full(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.JacobiSvdFull(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_values/*' />
+        public static ExtendedMatMap mat_self_adjoint_eigen_values(ExtendedMat matA, string query)
+        {
+            return matA.SelfAdjointEigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_system/*' />
+        public static ExtendedMatMap mat_self_adjoint_eigen_system(ExtendedMat matA, string query)
+        {
+            return matA.SelfAdjointEigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_values/*' />
+        public static ExtendedMatMap mat_generalized_self_adjoint_eigen_values(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenValues(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_system/*' />
+        public static ExtendedMatMap mat_generalized_self_adjoint_eigen_system(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenSolver(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_tridiagonalization/*' />
+        public static ExtendedMatMap mat_tridiagonalization(ExtendedMat matA, string query)
+        {
+            return matA.Tridiag(query);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen decompositions of general square matrices
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_hessenberg/*' />
+        public static ExtendedMatMap mat_hessenberg(ExtendedMat matA, string query)
+        {
+            return matA.Hessenberg(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_schur/*' />
+        public static ExtendedMatMap mat_schur(ExtendedMat matA, string query)
+        {
+            return matA.Schur(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_values/*' />
+        public static ExtendedMatMapC mat_eigen_values(ExtendedMat matA, string query)
+        {
+            return matA.EigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_system/*' />
+        public static ExtendedMatMapC mat_eigen_system(ExtendedMat matA, string query)
+        {
+            return matA.EigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_real_qz/*' />
+        public static ExtendedMatMap mat_real_qz(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.RealQZ(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_pseudo_eigen_system/*' />
+        public static ExtendedMatMap mat_pseudo_eigen_system(ExtendedMat matA, string query)
+        {
+            return matA.PseudoEigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_gen_eigen_values/*' />
+        public static ExtendedMatMapC mat_gen_eigen_values(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.GenEigenValues(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_gen_eigen_system/*' />
+        public static ExtendedMatMapC mat_gen_eigen_system(ExtendedMat matA, string query, ExtendedMat matB)
+        {
+            return matA.GenEigenSystem(query, matB);
+        }
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Fast Fourier Transform
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_fwd/*' />
+        public static ExtendedMatC mat_fft_fwd(ExtendedMat matA)
+        {
+            return matA.FFTFwd();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_inv/*' />
+        public static ExtendedMat mat_fft_inv(ExtendedMatC matA)
+        {
+            return matA.FFTRealInv();
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Functions of matrix argument
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_expm/*' />
+        public static ExtendedMat mat_expm(ExtendedMat matA)
+        {
+            return matA.ExpMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinm/*' />
+        public static ExtendedMat mat_sinm(ExtendedMat matA)
+        {
+            return matA.SinMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cosm/*' />
+        public static ExtendedMat mat_cosm(ExtendedMat matA)
+        {
+            return matA.CosMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinhm/*' />
+        public static ExtendedMat mat_sinhm(ExtendedMat matA)
+        {
+            return matA.SinhMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_coshm/*' />
+        public static ExtendedMat mat_coshm(ExtendedMat matA)
+        {
+            return matA.CoshMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sqrtm/*' />
+        public static ExtendedMat mat_sqrtm(ExtendedMat matA)
+        {
+            return matA.SqrtMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_logm/*' />
+        public static ExtendedMat mat_logm(ExtendedMat matA)
+        {
+            return matA.LogMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_powm/*' />
+        public static ExtendedMat mat_powm(ExtendedMat matA, Extended r)
+        {
+            return matA.PowMat();
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Eigen: Polynomials
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/roots_to_monic_poly/*' />
+        public static ExtendedMat roots_to_monic_poly(ExtendedMat vecA)
+        {
+            return vecA.RootsToMonicPolynomial();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_eval/*' />
+        public static ExtendedMat poly_eval(ExtendedMat polyA, ExtendedMat roots)
+        {
+            return polyA.PolyEval(roots);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_eval/*' />
+        public static ExtendedMatC poly_eval(ExtendedMat polyA, ExtendedMatC roots)
+        {
+            return polyA.PolyEval(roots);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_solve/*' />
+        public static ExtendedMatC poly_solve(ExtendedMat polyA)
+        {
+            return polyA.PolynomialSolver();
+        }
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+        #endregion
+
 
 
 

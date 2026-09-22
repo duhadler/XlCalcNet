@@ -115,6 +115,16 @@ namespace FixedPrecNet
             Lib_Eigen_FReal_MultipleResults(mpCat, mpType, (IntPtr)ResMap.mpPtr, what, str, (IntPtr)MatA.mpPtr, (IntPtr)MatB.mpPtr);
         }
 
+        //internal static void Call_Eigen_MultipleResults(int mpCat, int mpType, dynamic ResMap, int what, string str, dynamic MatA, [Optional] dynamic MatB)
+        //{
+        //    IntPtr MatBPtr = IntPtr.Zero;
+        //    if (MatB != null)
+        //    {
+        //        MatBPtr = (IntPtr)MatB.mpPtr;
+        //    }
+        //    Lib_Eigen_FReal_MultipleResults(mpCat, mpType, (IntPtr)ResMap.mpPtr, what, str, (IntPtr)MatA.mpPtr, MatBPtr);
+        //}
+
 
 
 
@@ -425,6 +435,28 @@ namespace FixedPrecNet
             return m1;
         }
 
+
+
+
+        public RetMatType ConcatHorizontal(RetMatType x)
+        {
+            var m1 = new RetMatType();
+            dlib.Lib_Eigen_FReal_BasicArithmetic(constants.mp_eigen, dlib.GetModuleIndex(typeof(MyType)), GetPtr(m1), constants.mp_const_concat_horizontal, mpPtr, GetPtr(x));
+            return m1;
+        }
+
+
+
+        public RetMatType ConcatVertical(RetMatType x)
+        {
+            var m1 = new RetMatType();
+            dlib.Lib_Eigen_FReal_BasicArithmetic(constants.mp_eigen, dlib.GetModuleIndex(typeof(MyType)), GetPtr(m1), constants.mp_const_concat_vertical, mpPtr, GetPtr(x));
+            return m1;
+        }
+
+
+
+
         #endregion
 
 
@@ -472,24 +504,6 @@ namespace FixedPrecNet
 
 
         #region Arithmetic Operators (BasicArithmetic)
-
-
-
-        public RetMatType ConcatHorizontal(RetMatType x)
-        {
-            var m1 = new RetMatType();
-            dlib.Lib_Eigen_FReal_BasicArithmetic(constants.mp_eigen, dlib.GetModuleIndex(typeof(MyType)), GetPtr(m1), constants.mp_const_concat_horizontal, mpPtr, GetPtr(x));
-            return m1;
-        }
-
-
-
-        public RetMatType ConcatVertical(RetMatType x)
-        {
-            var m1 = new RetMatType();
-            dlib.Lib_Eigen_FReal_BasicArithmetic(constants.mp_eigen, dlib.GetModuleIndex(typeof(MyType)), GetPtr(m1), constants.mp_const_concat_vertical, mpPtr, GetPtr(x));
-            return m1;
-        }
 
 
 
@@ -554,6 +568,13 @@ namespace FixedPrecNet
             return res_map;
         }
 
+
+        //public RetMapType LLT(string results, [Optional] MatType b)
+        //{
+        //    var res_map = new RetMapType();
+        //    dlib.Call_Eigen_MultipleResults(constants.mp_eigen, dlib.GetModuleIndex(typeof(MyType)), res_map, constants.mp_llt, results, this, b);
+        //    return res_map;
+        //}
 
         public RetMapType LLT(string results, MatType b)
         {

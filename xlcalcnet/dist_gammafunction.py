@@ -449,6 +449,47 @@ class ctx_hypoexp(ctx_rv_cont):
             # if cdf: return 1-res
             # else: return res
             return 1-res
+
+
+        #from: C:\Users\DUHad\Documents\DataXlCalcNet\A01_ExamplesPython\
+        #B04_StatisticalDistributions\C03_BaseClassCont\D01_Basic_cont_distributions.py, line 1349
+
+        a = mpm.matrix([1,0,0,0])
+        one = mpm.matrix([1,1,1,1])
+        Theta = mpm.matrix(4,4)
+    #        print(Theta)
+        Theta[0,0] = -l[0]
+        Theta[0,1] = l[0]
+        Theta[1,1] = -l[1]
+        Theta[1,2] = l[1]
+        Theta[2,2] = -l[2]
+        Theta[2,3] = l[2]
+        Theta[3,3] = -l[3]
+    #        print(Theta)
+    #        print()
+
+        xt = x*Theta
+        expxt = mpm.expm(xt)
+        expxt = mpm.expm(xt)
+    #        print(expxt)
+    #        print()
+
+        aexpxt = a.T*expxt
+    #        print(aexpxt)
+    #        print()
+        aexpxtt = -aexpxt *Theta*one
+        print("pdf:", aexpxtt)
+
+        oaexpxt = aexpxt*one
+        print("cdf:", 1-oaexpxt)
+        print(" sf:", oaexpxt)
+    #        print()
+        print()
+        return
+
+
+
+
         return None
 
     def sf(self, x):

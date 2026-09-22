@@ -102,7 +102,7 @@ namespace TestXlCalcNetPrecCS
 
             //Tests.FlintNumericalCalculus();  // B05
 
-            //Tests.MatAll();  // B06
+            Tests.MatAll();  // B06
 
             //Tests.MatFp();  // B06
 
@@ -127,7 +127,7 @@ namespace TestXlCalcNetPrecCS
 
             //Tests.CplxHypergeometric_1F1();  // B11
 
-            Tests.RealHypergeometric_pFq();  // B12
+            //Tests.RealHypergeometric_pFq();  // B12
 
             //Tests.CplxHypergeometric_pFq();  // B12
 

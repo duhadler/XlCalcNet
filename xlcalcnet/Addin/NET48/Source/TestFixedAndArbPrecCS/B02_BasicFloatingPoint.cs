@@ -166,24 +166,24 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.zero(); break; }
-                        case " sreal": { res1 = sreal.zero(); break; }
-                        case " dreal": { res1 = dreal.zero(); break; }
-                        case " ereal": { res1 = ereal.zero(); break; }
-                        case " qreal": { res1 = qreal.zero(); break; }
-                        case " oreal": { res1 = oreal.zero(); break; }
+                        case "math53": { res1 = math53.zero; break; }
+                        case " sreal": { res1 = sreal.zero; break; }
+                        case " dreal": { res1 = dreal.zero; break; }
+                        case " ereal": { res1 = ereal.zero; break; }
+                        case " qreal": { res1 = qreal.zero; break; }
+                        case " oreal": { res1 = oreal.zero; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.zero(); break; }
-                        case "sflint": { res1 = sflint.zero(); break; }
-                        case "dflint": { res1 = dflint.zero(); break; }
-                        case "eflint": { res1 = eflint.zero(); break; }
-                        case "qflint": { res1 = qflint.zero(); break; }
-                        case "oflint": { res1 = oflint.zero(); break; }
-                        case "mflint": { res1 = mflint.zero(); break; }
-                        case "aflint": { res1 = aflint.zero(); break; }
+                        case " mreal": { res1 = mreal.zero; break; }
+                        case "sflint": { res1 = sflint.zero; break; }
+                        case "dflint": { res1 = dflint.zero; break; }
+                        case "eflint": { res1 = eflint.zero; break; }
+                        case "qflint": { res1 = qflint.zero; break; }
+                        case "oflint": { res1 = oflint.zero; break; }
+                        case "mflint": { res1 = mflint.zero; break; }
+                        case "aflint": { res1 = aflint.zero; break; }
 #endif
                     }
-                    Console.WriteLine("{0}: zero(): {1}", NumType, res1);
+                    Console.WriteLine("{0}: zero: {1}", NumType, res1);
                 }
                 Console.WriteLine();
             }
@@ -196,24 +196,24 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.negzero(); break; }
-                        case " sreal": { res1 = sreal.negzero(); break; }
-                        case " dreal": { res1 = dreal.negzero(); break; }
-                        case " ereal": { res1 = ereal.negzero(); break; }
-                        case " qreal": { res1 = qreal.negzero(); break; }
-                        case " oreal": { res1 = oreal.negzero(); break; }
+                        case "math53": { res1 = math53.negzero; break; }
+                        case " sreal": { res1 = sreal.negzero; break; }
+                        case " dreal": { res1 = dreal.negzero; break; }
+                        case " ereal": { res1 = ereal.negzero; break; }
+                        case " qreal": { res1 = qreal.negzero; break; }
+                        case " oreal": { res1 = oreal.negzero; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.negzero(); break; }
-                        case "sflint": { res1 = sflint.negzero(); break; }
-                        case "dflint": { res1 = dflint.negzero(); break; }
-                        case "eflint": { res1 = eflint.negzero(); break; }
-                        case "qflint": { res1 = qflint.negzero(); break; }
-                        case "oflint": { res1 = oflint.negzero(); break; }
-                        case "mflint": { res1 = mflint.negzero(); break; }
-                        case "aflint": { res1 = aflint.negzero(); break; }
+                        case " mreal": { res1 = mreal.negzero; break; }
+                        case "sflint": { res1 = sflint.negzero; break; }
+                        case "dflint": { res1 = dflint.negzero; break; }
+                        case "eflint": { res1 = eflint.negzero; break; }
+                        case "qflint": { res1 = qflint.negzero; break; }
+                        case "oflint": { res1 = oflint.negzero; break; }
+                        case "mflint": { res1 = mflint.negzero; break; }
+                        case "aflint": { res1 = aflint.negzero; break; }
 #endif
                     }
-                    Console.WriteLine("{0}: negzero(): {1}", NumType, res1);
+                    Console.WriteLine("{0}: negzero: {1}", NumType, res1);
                 }
                 Console.WriteLine();
             }
@@ -226,24 +226,24 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.one(); break; }
-                        case " sreal": { res1 = sreal.one(); break; }
-                        case " dreal": { res1 = dreal.one(); break; }
-                        case " ereal": { res1 = ereal.one(); break; }
-                        case " qreal": { res1 = qreal.one(); break; }
-                        case " oreal": { res1 = oreal.one(); break; }
+                        case "math53": { res1 = math53.one; break; }
+                        case " sreal": { res1 = sreal.one; break; }
+                        case " dreal": { res1 = dreal.one; break; }
+                        case " ereal": { res1 = ereal.one; break; }
+                        case " qreal": { res1 = qreal.one; break; }
+                        case " oreal": { res1 = oreal.one; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.one(); break; }
-                        case "sflint": { res1 = sflint.one(); break; }
-                        case "dflint": { res1 = dflint.one(); break; }
-                        case "eflint": { res1 = eflint.one(); break; }
-                        case "qflint": { res1 = qflint.one(); break; }
-                        case "oflint": { res1 = oflint.one(); break; }
-                        case "mflint": { res1 = mflint.one(); break; }
-                        case "aflint": { res1 = aflint.one(); break; }
+                        case " mreal": { res1 = mreal.one; break; }
+                        case "sflint": { res1 = sflint.one; break; }
+                        case "dflint": { res1 = dflint.one; break; }
+                        case "eflint": { res1 = eflint.one; break; }
+                        case "qflint": { res1 = qflint.one; break; }
+                        case "oflint": { res1 = oflint.one; break; }
+                        case "mflint": { res1 = mflint.one; break; }
+                        case "aflint": { res1 = aflint.one; break; }
 #endif
                     }
-                    Console.WriteLine("{0}: one(): {1}", NumType, res1);
+                    Console.WriteLine("{0}: one: {1}", NumType, res1);
                 }
                 Console.WriteLine();
             }
@@ -256,24 +256,24 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.inf(); break; }
-                        case " sreal": { res1 = sreal.inf(); break; }
-                        case " dreal": { res1 = dreal.inf(); break; }
-                        case " ereal": { res1 = ereal.inf(); break; }
-                        case " qreal": { res1 = qreal.inf(); break; }
-                        case " oreal": { res1 = oreal.inf(); break; }
+                        case "math53": { res1 = math53.inf; break; }
+                        case " sreal": { res1 = sreal.inf; break; }
+                        case " dreal": { res1 = dreal.inf; break; }
+                        case " ereal": { res1 = ereal.inf; break; }
+                        case " qreal": { res1 = qreal.inf; break; }
+                        case " oreal": { res1 = oreal.inf; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.inf(); break; }
-                        case "sflint": { res1 = sflint.inf(); break; }
-                        case "dflint": { res1 = dflint.inf(); break; }
-                        case "eflint": { res1 = eflint.inf(); break; }
-                        case "qflint": { res1 = qflint.inf(); break; }
-                        case "oflint": { res1 = oflint.inf(); break; }
-                        case "mflint": { res1 = mflint.inf(); break; }
-                        case "aflint": { res1 = aflint.inf(); break; }
+                        case " mreal": { res1 = mreal.inf; break; }
+                        case "sflint": { res1 = sflint.inf; break; }
+                        case "dflint": { res1 = dflint.inf; break; }
+                        case "eflint": { res1 = eflint.inf; break; }
+                        case "qflint": { res1 = qflint.inf; break; }
+                        case "oflint": { res1 = oflint.inf; break; }
+                        case "mflint": { res1 = mflint.inf; break; }
+                        case "aflint": { res1 = aflint.inf; break; }
 #endif
                     }
-                    Console.WriteLine("{0}: inf(): {1}", NumType, res1);
+                    Console.WriteLine("{0}: inf: {1}", NumType, res1);
                 }
                 Console.WriteLine();
             }
@@ -286,24 +286,24 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.neginf(); break; }
-                        case " sreal": { res1 = sreal.neginf(); break; }
-                        case " dreal": { res1 = dreal.neginf(); break; }
-                        case " ereal": { res1 = ereal.neginf(); break; }
-                        case " qreal": { res1 = qreal.neginf(); break; }
-                        case " oreal": { res1 = oreal.neginf(); break; }
+                        case "math53": { res1 = math53.neginf; break; }
+                        case " sreal": { res1 = sreal.neginf; break; }
+                        case " dreal": { res1 = dreal.neginf; break; }
+                        case " ereal": { res1 = ereal.neginf; break; }
+                        case " qreal": { res1 = qreal.neginf; break; }
+                        case " oreal": { res1 = oreal.neginf; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.neginf(); break; }
-                        case "sflint": { res1 = sflint.neginf(); break; }
-                        case "dflint": { res1 = dflint.neginf(); break; }
-                        case "eflint": { res1 = eflint.neginf(); break; }
-                        case "qflint": { res1 = qflint.neginf(); break; }
-                        case "oflint": { res1 = oflint.neginf(); break; }
-                        case "mflint": { res1 = mflint.neginf(); break; }
-                        case "aflint": { res1 = aflint.neginf(); break; }
+                        case " mreal": { res1 = mreal.neginf; break; }
+                        case "sflint": { res1 = sflint.neginf; break; }
+                        case "dflint": { res1 = dflint.neginf; break; }
+                        case "eflint": { res1 = eflint.neginf; break; }
+                        case "qflint": { res1 = qflint.neginf; break; }
+                        case "oflint": { res1 = oflint.neginf; break; }
+                        case "mflint": { res1 = mflint.neginf; break; }
+                        case "aflint": { res1 = aflint.neginf; break; }
 #endif
                     }
-                    Console.WriteLine("{0}: neginf(): {1}", NumType, res1);
+                    Console.WriteLine("{0}: neginf: {1}", NumType, res1);
                 }
                 Console.WriteLine();
             }
@@ -316,24 +316,24 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.nan(); break; }
-                        case " sreal": { res1 = sreal.nan(); break; }
-                        case " dreal": { res1 = dreal.nan(); break; }
-                        case " ereal": { res1 = ereal.nan(); break; }
-                        case " qreal": { res1 = qreal.nan(); break; }
-                        case " oreal": { res1 = oreal.nan(); break; }
+                        case "math53": { res1 = math53.nan; break; }
+                        case " sreal": { res1 = sreal.nan; break; }
+                        case " dreal": { res1 = dreal.nan; break; }
+                        case " ereal": { res1 = ereal.nan; break; }
+                        case " qreal": { res1 = qreal.nan; break; }
+                        case " oreal": { res1 = oreal.nan; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.nan(); break; }
-                        case "sflint": { res1 = sflint.nan(); break; }
-                        case "dflint": { res1 = dflint.nan(); break; }
-                        case "eflint": { res1 = eflint.nan(); break; }
-                        case "qflint": { res1 = qflint.nan(); break; }
-                        case "oflint": { res1 = oflint.nan(); break; }
-                        case "mflint": { res1 = mflint.nan(); break; }
-                        case "aflint": { res1 = aflint.nan(); break; }
+                        case " mreal": { res1 = mreal.nan; break; }
+                        case "sflint": { res1 = sflint.nan; break; }
+                        case "dflint": { res1 = dflint.nan; break; }
+                        case "eflint": { res1 = eflint.nan; break; }
+                        case "qflint": { res1 = qflint.nan; break; }
+                        case "oflint": { res1 = oflint.nan; break; }
+                        case "mflint": { res1 = mflint.nan; break; }
+                        case "aflint": { res1 = aflint.nan; break; }
 #endif
                     }
-                    Console.WriteLine("{0}: nan(): {1}", NumType, res1);
+                    Console.WriteLine("{0}: nan: {1}", NumType, res1);
                 }
                 Console.WriteLine();
             }
@@ -1962,21 +1962,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.degree(); break; }
-                        case " sreal": { res1 = sreal.degree(); break; }
-                        case " dreal": { res1 = dreal.degree(); break; }
-                        case " ereal": { res1 = ereal.degree(); break; }
-                        case " qreal": { res1 = qreal.degree(); break; }
-                        case " oreal": { res1 = oreal.degree(); break; }
+                        case "math53": { res1 = math53.degree; break; }
+                        case " sreal": { res1 = sreal.degree; break; }
+                        case " dreal": { res1 = dreal.degree; break; }
+                        case " ereal": { res1 = ereal.degree; break; }
+                        case " qreal": { res1 = qreal.degree; break; }
+                        case " oreal": { res1 = oreal.degree; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.degree(); break; }
-                        case "sflint": { res1 = sflint.degree(); break; }
-                        case "dflint": { res1 = dflint.degree(); break; }
-                        case "eflint": { res1 = eflint.degree(); break; }
-                        case "qflint": { res1 = qflint.degree(); break; }
-                        case "oflint": { res1 = oflint.degree(); break; }
-                        case "mflint": { res1 = mflint.degree(); break; }
-                        case "aflint": { res1 = aflint.degree(); break; }
+                        case " mreal": { res1 = mreal.degree; break; }
+                        case "sflint": { res1 = sflint.degree; break; }
+                        case "dflint": { res1 = dflint.degree; break; }
+                        case "eflint": { res1 = eflint.degree; break; }
+                        case "qflint": { res1 = qflint.degree; break; }
+                        case "oflint": { res1 = oflint.degree; break; }
+                        case "mflint": { res1 = mflint.degree; break; }
+                        case "aflint": { res1 = aflint.degree; break; }
 #endif
                     }
                     Console.WriteLine("{0}: degree(): " + f(NumType) + "{1}", NumType, res1);
@@ -1992,21 +1992,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.phi(); break; }
-                        case " sreal": { res1 = sreal.phi(); break; }
-                        case " dreal": { res1 = dreal.phi(); break; }
-                        case " ereal": { res1 = ereal.phi(); break; }
-                        case " qreal": { res1 = qreal.phi(); break; }
-                        case " oreal": { res1 = oreal.phi(); break; }
+                        case "math53": { res1 = math53.phi; break; }
+                        case " sreal": { res1 = sreal.phi; break; }
+                        case " dreal": { res1 = dreal.phi; break; }
+                        case " ereal": { res1 = ereal.phi; break; }
+                        case " qreal": { res1 = qreal.phi; break; }
+                        case " oreal": { res1 = oreal.phi; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.phi(); break; }
-                        case "sflint": { res1 = sflint.phi(); break; }
-                        case "dflint": { res1 = dflint.phi(); break; }
-                        case "eflint": { res1 = eflint.phi(); break; }
-                        case "qflint": { res1 = qflint.phi(); break; }
-                        case "oflint": { res1 = oflint.phi(); break; }
-                        case "mflint": { res1 = mflint.phi(); break; }
-                        case "aflint": { res1 = aflint.phi(); break; }
+                        case " mreal": { res1 = mreal.phi; break; }
+                        case "sflint": { res1 = sflint.phi; break; }
+                        case "dflint": { res1 = dflint.phi; break; }
+                        case "eflint": { res1 = eflint.phi; break; }
+                        case "qflint": { res1 = qflint.phi; break; }
+                        case "oflint": { res1 = oflint.phi; break; }
+                        case "mflint": { res1 = mflint.phi; break; }
+                        case "aflint": { res1 = aflint.phi; break; }
 #endif
                     }
                     Console.WriteLine("{0}: phi(): " + f(NumType) + "{1}", NumType, res1);
@@ -2022,21 +2022,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.ln2(); break; }
-                        case " sreal": { res1 = sreal.ln2(); break; }
-                        case " dreal": { res1 = dreal.ln2(); break; }
-                        case " ereal": { res1 = ereal.ln2(); break; }
-                        case " qreal": { res1 = qreal.ln2(); break; }
-                        case " oreal": { res1 = oreal.ln2(); break; }
+                        case "math53": { res1 = math53.ln2; break; }
+                        case " sreal": { res1 = sreal.ln2; break; }
+                        case " dreal": { res1 = dreal.ln2; break; }
+                        case " ereal": { res1 = ereal.ln2; break; }
+                        case " qreal": { res1 = qreal.ln2; break; }
+                        case " oreal": { res1 = oreal.ln2; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.ln2(); break; }
-                        case "sflint": { res1 = sflint.ln2(); break; }
-                        case "dflint": { res1 = dflint.ln2(); break; }
-                        case "eflint": { res1 = eflint.ln2(); break; }
-                        case "qflint": { res1 = qflint.ln2(); break; }
-                        case "oflint": { res1 = oflint.ln2(); break; }
-                        case "mflint": { res1 = mflint.ln2(); break; }
-                        case "aflint": { res1 = aflint.ln2(); break; }
+                        case " mreal": { res1 = mreal.ln2; break; }
+                        case "sflint": { res1 = sflint.ln2; break; }
+                        case "dflint": { res1 = dflint.ln2; break; }
+                        case "eflint": { res1 = eflint.ln2; break; }
+                        case "qflint": { res1 = qflint.ln2; break; }
+                        case "oflint": { res1 = oflint.ln2; break; }
+                        case "mflint": { res1 = mflint.ln2; break; }
+                        case "aflint": { res1 = aflint.ln2; break; }
 #endif
                     }
                     Console.WriteLine("{0}: ln2(): " + f(NumType) + "{1}", NumType, res1);
@@ -2052,21 +2052,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.ln10(); break; }
-                        case " sreal": { res1 = sreal.ln10(); break; }
-                        case " dreal": { res1 = dreal.ln10(); break; }
-                        case " ereal": { res1 = ereal.ln10(); break; }
-                        case " qreal": { res1 = qreal.ln10(); break; }
-                        case " oreal": { res1 = oreal.ln10(); break; }
+                        case "math53": { res1 = math53.ln10; break; }
+                        case " sreal": { res1 = sreal.ln10; break; }
+                        case " dreal": { res1 = dreal.ln10; break; }
+                        case " ereal": { res1 = ereal.ln10; break; }
+                        case " qreal": { res1 = qreal.ln10; break; }
+                        case " oreal": { res1 = oreal.ln10; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.ln10(); break; }
-                        case "sflint": { res1 = sflint.ln10(); break; }
-                        case "dflint": { res1 = dflint.ln10(); break; }
-                        case "eflint": { res1 = eflint.ln10(); break; }
-                        case "qflint": { res1 = qflint.ln10(); break; }
-                        case "oflint": { res1 = oflint.ln10(); break; }
-                        case "mflint": { res1 = mflint.ln10(); break; }
-                        case "aflint": { res1 = aflint.ln10(); break; }
+                        case " mreal": { res1 = mreal.ln10; break; }
+                        case "sflint": { res1 = sflint.ln10; break; }
+                        case "dflint": { res1 = dflint.ln10; break; }
+                        case "eflint": { res1 = eflint.ln10; break; }
+                        case "qflint": { res1 = qflint.ln10; break; }
+                        case "oflint": { res1 = oflint.ln10; break; }
+                        case "mflint": { res1 = mflint.ln10; break; }
+                        case "aflint": { res1 = aflint.ln10; break; }
 #endif
                     }
                     Console.WriteLine("{0}: ln10(): " + f(NumType) + "{1}", NumType, res1);
@@ -2082,21 +2082,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.pi(); break; }
-                        case " sreal": { res1 = sreal.pi(); break; }
-                        case " dreal": { res1 = dreal.pi(); break; }
-                        case " ereal": { res1 = ereal.pi(); break; }
-                        case " qreal": { res1 = qreal.pi(); break; }
-                        case " oreal": { res1 = oreal.pi(); break; }
+                        case "math53": { res1 = math53.pi; break; }
+                        case " sreal": { res1 = sreal.pi; break; }
+                        case " dreal": { res1 = dreal.pi; break; }
+                        case " ereal": { res1 = ereal.pi; break; }
+                        case " qreal": { res1 = qreal.pi; break; }
+                        case " oreal": { res1 = oreal.pi; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.pi(); break; }
-                        case "sflint": { res1 = sflint.pi(); break; }
-                        case "dflint": { res1 = dflint.pi(); break; }
-                        case "eflint": { res1 = eflint.pi(); break; }
-                        case "qflint": { res1 = qflint.pi(); break; }
-                        case "oflint": { res1 = oflint.pi(); break; }
-                        case "mflint": { res1 = mflint.pi(); break; }
-                        case "aflint": { res1 = aflint.pi(); break; }
+                        case " mreal": { res1 = mreal.pi; break; }
+                        case "sflint": { res1 = sflint.pi; break; }
+                        case "dflint": { res1 = dflint.pi; break; }
+                        case "eflint": { res1 = eflint.pi; break; }
+                        case "qflint": { res1 = qflint.pi; break; }
+                        case "oflint": { res1 = oflint.pi; break; }
+                        case "mflint": { res1 = mflint.pi; break; }
+                        case "aflint": { res1 = aflint.pi; break; }
 #endif
                     }
                     Console.WriteLine("{0}: pi(): " + f(NumType) + "{1}", NumType, res1);
@@ -2112,21 +2112,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.e(); break; }
-                        case " sreal": { res1 = sreal.e(); break; }
-                        case " dreal": { res1 = dreal.e(); break; }
-                        case " ereal": { res1 = ereal.e(); break; }
-                        case " qreal": { res1 = qreal.e(); break; }
-                        case " oreal": { res1 = oreal.e(); break; }
+                        case "math53": { res1 = math53.e; break; }
+                        case " sreal": { res1 = sreal.e; break; }
+                        case " dreal": { res1 = dreal.e; break; }
+                        case " ereal": { res1 = ereal.e; break; }
+                        case " qreal": { res1 = qreal.e; break; }
+                        case " oreal": { res1 = oreal.e; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.e(); break; }
-                        case "sflint": { res1 = sflint.e(); break; }
-                        case "dflint": { res1 = dflint.e(); break; }
-                        case "eflint": { res1 = eflint.e(); break; }
-                        case "qflint": { res1 = qflint.e(); break; }
-                        case "oflint": { res1 = oflint.e(); break; }
-                        case "mflint": { res1 = mflint.e(); break; }
-                        case "aflint": { res1 = aflint.e(); break; }
+                        case " mreal": { res1 = mreal.e; break; }
+                        case "sflint": { res1 = sflint.e; break; }
+                        case "dflint": { res1 = dflint.e; break; }
+                        case "eflint": { res1 = eflint.e; break; }
+                        case "qflint": { res1 = qflint.e; break; }
+                        case "oflint": { res1 = oflint.e; break; }
+                        case "mflint": { res1 = mflint.e; break; }
+                        case "aflint": { res1 = aflint.e; break; }
 #endif
                     }
                     Console.WriteLine("{0}: e(): " + f(NumType) + "{1}", NumType, res1);
@@ -2142,21 +2142,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.egamma(); break; }
-                        case " sreal": { res1 = sreal.egamma(); break; }
-                        case " dreal": { res1 = dreal.egamma(); break; }
-                        case " ereal": { res1 = ereal.egamma(); break; }
-                        case " qreal": { res1 = qreal.egamma(); break; }
-                        case " oreal": { res1 = oreal.egamma(); break; }
+                        case "math53": { res1 = math53.egamma; break; }
+                        case " sreal": { res1 = sreal.egamma; break; }
+                        case " dreal": { res1 = dreal.egamma; break; }
+                        case " ereal": { res1 = ereal.egamma; break; }
+                        case " qreal": { res1 = qreal.egamma; break; }
+                        case " oreal": { res1 = oreal.egamma; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.egamma(); break; }
-                        case "sflint": { res1 = sflint.egamma(); break; }
-                        case "dflint": { res1 = dflint.egamma(); break; }
-                        case "eflint": { res1 = eflint.egamma(); break; }
-                        case "qflint": { res1 = qflint.egamma(); break; }
-                        case "oflint": { res1 = oflint.egamma(); break; }
-                        case "mflint": { res1 = mflint.egamma(); break; }
-                        case "aflint": { res1 = aflint.egamma(); break; }
+                        case " mreal": { res1 = mreal.egamma; break; }
+                        case "sflint": { res1 = sflint.egamma; break; }
+                        case "dflint": { res1 = dflint.egamma; break; }
+                        case "eflint": { res1 = eflint.egamma; break; }
+                        case "qflint": { res1 = qflint.egamma; break; }
+                        case "oflint": { res1 = oflint.egamma; break; }
+                        case "mflint": { res1 = mflint.egamma; break; }
+                        case "aflint": { res1 = aflint.egamma; break; }
 #endif
                     }
                     Console.WriteLine("{0}: egamma(): " + f(NumType) + "{1}", NumType, res1);
@@ -2165,28 +2165,28 @@ namespace TestXlCalcNetPrecCS
             }
 
 
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("egamma"))
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("apery"))
             {
                 foreach (var NumType in NumTypeArray)
                 {
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.apery(); break; }
-                        case " sreal": { res1 = sreal.apery(); break; }
-                        case " dreal": { res1 = dreal.apery(); break; }
-                        case " ereal": { res1 = ereal.apery(); break; }
-                        case " qreal": { res1 = qreal.apery(); break; }
-                        case " oreal": { res1 = oreal.apery(); break; }
+                        case "math53": { res1 = math53.apery; break; }
+                        case " sreal": { res1 = sreal.apery; break; }
+                        case " dreal": { res1 = dreal.apery; break; }
+                        case " ereal": { res1 = ereal.apery; break; }
+                        case " qreal": { res1 = qreal.apery; break; }
+                        case " oreal": { res1 = oreal.apery; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.apery(); break; }
-                        case "sflint": { res1 = sflint.apery(); break; }
-                        case "dflint": { res1 = dflint.apery(); break; }
-                        case "eflint": { res1 = eflint.apery(); break; }
-                        case "qflint": { res1 = qflint.apery(); break; }
-                        case "oflint": { res1 = oflint.apery(); break; }
-                        case "mflint": { res1 = mflint.apery(); break; }
-                        case "aflint": { res1 = aflint.apery(); break; }
+                        case " mreal": { res1 = mreal.apery; break; }
+                        case "sflint": { res1 = sflint.apery; break; }
+                        case "dflint": { res1 = dflint.apery; break; }
+                        case "eflint": { res1 = eflint.apery; break; }
+                        case "qflint": { res1 = qflint.apery; break; }
+                        case "oflint": { res1 = oflint.apery; break; }
+                        case "mflint": { res1 = mflint.apery; break; }
+                        case "aflint": { res1 = aflint.apery; break; }
 #endif
                     }
                     Console.WriteLine("{0}: apery(): " + f(NumType) + "{1}", NumType, res1);
@@ -2202,21 +2202,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.catalan(); break; }
-                        case " sreal": { res1 = sreal.catalan(); break; }
-                        case " dreal": { res1 = dreal.catalan(); break; }
-                        case " ereal": { res1 = ereal.catalan(); break; }
-                        case " qreal": { res1 = qreal.catalan(); break; }
-                        case " oreal": { res1 = oreal.catalan(); break; }
+                        case "math53": { res1 = math53.catalan; break; }
+                        case " sreal": { res1 = sreal.catalan; break; }
+                        case " dreal": { res1 = dreal.catalan; break; }
+                        case " ereal": { res1 = ereal.catalan; break; }
+                        case " qreal": { res1 = qreal.catalan; break; }
+                        case " oreal": { res1 = oreal.catalan; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.catalan(); break; }
-                        case "sflint": { res1 = sflint.catalan(); break; }
-                        case "dflint": { res1 = dflint.catalan(); break; }
-                        case "eflint": { res1 = eflint.catalan(); break; }
-                        case "qflint": { res1 = qflint.catalan(); break; }
-                        case "oflint": { res1 = oflint.catalan(); break; }
-                        case "mflint": { res1 = mflint.catalan(); break; }
-                        case "aflint": { res1 = aflint.catalan(); break; }
+                        case " mreal": { res1 = mreal.catalan; break; }
+                        case "sflint": { res1 = sflint.catalan; break; }
+                        case "dflint": { res1 = dflint.catalan; break; }
+                        case "eflint": { res1 = eflint.catalan; break; }
+                        case "qflint": { res1 = qflint.catalan; break; }
+                        case "oflint": { res1 = oflint.catalan; break; }
+                        case "mflint": { res1 = mflint.catalan; break; }
+                        case "aflint": { res1 = aflint.catalan; break; }
 #endif
                     }
                     Console.WriteLine("{0}: catalan(): " + f(NumType) + "{1}", NumType, res1);
@@ -2232,21 +2232,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.glaisher(); break; }
-                        case " sreal": { res1 = sreal.glaisher(); break; }
-                        case " dreal": { res1 = dreal.glaisher(); break; }
-                        case " ereal": { res1 = ereal.glaisher(); break; }
-                        case " qreal": { res1 = qreal.glaisher(); break; }
-                        case " oreal": { res1 = oreal.glaisher(); break; }
+                        case "math53": { res1 = math53.glaisher; break; }
+                        case " sreal": { res1 = sreal.glaisher; break; }
+                        case " dreal": { res1 = dreal.glaisher; break; }
+                        case " ereal": { res1 = ereal.glaisher; break; }
+                        case " qreal": { res1 = qreal.glaisher; break; }
+                        case " oreal": { res1 = oreal.glaisher; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.glaisher(); break; }
-                        case "sflint": { res1 = sflint.glaisher(); break; }
-                        case "dflint": { res1 = dflint.glaisher(); break; }
-                        case "eflint": { res1 = eflint.glaisher(); break; }
-                        case "qflint": { res1 = qflint.glaisher(); break; }
-                        case "oflint": { res1 = oflint.glaisher(); break; }
-                        case "mflint": { res1 = mflint.glaisher(); break; }
-                        case "aflint": { res1 = aflint.glaisher(); break; }
+                        case " mreal": { res1 = mreal.glaisher; break; }
+                        case "sflint": { res1 = sflint.glaisher; break; }
+                        case "dflint": { res1 = dflint.glaisher; break; }
+                        case "eflint": { res1 = eflint.glaisher; break; }
+                        case "qflint": { res1 = qflint.glaisher; break; }
+                        case "oflint": { res1 = oflint.glaisher; break; }
+                        case "mflint": { res1 = mflint.glaisher; break; }
+                        case "aflint": { res1 = aflint.glaisher; break; }
 #endif
                     }
                     Console.WriteLine("{0}: glaisher(): " + f(NumType) + "{1}", NumType, res1);
@@ -2262,21 +2262,21 @@ namespace TestXlCalcNetPrecCS
                     object res1 = "Not done";
                     switch (NumType ?? "")
                     {
-                        case "math53": { res1 = math53.khinchin(); break; }
-                        case " sreal": { res1 = sreal.khinchin(); break; }
-                        case " dreal": { res1 = dreal.khinchin(); break; }
-                        case " ereal": { res1 = ereal.khinchin(); break; }
-                        case " qreal": { res1 = qreal.khinchin(); break; }
-                        case " oreal": { res1 = oreal.khinchin(); break; }
+                        case "math53": { res1 = math53.khinchin; break; }
+                        case " sreal": { res1 = sreal.khinchin; break; }
+                        case " dreal": { res1 = dreal.khinchin; break; }
+                        case " ereal": { res1 = ereal.khinchin; break; }
+                        case " qreal": { res1 = qreal.khinchin; break; }
+                        case " oreal": { res1 = oreal.khinchin; break; }
 #if HasArbPrecNet
-                        case " mreal": { res1 = mreal.khinchin(); break; }
-                        case "sflint": { res1 = sflint.khinchin(); break; }
-                        case "dflint": { res1 = dflint.khinchin(); break; }
-                        case "eflint": { res1 = eflint.khinchin(); break; }
-                        case "qflint": { res1 = qflint.khinchin(); break; }
-                        case "oflint": { res1 = oflint.khinchin(); break; }
-                        case "mflint": { res1 = mflint.khinchin(); break; }
-                        case "aflint": { res1 = aflint.khinchin(); break; }
+                        case " mreal": { res1 = mreal.khinchin; break; }
+                        case "sflint": { res1 = sflint.khinchin; break; }
+                        case "dflint": { res1 = dflint.khinchin; break; }
+                        case "eflint": { res1 = eflint.khinchin; break; }
+                        case "qflint": { res1 = qflint.khinchin; break; }
+                        case "oflint": { res1 = oflint.khinchin; break; }
+                        case "mflint": { res1 = mflint.khinchin; break; }
+                        case "aflint": { res1 = aflint.khinchin; break; }
 #endif
                     }
                     Console.WriteLine("{0}: khinchin(): " + f(NumType) + "{1}", NumType, res1);

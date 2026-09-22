@@ -68,15 +68,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="xcn.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="apm.cs" />
     <Compile Include="dpm.cs" />
     <Compile Include="fpm.cs" />
     <Compile Include="gpm.cs" />
     <Compile Include="ivm.cs" />
     <Compile Include="mpm.cs" />
+    <Compile Include="npm.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="docs.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -137,7 +137,7 @@ namespace FixedPrecNet
         public static QuadrupleC operator +(QuadrupleC x)
         {
             //return qcplx.t(x);
-            return x + qcplx.zero();
+            return x + qcplx.zero;
         }
 
 
@@ -707,7 +707,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/add/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/add/*' />
         public static QuadrupleC add(QuadrupleC x, QuadrupleC y)
         {
             return x + y;
@@ -726,7 +726,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/subtract/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/subtract/*' />
         public static QuadrupleC subtract(QuadrupleC x, QuadrupleC y)
         {
             return x - y;
@@ -745,7 +745,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/multiply/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/multiply/*' />
         public static QuadrupleC multiply(QuadrupleC x, QuadrupleC y)
         {
             return x * y;
@@ -764,7 +764,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/divide/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/divide/*' />
         public static QuadrupleC divide(QuadrupleC x, QuadrupleC y)
         {
             return x / y;
@@ -804,42 +804,42 @@ namespace FixedPrecNet
         #region Machine constants and properties of numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isreal/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isreal/*' />
         public static bool isreal(QuadrupleC z)
         {
             return (z.imag == qreal.t(0.0d));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/iszero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/iszero/*' />
         public static bool iszero(QuadrupleC z)
         {
             return (z.real == qreal.t(0.0d)) && (z.imag == qreal.t(0.0d));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isone/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isone/*' />
         public static bool isone(QuadrupleC z)
         {
             return (z.real == qreal.t(1.0d)) && (z.imag == qreal.t(0.0d));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinf/*' />
         public static bool isinf(QuadrupleC z)
         {
             return (qreal.isinf(z.real)) || (qreal.isinf(z.imag));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnan/*' />
         public static bool isnan(QuadrupleC z)
         {
             return (qreal.isnan(z.real)) || (qreal.isnan(z.imag));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isfinite/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isfinite/*' />
         public static bool isfinite(QuadrupleC z)
         {
             return (qreal.isfinite(z.real)) && (qreal.isfinite(z.imag));
@@ -849,39 +849,45 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/zero/*' />
-        public static QuadrupleC zero()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zero/*' />
+        public static QuadrupleC zero
         {
-            return qcplx.t(0, 0);
+            get
+            {
+                return qcplx.t(0, 0);
+            }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/one/*' />
-        public static QuadrupleC one()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/one/*' />
+        public static QuadrupleC one
         {
-            return qcplx.t(1, 0);
-        }
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/ImaginaryOne/*' />
-        //public static QuadrupleC ImaginaryOne()
-        //{
-        //    return qcplx.t(0, 1);
-        //}
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/onej/*' />
-        public static QuadrupleC onej()
-        {
-            return qcplx.t(0, 1);
+            get
+            {
+                return qcplx.t(1, 0);
+            }
         }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/nan/*' />
-        public static QuadrupleC nan()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/onej/*' />
+        public static QuadrupleC onej
         {
-            return qcplx.t(qreal.nan(), qreal.nan());
+            get
+            {
+                return qcplx.t(0, 1);
+            }
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nan/*' />
+        public static QuadrupleC nan
+        {
+            get
+            {
+                return qcplx.t(qreal.nan, qreal.nan);
+            }
         }
 
 
@@ -895,11 +901,14 @@ namespace FixedPrecNet
 
 
 
+        #region Elementary scalar functions
+
+
 
         #region Complex components
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Quadruple abs(QuadrupleC z)
         {
             var res = new Quadruple();
@@ -910,14 +919,14 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Abs(IntPtr res, IntPtr z);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Quadruple abs(dynamic z)
         {
             return abs(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Quadruple fabs(QuadrupleC z)
         {
             var res = new Quadruple();
@@ -926,22 +935,22 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Quadruple fabs(dynamic z)
         {
             return fabs(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static QuadrupleC sign(QuadrupleC z)
         {
-            if (iszero(z)) return zero();
+            if (iszero(z)) return zero;
             else return z / abs(z);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static QuadrupleC sign(dynamic z)
         {
             return sign(t(z));
@@ -949,28 +958,28 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Quadruple real(QuadrupleC z)
         {
             return z.real;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Quadruple real(dynamic z)
         {
             return real(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Quadruple imag(QuadrupleC z)
         {
             return z.imag;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Quadruple imag(dynamic z)
         {
             return imag(t(z));
@@ -978,7 +987,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Quadruple phase(QuadrupleC z)
         {
             var res = new Quadruple();
@@ -989,7 +998,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Arg(IntPtr res, IntPtr z);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Quadruple phase(dynamic z)
         {
             return phase(t(z));
@@ -998,7 +1007,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static QuadrupleC conj(QuadrupleC z)
         {
             var res = new QuadrupleC();
@@ -1010,7 +1019,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static QuadrupleC conj(dynamic z)
         {
             return conj(t(z));
@@ -1018,13 +1027,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Quadruple, Quadruple> polar(QuadrupleC x)
         {
             return new Tuple<Quadruple, Quadruple>(abs(x), phase(x));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Quadruple, Quadruple> polar(dynamic x)
         {
             return polar(qcplx.t(x));
@@ -1032,13 +1041,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static QuadrupleC rect(Quadruple r, Quadruple phi)
         {
             return r * expj(phi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static QuadrupleC rect(dynamic r, dynamic phi)
         {
             return rect(qreal.t(r), qreal.t(phi));
@@ -1058,7 +1067,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static QuadrupleC sqrt(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1069,7 +1078,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Sqrt(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static QuadrupleC sqrt(dynamic x)
         {
             return sqrt(t(x));
@@ -1077,7 +1086,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static QuadrupleC sqrt1pm1(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1088,7 +1097,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Sqrt1pm1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static QuadrupleC sqrt1pm1(dynamic x)
         {
             return sqrt1pm1(t(x));
@@ -1096,7 +1105,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static QuadrupleC rsqrt(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1107,7 +1116,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Rsqrt(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static QuadrupleC rsqrt(dynamic x)
         {
             return rsqrt(t(x));
@@ -1115,7 +1124,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static QuadrupleC cbrt(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1126,7 +1135,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Cbrt(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static QuadrupleC cbrt(dynamic x)
         {
             return cbrt(t(x));
@@ -1135,15 +1144,15 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/unitroot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/unitroot/*' />
         public static QuadrupleC unitroot(Int32 k)
         {
             QuadrupleC ks = qcplx.t(k);
-            return qcplx.pow(one(), one() / ks);
+            return qcplx.pow(one, one / ks);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/unitroot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/unitroot/*' />
         public static QuadrupleC unitroot(dynamic x)
         {
             return unitroot(t(x));
@@ -1152,7 +1161,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static QuadrupleC root_si(QuadrupleC x, Int32 k)
         {
             var res = new QuadrupleC();
@@ -1163,7 +1172,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Root_Si(IntPtr res, IntPtr x, Int32 k);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static QuadrupleC root_si(dynamic x, Int32 k)
         {
             return root_si(t(x), k);
@@ -1235,8 +1244,8 @@ namespace FixedPrecNet
                 Quadruple SqrtQr = qreal.sqrt(Qr);
                 Quadruple theta = qreal.acos(Rr / (SqrtQr * SqrtQr * SqrtQr));
                 x1 = -2 * SqrtQr * qreal.cos((theta) / 3) - a / 3;
-                x2 = -2 * SqrtQr * qreal.cos((theta + 2 * qreal.pi()) / 3) - a / 3;
-                x3 = -2 * SqrtQr * qreal.cos((theta - 2 * qreal.pi()) / 3) - a / 3;
+                x2 = -2 * SqrtQr * qreal.cos((theta + 2 * qreal.pi) / 3) - a / 3;
+                x3 = -2 * SqrtQr * qreal.cos((theta - 2 * qreal.pi) / 3) - a / 3;
             }
             else
             {
@@ -1248,8 +1257,8 @@ namespace FixedPrecNet
                     D = -D;
                 }
                 QuadrupleC A = -qcplx.cbrt(R + D);
-                QuadrupleC B = qcplx.zero();
-                if (A != qcplx.zero())
+                QuadrupleC B = qcplx.zero;
+                if (A != qcplx.zero)
                 {
                     B = Q / A;
                 }
@@ -1257,8 +1266,8 @@ namespace FixedPrecNet
                 Console.WriteLine("B: {0}", B);
 
                 x1 = (A + B) - a / 3;
-                x2 = -0.5 * (A + B) - a / 3 + 0.5 * qcplx.onej() * qreal.sqrt(3) * (A - B);
-                x3 = -0.5 * (A + B) - a / 3 - 0.5 * qcplx.onej() * qreal.sqrt(3) * (A - B);
+                x2 = -0.5 * (A + B) - a / 3 + 0.5 * qcplx.onej * qreal.sqrt(3) * (A - B);
+                x3 = -0.5 * (A + B) - a / 3 - 0.5 * qcplx.onej * qreal.sqrt(3) * (A - B);
             }
             return new Tuple<QuadrupleC, QuadrupleC, QuadrupleC>(x1, x2, x3);
         }
@@ -1363,7 +1372,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static QuadrupleC exp(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1374,7 +1383,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Exp(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static QuadrupleC exp(dynamic x)
         {
             return exp(t(x));
@@ -1384,26 +1393,26 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static QuadrupleC expj(QuadrupleC x)
         {
-            return cos(x) + onej() * sin(x);
+            return cos(x) + onej * sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static QuadrupleC expj(dynamic x)
         {
             return expj(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static QuadrupleC expjpi(QuadrupleC x)
         {
-            return cospi(x) + onej() * sinpi(x);
+            return cospi(x) + onej * sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static QuadrupleC expjpi(dynamic x)
         {
             return expjpi(t(x));
@@ -1413,7 +1422,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static QuadrupleC exp2(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1424,7 +1433,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Exp2(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static QuadrupleC exp2(dynamic x)
         {
             return exp2(t(x));
@@ -1432,7 +1441,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static QuadrupleC exp10(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1443,7 +1452,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Exp10(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static QuadrupleC exp10(dynamic x)
         {
             return exp10(t(x));
@@ -1453,7 +1462,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static QuadrupleC expm1(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1464,7 +1473,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Expm1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static QuadrupleC expm1(dynamic x)
         {
             return expm1(t(x));
@@ -1472,7 +1481,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static QuadrupleC exp2m1(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1483,7 +1492,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Exp2m1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static QuadrupleC exp2m1(dynamic x)
         {
             return exp2m1(t(x));
@@ -1491,7 +1500,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static QuadrupleC exp10m1(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1502,7 +1511,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Exp10m1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static QuadrupleC exp10m1(dynamic x)
         {
             return exp10m1(t(x));
@@ -1523,7 +1532,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static QuadrupleC log(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1534,7 +1543,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Log(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static QuadrupleC log(dynamic x)
         {
             return log(t(x));
@@ -1542,7 +1551,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static QuadrupleC log2(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1553,7 +1562,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Log2(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static QuadrupleC log2(dynamic x)
         {
             return log2(t(x));
@@ -1561,7 +1570,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static QuadrupleC log10(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1572,7 +1581,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Log10(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static QuadrupleC log10(dynamic x)
         {
             return log10(t(x));
@@ -1580,7 +1589,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static QuadrupleC log1p(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1591,7 +1600,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Log1p(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static QuadrupleC log1p(dynamic x)
         {
             return log1p(t(x));
@@ -1599,7 +1608,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static QuadrupleC log2p1(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1610,7 +1619,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Log2p1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static QuadrupleC log2p1(dynamic x)
         {
             return log2p1(t(x));
@@ -1618,7 +1627,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static QuadrupleC log10p1(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1629,7 +1638,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Log10p1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static QuadrupleC log10p1(dynamic x)
         {
             return log10p1(t(x));
@@ -1647,28 +1656,28 @@ namespace FixedPrecNet
         #region Power functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static QuadrupleC sqr(QuadrupleC x)
         {
             return x * x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static QuadrupleC sqr(dynamic x)
         {
             return sqr(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static QuadrupleC cube(QuadrupleC x)
         {
             return x * x * x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static QuadrupleC cube(dynamic x)
         {
             return cube(t(x));
@@ -1676,14 +1685,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static QuadrupleC hypot(QuadrupleC x, QuadrupleC y)
         {
             return sqrt(x * x + y * y);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static QuadrupleC hypot(dynamic x, dynamic y)
         {
             return hypot(t(x), t(y));
@@ -1692,7 +1701,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static QuadrupleC pow(QuadrupleC x, QuadrupleC y)
         {
             var res = new QuadrupleC();
@@ -1703,7 +1712,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Pow(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static QuadrupleC pow(dynamic x, dynamic y)
         {
             return pow(t(x), t(y));
@@ -1711,7 +1720,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/powm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/powm1/*' />
         public static QuadrupleC powm1(QuadrupleC x, QuadrupleC y)
         {
             var res = new QuadrupleC();
@@ -1722,7 +1731,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Powm1(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/powm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/powm1/*' />
         public static QuadrupleC powm1(dynamic x, dynamic y)
         {
             return powm1(t(x), t(y));
@@ -1730,7 +1739,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1p/*' />
         public static QuadrupleC pow1p(QuadrupleC x, QuadrupleC y)
         {
             var res = new QuadrupleC();
@@ -1741,7 +1750,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Pow1p(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1p/*' />
         public static QuadrupleC pow1p(dynamic x, dynamic y)
         {
             return pow1p(t(x), t(y));
@@ -1749,7 +1758,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1pm1/*' />
         public static QuadrupleC pow1pm1(QuadrupleC x, QuadrupleC y)
         {
             var res = new QuadrupleC();
@@ -1760,7 +1769,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Pow1pm1(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1pm1/*' />
         public static QuadrupleC pow1pm1(dynamic x, dynamic y)
         {
             return pow1pm1(t(x), t(y));
@@ -1768,7 +1777,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow_si/*' />
         public static QuadrupleC pow_si(QuadrupleC x, Int32 k)
         {
             var res = new QuadrupleC();
@@ -1779,7 +1788,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Pow_Si(IntPtr res, IntPtr x, Int32 k);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow_si/*' />
         public static QuadrupleC pow_si(dynamic x, Int32 k)
         {
             return pow_si(t(x), k);
@@ -1787,7 +1796,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/compound_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/compound_si/*' />
         public static QuadrupleC compound_si(QuadrupleC x, Int32 k)
         {
             var res = new QuadrupleC();
@@ -1798,7 +1807,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Compound_Si(IntPtr res, IntPtr x, Int32 k);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/compound_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/compound_si/*' />
         public static QuadrupleC compound_si(dynamic x, Int32 k)
         {
             return compound_si(t(x), k);
@@ -1815,7 +1824,7 @@ namespace FixedPrecNet
         #region Trigonometric and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static QuadrupleC sin(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1826,7 +1835,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Sin(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static QuadrupleC sin(dynamic x)
         {
             return sin(t(x));
@@ -1834,7 +1843,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static QuadrupleC cos(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1845,7 +1854,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Cos(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static QuadrupleC cos(dynamic x)
         {
             return cos(t(x));
@@ -1853,7 +1862,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static QuadrupleC tan(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1864,7 +1873,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Tan(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static QuadrupleC tan(dynamic x)
         {
             return tan(t(x));
@@ -1872,7 +1881,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static QuadrupleC csc(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1883,7 +1892,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Csc(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static QuadrupleC csc(dynamic x)
         {
             return csc(t(x));
@@ -1891,7 +1900,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static QuadrupleC sec(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1902,7 +1911,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Sec(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static QuadrupleC sec(dynamic x)
         {
             return sec(t(x));
@@ -1910,7 +1919,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static QuadrupleC cot(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -1921,7 +1930,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Cot(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static QuadrupleC cot(dynamic x)
         {
             return cot(t(x));
@@ -1936,12 +1945,12 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinpi/*' />
         public static QuadrupleC sinpi(QuadrupleC x)
         {
             if (x.real < 0) return -sinpi(-x);
             var n_r = divmod(x.real, qreal.t(0.5));
-            x = qcplx.t(n_r.Item2, x.imag) * qreal.pi();
+            x = qcplx.t(n_r.Item2, x.imag) * qreal.pi;
             Int32 n = qreal.lrint(qreal.fmod(n_r.Item1, 4));
             if (n == 0) return qcplx.sin(x);
             else if (n == 1) return qcplx.cos(x);
@@ -1949,19 +1958,19 @@ namespace FixedPrecNet
             else return -qcplx.cos(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinpi/*' />
         public static QuadrupleC sinpi(dynamic x)
         {
             return sinpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cospi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cospi/*' />
         public static QuadrupleC cospi(QuadrupleC x)
         {
             if (x.real < 0) x = -x;
             var n_r = divmod(x.real, qreal.t(0.5));
-            x = qcplx.t(n_r.Item2, x.imag) * qreal.pi();
+            x = qcplx.t(n_r.Item2, x.imag) * qreal.pi;
             Int32 n = qreal.lrint(qreal.fmod(n_r.Item1, 4));
             if (n == 0) return qcplx.cos(x);
             else if (n == 1) return -qcplx.sin(x);
@@ -1969,73 +1978,73 @@ namespace FixedPrecNet
             else return qcplx.sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cospi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cospi/*' />
         public static QuadrupleC cospi(dynamic x)
         {
             return cospi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanpi/*' />
         public static QuadrupleC tanpi(QuadrupleC x)
         {
             return qcplx.sinpi(x) / qcplx.cospi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanpi/*' />
         public static QuadrupleC tanpi(dynamic x)
         {
             return tanpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cscpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cscpi/*' />
         public static QuadrupleC cscpi(QuadrupleC x)
         {
             return 1.0 / qcplx.sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cscpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cscpi/*' />
         public static QuadrupleC cscpi(dynamic x)
         {
             return cscpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/secpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/secpi/*' />
         public static QuadrupleC secpi(QuadrupleC x)
         {
             return 1.0 / qcplx.cospi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/secpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/secpi/*' />
         public static QuadrupleC secpi(dynamic x)
         {
             return secpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cotpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cotpi/*' />
         public static QuadrupleC cotpi(QuadrupleC x)
         {
             return qcplx.cospi(x) / qcplx.sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cotpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cotpi/*' />
         public static QuadrupleC cotpi(dynamic x)
         {
             return cotpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinc/*' />
         public static QuadrupleC sinc(QuadrupleC x)
         {
             if (qcplx.iszero(x)) return qcplx.t(1, 0);
             else return qcplx.sin(x) / (x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinc/*' />
         public static QuadrupleC sinc(dynamic x)
         {
             return sinc(t(x));
@@ -2043,14 +2052,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sincpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sincpi/*' />
         public static QuadrupleC sincpi(QuadrupleC x)
         {
             if (qcplx.iszero(x)) return qcplx.t(1, 0);
-            else return qcplx.sinpi(x) / (x * qreal.pi());
+            else return qcplx.sinpi(x) / (x * qreal.pi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sincpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sincpi/*' />
         public static QuadrupleC sincpi(dynamic x)
         {
             return sincpi(t(x));
@@ -2069,7 +2078,7 @@ namespace FixedPrecNet
         #region Hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static QuadrupleC sinh(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2080,14 +2089,14 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Sinh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static QuadrupleC sinh(dynamic x)
         {
             return sinh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static QuadrupleC cosh(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2098,14 +2107,14 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Cosh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static QuadrupleC cosh(dynamic x)
         {
             return cosh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static QuadrupleC tanh(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2116,14 +2125,14 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Tanh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static QuadrupleC tanh(dynamic x)
         {
             return tanh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static QuadrupleC csch(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2134,14 +2143,14 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Csch(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static QuadrupleC csch(dynamic x)
         {
             return csch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static QuadrupleC sech(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2152,14 +2161,14 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Sech(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static QuadrupleC sech(dynamic x)
         {
             return sech(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static QuadrupleC coth(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2170,7 +2179,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Coth(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static QuadrupleC coth(dynamic x)
         {
             return coth(t(x));
@@ -2186,7 +2195,7 @@ namespace FixedPrecNet
         #region Inverse trigonometric functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static QuadrupleC asin(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2197,7 +2206,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Asin(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static QuadrupleC asin(dynamic x)
         {
             return asin(t(x));
@@ -2205,7 +2214,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static QuadrupleC acos(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2216,7 +2225,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Acos(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static QuadrupleC acos(dynamic x)
         {
             return acos(t(x));
@@ -2224,7 +2233,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static QuadrupleC atan(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2235,7 +2244,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Atan(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static QuadrupleC atan(dynamic x)
         {
             return atan(t(x));
@@ -2243,7 +2252,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static QuadrupleC acsc(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2254,7 +2263,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Acsc(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static QuadrupleC acsc(dynamic x)
         {
             return acsc(t(x));
@@ -2262,7 +2271,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static QuadrupleC asec(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2273,7 +2282,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Asec(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static QuadrupleC asec(dynamic x)
         {
             return asec(t(x));
@@ -2281,7 +2290,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static QuadrupleC acot(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2292,7 +2301,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Acot(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static QuadrupleC acot(dynamic x)
         {
             return acot(t(x));
@@ -2308,7 +2317,7 @@ namespace FixedPrecNet
         #region Inverse hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static QuadrupleC asinh(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2319,7 +2328,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Asinh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static QuadrupleC asinh(dynamic x)
         {
             return asinh(t(x));
@@ -2327,7 +2336,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static QuadrupleC acosh(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2338,7 +2347,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Acosh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static QuadrupleC acosh(dynamic x)
         {
             return acosh(t(x));
@@ -2346,7 +2355,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static QuadrupleC atanh(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2357,7 +2366,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Atanh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static QuadrupleC atanh(dynamic x)
         {
             return atanh(t(x));
@@ -2365,7 +2374,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static QuadrupleC acsch(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2376,7 +2385,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Acsch(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static QuadrupleC acsch(dynamic x)
         {
             return acsch(t(x));
@@ -2384,7 +2393,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static QuadrupleC asech(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2395,7 +2404,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Asech(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static QuadrupleC asech(dynamic x)
         {
             return asech(t(x));
@@ -2403,7 +2412,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static QuadrupleC acoth(QuadrupleC x)
         {
             var res = new QuadrupleC();
@@ -2414,7 +2423,7 @@ namespace FixedPrecNet
         internal static extern void Lib_QCplx_Acoth(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static QuadrupleC acoth(dynamic x)
         {
             return acoth(t(x));
@@ -2427,13 +2436,24 @@ namespace FixedPrecNet
 
 
 
+        #endregion
+
+
+
+
+
+
+
+        #region Eigen 
+
+
 
 
 
         #region Matrix Creation
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static QuadrupleMatC mat_t(QuadrupleC x)
         {
             var matA = new QuadrupleMatC();
@@ -2442,6 +2462,7 @@ namespace FixedPrecNet
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static QuadrupleMatC mat_t(QuadrupleMat matA)
         {
             var x = mat_zeros(matA.rows, matA.cols);
@@ -2452,9 +2473,8 @@ namespace FixedPrecNet
         internal static extern void Lib_Eigen_QReal_ConvertRealCplx(IntPtr RMat, int what, IntPtr CMat);
 
 
-        /// <summary>
-        /// Makes a deep copy from a complex matrix of type YCplxMatT
-        /// </summary>
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static QuadrupleMatC mat_t(QuadrupleMatC matA)
         {
             var matX = mat_zeros(matA.rows, matA.cols);
@@ -2462,6 +2482,8 @@ namespace FixedPrecNet
             return matX;
         }
 
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_zeros/*' />
         public static QuadrupleMatC mat_zeros(int n, int m)
         {
             var resout = new QuadrupleMatC();
@@ -2469,26 +2491,26 @@ namespace FixedPrecNet
             return resout;
         }
 
-        /* *********************** */
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static QuadrupleMatC mat_cplx_t(QuadrupleMatC matA)
         {
             return mat_t(matA);
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_zeros/*' />
         public static QuadrupleMatC mat_cplx_zeros(int n, int m)
         {
             return mat_zeros(n, m);
         }
 
-        /* *********************** */
 
 
 
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ones/*' />
         public static QuadrupleMatC mat_ones(int n, int m)
         {
             var resout = new QuadrupleMatC();
@@ -2497,7 +2519,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_identity/*' />
         public static QuadrupleMatC mat_identity(int n, int m)
         {
             var resout = new QuadrupleMatC();
@@ -2506,7 +2528,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random/*' />
         public static QuadrupleMatC mat_random(int n, int m)
         {
             var resout = new QuadrupleMatC();
@@ -2515,7 +2537,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_symmetric/*' />
         public static QuadrupleMatC mat_random_symmetric(int n)
         {
             var resout = new QuadrupleMatC();
@@ -2524,7 +2546,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint/*' />
         public static QuadrupleMatC mat_random_selfadjoint(int n)
         {
             var resout = new QuadrupleMatC();
@@ -2533,7 +2555,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint_posdef/*' />
         public static QuadrupleMatC mat_random_selfadjoint_posdef(int n)
         {
             var resout = new QuadrupleMatC();
@@ -2542,7 +2564,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fill_linear/*' />
         public static QuadrupleMatC mat_fill_linear(int n, int m)
         {
             var resout = new QuadrupleMatC();
@@ -2553,6 +2575,598 @@ namespace FixedPrecNet
 
 
         #endregion
+
+
+
+
+        #region Read-only properties
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_rows/*' />
+        public static int mat_rows(QuadrupleMatC matA)
+        {
+            return matA.rows;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_cols(QuadrupleMatC matA)
+        {
+            return matA.cols;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_size(QuadrupleMatC matA)
+        {
+            return matA.size;
+        }
+
+
+        #endregion
+
+
+
+        #region Accessing and setting parts of a matrix
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_block/*' />
+        public static QuadrupleMatC mat_get_block(QuadrupleMatC matA, int i, int j, int p, int q)
+        {
+            return matA.get_Block(i, j, p, q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_block/*' />
+        public static void mat_set_block(QuadrupleMatC matA, int i, int j, int p, int q, QuadrupleMatC matB)
+        {
+            matA.set_Block(i, j, p, q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_row/*' />
+        public static QuadrupleMatC mat_get_row(QuadrupleMatC matA, int i)
+        {
+            return matA.get_Row(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_row/*' />
+        public static void mat_set_row(QuadrupleMatC matA, int i, QuadrupleMatC matB)
+        {
+            matA.set_Row(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_col/*' />
+        public static QuadrupleMatC mat_get_col(QuadrupleMatC matA, int i)
+        {
+            return matA.get_Col(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_col/*' />
+        public static void mat_set_col(QuadrupleMatC matA, int i, QuadrupleMatC matB)
+        {
+            matA.set_Col(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_diagonal/*' />
+        public static QuadrupleMatC mat_get_diagonal(QuadrupleMatC matA, int q = 0)
+        {
+            return matA.get_Diagonal(q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_diagonal/*' />
+        public static void mat_set_diagonal(QuadrupleMatC matA, int q, QuadrupleMatC matB)
+        {
+            matA.set_Diagonal(q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_triangular_view/*' />
+        public static QuadrupleMatC mat_get_triangular_view(QuadrupleMatC matA, int view = 1)
+        {
+            return matA.get_TriangularView(view);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_triangular_view/*' />
+        public static void mat_set_triangular_view(QuadrupleMatC matA, int view, QuadrupleMatC matB)
+        {
+            matA.set_TriangularView(view, matB);
+        }
+
+
+
+        #endregion
+
+
+
+
+        #region Changing the shape of a matrix and/or the order of coefficients
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort/*' />
+        public static void mat_sort(QuadrupleMatC matA, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.Sort(sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort_rows_by_col/*' />
+        public static void mat_sort_rows_by_col(QuadrupleMatC matA, int column_to_sort_by = 0, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.SortRowsByCol(column_to_sort_by, sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize/*' />
+        public static void mat_resize(QuadrupleMatC matA, int r, int c)
+        {
+            matA.Resize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize_like/*' />
+        public static void mat_resize_like(QuadrupleMatC matA, QuadrupleMatC matB)
+        {
+            matA.ResizeLike(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conservative_resize/*' />
+        public static void mat_conservative_resize(QuadrupleMatC matA, int r, int c)
+        {
+            matA.ConservativeResize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_as_diagonal/*' />
+        public static QuadrupleMatC mat_as_diagonal(QuadrupleMatC matA)
+        {
+            return matA.AsDiagonal();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_adjoint/*' />
+        public static QuadrupleMatC mat_adjoint(QuadrupleMatC matA)
+        {
+            return matA.Adjoint();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conjugate/*' />
+        public static QuadrupleMatC mat_conjugate(QuadrupleMatC matA)
+        {
+            return matA.Conjugate();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_transpose/*' />
+        public static QuadrupleMatC mat_transpose(QuadrupleMatC matA)
+        {
+            return matA.Transpose();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_full/*' />
+        public static QuadrupleMatC mat_reverse_full(QuadrupleMatC matA)
+        {
+            return matA.ReverseFull();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_row_wise/*' />
+        public static QuadrupleMatC mat_reverse_row_wise(QuadrupleMatC matA)
+        {
+            return matA.ReverseRowwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_col_wise/*' />
+        public static QuadrupleMatC mat_reverse_col_wise(QuadrupleMatC matA)
+        {
+            return matA.ReverseColwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_full/*' />
+        public static QuadrupleMatC mat_replicate_full(QuadrupleMatC matA, int vertical, int horizontal)
+        {
+            return matA.ReplicateFull(vertical, horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_row_wise/*' />
+        public static QuadrupleMatC mat_replicate_row_wise(QuadrupleMatC matA, int horizontal)
+        {
+            return matA.ReplicateRowwise(horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_col_wise/*' />
+        public static QuadrupleMatC mat_replicate_col_wise(QuadrupleMatC matA, int vertical)
+        {
+            return matA.ReplicateColwise(vertical);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_horizontal/*' />
+        public static QuadrupleMatC mat_concat_horizontal(QuadrupleMatC matA, QuadrupleMatC matB)
+        {
+            return matA.ConcatHorizontal(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_vertical/*' />
+        public static QuadrupleMatC mat_concat_vertical(QuadrupleMatC matA, QuadrupleMatC matB)
+        {
+            return matA.ConcatVertical(matB);
+        }
+
+
+
+        #endregion
+
+
+
+        #region Basic arithmetic operations
+
+
+
+
+
+        #endregion
+
+
+
+
+
+        #region Standard decompositions and linear solving
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ldlt/*' />
+        public static QuadrupleMatMapC mat_ldlt(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.LDLT(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_partial_piv_lu/*' />
+        public static QuadrupleMatMapC mat_partial_piv_lu(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.PartialPivLU(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_lu/*' />
+        public static QuadrupleMatMapC mat_full_piv_lu(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.FullPivLU(query, matB);
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        //public static QuadrupleMatMapC mat_llt(QuadrupleMatC matA, string query, [Optional] QuadrupleMatC matB)
+        //{
+        //    return matA.LLT(query, matB);
+        //}
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        public static QuadrupleMatMapC mat_llt(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.LLT(query, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_householder_qr/*' />
+        public static QuadrupleMatMapC mat_householder_qr(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.HouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_col_piv_householder_qr/*' />
+        public static QuadrupleMatMapC mat_col_piv_householder_qr(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.ColPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_householder_qr/*' />
+        public static QuadrupleMatMapC mat_full_piv_householder_qr(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.FullPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cod_householder_qr/*' />
+        public static QuadrupleMatMapC mat_cod_householder_qr(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.COD(query, matB);
+        }
+
+
+
+
+        #endregion
+
+
+
+
+        #region Singular Value and Eigen (selfadjoint) decompositions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd/*' />
+        public static QuadrupleMatMapC mat_jacobi_svd(QuadrupleMatC matA, string query)
+        {
+            return matA.JacobiSVD(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_thin/*' />
+        public static QuadrupleMatMapC mat_jacobi_svd_thin(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.JacobiSvdThin(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_full/*' />
+        public static QuadrupleMatMapC mat_jacobi_svd_full(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.JacobiSvdFull(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_values/*' />
+        public static QuadrupleMatMapC mat_self_adjoint_eigen_values(QuadrupleMatC matA, string query)
+        {
+            return matA.SelfAdjointEigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_system/*' />
+        public static QuadrupleMatMapC mat_self_adjoint_eigen_system(QuadrupleMatC matA, string query)
+        {
+            return matA.SelfAdjointEigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_values/*' />
+        public static QuadrupleMatMapC mat_generalized_self_adjoint_eigen_values(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenValues(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_system/*' />
+        public static QuadrupleMatMapC mat_generalized_self_adjoint_eigen_system(QuadrupleMatC matA, string query, QuadrupleMatC matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenSolver(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_tridiagonalization/*' />
+        public static QuadrupleMatMapC mat_tridiagonalization(QuadrupleMatC matA, string query)
+        {
+            return matA.Tridiag(query);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen decompositions of general square matrices
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_hessenberg/*' />
+        public static QuadrupleMatMapC mat_hessenberg(QuadrupleMatC matA, string query)
+        {
+            return matA.Hessenberg(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_schur/*' />
+        public static QuadrupleMatMapC mat_schur(QuadrupleMatC matA, string query)
+        {
+            return matA.Schur(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_values/*' />
+        public static QuadrupleMatMapC mat_eigen_values(QuadrupleMatC matA, string query)
+        {
+            return matA.EigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_system/*' />
+        public static QuadrupleMatMapC mat_eigen_system(QuadrupleMatC matA, string query)
+        {
+            return matA.EigenSystem(query);
+        }
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Fast Fourier Transform
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_fwd/*' />
+        public static QuadrupleMatC mat_fft_fwd(QuadrupleMatC matA)
+        {
+            return matA.FFTFwd();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_inv/*' />
+        public static QuadrupleMatC mat_fft_inv(QuadrupleMatC matA)
+        {
+            return matA.FFTCplxInv();
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Functions of matrix argument
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_expm/*' />
+        public static QuadrupleMatC mat_expm(QuadrupleMatC matA)
+        {
+            return matA.ExpMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinm/*' />
+        public static QuadrupleMatC mat_sinm(QuadrupleMatC matA)
+        {
+            return matA.SinMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cosm/*' />
+        public static QuadrupleMatC mat_cosm(QuadrupleMatC matA)
+        {
+            return matA.CosMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinhm/*' />
+        public static QuadrupleMatC mat_sinhm(QuadrupleMatC matA)
+        {
+            return matA.SinhMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_coshm/*' />
+        public static QuadrupleMatC mat_coshm(QuadrupleMatC matA)
+        {
+            return matA.CoshMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sqrtm/*' />
+        public static QuadrupleMatC mat_sqrtm(QuadrupleMatC matA)
+        {
+            return matA.SqrtMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_logm/*' />
+        public static QuadrupleMatC mat_logm(QuadrupleMatC matA)
+        {
+            return matA.LogMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_powm/*' />
+        public static QuadrupleMatC mat_powm(QuadrupleMatC matA, Double r)
+        {
+            return matA.PowMat();
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Eigen: Polynomials
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/roots_to_monic_poly/*' />
+        public static QuadrupleMatC roots_to_monic_poly(QuadrupleMatC vecA)
+        {
+            return vecA.RootsToMonicPolynomial();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_eval/*' />
+        public static QuadrupleMatC poly_eval(QuadrupleMatC polyA, QuadrupleMatC roots)
+        {
+            return polyA.PolyEval(roots);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_solve/*' />
+        public static QuadrupleMatC poly_solve(QuadrupleMatC polyA)
+        {
+            return polyA.PolynomialSolver();
+        }
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+        #endregion
+
+
 
 
 

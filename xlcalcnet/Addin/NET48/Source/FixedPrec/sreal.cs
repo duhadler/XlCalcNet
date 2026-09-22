@@ -7,12 +7,12 @@ namespace FixedPrecNet
 {
 
 
-    public delegate Single cb1SSingle1S(Single x);
+    //public delegate Single cb1SRet1S(Single x);
 
 
-    public delegate void cbSingle1S1V(Single t, SingleVec x);
+    //public delegate void cb1S1V(Single t, SingleVec x);
 
-    public delegate void cbSingle1S2V(Single t, SingleVec x, SingleVec y);
+    //public delegate void cb1S2V(Single t, SingleVec x, SingleVec y);
 
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -25,14 +25,14 @@ namespace FixedPrecNet
     public delegate void cb1Ptr1RefSingle(IntPtr x, ref Single t);
 
 
-    public delegate void cbSingle2M(SingleMat x, SingleMat y);
+    //public delegate void cb2M(SingleMat x, SingleMat y);
 
 
-    public delegate Single cb1SSingle1V(SingleVec x);
+    //public delegate Single cb1VRet1S(SingleVec x);
 
-    public delegate void cbSingle2V(SingleVec x, SingleVec y);
+    //public delegate void cb2V(SingleVec x, SingleVec y);
 
-    public delegate void cbSingle1V1M(SingleVec x, SingleMat y);
+    //public delegate void cb1V1M(SingleVec x, SingleMat y);
 
 
 
@@ -117,6 +117,27 @@ namespace FixedPrecNet
     /// </summary>
     public class sreal
     {
+
+
+        public delegate Single cb1SRet1S(Single x);
+
+        public delegate Single cb1VRet1S(SingleVec x);
+
+        public delegate void cb2V(SingleVec x, SingleVec y);
+
+        public delegate void cb1V1M(SingleVec x, SingleMat y);
+
+        public delegate void cb2M(SingleMat x, SingleMat y);
+
+        public delegate void cb1S1V(Single t, SingleVec x);
+
+        public delegate void cb1S2V(Single t, SingleVec x, SingleVec y);
+
+
+
+
+
+
 
         public static String fmt(Single x)
         {
@@ -484,14 +505,14 @@ namespace FixedPrecNet
         #region General functions for real numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fma/*' />
         public static Single fma(Single x, Single y, Single z)
         {
             return x * y + z;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fma/*' />
         public static Single fma(dynamic x, dynamic y, dynamic z)
         {
             return fma(t(x), t(y), t(z));
@@ -500,7 +521,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmax/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmax/*' />
         public static Single fmax(Single x, Single y)
         {
             Single res = 0.0F;
@@ -511,14 +532,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Fmax(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmax/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmax/*' />
         public static Single fmax(dynamic x, dynamic y)
         {
             return fmax(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmin/*' />
         public static Single fmin(Single x, Single y)
         {
             Single res = 0.0F;
@@ -529,7 +550,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Fmin(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmin/*' />
         public static Single fmin(dynamic x, dynamic y)
         {
             return fmin(t(x), t(y));
@@ -543,54 +564,54 @@ namespace FixedPrecNet
         #region Machine constants
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/zero/*' />
-        public static Single zero()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zero/*' />
+        public static Single zero
         {
-            return 0.0F;
+            get { return 0.0F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/negzero/*' />
-        public static Single negzero()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/negzero/*' />
+        public static Single negzero
         {
-            return -0.0F;
-        }
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/one/*' />
-        public static Single one()
-        {
-            return 1.0F;
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/onej/*' />
-        public static SingleC onej()
-        {
-            return scplx.t(0, 1);
+            get { return -0.0F; }
         }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isposinf/*' />
-        public static Single inf()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/one/*' />
+        public static Single one
         {
-            return Single.PositiveInfinity;
+            get { return 1.0F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/neginf/*' />
-        public static Single neginf()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/onej/*' />
+        public static SingleC onej
         {
-            return -Single.PositiveInfinity;
+            get { return scplx.t(0, 1); }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/nan/*' />
-        public static Single nan()
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isposinf/*' />
+        public static Single inf
         {
-            return Single.NaN;
+            get { return Single.PositiveInfinity; }
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/neginf/*' />
+        public static Single neginf
+        {
+            get { return -Single.PositiveInfinity; }
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nan/*' />
+        public static Single nan
+        {
+            get { return Single.NaN; }
         }
 
 
@@ -602,7 +623,7 @@ namespace FixedPrecNet
         #region Properties of numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/signbit/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/signbit/*' />
         public static int signbit(Single x)
         {
             return Lib_SReal_Signbit(ref x);
@@ -611,7 +632,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Signbit(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/signbit/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/signbit/*' />
         public static int signbit(dynamic x)
         {
             return signbit(t(x));
@@ -619,7 +640,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isfinite/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isfinite/*' />
         public static bool isfinite(Single x)
         {
             return 0 != Lib_SReal_Finite(ref x);
@@ -628,7 +649,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Finite(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isfinite/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isfinite/*' />
         public static bool isfinite(dynamic x)
         {
             return isfinite(t(x));
@@ -637,7 +658,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinf/*' />
         public static bool isinf(Single x)
         {
             return 0 != (Lib_SReal_Isinf(ref x));
@@ -646,7 +667,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isinf(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinf/*' />
         public static bool isinf(dynamic x)
         {
             return isinf(t(x));
@@ -654,7 +675,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isposinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isposinf/*' />
         public static bool isposinf(Single x)
         {
             return 0 != (Lib_SReal_Isposinf(ref x));
@@ -663,7 +684,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isposinf(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isposinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isposinf/*' />
         public static bool isposinf(dynamic x)
         {
             return isposinf(t(x));
@@ -671,7 +692,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isneginf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isneginf/*' />
         public static bool isneginf(Single x)
         {
             return 0 != (Lib_SReal_Isneginf(ref x));
@@ -680,7 +701,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isneginf(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isneginf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isneginf/*' />
         public static bool isneginf(dynamic x)
         {
             return isneginf(t(x));
@@ -688,7 +709,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnan/*' />
         public static bool isnan(Single x)
         {
             return 0 != (Lib_SReal_Isnan(ref x));
@@ -697,7 +718,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isnan(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnan/*' />
         public static bool isnan(dynamic x)
         {
             return isnan(t(x));
@@ -705,7 +726,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/iszero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/iszero/*' />
         public static bool iszero(Single x)
         {
             return 0 != (Lib_SReal_Iszero(ref x));
@@ -714,7 +735,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Iszero(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/iszero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/iszero/*' />
         public static bool iszero(dynamic x)
         {
             return iszero(t(x));
@@ -723,7 +744,7 @@ namespace FixedPrecNet
 
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/IsNegativeZero/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/IsNegativeZero/*' />
         //public static bool IsNegativeZero(sboost_t x)
         //{
         //    return 0 != (Lib_SReal_Isnegzero(x.mpPtr));
@@ -732,7 +753,7 @@ namespace FixedPrecNet
         //internal static extern int Lib_SReal_Isnegzero(IntPtr x);
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/IsNegativeZero/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/IsNegativeZero/*' />
         //public static bool IsNegativeZero(dynamic x)
         //{
         //    return IsNegativeZero(t(x));
@@ -740,7 +761,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isone/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isone/*' />
         public static bool isone(Single x)
         {
             return 0 != (Lib_SReal_Isone(ref x));
@@ -749,7 +770,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isone(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isone/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isone/*' />
         public static bool isone(dynamic x)
         {
             return isone(t(x));
@@ -757,7 +778,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinteger/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(Single x)
         {
             return 0 != (Lib_SReal_Isinteger(ref x));
@@ -766,7 +787,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isinteger(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isinteger/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(dynamic x)
         {
             return isinteger(t(x));
@@ -774,7 +795,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnumber/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnumber/*' />
         public static bool isnumber(Single x)
         {
             return 0 != (Lib_SReal_Isnumber(ref x));
@@ -783,7 +804,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isnumber(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnumber/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnumber/*' />
         public static bool isnumber(dynamic x)
         {
             return isnumber(t(x));
@@ -791,7 +812,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isregular/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isregular/*' />
         public static bool isregular(Single x)
         {
             return 0 != (Lib_SReal_Isregular(ref x));
@@ -800,7 +821,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isregular(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isregular/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isregular/*' />
         public static bool isregular(dynamic x)
         {
             return isregular(t(x));
@@ -808,7 +829,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnormal/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnormal/*' />
         public static bool isnormal(Single x)
         {
             return 0 != (Lib_SReal_Isnormal(ref x));
@@ -817,7 +838,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isnormal(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnormal/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnormal/*' />
         public static bool isnormal(dynamic x)
         {
             return isnormal(t(x));
@@ -825,7 +846,7 @@ namespace FixedPrecNet
 
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/IsSubnormal/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/IsSubnormal/*' />
         //public static bool IsSubnormal(sboost_t x)
         //{
         //    return 0 != (Lib_SReal_Issubnormal(x.mpPtr));
@@ -834,7 +855,7 @@ namespace FixedPrecNet
         //internal static extern int Lib_SReal_Issubnormal(IntPtr x);
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/IsSubnormal/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/IsSubnormal/*' />
         //public static bool IsSubnormal(dynamic x)
         //{
         //    return IsSubnormal(t(x));
@@ -842,7 +863,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isunordered/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isunordered/*' />
         public static bool isunordered(Single x, Single y)
         {
             return 0 != (Lib_SReal_Isunordered(ref x, ref y));
@@ -851,7 +872,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_Isunordered(ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isunordered/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isunordered/*' />
         public static bool isunordered(dynamic x, dynamic y)
         {
             return isunordered(t(x), t(y));
@@ -859,7 +880,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/fitsint32/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint32/*' />
         public static bool fitsint32(Single x)
         {
             return 0 != (Lib_SReal_FitsInt32(ref x));
@@ -868,7 +889,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_FitsInt32(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fitsint32/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint32/*' />
         public static bool fitsint32(dynamic x)
         {
             return fitsint32(t(x));
@@ -876,7 +897,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/fitsint64/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint64/*' />
         public static bool fitsint64(Single x)
         {
             return 0 != (Lib_SReal_FitsInt64(ref x));
@@ -885,7 +906,7 @@ namespace FixedPrecNet
         internal static extern int Lib_SReal_FitsInt64(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fitsint64/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint64/*' />
         public static bool fitsint64(dynamic x)
         {
             return fitsint64(t(x));
@@ -893,7 +914,7 @@ namespace FixedPrecNet
 
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/FitsUInt32/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/FitsUInt32/*' />
         //public static bool FitsUInt32(sboost_t x)
         //{
         //    return 0 != (Lib_SReal_FitsUInt32(x.mpPtr));
@@ -902,7 +923,7 @@ namespace FixedPrecNet
         //internal static extern int Lib_SReal_FitsUInt32(IntPtr x);
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/FitsUInt32/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/FitsUInt32/*' />
         //public static bool FitsUInt32(dynamic x)
         //{
         //    return FitsUInt32(t(x));
@@ -910,7 +931,7 @@ namespace FixedPrecNet
 
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/FitsUInt64/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/FitsUInt64/*' />
         //public static bool FitsUInt64(sboost_t x)
         //{
         //    return 0 != (Lib_SReal_FitsUInt64(x.mpPtr));
@@ -919,7 +940,7 @@ namespace FixedPrecNet
         //internal static extern int Lib_SReal_FitsUInt64(IntPtr x);
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/FitsUInt64/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/FitsUInt64/*' />
         //public static bool FitsUInt64(dynamic x)
         //{
         //    return FitsUInt64(t(x));
@@ -934,7 +955,7 @@ namespace FixedPrecNet
 
         #region Integer Related Functions
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nearbyint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nearbyint/*' />
         public static Single nearbyint(Single x)
         {
             Single res = 0.0F;
@@ -945,7 +966,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Nearbyint(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nearbyint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nearbyint/*' />
         public static Single nearbyint(dynamic x)
         {
             return nearbyint(t(x));
@@ -953,7 +974,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rint/*' />
         public static Single rint(Single x)
         {
             Single res = 0.0F;
@@ -964,14 +985,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Rint(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rint/*' />
         public static Single rint(dynamic x)
         {
             return rint(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lrint/*' />
         public static Int32 lrint(Single x)
         {
             return Lib_SReal_Lrint(ref x);
@@ -980,7 +1001,7 @@ namespace FixedPrecNet
         internal static extern Int32 Lib_SReal_Lrint(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lrint/*' />
         public static Int32 lrint(dynamic x)
         {
             return lrint(t(x));
@@ -988,7 +1009,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llrint/*' />
         public static Int64 llrint(Single x)
         {
             return Lib_SReal_Llrint(ref x);
@@ -997,7 +1018,7 @@ namespace FixedPrecNet
         internal static extern Int64 Lib_SReal_Llrint(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llrint/*' />
         public static Int64 llrint(dynamic x)
         {
             return llrint(t(x));
@@ -1006,7 +1027,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ceil/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ceil/*' />
         public static Single ceil(Single x)
         {
             Single res = 0.0F;
@@ -1017,7 +1038,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Ceil(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ceil/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ceil/*' />
         public static Single ceil(dynamic x)
         {
             return ceil(t(x));
@@ -1025,7 +1046,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/floor/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/floor/*' />
         public static Single floor(Single x)
         {
             Single res = 0.0F;
@@ -1036,14 +1057,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Floor(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/floor/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/floor/*' />
         public static Single floor(dynamic x)
         {
             return floor(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/trunc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/trunc/*' />
         public static Single trunc(Single x)
         {
             Single res = 0.0F;
@@ -1054,14 +1075,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Trunc(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/trunc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/trunc/*' />
         public static Single trunc(dynamic x)
         {
             return trunc(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/round/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/round/*' />
         public static Single round(Single x)
         {
             Single res = 0.0F;
@@ -1072,14 +1093,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Round(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/round/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/round/*' />
         public static Single round(dynamic x)
         {
             return round(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lround/*' />
         public static Int32 lround(Single x)
         {
             return Lib_SReal_Lround(ref x);
@@ -1088,7 +1109,7 @@ namespace FixedPrecNet
         internal static extern Int32 Lib_SReal_Lround(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lround/*' />
         public static Int32 lround(dynamic x)
         {
             return lround(t(x));
@@ -1096,7 +1117,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llround/*' />
         public static Int64 llround(Single x)
         {
             return Lib_SReal_Llround(ref x);
@@ -1105,7 +1126,7 @@ namespace FixedPrecNet
         internal static extern Int64 Lib_SReal_Llround(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llround/*' />
         public static Int64 llround(dynamic x)
         {
             return llround(t(x));
@@ -1121,7 +1142,7 @@ namespace FixedPrecNet
         #region Floating point functions for real numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/copysign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/copysign/*' />
         public static Single copysign(Single x, Single y)
         {
             Single res = 0.0F;
@@ -1132,14 +1153,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Copysign(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/copysign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/copysign/*' />
         public static Single copysign(dynamic x, dynamic y)
         {
             return copysign(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/frexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frexp/*' />
         public static Tuple<Single, Int32> frexp(Single x)
         {
             Single res = 0.0F;
@@ -1151,7 +1172,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Frexp(ref Single res, ref Single x, ref Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/frexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frexp/*' />
         public static Tuple<Single, Int32> frexp(dynamic x)
         {
             return frexp(t(x));
@@ -1159,7 +1180,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logb/*' />
         public static Single logb(Single x)
         {
             Single res = 0.0F;
@@ -1170,13 +1191,13 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Logb(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logb/*' />
         public static Single logb(dynamic x)
         {
             return logb(t(x));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ilogb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ilogb/*' />
         public static Int32 ilogb(Single x)
         {
             return Lib_SReal_Ilogb(ref x);
@@ -1185,7 +1206,7 @@ namespace FixedPrecNet
         internal static extern Int32 Lib_SReal_Ilogb(ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ilogb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ilogb/*' />
         public static Int32 ilogb(dynamic x)
         {
             return ilogb(t(x));
@@ -1193,7 +1214,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ldexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ldexp/*' />
         public static Single ldexp(Single x, Int32 e)
         {
             Single res = 0.0F;
@@ -1204,7 +1225,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Ldexp(ref Single res, ref Single x, Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ldexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ldexp/*' />
         public static Single ldexp(dynamic x, dynamic e)
         {
             return ldexp(t(x), lround(t(e)));
@@ -1212,7 +1233,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbn/*' />
         public static Single scalbn(Single x, Int32 e)
         {
             Single res = 0.0F;
@@ -1223,7 +1244,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Scalbn(ref Single res, ref Single x, Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbn/*' />
         public static Single scalbn(dynamic x, dynamic e)
         {
             return scalbn(t(x), lround(t(e)));
@@ -1231,7 +1252,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbln/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbln/*' />
         public static Single scalbln(Single x, Int32 e)
         {
             Single res = 0.0F;
@@ -1242,7 +1263,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Scalbln(ref Single res, ref Single x, Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbln/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbln/*' />
         public static Single scalbln(dynamic x, dynamic e)
         {
             return scalbln(t(x), lround(t(e)));
@@ -1250,7 +1271,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fdim/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fdim/*' />
         public static Single fdim(Single x, Single y)
         {
             Single res = 0.0F;
@@ -1261,7 +1282,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Fdim(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fdim/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fdim/*' />
         public static Single fdim(dynamic x, dynamic y)
         {
             return fdim(t(x), t(y));
@@ -1275,7 +1296,7 @@ namespace FixedPrecNet
         #region Fraction and remainder Related Functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/modf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/modf/*' />
         public static Tuple<Single, Single> modf(Single x)
         {
             Single iptr = 0.0F;
@@ -1287,7 +1308,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Modf(ref Single frac, ref Single x, ref Single iptr);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/modf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/modf/*' />
         public static Tuple<Single, Single> modf(dynamic x)
         {
             return modf(t(x));
@@ -1295,7 +1316,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmod/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmod/*' />
         public static Single fmod(Single x, Single y)
         {
             Single res = 0.0F;
@@ -1306,14 +1327,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Fmod(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmod/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmod/*' />
         public static Single fmod(dynamic x, dynamic y)
         {
             return fmod(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remainder/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remainder/*' />
         public static Single remainder(Single x, Single y)
         {
             Single res = 0.0F;
@@ -1324,14 +1345,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Remainder(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remainder/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remainder/*' />
         public static Single remainder(dynamic x, dynamic y)
         {
             return remainder(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remquo/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remquo/*' />
         public static Tuple<Single, Int32> remquo(Single x, Single y)
         {
             Single res = 0.0F;
@@ -1343,7 +1364,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Remquo(ref Single res, ref Single x, ref Single y, ref Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remquo/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remquo/*' />
         public static Tuple<Single, Int32> remquo(dynamic x, dynamic y)
         {
             return remquo(t(x), t(y));
@@ -1356,7 +1377,7 @@ namespace FixedPrecNet
         #region Functions related to mantissa width and exponent range
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/epsilon/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/epsilon/*' />
         public static Single epsilon()
         {
             Single res = 0.0F;
@@ -1367,7 +1388,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Epsilon(ref Single res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ulp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ulp/*' />
         public static Single ulp(Single x)
         {
             Single res = 0.0F;
@@ -1378,14 +1399,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Ulp(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ulp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ulp/*' />
         public static Single ulp(dynamic x)
         {
             return ulp(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/maxvalue/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/maxvalue/*' />
         public static Single maxvalue()
         {
             Single res = 0.0F;
@@ -1396,7 +1417,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Max(ref Single res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/lowestvalue/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lowestvalue/*' />
         public static Single lowestvalue()
         {
             Single res = 0.0F;
@@ -1407,7 +1428,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Lowest(ref Single res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/minposvalue/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/minposvalue/*' />
         public static Single minposvalue()
         {
             Single res = 0.0F;
@@ -1418,7 +1439,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Min(ref Single res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextafter/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextafter/*' />
         public static Single nextafter(Single x, Single y)
         {
             Single res = 0.0F;
@@ -1429,14 +1450,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Nexttoward(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextafter/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextafter/*' />
         public static Single nextafter(dynamic x, dynamic y)
         {
             return nextafter(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextabove/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextabove/*' />
         public static Single nextabove(Single x)
         {
             Single res = 0.0F;
@@ -1447,14 +1468,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Nextabove(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextabove/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextabove/*' />
         public static Single nextabove(dynamic x)
         {
             return nextabove(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextbelow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextbelow/*' />
         public static Single nextbelow(Single x)
         {
             Single res = 0.0F;
@@ -1465,7 +1486,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Nextbelow(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextbelow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextbelow/*' />
         public static Single nextbelow(dynamic x)
         {
             return nextbelow(t(x));
@@ -1479,85 +1500,85 @@ namespace FixedPrecNet
         #region Mathematical Constants
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/degree/*' />
-        public static Single degree()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/degree/*' />
+        public static Single degree
         {
-            return 0.017453292519943295F;
+            get { return 0.017453292519943295F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phi/*' />
-        public static Single phi()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phi/*' />
+        public static Single phi
         {
-            return 1.6180339887498949F;
+            get { return 1.6180339887498949F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ln2/*' />
-        public static Single ln2()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ln2/*' />
+        public static Single ln2
         {
-            return 0.69314718055994529F;
+            get { return 0.69314718055994529F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ln10/*' />
-        public static Single ln10()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ln10/*' />
+        public static Single ln10
         {
-            return 2.3025850929940459F;
+            get { return 2.3025850929940459F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pi/*' />
-        public static Single pi()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pi/*' />
+        public static Single pi
         {
-            return 3.14159265358979F;
-        }
-
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/e/*' />
-        public static Single e()
-        {
-            return 2.718281828459045F;
+            get { return 3.14159265358979F; }
         }
 
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/egamma/*' />
-        public static Single egamma()
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/e/*' />
+        public static Single e
         {
-            return 0.57721566490153287F;
+            get { return 2.718281828459045F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/apery/*' />
-        public static Single apery()
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/egamma/*' />
+        public static Single egamma
         {
-            return 1.2020569031595942F;
+            get { return 0.57721566490153287F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/catalan/*' />
-        public static Single catalan()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/apery/*' />
+        public static Single apery
         {
-            return 0.915965594177219F;
+            get { return 1.2020569031595942F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/glaisher/*' />
-        public static Single glaisher()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/catalan/*' />
+        public static Single catalan
         {
-            return 1.2824271291006226F;
+            get { return 0.915965594177219F; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/khinchin/*' />
-        public static Single khinchin()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/glaisher/*' />
+        public static Single glaisher
         {
-            return 2.6854520010653062F;
+            get { return 1.2824271291006226F; }
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/khinchin/*' />
+        public static Single khinchin
+        {
+            get { return 2.6854520010653062F; }
         }
 
 
@@ -1579,14 +1600,14 @@ namespace FixedPrecNet
         #region Complex components
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Single abs(Single x)
         {
             return Math.Abs(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Single abs(dynamic x)
         {
             return abs(t(x));
@@ -1594,14 +1615,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Single fabs(Single x)
         {
             return Math.Abs(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Single fabs(dynamic x)
         {
             return fabs(t(x));
@@ -1609,14 +1630,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static Single sign(Single x)
         {
             return Math.Sign(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static Single sign(dynamic x)
         {
             return sign(t(x));
@@ -1624,14 +1645,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Single real(Single x)
         {
             return +x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Single real(dynamic x)
         {
             return real(t(x));
@@ -1639,14 +1660,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Single imag(Single x)
         {
             return 0.0F;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Single imag(dynamic x)
         {
             return 0.0F;
@@ -1654,15 +1675,15 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Single phase(Single x)
         {
             if (x >= 0.0F) return 0.0F;
-            else return pi();
+            else return pi;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Single phase(dynamic x)
         {
             return phase(t(x));
@@ -1670,27 +1691,27 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static Single conj(Single x)
         {
             return +x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static Single conj(dynamic x)
         {
             return conj(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Single, Single> polar(Single x)
         {
             return new Tuple<Single, Single>(abs(x), phase(x));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Single, Single> polar(dynamic x)
         {
             return polar(sreal.t(x));
@@ -1698,13 +1719,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static SingleC rect(Single r, Single phi)
         {
             return r * expj(phi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static SingleC rect(dynamic r, dynamic phi)
         {
             return rect(sreal.t(r), sreal.t(phi));
@@ -1722,14 +1743,14 @@ namespace FixedPrecNet
         #region Roots and quadratic, cubic, and quartic 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static Single sqrt(Single x)
         {
             return (float)Math.Sqrt(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static Single sqrt(dynamic x)
         {
             return sqrt(t(x));
@@ -1756,13 +1777,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static Single rsqrt(Single x)
         {
             return t(1) / sqrt(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static Single rsqrt(dynamic x)
         {
             return rsqrt(t(x)); ;
@@ -1770,7 +1791,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static Single cbrt(Single x)
         {
             Single res = 0.0F;
@@ -1781,7 +1802,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Cbrt(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static Single cbrt(dynamic x)
         {
             return cbrt(t(x));
@@ -1789,7 +1810,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static Single root_si(Single x, int k)
         {
             var res = new Single();
@@ -1800,7 +1821,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Root_Si(ref Single res, ref Single x, int k);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static Single root_si(dynamic x, int k)
         {
             return root_si(t(x), k);
@@ -1815,7 +1836,7 @@ namespace FixedPrecNet
         #region Exponential and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static Single exp(Single x)
         {
             Single res = 0.0F;
@@ -1826,7 +1847,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Exp(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static Single exp(dynamic x)
         {
             return exp(t(x));
@@ -1834,13 +1855,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static SingleC expj(Single x)
         {
-            return cos(x) + onej() * sin(x);
+            return cos(x) + onej * sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static SingleC expj(dynamic x)
         {
             return expj(t(x));
@@ -1848,13 +1869,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static SingleC expjpi(Single x)
         {
-            return cospi(x) + onej() * sinpi(x);
+            return cospi(x) + onej * sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static SingleC expjpi(dynamic x)
         {
             return expjpi(t(x));
@@ -1863,7 +1884,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static Single exp2(Single x)
         {
             Single res = 0.0F;
@@ -1874,14 +1895,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Exp2(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static Single exp2(dynamic x)
         {
             return exp2(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static Single exp10(Single x)
         {
             Single res = 0.0F;
@@ -1892,7 +1913,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Exp10(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static Single exp10(dynamic x)
         {
             return exp10(t(x));
@@ -1900,7 +1921,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static Single expm1(Single x)
         {
             Single res = 0.0F;
@@ -1911,7 +1932,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Expm1(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static Single expm1(dynamic x)
         {
             return expm1(t(x));
@@ -1919,7 +1940,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static Single exp2m1(Single x)
         {
             Single res = 0.0F;
@@ -1930,7 +1951,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Exp2m1(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static Single exp2m1(dynamic x)
         {
             return exp2m1(t(x));
@@ -1938,7 +1959,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static Single exp10m1(Single x)
         {
             Single res = 0.0F;
@@ -1949,7 +1970,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Exp10m1(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static Single exp10m1(dynamic x)
         {
             return exp10m1(t(x));
@@ -1965,7 +1986,7 @@ namespace FixedPrecNet
         #region Logarithms and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Single log(Single x)
         {
             Single res = 0.0F;
@@ -1976,14 +1997,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Log(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Single log(dynamic x)
         {
             return log(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Single log2(Single x)
         {
             Single res = 0.0F;
@@ -1994,14 +2015,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Log2(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Single log2(dynamic x)
         {
             return log2(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static Single log10(Single x)
         {
             Single res = 0.0F;
@@ -2012,14 +2033,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Log10(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static Single log10(dynamic x)
         {
             return log10(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static Single log1p(Single x)
         {
             Single res = 0.0F;
@@ -2030,14 +2051,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Log1p(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static Single log1p(dynamic x)
         {
             return log1p(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static Single log2p1(Single x)
         {
             Single res = 0.0F;
@@ -2048,14 +2069,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Log2p1(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static Single log2p1(dynamic x)
         {
             return log2p1(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static Single log10p1(Single x)
         {
             Single res = 0.0F;
@@ -2066,7 +2087,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Log10p1(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static Single log10p1(dynamic x)
         {
             return log10p1(t(x));
@@ -2074,7 +2095,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logaddexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logaddexp/*' />
         public static Single logaddexp(Single x, Single y)
         {
             Single res = 0.0F;
@@ -2085,7 +2106,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Logaddexp(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logaddexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logaddexp/*' />
         public static Single logaddexp(dynamic x, dynamic y)
         {
             return logaddexp(t(x), t(y));
@@ -2102,26 +2123,26 @@ namespace FixedPrecNet
         #region Power functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static Single sqr(Single x)
         {
             return x * x;
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static Single sqr(dynamic x)
         {
             return sqr(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static Single cube(Single x)
         {
             return x * x * x;
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static Single cube(dynamic x)
         {
             return cube(t(x));
@@ -2129,7 +2150,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static Single hypot(Single x, Single y)
         {
             Single res = 0.0F;
@@ -2140,7 +2161,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Hypot(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static Single hypot(dynamic x, dynamic y)
         {
             return hypot(t(x), t(y));
@@ -2149,7 +2170,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static Single pow(Single x, Single y)
         {
             Single res = 0.0F;
@@ -2160,7 +2181,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Pow(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static Single pow(dynamic x, dynamic y)
         {
             return pow(t(x), t(y));
@@ -2269,7 +2290,7 @@ namespace FixedPrecNet
         #region Trigonometric and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static Single sin(Single x)
         {
             Single res = 0.0F;
@@ -2280,14 +2301,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Sin(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static Single sin(dynamic x)
         {
             return sin(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static Single cos(Single x)
         {
             Single res = 0.0F;
@@ -2298,7 +2319,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Cos(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static Single cos(dynamic x)
         {
             return cos(t(x));
@@ -2306,7 +2327,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static Single tan(Single x)
         {
             Single res = 0.0F;
@@ -2317,7 +2338,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Tan(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static Single tan(dynamic x)
         {
             return tan(t(x));
@@ -2325,7 +2346,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static Single csc(Single x)
         {
             Single res = 0.0F;
@@ -2336,7 +2357,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Csc(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static Single csc(dynamic x)
         {
             return csc(t(x));
@@ -2344,7 +2365,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static Single sec(Single x)
         {
             Single res = 0.0F;
@@ -2355,7 +2376,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Sec(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static Single sec(dynamic x)
         {
             return csc(t(x));
@@ -2363,7 +2384,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static Single cot(Single x)
         {
             Single res = 0.0F;
@@ -2374,7 +2395,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Cot(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static Single cot(dynamic x)
         {
             return cot(t(x));
@@ -2524,7 +2545,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sincpi/*' />
         public static Single sincpi(Single x)
         {
-            Single x1 = x * sreal.pi();
+            Single x1 = x * sreal.pi;
 
             if (sreal.abs(x) < 0.1f)
             {
@@ -2569,7 +2590,7 @@ namespace FixedPrecNet
         #region Hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static Single sinh(Single x)
         {
             Single res = 0.0F;
@@ -2580,14 +2601,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Sinh(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static Single sinh(dynamic x)
         {
             return sinh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static Single cosh(Single x)
         {
             Single res = 0.0F;
@@ -2598,14 +2619,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Cosh(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static Single cosh(dynamic x)
         {
             return cosh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static Single tanh(Single x)
         {
             Single res = 0.0F;
@@ -2616,14 +2637,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Tanh(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static Single tanh(dynamic x)
         {
             return tanh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static Single csch(Single x)
         {
             Single res = 0.0F;
@@ -2634,14 +2655,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Csch(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static Single csch(dynamic x)
         {
             return csch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static Single sech(Single x)
         {
             Single res = 0.0F;
@@ -2652,14 +2673,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Sech(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static Single sech(dynamic x)
         {
             return sech(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static Single coth(Single x)
         {
             Single res = 0.0F;
@@ -2670,7 +2691,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Coth(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static Single coth(dynamic x)
         {
             return coth(t(x));
@@ -2686,7 +2707,7 @@ namespace FixedPrecNet
         #region Inverse trigonometric functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static Single asin(Single x)
         {
             Single res = 0.0F;
@@ -2697,14 +2718,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Asin(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static Single asin(dynamic x)
         {
             return asin(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static Single acos(Single x)
         {
             Single res = 0.0F;
@@ -2714,14 +2735,14 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_Acos", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_SReal_Acos(ref Single res, ref Single x);
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static Single acos(dynamic x)
         {
             return acos(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static Single atan(Single x)
         {
             Single res = 0.0F;
@@ -2732,14 +2753,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Atan(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static Single atan(dynamic x)
         {
             return atan(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />
         public static Single atan2(Single x, Single y)
         {
             Single res = 0.0F;
@@ -2750,14 +2771,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Atan2(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />
         public static Single atan2(dynamic x, dynamic y)
         {
             return atan2(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static Single acsc(Single x)
         {
             Single res = 0.0F;
@@ -2768,14 +2789,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Acsc(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static Single acsc(dynamic x)
         {
             return acsc(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static Single asec(Single x)
         {
             Single res = 0.0F;
@@ -2786,14 +2807,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Asec(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static Single asec(dynamic x)
         {
             return asec(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static Single acot(Single x)
         {
             Single res = 0.0F;
@@ -2804,7 +2825,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Acot(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static Single acot(dynamic x)
         {
             return acot(t(x));
@@ -2820,7 +2841,7 @@ namespace FixedPrecNet
         #region Inverse hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static Single asinh(Single x)
         {
             Single res = 0.0F;
@@ -2831,7 +2852,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Asinh(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static Single asinh(dynamic x)
         {
             return asinh(t(x));
@@ -2839,7 +2860,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static Single acosh(Single x)
         {
             Single res = 0.0F;
@@ -2850,14 +2871,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Acosh(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static Single acosh(dynamic x)
         {
             return acosh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static Single atanh(Single x)
         {
             Single res = 0.0F;
@@ -2868,14 +2889,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Atanh(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static Single atanh(dynamic x)
         {
             return atanh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static Single acsch(Single x)
         {
             Single res = 0.0F;
@@ -2886,14 +2907,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Acsch(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static Single acsch(dynamic x)
         {
             return acsch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static Single asech(Single x)
         {
             Single res = 0.0F;
@@ -2904,14 +2925,14 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Asech(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static Single asech(dynamic x)
         {
             return asech(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static Single acoth(Single x)
         {
             Single res = 0.0F;
@@ -2922,7 +2943,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Acoth(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static Single acoth(dynamic x)
         {
             return acoth(t(x));
@@ -3021,7 +3042,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/agm/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/agm/*' />
         public static Single agm(Single x, Single y)
         {
             Single res = 0.0F;
@@ -3032,7 +3053,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Agm(ref Single res, ref Single x, ref Single y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/agm/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/agm/*' />
         public static Single agm(dynamic x, dynamic y)
         {
             return agm(t(x), t(y));
@@ -3056,26 +3077,26 @@ namespace FixedPrecNet
         #region Error functions for real arguments
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndens/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndens/*' />
         public static Single ndens(Single x)
         {
-            return exp(-0.5f * x * x) / sqrt(2 * pi());
+            return exp(-0.5f * x * x) / sqrt(2 * pi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndens/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndens/*' />
         public static Single ndens(dynamic x)
         {
             return ndens(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndis/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndis/*' />
         public static Single ndis(Single x)
         {
             return 0.5f * erfc(-x / sqrt(2));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndis/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndis/*' />
         public static Single ndis(dynamic x)
         {
             return ndis(t(x));
@@ -3083,7 +3104,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erf/*' />
         public static Single erf(Single x)
         {
             Single res = 0.0F;
@@ -3094,7 +3115,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Erf_(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erf/*' />
         public static Single erf(dynamic x)
         {
             return erf(t(x));
@@ -3103,7 +3124,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erfc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erfc/*' />
         public static Single erfc(Single x)
         {
             Single res = 0.0F;
@@ -3114,7 +3135,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Erfc_(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/erfc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erfc/*' />
         public static Single erfc(dynamic x)
         {
             return erfc(t(x));
@@ -3169,7 +3190,7 @@ namespace FixedPrecNet
         #region Gamma and related functions for real arguments and parameters
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma/*' />
         //public static Single lgamma(Single x)
         //{
         //    Single res = 0.0F;
@@ -3180,21 +3201,21 @@ namespace FixedPrecNet
         //internal static extern void Lib_SReal_Lgamma(ref Single res, ref Single x);
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma/*' />
         //public static Single lgamma(dynamic x)
         //{
         //    return lgamma(t(x));
         //}
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rgamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rgamma/*' />
         public static Single rgamma(Single x)
         {
             return t(1) / gamma(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rgamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rgamma/*' />
         public static Single rgamma(dynamic x)
         {
             return rgamma(t(x));
@@ -3204,7 +3225,7 @@ namespace FixedPrecNet
 
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma/*' />
         //public static Single gamma(Single x)
         //{
         //    Single res = 0.0F;
@@ -3215,7 +3236,7 @@ namespace FixedPrecNet
         //internal static extern void Lib_SReal_Tgamma(ref Single res, ref Single x);
 
 
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma/*' />
         //public static Single gamma(dynamic x)
         //{
         //    return gamma(t(x));
@@ -3224,7 +3245,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma/*' />
         public static Single gamma(Single x)
         {
             Single res = 0.0F;
@@ -3235,7 +3256,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Tgamma_(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma/*' />
         public static Single gamma(dynamic x)
         {
             return gamma(t(x));
@@ -3264,7 +3285,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma/*' />
         public static Single lgamma(Single x)
         {
             Single res = 0.0F;
@@ -3275,7 +3296,7 @@ namespace FixedPrecNet
         internal static extern void Lib_SReal_Lgamma_(ref Single res, ref Single x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma/*' />
         public static Single lgamma(dynamic x)
         {
             return lgamma(t(x));
@@ -4922,21 +4943,21 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
         public static Single sph_bessel_jn(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
 
-            if (sreal.isnan(x)) return sreal.nan();
-            if (sreal.isinf(x)) return sreal.zero();
-            if (sreal.isneginf(x)) return sreal.zero();
+            if (sreal.isnan(x)) return sreal.nan;
+            if (sreal.isinf(x)) return sreal.zero;
+            if (sreal.isneginf(x)) return sreal.zero;
             if (x == 0.0)
             {
                 if (n >= 0)
                 {
-                    if ((n == 0)) return sreal.one();
-                    else return sreal.zero();
+                    if ((n == 0)) return sreal.one;
+                    else return sreal.zero;
                 }
                 else
                 {
-                    if (n % 2 == 0) return sreal.neginf(); else return sreal.nan();
+                    if (n % 2 == 0) return sreal.neginf; else return sreal.nan;
                 }
             }
 
@@ -4972,21 +4993,21 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn' />
         public static Single sph_bessel_yn(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
 
-            if (sreal.isnan(x)) return sreal.nan();
-            if (sreal.isinf(x)) return sreal.zero();
-            if (sreal.isneginf(x)) return sreal.zero();
+            if (sreal.isnan(x)) return sreal.nan;
+            if (sreal.isinf(x)) return sreal.zero;
+            if (sreal.isneginf(x)) return sreal.zero;
             if (x == 0.0)
             {
                 if (n < 0)
                 {
-                    if ((n == -1)) return sreal.one();
-                    else return sreal.zero();
+                    if ((n == -1)) return sreal.one;
+                    else return sreal.zero;
                 }
                 else
                 {
-                    if (n % 2 != 0) return sreal.neginf(); else return sreal.nan();
+                    if (n % 2 != 0) return sreal.neginf; else return sreal.nan;
                 }
             }
 
@@ -5021,27 +5042,27 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in/*' />
         public static Single sph_bessel_in(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
 
-            if (sreal.isnan(x)) return sreal.nan();
-            if (sreal.isinf(x)) return sreal.inf();
-            if (sreal.isneginf(x)) return sreal.zero();
+            if (sreal.isnan(x)) return sreal.nan;
+            if (sreal.isinf(x)) return sreal.inf;
+            if (sreal.isneginf(x)) return sreal.zero;
             if (x == 0.0)
             {
                 if (n >= 0)
                 {
-                    if ((n == 0)) return sreal.one();
-                    else return sreal.zero();
+                    if ((n == 0)) return sreal.one;
+                    else return sreal.zero;
                 }
                 else
                 {
-                    if (n % 2 == 0) return sreal.neginf(); else return sreal.nan();
+                    if (n % 2 == 0) return sreal.neginf; else return sreal.nan;
                 }
             }
 
             Single x1 = x;
             if (x1 <= 0) x1 = -x1;
-            Single res = bessel_iv(n + 0.5, x1) / sqrt(2 * x1 / pi());
+            Single res = bessel_iv(n + 0.5, x1) / sqrt(2 * x1 / pi);
             if ((x < 0) && !(n % 2 == 0)) res = -res;
             if (scaled) res *= exp(-abs(x));
             return res;
@@ -5058,25 +5079,25 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn/*' />
         public static Single sph_bessel_kn(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
 
-            if (sreal.isnan(x)) return sreal.nan();
-            if (sreal.isinf(x)) return sreal.zero();
-            if (sreal.isneginf(x)) return sreal.neginf();
+            if (sreal.isnan(x)) return sreal.nan;
+            if (sreal.isinf(x)) return sreal.zero;
+            if (sreal.isneginf(x)) return sreal.neginf;
             if (x == 0.0)
             {
                 if (n >= 0)
                 {
-                    if (n % 2 == 0) return sreal.nan(); else return sreal.inf();
+                    if (n % 2 == 0) return sreal.nan; else return sreal.inf;
                 }
                 else
                 {
-                    if (n % 2 == 0) return sreal.inf(); else return sreal.nan();
+                    if (n % 2 == 0) return sreal.inf; else return sreal.nan;
                 }
             }
             Single res;
-            if (x >= 0.0f) res = bessel_kv(n + 0.5, x) / sqrt(2 * x / pi());
-            else res = -0.5f * pi() * (sph_bessel_in(n, -x) + sph_bessel_in(-n - 1, -x));
+            if (x >= 0.0f) res = bessel_kv(n + 0.5, x) / sqrt(2 * x / pi);
+            else res = -0.5f * pi * (sph_bessel_in(n, -x) + sph_bessel_in(-n - 1, -x));
             if (scaled) res *= exp(x);
             return res;
 
@@ -5109,12 +5130,12 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
         public static Single besselpoly(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
             if (abs(x) < t(0.01)) return besselpoly_(lrint(n), x);
             else
             {
                 Single res = sph_bessel_kn(n, 1 / x);
-                res *= exp(1 / x) * 2 / (pi() * x);
+                res *= exp(1 / x) * 2 / (pi * x);
                 return res;
             }
         }
@@ -5148,14 +5169,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
         public static Single besseltheta(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
-            if ((x == 0) && (n < 0)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
+            if ((x == 0) && (n < 0)) return sreal.nan;
             if ((abs(x) < t(0.01)) && (n >= 0)) return besseltheta_(lrint(n), x);
             if (n < 0) return pow(x, n) * besselpoly(n, 1 / x);
             else
             {
                 Single res = sph_bessel_kn(n, x);
-                res *= sreal.pow(x, n + 1) * exp(x) * 2 / pi();
+                res *= sreal.pow(x, n + 1) * exp(x) * 2 / pi;
                 return res;
             }
         }
@@ -5185,18 +5206,18 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn_prime/*' />
         public static Single sph_bessel_jn_prime(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
 
-            if (sreal.isnan(x)) return sreal.nan();
-            if (sreal.isinf(x)) return sreal.zero();
-            if (sreal.isneginf(x)) return sreal.zero();
+            if (sreal.isnan(x)) return sreal.nan;
+            if (sreal.isinf(x)) return sreal.zero;
+            if (sreal.isneginf(x)) return sreal.zero;
             if (x == 0.0)
             {
                 if (n == 1) return 1 / sreal.t(3);
-                if (n >= 0) return sreal.zero();
+                if (n >= 0) return sreal.zero;
                 else
                 {
-                    if (n % 2 != 0) return sreal.neginf(); else return sreal.nan();
+                    if (n % 2 != 0) return sreal.neginf; else return sreal.nan;
                 }
             }
             return (n * sph_bessel_jn(n - 1, x, scaled) - (n + 1) * sph_bessel_jn(n + 1, x, scaled)) / (2 * n + 1);
@@ -5214,18 +5235,18 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn_prime/*' />
         public static Single sph_bessel_yn_prime(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
 
-            if (sreal.isnan(x)) return sreal.nan();
-            if (sreal.isinf(x)) return sreal.zero();
-            if (sreal.isneginf(x)) return sreal.zero();
+            if (sreal.isnan(x)) return sreal.nan;
+            if (sreal.isinf(x)) return sreal.zero;
+            if (sreal.isneginf(x)) return sreal.zero;
             if (x == 0.0)
             {
                 if (n == -2) return -1 / sreal.t(3);
-                if (n < 0) return sreal.zero();
+                if (n < 0) return sreal.zero;
                 else
                 {
-                    if (n % 2 == 0) return sreal.inf(); else return sreal.nan();
+                    if (n % 2 == 0) return sreal.inf; else return sreal.nan;
                 }
             }
             return (n * sph_bessel_yn(n - 1, x, scaled) - (n + 1) * sph_bessel_yn(n + 1, x, scaled)) / (2 * n + 1);
@@ -5243,20 +5264,20 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in_prime/*' />
         public static Single sph_bessel_in_prime(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
 
-            if (sreal.isnan(x)) return sreal.nan();
-            if (sreal.isinf(x)) return sreal.inf();
+            if (sreal.isnan(x)) return sreal.nan;
+            if (sreal.isinf(x)) return sreal.inf;
             if (sreal.isneginf(x))
             {
-                if (n % 2 == 0) return sreal.neginf(); else return sreal.inf();
+                if (n % 2 == 0) return sreal.neginf; else return sreal.inf;
             }
             if (x == 0.0)
             {
-                if (n == 0) return sreal.zero();
+                if (n == 0) return sreal.zero;
                 if (n < 0)
                 {
-                    if (n % 2 != 0) return sreal.neginf(); else return sreal.nan();
+                    if (n % 2 != 0) return sreal.neginf; else return sreal.nan;
                 }
             }
             return (n * sph_bessel_in(n - 1, x, scaled) + (n + 1) * sph_bessel_in(n + 1, x, scaled)) / (2 * n + 1);
@@ -5274,15 +5295,15 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn_prime/*' />
         public static Single sph_bessel_kn_prime(Single n, Single x, bool scaled = false)
         {
-            if (!sreal.isinteger(n)) return sreal.nan();
+            if (!sreal.isinteger(n)) return sreal.nan;
 
-            if (sreal.isnan(x)) return sreal.nan();
-            if (sreal.isinf(x)) return sreal.zero();
-            if (sreal.isneginf(x)) return sreal.neginf();
+            if (sreal.isnan(x)) return sreal.nan;
+            if (sreal.isinf(x)) return sreal.zero;
+            if (sreal.isneginf(x)) return sreal.neginf;
             if (x == 0.0)
             {
-                if (((n >= 0) && (n % 2 == 0)) || ((n < 0) && (n % 2 != 0))) return sreal.neginf();
-                else return sreal.nan();
+                if (((n >= 0) && (n % 2 == 0)) || ((n < 0) && (n % 2 != 0))) return sreal.neginf;
+                else return sreal.nan;
             }
             return -(n * sph_bessel_kn(n - 1, x, scaled) + (n + 1) * sph_bessel_kn(n + 1, x, scaled)) / (2 * n + 1);
         }
@@ -5312,7 +5333,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
         public static SingleC hankel_h1(Single v, Single x)
         {
-            return bessel_jv(v, x) + scplx.onej() * bessel_yv(v, x);
+            return bessel_jv(v, x) + scplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
@@ -5326,7 +5347,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
         public static SingleC hankel_h2(Single v, Single x)
         {
-            return bessel_jv(v, x) - scplx.onej() * bessel_yv(v, x);
+            return bessel_jv(v, x) - scplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
@@ -5340,7 +5361,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
         public static SingleC sph_hankel_h1(int n, Single x)
         {
-            return sph_bessel_jn(n, x) + scplx.onej() * sph_bessel_yn(n, x);
+            return sph_bessel_jn(n, x) + scplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
@@ -5354,7 +5375,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
         public static SingleC sph_hankel_h2(int n, Single x)
         {
-            return sph_bessel_jn(n, x) - scplx.onej() * sph_bessel_yn(n, x);
+            return sph_bessel_jn(n, x) - scplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
@@ -5588,7 +5609,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/exp_integral_en/*' />
         public static Single exp_integral_en(int n, Single x)
         {
-            if (n < 0) return nan();
+            if (n < 0) return nan;
             Single res = 0.0F;
             Lib_SReal_expint(ref res, n, ref x);
             return res;
@@ -5604,7 +5625,7 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp_integral_e1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_e1/*' />
         public static Single exp_integral_e1(Single z)
         {
             if (z < 0) return -exp_integral_ei(-z);
@@ -5612,51 +5633,51 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp_integral_e1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_e1/*' />
         public static Single exp_integral_e1(dynamic z)
         {
             return exp_integral_e1(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log_integral/*' />
         public static Single log_integral(Single z)
         {
-            if (z < 0) return nan();
-            if (z == 0) return zero();
+            if (z < 0) return nan;
+            if (z == 0) return zero;
             else return exp_integral_ei(log(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log_integral/*' />
         public static Single log_integral(dynamic z)
         {
             return log_integral(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh_integral/*' />
         public static Single cosh_integral(Single x)
         {
             return (exp_integral_ei(x) - exp_integral_e1(x)) / 2;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh_integral/*' />
         public static Single cosh_integral(dynamic z)
         {
             return cosh_integral(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh_integral/*' />
         public static Single sinh_integral(Single x)
         {
             return (exp_integral_ei(x) + exp_integral_e1(x)) / 2;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh_integral/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh_integral/*' />
         public static Single sinh_integral(dynamic z)
         {
             return sinh_integral(t(z));
@@ -5712,14 +5733,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hermite_he/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
         public static Single hermite_he(int n, Single x)
         {
             return exp2(-n / 2) * hermite_h(n, x / sqrt(2));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hermite_he/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
         public static Single hermite_he(int n, dynamic x)
         {
             return hermite_he(n, sreal.t(x));
@@ -5960,7 +5981,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/spherical_y/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/spherical_y/*' />
         public static SingleC spherical_y(Single n, Single m, Single theta, Single phi)
         {
             return scplx.t(spherical_harmonic_r(lrint(n), lrint(m), theta, phi),
@@ -5968,7 +5989,7 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/spherical_y/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/spherical_y/*' />
         public static SingleC spherical_y(dynamic n, dynamic m, dynamic theta, dynamic phi)
         {
             return spherical_y(sreal.t(n), sreal.t(m), sreal.t(theta), sreal.t(phi));
@@ -6259,248 +6280,6 @@ namespace FixedPrecNet
 
 
 
-        #region Discrete (lattice) distribution functions
-
-
-
-        #region BernoulliDist
-
-
-        public class BernoulliDistClass : BaseDistDiscreteClass
-        {
-            Single p;
-            internal override Single BaseDist(Single xqp)
-            {
-                Single res = 0.0F;
-                Lib_SReal_BernoulliDist(target, ref res, ref xqp, ref p);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_BernoulliDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_SReal_BernoulliDist(int target, ref Single res, ref Single xqp, ref Single p);
-
-            public BernoulliDistClass(Single _p)
-            {
-                p = _p;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BernoulliDist/*' />
-        public static BernoulliDistClass dist_bernoulli(Single p)
-        {
-            return new BernoulliDistClass(p);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BernoulliDist/*' />
-        public static BernoulliDistClass dist_bernoulli(dynamic p)
-        {
-            return dist_bernoulli(t(p));
-        }
-
-        #endregion
-
-
-
-
-        #region GeometricDist
-
-
-        public class GeometricDistClass : BaseDistDiscreteClass
-        {
-            Single p;
-            internal override Single BaseDist(Single xqp)
-            {
-                Single res = 0.0F;
-                Lib_SReal_GeometricDist(target, ref res, ref xqp, ref p);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_GeometricDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_SReal_GeometricDist(int target, ref Single res, ref Single xqp, ref Single p);
-
-            public GeometricDistClass(Single _p)
-            {
-                p = _p;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GeometricDist/*' />
-        public static GeometricDistClass dist_geometric(Single p)
-        {
-            return new GeometricDistClass(p);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GeometricDist/*' />
-        public static GeometricDistClass dist_geometric(dynamic p)
-        {
-            return dist_geometric(t(p));
-        }
-
-        #endregion
-
-
-
-
-        #region PoissonDist
-
-
-        public class PoissonDistClass : BaseDistDiscreteClass
-        {
-            Single mu;
-            internal override Single BaseDist(Single xqp)
-            {
-                Single res = 0.0F;
-                Lib_SReal_PoissonDist(target, ref res, ref xqp, ref mu);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_PoissonDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_SReal_PoissonDist(int target, ref Single res, ref Single xqp, ref Single mu);
-
-            public PoissonDistClass(Single _mu)
-            {
-                mu = _mu;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/PoissonDist/*' />
-        public static PoissonDistClass dist_poisson(Single mu)
-        {
-            return new PoissonDistClass(mu);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/PoissonDist/*' />
-        public static PoissonDistClass dist_poisson(dynamic mu)
-        {
-            return dist_poisson(t(mu));
-        }
-
-        #endregion
-
-
-
-        #region BinomialDist
-
-
-        public class BinomialDistClass : BaseDistDiscreteClass
-        {
-            Single n;
-            Single p;
-            internal override Single BaseDist(Single xqp)
-            {
-                Single res = 0.0F;
-                Lib_SReal_BinomialDist(target, ref res, ref xqp, ref n, ref p);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_BinomialDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_SReal_BinomialDist(int target, ref Single res, ref Single xqp, ref Single n, ref Single p);
-
-            public BinomialDistClass(Single _n, Single _p)
-            {
-                n = _n;
-                p = _p;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BinomialDist/*' />
-        public static BinomialDistClass dist_binomial(Single n, Single p)
-        {
-            return new BinomialDistClass(n, p);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BinomialDist/*' />
-        public static BinomialDistClass dist_binomial(dynamic n, dynamic p)
-        {
-            return dist_binomial(t(n), t(p));
-        }
-
-        #endregion
-
-
-
-        #region NegBinomialDist
-
-
-        public class NegBinomialDistClass : BaseDistDiscreteClass
-        {
-            Single r;
-            Single p;
-            internal override Single BaseDist(Single xqp)
-            {
-                Single res = 0.0F;
-                Lib_SReal_NegBinomialDist(target, ref res, ref xqp, ref r, ref p);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_NegBinomialDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_SReal_NegBinomialDist(int target, ref Single res, ref Single xqp, ref Single r, ref Single p);
-
-            public NegBinomialDistClass(Single _r, Single _p)
-            {
-                r = _r;
-                p = _p;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NegBinomialDist/*' />
-        public static NegBinomialDistClass dist_negbinomial(Single r, Single p)
-        {
-            return new NegBinomialDistClass(r, p);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NegBinomialDist/*' />
-        public static NegBinomialDistClass dist_negbinomial(dynamic r, dynamic p)
-        {
-            return dist_negbinomial(t(r), t(p));
-        }
-
-        #endregion
-
-
-
-        #region HypergeometricDist
-
-
-        public class HypergeometricDistClass : BaseDistDiscreteClass
-        {
-            internal UInt64 r__;
-            internal UInt64 n__;
-            internal UInt64 NN__;
-            internal override Single BaseDist(Single xqp)
-            {
-                Single res = 0.0F;
-                Lib_SReal_HypergeometricDist(target, ref res, ref xqp, r__, n__, NN__);
-                return res;
-            }
-            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_HypergeometricDist", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void Lib_SReal_HypergeometricDist(int target, ref Single res, ref Single xqp, UInt64 r, UInt64 n, UInt64 NN);
-
-            public HypergeometricDistClass(UInt64 r, UInt64 n, UInt64 NN)
-            {
-                r__ = r;
-                n__ = n;
-                NN__ = NN;
-            }
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HypergeometricDist/*' />
-        public static HypergeometricDistClass dist_hypergeometric(UInt64 r, UInt64 n, UInt64 NN)
-        {
-            return new HypergeometricDistClass(r, n, NN);
-        }
-
-        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/HypergeometricDist/*' />
-        //public static HypergeometricDistClass dist_hypergeometric(dynamic r, dynamic n, dynamic NN)
-        //{
-        //    return dist_hypergeometric(t(r), t(n), t(NN));
-        //}
-
-        #endregion
-
-
-
-
-
-        #endregion
-
-
-
         #region Closed form distributions, based on elementary functions
 
 
@@ -6527,13 +6306,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ArcsineDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_arcsine/*' />
         public static ArcsineDistClass dist_arcsine(Single a, Single b)
         {
             return new ArcsineDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ArcsineDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_arcsine/*' />
         public static ArcsineDistClass dist_arcsine(dynamic a, dynamic b)
         {
             return dist_arcsine(t(a), t(b));
@@ -6568,13 +6347,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CauchyDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_cauchy/*' />
         public static CauchyDistClass dist_cauchy(Single a, Single b)
         {
             return new CauchyDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CauchyDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_cauchy/*' />
         public static CauchyDistClass dist_cauchy(dynamic a, dynamic b)
         {
             return dist_cauchy(t(a), t(b));
@@ -6606,13 +6385,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExponentialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_exponential/*' />
         public static ExponentialDistClass dist_exponential(Single lambda1)
         {
             return new ExponentialDistClass(lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExponentialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_exponential/*' />
         public static ExponentialDistClass dist_exponential(dynamic lambda1)
         {
             return dist_exponential(t(lambda1));
@@ -6646,13 +6425,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GumbelDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gumbel/*' />
         public static GumbelDistClass dist_gumbel(Single a, Single b)
         {
             return new GumbelDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GumbelDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gumbel/*' />
         public static GumbelDistClass dist_gumbel(dynamic a, dynamic b)
         {
             return dist_gumbel(t(a), t(b));
@@ -6686,7 +6465,7 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HyperexponentialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_hyperexponential/*' />
         public static HyperexponentialDistClass dist_hyperexponential(SingleVec Prob, SingleVec Rate)
         {
             return new HyperexponentialDistClass(Prob, Rate);
@@ -6800,13 +6579,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LaplaceDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_laplace/*' />
         public static LaplaceDistClass dist_laplace(Single a, Single b)
         {
             return new LaplaceDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LaplaceDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_laplace/*' />
         public static LaplaceDistClass dist_laplace(dynamic a, dynamic b)
         {
             return dist_laplace(t(a), t(b));
@@ -6840,13 +6619,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LogisticDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_logistic/*' />
         public static LogisticDistClass dist_logistic(Single a, Single b)
         {
             return new LogisticDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LogisticDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_logistic/*' />
         public static LogisticDistClass dist_logistic(dynamic a, dynamic b)
         {
             return dist_logistic(t(a), t(b));
@@ -6880,13 +6659,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ParetoDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_pareto/*' />
         public static ParetoDistClass dist_pareto(Single k, Single a)
         {
             return new ParetoDistClass(k, a);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ParetoDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_pareto/*' />
         public static ParetoDistClass dist_pareto(dynamic k, dynamic a)
         {
             return dist_pareto(t(k), t(a));
@@ -6918,13 +6697,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RayleighDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_rayleigh/*' />
         public static RayleighDistClass dist_rayleigh(Single b)
         {
             return new RayleighDistClass(b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RayleighDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_rayleigh/*' />
         public static RayleighDistClass dist_rayleigh(dynamic b)
         {
             return dist_rayleigh(t(b));
@@ -6961,13 +6740,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TriangularDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_triangular/*' />
         public static TriangularDistClass dist_triangular(Single a, Single m, Single b)
         {
             return new TriangularDistClass(a, m, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TriangularDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_triangular/*' />
         public static TriangularDistClass dist_triangular(dynamic a, dynamic m, dynamic b)
         {
             return dist_triangular(t(a), t(m), t(b));
@@ -7001,13 +6780,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/UniformDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_triangular/*' />
         public static UniformDistClass dist_uniform(Single a, Single b)
         {
             return new UniformDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/UniformDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_uniform/*' />
         public static UniformDistClass dist_uniform(dynamic a, dynamic b)
         {
             return dist_uniform(t(a), t(b));
@@ -7041,13 +6820,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WeibullDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_weibull/*' />
         public static WeibullDistClass dist_weibull(Single a, Single b)
         {
             return new WeibullDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WeibullDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_weibull/*' />
         public static WeibullDistClass dist_weibull(dynamic a, dynamic b)
         {
             return dist_weibull(t(a), t(b));
@@ -7078,7 +6857,7 @@ namespace FixedPrecNet
                 Single sf = t(0);
                 if ((target == 1) || (target == 4))
                 {
-                    Single s = sqrt(b / (2 * pi()));
+                    Single s = sqrt(b / (2 * pi));
                     Single t = exp(-b / (2 * (xqp - a)));
                     Single u = pow(xqp - a, 1.5);
                     pdf = s * t / u;
@@ -7176,13 +6955,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LognormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_lognormal/*' />
         public static LognormalDistClass dist_lognormal(Single a, Single b)
         {
             return new LognormalDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LognormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_lognormal/*' />
         public static LognormalDistClass dist_lognormal(dynamic a, dynamic b)
         {
             return dist_lognormal(t(a), t(b));
@@ -7211,7 +6990,7 @@ namespace FixedPrecNet
                 {
                     Single t1 = (xqp - a) / (2 * b);
                     Single t2 = t("0.5") * exp(-(xqp - a) / b);
-                    Single s = b * sqrt(2 * pi());
+                    Single s = b * sqrt(2 * pi);
                     pdf = exp(-t1 - t2) / s;
                 }
                 if ((target == 3) || (target == 4) || (target == 5))
@@ -7309,13 +7088,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_normal/*' />
         public static NormalDistClass dist_normal(Single mu, Single sigma)
         {
             return new NormalDistClass(mu, sigma);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_normal/*' />
         public static NormalDistClass dist_normal(dynamic mu, dynamic sigma)
         {
             return dist_normal(t(mu), t(sigma));
@@ -7352,13 +7131,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SkewNormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_skewnormal/*' />
         public static SkewNormalDistClass dist_skewnormal(Single a, Single b, Single c)
         {
             return new SkewNormalDistClass(a, b, c);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SkewNormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_skewnormal/*' />
         public static SkewNormalDistClass dist_skewnormal(dynamic a, dynamic b, dynamic c)
         {
             return dist_skewnormal(t(a), t(b), t(c));
@@ -7392,13 +7171,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WaldDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_wald/*' />
         public static WaldDistClass dist_wald(Single mu, Single b)
         {
             return new WaldDistClass(mu, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WaldDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_wald/*' />
         public static WaldDistClass dist_wald(dynamic mu, dynamic b)
         {
             return dist_wald(t(mu), t(b));
@@ -7519,13 +7298,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2/*' />
         public static Chi2DistClass dist_chi2(Single n)
         {
             return new Chi2DistClass(n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2/*' />
         public static Chi2DistClass dist_chi2(dynamic n)
         {
             return dist_chi2(t(n));
@@ -7560,13 +7339,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gamma/*' />
         public static GammaDistClass dist_gamma(Single a, Single b)
         {
             return new GammaDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gamma/*' />
         public static GammaDistClass dist_gamma(dynamic a, dynamic b)
         {
             return dist_gamma(t(a), t(b));
@@ -7601,13 +7380,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseChi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_chi2/*' />
         public static InverseChi2DistClass dist_inverse_chi2(Single a, Single b)
         {
             return new InverseChi2DistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseChi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_chi2/*' />
         public static InverseChi2DistClass dist_inverse_chi2(dynamic a, dynamic b)
         {
             return dist_inverse_chi2(t(a), t(b));
@@ -7641,13 +7420,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseGammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_gamma/*' />
         public static InverseGammaDistClass dist_inverse_gamma(Single a, Single b)
         {
             return new InverseGammaDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseGammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_gamma/*' />
         public static InverseGammaDistClass dist_inverse_gamma(dynamic a, dynamic b)
         {
             return dist_inverse_gamma(t(a), t(b));
@@ -7671,7 +7450,7 @@ namespace FixedPrecNet
                 Single sf = t(0);
                 if ((target == 1) || (target == 4))
                 {
-                    Single s = sqrt(2 / pi());
+                    Single s = sqrt(2 / pi);
                     Single t = (xqp * xqp) / (b * b * b);
                     Single u = exp(-(xqp * xqp) / (2 * b * b));
                     pdf = s * t * u;
@@ -7866,13 +7645,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta/*' />
         public static BetaDistClass dist_beta(Single a, Single b)
         {
             return new BetaDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta/*' />
         public static BetaDistClass dist_beta(dynamic a, dynamic b)
         {
             return dist_beta(t(a), t(b));
@@ -7905,13 +7684,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherFDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f/*' />
         public static FisherFDistClass dist_fisher_f(Single m, Single n)
         {
             return new FisherFDistClass(m, n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherFDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f/*' />
         public static FisherFDistClass dist_fisher_f(dynamic m, dynamic n)
         {
             return dist_fisher_f(t(m), t(n));
@@ -7943,13 +7722,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t/*' />
         public static StudentTDistClass dist_student_t(Single n)
         {
             return new StudentTDistClass(n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t/*' />
         public static StudentTDistClass dist_student_t(dynamic n)
         {
             return dist_student_t(t(n));
@@ -7988,13 +7767,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2NcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2_nc/*' />
         public static Chi2NcDistClass dist_chi2_nc(Single n, Single lambda1)
         {
             return new Chi2NcDistClass(n, lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2NcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2_nc/*' />
         public static Chi2NcDistClass dist_chi2_nc(dynamic n, dynamic lambda1)
         {
             return dist_chi2_nc(t(n), t(lambda1));
@@ -8027,13 +7806,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t_nc/*' />
         public static StudentTNcDistClass dist_student_t_nc(Single n, Single delta)
         {
             return new StudentTNcDistClass(n, delta);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t_nc/*' />
         public static StudentTNcDistClass dist_student_t_nc(dynamic n, dynamic delta)
         {
             return dist_student_t_nc(t(n), t(delta));
@@ -8068,13 +7847,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f_nc/*' />
         public static FisherFNcDistClass dist_fisher_f_nc(Single m, Single n, Single lambda1)
         {
             return new FisherFNcDistClass(m, n, lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f_nc/*' />
         public static FisherFNcDistClass dist_fisher_f_nc(dynamic m, dynamic n, dynamic lambda1)
         {
             return dist_fisher_f_nc(t(m), t(n), t(lambda1));
@@ -8109,13 +7888,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta_nc/*' />
         public static BetaNcDistClass dist_beta_nc(Single a, Single b, Single lambda1)
         {
             return new BetaNcDistClass(a, b, lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta_nc/*' />
         public static BetaNcDistClass dist_beta_nc(dynamic a, dynamic b, dynamic lambda1)
         {
             return dist_beta_nc(t(a), t(b), t(lambda1));
@@ -8155,13 +7934,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/KolmogorovSmirnovDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_kolmogorov_smirnov/*' />
         public static KolmogorovSmirnovDistClass dist_kolmogorov_smirnov(Single n)
         {
             return new KolmogorovSmirnovDistClass(n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/KolmogorovSmirnovDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_kolmogorov_smirnov/*' />
         public static KolmogorovSmirnovDistClass dist_kolmogorov_smirnov(dynamic n)
         {
             return dist_kolmogorov_smirnov(t(n));
@@ -8194,13 +7973,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HoltsmarkDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_holtsmark/*' />
         public static HoltsmarkDistClass dist_holtsmark(Single a, Single b)
         {
             return new HoltsmarkDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HoltsmarkDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_holtsmark/*' />
         public static HoltsmarkDistClass dist_holtsmark(dynamic a, dynamic b)
         {
             return dist_holtsmark(t(a), t(b));
@@ -8233,13 +8012,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LandauDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_landau/*' />
         public static LandauDistClass dist_landau(Single a, Single b)
         {
             return new LandauDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LandauDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_landau/*' />
         public static LandauDistClass dist_landau(dynamic a, dynamic b)
         {
             return dist_landau(t(a), t(b));
@@ -8272,13 +8051,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/MapAiryDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_mapairy/*' />
         public static MapAiryDistClass dist_mapairy(Single a, Single b)
         {
             return new MapAiryDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/MapAiryDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_mapairy/*' />
         public static MapAiryDistClass dist_mapairy(dynamic a, dynamic b)
         {
             return dist_mapairy(t(a), t(b));
@@ -8311,13 +8090,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Saspoint5Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_saspoint5/*' />
         public static Saspoint5DistClass dist_saspoint5(Single a, Single b)
         {
             return new Saspoint5DistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Saspoint5Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_saspoint5/*' />
         public static Saspoint5DistClass dist_saspoint5(dynamic a, dynamic b)
         {
             return dist_saspoint5(t(a), t(b));
@@ -8329,6 +8108,247 @@ namespace FixedPrecNet
 
         #endregion
 
+
+
+        #region Discrete (lattice) distribution functions
+
+
+
+        #region BernoulliDist
+
+
+        public class BernoulliDistClass : BaseDistDiscreteClass
+        {
+            Single p;
+            internal override Single BaseDist(Single xqp)
+            {
+                Single res = 0.0F;
+                Lib_SReal_BernoulliDist(target, ref res, ref xqp, ref p);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_BernoulliDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_SReal_BernoulliDist(int target, ref Single res, ref Single xqp, ref Single p);
+
+            public BernoulliDistClass(Single _p)
+            {
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_bernoulli/*' />
+        public static BernoulliDistClass dist_bernoulli(Single p)
+        {
+            return new BernoulliDistClass(p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_bernoulli/*' />
+        public static BernoulliDistClass dist_bernoulli(dynamic p)
+        {
+            return dist_bernoulli(t(p));
+        }
+
+        #endregion
+
+
+
+
+        #region GeometricDist
+
+
+        public class GeometricDistClass : BaseDistDiscreteClass
+        {
+            Single p;
+            internal override Single BaseDist(Single xqp)
+            {
+                Single res = 0.0F;
+                Lib_SReal_GeometricDist(target, ref res, ref xqp, ref p);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_GeometricDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_SReal_GeometricDist(int target, ref Single res, ref Single xqp, ref Single p);
+
+            public GeometricDistClass(Single _p)
+            {
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_geometric/*' />
+        public static GeometricDistClass dist_geometric(Single p)
+        {
+            return new GeometricDistClass(p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_geometric/*' />
+        public static GeometricDistClass dist_geometric(dynamic p)
+        {
+            return dist_geometric(t(p));
+        }
+
+        #endregion
+
+
+
+
+        #region PoissonDist
+
+
+        public class PoissonDistClass : BaseDistDiscreteClass
+        {
+            Single mu;
+            internal override Single BaseDist(Single xqp)
+            {
+                Single res = 0.0F;
+                Lib_SReal_PoissonDist(target, ref res, ref xqp, ref mu);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_PoissonDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_SReal_PoissonDist(int target, ref Single res, ref Single xqp, ref Single mu);
+
+            public PoissonDistClass(Single _mu)
+            {
+                mu = _mu;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_poisson/*' />
+        public static PoissonDistClass dist_poisson(Single mu)
+        {
+            return new PoissonDistClass(mu);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_poisson/*' />
+        public static PoissonDistClass dist_poisson(dynamic mu)
+        {
+            return dist_poisson(t(mu));
+        }
+
+        #endregion
+
+
+
+        #region BinomialDist
+
+
+        public class BinomialDistClass : BaseDistDiscreteClass
+        {
+            Single n;
+            Single p;
+            internal override Single BaseDist(Single xqp)
+            {
+                Single res = 0.0F;
+                Lib_SReal_BinomialDist(target, ref res, ref xqp, ref n, ref p);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_BinomialDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_SReal_BinomialDist(int target, ref Single res, ref Single xqp, ref Single n, ref Single p);
+
+            public BinomialDistClass(Single _n, Single _p)
+            {
+                n = _n;
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_binomial/*' />
+        public static BinomialDistClass dist_binomial(Single n, Single p)
+        {
+            return new BinomialDistClass(n, p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_binomial/*' />
+        public static BinomialDistClass dist_binomial(dynamic n, dynamic p)
+        {
+            return dist_binomial(t(n), t(p));
+        }
+
+        #endregion
+
+
+
+        #region NegBinomialDist
+
+
+        public class NegBinomialDistClass : BaseDistDiscreteClass
+        {
+            Single r;
+            Single p;
+            internal override Single BaseDist(Single xqp)
+            {
+                Single res = 0.0F;
+                Lib_SReal_NegBinomialDist(target, ref res, ref xqp, ref r, ref p);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_NegBinomialDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_SReal_NegBinomialDist(int target, ref Single res, ref Single xqp, ref Single r, ref Single p);
+
+            public NegBinomialDistClass(Single _r, Single _p)
+            {
+                r = _r;
+                p = _p;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_negbinomial/*' />
+        public static NegBinomialDistClass dist_negbinomial(Single r, Single p)
+        {
+            return new NegBinomialDistClass(r, p);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_negbinomial/*' />
+        public static NegBinomialDistClass dist_negbinomial(dynamic r, dynamic p)
+        {
+            return dist_negbinomial(t(r), t(p));
+        }
+
+        #endregion
+
+
+
+        #region HypergeometricDist
+
+
+        public class HypergeometricDistClass : BaseDistDiscreteClass
+        {
+            internal UInt64 r__;
+            internal UInt64 n__;
+            internal UInt64 NN__;
+            internal override Single BaseDist(Single xqp)
+            {
+                Single res = 0.0F;
+                Lib_SReal_HypergeometricDist(target, ref res, ref xqp, r__, n__, NN__);
+                return res;
+            }
+            [DllImport(xcn.mpNum, EntryPoint = "Lib_SReal_HypergeometricDist", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void Lib_SReal_HypergeometricDist(int target, ref Single res, ref Single xqp, UInt64 r, UInt64 n, UInt64 NN);
+
+            public HypergeometricDistClass(UInt64 r, UInt64 n, UInt64 NN)
+            {
+                r__ = r;
+                n__ = n;
+                NN__ = NN;
+            }
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_hypergeometric/*' />
+        public static HypergeometricDistClass dist_hypergeometric(UInt64 r, UInt64 n, UInt64 NN)
+        {
+            return new HypergeometricDistClass(r, n, NN);
+        }
+
+        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/HypergeometricDist/*' />
+        //public static HypergeometricDistClass dist_hypergeometric(dynamic r, dynamic n, dynamic NN)
+        //{
+        //    return dist_hypergeometric(t(r), t(n), t(NN));
+        //}
+
+        #endregion
+
+
+
+
+
+        #endregion
 
 
 
@@ -8347,21 +8367,21 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BracketRoot/*' />
-        public static Tuple<Single, Single, int> BracketRoot(cb1SSingle1S f, dynamic guess, dynamic factor, bool is_rising, int get_digits, uint maxit)
+        public static Tuple<Single, Single, int> BracketRoot(cb1SRet1S f, dynamic guess, dynamic factor, bool is_rising, int get_digits, uint maxit)
         {
             return BracketRoot(f, sreal.t(guess), sreal.t(factor), is_rising, get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BracketRoot/*' />
-        public static Tuple<Single, Single, int> BracketRoot(cb1SSingle1S f, Single guess, Single factor, bool is_rising, int get_digits, uint maxit)
+        public static Tuple<Single, Single, int> BracketRoot(cb1SRet1S f, Single guess, Single factor, bool is_rising, int get_digits, uint maxit)
         {
             var SBracketRoot1 = new SBracketRoot(f, guess, factor, is_rising, get_digits, maxit);
             return SBracketRoot1.Find();
         }
         internal class SBracketRoot
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             private Single guess_;
             private Single factor_;
             private bool is_rising_;
@@ -8371,7 +8391,7 @@ namespace FixedPrecNet
             {
                 fxPtr = F1_(xPtr);
             }
-            public SBracketRoot(cb1SSingle1S F1, Single guess, Single factor, bool is_rising, int get_digits, uint maxit)
+            public SBracketRoot(cb1SRet1S F1, Single guess, Single factor, bool is_rising, int get_digits, uint maxit)
             {
                 F1_ = F1;
                 guess_ = guess;
@@ -8395,22 +8415,22 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/NewtonRaphson/*' />
-        public static Tuple<Single, int> NewtonRaphson(cb1SSingle1S f, cb1SSingle1S df, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        public static Tuple<Single, int> NewtonRaphson(cb1SRet1S f, cb1SRet1S df, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
         {
             return NewtonRaphson(f, df, sreal.t(guess), sreal.t(xmin), sreal.t(xmax), get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/NewtonRaphson/*' />
-        public static Tuple<Single, int> NewtonRaphson(cb1SSingle1S f, cb1SSingle1S df, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
+        public static Tuple<Single, int> NewtonRaphson(cb1SRet1S f, cb1SRet1S df, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
         {
             var SNewtonRaphson1 = new SNewtonRaphson(f, df, guess, xmin, xmax, get_digits, maxit);
             return SNewtonRaphson1.Find();
         }
         internal class SNewtonRaphson
         {
-            private cb1SSingle1S F1_;
-            private cb1SSingle1S DF1_;
+            private cb1SRet1S F1_;
+            private cb1SRet1S DF1_;
             private Single guess_;
             private Single xmin_;
             private Single xmax_;
@@ -8424,7 +8444,7 @@ namespace FixedPrecNet
             {
                 dfxPtr = DF1_(dxPtr);
             }
-            public SNewtonRaphson(cb1SSingle1S F1, cb1SSingle1S DF1, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
+            public SNewtonRaphson(cb1SRet1S F1, cb1SRet1S DF1, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
             {
                 F1_ = F1;
                 DF1_ = DF1;
@@ -8451,23 +8471,23 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Halley/*' />
-        public static Tuple<Single, int> Halley(cb1SSingle1S f, cb1SSingle1S df1, cb1SSingle1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        public static Tuple<Single, int> Halley(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
         {
             return Halley(f, df1, df2, sreal.t(guess), sreal.t(xmin), sreal.t(xmax), get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Halley/*' />
-        public static Tuple<Single, int> Halley(cb1SSingle1S f, cb1SSingle1S df1, cb1SSingle1S df2, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
+        public static Tuple<Single, int> Halley(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
         {
             var SHalley1 = new SHalley(f, df1, df2, guess, xmin, xmax, get_digits, maxit);
             return SHalley1.Find();
         }
         internal class SHalley
         {
-            private cb1SSingle1S F1_;
-            private cb1SSingle1S DF1_;
-            private cb1SSingle1S DF2_;
+            private cb1SRet1S F1_;
+            private cb1SRet1S DF1_;
+            private cb1SRet1S DF2_;
             private Single guess_;
             private Single xmin_;
             private Single xmax_;
@@ -8485,7 +8505,7 @@ namespace FixedPrecNet
             {
                 d2fxPtr = DF2_(d2xPtr);
             }
-            public SHalley(cb1SSingle1S F1, cb1SSingle1S DF1, cb1SSingle1S DF2, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
+            public SHalley(cb1SRet1S F1, cb1SRet1S DF1, cb1SRet1S DF2, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
             {
                 F1_ = F1;
                 DF1_ = DF1;
@@ -8513,23 +8533,23 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Schroder/*' />
-        public static Tuple<Single, int> Schroder(cb1SSingle1S f, cb1SSingle1S df1, cb1SSingle1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        public static Tuple<Single, int> Schroder(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
         {
             return Schroder(f, df1, df2, sreal.t(guess), sreal.t(xmin), sreal.t(xmax), get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Schroder/*' />
-        public static Tuple<Single, int> Schroder(cb1SSingle1S f, cb1SSingle1S df1, cb1SSingle1S df2, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
+        public static Tuple<Single, int> Schroder(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
         {
             var SSchroder1 = new SSchroder(f, df1, df2, guess, xmin, xmax, get_digits, maxit);
             return SSchroder1.Find();
         }
         internal class SSchroder
         {
-            private cb1SSingle1S F1_;
-            private cb1SSingle1S DF1_;
-            private cb1SSingle1S DF2_;
+            private cb1SRet1S F1_;
+            private cb1SRet1S DF1_;
+            private cb1SRet1S DF2_;
             private Single guess_;
             private Single xmin_;
             private Single xmax_;
@@ -8547,7 +8567,7 @@ namespace FixedPrecNet
             {
                 d2fxPtr = DF2_(d2xPtr);
             }
-            public SSchroder(cb1SSingle1S F1, cb1SSingle1S DF1, cb1SSingle1S DF2, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
+            public SSchroder(cb1SRet1S F1, cb1SRet1S DF1, cb1SRet1S DF2, Single guess, Single xmin, Single xmax, int get_digits, uint maxit)
             {
                 F1_ = F1;
                 DF1_ = DF1;
@@ -8576,21 +8596,21 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BrentMinimum/*' />
-        public static Tuple<Single, Single, int> Brent_Minimum(cb1SSingle1S f, dynamic bracket_min, dynamic bracket_max, int bits, uint maxit)
+        public static Tuple<Single, Single, int> Brent_Minimum(cb1SRet1S f, dynamic bracket_min, dynamic bracket_max, int bits, uint maxit)
         {
             return Brent_Minimum(f, sreal.t(bracket_min), sreal.t(bracket_max), bits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BrentMinimum/*' />
-        public static Tuple<Single, Single, int> Brent_Minimum(cb1SSingle1S f, Single bracket_min, Single bracket_max, int bits, uint maxit)
+        public static Tuple<Single, Single, int> Brent_Minimum(cb1SRet1S f, Single bracket_min, Single bracket_max, int bits, uint maxit)
         {
             var SBrent_Minimum1 = new SBrent_Minimum(f, bracket_min, bracket_max, bits, maxit);
             return SBrent_Minimum1.Find();
         }
         internal class SBrent_Minimum
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             private Single bracket_min_;
             private Single bracket_max_;
             private int bits_;
@@ -8599,7 +8619,7 @@ namespace FixedPrecNet
             {
                 fxPtr = F1_(xPtr);
             }
-            public SBrent_Minimum(cb1SSingle1S F1, Single bracket_min, Single bracket_max, int bits, uint maxit)
+            public SBrent_Minimum(cb1SRet1S F1, Single bracket_min, Single bracket_max, int bits, uint maxit)
             {
                 F1_ = F1;
                 bracket_min_ = bracket_min;
@@ -8630,7 +8650,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Trapezoidal/*' />
-        public static Tuple<Single, Single, Single> Trapezoidal(cb1SSingle1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Single, Single, Single> Trapezoidal(cb1SRet1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return Trapezoidal(f, sreal.t(a), sreal.t(b), sreal.t(tol), max_refinements);
@@ -8638,21 +8658,21 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Trapezoidal/*' />
-        public static Tuple<Single, Single, Single> Trapezoidal(cb1SSingle1S f, Single a, Single b, Single tol, uint max_refinements = 12)
+        public static Tuple<Single, Single, Single> Trapezoidal(cb1SRet1S f, Single a, Single b, Single tol, uint max_refinements = 12)
         {
             var STrapezoidal21 = new STrapezoidal2(f, a, b);
             return STrapezoidal21.Integrate();
         }
         internal class STrapezoidal2
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             private Single a_;
             private Single b_;
             public void funcptr1(ref Single xPtr, ref Single fxPtr)
             {
                 fxPtr = F1_(xPtr);
             }
-            public STrapezoidal2(cb1SSingle1S F1, Single a, Single b)
+            public STrapezoidal2(cb1SRet1S F1, Single a, Single b)
             {
                 F1_ = F1;
                 a_ = a;
@@ -8675,28 +8695,28 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussLegendre/*' />
-        public static Tuple<Single, Single> GaussLegendre(cb1SSingle1S f, dynamic a, dynamic b)
+        public static Tuple<Single, Single> GaussLegendre(cb1SRet1S f, dynamic a, dynamic b)
         {
             return GaussLegendre(f, sreal.t(a), sreal.t(b));
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussLegendre/*' />
-        public static Tuple<Single, Single> GaussLegendre(cb1SSingle1S f, Single a, Single b)
+        public static Tuple<Single, Single> GaussLegendre(cb1SRet1S f, Single a, Single b)
         {
             var SGaussLegendre1 = new SGaussLegendre(f, a, b);
             return SGaussLegendre1.Integrate();
         }
         internal class SGaussLegendre
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             private Single a_;
             private Single b_;
             public void funcptr1(ref Single xPtr, ref Single fxPtr)
             {
                 fxPtr = F1_(xPtr);
             }
-            public SGaussLegendre(cb1SSingle1S F1, Single a, Single b)
+            public SGaussLegendre(cb1SRet1S F1, Single a, Single b)
             {
                 F1_ = F1;
                 a_ = a;
@@ -8717,7 +8737,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussKronrod/*' />
-        public static Tuple<Single, Single, Single> GaussKronrod(cb1SSingle1S f, dynamic a, dynamic b, dynamic tol = null, uint max_depth = 12)
+        public static Tuple<Single, Single, Single> GaussKronrod(cb1SRet1S f, dynamic a, dynamic b, dynamic tol = null, uint max_depth = 12)
         {
             if (tol == null) { tol = t(0); }
             return GaussKronrod(f, sreal.t(a), sreal.t(b), sreal.t(tol), max_depth);
@@ -8725,21 +8745,21 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussKronrod/*' />
-        public static Tuple<Single, Single, Single> GaussKronrod(cb1SSingle1S f, Single a, Single b, Single tol, uint max_depth = 12)
+        public static Tuple<Single, Single, Single> GaussKronrod(cb1SRet1S f, Single a, Single b, Single tol, uint max_depth = 12)
         {
             var SGaussKronrod1 = new SGaussKronrod(f, a, b);
             return SGaussKronrod1.Integrate();
         }
         internal class SGaussKronrod
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             private Single a_;
             private Single b_;
             public void funcptr1(ref Single xPtr, ref Single fxPtr)
             {
                 fxPtr = F1_(xPtr);
             }
-            public SGaussKronrod(cb1SSingle1S F1, Single a, Single b)
+            public SGaussKronrod(cb1SRet1S F1, Single a, Single b)
             {
                 F1_ = F1;
                 a_ = a;
@@ -8761,7 +8781,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/TanhSinh/*' />
-        public static Tuple<Single, Single, Single, int> TanhSinh(cb1SSingle1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Single, Single, Single, int> TanhSinh(cb1SRet1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return TanhSinh(f, sreal.t(a), sreal.t(b), sreal.t(tol), max_refinements);
@@ -8769,21 +8789,21 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/TanhSinh/*' />
-        public static Tuple<Single, Single, Single, int> TanhSinh(cb1SSingle1S f, Single a, Single b, Single tol, uint max_refinements = 12)
+        public static Tuple<Single, Single, Single, int> TanhSinh(cb1SRet1S f, Single a, Single b, Single tol, uint max_refinements = 12)
         {
             var STanhSinh1 = new STanhSinh(f, a, b);
             return STanhSinh1.Integrate();
         }
         internal class STanhSinh
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             private Single a_;
             private Single b_;
             public void funcptr1(ref Single xPtr, ref Single fxPtr)
             {
                 fxPtr = F1_(xPtr);
             }
-            public STanhSinh(cb1SSingle1S F1, Single a, Single b)
+            public STanhSinh(cb1SRet1S F1, Single a, Single b)
             {
                 F1_ = F1;
                 a_ = a;
@@ -8806,7 +8826,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/SinhSinh/*' />
-        public static Tuple<Single, Single, Single, int> SinhSinh(cb1SSingle1S f, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Single, Single, Single, int> SinhSinh(cb1SRet1S f, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return SinhSinh(f, sreal.t(tol), max_refinements);
@@ -8814,19 +8834,19 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/SinhSinh/*' />
-        public static Tuple<Single, Single, Single, int> SinhSinh(cb1SSingle1S f, Single tol, uint max_refinements = 12)
+        public static Tuple<Single, Single, Single, int> SinhSinh(cb1SRet1S f, Single tol, uint max_refinements = 12)
         {
             var SSinhSinh1 = new SSinhSinh(f);
             return SSinhSinh1.Integrate();
         }
         internal class SSinhSinh
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             public void funcptr1(ref Single xPtr, ref Single fxPtr)
             {
                 fxPtr = F1_(xPtr);
             }
-            public SSinhSinh(cb1SSingle1S F1)
+            public SSinhSinh(cb1SRet1S F1)
             {
                 F1_ = F1;
             }
@@ -8848,7 +8868,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExpSinh/*' />
-        public static Tuple<Single, Single, Single, int> ExpSinh(cb1SSingle1S f, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Single, Single, Single, int> ExpSinh(cb1SRet1S f, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return ExpSinh(f, sreal.t(tol), max_refinements);
@@ -8856,19 +8876,19 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExpSinh/*' />
-        public static Tuple<Single, Single, Single, int> ExpSinh(cb1SSingle1S f, Single tol, uint max_refinements = 12)
+        public static Tuple<Single, Single, Single, int> ExpSinh(cb1SRet1S f, Single tol, uint max_refinements = 12)
         {
             var SExpSinh1 = new SExpSinh(f);
             return SExpSinh1.Integrate();
         }
         internal class SExpSinh
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             public void funcptr1(ref Single xPtr, ref Single fxPtr)
             {
                 fxPtr = F1_(xPtr);
             }
-            public SExpSinh(cb1SSingle1S F1)
+            public SExpSinh(cb1SRet1S F1)
             {
                 F1_ = F1;
             }
@@ -8889,19 +8909,19 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraCos/*' />
-        public static Tuple<Single, Single> Ooura_Cos(cb1SSingle1S f)
+        public static Tuple<Single, Single> Ooura_Cos(cb1SRet1S f)
         {
             var SOoura_Cos1 = new SOoura_Cos(f);
             return SOoura_Cos1.Integrate();
         }
         internal class SOoura_Cos
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             public void funcptr1(ref Single xPtr, ref Single fxPtr)
             {
                 fxPtr = F1_(xPtr);
             }
-            public SOoura_Cos(cb1SSingle1S F1)
+            public SOoura_Cos(cb1SRet1S F1)
             {
                 F1_ = F1;
             }
@@ -8920,19 +8940,19 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraSin/*' />
-        public static Tuple<Single, Single> Ooura_Sin(cb1SSingle1S f)
+        public static Tuple<Single, Single> Ooura_Sin(cb1SRet1S f)
         {
             var SOoura_Sin1 = new SOoura_Sin(f);
             return SOoura_Sin1.Integrate();
         }
         internal class SOoura_Sin
         {
-            private cb1SSingle1S F1_;
+            private cb1SRet1S F1_;
             public void funcptr1(ref Single xPtr, ref Single fxPtr)
             {
                 fxPtr = F1_(xPtr);
             }
-            public SOoura_Sin(cb1SSingle1S F1)
+            public SOoura_Sin(cb1SRet1S F1)
             {
                 F1_ = F1;
             }
@@ -8962,7 +8982,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/RungeKutta4Const/*' />
-        public static void RungeKutta4Const(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
+        public static void RungeKutta4Const(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
         {
             var SOdeint1 = new SOdeintConst(1, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
@@ -8970,59 +8990,59 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/RungeKutta4Const/*' />
-        public static void RungeKutta4Const(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void RungeKutta4Const(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             RungeKutta4Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
 
-        public static void CashKarp54Const(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
+        public static void CashKarp54Const(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
         {
             var SOdeint1 = new SOdeintConst(2, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
         }
 
 
-        public static void CashKarp54Const(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void CashKarp54Const(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             CashKarp54Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
 
-        public static void DormandPrince5Const(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
+        public static void DormandPrince5Const(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
         {
             var SOdeint1 = new SOdeintConst(3, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
         }
 
 
-        public static void DormandPrince5Const(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void DormandPrince5Const(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             DormandPrince5Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
 
-        public static void Fehlberg78Const(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
+        public static void Fehlberg78Const(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
         {
             var SOdeint1 = new SOdeintConst(4, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
         }
 
 
-        public static void Fehlberg78Const(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void Fehlberg78Const(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             Fehlberg78Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
 
-        public static void AdamsBashforthMoultonConst(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
+        public static void AdamsBashforthMoultonConst(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt)
         {
             var SOdeint1 = new SOdeintConst(5, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
         }
 
 
-        public static void AdamsBashforthMoultonConst(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void AdamsBashforthMoultonConst(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             AdamsBashforthMoultonConst(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
@@ -9031,8 +9051,8 @@ namespace FixedPrecNet
         internal class SOdeintConst
         {
             private int what_;
-            private cbSingle1S2V F1_;
-            private cbSingle1S1V F2_;
+            private cb1S2V F1_;
+            private cb1S1V F2_;
             private SingleVec matInit_ = new SingleVec();
             private SingleVec matX = new SingleVec();
             private SingleVec matY = new SingleVec();
@@ -9062,7 +9082,7 @@ namespace FixedPrecNet
 
 
 
-            internal SOdeintConst(int what, cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInit, Single StartTime, Single EndTime, Single dt)
+            internal SOdeintConst(int what, cb1S2V F1, cb1S1V F2, SingleVec matInit, Single StartTime, Single EndTime, Single dt)
             {
                 what_ = what;
                 StartTime_ = StartTime;
@@ -9156,7 +9176,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Adaptive/*' />
-        public static void DormandPrince5Adaptive(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
+        public static void DormandPrince5Adaptive(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(1, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
@@ -9164,72 +9184,72 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Adaptive/*' />
-        public static void DormandPrince5Adaptive(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void DormandPrince5Adaptive(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             DormandPrince5Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void CashKarp54Adaptive(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
+        public static void CashKarp54Adaptive(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(2, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
 
-        public static void CashKarp54Adaptive(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void CashKarp54Adaptive(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             CashKarp54Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void Fehlberg78Adaptive(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
+        public static void Fehlberg78Adaptive(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(3, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
 
-        public static void Fehlberg78Adaptive(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void Fehlberg78Adaptive(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             Fehlberg78Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void BulirschStoerAdaptive(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
+        public static void BulirschStoerAdaptive(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(4, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
 
-        public static void BulirschStoerAdaptive(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void BulirschStoerAdaptive(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             BulirschStoerAdaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void DormandPrince5DenseOutput(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
+        public static void DormandPrince5DenseOutput(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(5, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
 
-        public static void DormandPrince5DenseOutput(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void DormandPrince5DenseOutput(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             DormandPrince5DenseOutput(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
 
-        public static void BulirschStoerDenseOutput(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
+        public static void BulirschStoerDenseOutput(cb1S2V F1, cb1S1V F2, SingleVec matInput, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(6, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
 
-        public static void BulirschStoerDenseOutput(cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void BulirschStoerDenseOutput(cb1S2V F1, cb1S1V F2, SingleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             BulirschStoerDenseOutput(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
@@ -9238,8 +9258,8 @@ namespace FixedPrecNet
         internal class SOdeintAdaptiveDenseOutput
         {
             int what_;
-            private cbSingle1S2V F1_;
-            private cbSingle1S1V F2_;
+            private cb1S2V F1_;
+            private cb1S1V F2_;
             private SingleVec matInit_ = new SingleVec();
             private SingleVec matX = new SingleVec();
             private SingleVec matY = new SingleVec();
@@ -9265,7 +9285,7 @@ namespace FixedPrecNet
                 F2_(t, matX);
                 matX.mpPtr = tempxPtr;
             }
-            internal SOdeintAdaptiveDenseOutput(int what, cbSingle1S2V F1, cbSingle1S1V F2, SingleVec matInit, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
+            internal SOdeintAdaptiveDenseOutput(int what, cb1S2V F1, cb1S1V F2, SingleVec matInit, Single StartTime, Single EndTime, Single dt, Single epsabs, Single epsrel)
             {
                 what_ = what;
                 StartTime_ = StartTime;
@@ -9371,7 +9391,7 @@ namespace FixedPrecNet
         #region Eigen calculus
 
 
-        public static SingleMat PowellHybrd(cbSingle2M F1, cbSingle2M F2, SingleMat matInput)
+        public static SingleMat PowellHybrd(cb2M F1, cb2M F2, SingleMat matInput)
         {
             var SPowellHybrd1 = new SPowellHybrd(F1, F2, matInput);
             var matX = SPowellHybrd1.Solve();
@@ -9379,8 +9399,8 @@ namespace FixedPrecNet
         }
         internal class SPowellHybrd
         {
-            private cbSingle2M F1_;
-            private cbSingle2M F2_;
+            private cb2M F1_;
+            private cb2M F2_;
             private SingleMat matX1 = new SingleMat();
             private SingleMat matY1 = new SingleMat();
             private SingleMat matX2 = new SingleMat();
@@ -9409,7 +9429,7 @@ namespace FixedPrecNet
                 matX2.mpPtr = tempxPtr;
                 matY2.mpPtr = tempyPtr;
             }
-            internal SPowellHybrd(cbSingle2M F1, cbSingle2M F2, SingleMat matInput)
+            internal SPowellHybrd(cb2M F1, cb2M F2, SingleMat matInput)
             {
                 int n = matInput.rows;
                 matX.Resize(n, 1);
@@ -9429,7 +9449,7 @@ namespace FixedPrecNet
 
 
 
-        public static SingleMat Levenberg(cbSingle2M F1, cbSingle2M F2, SingleMat matInput, int n, int m)
+        public static SingleMat LevenbergMarquardt(cb2M F1, cb2M F2, SingleMat matInput, int n, int m)
         {
             var SLevenberg1 = new SLevenberg(F1, F2, matInput, n, m);
             var matX = SLevenberg1.Solve();
@@ -9437,8 +9457,8 @@ namespace FixedPrecNet
         }
         internal class SLevenberg
         {
-            private cbSingle2M F1_;
-            private cbSingle2M F2_;
+            private cb2M F1_;
+            private cb2M F2_;
             private SingleMat matX1 = new SingleMat();
             private SingleMat matY1 = new SingleMat();
             private SingleMat matX2 = new SingleMat();
@@ -9467,7 +9487,7 @@ namespace FixedPrecNet
                 matX2.mpPtr = tempxPtr;
                 matY2.mpPtr = tempyPtr;
             }
-            internal SLevenberg(cbSingle2M F1, cbSingle2M F2, SingleMat matInput, int n, int m)
+            internal SLevenberg(cb2M F1, cb2M F2, SingleMat matInput, int n, int m)
             {
                 matX.Resize(n, 1);
                 matFvec.Resize(m, 1);
@@ -9501,13 +9521,13 @@ namespace FixedPrecNet
         #region Boost/CppOptLib
 
 
-        public static SingleVec NelderMeadSolver(cb1SSingle1V F1, SingleVec matInput)
+        public static SingleVec NelderMeadSolver(cb1VRet1S F1, SingleVec matInput)
         {
             var SSolver11 = new SOptSolver1(constants.mp_nelder_mead_solver, F1, matInput);
             return SSolver11.Solve();
         }
 
-        public static SingleVec CMAesSolver(cb1SSingle1V F1, SingleVec matInput)
+        public static SingleVec CMAesSolver(cb1VRet1S F1, SingleVec matInput)
         {
             var SSolver11 = new SOptSolver1(constants.mp_cma_es_solver, F1, matInput);
             return SSolver11.Solve();
@@ -9516,7 +9536,7 @@ namespace FixedPrecNet
         internal class SOptSolver1
         {
             private int what_;
-            private cb1SSingle1V F1_;
+            private cb1VRet1S F1_;
             private SingleVec matX1 = new SingleVec();
             private SingleVec matY1 = new SingleVec();
             private SingleVec matX_ = new SingleVec();
@@ -9533,7 +9553,7 @@ namespace FixedPrecNet
                 matX1.mpPtr = tempxPtr;
                 matY1.mpPtr = tempyPtr;
             }
-            internal SOptSolver1(int what, cb1SSingle1V F1, SingleVec X)
+            internal SOptSolver1(int what, cb1VRet1S F1, SingleVec X)
             {
                 what_ = what;
                 matX_ = new SingleVec(X.Size);
@@ -9550,25 +9570,25 @@ namespace FixedPrecNet
         internal static extern void Lib_Eigen_SReal_Real_CppOptLib1(int what, cbProc2Ptr F1, IntPtr matXPtr, IntPtr matNormPtr, IntPtr xPtr, IntPtr fxPtr);
 
 
-        public static SingleVec LbfgsSolver(cb1SSingle1V F1, cbSingle2V F2, SingleVec matInput)
+        public static SingleVec LbfgsSolver(cb1VRet1S F1, cb2V F2, SingleVec matInput)
         {
             var SSolver21 = new SOptSolver2(constants.mp_lbfgs_solver, F1, F2, matInput);
             return SSolver21.Solve();
         }
 
-        public static SingleVec BfgsSolver(cb1SSingle1V F1, cbSingle2V F2, SingleVec matInput)
+        public static SingleVec BfgsSolver(cb1VRet1S F1, cb2V F2, SingleVec matInput)
         {
             var SSolver21 = new SOptSolver2(constants.mp_bfgs_solver, F1, F2, matInput);
             return SSolver21.Solve();
         }
 
-        public static SingleVec GradientDescentSolver(cb1SSingle1V F1, cbSingle2V F2, SingleVec matInput)
+        public static SingleVec GradientDescentSolver(cb1VRet1S F1, cb2V F2, SingleVec matInput)
         {
             var SSolver21 = new SOptSolver2(constants.mp_gradient_descent_solver, F1, F2, matInput);
             return SSolver21.Solve();
         }
 
-        public static SingleVec ConjugatedGradientDescentSolver(cb1SSingle1V F1, cbSingle2V F2, SingleVec matInput)
+        public static SingleVec ConjugatedGradientDescentSolver(cb1VRet1S F1, cb2V F2, SingleVec matInput)
         {
             var SSolver21 = new SOptSolver2(constants.mp_conjugated_gradient_descent_solver, F1, F2, matInput);
             return SSolver21.Solve();
@@ -9577,8 +9597,8 @@ namespace FixedPrecNet
         internal class SOptSolver2
         {
             private int what_;
-            private cb1SSingle1V F1_;
-            private cbSingle2V F2_;
+            private cb1VRet1S F1_;
+            private cb2V F2_;
             private SingleVec matX1 = new SingleVec();
             private SingleVec matY1 = new SingleVec();
             private SingleVec matX2 = new SingleVec();
@@ -9608,7 +9628,7 @@ namespace FixedPrecNet
                 matX2.mpPtr = tempxPtr;
                 matY2.mpPtr = tempyPtr;
             }
-            internal SOptSolver2(int what, cb1SSingle1V F1, cbSingle2V F2, SingleVec X)
+            internal SOptSolver2(int what, cb1VRet1S F1, cb2V F2, SingleVec X)
             {
                 what_ = what;
                 matX_ = new SingleVec(X.Size);
@@ -9628,7 +9648,7 @@ namespace FixedPrecNet
 
 
 
-        public static SingleVec NewtonDescentSolver(cb1SSingle1V F1, cbSingle2V F2, cbSingle1V1M F3, SingleVec matInput)
+        public static SingleVec NewtonDescentSolver(cb1VRet1S F1, cb2V F2, cb1V1M F3, SingleVec matInput)
         {
             var SSolver31 = new SOptSolver3(constants.mp_newton_descent_solver, F1, F2, F3, matInput);
             return SSolver31.Solve();
@@ -9637,9 +9657,9 @@ namespace FixedPrecNet
         internal class SOptSolver3
         {
             private int what_;
-            private cb1SSingle1V F1_;
-            private cbSingle2V F2_;
-            private cbSingle1V1M F3_;
+            private cb1VRet1S F1_;
+            private cb2V F2_;
+            private cb1V1M F3_;
             private SingleVec matX1 = new SingleVec();
             private SingleVec matY1 = new SingleVec();
             private SingleVec matX2 = new SingleVec();
@@ -9682,7 +9702,7 @@ namespace FixedPrecNet
                 matX3.mpPtr = tempxPtr;
                 matY3.mpPtr = tempyPtr;
             }
-            internal SOptSolver3(int what, cb1SSingle1V F1, cbSingle2V F2, cbSingle1V1M F3, SingleVec X)
+            internal SOptSolver3(int what, cb1VRet1S F1, cb2V F2, cb1V1M F3, SingleVec X)
             {
                 what_ = what;
                 matX_ = new SingleVec(X.Size);
@@ -9710,14 +9730,14 @@ namespace FixedPrecNet
 
 
 
+        #region Eigen 
+
 
 
         #region Matrix Creation
 
 
-        /// <summary>
-        /// Converts from a real scalar of type Single
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static SingleMat mat_t(Single x)
         {
             var matA = new SingleMat();
@@ -9726,22 +9746,21 @@ namespace FixedPrecNet
         }
 
 
-        /* *********************** */
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static SingleMatC mat_cplx_t(SingleMat matA)
         {
             return scplx.mat_t(matA);
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_zeros/*' />
         public static SingleMatC mat_cplx_zeros(int n, int m)
         {
             return scplx.mat_zeros(n, m);
         }
 
-        /* *********************** */
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_zeros/*' />
         public static SingleMat mat_zeros(int n, int m)
         {
             var resout = new SingleMat();
@@ -9750,7 +9769,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ones/*' />
         public static SingleMat mat_ones(int n, int m)
         {
             var resout = new SingleMat();
@@ -9759,7 +9778,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_identity/*' />
         public static SingleMat mat_identity(int n, int m)
         {
             var resout = new SingleMat();
@@ -9768,7 +9787,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_identity/*' />
         public static SingleMat mat_eye(int n, int m)
         {
             var resout = new SingleMat();
@@ -9777,7 +9796,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random/*' />
         public static SingleMat mat_random(int n, int m)
         {
             var resout = new SingleMat();
@@ -9786,7 +9805,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_symmetric/*' />
         public static SingleMat mat_random_symmetric(int n)
         {
             var resout = new SingleMat();
@@ -9795,7 +9814,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint/*' />
         public static SingleMat mat_random_selfadjoint(int n)
         {
             var resout = new SingleMat();
@@ -9804,7 +9823,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint_posdef/*' />
         public static SingleMat mat_random_selfadjoint_posdef(int n)
         {
             var resout = new SingleMat();
@@ -9813,7 +9832,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fill_linear/*' />
         public static SingleMat mat_fill_linear(int n, int m)
         {
             var resout = new SingleMat();
@@ -9827,6 +9846,719 @@ namespace FixedPrecNet
 
 
 
+
+        #region Read-only properties
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_rows/*' />
+        public static int mat_rows(SingleMat matA)
+        {
+            return matA.rows;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_cols(SingleMat matA)
+        {
+            return matA.cols;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_size(SingleMat matA)
+        {
+            return matA.size;
+        }
+
+
+        #endregion
+
+
+
+        #region Accessing and setting parts of a matrix
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_block/*' />
+        public static SingleMat mat_get_block(SingleMat matA, int i, int j, int p, int q)
+        {
+            return matA.get_Block(i, j, p, q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_block/*' />
+        public static void mat_set_block(SingleMat matA, int i, int j, int p, int q, SingleMat matB)
+        {
+            matA.set_Block(i, j, p, q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_row/*' />
+        public static SingleMat mat_get_row(SingleMat matA, int i)
+        {
+            return matA.get_Row(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_row/*' />
+        public static void mat_set_row(SingleMat matA, int i, SingleMat matB)
+        {
+            matA.set_Row(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_col/*' />
+        public static SingleMat mat_get_col(SingleMat matA, int i)
+        {
+            return matA.get_Col(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_col/*' />
+        public static void mat_set_col(SingleMat matA, int i, SingleMat matB)
+        {
+            matA.set_Col(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_diagonal/*' />
+        public static SingleMat mat_get_diagonal(SingleMat matA, int q = 0)
+        {
+            return matA.get_Diagonal(q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_diagonal/*' />
+        public static void mat_set_diagonal(SingleMat matA, int q, SingleMat matB)
+        {
+            matA.set_Diagonal(q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_triangular_view/*' />
+        public static SingleMat mat_get_triangular_view(SingleMat matA, int view = 1)
+        {
+            return matA.get_TriangularView(view);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_triangular_view/*' />
+        public static void mat_set_triangular_view(SingleMat matA, int view, SingleMat matB)
+        {
+            matA.set_TriangularView(view, matB);
+        }
+
+
+
+        #endregion
+
+
+
+
+        #region Changing the shape of a matrix and/or the order of coefficients
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort/*' />
+        public static void mat_sort(SingleMat matA, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.Sort(sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort_rows_by_col/*' />
+        public static void mat_sort_rows_by_col(SingleMat matA, int column_to_sort_by = 0, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.SortRowsByCol(column_to_sort_by, sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize/*' />
+        public static void mat_resize(SingleMat matA, int r, int c)
+        {
+            matA.Resize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize_like/*' />
+        public static void mat_resize_like(SingleMat matA, SingleMat matB)
+        {
+            matA.ResizeLike(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conservative_resize/*' />
+        public static void mat_conservative_resize(SingleMat matA, int r, int c)
+        {
+            matA.ConservativeResize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_as_diagonal/*' />
+        public static SingleMat mat_as_diagonal(SingleMat matA)
+        {
+            return matA.AsDiagonal();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_adjoint/*' />
+        public static SingleMat mat_adjoint(SingleMat matA)
+        {
+            return matA.Adjoint();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conjugate/*' />
+        public static SingleMat mat_conjugate(SingleMat matA)
+        {
+            return matA.Conjugate();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_transpose/*' />
+        public static SingleMat mat_transpose(SingleMat matA)
+        {
+            return matA.Transpose();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_full/*' />
+        public static SingleMat mat_reverse_full(SingleMat matA)
+        {
+            return matA.ReverseFull();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_row_wise/*' />
+        public static SingleMat mat_reverse_row_wise(SingleMat matA)
+        {
+            return matA.ReverseRowwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_col_wise/*' />
+        public static SingleMat mat_reverse_col_wise(SingleMat matA)
+        {
+            return matA.ReverseColwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_full/*' />
+        public static SingleMat mat_replicate_full(SingleMat matA, int vertical, int horizontal)
+        {
+            return matA.ReplicateFull(vertical, horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_row_wise/*' />
+        public static SingleMat mat_replicate_row_wise(SingleMat matA, int horizontal)
+        {
+            return matA.ReplicateRowwise(horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_col_wise/*' />
+        public static SingleMat mat_replicate_col_wise(SingleMat matA, int vertical)
+        {
+            return matA.ReplicateColwise(vertical);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_horizontal/*' />
+        public static SingleMat mat_concat_horizontal(SingleMat matA, SingleMat matB)
+        {
+            return matA.ConcatHorizontal(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_vertical/*' />
+        public static SingleMat mat_concat_vertical(SingleMat matA, SingleMat matB)
+        {
+            return matA.ConcatVertical(matB);
+        }
+
+
+
+        #endregion
+
+
+
+        #region Basic arithmetic operations
+
+
+
+
+
+        #endregion
+
+
+
+        #region Descriptive Statistics
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sum/*' />
+        public static SingleMat mat_sum(SingleMat matA, int partialmode)
+        {
+            //#define mp_const_full_matrix 1
+            //#define mp_const_rowwise 2
+            //#define mp_const_colwise 3
+            return matA.sum(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_prod/*' />
+        public static SingleMat mat_prod(SingleMat matA, int partialmode)
+        {
+
+            return matA.prod(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_mean/*' />
+        public static SingleMat mat_mean(SingleMat matA, int partialmode)
+        {
+            return matA.mean(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_min_coeff/*' />
+        public static SingleMat mat_min_coeff(SingleMat matA, int partialmode)
+        {
+            return matA.minCoeff(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_max_coeff/*' />
+        public static SingleMat mat_max_coeff(SingleMat matA, int partialmode)
+        {
+            return matA.maxCoeff(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_trace/*' />
+        public static Double mat_trace(SingleMat matA, int partialmode)
+        {
+            return matA.get_Diagonal(0).sum(1)[0];
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_squared_norm/*' />
+        public static SingleMat mat_squared_norm(SingleMat matA, int partialmode)
+        {
+            return matA.squaredNorm(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_norm/*' />
+        public static SingleMat mat_norm(SingleMat matA, int partialmode)
+        {
+            return matA.Norm(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_stable_norm/*' />
+        public static SingleMat mat_stable_norm(SingleMat matA, int partialmode)
+        {
+            return matA.stableNorm(partialmode);
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_covariance/*' />
+        //public static SingleMat mat_covariance(SingleMat matA)
+        //{
+        //    return matA.Covariance();
+        //}
+
+
+
+        #endregion
+
+
+
+        #region Standard decompositions and linear solving
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ldlt/*' />
+        public static SingleMatMap mat_ldlt(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.LDLT(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_partial_piv_lu/*' />
+        public static SingleMatMap mat_partial_piv_lu(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.PartialPivLU(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_lu/*' />
+        public static SingleMatMap mat_full_piv_lu(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.FullPivLU(query, matB);
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        //public static SingleMatMap mat_llt(SingleMat matA, string query, [Optional] SingleMat matB)
+        //{
+        //    return matA.LLT(query, matB);
+        //}
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        public static SingleMatMap mat_llt(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.LLT(query, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_householder_qr/*' />
+        public static SingleMatMap mat_householder_qr(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.HouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_col_piv_householder_qr/*' />
+        public static SingleMatMap mat_col_piv_householder_qr(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.ColPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_householder_qr/*' />
+        public static SingleMatMap mat_full_piv_householder_qr(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.FullPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cod_householder_qr/*' />
+        public static SingleMatMap mat_cod_householder_qr(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.COD(query, matB);
+        }
+
+
+
+
+        #endregion
+
+
+
+
+        #region Singular Value and Eigen (selfadjoint) decompositions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd/*' />
+        public static SingleMatMap mat_jacobi_svd(SingleMat matA, string query)
+        {
+            return matA.JacobiSVD(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_thin/*' />
+        public static SingleMatMap mat_jacobi_svd_thin(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.JacobiSvdThin(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_full/*' />
+        public static SingleMatMap mat_jacobi_svd_full(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.JacobiSvdFull(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_values/*' />
+        public static SingleMatMap mat_self_adjoint_eigen_values(SingleMat matA, string query)
+        {
+            return matA.SelfAdjointEigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_system/*' />
+        public static SingleMatMap mat_self_adjoint_eigen_system(SingleMat matA, string query)
+        {
+            return matA.SelfAdjointEigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_values/*' />
+        public static SingleMatMap mat_generalized_self_adjoint_eigen_values(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenValues(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_system/*' />
+        public static SingleMatMap mat_generalized_self_adjoint_eigen_system(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenSolver(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_tridiagonalization/*' />
+        public static SingleMatMap mat_tridiagonalization(SingleMat matA, string query)
+        {
+            return matA.Tridiag(query);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen decompositions of general square matrices
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_hessenberg/*' />
+        public static SingleMatMap mat_hessenberg(SingleMat matA, string query)
+        {
+            return matA.Hessenberg(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_schur/*' />
+        public static SingleMatMap mat_schur(SingleMat matA, string query)
+        {
+            return matA.Schur(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_values/*' />
+        public static SingleMatMapC mat_eigen_values(SingleMat matA, string query)
+        {
+            return matA.EigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_system/*' />
+        public static SingleMatMapC mat_eigen_system(SingleMat matA, string query)
+        {
+            return matA.EigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_real_qz/*' />
+        public static SingleMatMap mat_real_qz(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.RealQZ(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_pseudo_eigen_system/*' />
+        public static SingleMatMap mat_pseudo_eigen_system(SingleMat matA, string query)
+        {
+            return matA.PseudoEigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_gen_eigen_values/*' />
+        public static SingleMatMapC mat_gen_eigen_values(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.GenEigenValues(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_gen_eigen_system/*' />
+        public static SingleMatMapC mat_gen_eigen_system(SingleMat matA, string query, SingleMat matB)
+        {
+            return matA.GenEigenSystem(query, matB);
+        }
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Fast Fourier Transform
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_fwd/*' />
+        public static SingleMatC mat_fft_fwd(SingleMat matA)
+        {
+            return matA.FFTFwd();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_inv/*' />
+        public static SingleMat mat_fft_inv(SingleMatC matA)
+        {
+            return matA.FFTRealInv();
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Functions of matrix argument
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_expm/*' />
+        public static SingleMat mat_expm(SingleMat matA)
+        {
+            return matA.ExpMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinm/*' />
+        public static SingleMat mat_sinm(SingleMat matA)
+        {
+            return matA.SinMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cosm/*' />
+        public static SingleMat mat_cosm(SingleMat matA)
+        {
+            return matA.CosMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinhm/*' />
+        public static SingleMat mat_sinhm(SingleMat matA)
+        {
+            return matA.SinhMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_coshm/*' />
+        public static SingleMat mat_coshm(SingleMat matA)
+        {
+            return matA.CoshMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sqrtm/*' />
+        public static SingleMat mat_sqrtm(SingleMat matA)
+        {
+            return matA.SqrtMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_logm/*' />
+        public static SingleMat mat_logm(SingleMat matA)
+        {
+            return matA.LogMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_powm/*' />
+        public static SingleMat mat_powm(SingleMat matA, Double r)
+        {
+            return matA.PowMat();
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Eigen: Polynomials
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/roots_to_monic_poly/*' />
+        public static SingleMat roots_to_monic_poly(SingleMat vecA)
+        {
+            return vecA.RootsToMonicPolynomial();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_eval/*' />
+        public static SingleMat poly_eval(SingleMat polyA, SingleMat roots)
+        {
+            return polyA.PolyEval(roots);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_eval/*' />
+        public static SingleMatC poly_eval(SingleMat polyA, SingleMatC roots)
+        {
+            return polyA.PolyEval(roots);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_solve/*' />
+        public static SingleMatC poly_solve(SingleMat polyA)
+        {
+            return polyA.PolynomialSolver();
+        }
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+        #endregion
 
 
 

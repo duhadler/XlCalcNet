@@ -6,6 +6,9 @@ using System.Runtime.InteropServices;
 namespace FixedPrecNet
 {
 
+    #region Delegates
+
+
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate Complex cb1SComplex1S(Complex x);
@@ -36,17 +39,6 @@ namespace FixedPrecNet
 
 
 
-    public delegate void cbDouble1S1V(Double t, DoubleVec matX);
-
-    public delegate void cbDouble1S2V(Double t, DoubleVec matX, DoubleVec matY);
-
-    public delegate void cbDouble1V(DoubleVec matX);
-
-
-
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void cb2RefDouble(ref Double x, ref Double result);
-
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void cb2Ptr1RefDouble(IntPtr x, IntPtr result, ref Double t);
 
@@ -54,16 +46,10 @@ namespace FixedPrecNet
     public delegate void cb1Ptr1RefDouble(IntPtr x, ref Double t);
 
 
-    public delegate void cbDouble2M(DoubleMat matX, DoubleMat matY);
 
 
-    public delegate Double cb1SDouble1V(DoubleVec x);
 
-    public delegate void cbDouble2V(DoubleVec x, DoubleVec y);
-
-    public delegate void cbDouble1V1M(DoubleVec x, DoubleMat y);
-
-
+    #endregion
 
 
 
@@ -139,14 +125,27 @@ namespace FixedPrecNet
 
 
 
-
-
-
-    /// <summary>
-    /// Provides numerical functions in Double precision, based on Boost Math/Multiprecision
-    /// </summary>
     public class dreal
     {
+
+        // NOTE: All changes using Rename, NOT Replace
+
+        public delegate Double cb1SRet1S(Double x); // cb1SRet1S
+
+        public delegate Double cb1VRet1S(DoubleVec vecX); // cb1SDouble1V
+
+        public delegate void cb2V(DoubleVec vecX, DoubleVec vecY); // cbDouble2V
+
+        public delegate void cb1V1M(DoubleVec vecX, DoubleMat matY); // cbDouble1V1M
+
+        public delegate void cb2M(DoubleMat matX, DoubleMat matY); // cbDouble2M
+
+        public delegate void cb1S1V(Double t, DoubleVec vecX); // cbDouble1S1V
+
+        public delegate void cb1S2V(Double t, DoubleVec vecX, DoubleVec vecY); // cbDouble1S2V
+
+
+
 
 
         public static String fmt(Double x)
@@ -513,14 +512,14 @@ namespace FixedPrecNet
         #region General functions for real numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fma/*' />
         public static Double fma(Double x, Double y, Double z)
         {
             return x * y + z;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fma/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fma/*' />
         public static Double fma(dynamic x, dynamic y, dynamic z)
         {
             return fma(t(x), t(y), t(z));
@@ -529,7 +528,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmax/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmax/*' />
         public static Double fmax(Double x, Double y)
         {
             Double res = 0.0;
@@ -540,14 +539,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Fmax(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmax/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmax/*' />
         public static Double fmax(dynamic x, dynamic y)
         {
             return fmax(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmin/*' />
         public static Double fmin(Double x, Double y)
         {
             Double res = 0.0;
@@ -558,7 +557,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Fmin(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmin/*' />
         public static Double fmin(dynamic x, dynamic y)
         {
             return fmin(t(x), t(y));
@@ -573,55 +572,55 @@ namespace FixedPrecNet
         #region Machine constants
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/zero/*' />
-        public static Double zero()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zero/*' />
+        public static Double zero
         {
-            return 0.0;
+            get { return 0.0; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/negzero/*' />
-        public static Double negzero()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/negzero/*' />
+        public static Double negzero
         {
-            return -0.0;
-        }
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/one/*' />
-        public static Double one()
-        {
-            return 1.0;
+            get { return -0.0; }
         }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/onej/*' />
-        public static Complex onej()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/one/*' />
+        public static Double one
         {
-            return dcplx.t(0d, 1d);
+            get { return 1.0; }
         }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isposinf/*' />
-        public static Double inf()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/onej/*' />
+        public static Complex onej
         {
-            return Double.PositiveInfinity;
+            get { return dcplx.t(0d, 1d); }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/neginf/*' />
-        public static Double neginf()
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/inf/*' />
+        public static Double inf
         {
-            return -Double.PositiveInfinity;
+            get { return Double.PositiveInfinity; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/nan/*' />
-        public static Double nan()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/neginf/*' />
+        public static Double neginf
         {
-            return Double.NaN;
+            get { return -Double.PositiveInfinity; }
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nan/*' />
+        public static Double nan
+        {
+            get { return Double.NaN; }
         }
 
 
@@ -633,7 +632,7 @@ namespace FixedPrecNet
         #region Properties of numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/signbit/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/signbit/*' />
         public static int signbit(Double x)
         {
             return Lib_FReal_Signbit(ref x);
@@ -642,7 +641,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Signbit(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/signbit/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/signbit/*' />
         public static int signbit(dynamic x)
         {
             return signbit(t(x));
@@ -650,7 +649,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isfinite/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isfinite/*' />
         public static bool isfinite(Double x)
         {
             return 0 != Lib_FReal_Finite(ref x);
@@ -659,7 +658,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Finite(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isfinite/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isfinite/*' />
         public static bool isfinite(dynamic x)
         {
             return isfinite(t(x));
@@ -668,7 +667,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinf/*' />
         public static bool isinf(Double x)
         {
             return 0 != (Lib_FReal_Isinf(ref x));
@@ -677,7 +676,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isinf(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinf/*' />
         public static bool isinf(dynamic x)
         {
             return isinf(t(x));
@@ -685,7 +684,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isposinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isposinf/*' />
         public static bool isposinf(Double x)
         {
             return 0 != (Lib_FReal_Isposinf(ref x));
@@ -694,7 +693,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isposinf(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isposinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isposinf/*' />
         public static bool isposinf(dynamic x)
         {
             return isposinf(t(x));
@@ -702,7 +701,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isneginf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isneginf/*' />
         public static bool isneginf(Double x)
         {
             return 0 != (Lib_FReal_Isneginf(ref x));
@@ -711,7 +710,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isneginf(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isneginf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isneginf/*' />
         public static bool isneginf(dynamic x)
         {
             return isneginf(t(x));
@@ -719,7 +718,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnan/*' />
         public static bool isnan(Double x)
         {
             return 0 != (Lib_FReal_Isnan(ref x));
@@ -728,7 +727,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isnan(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnan/*' />
         public static bool isnan(dynamic x)
         {
             return isnan(t(x));
@@ -736,7 +735,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/iszero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/iszero/*' />
         public static bool iszero(Double x)
         {
             return 0 != (Lib_FReal_Iszero(ref x));
@@ -745,33 +744,14 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Iszero(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/iszero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/iszero/*' />
         public static bool iszero(dynamic x)
         {
             return iszero(t(x));
         }
 
 
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/IsNegativeZero/*' />
-        //public static bool IsNegativeZero(sboost_t x)
-        //{
-        //    return 0 != (Lib_FReal_Isnegzero(x.mpPtr));
-        //}
-        //[DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Isnegzero", CallingConvention = CallingConvention.Cdecl)]
-        //internal static extern int Lib_FReal_Isnegzero(IntPtr x);
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/IsNegativeZero/*' />
-        //public static bool IsNegativeZero(dynamic x)
-        //{
-        //    return IsNegativeZero(t(x));
-        //}
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isone/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isone/*' />
         public static bool isone(Double x)
         {
             return 0 != (Lib_FReal_Isone(ref x));
@@ -780,7 +760,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isone(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isone/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isone/*' />
         public static bool isone(dynamic x)
         {
             return isone(t(x));
@@ -788,7 +768,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinteger/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(Double x)
         {
             return 0 != (Lib_FReal_Isinteger(ref x));
@@ -797,7 +777,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isinteger(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isinteger/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(dynamic x)
         {
             return isinteger(t(x));
@@ -805,7 +785,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnumber/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnumber/*' />
         public static bool isnumber(Double x)
         {
             return 0 != (Lib_FReal_Isnumber(ref x));
@@ -814,7 +794,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isnumber(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnumber/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnumber/*' />
         public static bool isnumber(dynamic x)
         {
             return isnumber(t(x));
@@ -822,7 +802,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isregular/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isregular/*' />
         public static bool isregular(Double x)
         {
             return 0 != (Lib_FReal_Isregular(ref x));
@@ -831,7 +811,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isregular(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isregular/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isregular/*' />
         public static bool isregular(dynamic x)
         {
             return isregular(t(x));
@@ -839,7 +819,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnormal/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnormal/*' />
         public static bool isnormal(Double x)
         {
             return 0 != (Lib_FReal_Isnormal(ref x));
@@ -848,32 +828,14 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isnormal(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isnormal/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnormal/*' />
         public static bool isnormal(dynamic x)
         {
             return isnormal(t(x));
         }
 
 
-
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/IsSubnormal/*' />
-        //public static bool IsSubnormal(sboost_t x)
-        //{
-        //    return 0 != (Lib_FReal_Issubnormal(x.mpPtr));
-        //}
-        //[DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Issubnormal", CallingConvention = CallingConvention.Cdecl)]
-        //internal static extern int Lib_FReal_Issubnormal(IntPtr x);
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/IsSubnormal/*' />
-        //public static bool IsSubnormal(dynamic x)
-        //{
-        //    return IsSubnormal(t(x));
-        //}
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isunordered/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isunordered/*' />
         public static bool isunordered(Double x, Double y)
         {
             return 0 != (Lib_FReal_Isunordered(ref x, ref y));
@@ -882,7 +844,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_Isunordered(ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/isunordered/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isunordered/*' />
         public static bool isunordered(dynamic x, dynamic y)
         {
             return isunordered(t(x), t(y));
@@ -890,7 +852,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/fitsint32/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint32/*' />
         public static bool fitsint32(Double x)
         {
             return 0 != (Lib_FReal_FitsInt32(ref x));
@@ -899,7 +861,7 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_FitsInt32(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fitsint32/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint32/*' />
         public static bool fitsint32(dynamic x)
         {
             return fitsint32(t(x));
@@ -907,7 +869,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/fitsint64/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint64/*' />
         public static bool fitsint64(Double x)
         {
             return 0 != (Lib_FReal_FitsInt64(ref x));
@@ -916,46 +878,11 @@ namespace FixedPrecNet
         internal static extern int Lib_FReal_FitsInt64(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fitsint64/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint64/*' />
         public static bool fitsint64(dynamic x)
         {
             return fitsint64(t(x));
         }
-
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/FitsUInt32/*' />
-        //public static bool FitsUInt32(sboost_t x)
-        //{
-        //    return 0 != (Lib_FReal_FitsUInt32(x.mpPtr));
-        //}
-        //[DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_FitsUInt32", CallingConvention = CallingConvention.Cdecl)]
-        //internal static extern int Lib_FReal_FitsUInt32(IntPtr x);
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/FitsUInt32/*' />
-        //public static bool FitsUInt32(dynamic x)
-        //{
-        //    return FitsUInt32(t(x));
-        //}
-
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/FitsUInt64/*' />
-        //public static bool FitsUInt64(sboost_t x)
-        //{
-        //    return 0 != (Lib_FReal_FitsUInt64(x.mpPtr));
-        //}
-        //[DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_FitsUInt64", CallingConvention = CallingConvention.Cdecl)]
-        //internal static extern int Lib_FReal_FitsUInt64(IntPtr x);
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/FitsUInt64/*' />
-        //public static bool FitsUInt64(dynamic x)
-        //{
-        //    return FitsUInt64(t(x));
-        //}
-
 
 
 
@@ -965,7 +892,7 @@ namespace FixedPrecNet
 
         #region Integer Related Functions
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nearbyint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nearbyint/*' />
         public static Double nearbyint(Double x)
         {
             Double res = 0.0;
@@ -976,7 +903,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Nearbyint(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nearbyint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nearbyint/*' />
         public static Double nearbyint(dynamic x)
         {
             return nearbyint(t(x));
@@ -984,7 +911,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rint/*' />
         public static Double rint(Double x)
         {
             Double res = 0.0;
@@ -995,14 +922,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Rint(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rint/*' />
         public static Double rint(dynamic x)
         {
             return rint(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lrint/*' />
         public static Int32 lrint(Double x)
         {
             return Lib_FReal_Lrint(ref x);
@@ -1011,7 +938,7 @@ namespace FixedPrecNet
         internal static extern Int32 Lib_FReal_Lrint(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lrint/*' />
         public static Int32 lrint(dynamic x)
         {
             return lrint(t(x));
@@ -1019,7 +946,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llrint/*' />
         public static Int64 llrint(Double x)
         {
             return Lib_FReal_Llrint(ref x);
@@ -1028,7 +955,7 @@ namespace FixedPrecNet
         internal static extern Int64 Lib_FReal_Llrint(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llrint/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llrint/*' />
         public static Int64 llrint(dynamic x)
         {
             return llrint(t(x));
@@ -1037,7 +964,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ceil/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ceil/*' />
         public static Double ceil(Double x)
         {
             Double res = 0.0;
@@ -1048,7 +975,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Ceil(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ceil/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ceil/*' />
         public static Double ceil(dynamic x)
         {
             return ceil(t(x));
@@ -1056,7 +983,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/floor/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/floor/*' />
         public static Double floor(Double x)
         {
             Double res = 0.0;
@@ -1067,14 +994,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Floor(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/floor/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/floor/*' />
         public static Double floor(dynamic x)
         {
             return floor(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/trunc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/trunc/*' />
         public static Double trunc(Double x)
         {
             Double res = 0.0;
@@ -1085,14 +1012,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Trunc(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/trunc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/trunc/*' />
         public static Double trunc(dynamic x)
         {
             return trunc(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/round/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/round/*' />
         public static Double round(Double x)
         {
             Double res = 0.0;
@@ -1103,14 +1030,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Round(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/round/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/round/*' />
         public static Double round(dynamic x)
         {
             return round(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lround/*' />
         public static Int32 lround(Double x)
         {
             return Lib_FReal_Lround(ref x);
@@ -1119,7 +1046,7 @@ namespace FixedPrecNet
         internal static extern Int32 Lib_FReal_Lround(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lround/*' />
         public static Int32 lround(dynamic x)
         {
             return lround(t(x));
@@ -1127,7 +1054,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llround/*' />
         public static Int64 llround(Double x)
         {
             return Lib_FReal_Llround(ref x);
@@ -1136,7 +1063,7 @@ namespace FixedPrecNet
         internal static extern Int64 Lib_FReal_Llround(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/llround/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/llround/*' />
         public static Int64 llround(dynamic x)
         {
             return llround(t(x));
@@ -1153,7 +1080,7 @@ namespace FixedPrecNet
         #region Floating point functions for real numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/copysign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/copysign/*' />
         public static Double copysign(Double x, Double y)
         {
             Double res = 0.0;
@@ -1164,14 +1091,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Copysign(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/copysign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/copysign/*' />
         public static Double copysign(dynamic x, dynamic y)
         {
             return copysign(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/frexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frexp/*' />
         public static Tuple<Double, Int32> frexp(Double x)
         {
             Double res = 0.0;
@@ -1183,7 +1110,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Frexp(ref Double res, ref Double x, ref Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/frexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frexp/*' />
         public static Tuple<Double, Int32> frexp(dynamic x)
         {
             return frexp(t(x));
@@ -1191,7 +1118,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logb/*' />
         public static Double logb(Double x)
         {
             Double res = 0.0;
@@ -1202,13 +1129,13 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Logb(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logb/*' />
         public static Double logb(dynamic x)
         {
             return logb(t(x));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ilogb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ilogb/*' />
         public static Int32 ilogb(Double x)
         {
             return Lib_FReal_Ilogb(ref x);
@@ -1217,7 +1144,7 @@ namespace FixedPrecNet
         internal static extern Int32 Lib_FReal_Ilogb(ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ilogb/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ilogb/*' />
         public static Int32 ilogb(dynamic x)
         {
             return ilogb(t(x));
@@ -1225,7 +1152,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ldexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ldexp/*' />
         public static Double ldexp(Double x, Int32 e)
         {
             Double res = 0.0;
@@ -1236,7 +1163,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Ldexp(ref Double res, ref Double x, Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ldexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ldexp/*' />
         public static Double ldexp(dynamic x, dynamic e)
         {
             return ldexp(t(x), lround(t(e)));
@@ -1244,7 +1171,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbn/*' />
         public static Double scalbn(Double x, Int32 e)
         {
             Double res = 0.0;
@@ -1255,7 +1182,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Scalbn(ref Double res, ref Double x, Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbn/*' />
         public static Double scalbn(dynamic x, dynamic e)
         {
             return scalbn(t(x), lround(t(e)));
@@ -1263,7 +1190,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbln/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbln/*' />
         public static Double scalbln(Double x, Int32 e)
         {
             Double res = 0.0;
@@ -1274,7 +1201,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Scalbln(ref Double res, ref Double x, Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/scalbln/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scalbln/*' />
         public static Double scalbln(dynamic x, dynamic e)
         {
             return scalbln(t(x), lround(t(e)));
@@ -1282,7 +1209,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fdim/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fdim/*' />
         public static Double fdim(Double x, Double y)
         {
             Double res = 0.0;
@@ -1293,7 +1220,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Fdim(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fdim/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fdim/*' />
         public static Double fdim(dynamic x, dynamic y)
         {
             return fdim(t(x), t(y));
@@ -1307,7 +1234,7 @@ namespace FixedPrecNet
         #region Fraction and remainder Related Functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/modf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/modf/*' />
         public static Tuple<Double, Double> modf(Double x)
         {
             Double iptr = 0.0;
@@ -1319,7 +1246,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Modf(ref Double frac, ref Double x, ref Double iptr);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/modf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/modf/*' />
         public static Tuple<Double, Double> modf(dynamic x)
         {
             return modf(t(x));
@@ -1327,7 +1254,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmod/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmod/*' />
         public static Double fmod(Double x, Double y)
         {
             Double res = 0.0;
@@ -1338,14 +1265,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Fmod(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fmod/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fmod/*' />
         public static Double fmod(dynamic x, dynamic y)
         {
             return fmod(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remainder/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remainder/*' />
         public static Double remainder(Double x, Double y)
         {
             Double res = 0.0;
@@ -1356,14 +1283,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Remainder(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remainder/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remainder/*' />
         public static Double remainder(dynamic x, dynamic y)
         {
             return remainder(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remquo/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remquo/*' />
         public static Tuple<Double, Int32> remquo(Double x, Double y)
         {
             Double res = 0.0;
@@ -1375,7 +1302,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Remquo(ref Double res, ref Double x, ref Double y, ref Int32 e);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/remquo/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/remquo/*' />
         public static Tuple<Double, Int32> remquo(dynamic x, dynamic y)
         {
             return remquo(t(x), t(y));
@@ -1388,7 +1315,7 @@ namespace FixedPrecNet
         #region Functions related to mantissa width and exponent range
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/epsilon/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/epsilon/*' />
         public static Double epsilon()
         {
             Double res = 0.0;
@@ -1399,7 +1326,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Epsilon(ref Double res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ulp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ulp/*' />
         public static Double ulp(Double x)
         {
             Double res = 0.0;
@@ -1410,14 +1337,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Ulp(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ulp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ulp/*' />
         public static Double ulp(dynamic x)
         {
             return ulp(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/maxvalue/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/maxvalue/*' />
         public static Double maxvalue()
         {
             Double res = 0.0;
@@ -1428,7 +1355,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Max(ref Double res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/lowestvalue/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lowestvalue/*' />
         public static Double lowestvalue()
         {
             Double res = 0.0;
@@ -1439,7 +1366,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Lowest(ref Double res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/minposvalue/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/minposvalue/*' />
         public static Double minposvalue()
         {
             Double res = 0.0;
@@ -1450,7 +1377,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Min(ref Double res);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextafter/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextafter/*' />
         public static Double nextafter(Double x, Double y)
         {
             Double res = 0.0;
@@ -1461,14 +1388,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Nexttoward(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextafter/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextafter/*' />
         public static Double nextafter(dynamic x, dynamic y)
         {
             return nextafter(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextabove/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextabove/*' />
         public static Double nextabove(Double x)
         {
             Double res = 0.0;
@@ -1479,14 +1406,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Nextabove(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextabove/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextabove/*' />
         public static Double nextabove(dynamic x)
         {
             return nextabove(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextbelow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextbelow/*' />
         public static Double nextbelow(Double x)
         {
             Double res = 0.0;
@@ -1497,7 +1424,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Nextbelow(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/nextbelow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nextbelow/*' />
         public static Double nextbelow(dynamic x)
         {
             return nextbelow(t(x));
@@ -1511,85 +1438,85 @@ namespace FixedPrecNet
         #region Mathematical Constants
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/degree/*' />
-        public static Double degree()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/degree/*' />
+        public static Double degree
         {
-            return 0.017453292519943295;
+            get { return 0.017453292519943295; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phi/*' />
-        public static Double phi()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phi/*' />
+        public static Double phi
         {
-            return 1.6180339887498949;
+            get { return 1.6180339887498949; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ln2/*' />
-        public static Double ln2()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ln2/*' />
+        public static Double ln2
         {
-            return 0.69314718055994529;
+            get { return 0.69314718055994529; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ln10/*' />
-        public static Double ln10()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ln10/*' />
+        public static Double ln10
         {
-            return 2.3025850929940459;
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pi/*' />
-        public static Double pi()
-        {
-            return 3.14159265358979;
+            get { return 2.3025850929940459; }
         }
 
 
 
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/e/*' />
-        public static Double e()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pi/*' />
+        public static Double pi
         {
-            return 2.718281828459045;
+            get { return 3.14159265358979; }
         }
 
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/egamma/*' />
-        public static Double egamma()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/e/*' />
+        public static Double e
         {
-            return 0.57721566490153287;
+            get { return 2.718281828459045; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/apery/*' />
-        public static Double apery()
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/egamma/*' />
+        public static Double egamma
         {
-            return 1.2020569031595942;
+            get { return 0.57721566490153287; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/catalan/*' />
-        public static Double catalan()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/apery/*' />
+        public static Double apery
         {
-            return 0.915965594177219;
+            get { return 1.2020569031595942; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/glaisher/*' />
-        public static Double glaisher()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/catalan/*' />
+        public static Double catalan
         {
-            return 1.2824271291006226;
+            get { return 0.915965594177219; }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/khinchin/*' />
-        public static Double khinchin()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/glaisher/*' />
+        public static Double glaisher
         {
-            return 2.6854520010653062;
+            get { return 1.2824271291006226; }
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/khinchin/*' />
+        public static Double khinchin
+        {
+            get { return 2.6854520010653062; }
         }
 
 
@@ -1612,14 +1539,14 @@ namespace FixedPrecNet
         #region Complex components
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Double abs(Double x)
         {
             return Math.Abs(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Double abs(dynamic x)
         {
             return abs(t(x));
@@ -1627,14 +1554,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Double fabs(Double x)
         {
             return Math.Abs(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Double fabs(dynamic x)
         {
             return fabs(t(x));
@@ -1642,14 +1569,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static Double sign(Double x)
         {
             return Math.Sign(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static Double sign(dynamic x)
         {
             return sign(t(x));
@@ -1657,14 +1584,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Double real(Double x)
         {
             return +x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Double real(dynamic x)
         {
             return real(t(x));
@@ -1672,14 +1599,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Double imag(Double x)
         {
             return 0.0;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Double imag(dynamic x)
         {
             return 0.0;
@@ -1687,15 +1614,15 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Double phase(Double x)
         {
             if (x >= 0.0) return 0.0;
-            else return pi();
+            else return pi;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Double phase(dynamic x)
         {
             return phase(t(x));
@@ -1703,27 +1630,27 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static Double conj(Double x)
         {
             return +x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static Double conj(dynamic x)
         {
             return conj(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Double, Double> polar(Double x)
         {
             return new Tuple<Double, Double>(abs(x), phase(x));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Double, Double> polar(dynamic x)
         {
             return polar(dreal.t(x));
@@ -1731,13 +1658,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static Complex rect(Double r, Double phi)
         {
             return r * expj(phi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static Complex rect(dynamic r, dynamic phi)
         {
             return rect(dreal.t(r), dreal.t(phi));
@@ -1751,17 +1678,17 @@ namespace FixedPrecNet
 
 
 
-        #region Roots and quadratic, cubic, and quartic 
+        #region Roots
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static Double sqrt(Double x)
         {
             return Math.Sqrt(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static Double sqrt(dynamic x)
         {
             return sqrt(t(x));
@@ -1787,13 +1714,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static Double rsqrt(Double x)
         {
             return t(1) / sqrt(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static Double rsqrt(dynamic x)
         {
             return rsqrt(t(x)); ;
@@ -1801,7 +1728,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static Double cbrt(Double x)
         {
             Double res = 0.0;
@@ -1812,7 +1739,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Cbrt(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static Double cbrt(dynamic x)
         {
             return cbrt(t(x));
@@ -1820,7 +1747,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static Double root_si(Double x, int k)
         {
             var res = new Double();
@@ -1831,7 +1758,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Root_Si(ref Double res, ref Double x, int k);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static Double root_si(dynamic x, int k)
         {
             return root_si(t(x), k);
@@ -1847,7 +1774,7 @@ namespace FixedPrecNet
         #region Exponential and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static Double exp(Double x)
         {
             Double res = 0.0;
@@ -1858,7 +1785,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Exp(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static Double exp(dynamic x)
         {
             return exp(t(x));
@@ -1866,13 +1793,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static Complex expj(Double x)
         {
-            return cos(x) + onej() * sin(x);
+            return cos(x) + onej * sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static Complex expj(dynamic x)
         {
             return expj(t(x));
@@ -1880,13 +1807,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static Complex expjpi(Double x)
         {
-            return cospi(x) + onej() * sinpi(x);
+            return cospi(x) + onej * sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static Complex expjpi(dynamic x)
         {
             return expjpi(t(x));
@@ -1896,7 +1823,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static Double exp2(Double x)
         {
             Double res = 0.0;
@@ -1907,14 +1834,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Exp2(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static Double exp2(dynamic x)
         {
             return exp2(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static Double exp10(Double x)
         {
             Double res = 0.0;
@@ -1925,14 +1852,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Exp10(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static Double exp10(dynamic x)
         {
             return exp10(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static Double expm1(Double x)
         {
             Double res = 0.0;
@@ -1943,14 +1870,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Expm1(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static Double expm1(dynamic x)
         {
             return expm1(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static Double exp2m1(Double x)
         {
             Double res = 0.0;
@@ -1961,14 +1888,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Exp2m1(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static Double exp2m1(dynamic x)
         {
             return exp2m1(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static Double exp10m1(Double x)
         {
             Double res = 0.0;
@@ -1979,7 +1906,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Exp10m1(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static Double exp10m1(dynamic x)
         {
             return exp10m1(t(x));
@@ -1995,7 +1922,7 @@ namespace FixedPrecNet
         #region Logarithms and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Double log(Double x)
         {
             Double res = 0.0;
@@ -2006,14 +1933,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Log(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Double log(dynamic x)
         {
             return log(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Double log2(Double x)
         {
             Double res = 0.0;
@@ -2024,14 +1951,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Log2(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Double log2(dynamic x)
         {
             return log2(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static Double log10(Double x)
         {
             Double res = 0.0;
@@ -2042,14 +1969,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Log10(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static Double log10(dynamic x)
         {
             return log10(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static Double log1p(Double x)
         {
             Double res = 0.0;
@@ -2060,14 +1987,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Log1p(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static Double log1p(dynamic x)
         {
             return log1p(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static Double log2p1(Double x)
         {
             Double res = 0.0;
@@ -2078,14 +2005,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Log2p1(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static Double log2p1(dynamic x)
         {
             return log2p1(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static Double log10p1(Double x)
         {
             Double res = 0.0;
@@ -2096,14 +2023,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Log10p1(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static Double log10p1(dynamic x)
         {
             return log10p1(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logaddexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logaddexp/*' />
         public static Double logaddexp(Double x, Double y)
         {
             Double res = 0.0;
@@ -2114,7 +2041,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Logaddexp(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/logaddexp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logaddexp/*' />
         public static Double logaddexp(dynamic x, dynamic y)
         {
             return logaddexp(t(x), t(y));
@@ -2130,33 +2057,33 @@ namespace FixedPrecNet
         #region Power functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static Double sqr(Double x)
         {
             return x * x;
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static Double sqr(dynamic x)
         {
             return sqr(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static Double cube(Double x)
         {
             return x * x * x;
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static Double cube(dynamic x)
         {
             return cube(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static Double hypot(Double x, Double y)
         {
             Double res = 0.0;
@@ -2167,7 +2094,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Hypot(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static Double hypot(dynamic x, dynamic y)
         {
             return hypot(t(x), t(y));
@@ -2175,7 +2102,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static Double pow(Double x, Double y)
         {
             Double res = 0.0;
@@ -2186,7 +2113,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Pow(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static Double pow(dynamic x, dynamic y)
         {
             return pow(t(x), t(y));
@@ -2297,7 +2224,7 @@ namespace FixedPrecNet
         #region Trigonometric and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static Double sin(Double x)
         {
             Double res = 0.0;
@@ -2308,14 +2235,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Sin(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static Double sin(dynamic x)
         {
             return sin(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static Double cos(Double x)
         {
             Double res = 0.0;
@@ -2326,14 +2253,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Cos(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static Double cos(dynamic x)
         {
             return cos(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosm1/*' />
         public static Double cosm1(Double x)
         {
             Double res = 0.0;
@@ -2344,7 +2271,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Cosm1(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosm1/*' />
         public static Double cosm1(dynamic x)
         {
             return cosm1(t(x));
@@ -2352,7 +2279,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static Double tan(Double x)
         {
             Double res = 0.0;
@@ -2363,7 +2290,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Tan(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static Double tan(dynamic x)
         {
             return tan(t(x));
@@ -2371,7 +2298,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static Double csc(Double x)
         {
             Double res = 0.0;
@@ -2382,7 +2309,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Csc(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static Double csc(dynamic x)
         {
             return csc(t(x));
@@ -2390,7 +2317,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static Double sec(Double x)
         {
             Double res = 0.0;
@@ -2401,7 +2328,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Sec(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static Double sec(dynamic x)
         {
             return sec(t(x));
@@ -2409,7 +2336,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static Double cot(Double x)
         {
             Double res = 0.0;
@@ -2420,7 +2347,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Cot(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static Double cot(dynamic x)
         {
             return cot(t(x));
@@ -2431,128 +2358,8 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinpi/*' />
-        public static Double sinpi(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_SinPi_Boost(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_SinPi_Boost", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_SinPi_Boost(ref Double res, ref Double x);
 
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinpi/*' />
-        public static Double sinpi(dynamic x)
-        {
-            return sinpi(t(x));
-        }
-
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cospi/*' />
-        public static Double cospi(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_CosPi_Boost(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_CosPi_Boost", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_CosPi_Boost(ref Double res, ref Double x);
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cospi/*' />
-        public static Double cospi(dynamic x)
-        {
-            return cospi(t(x));
-        }
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanpi/*' />
-        public static Double tanpi(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_TanPi(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TanPi", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_TanPi(ref Double res, ref Double x);
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanpi/*' />
-        public static Double tanpi(dynamic x)
-        {
-            return tanpi(t(x));
-        }
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cscpi/*' />
-        public static Double cscpi(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_CscPi(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_CscPi", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_CscPi(ref Double res, ref Double x);
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cscpi/*' />
-        public static Double cscpi(dynamic x)
-        {
-            return cscpi(t(x));
-        }
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/secpi/*' />
-        public static Double secpi(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_SecPi(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_SecPi", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_SecPi(ref Double res, ref Double x);
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/secpi/*' />
-        public static Double secpi(dynamic x)
-        {
-            return secpi(t(x));
-        }
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cotpi/*' />
-        public static Double cotpi(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_CotPi(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_CotPi", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_CotPi(ref Double res, ref Double x);
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cotpi/*' />
-        public static Double cotpi(dynamic x)
-        {
-            return cotpi(t(x));
-        }
-
-
-
-
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinc/*' />
         public static Double sinc(Double x)
         {
             Double res = 0.0;
@@ -2572,10 +2379,137 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sincpi/*' />
+
+
+        #endregion
+
+
+
+        #region Trigonometric functions, in multiples of pi
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinpi/*' />
+        public static Double sinpi(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_SinPi_Boost(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_SinPi_Boost", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_SinPi_Boost(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinpi/*' />
+        public static Double sinpi(dynamic x)
+        {
+            return sinpi(t(x));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cospi/*' />
+        public static Double cospi(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_CosPi_Boost(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_CosPi_Boost", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_CosPi_Boost(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cospi/*' />
+        public static Double cospi(dynamic x)
+        {
+            return cospi(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanpi/*' />
+        public static Double tanpi(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_TanPi(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TanPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_TanPi(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanpi/*' />
+        public static Double tanpi(dynamic x)
+        {
+            return tanpi(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cscpi/*' />
+        public static Double cscpi(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_CscPi(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_CscPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_CscPi(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cscpi/*' />
+        public static Double cscpi(dynamic x)
+        {
+            return cscpi(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/secpi/*' />
+        public static Double secpi(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_SecPi(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_SecPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_SecPi(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/secpi/*' />
+        public static Double secpi(dynamic x)
+        {
+            return secpi(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cotpi/*' />
+        public static Double cotpi(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_CotPi(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_CotPi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_CotPi(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cotpi/*' />
+        public static Double cotpi(dynamic x)
+        {
+            return cotpi(t(x));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sincpi/*' />
         public static Double sincpi(Double x)
         {
-            Double x1 = x * dreal.pi();
+            Double x1 = x * dreal.pi;
 
             if (dreal.abs(x) < 0.1)
             {
@@ -2594,7 +2528,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinhcpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinhcpi/*' />
         public static Double sinhcpi(Double x)
         {
             Double res = 0.0;
@@ -2607,6 +2541,7 @@ namespace FixedPrecNet
 
 
 
+
         #endregion
 
 
@@ -2614,7 +2549,7 @@ namespace FixedPrecNet
         #region Hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static Double sinh(Double x)
         {
             Double res = 0.0;
@@ -2625,14 +2560,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Sinh(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static Double sinh(dynamic x)
         {
             return sinh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static Double cosh(Double x)
         {
             Double res = 0.0;
@@ -2643,14 +2578,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Cosh(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static Double cosh(dynamic x)
         {
             return cosh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static Double tanh(Double x)
         {
             Double res = 0.0;
@@ -2661,14 +2596,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Tanh(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static Double tanh(dynamic x)
         {
             return tanh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static Double csch(Double x)
         {
             Double res = 0.0;
@@ -2679,14 +2614,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Csch(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static Double csch(dynamic x)
         {
             return csch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static Double sech(Double x)
         {
             Double res = 0.0;
@@ -2697,14 +2632,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Sech(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static Double sech(dynamic x)
         {
             return sech(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static Double coth(Double x)
         {
             Double res = 0.0;
@@ -2715,7 +2650,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Coth(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static Double coth(dynamic x)
         {
             return coth(t(x));
@@ -2732,7 +2667,7 @@ namespace FixedPrecNet
         #region Inverse trigonometric functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static Double asin(Double x)
         {
             Double res = 0.0;
@@ -2743,14 +2678,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Asin(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static Double asin(dynamic x)
         {
             return asin(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static Double acos(Double x)
         {
             Double res = 0.0;
@@ -2760,14 +2695,14 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Acos", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_Acos(ref Double res, ref Double x);
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static Double acos(dynamic x)
         {
             return acos(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static Double atan(Double x)
         {
             Double res = 0.0;
@@ -2778,14 +2713,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Atan(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static Double atan(dynamic x)
         {
             return atan(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />
         public static Double atan2(Double x, Double y)
         {
             Double res = 0.0;
@@ -2796,14 +2731,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Atan2(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />
         public static Double atan2(dynamic x, dynamic y)
         {
             return atan2(t(x), t(y));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static Double acsc(Double x)
         {
             Double res = 0.0;
@@ -2814,14 +2749,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Acsc(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static Double acsc(dynamic x)
         {
             return acsc(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static Double asec(Double x)
         {
             Double res = 0.0;
@@ -2832,14 +2767,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Asec(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static Double asec(dynamic x)
         {
             return asec(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static Double acot(Double x)
         {
             Double res = 0.0;
@@ -2850,7 +2785,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Acot(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static Double acot(dynamic x)
         {
             return acot(t(x));
@@ -2865,7 +2800,7 @@ namespace FixedPrecNet
         #region Inverse hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static Double asinh(Double x)
         {
             Double res = 0.0;
@@ -2876,7 +2811,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Asinh(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static Double asinh(dynamic x)
         {
             return asinh(t(x));
@@ -2884,7 +2819,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static Double acosh(Double x)
         {
             Double res = 0.0;
@@ -2895,7 +2830,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Acosh(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static Double acosh(dynamic x)
         {
             return acosh(t(x));
@@ -2903,7 +2838,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static Double atanh(Double x)
         {
             Double res = 0.0;
@@ -2914,7 +2849,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Atanh(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static Double atanh(dynamic x)
         {
             return atanh(t(x));
@@ -2922,7 +2857,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static Double acsch(Double x)
         {
             Double res = 0.0;
@@ -2933,7 +2868,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Acsch(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static Double acsch(dynamic x)
         {
             return acsch(t(x));
@@ -2941,7 +2876,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static Double asech(Double x)
         {
             Double res = 0.0;
@@ -2952,7 +2887,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Asech(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static Double asech(dynamic x)
         {
             return asech(t(x));
@@ -2960,7 +2895,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static Double acoth(Double x)
         {
             Double res = 0.0;
@@ -2971,7 +2906,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Acoth(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static Double acoth(dynamic x)
         {
             return acoth(t(x));
@@ -2985,16 +2920,160 @@ namespace FixedPrecNet
 
 
 
+        #region Gamma and related functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma/*' />
+        public static Double gamma(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Tgamma_(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Tgamma_", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Tgamma_(ref Double res, ref Double x);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma1pm1/*' />    
+        public static Double gamma1pm1(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Tgamma1pm1(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Tgamma1pm1", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Tgamma1pm1(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma/*' />
+        public static Double lgamma(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Lgamma_(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Lgamma_", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Lgamma_(ref Double res, ref Double x);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rgamma/*' />
+        public static Double rgamma(Double x)
+        {
+            return t(1) / gamma(x);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rgamma/*' />
+        public static Double rgamma(dynamic x)
+        {
+            return rgamma(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/factorial/*' />    
+        public static Double factorial(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Factorial(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Factorial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Factorial(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/doublefactorial/*' />    
+        public static Double doublefactorial(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_DoubleFactorial(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_DoubleFactorial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_DoubleFactorial(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rising_factorial/*' />    
+        public static Double rising_factorial(Double x, Double y)
+        {
+            Double res = 0.0;
+            Lib_FReal_RisingFactorial(ref res, ref x, ref y);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_RisingFactorial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_RisingFactorial(ref Double res, ref Double x, ref Double y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/falling_factorial/*' />    
+        public static Double falling_factorial(Double x, Double y)
+        {
+            Double res = 0.0;
+            Lib_FReal_FallingFactorial(ref res, ref x, ref y);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_FallingFactorial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_FallingFactorial(ref Double res, ref Double x, ref Double y);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_ratio/*' />    
+        public static Double gamma_ratio(Double x, Double y)
+        {
+            Double res = 0.0;
+            Lib_FReal_TgammaRatio(ref res, ref x, ref y);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TgammaRatio", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_TgammaRatio(ref Double res, ref Double x, ref Double y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_delta_ratio/*' />    
+        public static Double gamma_delta_ratio(Double x, Double y)
+        {
+            Double res = 0.0;
+            Lib_FReal_TgammaDeltaRatio(ref res, ref x, ref y);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TgammaDeltaRatio", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_TgammaDeltaRatio(ref Double res, ref Double x, ref Double y);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/beta/*' />
+        public static Double beta(Double a, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Beta(ref res, ref a, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Beta", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Beta(ref Double res, ref Double a, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/binomial/*' />    
+        public static Double binomial(Double x, Double y)
+        {
+            Double res = 0.0;
+            Lib_FReal_Binomial(ref res, ref x, ref y);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Binomial", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Binomial(ref Double res, ref Double x, ref Double y);
+
+
+
+
+
+        #endregion
+
+
 
         #region Miscellaneous
 
 
 
-
-
-        /// <summary>
-        /// Returns lambert_w0(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lambert_w0/*' />
         public static Double lambert_w0(Double x)
         {
             Double res = 0.0;
@@ -3005,9 +3084,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_LambertW0(ref Double res, ref Double x);
 
 
-        /// <summary>
-        /// Returns lambert_wm1(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lambert_wm1/*' />
         public static Double lambert_wm1(Double x)
         {
             Double res = 0.0;
@@ -3018,9 +3095,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_LambertWm1(ref Double res, ref Double x);
 
 
-        /// <summary>
-        /// Returns lambert_w0_prime(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lambert_w0_prime/*' />
         public static Double lambert_w0_prime(Double x)
         {
             Double res = 0.0;
@@ -3031,9 +3106,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_LambertW0Prime(ref Double res, ref Double x);
 
 
-        /// <summary>
-        /// Returns lambert_wm1_prime(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lambert_wm1_prime/*' />
         public static Double lambert_wm1_prime(Double x)
         {
             Double res = 0.0;
@@ -3046,7 +3119,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/agm/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/agm/*' />
         public static Double agm(Double x, Double y)
         {
             Double res = 0.0;
@@ -3057,7 +3130,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Agm(ref Double res, ref Double x, ref Double y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/agm/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/agm/*' />
         public static Double agm(dynamic x, dynamic y)
         {
             return agm(t(x), t(y));
@@ -3076,665 +3149,89 @@ namespace FixedPrecNet
 
 
 
-        #region Real Erf, Gamma, Beta
-
-
-
-
-        #region Error functions for real arguments
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndens/*' />
-        public static Double ndens(Double x)
-        {
-            return exp(-0.5*x * x) / sqrt(2 * pi());
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndens/*' />
-        public static Double ndens(dynamic x)
-        {
-            return ndens(t(x));
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndis/*' />
-        public static Double ndis(Double x)
-        {
-            return 0.5 * erfc(-x / sqrt(2));
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/ndis/*' />
-        public static Double ndis(dynamic x)
-        {
-            return ndis(t(x));
-        }
-
-
-        /// <summary>
-        /// Returns erf(Double x)
-        /// </summary>
-        public static Double erf(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Erf_(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Erf_", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Erf_(ref Double res, ref Double x);
-
-
-        /// <summary>
-        /// Returns erfc(Double x)
-        /// </summary>
-        public static Double erfc(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Erfc_(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Erfc_", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Erfc_(ref Double res, ref Double x);
-
-
-        /// <summary>
-        /// Returns erf_inv(Double x)
-        /// </summary>
-        public static Double erf_inv(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Erf_inv(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Erf_inv", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Erf_inv(ref Double res, ref Double x);
-
-
-        /// <summary>
-        /// Returns erfc_inv(Double x)
-        /// </summary>
-        public static Double erfc_inv(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Erfc_inv(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Erfc_inv", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Erfc_inv(ref Double res, ref Double x);
-
-
-
-
-        #endregion
-
-
-
-        #region Gamma and related functions for real arguments and parameters
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
-        //public static Double lgamma(Double x)
-        //{
-        //    Double res = 0.0;
-        //    Lib_FReal_Lgamma(ref res, ref x);
-        //    return res;
-        //}
-        //[DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Lgamma", CallingConvention = CallingConvention.Cdecl)]
-        //internal static extern void Lib_FReal_Lgamma(ref Double res, ref Double x);
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/lgamma/*' />
-        //public static Double lgamma(dynamic x)
-        //{
-        //    return lgamma(t(x));
-        //}
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rgamma/*' />
-        public static Double rgamma(Double x)
-        {
-            return t(1) / gamma(x);
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rgamma/*' />
-        public static Double rgamma(dynamic x)
-        {
-            return rgamma(t(x));
-        }
-
-
-
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
-        //public static Double gamma(Double x)
-        //{
-        //    Double res = 0.0;
-        //    Lib_FReal_Tgamma(ref res, ref x);
-        //    return res;
-        //}
-        //[DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Tgamma", CallingConvention = CallingConvention.Cdecl)]
-        //internal static extern void Lib_FReal_Tgamma(ref Double res, ref Double x);
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/gamma/*' />
-        //public static Double gamma(dynamic x)
-        //{
-        //    return gamma(t(x));
-        //}
-
-
-
-        /// <summary>
-        /// Returns gamma(Double x)
-        /// </summary>
-        public static Double gamma(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Tgamma_(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Tgamma_", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Tgamma_(ref Double res, ref Double x);
-
-
-        /// <summary>
-        /// Returns gamma1pm1(Double x)
-        /// </summary>
-        public static Double gamma1pm1(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Tgamma1pm1(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Tgamma1pm1", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Tgamma1pm1(ref Double res, ref Double x);
-
-
-        /// <summary>
-        /// Returns lgamma(Double x)
-        /// </summary>
-        public static Double lgamma(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Lgamma_(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Lgamma_", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Lgamma_(ref Double res, ref Double x);
-
-
-
-        /// <summary>
-        /// Returns factorial(Double x)
-        /// </summary>
-        public static Double factorial(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Factorial(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Factorial", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Factorial(ref Double res, ref Double x);
-
-
-        /// <summary>
-        /// Returns doublefactorial(Double x)
-        /// </summary>
-        public static Double doublefactorial(Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_DoubleFactorial(ref res, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_DoubleFactorial", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_DoubleFactorial(ref Double res, ref Double x);
-
-
-
-        /// <summary>
-        /// Returns gamma_ratio(Double x, Double y)
-        /// </summary>
-        public static Double gamma_ratio(Double x, Double y)
-        {
-            Double res = 0.0;
-            Lib_FReal_TgammaRatio(ref res, ref x, ref y);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TgammaRatio", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_TgammaRatio(ref Double res, ref Double x, ref Double y);
-
-
-        /// <summary>
-        /// Returns gamma_delta_ratio(Double x, Double y)
-        /// </summary>
-        public static Double gamma_delta_ratio(Double x, Double y)
-        {
-            Double res = 0.0;
-            Lib_FReal_TgammaDeltaRatio(ref res, ref x, ref y);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TgammaDeltaRatio", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_TgammaDeltaRatio(ref Double res, ref Double x, ref Double y);
-
-
-        /// <summary>
-        /// Returns binomial(Double x, Double y)
-        /// </summary>
-        public static Double binomial(Double x, Double y)
-        {
-            Double res = 0.0;
-            Lib_FReal_Binomial(ref res, ref x, ref y);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Binomial", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Binomial(ref Double res, ref Double x, ref Double y);
-
-
-        /// <summary>
-        /// Returns rising_factorial(Double x, Double y)
-        /// </summary>
-        public static Double rising_factorial(Double x, Double y)
-        {
-            Double res = 0.0;
-            Lib_FReal_RisingFactorial(ref res, ref x, ref y);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_RisingFactorial", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_RisingFactorial(ref Double res, ref Double x, ref Double y);
-
-
-        /// <summary>
-        /// Returns falling_factorial(Double x, Double y)
-        /// </summary>
-        public static Double falling_factorial(Double x, Double y)
-        {
-            Double res = 0.0;
-            Lib_FReal_FallingFactorial(ref res, ref x, ref y);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_FallingFactorial", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_FallingFactorial(ref Double res, ref Double x, ref Double y);
-
-
-
-        /// <summary>
-        /// Returns beta(Double a, Double x)
-        /// </summary>
-        public static Double beta(Double a, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Beta(ref res, ref a, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Beta", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Beta(ref Double res, ref Double a, ref Double x);
-
-
-
-
-
-        #endregion
-
-
-
-        #region Incomplete gamma functions for real arguments and parameters
-
-
-        /// <summary>
-        /// Returns gamma_p(Double a, Double x)
-        /// </summary>
-        public static Double gamma_p(Double a, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_GammaP(ref res, ref a, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaP", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_GammaP(ref Double res, ref Double a, ref Double x);
-
-
-
-        /// <summary>
-        /// Returns gamma_q(Double a, Double x)
-        /// </summary>
-        public static Double gamma_q(Double a, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_GammaQ(ref res, ref a, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaQ", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_GammaQ(ref Double res, ref Double a, ref Double x);
-
-
-
-        /// <summary>
-        /// Returns gamma_lower(Double a, Double x)
-        /// </summary>
-        public static Double gamma_lower(Double a, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_TgammaLower(ref res, ref a, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TgammaLower", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_TgammaLower(ref Double res, ref Double a, ref Double x);
-
-
-
-        /// <summary>
-        /// Returns gamma_upper(Double a, Double x)
-        /// </summary>
-        public static Double gamma_upper(Double a, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_TgammaUpper(ref res, ref a, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TgammaUpper", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_TgammaUpper(ref Double res, ref Double a, ref Double x);
-
-
-
-
-
-
-        /// <summary>
-        /// Returns gamma_p_inv(Double a, Double p)
-        /// </summary>
-        public static Double gamma_p_inv(Double a, Double p)
-        {
-            Double res = 0.0;
-            Lib_FReal_GammaPInv(ref res, ref a, ref p);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaPInv", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_GammaPInv(ref Double res, ref Double a, ref Double p);
-
-
-
-        /// <summary>
-        /// Returns gamma_q_inv(Double a, Double q)
-        /// </summary>
-        public static Double gamma_q_inv(Double a, Double q)
-        {
-            Double res = 0.0;
-            Lib_FReal_GammaQInv(ref res, ref a, ref q);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaQInv", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_GammaQInv(ref Double res, ref Double a, ref Double q);
-
-
-
-
-        /// <summary>
-        /// Returns gamma_p_inva(Double x, Double p)
-        /// </summary>
-        public static Double gamma_p_inva(Double x, Double p)
-        {
-            Double res = 0.0;
-            Lib_FReal_GammaPInva(ref res, ref x, ref p);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaPInva", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_GammaPInva(ref Double res, ref Double x, ref Double p);
-
-
-
-        /// <summary>
-        /// Returns gamma_q_inva(Double x, Double q)
-        /// </summary>
-        public static Double gamma_q_inva(Double x, Double q)
-        {
-            Double res = 0.0;
-            Lib_FReal_GammaQInva(ref res, ref x, ref q);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaQInva", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_GammaQInva(ref Double res, ref Double x, ref Double q);
-
-
-
-
-
-        /// <summary>
-        /// Returns gamma_p_prime(Double a, Double x)
-        /// </summary>
-        public static Double gamma_p_prime(Double a, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_GammaPDerivative(ref res, ref a, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaPDerivative", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_GammaPDerivative(ref Double res, ref Double a, ref Double x);
-
-
-
-
-        #endregion
-
-
-
-        #region Incomplete beta functions for real arguments and parameters
-
-
-
-
-
-        /// <summary>
-        /// Returns beta_lower(Double a, Double b, Double x)
-        /// </summary>
-        public static Double beta_lower(Double a, Double b, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetaNonNormalized(ref res, ref a, ref b, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaNonNormalized", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetaNonNormalized(ref Double res, ref Double a, ref Double b, ref Double x);
-
-
-
-
-        /// <summary>
-        /// Returns beta_upper(Double a, Double b, Double x)
-        /// </summary>
-        public static Double beta_upper(Double a, Double b, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetacNonNormalized(ref res, ref a, ref b, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetacNonNormalized", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetacNonNormalized(ref Double res, ref Double a, ref Double b, ref Double x);
-
-
-
-
-        /// <summary>
-        /// Returns ibeta(Double a, Double b, Double x)
-        /// </summary>
-        public static Double ibeta(Double a, Double b, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBeta(ref res, ref a, ref b, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBeta", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBeta(ref Double res, ref Double a, ref Double b, ref Double x);
-
-
-
-
-        /// <summary>
-        /// Returns ibetac(Double a, Double b, Double x)
-        /// </summary>
-        public static Double ibetac(Double a, Double b, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetac(ref res, ref a, ref b, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetac", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetac(ref Double res, ref Double a, ref Double b, ref Double x);
-
-
-
-
-        /// <summary>
-        /// Returns ibeta_inv(Double a, Double b, Double p)
-        /// </summary>
-        public static Double ibeta_inv(Double a, Double b, Double p)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetaInv(ref res, ref a, ref b, ref p);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaInv", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetaInv(ref Double res, ref Double a, ref Double b, ref Double p);
-
-
-
-
-        /// <summary>
-        /// Returns ibetac_inv(Double a, Double b, Double q)
-        /// </summary>
-        public static Double ibetac_inv(Double a, Double b, Double q)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetacInv(ref res, ref a, ref b, ref q);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetacInv", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetacInv(ref Double res, ref Double a, ref Double b, ref Double q);
-
-
-
-
-
-
-        /// <summary>
-        /// Returns ibeta_inva(Double b, Double x, Double p)
-        /// </summary>
-        public static Double ibeta_inva(Double b, Double x, Double p)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetaInva(ref res, ref b, ref x, ref p);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaInva", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetaInva(ref Double res, ref Double b, ref Double x, ref Double p);
-
-
-
-
-        /// <summary>
-        /// Returns ibetac_inva(Double b, Double x, Double q)
-        /// </summary>
-        public static Double ibetac_inva(Double b, Double x, Double q)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetacInva(ref res, ref b, ref x, ref q);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetacInva", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetacInva(ref Double res, ref Double b, ref Double x, ref Double q);
-
-
-
-
-
-        /// <summary>
-        /// Returns ibeta_invb(Double a, Double x, Double p)
-        /// </summary>
-        public static Double ibeta_invb(Double a, Double x, Double p)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetaInvb(ref res, ref a, ref x, ref p);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaInvb", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetaInvb(ref Double res, ref Double a, ref Double x, ref Double p);
-
-
-
-
-        /// <summary>
-        /// Returns ibetac_invb(Double a, Double x, Double q)
-        /// </summary>
-        public static Double ibetac_invb(Double a, Double x, Double q)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetacInvb(ref res, ref a, ref x, ref q);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetacInvb", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetacInvb(ref Double res, ref Double a, ref Double x, ref Double q);
-
-
-
-
-        /// <summary>
-        /// Returns ibeta_prime(Double a, Double b, Double x)
-        /// </summary>
-        public static Double ibeta_prime(Double a, Double b, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_IBetaDerivative(ref res, ref a, ref b, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaDerivative", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_IBetaDerivative(ref Double res, ref Double a, ref Double b, ref Double x);
-
-
-
-
-
-        #endregion
-
-
-
-        #region Miscellaneous real functions
-
-
-
-        /// <summary>
-        /// Returns owen_t(Double h, Double a)
-        /// </summary>
-        public static Double owen_t(Double h, Double a)
-        {
-            Double res = 0.0;
-            Lib_FReal_OwenT(ref res, ref h, ref a);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_OwenT", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_OwenT(ref Double res, ref Double h, ref Double a);
-
-
-        #endregion
-
-
-
-
-        #endregion
-
-
-
 
 
 
         #region Special Functions
 
 
+
+        #region Elliptic Functions
+
+
+
+        #region Carlson symmetric elliptic integrals
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_rf/*' />    
+        public static Double elliptic_rf(Double x, Double y, Double z)
+        {
+            Double res = 0.0;
+            Lib_FReal_EllipticRF(ref res, ref x, ref y, ref z);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllipticRF", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_EllipticRF(ref Double res, ref Double x, ref Double y, ref Double z);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_rg/*' />    
+        public static Double elliptic_rg(Double x, Double y, Double z)
+        {
+            Double res = 0.0;
+            Lib_FReal_EllipticRG(ref res, ref x, ref y, ref z);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllipticRG", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_EllipticRG(ref Double res, ref Double x, ref Double y, ref Double z);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_rj/*' />    
+        public static Double elliptic_rj(Double x, Double y, Double z, Double p)
+        {
+            Double res = 0.0;
+            Lib_FReal_EllipticRJ(ref res, ref x, ref y, ref z, ref p);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllipticRJ", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_EllipticRJ(ref Double res, ref Double x, ref Double y, ref Double z, ref Double p);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_rd/*' />    
+        public static Double elliptic_rd(Double x, Double y, Double z)
+        {
+            Double res = 0.0;
+            Lib_FReal_EllipticRD(ref res, ref x, ref y, ref z);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllipticRD", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_EllipticRD(ref Double res, ref Double x, ref Double y, ref Double z);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_rc/*' />    
+        public static Double elliptic_rc(Double a, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_EllintRC(ref res, ref a, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllintRC", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_EllintRC(ref Double res, ref Double a, ref Double x);
+
+
+
+        #endregion
+
+
+
         #region Legendre elliptic integrals (elliptic modulus k), and related functions
 
 
 
-        /// <summary>
-        /// Returns elliptic_k(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_k/*' />    
         public static Double elliptic_k(Double x)
         {
             Double res = 0.0;
@@ -3745,9 +3242,8 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Ellint_1_K(ref Double res, ref Double x);
 
 
-        /// <summary>
-        /// Returns elliptic_e(Double x)
-        /// </summary>
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_e/*' />    
         public static Double elliptic_e(Double x)
         {
             Double res = 0.0;
@@ -3759,37 +3255,7 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns elliptic_f(Double k, Double phi)
-        /// </summary>
-        public static Double elliptic_f(Double phi, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_Ellint1F(ref res, ref k, ref phi);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Ellint1F", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Ellint1F(ref Double res, ref Double k, ref Double phi);
-
-
-
-        /// <summary>
-        /// Returns elliptic_e_inc(Double k, Double phi)
-        /// </summary>
-        public static Double elliptic_e_inc(Double phi, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_Ellint2F(ref res, ref k, ref phi);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Ellint2F", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Ellint2F(ref Double res, ref Double k, ref Double phi);
-
-
-
-        /// <summary>
-        /// Returns elliptic_pi(Double k, Double n)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_pi/*' />    
         public static Double elliptic_pi(Double n, Double k)
         {
             Double res = 0.0;
@@ -3801,10 +3267,31 @@ namespace FixedPrecNet
 
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_f/*' />    
+        public static Double elliptic_f(Double phi, Double k)
+        {
+            Double res = 0.0;
+            Lib_FReal_Ellint1F(ref res, ref k, ref phi);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Ellint1F", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Ellint1F(ref Double res, ref Double k, ref Double phi);
 
-        /// <summary>
-        /// Returns elliptic_pi_inc(Double k, Double n, Double phi)
-        /// </summary>
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_e_inc/*' />    
+        public static Double elliptic_e_inc(Double phi, Double k)
+        {
+            Double res = 0.0;
+            Lib_FReal_Ellint2F(ref res, ref k, ref phi);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Ellint2F", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Ellint2F(ref Double res, ref Double k, ref Double phi);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_pi_inc/*' />    
         public static Double elliptic_pi_inc(Double n, Double phi, Double k)
         {
             Double res = 0.0;
@@ -3822,81 +3309,163 @@ namespace FixedPrecNet
 
 
 
-        #region Carlson symmetric elliptic integrals
+        #region Jacobi elliptic functions
 
 
 
-        /// <summary>
-        /// Returns elliptic_rc(Double a, Double x)
-        /// </summary>
-        public static Double elliptic_rc(Double a, Double x)
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_sn/*' />    
+        public static Double jacobi_sn(Double u, Double k)
         {
             Double res = 0.0;
-            Lib_FReal_EllintRC(ref res, ref a, ref x);
+            Lib_FReal_JacobiSN(ref res, ref k, ref u);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllintRC", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_EllintRC(ref Double res, ref Double a, ref Double x);
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiSN", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiSN(ref Double res, ref Double k, ref Double u);
 
 
 
-
-        /// <summary>
-        /// Returns elliptic_rf(Double x, Double y, Double z)
-        /// </summary>
-        public static Double elliptic_rf(Double x, Double y, Double z)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_cn/*' />    
+        public static Double jacobi_cn(Double u, Double k)
         {
             Double res = 0.0;
-            Lib_FReal_EllipticRF(ref res, ref x, ref y, ref z);
+            Lib_FReal_JacobiCN(ref res, ref k, ref u);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllipticRF", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_EllipticRF(ref Double res, ref Double x, ref Double y, ref Double z);
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiCN", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiCN(ref Double res, ref Double k, ref Double u);
 
 
 
 
-        /// <summary>
-        /// Returns elliptic_rd(Double x, Double y, Double z)
-        /// </summary>
-        public static Double elliptic_rd(Double x, Double y, Double z)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_dn/*' />    
+        public static Double jacobi_dn(Double u, Double k)
         {
             Double res = 0.0;
-            Lib_FReal_EllipticRD(ref res, ref x, ref y, ref z);
+            Lib_FReal_JacobiDN(ref res, ref k, ref u);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllipticRD", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_EllipticRD(ref Double res, ref Double x, ref Double y, ref Double z);
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiDN", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiDN(ref Double res, ref Double k, ref Double u);
 
 
 
 
-        /// <summary>
-        /// Returns elliptic_rg(Double x, Double y, Double z)
-        /// </summary>
-        public static Double elliptic_rg(Double x, Double y, Double z)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_nc/*' />    
+        public static Double jacobi_nc(Double u, Double k)
         {
             Double res = 0.0;
-            Lib_FReal_EllipticRG(ref res, ref x, ref y, ref z);
+            Lib_FReal_JacobiNC(ref res, ref k, ref u);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllipticRG", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_EllipticRG(ref Double res, ref Double x, ref Double y, ref Double z);
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiNC", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiNC(ref Double res, ref Double k, ref Double u);
 
 
 
 
-        /// <summary>
-        /// Returns elliptic_rj(Double x, Double y, Double z, Double p)
-        /// </summary>
-        public static Double elliptic_rj(Double x, Double y, Double z, Double p)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_sc/*' />    
+        public static Double jacobi_sc(Double u, Double k)
         {
             Double res = 0.0;
-            Lib_FReal_EllipticRJ(ref res, ref x, ref y, ref z, ref p);
+            Lib_FReal_JacobiSC(ref res, ref k, ref u);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_EllipticRJ", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_EllipticRJ(ref Double res, ref Double x, ref Double y, ref Double z, ref Double p);
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiSC", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiSC(ref Double res, ref Double k, ref Double u);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_dc/*' />    
+        public static Double jacobi_dc(Double u, Double k)
+        {
+            Double res = 0.0;
+            Lib_FReal_JacobiDC(ref res, ref k, ref u);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiDC", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiDC(ref Double res, ref Double k, ref Double u);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_nd/*' />    
+        public static Double jacobi_nd(Double u, Double k)
+        {
+            Double res = 0.0;
+            Lib_FReal_JacobiND(ref res, ref k, ref u);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiND", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiND(ref Double res, ref Double k, ref Double u);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_sd/*' />    
+        public static Double jacobi_sd(Double u, Double k)
+        {
+            Double res = 0.0;
+            Lib_FReal_JacobiSD(ref res, ref k, ref u);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiSD", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiSD(ref Double res, ref Double k, ref Double u);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_cd/*' />    
+        public static Double jacobi_cd(Double u, Double k)
+        {
+            Double res = 0.0;
+            Lib_FReal_JacobiCD(ref res, ref k, ref u);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiCD", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiCD(ref Double res, ref Double k, ref Double u);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_ns/*' />    
+        public static Double jacobi_ns(Double u, Double k)
+        {
+            Double res = 0.0;
+            Lib_FReal_JacobiNS(ref res, ref k, ref u);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiNS", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiNS(ref Double res, ref Double k, ref Double u);
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_cs/*' />    
+        public static Double jacobi_cs(Double u, Double k)
+        {
+            Double res = 0.0;
+            Lib_FReal_JacobiCS(ref res, ref k, ref u);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiCS", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiCS(ref Double res, ref Double k, ref Double u);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_ds/*' />    
+        public static Double jacobi_ds(Double u, Double k)
+        {
+            Double res = 0.0;
+            Lib_FReal_JacobiDS(ref res, ref k, ref u);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiDS", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_JacobiDS(ref Double res, ref Double k, ref Double u);
+
 
 
 
@@ -3908,11 +3477,7 @@ namespace FixedPrecNet
         #region Jacobi theta functions
 
 
-
-
-        /// <summary>
-        /// Returns jacobi_theta1(Double x, Double q)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta1/*' />    
         public static Double jacobi_theta1(Double x, Double q)
         {
             Double res = 0.0;
@@ -3924,9 +3489,7 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns jacobi_theta2(Double x, Double q)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta2/*' />    
         public static Double jacobi_theta2(Double x, Double q)
         {
             Double res = 0.0;
@@ -3938,9 +3501,7 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns jacobi_theta3(Double x, Double q)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta3/*' />    
         public static Double jacobi_theta3(Double x, Double q)
         {
             Double res = 0.0;
@@ -3952,9 +3513,7 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns jacobi_theta4(Double x, Double q)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta4/*' />    
         public static Double jacobi_theta4(Double x, Double q)
         {
             Double res = 0.0;
@@ -3971,214 +3530,31 @@ namespace FixedPrecNet
 
 
 
-        #region Jacobi elliptic functions
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_cd(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_cd(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiCD(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiCD", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiCD(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_cn(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_cn(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiCN(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiCN", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiCN(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_cs(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_cs(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiCS(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiCS", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiCS(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_dc(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_dc(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiDC(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiDC", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiDC(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_dn(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_dn(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiDN(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiDN", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiDN(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_ds(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_ds(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiDS(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiDS", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiDS(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_nc(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_nc(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiNC(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiNC", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiNC(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_nd(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_nd(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiND(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiND", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiND(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_ns(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_ns(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiNS(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiNS", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiNS(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_sc(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_sc(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiSC(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiSC", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiSC(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_sd(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_sd(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiSD(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiSD", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiSD(ref Double res, ref Double k, ref Double u);
-
-
-
-
-        /// <summary>
-        /// Returns jacobi_sn(Double k, Double u)
-        /// </summary>
-        public static Double jacobi_sn(Double u, Double k)
-        {
-            Double res = 0.0;
-            Lib_FReal_JacobiSN(ref res, ref k, ref u);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_JacobiSN", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_JacobiSN(ref Double res, ref Double k, ref Double u);
-
-
-
-
         #endregion
+
+
+
+
+        #region Lerch’s transcendent and related
 
 
 
         #region Polygamma functions
 
 
-        /// <summary>
-        /// Returns digamma(Double x)
-        /// </summary>
-        public static Double digamma(Double x)
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polygamma/*' />    
+        public static Double polygamma(int n, Double x)
         {
             Double res = 0.0;
-            Lib_FReal_Digamma(ref res, ref x);
+            Lib_FReal_Polygamma(ref res, n, ref x);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Digamma", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Digamma(ref Double res, ref Double x);
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Polygamma", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Polygamma(ref Double res, int n, ref Double x);
 
 
-        /// <summary>
-        /// Returns trigamma(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/trigamma/*' />    
         public static Double trigamma(Double x)
         {
             Double res = 0.0;
@@ -4191,17 +3567,16 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns polygamma(int n, Double x)
-        /// </summary>
-        public static Double polygamma(int n, Double x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/digamma/*' />    
+        public static Double digamma(Double x)
         {
             Double res = 0.0;
-            Lib_FReal_Polygamma(ref res, n, ref x);
+            Lib_FReal_Digamma(ref res, ref x);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Polygamma", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Polygamma(ref Double res, int n, ref Double x);
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Digamma", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Digamma(ref Double res, ref Double x);
+
 
 
 
@@ -4214,9 +3589,7 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns bernoulli(int n)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bernoulli/*' />
         public static Double bernoulli(int n)
         {
             if (n == 1) return -0.5;
@@ -4229,17 +3602,17 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_BernoulliB2n(ref Double res, int n);
 
 
-        /// <summary>
-        /// Returns TangentT2n(int n)
-        /// </summary>
-        public static Double TangentT2n(int n)
-        {
-            Double res = 0.0;
-            Lib_FReal_TangentT2n(ref res, n);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TangentT2n", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_TangentT2n(ref Double res, int n);
+        ///// <summary>
+        ///// Returns TangentT2n(int n)
+        ///// </summary>
+        //public static Double TangentT2n(int n)
+        //{
+        //    Double res = 0.0;
+        //    Lib_FReal_TangentT2n(ref res, n);
+        //    return res;
+        //}
+        //[DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TangentT2n", CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void Lib_FReal_TangentT2n(ref Double res, int n);
 
 
 
@@ -4248,12 +3621,10 @@ namespace FixedPrecNet
 
 
 
-        #region Dirichlet L-Series, Riemann zeta function, and related functions
+        #region Riemann zeta function, and related functions
 
 
-        /// <summary>
-        /// Returns zeta(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zeta/*' />
         public static Double zeta(Double x)
         {
             Double res = 0.0;
@@ -4268,12 +3639,18 @@ namespace FixedPrecNet
 
 
 
+        #endregion
+
+
+
+
+        #region Hypergeometric function 0F1 and related
+
+
         #region 0F1: Overview
 
 
-        /// <summary>
-        /// Returns hyperg_0f1(Double b, Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_0f1/*' />
         public static Double hyperg_0f1(Double b, Double x)
         {
             Double res = 0.0;
@@ -4283,7 +3660,7 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Hypergeo0F1", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_Hypergeo0F1(ref Double res, ref Double b, ref Double x);
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_0f1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_0f1/*' />
         public static Double hyperg_0f1(dynamic b, dynamic x)
         {
             return hyperg_0f1(dreal.t(b), dreal.t(x));
@@ -4291,7 +3668,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_0f1r/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_0f1r/*' />
         public static Double hyperg_0f1r(Double b, Double x)
         {
             if (oreal.isinteger(b) && (b <= 0))
@@ -4304,7 +3681,7 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_0f1r/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_0f1r/*' />
         public static Double hyperg_0f1r(dynamic b, dynamic x)
         {
             return hyperg_0f1r(dreal.t(b), dreal.t(x));
@@ -4316,11 +3693,11 @@ namespace FixedPrecNet
 
 
 
-        #region Bessel functions and modified Bessel functions
+        #region Bessel functions
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_jv/*' />
         public static Double bessel_jv(Double v, Double x, bool scaled = false)
         {
             Double res = 0.0;
@@ -4330,14 +3707,14 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselJ", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_BesselJ(ref Double res, ref Double v, ref Double x);
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_jv/*' />
         public static Double bessel_jv(dynamic nu, dynamic x, bool scaled = false)
         {
             return bessel_jv(t(nu), t(x), scaled);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_yv/*' />
         public static Double bessel_yv(Double v, Double x, bool scaled = false)
         {
             Double res = 0.0;
@@ -4347,59 +3724,19 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselY", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_BesselY(ref Double res, ref Double v, ref Double x);
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_yv/*' />
         public static Double bessel_yv(dynamic nu, dynamic x, bool scaled = false)
         {
             return bessel_yv(t(nu), t(x), scaled);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_iv/*' />
-        public static Double bessel_iv(Double v, Double x, bool scaled = false)
-        {
-            Double res = 0.0;
-            Lib_FReal_BesselI(ref res, ref v, ref x);
-            if (scaled) res *= exp(-abs(x));
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselI", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_BesselI(ref Double res, ref Double v, ref Double x);
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_iv/*' />
-        public static Double bessel_iv(dynamic nu, dynamic x, bool scaled = false)
-        {
-            return bessel_iv(t(nu), t(x), scaled);
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_kv/*' />
-        public static Double bessel_kv(Double v, Double x, bool scaled = false)
-        {
-            Double res = 0.0;
-            Lib_FReal_BesselK(ref res, ref v, ref x);
-            if (scaled) res *= exp(x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselK", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_BesselK(ref Double res, ref Double v, ref Double x);
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_kv/*' />
-        public static Double bessel_kv(dynamic nu, dynamic x, bool scaled = false)
-        {
-            return bessel_kv(t(nu), t(x), scaled);
-        }
 
 
 
 
 
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv_prime/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_jv_prime/*' />
         public static Double bessel_jv_prime(Double v, Double x, bool scaled = false)
         {
             Double res = 0.0;
@@ -4409,7 +3746,7 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselJPrime", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_BesselJPrime(ref Double res, ref Double v, ref Double x);
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv_prime/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_jv_prime/*' />
         public static Double bessel_jv_prime(dynamic nu, dynamic x, bool scaled = false)
         {
             return bessel_jv_prime(t(nu), t(x), scaled);
@@ -4417,7 +3754,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv_prime/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_yv_prime/*' />
         public static Double bessel_yv_prime(Double v, Double x, bool scaled = false)
         {
             Double res = 0.0;
@@ -4427,51 +3764,15 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselYPrime", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_BesselYPrime(ref Double res, ref Double v, ref Double x);
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_yv_prime/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_yv_prime/*' />
         public static Double bessel_yv_prime(dynamic nu, dynamic x, bool scaled = false)
         {
             return bessel_yv_prime(t(nu), t(x), scaled);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_iv_prime/*' />
-        public static Double bessel_iv_prime(Double v, Double x, bool scaled = false)
-        {
-            Double res = 0.0;
-            Lib_FReal_BesselIPrime(ref res, ref v, ref x);
-            if (scaled) res *= exp(-abs(x));
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselIPrime", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_BesselIPrime(ref Double res, ref Double v, ref Double x);
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_iv_prime/*' />
-        public static Double bessel_iv_prime(dynamic nu, dynamic x, bool scaled = false)
-        {
-            return bessel_iv_prime(t(nu), t(x), scaled);
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_kv_prime/*' />
-        public static Double bessel_kv_prime(Double v, Double x, bool scaled = false)
-        {
-            Double res = 0.0;
-            Lib_FReal_BesselKPrime(ref res, ref v, ref x);
-            if (scaled) res *= exp(x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselKPrime", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_BesselKPrime(ref Double res, ref Double v, ref Double x);
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_kv_prime/*' />
-        public static Double bessel_kv_prime(dynamic nu, dynamic x, bool scaled = false)
-        {
-            return bessel_kv_prime(t(nu), t(x), scaled);
-        }
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv_zero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_jv_zero/*' />
         public static Double bessel_jv_zero(Double x, int m)
         {
             Double res = 0.0;
@@ -4483,7 +3784,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/bessel_jv_zero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_jv_zero/*' />
         public static Double bessel_yv_zero(Double x, int m)
         {
             Double res = 0.0;
@@ -4495,14 +3796,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn_zero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_jn_zero/*' />
         public static Double sph_bessel_jn_zero(int n, int m)
         {
             return bessel_jv_zero(n + 0.5, m);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn_zero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_yn_zero/*' />
         public static Double sph_bessel_yn_zero(int n, int m)
         {
             return bessel_yv_zero(n + 0.5, m);
@@ -4514,30 +3815,119 @@ namespace FixedPrecNet
 
 
 
+        #region Modified Bessel functions
 
 
-        #region Spherical Bessel functions and spherical modified Bessel functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_iv/*' />
+        public static Double bessel_iv(Double v, Double x, bool scaled = false)
+        {
+            Double res = 0.0;
+            Lib_FReal_BesselI(ref res, ref v, ref x);
+            if (scaled) res *= exp(-abs(x));
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselI", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_BesselI(ref Double res, ref Double v, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_iv/*' />
+        public static Double bessel_iv(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_iv(t(nu), t(x), scaled);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_kv/*' />
+        public static Double bessel_kv(Double v, Double x, bool scaled = false)
+        {
+            Double res = 0.0;
+            Lib_FReal_BesselK(ref res, ref v, ref x);
+            if (scaled) res *= exp(x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselK", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_BesselK(ref Double res, ref Double v, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_kv/*' />
+        public static Double bessel_kv(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_kv(t(nu), t(x), scaled);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_iv_prime/*' />
+        public static Double bessel_iv_prime(Double v, Double x, bool scaled = false)
+        {
+            Double res = 0.0;
+            Lib_FReal_BesselIPrime(ref res, ref v, ref x);
+            if (scaled) res *= exp(-abs(x));
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselIPrime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_BesselIPrime(ref Double res, ref Double v, ref Double x);
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_iv_prime/*' />
+        public static Double bessel_iv_prime(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_iv_prime(t(nu), t(x), scaled);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_kv_prime/*' />
+        public static Double bessel_kv_prime(Double v, Double x, bool scaled = false)
+        {
+            Double res = 0.0;
+            Lib_FReal_BesselKPrime(ref res, ref v, ref x);
+            if (scaled) res *= exp(x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_BesselKPrime", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_BesselKPrime(ref Double res, ref Double v, ref Double x);
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_kv_prime/*' />
+        public static Double bessel_kv_prime(dynamic nu, dynamic x, bool scaled = false)
+        {
+            return bessel_kv_prime(t(nu), t(x), scaled);
+        }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
+
+
+
+
+
+
+
+        #endregion
+
+
+
+        #region Spherical Bessel functions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_jn/*' />
         public static Double sph_bessel_jn(Double n, Double x, bool scaled = false)
         {
-            if (!dreal.isinteger(n)) return dreal.nan();
+            if (!dreal.isinteger(n)) return dreal.nan;
 
-            if (dreal.isnan(x)) return dreal.nan();
-            if (dreal.isinf(x)) return dreal.zero();
-            if (dreal.isneginf(x)) return dreal.zero();
+            if (dreal.isnan(x)) return dreal.nan;
+            if (dreal.isinf(x)) return dreal.zero;
+            if (dreal.isneginf(x)) return dreal.zero;
             if (x == 0.0)
             {
                 if (n >= 0)
                 {
-                    if ((n == 0)) return dreal.one();
-                    else return dreal.zero();
+                    if ((n == 0)) return dreal.one;
+                    else return dreal.zero;
                 }
                 else
                 {
-                    if (n % 2 == 0) return dreal.neginf(); else return dreal.nan();
+                    if (n % 2 == 0) return dreal.neginf; else return dreal.nan;
                 }
             }
 
@@ -4561,7 +3951,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_SphBessel(ref Double res, int v, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_jn/*' />
         public static Double sph_bessel_jn(dynamic n, dynamic x, bool scaled = false)
         {
             return sph_bessel_jn(t(n), t(x), scaled);
@@ -4570,24 +3960,24 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_yn' />
         public static Double sph_bessel_yn(Double n, Double x, bool scaled = false)
         {
-            if (!dreal.isinteger(n)) return dreal.nan();
+            if (!dreal.isinteger(n)) return dreal.nan;
 
-            if (dreal.isnan(x)) return dreal.nan();
-            if (dreal.isinf(x)) return dreal.zero();
-            if (dreal.isneginf(x)) return dreal.zero();
+            if (dreal.isnan(x)) return dreal.nan;
+            if (dreal.isinf(x)) return dreal.zero;
+            if (dreal.isneginf(x)) return dreal.zero;
             if (x == 0.0)
             {
                 if (n < 0)
                 {
-                    if ((n == -1)) return dreal.one();
-                    else return dreal.zero();
+                    if ((n == -1)) return dreal.one;
+                    else return dreal.zero;
                 }
                 else
                 {
-                    if (n % 2 != 0) return dreal.neginf(); else return dreal.nan();
+                    if (n % 2 != 0) return dreal.neginf; else return dreal.nan;
                 }
             }
 
@@ -4611,7 +4001,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_SphNeumann(ref Double res, int v, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_jn/*' />
         public static Double sph_bessel_yn(dynamic n, dynamic x, bool scaled = false)
         {
             return sph_bessel_yn(t(n), t(x), scaled);
@@ -4619,36 +4009,103 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_jn_prime/*' />
+        public static Double sph_bessel_jn_prime(Double n, Double x, bool scaled = false)
+        {
+            if (!dreal.isinteger(n)) return dreal.nan;
+
+            if (dreal.isnan(x)) return dreal.nan;
+            if (dreal.isinf(x)) return dreal.zero;
+            if (dreal.isneginf(x)) return dreal.zero;
+            if (x == 0.0)
+            {
+                if (n == 1) return 1 / dreal.t(3);
+                if (n >= 0) return dreal.zero;
+                else
+                {
+                    if (n % 2 != 0) return dreal.neginf; else return dreal.nan;
+                }
+            }
+            return (n * sph_bessel_jn(n - 1, x, scaled) - (n + 1) * sph_bessel_jn(n + 1, x, scaled)) / (2 * n + 1);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_jn_prime/*' />
+        public static Double sph_bessel_jn_prime(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_jn_prime(t(n), t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_yn_prime/*' />
+        public static Double sph_bessel_yn_prime(Double n, Double x, bool scaled = false)
+        {
+            if (!dreal.isinteger(n)) return dreal.nan;
+
+            if (dreal.isnan(x)) return dreal.nan;
+            if (dreal.isinf(x)) return dreal.zero;
+            if (dreal.isneginf(x)) return dreal.zero;
+            if (x == 0.0)
+            {
+                if (n == -2) return -1 / dreal.t(3);
+                if (n < 0) return dreal.zero;
+                else
+                {
+                    if (n % 2 == 0) return dreal.inf; else return dreal.nan;
+                }
+            }
+            return (n * sph_bessel_yn(n - 1, x, scaled) - (n + 1) * sph_bessel_yn(n + 1, x, scaled)) / (2 * n + 1);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_yn_prime/*' />
+        public static Double sph_bessel_yn_prime(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_yn_prime(t(n), t(x), scaled);
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Modified spherical Bessel functions
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_in/*' />
         public static Double sph_bessel_in(Double n, Double x, bool scaled = false)
         {
-            if (!dreal.isinteger(n)) return dreal.nan();
+            if (!dreal.isinteger(n)) return dreal.nan;
 
-            if (dreal.isnan(x)) return dreal.nan();
-            if (dreal.isinf(x)) return dreal.inf();
-            if (dreal.isneginf(x)) return dreal.zero();
+            if (dreal.isnan(x)) return dreal.nan;
+            if (dreal.isinf(x)) return dreal.inf;
+            if (dreal.isneginf(x)) return dreal.zero;
             if (x == 0.0)
             {
                 if (n >= 0)
                 {
-                    if ((n == 0)) return dreal.one();
-                    else return dreal.zero();
+                    if ((n == 0)) return dreal.one;
+                    else return dreal.zero;
                 }
                 else
                 {
-                    if (n % 2 == 0) return dreal.neginf(); else return dreal.nan();
+                    if (n % 2 == 0) return dreal.neginf; else return dreal.nan;
                 }
             }
 
             Double x1 = x;
             if (x1 <= 0) x1 = -x1;
-            Double res = bessel_iv(n + 0.5, x1) / sqrt(2 * x1 / pi());
+            Double res = bessel_iv(n + 0.5, x1) / sqrt(2 * x1 / pi);
             if ((x < 0) && !(n % 2 == 0)) res = -res;
             if (scaled) res *= exp(-abs(x));
             return res;
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_in/*' />
         public static Double sph_bessel_in(dynamic n, dynamic x, bool scaled = false)
         {
             return sph_bessel_in(t(n), t(x), scaled);
@@ -4656,34 +4113,34 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_kn/*' />
         public static Double sph_bessel_kn(Double n, Double x, bool scaled = false)
         {
-            if (!dreal.isinteger(n)) return dreal.nan();
+            if (!dreal.isinteger(n)) return dreal.nan;
 
-            if (dreal.isnan(x)) return dreal.nan();
-            if (dreal.isinf(x)) return dreal.zero();
-            if (dreal.isneginf(x)) return dreal.neginf();
+            if (dreal.isnan(x)) return dreal.nan;
+            if (dreal.isinf(x)) return dreal.zero;
+            if (dreal.isneginf(x)) return dreal.neginf;
             if (x == 0.0)
             {
                 if (n >= 0)
                 {
-                    if (n % 2 == 0) return dreal.nan(); else return dreal.inf();
+                    if (n % 2 == 0) return dreal.nan; else return dreal.inf;
                 }
                 else
                 {
-                    if (n % 2 == 0) return dreal.inf(); else return dreal.nan();
+                    if (n % 2 == 0) return dreal.inf; else return dreal.nan;
                 }
             }
             Double res;
-            if (x >= 0.0f) res = bessel_kv(n + 0.5, x) / sqrt(2 * x / pi());
-            else res = -0.5f * pi() * (sph_bessel_in(n, -x) + sph_bessel_in(-n - 1, -x));
+            if (x >= 0.0f) res = bessel_kv(n + 0.5, x) / sqrt(2 * x / pi);
+            else res = -0.5f * pi * (sph_bessel_in(n, -x) + sph_bessel_in(-n - 1, -x));
             if (scaled) res *= exp(x);
             return res;
 
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_kn/*' />
         public static Double sph_bessel_kn(dynamic n, dynamic x, bool scaled = false)
         {
             return sph_bessel_kn(t(n), t(x), scaled);
@@ -4691,13 +4148,70 @@ namespace FixedPrecNet
 
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_in_prime/*' />
+        public static Double sph_bessel_in_prime(Double n, Double x, bool scaled = false)
+        {
+            if (!dreal.isinteger(n)) return dreal.nan;
+
+            if (dreal.isnan(x)) return dreal.nan;
+            if (dreal.isinf(x)) return dreal.inf;
+            if (dreal.isneginf(x))
+            {
+                if (n % 2 == 0) return dreal.neginf; else return dreal.inf;
+            }
+            if (x == 0.0)
+            {
+                if (n == 0) return dreal.zero;
+                if (n < 0)
+                {
+                    if (n % 2 != 0) return dreal.neginf; else return dreal.nan;
+                }
+            }
+            return (n * sph_bessel_in(n - 1, x, scaled) + (n + 1) * sph_bessel_in(n + 1, x, scaled)) / (2 * n + 1);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_in_prime/*' />
+        public static Double sph_bessel_in_prime(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_in_prime(t(n), t(x), scaled);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_kn_prime/*' />
+        public static Double sph_bessel_kn_prime(Double n, Double x, bool scaled = false)
+        {
+            if (!dreal.isinteger(n)) return dreal.nan;
+
+            if (dreal.isnan(x)) return dreal.nan;
+            if (dreal.isinf(x)) return dreal.zero;
+            if (dreal.isneginf(x)) return dreal.neginf;
+            if (x == 0.0)
+            {
+                if (((n >= 0) && (n % 2 == 0)) || ((n < 0) && (n % 2 != 0))) return dreal.neginf;
+                else return dreal.nan;
+            }
+            return -(n * sph_bessel_kn(n - 1, x, scaled) + (n + 1) * sph_bessel_kn(n + 1, x, scaled)) / (2 * n + 1);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_bessel_kn_prime/*' />
+        public static Double sph_bessel_kn_prime(dynamic n, dynamic x, bool scaled = false)
+        {
+            return sph_bessel_kn_prime(t(n), t(x), scaled);
+        }
+
+
+
+
+
 
         internal static Double besselpoly_(int n, Double x)
         {
-            if (n < 0) n = Math.Abs(n)-1;
+            if (n < 0) n = Math.Abs(n) - 1;
             if (n == 0) return t(1.0);
             if (n == 1) return x + 1;
-            var y = new Double[n+2];
+            var y = new Double[n + 2];
             y[0] = t(1);
             y[1] = x + 1;
             for (int i = 2; i <= n; i++)
@@ -4707,20 +4221,20 @@ namespace FixedPrecNet
             return y[n];
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/besselpoly/*' />
         public static Double besselpoly(Double n, Double x, bool scaled = false)
         {
-            if (!dreal.isinteger(n)) return dreal.nan();
+            if (!dreal.isinteger(n)) return dreal.nan;
             if (abs(x) < t(0.01)) return besselpoly_(lrint(n), x);
             else
             {
                 Double res = sph_bessel_kn(n, 1 / x);
-                res *= exp(1 / x) * 2 / (pi() * x);
+                res *= exp(1 / x) * 2 / (pi * x);
                 return res;
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/besselpoly/*' />
         public static Double besselpoly(dynamic n, dynamic x, bool scaled = false)
         {
             return besselpoly(t(n), t(x), scaled);
@@ -4746,23 +4260,23 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/besseltheta/*' />
         public static Double besseltheta(Double n, Double x, bool scaled = false)
         {
-            if (!dreal.isinteger(n)) return dreal.nan();
-            if ((x == 0) && (n < 0)) return dreal.nan();
+            if (!dreal.isinteger(n)) return dreal.nan;
+            if ((x == 0) && (n < 0)) return dreal.nan;
             if ((abs(x) < t(0.01)) && (n >= 0)) return besseltheta_(lrint(n), x);
             if (n < 0) return pow(x, n) * besselpoly(n, 1 / x);
             else
             {
                 Double res = sph_bessel_kn(n, x);
-                res *= dreal.pow(x, n + 1) * exp(x) * 2 / pi();
+                res *= dreal.pow(x, n + 1) * exp(x) * 2 / pi;
                 return res;
             }
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/besseltheta/*' />
         public static Double besseltheta(dynamic n, dynamic x, bool scaled = false)
         {
             return besseltheta(t(n), t(x), scaled);
@@ -4770,136 +4284,9 @@ namespace FixedPrecNet
 
 
 
-        #endregion
-
-
-
-
-        #region Spherical Bessel functions, first derivative
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn_prime/*' />
-        public static Double sph_bessel_jn_prime(Double n, Double x, bool scaled = false)
-        {
-            if (!dreal.isinteger(n)) return dreal.nan();
-
-            if (dreal.isnan(x)) return dreal.nan();
-            if (dreal.isinf(x)) return dreal.zero();
-            if (dreal.isneginf(x)) return dreal.zero();
-            if (x == 0.0)
-            {
-                if (n == 1) return 1 / dreal.t(3);
-                if (n >= 0) return dreal.zero();
-                else
-                {
-                    if (n % 2 != 0) return dreal.neginf(); else return dreal.nan();
-                }
-            }
-            return (n * sph_bessel_jn(n - 1, x, scaled) - (n + 1) * sph_bessel_jn(n + 1, x, scaled)) / (2 * n + 1);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn_prime/*' />
-        public static Double sph_bessel_jn_prime(dynamic n, dynamic x, bool scaled = false)
-        {
-            return sph_bessel_jn_prime(t(n), t(x), scaled);
-        }
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn_prime/*' />
-        public static Double sph_bessel_yn_prime(Double n, Double x, bool scaled = false)
-        {
-            if (!dreal.isinteger(n)) return dreal.nan();
-
-            if (dreal.isnan(x)) return dreal.nan();
-            if (dreal.isinf(x)) return dreal.zero();
-            if (dreal.isneginf(x)) return dreal.zero();
-            if (x == 0.0)
-            {
-                if (n == -2) return -1 / dreal.t(3);
-                if (n < 0) return dreal.zero();
-                else
-                {
-                    if (n % 2 == 0) return dreal.inf(); else return dreal.nan();
-                }
-            }
-            return (n * sph_bessel_yn(n - 1, x, scaled) - (n + 1) * sph_bessel_yn(n + 1, x, scaled)) / (2 * n + 1);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn_prime/*' />
-        public static Double sph_bessel_yn_prime(dynamic n, dynamic x, bool scaled = false)
-        {
-            return sph_bessel_yn_prime(t(n), t(x), scaled);
-        }
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in_prime/*' />
-        public static Double sph_bessel_in_prime(Double n, Double x, bool scaled = false)
-        {
-            if (!dreal.isinteger(n)) return dreal.nan();
-
-            if (dreal.isnan(x)) return dreal.nan();
-            if (dreal.isinf(x)) return dreal.inf();
-            if (dreal.isneginf(x))
-            {
-                if (n % 2 == 0) return dreal.neginf(); else return dreal.inf();
-            }
-            if (x == 0.0)
-            {
-                if (n == 0) return dreal.zero();
-                if (n < 0)
-                {
-                    if (n % 2 != 0) return dreal.neginf(); else return dreal.nan();
-                }
-            }
-            return (n * sph_bessel_in(n - 1, x, scaled) + (n + 1) * sph_bessel_in(n + 1, x, scaled)) / (2 * n + 1);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in_prime/*' />
-        public static Double sph_bessel_in_prime(dynamic n, dynamic x, bool scaled = false)
-        {
-            return sph_bessel_in_prime(t(n), t(x), scaled);
-        }
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn_prime/*' />
-        public static Double sph_bessel_kn_prime(Double n, Double x, bool scaled = false)
-        {
-            if (!dreal.isinteger(n)) return dreal.nan();
-
-            if (dreal.isnan(x)) return dreal.nan();
-            if (dreal.isinf(x)) return dreal.zero();
-            if (dreal.isneginf(x)) return dreal.neginf();
-            if (x == 0.0)
-            {
-                if (((n >= 0) && (n % 2 == 0)) || ((n < 0) && (n % 2 != 0))) return dreal.neginf();
-                else return dreal.nan();
-            }
-            return -(n * sph_bessel_kn(n - 1, x, scaled) + (n + 1) * sph_bessel_kn(n + 1, x, scaled)) / (2 * n + 1);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn_prime/*' />
-        public static Double sph_bessel_kn_prime(dynamic n, dynamic x, bool scaled = false)
-        {
-            return sph_bessel_kn_prime(t(n), t(x), scaled);
-        }
-
-
-
 
 
         #endregion
-
-
-
-
 
 
 
@@ -4907,13 +4294,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hankel_h1/*' />
         public static Complex hankel_h1(Double v, Double x)
         {
-            return bessel_jv(v, x) + dcplx.onej() * bessel_yv(v, x);
+            return bessel_jv(v, x) + dcplx.onej * bessel_yv(v, x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hankel_h1/*' />
         public static Complex hankel_h1(dynamic v, dynamic x)
         {
             return hankel_h1(t(v), t(x));
@@ -4921,13 +4308,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hankel_h2/*' />
         public static Complex hankel_h2(Double v, Double x)
         {
-            return bessel_jv(v, x) - dcplx.onej() * bessel_yv(v, x);
+            return bessel_jv(v, x) - dcplx.onej * bessel_yv(v, x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hankel_h2/*' />
         public static Complex hankel_h2(dynamic v, dynamic x)
         {
             return hankel_h2(t(v), t(x));
@@ -4935,13 +4322,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_hankel_h1/*' />
         public static Complex sph_hankel_h1(int n, Double x)
         {
-            return sph_bessel_jn(n, x) + dcplx.onej() * sph_bessel_yn(n, x);
+            return sph_bessel_jn(n, x) + dcplx.onej * sph_bessel_yn(n, x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_hankel_h1/*' />
         public static Complex sph_hankel_h1(int n, dynamic x)
         {
             return sph_hankel_h1(n, t(x));
@@ -4949,13 +4336,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_hankel_h2/*' />
         public static Complex sph_hankel_h2(int n, Double x)
         {
-            return sph_bessel_jn(n, x) - dcplx.onej() * sph_bessel_yn(n, x);
+            return sph_bessel_jn(n, x) - dcplx.onej * sph_bessel_yn(n, x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sph_hankel_h2/*' />
         public static Complex sph_hankel_h2(int n, dynamic x)
         {
             return sph_hankel_h2(n, t(x));
@@ -4970,15 +4357,11 @@ namespace FixedPrecNet
 
 
 
-
-
         #region Airy functions
 
 
 
-        /// <summary>
-        /// Returns airy_ai(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_ai_/*' />
         public static Double airy_ai(Double x, bool scaled = false)
         {
             Double res = 0.0;
@@ -4989,7 +4372,7 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_AiryAi", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_AiryAi(ref Double res, ref Double x);
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_ai/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_ai/*' />
         public static Double airy_ai(dynamic x, bool scaled = false)
         {
             return airy_ai(dreal.t(x), scaled);
@@ -4997,9 +4380,7 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns airy_bi(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_bi_/*' />
         public static Double airy_bi(Double x, bool scaled = false)
         {
             Double res = 0.0;
@@ -5010,7 +4391,7 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_AiryBi", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_AiryBi(ref Double res, ref Double x);
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_bi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_bi/*' />
         public static Double airy_bi(dynamic x, bool scaled = false)
         {
             return airy_bi(dreal.t(x), scaled);
@@ -5018,9 +4399,7 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns airy_ai_prime(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_ai_prime_/*' />
         public static Double airy_ai_prime(Double x, bool scaled = false)
         {
             Double res = 0.0;
@@ -5032,16 +4411,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_AiryAiPrime(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_ai_prime/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_ai_prime/*' />
         public static Double airy_ai_prime(dynamic x, bool scaled = false)
         {
             return airy_ai_prime(dreal.t(x), scaled);
         }
 
 
-        /// <summary>
-        /// Returns airy_bi_prime(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_bi_prime_/*' />
         public static Double airy_bi_prime(Double x, bool scaled = false)
         {
             Double res = 0.0;
@@ -5053,16 +4430,14 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_AiryBiPrime(ref Double res, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/airy_bi_prime/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_bi_prime/*' />
         public static Octuple airy_bi_prime(dynamic x, bool scaled = false)
         {
             return airy_bi_prime(dreal.t(x), scaled);
         }
 
 
-        /// <summary>
-        /// Returns airy_ai_zero(int n)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_ai_zero/*' />
         public static Double airy_ai_zero(int n)
         {
             Double res = 0.0;
@@ -5073,9 +4448,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Aizero(ref Double res, int n);
 
 
-        /// <summary>
-        /// Returns airy_bi_zero(int n)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_bi_zero/*' />
         public static Double airy_bi_zero(int n)
         {
             Double res = 0.0;
@@ -5092,15 +4465,20 @@ namespace FixedPrecNet
 
 
 
+        #endregion
 
 
-        #region 1F1 Overview
+
+
+        #region Hypergeometric function 1F1 and related
 
 
 
-        /// <summary>
-        /// Returns hyperg_1f1(Double a, Double b, Double x)
-        /// </summary>
+        #region Hypergeometric Functions 1F1 (Kummer) and U (Tricomi)
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_1f1/*' />
         public static Double hyperg_1f1(Double a, Double b, Double x)
         {
             Double res = 0.0;
@@ -5112,9 +4490,7 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns hyperg_1f1r(Double a, Double b, Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_1f1r/*' />
         public static Double hyperg_1f1r(Double a, Double b, Double x)
         {
             Double res = 0.0;
@@ -5126,53 +4502,22 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns log_hyperg_1f1(Double a, Double b, Double x)
-        /// </summary>
-        public static Double log_hyperg_1f1(Double a, Double b, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_LogHypergeo1F1(ref res, ref a, ref b, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_LogHypergeo1F1", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_LogHypergeo1F1(ref Double res, ref Double a, ref Double b, ref Double x);
-
-
-
-        /// <summary>
-        /// Returns hermite_h(int n, Double x)
-        /// </summary>
-        public static Double hermite_h(int n, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Hermite(ref res, n, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Hermite", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Hermite(ref Double res, int n, ref Double x);
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hermite_he/*' />
-        public static Double hermite_he(int n, Double x)
-        {
-            return exp2(-n / 2) * hermite_h(n, x / sqrt(2));
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hermite_he/*' />
-        public static Double hermite_he(int n, dynamic x)
-        {
-            return hermite_he(n, dreal.t(x));
-        }
+        ///// <summary>
+        ///// Returns log_hyperg_1f1(Double a, Double b, Double x)
+        ///// </summary>
+        //public static Double log_hyperg_1f1(Double a, Double b, Double x)
+        //{
+        //    Double res = 0.0;
+        //    Lib_FReal_LogHypergeo1F1(ref res, ref a, ref b, ref x);
+        //    return res;
+        //}
+        //[DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_LogHypergeo1F1", CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void Lib_FReal_LogHypergeo1F1(ref Double res, ref Double a, ref Double b, ref Double x);
 
 
 
 
-        /// <summary>
-        /// Returns laguerre_ass(int n, int m, Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/laguerre_l/*' />
         public static Double laguerre_l(int n, int m, Double x)
         {
             Double res = 0.0;
@@ -5184,6 +4529,248 @@ namespace FixedPrecNet
 
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_h/*' />
+        public static Double hermite_h(int n, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Hermite(ref res, n, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Hermite", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Hermite(ref Double res, int n, ref Double x);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
+        public static Double hermite_he(int n, Double x)
+        {
+            return exp2(-n / 2) * hermite_h(n, x / sqrt(2));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
+        public static Double hermite_he(int n, dynamic x)
+        {
+            return hermite_he(n, dreal.t(x));
+        }
+
+
+
+
+
+
+        #endregion
+
+
+
+        #region Incomplete gamma functions
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_p/*' />    
+        public static Double gamma_p(Double a, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_GammaP(ref res, ref a, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaP", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_GammaP(ref Double res, ref Double a, ref Double x);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_q/*' />    
+        public static Double gamma_q(Double a, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_GammaQ(ref res, ref a, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaQ", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_GammaQ(ref Double res, ref Double a, ref Double x);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_lower/*' />    
+        public static Double gamma_lower(Double a, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_TgammaLower(ref res, ref a, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TgammaLower", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_TgammaLower(ref Double res, ref Double a, ref Double x);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_upper/*' />    
+        public static Double gamma_upper(Double a, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_TgammaUpper(ref res, ref a, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_TgammaUpper", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_TgammaUpper(ref Double res, ref Double a, ref Double x);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_p_prime/*' />    
+        public static Double gamma_p_prime(Double a, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_GammaPDerivative(ref res, ref a, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaPDerivative", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_GammaPDerivative(ref Double res, ref Double a, ref Double x);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_p_inv/*' />    
+        public static Double gamma_p_inv(Double a, Double p)
+        {
+            Double res = 0.0;
+            Lib_FReal_GammaPInv(ref res, ref a, ref p);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaPInv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_GammaPInv(ref Double res, ref Double a, ref Double p);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_q_inv/*' />    
+        public static Double gamma_q_inv(Double a, Double q)
+        {
+            Double res = 0.0;
+            Lib_FReal_GammaQInv(ref res, ref a, ref q);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaQInv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_GammaQInv(ref Double res, ref Double a, ref Double q);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_p_inva/*' />    
+        public static Double gamma_p_inva(Double x, Double p)
+        {
+            Double res = 0.0;
+            Lib_FReal_GammaPInva(ref res, ref x, ref p);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaPInva", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_GammaPInva(ref Double res, ref Double x, ref Double p);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_q_inva/*' />    
+        public static Double gamma_q_inva(Double x, Double q)
+        {
+            Double res = 0.0;
+            Lib_FReal_GammaQInva(ref res, ref x, ref q);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_GammaQInva", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_GammaQInva(ref Double res, ref Double x, ref Double q);
+
+
+
+
+
+        #endregion
+
+
+
+        #region Error functions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erf/*' />    
+        public static Double erf(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Erf_(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Erf_", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Erf_(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erfc/*' />    
+        public static Double erfc(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Erfc_(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Erfc_", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Erfc_(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erf_inv/*' />    
+        public static Double erf_inv(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Erf_inv(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Erf_inv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Erf_inv(ref Double res, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erfc_inv/*' />    
+        public static Double erfc_inv(Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Erfc_inv(ref res, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Erfc_inv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Erfc_inv(ref Double res, ref Double x);
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndens/*' />
+        public static Double ndens(Double x)
+        {
+            return exp(-0.5 * x * x) / sqrt(2 * pi);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndens/*' />
+        public static Double ndens(dynamic x)
+        {
+            return ndens(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndis/*' />
+        public static Double ndis(Double x)
+        {
+            return 0.5 * erfc(-x / sqrt(2));
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndis/*' />
+        public static Double ndis(dynamic x)
+        {
+            return ndis(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/owen_t/*' />
+        public static Double owen_t(Double h, Double a)
+        {
+            Double res = 0.0;
+            Lib_FReal_OwenT(ref res, ref h, ref a);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_OwenT", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_OwenT(ref Double res, ref Double h, ref Double a);
 
 
 
@@ -5194,9 +4781,21 @@ namespace FixedPrecNet
         #region Exponential integrals and related functions
 
 
-        /// <summary>
-        /// Returns Exp_integral_ei(Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_e1/*' />
+        public static Double exp_integral_e1(Double z)
+        {
+            if (z < 0) return -exp_integral_ei(-z);
+            else return exp_integral_en(1, z);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_e1/*' />
+        public static Double exp_integral_e1(dynamic z)
+        {
+            return exp_integral_e1(sreal.t(z));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_ei/*' />
         public static Double exp_integral_ei(Double x)
         {
             Double res = 0.0;
@@ -5206,15 +4805,62 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Ei", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_Ei(ref Double res, ref Double x);
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_ei/*' />
+        public static Double exp_integral_ei(dynamic z)
+        {
+            return exp_integral_ei(sreal.t(z));
+        }
 
 
 
-        /// <summary>
-        /// Returns exp_integral_en(uint n, Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log_integral/*' />
+        public static Double log_integral(Double z)
+        {
+            if (z < 0) return nan;
+            if (z == 0) return zero;
+            else return exp_integral_ei(log(z));
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log_integral/*' />
+        public static Double log_integral(dynamic z)
+        {
+            return log_integral(t(z));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh_integral/*' />
+        public static Double sinh_integral(Double x)
+        {
+            return (exp_integral_ei(x) + exp_integral_e1(x)) / 2;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh_integral/*' />
+        public static Double sinh_integral(dynamic z)
+        {
+            return sinh_integral(t(z));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh_integral/*' />
+        public static Double cosh_integral(Double x)
+        {
+            return (exp_integral_ei(x) - exp_integral_e1(x)) / 2;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh_integral/*' />
+        public static Double cosh_integral(dynamic z)
+        {
+            return cosh_integral(t(z));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_en/*' />
         public static Double exp_integral_en(int n, Double x)
         {
-            if (n < 0) return nan();
+            if (n < 0) return nan;
             Double res = 0.0;
             Lib_FReal_expint(ref res, n, ref x);
             return res;
@@ -5223,73 +4869,13 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_expint(ref Double res, int n, ref Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/exp_integral_ei/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp_integral_en/*' />
         public static Double exp_integral_en(int n, dynamic x)
         {
             return exp_integral_en(n, t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp_integral_e1/*' />
-        public static Double exp_integral_e1(Double z)
-        {
-            if (z < 0) return -exp_integral_ei(-z);
-            else return exp_integral_en(1, z);
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp_integral_e1/*' />
-        public static Double exp_integral_e1(dynamic z)
-        {
-            return exp_integral_e1(sreal.t(z));
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log_integral/*' />
-        public static Double log_integral(Double z)
-        {
-            if (z < 0) return nan();
-            if (z == 0) return zero();
-            else return exp_integral_ei(log(z));
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log_integral/*' />
-        public static Double log_integral(dynamic z)
-        {
-            return log_integral(t(z));
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh_integral/*' />
-        public static Double cosh_integral(Double x)
-        {
-            return (exp_integral_ei(x) - exp_integral_e1(x)) / 2;
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh_integral/*' />
-        public static Double cosh_integral(dynamic z)
-        {
-            return cosh_integral(t(z));
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh_integral/*' />
-        public static Double sinh_integral(Double x)
-        {
-            return (exp_integral_ei(x) + exp_integral_e1(x)) / 2;
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh_integral/*' />
-        public static Double sinh_integral(dynamic z)
-        {
-            return sinh_integral(t(z));
-        }
-
-
-
 
 
 
@@ -5297,19 +4883,20 @@ namespace FixedPrecNet
 
 
 
-        #region 1F1-related orthogonal polynomials
-
-
         #endregion
 
 
 
-        #region 2F1-related orthogonal polynomials
+
+        #region Hypergeometric function pFq and related
 
 
 
+        #region Chebyshev, Gegenbauer and Jacobi polynomials
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_t/*' />
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/chebyshev_t/*' />
         public static Double chebyshev_t(int n, Double x)
         {
             Double res = 0.0;
@@ -5322,7 +4909,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_u/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/chebyshev_u/*' />
         public static Double chebyshev_u(int n, Double x)
         {
             Double res = 0.0;
@@ -5335,7 +4922,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_v/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/chebyshev_v/*' />
         public static Double chebyshev_v(int n, Double x)  // same as t_n(x)
         {
             if (x < 0.0)
@@ -5347,7 +4934,7 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/chebyshev_w/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/chebyshev_w/*' />
         public static Double chebyshev_w(int n, Double x)  // same as u_n(x)
         {
             if (x < 0.0)
@@ -5360,9 +4947,63 @@ namespace FixedPrecNet
 
 
 
-        /// <summary>
-        /// Returns legendre_p(int n, Double x)
-        /// </summary>
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gegenbauer_c/*' />
+        public static Double gegenbauer_c(int n, Double lambda1, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Gegenbauer(ref res, n, ref lambda1, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Gegenbauer", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Gegenbauer(ref Double res, int n, ref Double lambda1, ref Double x);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gegenbauer_c/*' />
+        public static Double gegenbauer_c(int n, dynamic lambda1, dynamic x)
+        {
+            return gegenbauer_c(n, t(lambda1), t(x));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_p/*' />
+        public static Double jacobi_p_(int n, Double alpha, Double beta, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_Jacobi(ref res, n, ref alpha, ref beta, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Jacobi", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_Jacobi(ref Double res, int n, ref Double alpha, ref Double beta, ref Double x);
+
+        public static Double jacobi_p(Double n, Double alpha, Double beta, Double x)
+        {
+            if (!dreal.isinteger(n)) return dreal.nan;
+            return jacobi_p_(lrint(n), alpha, beta, x);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_p/*' />
+        public static Double jacobi_p(dynamic n, dynamic alpha, dynamic beta, dynamic x)
+        {
+            return jacobi_p(t(n), t(alpha), t(beta), t(x));
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Legendre polynomials and related
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/legendre_p/*' />
         public static Double legendre_p(int n, Double x)
         {
             Double res = 0.0;
@@ -5374,25 +5015,7 @@ namespace FixedPrecNet
 
 
 
-
-        /// <summary>
-        /// Returns legendre_q(int n, Double x)
-        /// </summary>
-        public static Double legendre_q(int n, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_LegendreQ(ref res, n, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_LegendreQ", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_LegendreQ(ref Double res, int n, ref Double x);
-
-
-
-
-        /// <summary>
-        /// Returns legendre_plm(int n, int m, Double x)
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/legendre_plm/*' />
         public static Double legendre_plm(int n, int m, Double x)
         {
             Double res = 0.0;
@@ -5405,83 +5028,37 @@ namespace FixedPrecNet
 
 
 
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gegenbauer_c/*' />
-        public static Double gegenbauer_c(int n, Double lambda1, Double x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/legendre_q/*' />
+        public static Double legendre_q(int n, Double x)
         {
             Double res = 0.0;
-            Lib_FReal_Gegenbauer(ref res, n, ref lambda1, ref x);
+            Lib_FReal_LegendreQ(ref res, n, ref x);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Gegenbauer", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Gegenbauer(ref Double res, int n, ref Double lambda1, ref Double x);
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gegenbauer_c/*' />
-        public static Double gegenbauer_c(int n, dynamic lambda1, dynamic x)
-        {
-            return gegenbauer_c(n, t(lambda1), t(x));
-        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_LegendreQ", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_LegendreQ(ref Double res, int n, ref Double x);
 
 
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_p/*' />
-        public static Double jacobi_p_(int n, Double alpha, Double beta, Double x)
-        {
-            Double res = 0.0;
-            Lib_FReal_Jacobi(ref res, n, ref alpha, ref beta, ref x);
-            return res;
-        }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Jacobi", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Jacobi(ref Double res, int n, ref Double alpha, ref Double beta, ref Double x);
-
-        public static Double jacobi_p(Double n, Double alpha, Double beta, Double x)
-        {
-            if (!dreal.isinteger(n)) return dreal.nan();
-            return jacobi_p_(lrint(n), alpha, beta, x);
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_p/*' />
-        public static Double jacobi_p(dynamic n, dynamic alpha, dynamic beta, dynamic x)
-        {
-            return jacobi_p(t(n), t(alpha), t(beta), t(x));
-        }
-
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/zernike_r/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
         public static Double zernike_r(Double n, Double m, Double r)
         {
-            if (!dreal.isinteger(n)) return dreal.nan();
-            if (!dreal.isinteger(m)) return dreal.nan();
-            if ((n < m) || (m < 0)) return dreal.zero();
-            if (!((n - m) % 2 == 0)) return dreal.zero();
-            if (r < 0) return dreal.zero();
+            if (!dreal.isinteger(n)) return dreal.nan;
+            if (!dreal.isinteger(m)) return dreal.nan;
+            if ((n < m) || (m < 0)) return dreal.zero;
+            if (!((n - m) % 2 == 0)) return dreal.zero;
+            if (r < 0) return dreal.zero;
             return pow(r, m) * jacobi_p((n - m) / 2, 0, m, 2 * r * r - 1);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/zernike_r/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
         public static Double zernike_r(dynamic n, dynamic m, dynamic r)
         {
             return zernike_r(t(n), t(m), t(r));
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -5506,14 +5083,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/spherical_y/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/spherical_y/*' />
         public static Complex spherical_y(Double n, Double m, Double theta, Double phi)
         {
             return dcplx.t(spherical_harmonic_r(lrint(n), lrint(m), theta, phi),
                            spherical_harmonic_i(lrint(n), lrint(m), theta, phi));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/spherical_y/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/spherical_y/*' />
         public static Complex spherical_y(dynamic n, dynamic m, dynamic theta, dynamic phi)
         {
             return spherical_y(dreal.t(n), dreal.t(m), dreal.t(theta), dreal.t(phi));
@@ -5523,6 +5100,167 @@ namespace FixedPrecNet
 
         #endregion
 
+
+
+
+        #region Incomplete beta functions for real arguments and parameters
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/beta_lower/*' />
+        public static Double beta_lower(Double a, Double b, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetaNonNormalized(ref res, ref a, ref b, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaNonNormalized", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetaNonNormalized(ref Double res, ref Double a, ref Double b, ref Double x);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ibeta/*' />
+        public static Double ibeta(Double a, Double b, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBeta(ref res, ref a, ref b, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBeta", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBeta(ref Double res, ref Double a, ref Double b, ref Double x);
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ibeta_prime/*' />
+        public static Double ibeta_prime(Double a, Double b, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetaDerivative(ref res, ref a, ref b, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaDerivative", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetaDerivative(ref Double res, ref Double a, ref Double b, ref Double x);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/beta_upper/*' />
+        public static Double beta_upper(Double a, Double b, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetacNonNormalized(ref res, ref a, ref b, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetacNonNormalized", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetacNonNormalized(ref Double res, ref Double a, ref Double b, ref Double x);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ibetac/*' />
+        public static Double ibetac(Double a, Double b, Double x)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetac(ref res, ref a, ref b, ref x);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetac", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetac(ref Double res, ref Double a, ref Double b, ref Double x);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ibeta_inv/*' />
+        public static Double ibeta_inv(Double a, Double b, Double p)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetaInv(ref res, ref a, ref b, ref p);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaInv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetaInv(ref Double res, ref Double a, ref Double b, ref Double p);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ibetac_inv/*' />
+        public static Double ibetac_inv(Double a, Double b, Double q)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetacInv(ref res, ref a, ref b, ref q);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetacInv", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetacInv(ref Double res, ref Double a, ref Double b, ref Double q);
+
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ibeta_inva/*' />
+        public static Double ibeta_inva(Double b, Double x, Double p)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetaInva(ref res, ref b, ref x, ref p);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaInva", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetaInva(ref Double res, ref Double b, ref Double x, ref Double p);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ibetac_inva/*' />
+        public static Double ibetac_inva(Double b, Double x, Double q)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetacInva(ref res, ref b, ref x, ref q);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetacInva", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetacInva(ref Double res, ref Double b, ref Double x, ref Double q);
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ibeta_invb/*' />
+        public static Double ibeta_invb(Double a, Double x, Double p)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetaInvb(ref res, ref a, ref x, ref p);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetaInvb", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetaInvb(ref Double res, ref Double a, ref Double x, ref Double p);
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ibetac_invb/*' />
+        public static Double ibetac_invb(Double a, Double x, Double q)
+        {
+            Double res = 0.0;
+            Lib_FReal_IBetacInvb(ref res, ref a, ref x, ref q);
+            return res;
+        }
+        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_IBetacInvb", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void Lib_FReal_IBetacInvb(ref Double res, ref Double a, ref Double x, ref Double q);
+
+
+
+
+
+
+
+        #endregion
+
+
+
+
+        #endregion
 
 
 
@@ -5826,13 +5564,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ArcsineDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_arcsine/*' />
         public static ArcsineDistClass dist_arcsine(Double a, Double b)
         {
             return new ArcsineDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ArcsineDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_arcsine/*' />
         public static ArcsineDistClass dist_arcsine(dynamic a, dynamic b)
         {
             return dist_arcsine(t(a), t(b));
@@ -5866,13 +5604,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CauchyDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_cauchy/*' />
         public static CauchyDistClass dist_cauchy(Double a, Double b)
         {
             return new CauchyDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CauchyDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_cauchy/*' />
         public static CauchyDistClass dist_cauchy(dynamic a, dynamic b)
         {
             return dist_cauchy(t(a), t(b));
@@ -5905,13 +5643,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExponentialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_exponential/*' />
         public static ExponentialDistClass dist_exponential(Double lambda1)
         {
             return new ExponentialDistClass(lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExponentialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_exponential/*' />
         public static ExponentialDistClass dist_exponential(dynamic lambda1)
         {
             return dist_exponential(t(lambda1));
@@ -5946,13 +5684,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GumbelDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gumbel/*' />
         public static GumbelDistClass dist_gumbel(Double a, Double b)
         {
             return new GumbelDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GumbelDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gumbel/*' />
         public static GumbelDistClass dist_gumbel(dynamic a, dynamic b)
         {
             return dist_gumbel(t(a), t(b));
@@ -5986,7 +5724,7 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HyperexponentialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_hyperexponential/*' />
         public static HyperexponentialDistClass dist_hyperexponential(DoubleVec Prob, DoubleVec Rate)
         {
             return new HyperexponentialDistClass(Prob, Rate);
@@ -6102,13 +5840,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LaplaceDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_laplace/*' />
         public static LaplaceDistClass dist_laplace(Double a, Double b)
         {
             return new LaplaceDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LaplaceDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_laplace/*' />
         public static LaplaceDistClass dist_laplace(dynamic a, dynamic b)
         {
             return dist_laplace(t(a), t(b));
@@ -6143,13 +5881,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LogisticDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_logistic/*' />
         public static LogisticDistClass dist_logistic(Double a, Double b)
         {
             return new LogisticDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LogisticDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_logistic/*' />
         public static LogisticDistClass dist_logistic(dynamic a, dynamic b)
         {
             return dist_logistic(t(a), t(b));
@@ -6184,13 +5922,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ParetoDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_pareto/*' />
         public static ParetoDistClass dist_pareto(Double k, Double a)
         {
             return new ParetoDistClass(k, a);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ParetoDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_pareto/*' />
         public static ParetoDistClass dist_pareto(dynamic k, dynamic a)
         {
             return dist_pareto(t(k), t(a));
@@ -6222,13 +5960,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RayleighDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_rayleigh/*' />
         public static RayleighDistClass dist_rayleigh(Double b)
         {
             return new RayleighDistClass(b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/RayleighDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_rayleigh/*' />
         public static RayleighDistClass dist_rayleigh(dynamic b)
         {
             return dist_rayleigh(t(b));
@@ -6266,13 +6004,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TriangularDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_triangular/*' />
         public static TriangularDistClass dist_triangular(Double a, Double m, Double b)
         {
             return new TriangularDistClass(a, m, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/TriangularDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_triangular/*' />
         public static TriangularDistClass dist_triangular(dynamic a, dynamic m, dynamic b)
         {
             return dist_triangular(t(a), t(m), t(b));
@@ -6306,13 +6044,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/UniformDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_uniform/*' />
         public static UniformDistClass dist_uniform(Double a, Double b)
         {
             return new UniformDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/UniformDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_uniform/*' />
         public static UniformDistClass dist_uniform(dynamic a, dynamic b)
         {
             return dist_uniform(t(a), t(b));
@@ -6348,13 +6086,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WeibullDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_weibull/*' />
         public static WeibullDistClass dist_weibull(Double a, Double b)
         {
             return new WeibullDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WeibullDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_weibull/*' />
         public static WeibullDistClass dist_weibull(dynamic a, dynamic b)
         {
             return dist_weibull(t(a), t(b));
@@ -6385,7 +6123,7 @@ namespace FixedPrecNet
                 Double sf = t(0);
                 if ((target == 1) || (target == 4))
                 {
-                    Double s = sqrt(b / (2 * pi()));
+                    Double s = sqrt(b / (2 * pi));
                     Double t = exp(-b / (2 * (xqp - a)));
                     Double u = pow(xqp - a, 1.5);
                     pdf = s * t / u;
@@ -6484,13 +6222,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LognormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_lognormal/*' />
         public static LognormalDistClass dist_lognormal(Double a, Double b)
         {
             return new LognormalDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LognormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_lognormal/*' />
         public static LognormalDistClass dist_lognormal(dynamic a, dynamic b)
         {
             return dist_lognormal(t(a), t(b));
@@ -6519,7 +6257,7 @@ namespace FixedPrecNet
                 {
                     Double t1 = (xqp - a) / (2 * b);
                     Double t2 = t("0.5") * exp(-(xqp - a) / b);
-                    Double s = b * sqrt(2 * pi());
+                    Double s = b * sqrt(2 * pi);
                     pdf = exp(-t1 - t2) / s;
                 }
                 if ((target == 3) || (target == 4) || (target == 5))
@@ -6618,13 +6356,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_normal/*' />
         public static NormalDistClass dist_normal(Double mu, Double sigma)
         {
             return new NormalDistClass(mu, sigma);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_normal/*' />
         public static NormalDistClass dist_normal(dynamic mu, dynamic sigma)
         {
             return dist_normal(t(mu), t(sigma));
@@ -6662,13 +6400,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SkewNormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_skewnormal/*' />
         public static SkewNormalDistClass dist_skewnormal(Double a, Double b, Double c)
         {
             return new SkewNormalDistClass(a, b, c);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/SkewNormalDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_skewnormal/*' />
         public static SkewNormalDistClass dist_skewnormal(dynamic a, dynamic b, dynamic c)
         {
             return dist_skewnormal(t(a), t(b), t(c));
@@ -6703,13 +6441,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WaldDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_wald/*' />
         public static WaldDistClass dist_wald(Double mu, Double b)
         {
             return new WaldDistClass(mu, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/WaldDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_wald/*' />
         public static WaldDistClass dist_wald(dynamic mu, dynamic b)
         {
             return dist_wald(t(mu), t(b));
@@ -6830,13 +6568,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2/*' />
         public static Chi2DistClass dist_chi2(Double n)
         {
             return new Chi2DistClass(n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2/*' />
         public static Chi2DistClass dist_chi2(dynamic n)
         {
             return dist_chi2(t(n));
@@ -6870,13 +6608,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gamma/*' />
         public static GammaDistClass dist_gamma(Double a, Double b)
         {
             return new GammaDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_gamma/*' />
         public static GammaDistClass dist_gamma(dynamic a, dynamic b)
         {
             return dist_gamma(t(a), t(b));
@@ -6911,13 +6649,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseChi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_chi2/*' />
         public static InverseChi2DistClass dist_inverse_chi2(Double a, Double b)
         {
             return new InverseChi2DistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseChi2Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_chi2/*' />
         public static InverseChi2DistClass dist_inverse_chi2(dynamic a, dynamic b)
         {
             return dist_inverse_chi2(t(a), t(b));
@@ -6952,13 +6690,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseGammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_gamma/*' />
         public static InverseGammaDistClass dist_inverse_gamma(Double a, Double b)
         {
             return new InverseGammaDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/InverseGammaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_inverse_gamma/*' />
         public static InverseGammaDistClass dist_inverse_gamma(dynamic a, dynamic b)
         {
             return dist_inverse_gamma(t(a), t(b));
@@ -6983,7 +6721,7 @@ namespace FixedPrecNet
                 Double sf = t(0);
                 if ((target == 1) || (target == 4))
                 {
-                    Double s = sqrt(2 / pi());
+                    Double s = sqrt(2 / pi);
                     Double t = (xqp * xqp) / (b * b * b);
                     Double u = exp(-(xqp * xqp) / (2 * b * b));
                     pdf = s * t * u;
@@ -7177,13 +6915,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta/*' />
         public static BetaDistClass dist_beta(Double a, Double b)
         {
             return new BetaDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta/*' />
         public static BetaDistClass dist_beta(dynamic a, dynamic b)
         {
             return dist_beta(t(a), t(b));
@@ -7216,13 +6954,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherFDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f/*' />
         public static FisherFDistClass dist_fisher_f(Double m, Double n)
         {
             return new FisherFDistClass(m, n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherFDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f/*' />
         public static FisherFDistClass dist_fisher_f(dynamic m, dynamic n)
         {
             return dist_fisher_f(t(m), t(n));
@@ -7253,13 +6991,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t/*' />
         public static StudentTDistClass dist_student_t(Double n)
         {
             return new StudentTDistClass(n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t/*' />
         public static StudentTDistClass dist_student_t(dynamic n)
         {
             return dist_student_t(t(n));
@@ -7300,13 +7038,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2NcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2_nc/*' />
         public static Chi2NcDistClass dist_chi2_nc(Double n, Double lambda1)
         {
             return new Chi2NcDistClass(n, lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Chi2NcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_chi2_nc/*' />
         public static Chi2NcDistClass dist_chi2_nc(dynamic n, dynamic lambda1)
         {
             return dist_chi2_nc(t(n), t(lambda1));
@@ -7339,13 +7077,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t_nc/*' />
         public static StudentTNcDistClass dist_student_t_nc(Double n, Double delta)
         {
             return new StudentTNcDistClass(n, delta);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/StudentTNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_student_t_nc/*' />
         public static StudentTNcDistClass dist_student_t_nc(dynamic n, dynamic delta)
         {
             return dist_student_t_nc(t(n), t(delta));
@@ -7380,13 +7118,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f_nc/*' />
         public static FisherFNcDistClass dist_fisher_f_nc(Double m, Double n, Double lambda1)
         {
             return new FisherFNcDistClass(m, n, lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/FisherNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_fisher_f_nc/*' />
         public static FisherFNcDistClass dist_fisher_f_nc(dynamic m, dynamic n, dynamic lambda1)
         {
             return dist_fisher_f_nc(t(m), t(n), t(lambda1));
@@ -7421,13 +7159,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta_nc/*' />
         public static BetaNcDistClass dist_beta_nc(Double a, Double b, Double lambda1)
         {
             return new BetaNcDistClass(a, b, lambda1);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BetaNcDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_beta_nc/*' />
         public static BetaNcDistClass dist_beta_nc(dynamic a, dynamic b, dynamic lambda1)
         {
             return dist_beta_nc(t(a), t(b), t(lambda1));
@@ -7467,13 +7205,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/KolmogorovSmirnovDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_kolmogorov_smirnov/*' />
         public static KolmogorovSmirnovDistClass dist_kolmogorov_smirnov(Double n)
         {
             return new KolmogorovSmirnovDistClass(n);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/KolmogorovSmirnovDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_kolmogorov_smirnov/*' />
         public static KolmogorovSmirnovDistClass dist_kolmogorov_smirnov(dynamic n)
         {
             return dist_kolmogorov_smirnov(t(n));
@@ -7506,13 +7244,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HoltsmarkDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_holtsmark/*' />
         public static HoltsmarkDistClass dist_holtsmark(Double a, Double b)
         {
             return new HoltsmarkDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HoltsmarkDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_holtsmark/*' />
         public static HoltsmarkDistClass dist_holtsmark(dynamic a, dynamic b)
         {
             return dist_holtsmark(t(a), t(b));
@@ -7545,13 +7283,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LandauDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_landau/*' />
         public static LandauDistClass dist_landau(Double a, Double b)
         {
             return new LandauDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LandauDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_landau/*' />
         public static LandauDistClass dist_landau(dynamic a, dynamic b)
         {
             return dist_landau(t(a), t(b));
@@ -7584,13 +7322,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/MapAiryDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_mapairy/*' />
         public static MapAiryDistClass dist_mapairy(Double a, Double b)
         {
             return new MapAiryDistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/MapAiryDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_mapairy/*' />
         public static MapAiryDistClass dist_mapairy(dynamic a, dynamic b)
         {
             return dist_mapairy(t(a), t(b));
@@ -7623,13 +7361,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Saspoint5Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_saspoint5/*' />
         public static Saspoint5DistClass dist_saspoint5(Double a, Double b)
         {
             return new Saspoint5DistClass(a, b);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Saspoint5Dist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_saspoint5/*' />
         public static Saspoint5DistClass dist_saspoint5(dynamic a, dynamic b)
         {
             return dist_saspoint5(t(a), t(b));
@@ -7669,13 +7407,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BernoulliDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_bernoulli/*' />
         public static BernoulliDistClass dist_bernoulli(Double p)
         {
             return new BernoulliDistClass(p);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BernoulliDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_bernoulli/*' />
         public static BernoulliDistClass dist_bernoulli(dynamic p)
         {
             return dist_bernoulli(t(p));
@@ -7706,13 +7444,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GeometricDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_geometric/*' />
         public static GeometricDistClass dist_geometric(Double p)
         {
             return new GeometricDistClass(p);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GeometricDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_geometric/*' />
         public static GeometricDistClass dist_geometric(dynamic p)
         {
             return dist_geometric(t(p));
@@ -7743,13 +7481,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/PoissonDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_poisson/*' />
         public static PoissonDistClass dist_poisson(Double mu)
         {
             return new PoissonDistClass(mu);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/PoissonDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_poisson/*' />
         public static PoissonDistClass dist_poisson(dynamic mu)
         {
             return dist_poisson(t(mu));
@@ -7782,13 +7520,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BinomialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_binomial/*' />
         public static BinomialDistClass dist_binomial(Double n, Double p)
         {
             return new BinomialDistClass(n, p);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BinomialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_binomial/*' />
         public static BinomialDistClass dist_binomial(dynamic n, dynamic p)
         {
             return dist_binomial(t(n), t(p));
@@ -7821,13 +7559,13 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NegBinomialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_negbinomial/*' />
         public static NegBinomialDistClass dist_negbinomial(Double r, Double p)
         {
             return new NegBinomialDistClass(r, p);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NegBinomialDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_negbinomial/*' />
         public static NegBinomialDistClass dist_negbinomial(dynamic r, dynamic p)
         {
             return dist_negbinomial(t(r), t(p));
@@ -7862,7 +7600,7 @@ namespace FixedPrecNet
             }
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/HypergeometricDist/*' />
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/dist_hypergeometric/*' />
         public static HypergeometricDistClass dist_hypergeometric(UInt64 r, UInt64 n, UInt64 NN)
         {
             return new HypergeometricDistClass(r, n, NN);
@@ -7895,14 +7633,14 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BracketRoot/*' />
-        public static Tuple<Double, Double, int> BracketRoot(cb1SDouble1S f, dynamic guess, dynamic factor, bool is_rising, int get_digits, uint maxit)
+        public static Tuple<Double, Double, int> BracketRoot(cb1SRet1S f, dynamic guess, dynamic factor, bool is_rising, int get_digits, uint maxit)
         {
             return BracketRoot(f, dreal.t(guess), dreal.t(factor), is_rising, get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BracketRoot/*' />
-        public static Tuple<Double, Double, int> BracketRoot(cb1SDouble1S f, Double guess, Double factor, bool is_rising = true, Int32 get_digits = 0, UInt32 maxit = 50)
+        public static Tuple<Double, Double, int> BracketRoot(cb1SRet1S f, Double guess, Double factor, bool is_rising = true, Int32 get_digits = 0, UInt32 maxit = 50)
         {
             Double res1 = 0, res2 = 0;
             var iter = default(int);
@@ -7910,19 +7648,19 @@ namespace FixedPrecNet
             return new Tuple<Double, Double, int>(res1, res2, iter);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_BracketRoot", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_BracketRoot(ref Double res1, ref Double res2, ref int iter, cb1SDouble1S f, Double guess, Double factor, bool is_rising, int get_digits, uint maxit);
+        internal static extern void Lib_Double_BracketRoot(ref Double res1, ref Double res2, ref int iter, cb1SRet1S f, Double guess, Double factor, bool is_rising, int get_digits, uint maxit);
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/NewtonRaphson/*' />
-        public static Tuple<Double, int> NewtonRaphson(cb1SDouble1S f, cb1SDouble1S df, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        public static Tuple<Double, int> NewtonRaphson(cb1SRet1S f, cb1SRet1S df, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
         {
             return NewtonRaphson(f, df, dreal.t(guess), dreal.t(xmin), dreal.t(xmax), get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/NewtonRaphson/*' />
-        public static Tuple<Double, int> NewtonRaphson(cb1SDouble1S f, cb1SDouble1S df, Double guess, Double xmin, Double xmax, int get_digits, uint maxit)
+        public static Tuple<Double, int> NewtonRaphson(cb1SRet1S f, cb1SRet1S df, Double guess, Double xmin, Double xmax, int get_digits, uint maxit)
         {
             var res1 = default(Double);
             var iter = default(int);
@@ -7930,19 +7668,19 @@ namespace FixedPrecNet
             return new Tuple<Double, int>(res1, iter);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_NewtonRaphson", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_NewtonRaphson(ref Double res1, ref int iter, cb1SDouble1S f1, cb1SDouble1S df, Double guess, Double xmin, Double xmax, int get_digits, uint maxit);
+        internal static extern void Lib_Double_NewtonRaphson(ref Double res1, ref int iter, cb1SRet1S f1, cb1SRet1S df, Double guess, Double xmin, Double xmax, int get_digits, uint maxit);
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Halley/*' />
-        public static Tuple<Double, int> Halley(cb1SDouble1S f, cb1SDouble1S df1, cb1SDouble1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        public static Tuple<Double, int> Halley(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
         {
             return Halley(f, df1, df2, dreal.t(guess), dreal.t(xmin), dreal.t(xmax), get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Halley/*' />
-        public static Tuple<Double, int> Halley(cb1SDouble1S f, cb1SDouble1S df1, cb1SDouble1S df2, Double guess, Double xmin, Double xmax, int get_digits, uint maxit)
+        public static Tuple<Double, int> Halley(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, Double guess, Double xmin, Double xmax, int get_digits, uint maxit)
         {
             var res1 = default(Double);
             var iter = default(int);
@@ -7950,19 +7688,19 @@ namespace FixedPrecNet
             return new Tuple<Double, int>(res1, iter);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_Halley", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_Halley(ref Double res1, ref int iter, cb1SDouble1S f1, cb1SDouble1S df1, cb1SDouble1S df2, Double guess, Double xmin, Double xmax, int get_digits, uint maxit);
+        internal static extern void Lib_Double_Halley(ref Double res1, ref int iter, cb1SRet1S f1, cb1SRet1S df1, cb1SRet1S df2, Double guess, Double xmin, Double xmax, int get_digits, uint maxit);
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Schroder/*' />
-        public static Tuple<Double, int> Schroder(cb1SDouble1S f, cb1SDouble1S df1, cb1SDouble1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
+        public static Tuple<Double, int> Schroder(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, dynamic guess, dynamic xmin, dynamic xmax, int get_digits, uint maxit)
         {
             return Schroder(f, df1, df2, dreal.t(guess), dreal.t(xmin), dreal.t(xmax), get_digits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Schroder/*' />
-        public static Tuple<Double, int> Schroder(cb1SDouble1S f, cb1SDouble1S df1, cb1SDouble1S df2, Double guess, Double xmin, Double xmax, int get_digits, uint maxit)
+        public static Tuple<Double, int> Schroder(cb1SRet1S f, cb1SRet1S df1, cb1SRet1S df2, Double guess, Double xmin, Double xmax, int get_digits, uint maxit)
         {
             var res1 = default(Double);
             var iter = default(int);
@@ -7970,20 +7708,20 @@ namespace FixedPrecNet
             return new Tuple<Double, int>(res1, iter);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_Schroder", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_Schroder(ref Double res1, ref int iter, cb1SDouble1S f1, cb1SDouble1S df1, cb1SDouble1S df2, Double guess, Double xmin, Double xmax, int get_digits, uint maxit);
+        internal static extern void Lib_Double_Schroder(ref Double res1, ref int iter, cb1SRet1S f1, cb1SRet1S df1, cb1SRet1S df2, Double guess, Double xmin, Double xmax, int get_digits, uint maxit);
 
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BrentMinimum/*' />
-        public static Tuple<Double, Double, int> Brent_Minimum(cb1SDouble1S f, dynamic bracket_min, dynamic bracket_max, int bits, uint maxit)
+        public static Tuple<Double, Double, int> Brent_Minimum(cb1SRet1S f, dynamic bracket_min, dynamic bracket_max, int bits, uint maxit)
         {
             return Brent_Minimum(f, dreal.t(bracket_min), dreal.t(bracket_max), bits, maxit);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/BrentMinimum/*' />
-        public static Tuple<Double, Double, int> Brent_Minimum(cb1SDouble1S f, Double bracket_min, Double bracket_max, int bits, uint maxit)
+        public static Tuple<Double, Double, int> Brent_Minimum(cb1SRet1S f, Double bracket_min, Double bracket_max, int bits, uint maxit)
         {
             var result = default(Double);
             var resultFx = default(Double);
@@ -7992,7 +7730,7 @@ namespace FixedPrecNet
             return new Tuple<Double, Double, int>(result, resultFx, iter);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_Brent_Minimum", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_Brent_Minimum(ref Double res, ref Double resFx, ref int iter, cb1SDouble1S f, Double bracket_min, Double bracket_max, int bits, uint maxit);
+        internal static extern void Lib_Double_Brent_Minimum(ref Double res, ref Double resFx, ref int iter, cb1SRet1S f, Double bracket_min, Double bracket_max, int bits, uint maxit);
 
 
         // ******************************************************************************************************************************************************************************************************************
@@ -8001,7 +7739,7 @@ namespace FixedPrecNet
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Trapezoidal/*' />
 
-        public static Tuple<Double, Double, Double> Trapezoidal(cb1SDouble1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Double, Double, Double> Trapezoidal(cb1SRet1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return dreal.Trapezoidal(f, dreal.t(a), dreal.t(b), dreal.t(tol), max_refinements);
@@ -8009,34 +7747,34 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/Trapezoidal/*' />
-        public static Tuple<Double, Double, Double> Trapezoidal(cb1SDouble1S f, Double a, Double b, Double tol, uint max_refinements = 12)
+        public static Tuple<Double, Double, Double> Trapezoidal(cb1SRet1S f, Double a, Double b, Double tol, uint max_refinements = 12)
         {
             Double res1 = 0, res2 = 0, res3 = 0;
             Lib_Double_Trapezoidal(ref res1, ref res2, ref res3, f, a, b);
             return new Tuple<Double, Double, Double>(res1, res2, res3);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_Trapezoidal", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_Trapezoidal(ref Double res1, ref Double res2, ref Double res3, cb1SDouble1S f, Double a, Double b);
+        internal static extern void Lib_Double_Trapezoidal(ref Double res1, ref Double res2, ref Double res3, cb1SRet1S f, Double a, Double b);
 
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussLegendre/*' />
-        public static Tuple<Double, Double> GaussLegendre(cb1SDouble1S f, dynamic a, dynamic b)
+        public static Tuple<Double, Double> GaussLegendre(cb1SRet1S f, dynamic a, dynamic b)
         {
             return GaussLegendre(f, dreal.t(a), dreal.t(b));
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussLegendre/*' />
-        public static Tuple<Double, Double> GaussLegendre(cb1SDouble1S f, Double a, Double b)
+        public static Tuple<Double, Double> GaussLegendre(cb1SRet1S f, Double a, Double b)
         {
             Double res1 = 0, res3 = 0;
             Lib_Double_GaussLegendre(ref res1, ref res3, f, a, b);
             return new Tuple<Double, Double>(res1, res3);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_GaussLegendre", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_GaussLegendre(ref Double res1, ref Double res3, cb1SDouble1S f, Double a, Double b);
+        internal static extern void Lib_Double_GaussLegendre(ref Double res1, ref Double res3, cb1SRet1S f, Double a, Double b);
 
 
 
@@ -8044,7 +7782,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussKronrod/*' />
-        public static Tuple<Double, Double, Double> GaussKronrod(cb1SDouble1S f, dynamic a, dynamic b, dynamic tol = null, uint max_depth = 12)
+        public static Tuple<Double, Double, Double> GaussKronrod(cb1SRet1S f, dynamic a, dynamic b, dynamic tol = null, uint max_depth = 12)
         {
             if (tol == null) { tol = t(0); }
             return GaussKronrod(f, dreal.t(a), dreal.t(b), dreal.t(tol), max_depth);
@@ -8053,19 +7791,19 @@ namespace FixedPrecNet
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/GaussKronrod/*' />
         /// <returns></returns>
-        public static Tuple<Double, Double, Double> GaussKronrod(cb1SDouble1S f, Double a, Double b, Double tol, uint max_depth = 12)
+        public static Tuple<Double, Double, Double> GaussKronrod(cb1SRet1S f, Double a, Double b, Double tol, uint max_depth = 12)
         {
             Double res1 = 0, res2 = 0, res3 = 0;
             Lib_Double_GaussKronrod(ref res1, ref res2, ref res3, f, a, b);
             return new Tuple<Double, Double, Double>(res1, res2, res3);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_GaussKronrod", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_GaussKronrod(ref Double res1, ref Double res2, ref Double res3, cb1SDouble1S f, Double a, Double b);
+        internal static extern void Lib_Double_GaussKronrod(ref Double res1, ref Double res2, ref Double res3, cb1SRet1S f, Double a, Double b);
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/TanhSinh/*' />
-        public static Tuple<Double, Double, Double, int> TanhSinh(cb1SDouble1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Double, Double, Double, int> TanhSinh(cb1SRet1S f, dynamic a, dynamic b, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return TanhSinh(f, dreal.t(a), dreal.t(b), dreal.t(tol), max_refinements);
@@ -8073,7 +7811,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/TanhSinh/*' />
-        public static Tuple<Double, Double, Double, int> TanhSinh(cb1SDouble1S f, Double a, Double b, Double tol, uint max_refinements = 12)
+        public static Tuple<Double, Double, Double, int> TanhSinh(cb1SRet1S f, Double a, Double b, Double tol, uint max_refinements = 12)
         {
             Double res1 = 0, res2 = 0, res3 = 0;
             var levels = default(int);
@@ -8081,13 +7819,13 @@ namespace FixedPrecNet
             return new Tuple<Double, Double, Double, int>(res1, res2, res3, levels);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_TanhSinh", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_TanhSinh(ref Double res1, ref Double res2, ref Double res3, ref int levels, cb1SDouble1S f, Double a, Double b);
+        internal static extern void Lib_Double_TanhSinh(ref Double res1, ref Double res2, ref Double res3, ref int levels, cb1SRet1S f, Double a, Double b);
 
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/SinhSinh/*' />
-        public static Tuple<Double, Double, Double, int> SinhSinh(cb1SDouble1S f, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Double, Double, Double, int> SinhSinh(cb1SRet1S f, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return SinhSinh(f, dreal.t(tol), max_refinements);
@@ -8095,7 +7833,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/SinhSinh/*' />
-        public static Tuple<Double, Double, Double, int> SinhSinh(cb1SDouble1S f, Double tol, uint max_refinements = 12)
+        public static Tuple<Double, Double, Double, int> SinhSinh(cb1SRet1S f, Double tol, uint max_refinements = 12)
         {
             Double res1 = 0, res2 = 0, res3 = 0;
             var levels = default(int);
@@ -8103,7 +7841,7 @@ namespace FixedPrecNet
             return new Tuple<Double, Double, Double, int>(res1, res2, res3, levels);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_SinhSinh", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_SinhSinh(ref Double res1, ref Double res2, ref Double res3, ref int levels, cb1SDouble1S f);
+        internal static extern void Lib_Double_SinhSinh(ref Double res1, ref Double res2, ref Double res3, ref int levels, cb1SRet1S f);
 
 
 
@@ -8111,7 +7849,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExpSinh/*' />
-        public static Tuple<Double, Double, Double, int> ExpSinh(cb1SDouble1S f, dynamic tol = null, uint max_refinements = 12)
+        public static Tuple<Double, Double, Double, int> ExpSinh(cb1SRet1S f, dynamic tol = null, uint max_refinements = 12)
         {
             if (tol == null) { tol = t(0); }
             return ExpSinh(f, dreal.t(tol), max_refinements);
@@ -8119,7 +7857,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/ExpSinh/*' />
-        public static Tuple<Double, Double, Double, int> ExpSinh(cb1SDouble1S f, Double tol, uint max_refinements = 12)
+        public static Tuple<Double, Double, Double, int> ExpSinh(cb1SRet1S f, Double tol, uint max_refinements = 12)
         {
             Double res1 = 0, res2 = 0, res3 = 0;
             var levels = default(int);
@@ -8127,63 +7865,63 @@ namespace FixedPrecNet
             return new Tuple<Double, Double, Double, int>(res1, res2, res3, levels);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_ExpSinh", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_ExpSinh(ref Double res1, ref Double res2, ref Double res3, ref int levels, cb1SDouble1S f);
+        internal static extern void Lib_Double_ExpSinh(ref Double res1, ref Double res2, ref Double res3, ref int levels, cb1SRet1S f);
 
 
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraCos/*' />
-        public static Tuple<Double, Double> Ooura_Cos(cb1SDouble1S f)
+        public static Tuple<Double, Double> Ooura_Cos(cb1SRet1S f)
         {
             Double res1 = 0, res2 = 0;
             Lib_Double_Ooura_Cos(ref res1, ref res2, f);
             return new Tuple<Double, Double>(res1, res2);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_Ooura_Cos", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_Ooura_Cos(ref Double res1, ref Double res2, cb1SDouble1S f);
+        internal static extern void Lib_Double_Ooura_Cos(ref Double res1, ref Double res2, cb1SRet1S f);
 
 
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraSin/*' />
-        public static Tuple<Double, Double> Ooura_Sin(cb1SDouble1S f)
+        public static Tuple<Double, Double> Ooura_Sin(cb1SRet1S f)
         {
             Double res1 = 0, res2 = 0;
             Lib_Double_Ooura_Sin(ref res1, ref res2, f);
             return new Tuple<Double, Double>(res1, res2);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_Ooura_Sin", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_Ooura_Sin(ref Double res1, ref Double res2, cb1SDouble1S f);
+        internal static extern void Lib_Double_Ooura_Sin(ref Double res1, ref Double res2, cb1SRet1S f);
 
 
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraCos2/*' />
-        public static Tuple<Double, Double> Ooura_Cos2(cb1SDouble1S f, Double omega)
+        public static Tuple<Double, Double> Ooura_Cos2(cb1SRet1S f, Double omega)
         {
             Double res1 = 0, res2 = 0;
             Lib_Double_Ooura_Cos2(ref res1, ref res2, f, omega);
             return new Tuple<Double, Double>(res1, res2);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_Ooura_Cos2", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_Ooura_Cos2(ref Double res1, ref Double res2, cb1SDouble1S f, Double omega);
+        internal static extern void Lib_Double_Ooura_Cos2(ref Double res1, ref Double res2, cb1SRet1S f, Double omega);
 
 
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/OouraSin2/*' />
-        public static Tuple<Double, Double> Ooura_Sin2(cb1SDouble1S f, Double omega)
+        public static Tuple<Double, Double> Ooura_Sin2(cb1SRet1S f, Double omega)
         {
             Double res1 = 0, res2 = 0;
             Lib_Double_Ooura_Sin2(ref res1, ref res2, f, omega);
             return new Tuple<Double, Double>(res1, res2);
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_Double_Ooura_Sin2", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_Double_Ooura_Sin2(ref Double res1, ref Double res2, cb1SDouble1S f, Double omega);
+        internal static extern void Lib_Double_Ooura_Sin2(ref Double res1, ref Double res2, cb1SRet1S f, Double omega);
 
 
 
@@ -8202,7 +7940,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/RungeKutta4Const/*' />
-        public static void RungeKutta4Const(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
+        public static void RungeKutta4Const(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
         {
             var SOdeint1 = new SOdeintConst(1, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
@@ -8210,59 +7948,59 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/RungeKutta4Const/*' />
-        public static void RungeKutta4Const(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        public static void RungeKutta4Const(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             RungeKutta4Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
-
-        public static void CashKarp54Const(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CashKarp54Const/*' />
+        public static void CashKarp54Const(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
         {
             var SOdeint1 = new SOdeintConst(2, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
         }
 
-
-        public static void CashKarp54Const(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CashKarp54Const/*' />
+        public static void CashKarp54Const(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             CashKarp54Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
-
-        public static void DormandPrince5Const(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Const/*' />
+        public static void DormandPrince5Const(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
         {
             var SOdeint1 = new SOdeintConst(3, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
         }
 
-
-        public static void DormandPrince5Const(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Const/*' />
+        public static void DormandPrince5Const(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             DormandPrince5Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
-
-        public static void Fehlberg78Const(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Fehlberg78Const/*' />
+        public static void Fehlberg78Const(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
         {
             var SOdeint1 = new SOdeintConst(4, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
         }
 
-
-        public static void Fehlberg78Const(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Fehlberg78Const/*' />
+        public static void Fehlberg78Const(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             Fehlberg78Const(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
 
-
-        public static void AdamsBashforthMoultonConst(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/AdamsBashforthMoultonConst/*' />
+        public static void AdamsBashforthMoultonConst(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt)
         {
             var SOdeint1 = new SOdeintConst(5, F1, F2, matInput, StartTime, EndTime, dt);
             SOdeint1.Integrate();
         }
 
-
-        public static void AdamsBashforthMoultonConst(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/AdamsBashforthMoultonConst/*' />
+        public static void AdamsBashforthMoultonConst(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt)
         {
             AdamsBashforthMoultonConst(F1, F2, matInput, t(StartTime), t(EndTime), t(dt));
         }
@@ -8271,8 +8009,8 @@ namespace FixedPrecNet
         internal class SOdeintConst
         {
             private int what_;
-            private cbDouble1S2V F1_;
-            private cbDouble1S1V F2_;
+            private cb1S2V F1_;
+            private cb1S1V F2_;
             private DoubleVec matInit_ = new DoubleVec();
             private DoubleVec matX = new DoubleVec();
             private DoubleVec matY = new DoubleVec();
@@ -8302,7 +8040,7 @@ namespace FixedPrecNet
 
 
 
-            internal SOdeintConst(int what, cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInit, Double StartTime, Double EndTime, Double dt)
+            internal SOdeintConst(int what, cb1S2V F1, cb1S1V F2, DoubleVec matInit, Double StartTime, Double EndTime, Double dt)
             {
                 what_ = what;
                 StartTime_ = StartTime;
@@ -8338,7 +8076,7 @@ namespace FixedPrecNet
             }
         }
 
-        public static void FReal_Const_RungeKutta4(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
+        internal static void FReal_Const_RungeKutta4(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
         {
             Lib_FReal_Const_RungeKutta4(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt);
         }
@@ -8346,7 +8084,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Const_RungeKutta4(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, IntPtr MatrixPtr_source, ref Double StartTime, ref Double EndTime, ref Double dt);
 
 
-        public static void FReal_Const_CashKarp54(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
+        internal static void FReal_Const_CashKarp54(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
         {
             Lib_FReal_Const_CashKarp54(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt);
         }
@@ -8354,7 +8092,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Const_CashKarp54(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, IntPtr MatrixPtr_source, ref Double StartTime, ref Double EndTime, ref Double dt);
 
 
-        public static void FReal_Const_Dopri5(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
+        internal static void FReal_Const_Dopri5(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
         {
             Lib_FReal_Const_Dopri5(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt);
         }
@@ -8362,7 +8100,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Const_Dopri5(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, IntPtr MatrixPtr_source, ref Double StartTime, ref Double EndTime, ref Double dt);
 
 
-        public static void FReal_Const_Fehlberg78(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
+        internal static void FReal_Const_Fehlberg78(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
         {
             Lib_FReal_Const_Fehlberg78(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt);
         }
@@ -8370,7 +8108,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Const_Fehlberg78(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, IntPtr MatrixPtr_source, ref Double StartTime, ref Double EndTime, ref Double dt);
 
 
-        public static void FReal_Const_AdamsBashforthMoulton(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
+        internal static void FReal_Const_AdamsBashforthMoulton(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt)
         {
             Lib_FReal_Const_AdamsBashforthMoulton(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt);
         }
@@ -8396,7 +8134,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Adaptive/*' />
-        public static void DormandPrince5Adaptive(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        public static void DormandPrince5Adaptive(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(1, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
@@ -8404,72 +8142,72 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5Adaptive/*' />
-        public static void DormandPrince5Adaptive(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        public static void DormandPrince5Adaptive(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             DormandPrince5Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
-
-        public static void CashKarp54Adaptive(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CashKarp54Adaptive/*' />
+        public static void CashKarp54Adaptive(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(2, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
-
-        public static void CashKarp54Adaptive(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CashKarp54Adaptive/*' />
+        public static void CashKarp54Adaptive(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             CashKarp54Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
-
-        public static void Fehlberg78Adaptive(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Fehlberg78Adaptive/*' />
+        public static void Fehlberg78Adaptive(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(3, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
-
-        public static void Fehlberg78Adaptive(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/Fehlberg78Adaptive/*' />
+        public static void Fehlberg78Adaptive(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             Fehlberg78Adaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
-
-        public static void BulirschStoerAdaptive(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BulirschStoerAdaptive/*' />
+        public static void BulirschStoerAdaptive(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(4, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
-
-        public static void BulirschStoerAdaptive(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BulirschStoerAdaptive/*' />
+        public static void BulirschStoerAdaptive(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             BulirschStoerAdaptive(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
-
-        public static void DormandPrince5DenseOutput(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5DenseOutput/*' />
+        public static void DormandPrince5DenseOutput(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(5, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
-
-        public static void DormandPrince5DenseOutput(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/DormandPrince5DenseOutput/*' />
+        public static void DormandPrince5DenseOutput(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             DormandPrince5DenseOutput(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
 
-
-        public static void BulirschStoerDenseOutput(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BulirschStoerDenseOutput/*' />
+        public static void BulirschStoerDenseOutput(cb1S2V F1, cb1S1V F2, DoubleVec matInput, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             var SOdeint1 = new SOdeintAdaptiveDenseOutput(6, F1, F2, matInput, StartTime, EndTime, dt, epsabs, epsrel);
             SOdeint1.Integrate();
         }
 
-
-        public static void BulirschStoerDenseOutput(cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BulirschStoerDenseOutput/*' />
+        public static void BulirschStoerDenseOutput(cb1S2V F1, cb1S1V F2, DoubleVec matInput, dynamic StartTime, dynamic EndTime, dynamic dt, dynamic epsabs, dynamic epsrel)
         {
             BulirschStoerDenseOutput(F1, F2, matInput, t(StartTime), t(EndTime), t(dt), t(epsabs), t(epsrel));
         }
@@ -8478,8 +8216,8 @@ namespace FixedPrecNet
         internal class SOdeintAdaptiveDenseOutput
         {
             int what_;
-            private cbDouble1S2V F1_;
-            private cbDouble1S1V F2_;
+            private cb1S2V F1_;
+            private cb1S1V F2_;
             private DoubleVec matInit_ = new DoubleVec();
             private DoubleVec matX = new DoubleVec();
             private DoubleVec matY = new DoubleVec();
@@ -8505,7 +8243,7 @@ namespace FixedPrecNet
                 F2_(t, matX);
                 matX.mpPtr = tempxPtr;
             }
-            internal SOdeintAdaptiveDenseOutput(int what, cbDouble1S2V F1, cbDouble1S1V F2, DoubleVec matInit, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+            internal SOdeintAdaptiveDenseOutput(int what, cb1S2V F1, cb1S1V F2, DoubleVec matInit, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
             {
                 what_ = what;
                 StartTime_ = StartTime;
@@ -8545,7 +8283,7 @@ namespace FixedPrecNet
                 }
             }
         }
-        public static void FReal_Adaptive_RungeKuttaDopri5(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        internal static void FReal_Adaptive_RungeKuttaDopri5(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             Lib_FReal_Adaptive_Dopri5(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt, ref epsabs, ref epsrel);
         }
@@ -8553,7 +8291,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Adaptive_Dopri5(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, IntPtr MatrixPtr_source, ref Double StartTime, ref Double EndTime, ref Double dt, ref Double epsabs, ref Double epsrel);
 
 
-        public static void FReal_Adaptive_CashKarp54(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        internal static void FReal_Adaptive_CashKarp54(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             Lib_FReal_Adaptive_CashKarp54(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt, ref epsabs, ref epsrel);
         }
@@ -8561,7 +8299,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Adaptive_CashKarp54(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, IntPtr MatrixPtr_source, ref Double StartTime, ref Double EndTime, ref Double dt, ref Double epsabs, ref Double epsrel);
 
 
-        public static void FReal_Adaptive_Fehlberg78(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        internal static void FReal_Adaptive_Fehlberg78(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             Lib_FReal_Adaptive_Fehlberg78(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt, ref epsabs, ref epsrel);
         }
@@ -8569,7 +8307,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Adaptive_Fehlberg78(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, IntPtr MatrixPtr_source, ref Double StartTime, ref Double EndTime, ref Double dt, ref Double epsabs, ref Double epsrel);
 
 
-        public static void FReal_Adaptive_BulirschStoer(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        internal static void FReal_Adaptive_BulirschStoer(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             Lib_FReal_Adaptive_BulirschStoer(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt, ref epsabs, ref epsrel);
         }
@@ -8577,7 +8315,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_Adaptive_BulirschStoer(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, IntPtr MatrixPtr_source, ref Double StartTime, ref Double EndTime, ref Double dt, ref Double epsabs, ref Double epsrel);
 
 
-        public static void FReal_DenseOutput_Dopri5(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        internal static void FReal_DenseOutput_Dopri5(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             Lib_FReal_DenseOutput_Dopri5(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt, ref epsabs, ref epsrel);
         }
@@ -8585,7 +8323,7 @@ namespace FixedPrecNet
         internal static extern void Lib_FReal_DenseOutput_Dopri5(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, IntPtr MatrixPtr_source, ref Double StartTime, ref Double EndTime, ref Double dt, ref Double epsabs, ref Double epsrel);
 
 
-        public static void FReal_DenseOutput_BulirschStoer(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
+        internal static void FReal_DenseOutput_BulirschStoer(cb2Ptr1RefDouble F1, cb1Ptr1RefDouble F2, DoubleVec matX, Double StartTime, Double EndTime, Double dt, Double epsabs, Double epsrel)
         {
             Lib_FReal_DenseOutput_BulirschStoer(F1, F2, matX.mpPtr, ref StartTime, ref EndTime, ref dt, ref epsabs, ref epsrel);
         }
@@ -8611,7 +8349,8 @@ namespace FixedPrecNet
         #region Boost/Eigen calculus
 
 
-        public static DoubleMat PowellHybrd(cbDouble2M F1, cbDouble2M F2, DoubleMat matInput)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/PowellHybrd/*' />
+        public static DoubleMat PowellHybrd(cb2M F1, cb2M F2, DoubleMat matInput)
         {
             var DPowellHybrd1 = new DPowellHybrd(F1, F2, matInput);
             var matX = DPowellHybrd1.Solve();
@@ -8619,8 +8358,8 @@ namespace FixedPrecNet
         }
         internal class DPowellHybrd
         {
-            private cbDouble2M F1_;
-            private cbDouble2M F2_;
+            private cb2M F1_;
+            private cb2M F2_;
             private DoubleMat matX1 = new DoubleMat();
             private DoubleMat matY1 = new DoubleMat();
             private DoubleMat matX2 = new DoubleMat();
@@ -8649,7 +8388,7 @@ namespace FixedPrecNet
                 matX2.mpPtr = tempxPtr;
                 matY2.mpPtr = tempyPtr;
             }
-            internal DPowellHybrd(cbDouble2M F1, cbDouble2M F2, DoubleMat matInput)
+            internal DPowellHybrd(cb2M F1, cb2M F2, DoubleMat matInput)
             {
                 int n = matInput.rows;
                 matX.Resize(n, 1);
@@ -8668,8 +8407,8 @@ namespace FixedPrecNet
 
 
 
-
-        public static DoubleMat Levenberg(cbDouble2M F1, cbDouble2M F2, DoubleMat matInput, int n, int m)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LevenbergMarquardt/*' />
+        public static DoubleMat LevenbergMarquardt(cb2M F1, cb2M F2, DoubleMat matInput, int n, int m)
         {
             var DLevenberg1 = new DLevenberg(F1, F2, matInput, n, m);
             var matX = DLevenberg1.Solve();
@@ -8677,8 +8416,8 @@ namespace FixedPrecNet
         }
         internal class DLevenberg
         {
-            private cbDouble2M F1_;
-            private cbDouble2M F2_;
+            private cb2M F1_;
+            private cb2M F2_;
             private DoubleMat matX1 = new DoubleMat();
             private DoubleMat matY1 = new DoubleMat();
             private DoubleMat matX2 = new DoubleMat();
@@ -8707,7 +8446,7 @@ namespace FixedPrecNet
                 matX2.mpPtr = tempxPtr;
                 matY2.mpPtr = tempyPtr;
             }
-            internal DLevenberg(cbDouble2M F1, cbDouble2M F2, DoubleMat matInput, int n, int m)
+            internal DLevenberg(cb2M F1, cb2M F2, DoubleMat matInput, int n, int m)
             {
                 matX.Resize(n, 1);
                 matFvec.Resize(m, 1);
@@ -8741,13 +8480,16 @@ namespace FixedPrecNet
         #region Boost/CppOptLib
 
 
-        public static DoubleVec NelderMeadSolver(cb1SDouble1V F1, DoubleVec matInput)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NelderMeadSolver/*' />
+        public static DoubleVec NelderMeadSolver(cb1VRet1S F1, DoubleVec matInput)
         {
             var DSolver11 = new DOptSolver1(constants.mp_nelder_mead_solver, F1, matInput);
             return DSolver11.Solve();
         }
 
-        public static DoubleVec CMAesSolver(cb1SDouble1V F1, DoubleVec matInput)
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/CMAesSolver/*' />
+        public static DoubleVec CMAesSolver(cb1VRet1S F1, DoubleVec matInput)
         {
             var DSolver11 = new DOptSolver1(constants.mp_cma_es_solver, F1, matInput);
             return DSolver11.Solve();
@@ -8756,7 +8498,7 @@ namespace FixedPrecNet
         internal class DOptSolver1
         {
             private int what_;
-            private cb1SDouble1V F1_;
+            private cb1VRet1S F1_;
             private DoubleVec matX1 = new DoubleVec();
             private DoubleVec matY1 = new DoubleVec();
             private DoubleVec matX_ = new DoubleVec();
@@ -8773,7 +8515,7 @@ namespace FixedPrecNet
                 matX1.mpPtr = tempxPtr;
                 matY1.mpPtr = tempyPtr;
             }
-            internal DOptSolver1(int what, cb1SDouble1V F1, DoubleVec X)
+            internal DOptSolver1(int what, cb1VRet1S F1, DoubleVec X)
             {
                 what_ = what;
                 matX_ = new DoubleVec(X.Size);
@@ -8790,25 +8532,35 @@ namespace FixedPrecNet
         internal static extern void Lib_Eigen_FReal_Real_CppOptLib1(int what, cbProc2Ptr F1, IntPtr matXPtr, IntPtr matNormPtr, IntPtr xPtr, IntPtr fxPtr);
 
 
-        public static DoubleVec LbfgsSolver(cb1SDouble1V F1, cbDouble2V F2, DoubleVec matInput)
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/LbfgsSolver/*' />
+        public static DoubleVec LbfgsSolver(cb1VRet1S F1, cb2V F2, DoubleVec matInput)
         {
             var DSolver21 = new DOptSolver2(constants.mp_lbfgs_solver, F1, F2, matInput);
             return DSolver21.Solve();
         }
 
-        public static DoubleVec BfgsSolver(cb1SDouble1V F1, cbDouble2V F2, DoubleVec matInput)
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/BfgsSolver/*' />
+        public static DoubleVec BfgsSolver(cb1VRet1S F1, cb2V F2, DoubleVec matInput)
         {
             var DSolver21 = new DOptSolver2(constants.mp_bfgs_solver, F1, F2, matInput);
             return DSolver21.Solve();
         }
 
-        public static DoubleVec GradientDescentSolver(cb1SDouble1V F1, cbDouble2V F2, DoubleVec matInput)
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/GradientDescentSolver/*' />
+        public static DoubleVec GradientDescentSolver(cb1VRet1S F1, cb2V F2, DoubleVec matInput)
         {
             var DSolver21 = new DOptSolver2(constants.mp_gradient_descent_solver, F1, F2, matInput);
             return DSolver21.Solve();
         }
 
-        public static DoubleVec ConjugatedGradientDescentSolver(cb1SDouble1V F1, cbDouble2V F2, DoubleVec matInput)
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/ConjugatedGradientDescentSolver/*' />
+        public static DoubleVec ConjugatedGradientDescentSolver(cb1VRet1S F1, cb2V F2, DoubleVec matInput)
         {
             var DSolver21 = new DOptSolver2(constants.mp_conjugated_gradient_descent_solver, F1, F2, matInput);
             return DSolver21.Solve();
@@ -8817,8 +8569,8 @@ namespace FixedPrecNet
         internal class DOptSolver2
         {
             private int what_;
-            private cb1SDouble1V F1_;
-            private cbDouble2V F2_;
+            private cb1VRet1S F1_;
+            private cb2V F2_;
             private DoubleVec matX1 = new DoubleVec();
             private DoubleVec matY1 = new DoubleVec();
             private DoubleVec matX2 = new DoubleVec();
@@ -8848,7 +8600,7 @@ namespace FixedPrecNet
                 matX2.mpPtr = tempxPtr;
                 matY2.mpPtr = tempyPtr;
             }
-            internal DOptSolver2(int what, cb1SDouble1V F1, cbDouble2V F2, DoubleVec X)
+            internal DOptSolver2(int what, cb1VRet1S F1, cb2V F2, DoubleVec X)
             {
                 what_ = what;
                 matX_ = new DoubleVec(X.Size);
@@ -8867,8 +8619,8 @@ namespace FixedPrecNet
         internal static extern void Lib_Eigen_FReal_Real_CppOptLib2(int what, cbProc2Ptr F1, cbProc2Ptr F2, IntPtr matXPtr, IntPtr matGradPtr, IntPtr matNormPtr, IntPtr xPtr, IntPtr fxPtr);
 
 
-
-        public static DoubleVec NewtonDescentSolver(cb1SDouble1V F1, cbDouble2V F2, cbDouble1V1M F3, DoubleVec matInput)
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/NewtonDescentSolver/*' />
+        public static DoubleVec NewtonDescentSolver(cb1VRet1S F1, cb2V F2, cb1V1M F3, DoubleVec matInput)
         {
             var DSolver31 = new DOptSolver3(constants.mp_newton_descent_solver, F1, F2, F3, matInput);
             return DSolver31.Solve();
@@ -8877,9 +8629,9 @@ namespace FixedPrecNet
         internal class DOptSolver3
         {
             private int what_;
-            private cb1SDouble1V F1_;
-            private cbDouble2V F2_;
-            private cbDouble1V1M F3_;
+            private cb1VRet1S F1_;
+            private cb2V F2_;
+            private cb1V1M F3_;
             private DoubleVec matX1 = new DoubleVec();
             private DoubleVec matY1 = new DoubleVec();
             private DoubleVec matX2 = new DoubleVec();
@@ -8922,7 +8674,7 @@ namespace FixedPrecNet
                 matX3.mpPtr = tempxPtr;
                 matY3.mpPtr = tempyPtr;
             }
-            internal DOptSolver3(int what, cb1SDouble1V F1, cbDouble2V F2, cbDouble1V1M F3, DoubleVec X)
+            internal DOptSolver3(int what, cb1VRet1S F1, cb2V F2, cb1V1M F3, DoubleVec X)
             {
                 what_ = what;
                 matX_ = new DoubleVec(X.Size);
@@ -8950,17 +8702,14 @@ namespace FixedPrecNet
 
 
 
+        #region Eigen 
 
 
 
         #region Matrix Creation
 
 
-
-
-        /// <summary>
-        /// Converts from a real scalar of type dreal
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static DoubleMat mat_t(Double x)
         {
             var matA = new DoubleMat();
@@ -8969,24 +8718,7 @@ namespace FixedPrecNet
         }
 
 
-        /* *********************** 
-
-        public static ComplexMat mat_cplx_t(DoubleMat matA)
-        {
-            return dcplx.mat_t(matA);
-        }
-
-
-        public static ComplexMat mat_cplx_zeros(int n, int m)
-        {
-            return dcplx.mat_zeros(n, m);
-        }
-
-        /* *********************** */
-
-
-
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_zeros/*' />
         public static DoubleMat mat_zeros(int n, int m)
         {
             var resout = new DoubleMat();
@@ -8995,7 +8727,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ones/*' />
         public static DoubleMat mat_ones(int n, int m)
         {
             var resout = new DoubleMat();
@@ -9004,7 +8736,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_identity/*' />
         public static DoubleMat mat_identity(int n, int m)
         {
             var resout = new DoubleMat();
@@ -9013,7 +8745,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random/*' />
         public static DoubleMat mat_random(int n, int m)
         {
             var resout = new DoubleMat();
@@ -9022,7 +8754,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_symmetric/*' />
         public static DoubleMat mat_random_symmetric(int n)
         {
             var resout = new DoubleMat();
@@ -9031,7 +8763,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint/*' />
         public static DoubleMat mat_random_selfadjoint(int n)
         {
             var resout = new DoubleMat();
@@ -9040,7 +8772,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint_posdef/*' />
         public static DoubleMat mat_random_selfadjoint_posdef(int n)
         {
             var resout = new DoubleMat();
@@ -9050,6 +8782,7 @@ namespace FixedPrecNet
 
 
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fill_linear/*' />
         public static DoubleMat mat_fill_linear(int n, int m)
         {
             var resout = new DoubleMat();
@@ -9063,6 +8796,711 @@ namespace FixedPrecNet
 
 
 
+        #region Read-only properties
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_rows/*' />
+        public static int mat_rows(DoubleMat matA)
+        {
+            return matA.rows;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_cols(DoubleMat matA)
+        {
+            return matA.cols;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_size(DoubleMat matA)
+        {
+            return matA.size;
+        }
+
+
+        #endregion
+
+
+
+        #region Accessing and setting parts of a matrix
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_block/*' />
+        public static DoubleMat mat_get_block(DoubleMat matA, int i, int j, int p, int q)
+        {
+            return matA.get_Block(i, j, p, q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_block/*' />
+        public static void mat_set_block(DoubleMat matA, int i, int j, int p, int q, DoubleMat matB)
+        {
+            matA.set_Block(i, j, p, q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_row/*' />
+        public static DoubleMat mat_get_row(DoubleMat matA, int i)
+        {
+            return matA.get_Row(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_row/*' />
+        public static void mat_set_row(DoubleMat matA, int i, DoubleMat matB)
+        {
+            matA.set_Row(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_col/*' />
+        public static DoubleMat mat_get_col(DoubleMat matA, int i)
+        {
+            return matA.get_Col(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_col/*' />
+        public static void mat_set_col(DoubleMat matA, int i, DoubleMat matB)
+        {
+            matA.set_Col(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_diagonal/*' />
+        public static DoubleMat mat_get_diagonal(DoubleMat matA, int q=0)
+        {
+            return matA.get_Diagonal(q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_diagonal/*' />
+        public static void mat_set_diagonal(DoubleMat matA, int q, DoubleMat matB)
+        {
+            matA.set_Diagonal(q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_triangular_view/*' />
+        public static DoubleMat mat_get_triangular_view(DoubleMat matA, int view = 1)
+        {
+            return matA.get_TriangularView(view);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_triangular_view/*' />
+        public static void mat_set_triangular_view(DoubleMat matA, int view, DoubleMat matB)
+        {
+            matA.set_TriangularView(view, matB);
+        }
+
+
+
+        #endregion
+
+
+
+
+        #region Changing the shape of a matrix and/or the order of coefficients
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort/*' />
+        public static void mat_sort(DoubleMat matA, int sort_order = 0, int sort_criterion= 1)
+        {
+            matA.Sort(sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort_rows_by_col/*' />
+        public static void mat_sort_rows_by_col(DoubleMat matA, int column_to_sort_by= 0, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.SortRowsByCol(column_to_sort_by, sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize/*' />
+        public static void mat_resize(DoubleMat matA, int r, int c)
+        {
+            matA.Resize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize_like/*' />
+        public static void mat_resize_like(DoubleMat matA, DoubleMat matB)
+        {
+            matA.ResizeLike(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conservative_resize/*' />
+        public static void mat_conservative_resize(DoubleMat matA, int r, int c)
+        {
+            matA.ConservativeResize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_as_diagonal/*' />
+        public static DoubleMat mat_as_diagonal(DoubleMat matA)
+        {
+            return matA.AsDiagonal();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_adjoint/*' />
+        public static DoubleMat mat_adjoint(DoubleMat matA)
+        {
+            return matA.Adjoint();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conjugate/*' />
+        public static DoubleMat mat_conjugate(DoubleMat matA)
+        {
+            return matA.Conjugate();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_transpose/*' />
+        public static DoubleMat mat_transpose(DoubleMat matA)
+        {
+            return matA.Transpose();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_full/*' />
+        public static DoubleMat mat_reverse_full(DoubleMat matA)
+        {
+            return matA.ReverseFull();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_row_wise/*' />
+        public static DoubleMat mat_reverse_row_wise(DoubleMat matA)
+        {
+            return matA.ReverseRowwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_col_wise/*' />
+        public static DoubleMat mat_reverse_col_wise(DoubleMat matA)
+        {
+            return matA.ReverseColwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_full/*' />
+        public static DoubleMat mat_replicate_full(DoubleMat matA, int vertical, int horizontal)
+        {
+            return matA.ReplicateFull(vertical, horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_row_wise/*' />
+        public static DoubleMat mat_replicate_row_wise(DoubleMat matA, int horizontal)
+        {
+            return matA.ReplicateRowwise(horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_col_wise/*' />
+        public static DoubleMat mat_replicate_col_wise(DoubleMat matA, int vertical)
+        {
+            return matA.ReplicateColwise(vertical);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_horizontal/*' />
+        public static DoubleMat mat_concat_horizontal(DoubleMat matA, DoubleMat matB)
+        {
+            return matA.ConcatHorizontal(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_vertical/*' />
+        public static DoubleMat mat_concat_vertical(DoubleMat matA, DoubleMat matB)
+        {
+            return matA.ConcatVertical(matB);
+        }
+
+
+
+        #endregion
+
+
+
+        #region Basic arithmetic operations
+
+
+
+
+
+        #endregion
+
+
+
+        #region Descriptive Statistics
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sum/*' />
+        public static DoubleMat mat_sum(DoubleMat matA, int partialmode)
+        {
+            //#define mp_const_full_matrix 1
+            //#define mp_const_rowwise 2
+            //#define mp_const_colwise 3
+            return matA.sum(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_prod/*' />
+        public static DoubleMat mat_prod(DoubleMat matA, int partialmode)
+        {
+
+            return matA.prod(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_mean/*' />
+        public static DoubleMat mat_mean(DoubleMat matA, int partialmode)
+        {
+            return matA.mean(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_min_coeff/*' />
+        public static DoubleMat mat_min_coeff(DoubleMat matA, int partialmode)
+        {
+            return matA.minCoeff(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_max_coeff/*' />
+        public static DoubleMat mat_max_coeff(DoubleMat matA, int partialmode)
+        {
+            return matA.maxCoeff(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_trace/*' />
+        public static Double mat_trace(DoubleMat matA, int partialmode)
+        {
+            return matA.get_Diagonal(0).sum(1)[0];
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_squared_norm/*' />
+        public static DoubleMat mat_squared_norm(DoubleMat matA, int partialmode)
+        {
+            return matA.squaredNorm(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_norm/*' />
+        public static DoubleMat mat_norm(DoubleMat matA, int partialmode)
+        {
+            return matA.Norm(partialmode);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_stable_norm/*' />
+        public static DoubleMat mat_stable_norm(DoubleMat matA, int partialmode)
+        {
+            return matA.stableNorm(partialmode);
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_covariance/*' />
+        //public static DoubleMat mat_covariance(DoubleMat matA)
+        //{
+        //    return matA.Covariance();
+        //}
+
+
+
+        #endregion
+
+
+
+        #region Standard decompositions and linear solving
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ldlt/*' />
+        public static DoubleMatMap mat_ldlt(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.LDLT(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_partial_piv_lu/*' />
+        public static DoubleMatMap mat_partial_piv_lu(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.PartialPivLU(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_lu/*' />
+        public static DoubleMatMap mat_full_piv_lu(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.FullPivLU(query, matB);
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        //public static DoubleMatMap mat_llt(DoubleMat matA, string query, [Optional] DoubleMat matB)
+        //{
+        //    return matA.LLT(query, matB);
+        //}
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        public static DoubleMatMap mat_llt(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.LLT(query, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_householder_qr/*' />
+        public static DoubleMatMap mat_householder_qr(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.HouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_col_piv_householder_qr/*' />
+        public static DoubleMatMap mat_col_piv_householder_qr(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.ColPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_householder_qr/*' />
+        public static DoubleMatMap mat_full_piv_householder_qr(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.FullPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cod_householder_qr/*' />
+        public static DoubleMatMap mat_cod_householder_qr(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.COD(query, matB);
+        }
+
+
+
+
+        #endregion
+
+
+
+
+        #region Singular Value and Eigen (selfadjoint) decompositions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd/*' />
+        public static DoubleMatMap mat_jacobi_svd(DoubleMat matA, string query)
+        {
+            return matA.JacobiSVD(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_thin/*' />
+        public static DoubleMatMap mat_jacobi_svd_thin(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.JacobiSvdThin(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_full/*' />
+        public static DoubleMatMap mat_jacobi_svd_full(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.JacobiSvdFull(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_values/*' />
+        public static DoubleMatMap mat_self_adjoint_eigen_values(DoubleMat matA, string query)
+        {
+            return matA.SelfAdjointEigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_system/*' />
+        public static DoubleMatMap mat_self_adjoint_eigen_system(DoubleMat matA, string query)
+        {
+            return matA.SelfAdjointEigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_values/*' />
+        public static DoubleMatMap mat_generalized_self_adjoint_eigen_values(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenValues(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_system/*' />
+        public static DoubleMatMap mat_generalized_self_adjoint_eigen_system(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenSolver(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_tridiagonalization/*' />
+        public static DoubleMatMap mat_tridiagonalization(DoubleMat matA, string query)
+        {
+            return matA.Tridiag(query);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen decompositions of general square matrices
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_hessenberg/*' />
+        public static DoubleMatMap mat_hessenberg(DoubleMat matA, string query)
+        {
+            return matA.Hessenberg(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_schur/*' />
+        public static DoubleMatMap mat_schur(DoubleMat matA, string query)
+        {
+            return matA.Schur(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_values/*' />
+        public static ComplexMatMap mat_eigen_values(DoubleMat matA, string query)
+        {
+            return matA.EigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_system/*' />
+        public static ComplexMatMap mat_eigen_system(DoubleMat matA, string query)
+        {
+            return matA.EigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_real_qz/*' />
+        public static DoubleMatMap mat_real_qz(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.RealQZ(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_pseudo_eigen_system/*' />
+        public static DoubleMatMap mat_pseudo_eigen_system(DoubleMat matA, string query)
+        {
+            return matA.PseudoEigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_gen_eigen_values/*' />
+        public static ComplexMatMap mat_gen_eigen_values(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.GenEigenValues(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_gen_eigen_system/*' />
+        public static ComplexMatMap mat_gen_eigen_system(DoubleMat matA, string query, DoubleMat matB)
+        {
+            return matA.GenEigenSystem(query, matB);
+        }
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Fast Fourier Transform
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_fwd/*' />
+        public static ComplexMat mat_fft_fwd(DoubleMat matA)
+        {
+            return matA.FFTFwd();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_inv/*' />
+        public static DoubleMat mat_fft_inv(ComplexMat matA)
+        {
+            return matA.FFTRealInv();
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Functions of matrix argument
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_expm/*' />
+        public static DoubleMat mat_expm(DoubleMat matA)
+        {
+            return matA.ExpMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinm/*' />
+        public static DoubleMat mat_sinm(DoubleMat matA)
+        {
+            return matA.SinMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cosm/*' />
+        public static DoubleMat mat_cosm(DoubleMat matA)
+        {
+            return matA.CosMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinhm/*' />
+        public static DoubleMat mat_sinhm(DoubleMat matA)
+        {
+            return matA.SinhMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_coshm/*' />
+        public static DoubleMat mat_coshm(DoubleMat matA)
+        {
+            return matA.CoshMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sqrtm/*' />
+        public static DoubleMat mat_sqrtm(DoubleMat matA)
+        {
+            return matA.SqrtMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_logm/*' />
+        public static DoubleMat mat_logm(DoubleMat matA)
+        {
+            return matA.LogMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_powm/*' />
+        public static DoubleMat mat_powm(DoubleMat matA, Double r)
+        {
+            return matA.PowMat();
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Eigen: Polynomials
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/roots_to_monic_poly/*' />
+        public static DoubleMat roots_to_monic_poly(DoubleMat vecA)
+        {
+            return vecA.RootsToMonicPolynomial();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_eval/*' />
+        public static DoubleMat poly_eval(DoubleMat polyA, DoubleMat roots)
+        {
+            return polyA.PolyEval(roots);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_eval/*' />
+        public static ComplexMat poly_eval(DoubleMat polyA, ComplexMat roots)
+        {
+            return polyA.PolyEval(roots);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_solve/*' />
+        public static ComplexMat poly_solve(DoubleMat polyA)
+        {
+            return polyA.PolynomialSolver();
+        }
+
+
+
+
+        #endregion
+
+
+
+        #endregion
 
 
 

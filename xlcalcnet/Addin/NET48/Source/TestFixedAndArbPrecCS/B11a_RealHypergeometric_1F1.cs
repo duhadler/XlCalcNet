@@ -983,7 +983,7 @@ namespace TestXlCalcNetPrecCS
             if (FunctionArray.Contains("all") | FunctionArray.Contains("erf"))
             {
                 string name = "erf";
-                InputArray1 = new[] { dreal.neginf(), -4.333d, 0.0d, 4.333d, dreal.inf(), dreal.nan() };
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
                 foreach (var x in InputArray1)
                 {
                     Console.WriteLine();
@@ -1020,7 +1020,7 @@ namespace TestXlCalcNetPrecCS
             if (FunctionArray.Contains("all") | FunctionArray.Contains("erfc"))
             {
                 string name = "erf";
-                InputArray1 = new[] { dreal.neginf(), -4.333d, 0.0d, 4.333d, dreal.inf(), dreal.nan() };
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
                 foreach (var x in InputArray1)
                 {
                     Console.WriteLine();
@@ -1122,7 +1122,7 @@ namespace TestXlCalcNetPrecCS
             if (FunctionArray.Contains("all") | FunctionArray.Contains("erfi"))
             {
                 string name = "erfi";
-                InputArray1 = new[] { dreal.neginf(), -4.333d, 0.0d, 4.333d, dreal.inf(), dreal.nan() };
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
                 foreach (var x in InputArray1)
                 {
                     Console.WriteLine();
@@ -1153,7 +1153,7 @@ namespace TestXlCalcNetPrecCS
             if (FunctionArray.Contains("all") | FunctionArray.Contains("dawson"))
             {
                 string name = "dawson";
-                InputArray1 = new[] { dreal.neginf(), -4.333d, 0.0d, 4.333d, dreal.inf(), dreal.nan() };
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
                 foreach (var x in InputArray1)
                 {
                     Console.WriteLine();
@@ -1184,7 +1184,7 @@ namespace TestXlCalcNetPrecCS
             if (FunctionArray.Contains("all") | FunctionArray.Contains("fresnel_s"))
             {
                 string name = "fresnel_s";
-                InputArray1 = new[] { dreal.neginf(), -4.333d, 0.0d, 4.333d, dreal.inf(), dreal.nan() };
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
                 foreach (var x in InputArray1)
                 {
                     Console.WriteLine();
@@ -1215,7 +1215,7 @@ namespace TestXlCalcNetPrecCS
             if (FunctionArray.Contains("all") | FunctionArray.Contains("fresnel_c"))
             {
                 string name = "fresnel_c";
-                InputArray1 = new[] { dreal.neginf(), -4.333d, 0.0d, 4.333d, dreal.inf(), dreal.nan() };
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
                 foreach (var x in InputArray1)
                 {
                     Console.WriteLine();
@@ -1247,7 +1247,7 @@ namespace TestXlCalcNetPrecCS
             if (FunctionArray.Contains("all") | FunctionArray.Contains("ndens"))
             {
                 string name = "erf";
-                InputArray1 = new[] { dreal.neginf(), -4.333d, 0.0d, 4.333d, dreal.inf(), dreal.nan() };
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
                 foreach (var x in InputArray1)
                 {
                     Console.WriteLine();
@@ -1284,7 +1284,7 @@ namespace TestXlCalcNetPrecCS
             if (FunctionArray.Contains("all") | FunctionArray.Contains("ndis"))
             {
                 string name = "erf";
-                InputArray1 = new[] { dreal.neginf(), -4.333d, 0.0d, 4.333d, dreal.inf(), dreal.nan() };
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
                 foreach (var x in InputArray1)
                 {
                     Console.WriteLine();

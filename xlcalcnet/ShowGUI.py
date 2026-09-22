@@ -35,8 +35,21 @@ class gui():
         pass
 
 
+##    def _set_lastctx(self, lastctx):
+##        self._lastctx = lastctx
+
+    @property
+    def lastctx(self):
+        return self._lastctx
+
+    @lastctx.setter
+    def lastctx(self, value):
+        self._lastctx = value
+
+
     def _set_has_gpm(self, has_gpm):
         self._has_gpm = has_gpm
+
 
     @property
     def has_gpm(self):
@@ -194,7 +207,16 @@ class gui():
     def get_local_appdata_xlcalcnet(self):
         """Return the current user's local AppData/XlCalcNetIDE folder."""
         LocalAppData = self.get_local_appdata()
-        return os.sep.join([LocalAppData, 'XlCalcNetIDE'])
+        LocalDir = os.sep.join([LocalAppData, 'XlCalcNetIDE'])
+        if not os.path.exists(LocalDir): os.makedirs(LocalDir)
+        TempDir = os.sep.join([LocalDir,  'Temp'])
+        if not os.path.exists(TempDir): os.makedirs(TempDir)
+        OutputMonitorDir = os.sep.join([LocalDir,  'OutputMonitor'])
+        if not os.path.exists(OutputMonitorDir): os.makedirs(OutputMonitorDir)
+        return LocalDir
+
+
+
 
     def get_my_documents(self):
         """Return the current user's My Documents folder."""
@@ -262,6 +284,12 @@ class gui():
             print("matplotlib is not available")
 
         try:
+            import pandas
+            print ("pandas version: ", pandas.__version__)
+        except:
+            print("pandas is not available")
+
+        try:
             import scipy
             print ("scipy version: ", scipy.version.version)
         except:
@@ -320,14 +348,14 @@ class gui():
         tempdir = os.sep.join([LocalAppData, 'XlCalcNetIDE', 'Temp'])
         if not os.path.exists(tempdir): os.makedirs(tempdir)
         fdumpname = os.sep.join([tempdir, self.get_date_time_stamp() + ".plt"])
-        print("fdumpname: ", fdumpname)
+        #print("fdumpname: ", fdumpname)
         with open(fdumpname, 'wb') as file:
             pickle.dump(fig, file)
         PgmExe = sys.executable
         currentdirname = str(pathlib.Path(str(__file__)).parent.resolve())
         PgmPy = os.sep.join([currentdirname, 'ShowPlt2.py'])
-        print("PgmExe: ", PgmExe)
-        print("PgmPy: ", PgmPy)
+        #print("PgmExe: ", PgmExe)
+        #print("PgmPy: ", PgmPy)
         args = [PgmExe, PgmPy, fdumpname, fname]
         popen = Popen(args, creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP, \
           stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
@@ -625,80 +653,5 @@ class gui():
                 print(dist.ctx.name + ': rangeright = '  \
                     + dist.ctx.fmt(dist.rangeright()))
             print('</H1>')
-
-
-
-    def funcplot2d(self, ctx, f, xlim=[-5,5], ylim=None, points=200, dpi=None, singularities=[], axes=None):
-        import matplotlib.pyplot as plt
-        from xlcalcnet import fpm
-        plot_ignore = (ValueError, ArithmeticError, ZeroDivisionError, NoConvergence)
-        fig = None
-        if not axes:
-            fig = plt.figure()
-            axes = fig.add_subplot(111)
-        if not isinstance(f, (tuple, list)):
-            f = [f]
-        a, b = xlim
-        colors = ['b', 'r', 'g', 'm', 'k']
-        for n, func in enumerate(f):
-            #x = ctx.arange(a, b, (b-a)/float(points))
-            x = fpm.arange(a, b, (b-a)/float(points))
-            segments = []
-            segment = []
-            in_complex = False
-            for i in range(len(x)):
-                try:
-                    if i != 0:
-                        for sing in singularities:
-                            if x[i-1] <= sing and x[i] >= sing:
-                                raise ValueError
-                    v = func(x[i])
-                    if ctx.isnan(v) or abs(v) > 1e300:
-                        raise ValueError
-                    if hasattr(v, "imag") and v.imag:
-                        re = float(v.real)
-                        im = float(v.imag)
-                        if not in_complex:
-                            in_complex = True
-                            segments.append(segment)
-                            segment = []
-                        segment.append((float(x[i]), re, im))
-                    else:
-                        if in_complex:
-                            in_complex = False
-                            segments.append(segment)
-                            segment = []
-                        if hasattr(v, "real"):
-                            v = v.real
-                        segment.append((float(x[i]), v))
-                except plot_ignore:
-                    if segment:
-                        segments.append(segment)
-                    segment = []
-            if segment:
-                segments.append(segment)
-            for segment in segments:
-                x = [s[0] for s in segment]
-                y = [s[1] for s in segment]
-                if not x:
-                    continue
-                c = colors[n % len(colors)]
-                if len(segment[0]) == 3:
-                    z = [s[2] for s in segment]
-                    axes.plot(x, y, '--'+c, linewidth=3)
-                    axes.plot(x, z, ':'+c, linewidth=3)
-                else:
-                    axes.plot(x, y, c, linewidth=3)
-        axes.set_xlim([float(_) for _ in xlim])
-        if ylim:
-            axes.set_ylim([float(_) for _ in ylim])
-        axes.set_xlabel('x')
-        axes.set_ylabel('f(x)')
-        axes.grid(True)
-
-        plt.show()
-        #self.plot(self, fig, __file__, 'Function Plot 2D')
-        #self.plot(fig, __file__, 'Function Plot 2D')
-        plt.close("all")
 
 

@@ -705,20 +705,13 @@ namespace FixedPrecNet
 
 
 
-        #region Linspace, OCplxMatTFunc
-
-
-
-
-        #endregion
-
 
 
         #region Basic Arithmetic and Comparisons
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/add/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/add/*' />
         public static OctupleC add(OctupleC x, OctupleC y)
         {
             return x + y;
@@ -737,7 +730,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/subtract/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/subtract/*' />
         public static OctupleC subtract(OctupleC x, OctupleC y)
         {
             return x - y;
@@ -756,7 +749,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/multiply/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/multiply/*' />
         public static OctupleC multiply(OctupleC x, OctupleC y)
         {
             return x * y;
@@ -775,7 +768,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/divide/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/divide/*' />
         public static OctupleC divide(OctupleC x, OctupleC y)
         {
             return x / y;
@@ -793,14 +786,14 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Div(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/Cmp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/Cmp/*' />
         public static bool Cmp(OctupleC x, OctupleC y)
         {
             return true;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/CmpAbs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/CmpAbs/*' />
         public static bool CmpAbs(OctupleC x, OctupleC y)
         {
             return true;
@@ -816,42 +809,42 @@ namespace FixedPrecNet
         #region Machine constants and properties of numbers
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isreal/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isreal/*' />
         public static bool isreal(OctupleC z)
         {
             return (z.imag == oreal.t(0.0d));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/iszero/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/iszero/*' />
         public static bool iszero(OctupleC z)
         {
             return (z.real == oreal.t(0.0d)) && (z.imag == oreal.t(0.0d));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isone/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isone/*' />
         public static bool isone(OctupleC z)
         {
             return (z.real == oreal.t(1.0d)) && (z.imag == oreal.t(0.0d));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isinf/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinf/*' />
         public static bool isinf(OctupleC z)
         {
             return (oreal.isinf(z.real)) || (oreal.isinf(z.imag));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isnan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isnan/*' />
         public static bool isnan(OctupleC z)
         {
             return (oreal.isnan(z.real)) || (oreal.isnan(z.imag));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/isfinite/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isfinite/*' />
         public static bool isfinite(OctupleC z)
         {
             return (oreal.isfinite(z.real)) && (oreal.isfinite(z.imag));
@@ -859,41 +852,45 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/zero/*' />
-        public static OctupleC zero()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zero/*' />
+        public static OctupleC zero
         {
-            return ocplx.t(0, 0);
+            get
+            {
+                return ocplx.t(0, 0);
+            }   
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/one/*' />
-        public static OctupleC one()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/one/*' />
+        public static OctupleC one
         {
-            return ocplx.t(1, 0);
-        }
-
-
-
-
-        ///// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/ImaginaryOne/*' />
-        //public static OctupleC ImaginaryOne()
-        //{
-        //    return ocplx.t(0, 1);
-        //}
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/onej/*' />
-        public static OctupleC onej()
-        {
-            return ocplx.t(0, 1);
+            get
+            {
+                return ocplx.t(1, 0);
+            }
         }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ConstantsAndProperties"]/nan/*' />
-        public static OctupleC nan()
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/onej/*' />
+        public static OctupleC onej
         {
-            return ocplx.t(oreal.nan(), oreal.nan());
+            get
+            {
+                return ocplx.t(0, 1);
+            }
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/nan/*' />
+        public static OctupleC nan
+        {
+            get
+            {
+                return ocplx.t(oreal.nan, oreal.nan);
+            }
         }
 
 
@@ -903,11 +900,18 @@ namespace FixedPrecNet
 
 
 
+
+
+        #region Elementary scalar functions
+
+
+
+
         #region Complex components
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Octuple abs(OctupleC z)
         {
             var res = new Octuple();
@@ -918,7 +922,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Abs(IntPtr res, IntPtr z);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/abs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/abs/*' />
         public static Octuple abs(dynamic z)
         {
             return abs(t(z));
@@ -926,7 +930,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Octuple fabs(OctupleC z)
         {
             var res = new Octuple();
@@ -935,36 +939,36 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/fabs/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fabs/*' />
         public static Octuple fabs(dynamic z)
         {
             return fabs(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static OctupleC sign(OctupleC z)
         {
-            if (iszero(z)) return zero();
+            if (iszero(z)) return zero;
             else return z / abs(z);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sign/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sign/*' />
         public static OctupleC sign(dynamic z)
         {
             return sign(t(z));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Octuple real(OctupleC z)
         {
             return z.real;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/real/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/real/*' />
         public static Octuple real(dynamic z)
         {
             return real(t(z));
@@ -972,14 +976,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Octuple imag(OctupleC z)
         {
             return z.imag;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/imag/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/imag/*' />
         public static Octuple imag(dynamic z)
         {
             return imag(t(z));
@@ -988,14 +992,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Octuple phase(OctupleC z)
         {
             return oreal.atan2(z.imag, z.real);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/phase/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/phase/*' />
         public static Octuple phase(dynamic z)
         {
             return phase(t(z));
@@ -1005,7 +1009,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static OctupleC conj(OctupleC z)
         {
             var res = new OctupleC();
@@ -1016,7 +1020,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Conj(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/conj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/conj/*' />
         public static OctupleC conj(dynamic z)
         {
             return conj(t(z));
@@ -1025,13 +1029,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Octuple, Octuple> polar(OctupleC x)
         {
             return new Tuple<Octuple, Octuple>(abs(x), phase(x));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/polar/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/polar/*' />
         public static Tuple<Octuple, Octuple> polar(dynamic x)
         {
             return polar(ocplx.t(x));
@@ -1039,13 +1043,13 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static OctupleC rect(Octuple r, Octuple phi)
         {
             return r * expj(phi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rect/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rect/*' />
         public static OctupleC rect(dynamic r, dynamic phi)
         {
             return rect(oreal.t(r), oreal.t(phi));
@@ -1065,7 +1069,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static OctupleC sqrt(OctupleC x)
         {
             var res = new OctupleC();
@@ -1076,7 +1080,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Sqrt(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static OctupleC sqrt(dynamic x)
         {
             return sqrt(t(x));
@@ -1084,7 +1088,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static OctupleC sqrt1pm1(OctupleC x)
         {
             var res = new OctupleC();
@@ -1095,7 +1099,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Sqrt1pm1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqrt/*' />
         public static OctupleC sqrt1pm1(dynamic x)
         {
             return sqrt1pm1(t(x));
@@ -1103,7 +1107,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static OctupleC rsqrt(OctupleC x)
         {
             var res = new OctupleC();
@@ -1114,7 +1118,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Rsqrt(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/rsqrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/rsqrt/*' />
         public static OctupleC rsqrt(dynamic x)
         {
             return rsqrt(t(x));
@@ -1122,7 +1126,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static OctupleC cbrt(OctupleC x)
         {
             var res = new OctupleC();
@@ -1133,7 +1137,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Cbrt(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cbrt/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cbrt/*' />
         public static OctupleC cbrt(dynamic x)
         {
             return cbrt(t(x));
@@ -1142,15 +1146,15 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/unitroot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/unitroot/*' />
         public static OctupleC unitroot(Int32 k)
         {
             OctupleC ks = ocplx.t(k);
-            return ocplx.pow(one(), one() / ks);
+            return ocplx.pow(one, one / ks);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/unitroot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/unitroot/*' />
         public static OctupleC unitroot(dynamic x)
         {
             return unitroot(t(x));
@@ -1159,7 +1163,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static OctupleC root_si(OctupleC x, Int32 k)
         {
             var res = new OctupleC();
@@ -1170,7 +1174,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Root_Si(IntPtr res, IntPtr x, Int32 k);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/root_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/root_si/*' />
         public static OctupleC root_si(dynamic x, Int32 k)
         {
             return root_si(t(x), k);
@@ -1239,8 +1243,8 @@ namespace FixedPrecNet
                 Octuple SqrtQr = oreal.sqrt(Qr);
                 Octuple theta = oreal.acos(Rr / (SqrtQr * SqrtQr * SqrtQr));
                 x1 = -2 * SqrtQr * oreal.cos((theta) / 3) - a / 3;
-                x2 = -2 * SqrtQr * oreal.cos((theta + 2 * oreal.pi()) / 3) - a / 3;
-                x3 = -2 * SqrtQr * oreal.cos((theta - 2 * oreal.pi()) / 3) - a / 3;
+                x2 = -2 * SqrtQr * oreal.cos((theta + 2 * oreal.pi) / 3) - a / 3;
+                x3 = -2 * SqrtQr * oreal.cos((theta - 2 * oreal.pi) / 3) - a / 3;
             }
             else
             {
@@ -1252,8 +1256,8 @@ namespace FixedPrecNet
                     D = -D;
                 }
                 OctupleC A = -ocplx.cbrt(R + D);
-                OctupleC B = ocplx.zero();
-                if (A != ocplx.zero())
+                OctupleC B = ocplx.zero;
+                if (A != ocplx.zero)
                 {
                     B = Q / A;
                 }
@@ -1261,8 +1265,8 @@ namespace FixedPrecNet
                 Console.WriteLine("B: {0}", B);
 
                 x1 = (A + B) - a / 3;
-                x2 = -0.5 * (A + B) - a / 3 + 0.5 * ocplx.onej() * oreal.sqrt(3) * (A - B);
-                x3 = -0.5 * (A + B) - a / 3 - 0.5 * ocplx.onej() * oreal.sqrt(3) * (A - B);
+                x2 = -0.5 * (A + B) - a / 3 + 0.5 * ocplx.onej * oreal.sqrt(3) * (A - B);
+                x3 = -0.5 * (A + B) - a / 3 - 0.5 * ocplx.onej * oreal.sqrt(3) * (A - B);
             }
             return new Tuple<OctupleC, OctupleC, OctupleC>(x1, x2, x3);
         }
@@ -1366,7 +1370,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static OctupleC exp(OctupleC x)
         {
             var res = new OctupleC();
@@ -1377,7 +1381,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Exp(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp/*' />
         public static OctupleC exp(dynamic x)
         {
             return exp(t(x));
@@ -1387,26 +1391,26 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static OctupleC expj(OctupleC x)
         {
-            return cos(x) + onej() * sin(x);
+            return cos(x) + onej * sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expj/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expj/*' />
         public static OctupleC expj(dynamic x)
         {
             return expj(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static OctupleC expjpi(OctupleC x)
         {
-            return cospi(x) + onej() * sinpi(x);
+            return cospi(x) + onej * sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expjpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expjpi/*' />
         public static OctupleC expjpi(dynamic x)
         {
             return expjpi(t(x));
@@ -1416,7 +1420,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static OctupleC exp2(OctupleC x)
         {
             var res = new OctupleC();
@@ -1427,7 +1431,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Exp2(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2/*' />
         public static OctupleC exp2(dynamic x)
         {
             return exp2(t(x));
@@ -1435,7 +1439,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static OctupleC exp10(OctupleC x)
         {
             var res = new OctupleC();
@@ -1446,7 +1450,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Exp10(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10/*' />
         public static OctupleC exp10(dynamic x)
         {
             return exp10(t(x));
@@ -1456,7 +1460,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static OctupleC expm1(OctupleC x)
         {
             var res = new OctupleC();
@@ -1467,7 +1471,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Expm1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/expm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expm1/*' />
         public static OctupleC expm1(dynamic x)
         {
             return expm1(t(x));
@@ -1475,7 +1479,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static OctupleC exp2m1(OctupleC x)
         {
             var res = new OctupleC();
@@ -1486,7 +1490,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Exp2m1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp2m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp2m1/*' />
         public static OctupleC exp2m1(dynamic x)
         {
             return exp2m1(t(x));
@@ -1494,7 +1498,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static OctupleC exp10m1(OctupleC x)
         {
             var res = new OctupleC();
@@ -1505,7 +1509,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Exp10m1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/exp10m1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/exp10m1/*' />
         public static OctupleC exp10m1(dynamic x)
         {
             return exp10m1(t(x));
@@ -1527,7 +1531,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static OctupleC log(OctupleC x)
         {
             var res = new OctupleC();
@@ -1538,7 +1542,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Log(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static OctupleC log(dynamic x)
         {
             return log(t(x));
@@ -1546,7 +1550,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static OctupleC log2(OctupleC x)
         {
             var res = new OctupleC();
@@ -1557,7 +1561,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Log2(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static OctupleC log2(dynamic x)
         {
             return log2(t(x));
@@ -1565,7 +1569,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static OctupleC log10(OctupleC x)
         {
             var res = new OctupleC();
@@ -1576,7 +1580,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Log10(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         public static OctupleC log10(dynamic x)
         {
             return log10(t(x));
@@ -1584,7 +1588,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static OctupleC log1p(OctupleC x)
         {
             var res = new OctupleC();
@@ -1595,7 +1599,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Log1p(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
         public static OctupleC log1p(dynamic x)
         {
             return log1p(t(x));
@@ -1603,7 +1607,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static OctupleC log2p1(OctupleC x)
         {
             var res = new OctupleC();
@@ -1614,7 +1618,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Log2p1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log2p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2p1/*' />
         public static OctupleC log2p1(dynamic x)
         {
             return log2p1(t(x));
@@ -1622,7 +1626,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static OctupleC log10p1(OctupleC x)
         {
             var res = new OctupleC();
@@ -1633,7 +1637,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Log10p1(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/log10p1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10p1/*' />
         public static OctupleC log10p1(dynamic x)
         {
             return log10p1(t(x));
@@ -1651,28 +1655,28 @@ namespace FixedPrecNet
         #region Power functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static OctupleC sqr(OctupleC x)
         {
             return x * x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sqr/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sqr/*' />
         public static OctupleC sqr(dynamic x)
         {
             return sqr(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static OctupleC cube(OctupleC x)
         {
             return x * x * x;
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cube/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static OctupleC cube(dynamic x)
         {
             return cube(t(x));
@@ -1680,14 +1684,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static OctupleC hypot(OctupleC x, OctupleC y)
         {
             return sqrt(x * x + y * y);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/hypot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot/*' />
         public static OctupleC hypot(dynamic x, dynamic y)
         {
             return hypot(t(x), t(y));
@@ -1695,7 +1699,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static OctupleC pow(OctupleC x, OctupleC y)
         {
             var res = new OctupleC();
@@ -1706,7 +1710,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Pow(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow/*' />
         public static OctupleC pow(dynamic x, dynamic y)
         {
             return pow(t(x), t(y));
@@ -1714,7 +1718,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/powm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/powm1/*' />
         public static OctupleC powm1(OctupleC x, OctupleC y)
         {
             var res = new OctupleC();
@@ -1725,7 +1729,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Powm1(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/powm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/powm1/*' />
         public static OctupleC powm1(dynamic x, dynamic y)
         {
             return powm1(t(x), t(y));
@@ -1733,7 +1737,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1p/*' />
         public static OctupleC pow1p(OctupleC x, OctupleC y)
         {
             var res = new OctupleC();
@@ -1744,7 +1748,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Pow1p(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1p/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1p/*' />
         public static OctupleC pow1p(dynamic x, dynamic y)
         {
             return pow1p(t(x), t(y));
@@ -1752,7 +1756,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1pm1/*' />
         public static OctupleC pow1pm1(OctupleC x, OctupleC y)
         {
             var res = new OctupleC();
@@ -1763,7 +1767,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Pow1pm1(IntPtr res, IntPtr x, IntPtr y);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow1pm1/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1pm1/*' />
         public static OctupleC pow1pm1(dynamic x, dynamic y)
         {
             return pow1pm1(t(x), t(y));
@@ -1771,7 +1775,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow_si/*' />
         public static OctupleC pow_si(OctupleC x, Int32 k)
         {
             var res = new OctupleC();
@@ -1782,7 +1786,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Pow_Si(IntPtr res, IntPtr x, Int32 k);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/pow_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow_si/*' />
         public static OctupleC pow_si(dynamic x, Int32 k)
         {
             return pow_si(t(x), k);
@@ -1790,7 +1794,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/compound_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/compound_si/*' />
         public static OctupleC compound_si(OctupleC x, Int32 k)
         {
             var res = new OctupleC();
@@ -1801,7 +1805,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Compound_Si(IntPtr res, IntPtr x, Int32 k);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/compound_si/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/compound_si/*' />
         public static OctupleC compound_si(dynamic x, Int32 k)
         {
             return compound_si(t(x), k);
@@ -1818,7 +1822,7 @@ namespace FixedPrecNet
         #region Trigonometric and related functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static OctupleC sin(OctupleC x)
         {
             var res = new OctupleC();
@@ -1829,7 +1833,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Sin(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sin/*' />
         public static OctupleC sin(dynamic x)
         {
             return sin(t(x));
@@ -1837,7 +1841,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static OctupleC cos(OctupleC x)
         {
             var res = new OctupleC();
@@ -1848,7 +1852,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Cos(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cos/*' />
         public static OctupleC cos(dynamic x)
         {
             return cos(t(x));
@@ -1856,7 +1860,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static OctupleC tan(OctupleC x)
         {
             var res = new OctupleC();
@@ -1867,7 +1871,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Tan(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tan/*' />
         public static OctupleC tan(dynamic x)
         {
             return tan(t(x));
@@ -1875,7 +1879,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static OctupleC csc(OctupleC x)
         {
             var res = new OctupleC();
@@ -1886,7 +1890,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Csc(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csc/*' />
         public static OctupleC csc(dynamic x)
         {
             return csc(t(x));
@@ -1894,7 +1898,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static OctupleC sec(OctupleC x)
         {
             var res = new OctupleC();
@@ -1905,7 +1909,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Sec(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sec/*' />
         public static OctupleC sec(dynamic x)
         {
             return sec(t(x));
@@ -1913,7 +1917,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static OctupleC cot(OctupleC x)
         {
             var res = new OctupleC();
@@ -1924,7 +1928,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Cot(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cot/*' />
         public static OctupleC cot(dynamic x)
         {
             return cot(t(x));
@@ -1939,12 +1943,12 @@ namespace FixedPrecNet
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinpi/*' />
         public static OctupleC sinpi(OctupleC x)
         {
             if (x.real < 0) return -sinpi(-x);
             var n_r = divmod(x.real, oreal.t(0.5));
-            x = ocplx.t(n_r.Item2, x.imag) * oreal.pi();
+            x = ocplx.t(n_r.Item2, x.imag) * oreal.pi;
             Int32 n = oreal.lrint(oreal.fmod(n_r.Item1, 4));
             if (n == 0) return ocplx.sin(x);
             else if (n == 1) return ocplx.cos(x);
@@ -1952,19 +1956,19 @@ namespace FixedPrecNet
             else return -ocplx.cos(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinpi/*' />
         public static OctupleC sinpi(dynamic x)
         {
             return sinpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cospi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cospi/*' />
         public static OctupleC cospi(OctupleC x)
         {
             if (x.real < 0) x = -x;
             var n_r = divmod(x.real, oreal.t(0.5));
-            x = ocplx.t(n_r.Item2, x.imag) * oreal.pi();
+            x = ocplx.t(n_r.Item2, x.imag) * oreal.pi;
             Int32 n = oreal.lrint(oreal.fmod(n_r.Item1, 4));
             if (n == 0) return ocplx.cos(x);
             else if (n == 1) return -ocplx.sin(x);
@@ -1972,73 +1976,73 @@ namespace FixedPrecNet
             else return ocplx.sin(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cospi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cospi/*' />
         public static OctupleC cospi(dynamic x)
         {
             return cospi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanpi/*' />
         public static OctupleC tanpi(OctupleC x)
         {
             return ocplx.sinpi(x) / ocplx.cospi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanpi/*' />
         public static OctupleC tanpi(dynamic x)
         {
             return tanpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cscpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cscpi/*' />
         public static OctupleC cscpi(OctupleC x)
         {
             return 1.0 / ocplx.sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cscpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cscpi/*' />
         public static OctupleC cscpi(dynamic x)
         {
             return cscpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/secpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/secpi/*' />
         public static OctupleC secpi(OctupleC x)
         {
             return 1.0 / ocplx.cospi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/secpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/secpi/*' />
         public static OctupleC secpi(dynamic x)
         {
             return secpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cotpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cotpi/*' />
         public static OctupleC cotpi(OctupleC x)
         {
             return ocplx.cospi(x) / ocplx.sinpi(x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cotpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cotpi/*' />
         public static OctupleC cotpi(dynamic x)
         {
             return cotpi(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinc/*' />
         public static OctupleC sinc(OctupleC x)
         {
             if (ocplx.iszero(x)) return ocplx.t(1, 0);
             else return ocplx.sin(x) / (x);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinc/*' />
         public static OctupleC sinc(dynamic x)
         {
             return sinc(t(x));
@@ -2046,14 +2050,14 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sincpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sincpi/*' />
         public static OctupleC sincpi(OctupleC x)
         {
             if (ocplx.iszero(x)) return ocplx.t(1, 0);
-            else return ocplx.sinpi(x) / (x * oreal.pi());
+            else return ocplx.sinpi(x) / (x * oreal.pi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sincpi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sincpi/*' />
         public static OctupleC sincpi(dynamic x)
         {
             return sincpi(t(x));
@@ -2072,7 +2076,7 @@ namespace FixedPrecNet
         #region Hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static OctupleC sinh(OctupleC x)
         {
             var res = new OctupleC();
@@ -2083,14 +2087,14 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Sinh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinh/*' />
         public static OctupleC sinh(dynamic x)
         {
             return sinh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static OctupleC cosh(OctupleC x)
         {
             var res = new OctupleC();
@@ -2101,14 +2105,14 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Cosh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/cosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cosh/*' />
         public static OctupleC cosh(dynamic x)
         {
             return cosh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static OctupleC tanh(OctupleC x)
         {
             var res = new OctupleC();
@@ -2119,14 +2123,14 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Tanh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/tanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/tanh/*' />
         public static OctupleC tanh(dynamic x)
         {
             return tanh(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static OctupleC csch(OctupleC x)
         {
             var res = new OctupleC();
@@ -2137,14 +2141,14 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Csch(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/csch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/csch/*' />
         public static OctupleC csch(dynamic x)
         {
             return csch(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static OctupleC sech(OctupleC x)
         {
             var res = new OctupleC();
@@ -2155,14 +2159,14 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Sech(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/sech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sech/*' />
         public static OctupleC sech(dynamic x)
         {
             return sech(t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static OctupleC coth(OctupleC x)
         {
             var res = new OctupleC();
@@ -2173,7 +2177,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Coth(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/coth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coth/*' />
         public static OctupleC coth(dynamic x)
         {
             return coth(t(x));
@@ -2189,7 +2193,7 @@ namespace FixedPrecNet
         #region Inverse trigonometric functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static OctupleC asin(OctupleC x)
         {
             var res = new OctupleC();
@@ -2200,7 +2204,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Asin(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asin/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asin/*' />
         public static OctupleC asin(dynamic x)
         {
             return asin(t(x));
@@ -2208,7 +2212,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static OctupleC acos(OctupleC x)
         {
             var res = new OctupleC();
@@ -2219,7 +2223,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Acos(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acos/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acos/*' />
         public static OctupleC acos(dynamic x)
         {
             return acos(t(x));
@@ -2227,7 +2231,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static OctupleC atan(OctupleC x)
         {
             var res = new OctupleC();
@@ -2238,7 +2242,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Atan(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atan/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />
         public static OctupleC atan(dynamic x)
         {
             return atan(t(x));
@@ -2246,7 +2250,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static OctupleC acsc(OctupleC x)
         {
             var res = new OctupleC();
@@ -2257,7 +2261,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Acsc(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsc/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsc/*' />
         public static OctupleC acsc(dynamic x)
         {
             return acsc(t(x));
@@ -2265,7 +2269,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static OctupleC asec(OctupleC x)
         {
             var res = new OctupleC();
@@ -2276,7 +2280,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Asec(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asec/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asec/*' />
         public static OctupleC asec(dynamic x)
         {
             return asec(t(x));
@@ -2284,7 +2288,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static OctupleC acot(OctupleC x)
         {
             var res = new OctupleC();
@@ -2295,7 +2299,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Acot(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acot/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acot/*' />
         public static OctupleC acot(dynamic x)
         {
             return acot(t(x));
@@ -2311,7 +2315,7 @@ namespace FixedPrecNet
         #region Inverse hyperbolic functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static OctupleC asinh(OctupleC x)
         {
             var res = new OctupleC();
@@ -2322,7 +2326,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Asinh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asinh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asinh/*' />
         public static OctupleC asinh(dynamic x)
         {
             return asinh(t(x));
@@ -2330,7 +2334,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static OctupleC acosh(OctupleC x)
         {
             var res = new OctupleC();
@@ -2341,7 +2345,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Acosh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acosh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acosh/*' />
         public static OctupleC acosh(dynamic x)
         {
             return acosh(t(x));
@@ -2349,7 +2353,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static OctupleC atanh(OctupleC x)
         {
             var res = new OctupleC();
@@ -2360,7 +2364,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Atanh(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/atanh/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atanh/*' />
         public static OctupleC atanh(dynamic x)
         {
             return atanh(t(x));
@@ -2368,7 +2372,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static OctupleC acsch(OctupleC x)
         {
             var res = new OctupleC();
@@ -2379,7 +2383,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Acsch(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acsch/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acsch/*' />
         public static OctupleC acsch(dynamic x)
         {
             return acsch(t(x));
@@ -2387,7 +2391,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static OctupleC asech(OctupleC x)
         {
             var res = new OctupleC();
@@ -2398,7 +2402,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Asech(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/asech/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/asech/*' />
         public static OctupleC asech(dynamic x)
         {
             return asech(t(x));
@@ -2406,7 +2410,7 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static OctupleC acoth(OctupleC x)
         {
             var res = new OctupleC();
@@ -2417,7 +2421,7 @@ namespace FixedPrecNet
         internal static extern void Lib_OCplx_Acoth(IntPtr res, IntPtr x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarAndArrayFunctions"]/acoth/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acoth/*' />
         public static OctupleC acoth(dynamic x)
         {
             return acoth(t(x));
@@ -2431,11 +2435,22 @@ namespace FixedPrecNet
 
 
 
+        #endregion
+
+
+
+
+
+
+        #region Eigen 
+
+
+
 
         #region Matrix Creation
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static OctupleMatC mat_t(OctupleC x)
         {
             var matA = new OctupleMatC();
@@ -2444,6 +2459,7 @@ namespace FixedPrecNet
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static OctupleMatC mat_t(OctupleMat matA)
         {
             var x = mat_zeros(matA.rows, matA.cols);
@@ -2454,9 +2470,7 @@ namespace FixedPrecNet
         internal static extern void Lib_Eigen_OReal_ConvertRealCplx(IntPtr RMat, int what, IntPtr CMat);
 
 
-        /// <summary>
-        /// Makes a deep copy from a complex matrix of type YCplxMatT
-        /// </summary>
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static OctupleMatC mat_t(OctupleMatC matA)
         {
             var matX = mat_zeros(matA.rows, matA.cols);
@@ -2464,6 +2478,8 @@ namespace FixedPrecNet
             return matX;
         }
 
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_zeros/*' />
         public static OctupleMatC mat_zeros(int n, int m)
         {
             var resout = new OctupleMatC();
@@ -2471,26 +2487,26 @@ namespace FixedPrecNet
             return resout;
         }
 
-        /* *********************** */
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_t/*' />
         public static OctupleMatC mat_cplx_t(OctupleMatC matA)
         {
             return mat_t(matA);
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_zeros/*' />
         public static OctupleMatC mat_cplx_zeros(int n, int m)
         {
             return mat_zeros(n, m);
         }
 
-        /* *********************** */
 
 
 
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ones/*' />
         public static OctupleMatC mat_ones(int n, int m)
         {
             var resout = new OctupleMatC();
@@ -2499,7 +2515,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_identity/*' />
         public static OctupleMatC mat_identity(int n, int m)
         {
             var resout = new OctupleMatC();
@@ -2508,7 +2524,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random/*' />
         public static OctupleMatC mat_random(int n, int m)
         {
             var resout = new OctupleMatC();
@@ -2517,7 +2533,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_symmetric/*' />
         public static OctupleMatC mat_random_symmetric(int n)
         {
             var resout = new OctupleMatC();
@@ -2526,7 +2542,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint/*' />
         public static OctupleMatC mat_random_selfadjoint(int n)
         {
             var resout = new OctupleMatC();
@@ -2535,7 +2551,7 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_random_selfadjoint_posdef/*' />
         public static OctupleMatC mat_random_selfadjoint_posdef(int n)
         {
             var resout = new OctupleMatC();
@@ -2544,13 +2560,602 @@ namespace FixedPrecNet
         }
 
 
-
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fill_linear/*' />
         public static OctupleMatC mat_fill_linear(int n, int m)
         {
             var resout = new OctupleMatC();
             olib.Call_Eigen_SetSpecialValue(constants.mp_eigen, constants.mp_cplx, resout, constants.mp_FillLinear, n, m);
             return resout;
         }
+
+
+
+        #endregion
+
+
+
+        #region Read-only properties
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_rows/*' />
+        public static int mat_rows(OctupleMatC matA)
+        {
+            return matA.rows;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_cols(OctupleMatC matA)
+        {
+            return matA.cols;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cols/*' />
+        public static int mat_size(OctupleMatC matA)
+        {
+            return matA.size;
+        }
+
+
+        #endregion
+
+
+
+        #region Accessing and setting parts of a matrix
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_block/*' />
+        public static OctupleMatC mat_get_block(OctupleMatC matA, int i, int j, int p, int q)
+        {
+            return matA.get_Block(i, j, p, q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_block/*' />
+        public static void mat_set_block(OctupleMatC matA, int i, int j, int p, int q, OctupleMatC matB)
+        {
+            matA.set_Block(i, j, p, q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_row/*' />
+        public static OctupleMatC mat_get_row(OctupleMatC matA, int i)
+        {
+            return matA.get_Row(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_row/*' />
+        public static void mat_set_row(OctupleMatC matA, int i, OctupleMatC matB)
+        {
+            matA.set_Row(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_col/*' />
+        public static OctupleMatC mat_get_col(OctupleMatC matA, int i)
+        {
+            return matA.get_Col(i);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_col/*' />
+        public static void mat_set_col(OctupleMatC matA, int i, OctupleMatC matB)
+        {
+            matA.set_Col(i, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_diagonal/*' />
+        public static OctupleMatC mat_get_diagonal(OctupleMatC matA, int q = 0)
+        {
+            return matA.get_Diagonal(q);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_diagonal/*' />
+        public static void mat_set_diagonal(OctupleMatC matA, int q, OctupleMatC matB)
+        {
+            matA.set_Diagonal(q, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_get_triangular_view/*' />
+        public static OctupleMatC mat_get_triangular_view(OctupleMatC matA, int view = 1)
+        {
+            return matA.get_TriangularView(view);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_set_triangular_view/*' />
+        public static void mat_set_triangular_view(OctupleMatC matA, int view, OctupleMatC matB)
+        {
+            matA.set_TriangularView(view, matB);
+        }
+
+
+
+        #endregion
+
+
+
+
+        #region Changing the shape of a matrix and/or the order of coefficients
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort/*' />
+        public static void mat_sort(OctupleMatC matA, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.Sort(sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sort_rows_by_col/*' />
+        public static void mat_sort_rows_by_col(OctupleMatC matA, int column_to_sort_by = 0, int sort_order = 0, int sort_criterion = 1)
+        {
+            matA.SortRowsByCol(column_to_sort_by, sort_order, sort_criterion);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize/*' />
+        public static void mat_resize(OctupleMatC matA, int r, int c)
+        {
+            matA.Resize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_resize_like/*' />
+        public static void mat_resize_like(OctupleMatC matA, OctupleMatC matB)
+        {
+            matA.ResizeLike(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conservative_resize/*' />
+        public static void mat_conservative_resize(OctupleMatC matA, int r, int c)
+        {
+            matA.ConservativeResize(r, c);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_as_diagonal/*' />
+        public static OctupleMatC mat_as_diagonal(OctupleMatC matA)
+        {
+            return matA.AsDiagonal();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_adjoint/*' />
+        public static OctupleMatC mat_adjoint(OctupleMatC matA)
+        {
+            return matA.Adjoint();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_conjugate/*' />
+        public static OctupleMatC mat_conjugate(OctupleMatC matA)
+        {
+            return matA.Conjugate();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_transpose/*' />
+        public static OctupleMatC mat_transpose(OctupleMatC matA)
+        {
+            return matA.Transpose();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_full/*' />
+        public static OctupleMatC mat_reverse_full(OctupleMatC matA)
+        {
+            return matA.ReverseFull();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_row_wise/*' />
+        public static OctupleMatC mat_reverse_row_wise(OctupleMatC matA)
+        {
+            return matA.ReverseRowwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_reverse_col_wise/*' />
+        public static OctupleMatC mat_reverse_col_wise(OctupleMatC matA)
+        {
+            return matA.ReverseColwise();
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_full/*' />
+        public static OctupleMatC mat_replicate_full(OctupleMatC matA, int vertical, int horizontal)
+        {
+            return matA.ReplicateFull(vertical, horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_row_wise/*' />
+        public static OctupleMatC mat_replicate_row_wise(OctupleMatC matA, int horizontal)
+        {
+            return matA.ReplicateRowwise(horizontal);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_replicate_col_wise/*' />
+        public static OctupleMatC mat_replicate_col_wise(OctupleMatC matA, int vertical)
+        {
+            return matA.ReplicateColwise(vertical);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_horizontal/*' />
+        public static OctupleMatC mat_concat_horizontal(OctupleMatC matA, OctupleMatC matB)
+        {
+            return matA.ConcatHorizontal(matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_concat_vertical/*' />
+        public static OctupleMatC mat_concat_vertical(OctupleMatC matA, OctupleMatC matB)
+        {
+            return matA.ConcatVertical(matB);
+        }
+
+
+
+        #endregion
+
+
+
+        #region Basic arithmetic operations
+
+
+
+
+
+        #endregion
+
+
+
+
+
+        #region Standard decompositions and linear solving
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_ldlt/*' />
+        public static OctupleMatMapC mat_ldlt(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.LDLT(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_partial_piv_lu/*' />
+        public static OctupleMatMapC mat_partial_piv_lu(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.PartialPivLU(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_lu/*' />
+        public static OctupleMatMapC mat_full_piv_lu(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.FullPivLU(query, matB);
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        //public static OctupleMatMapC mat_llt(OctupleMatC matA, string query, [Optional] OctupleMatC matB)
+        //{
+        //    return matA.LLT(query, matB);
+        //}
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_llt/*' />
+        public static OctupleMatMapC mat_llt(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.LLT(query, matB);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_householder_qr/*' />
+        public static OctupleMatMapC mat_householder_qr(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.HouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_col_piv_householder_qr/*' />
+        public static OctupleMatMapC mat_col_piv_householder_qr(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.ColPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_full_piv_householder_qr/*' />
+        public static OctupleMatMapC mat_full_piv_householder_qr(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.FullPivHouseholderQR(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cod_householder_qr/*' />
+        public static OctupleMatMapC mat_cod_householder_qr(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.COD(query, matB);
+        }
+
+
+
+
+        #endregion
+
+
+
+
+        #region Singular Value and Eigen (selfadjoint) decompositions
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd/*' />
+        public static OctupleMatMapC mat_jacobi_svd(OctupleMatC matA, string query)
+        {
+            return matA.JacobiSVD(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_thin/*' />
+        public static OctupleMatMapC mat_jacobi_svd_thin(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.JacobiSvdThin(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_jacobi_svd_full/*' />
+        public static OctupleMatMapC mat_jacobi_svd_full(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.JacobiSvdFull(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_values/*' />
+        public static OctupleMatMapC mat_self_adjoint_eigen_values(OctupleMatC matA, string query)
+        {
+            return matA.SelfAdjointEigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_self_adjoint_eigen_system/*' />
+        public static OctupleMatMapC mat_self_adjoint_eigen_system(OctupleMatC matA, string query)
+        {
+            return matA.SelfAdjointEigenSystem(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_values/*' />
+        public static OctupleMatMapC mat_generalized_self_adjoint_eigen_values(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenValues(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_generalized_self_adjoint_eigen_system/*' />
+        public static OctupleMatMapC mat_generalized_self_adjoint_eigen_system(OctupleMatC matA, string query, OctupleMatC matB)
+        {
+            return matA.GeneralizedSelfAdjointEigenSolver(query, matB);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_tridiagonalization/*' />
+        public static OctupleMatMapC mat_tridiagonalization(OctupleMatC matA, string query)
+        {
+            return matA.Tridiag(query);
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen decompositions of general square matrices
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_hessenberg/*' />
+        public static OctupleMatMapC mat_hessenberg(OctupleMatC matA, string query)
+        {
+            return matA.Hessenberg(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_schur/*' />
+        public static OctupleMatMapC mat_schur(OctupleMatC matA, string query)
+        {
+            return matA.Schur(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_values/*' />
+        public static OctupleMatMapC mat_eigen_values(OctupleMatC matA, string query)
+        {
+            return matA.EigenValues(query);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_eigen_system/*' />
+        public static OctupleMatMapC mat_eigen_system(OctupleMatC matA, string query)
+        {
+            return matA.EigenSystem(query);
+        }
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Fast Fourier Transform
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_fwd/*' />
+        public static OctupleMatC mat_fft_fwd(OctupleMatC matA)
+        {
+            return matA.FFTFwd();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_fft_inv/*' />
+        public static OctupleMatC mat_fft_inv(OctupleMatC matA)
+        {
+            return matA.FFTCplxInv();
+        }
+
+
+
+
+
+        #endregion
+
+
+
+
+        #region Eigen: Functions of matrix argument
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_expm/*' />
+        public static OctupleMatC mat_expm(OctupleMatC matA)
+        {
+            return matA.ExpMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinm/*' />
+        public static OctupleMatC mat_sinm(OctupleMatC matA)
+        {
+            return matA.SinMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_cosm/*' />
+        public static OctupleMatC mat_cosm(OctupleMatC matA)
+        {
+            return matA.CosMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sinhm/*' />
+        public static OctupleMatC mat_sinhm(OctupleMatC matA)
+        {
+            return matA.SinhMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_coshm/*' />
+        public static OctupleMatC mat_coshm(OctupleMatC matA)
+        {
+            return matA.CoshMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_sqrtm/*' />
+        public static OctupleMatC mat_sqrtm(OctupleMatC matA)
+        {
+            return matA.SqrtMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_logm/*' />
+        public static OctupleMatC mat_logm(OctupleMatC matA)
+        {
+            return matA.LogMat();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/mat_powm/*' />
+        public static OctupleMatC mat_powm(OctupleMatC matA, Double r)
+        {
+            return matA.PowMat();
+        }
+
+
+
+
+        #endregion
+
+
+
+        #region Eigen: Polynomials
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/roots_to_monic_poly/*' />
+        public static OctupleMatC roots_to_monic_poly(OctupleMatC vecA)
+        {
+            return vecA.RootsToMonicPolynomial();
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_eval/*' />
+        public static OctupleMatC poly_eval(OctupleMatC polyA, OctupleMatC roots)
+        {
+            return polyA.PolyEval(roots);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Eigen"]/poly_solve/*' />
+        public static OctupleMatC poly_solve(OctupleMatC polyA)
+        {
+            return polyA.PolynomialSolver();
+        }
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,46 +1,76 @@
-﻿using System;
+﻿
+/* Uncomment one of the defines below to select the precision */
+//#define UsingSingle
+#define UsingDouble
+//#define UsingExtended
+//#define UsingQuadruple
+//#define UsingOctuple
+//#define UsingMpfr
+
+
+#region Usings
+
+using System;
 using System.Diagnostics;
 using FixedPrecNet;
 using System.Numerics;
-
 
 
 #if HasArbPrecNet
 using ArbPrecNet;
 #endif
 
-//using Ctx = FixedPrecNet.sreal;
-//using CtxScalar = System.Single;
-//using CtxVec = FixedPrecNet.SingleVec;
-//using CtxMat = FixedPrecNet.SingleMat;
+#if UsingSingle
+using Ctx = FixedPrecNet.sreal;
+using CtxScalar = System.Single;
+using CtxVec = FixedPrecNet.SingleVec;
+using CtxMat = FixedPrecNet.SingleMat;
+using cb1SCtx1S = FixedPrecNet.sreal.cb1SRet1S;
+#endif
 
+#if UsingDouble
 using Ctx = FixedPrecNet.dreal;
 using CtxScalar = System.Double;
 using CtxVec = FixedPrecNet.DoubleVec;
 using CtxMat = FixedPrecNet.DoubleMat;
-using cb1SCtx1S =  FixedPrecNet.cb1SDouble1S;
+using cb1SCtx1S = FixedPrecNet.dreal.cb1SRet1S;
+#endif
 
-//using Ctx = FixedPrecNet.ereal;
-//using CtxScalar = FixedPrecNet.Extended;
-//using CtxVec = FixedPrecNet.ExtendedVec;
-//using CtxMat = FixedPrecNet.ExtendedMat;
+#if UsingExtended
+using Ctx = FixedPrecNet.ereal;
+using CtxScalar = FixedPrecNet.Extended;
+using CtxVec = FixedPrecNet.ExtendedVec;
+using CtxMat = FixedPrecNet.ExtendedMat;
+using cb1SCtx1S = FixedPrecNet.ereal.cb1SRet1S;
+#endif
 
-//using Ctx = FixedPrecNet.qreal;
-//using CtxScalar = FixedPrecNet.Quadruple;
-//using CtxVec = FixedPrecNet.QuadrupleVec;
-//using CtxMat = FixedPrecNet.QuadrupleMat;
+#if UsingQuadruple
+using Ctx = FixedPrecNet.qreal;
+using CtxScalar = FixedPrecNet.Quadruple;
+using CtxVec = FixedPrecNet.QuadrupleVec;
+using CtxMat = FixedPrecNet.QuadrupleMat;
+using cb1SCtx1S = FixedPrecNet.qreal.cb1SRet1S;
+#endif
 
-//using Ctx = FixedPrecNet.oreal;
-//using CtxScalar = FixedPrecNet.Octuple;
-//using CtxVec = FixedPrecNet.OctupleVec;
-//using CtxMat = FixedPrecNet.OctupleMat;
+#if UsingOctuple
+using Ctx = FixedPrecNet.oreal;
+using CtxScalar = FixedPrecNet.Octuple;
+using CtxVec = FixedPrecNet.OctupleVec;
+using CtxMat = FixedPrecNet.OctupleMat;
+using cb1SCtx1S = FixedPrecNet.oreal.cb1SRet1S;
+#endif
 
-//#if HasArbPrecNet
-//using Ctx = ArbPrecNet.mreal;
-//using CtxScalar = ArbPrecNet.Mpfr;
-//using CtxVec = ArbPrecNet.MpfrVec;
-//using CtxMat = ArbPrecNet.MpfrMat;
-//#endif
+#if UsingMpfr
+#if HasArbPrecNet
+using Ctx = ArbPrecNet.mreal;
+using CtxScalar = ArbPrecNet.Mpfr;
+using CtxVec = ArbPrecNet.MpfrVec;
+using CtxMat = ArbPrecNet.MpfrMat;
+using cb1SCtx1S = ArbPrecNet.mreal.cb1SRet1S;
+#endif
+#endif
+
+#endregion
 
 
 
@@ -60,10 +90,10 @@ namespace TestXlCalcNetPrecCS
 #endif
 
             RunTestsMCP();
-            //RunTestsCalculus2();
-            //RunTestsBoostOdeint2();
-            //RunTestsEigenCalculus2();
-            //DemoCtxOpt2();
+            RunTestsCalculus2();
+            RunTestsBoostOdeint2();
+            RunTestsEigenCalculus2();
+            DemoCtxOpt2();
         }
 
 
@@ -128,7 +158,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = (k / b1) * d * Ctx.ndens(z1) * Ctx.ndens(y);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -147,12 +177,13 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = d * Ctx.ndens(y);
                 return res;
             };
-            var cdf = Ctx.TanhSinh(F2, a: -Ctx.inf(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var cdf = Ctx.TanhSinh(F2, a: -Ctx.inf, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", cdf);
             return cdf.Item1;
         }
 
 
+#if UsingDouble
 
         internal static CtxScalar nmax_neg_corr_cdf(CtxScalar x, int k, CtxScalar rho)
         {
@@ -177,7 +208,7 @@ namespace TestXlCalcNetPrecCS
             //var cdf = Ctx.SinhSinh(F2);
 
 
-            var cdf = Ctx.TanhSinh(F2, a: -Ctx.inf(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var cdf = Ctx.TanhSinh(F2, a: -Ctx.inf, b: Ctx.inf, tol: Ctx.t(0.0));
             Console.WriteLine("cdf (integral, error, cond.no., level): {0}", cdf);
             return cdf.Item1;
         }
@@ -208,12 +239,12 @@ namespace TestXlCalcNetPrecCS
             //var cdf = Ctx.SinhSinh(F2);
 
 
-            var cdf = Ctx.TanhSinh(F2, a: -Ctx.inf(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var cdf = Ctx.TanhSinh(F2, a: -Ctx.inf, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("cdf (integral, error, cond.no., level): {0}", cdf);
             return cdf.Item1;
         }
 
-
+#endif
 
         internal static CtxScalar nmm_corr_pdf(CtxScalar x, int k, CtxScalar rho)
         {
@@ -228,7 +259,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = (k / b) * d * (Ctx.ndens(z1) + Ctx.ndens(z2)) * Ctx.ndens(y);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -248,7 +279,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = d * Ctx.ndens(y);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -266,7 +297,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = d * Ctx.ndens(y) * Ctx.ndens(y - x);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -283,7 +314,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = d * Ctx.ndens(y);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: -Ctx.inf, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -297,7 +328,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nmax_pdf(x * y, k) * chidens(y, n) * y;
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -311,7 +342,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nmax_cdf(x * y, k) * chidens(y, n);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -325,7 +356,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nmm_pdf(x * y, k) * chidens(y, n) * y;
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -339,7 +370,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nmm_cdf(x * y, k) * chidens(y, n);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -354,8 +385,8 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nmax_corr_pdf(x * y, k, rho) * chidens(y, n) * y;
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
-            //var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(1.0E-2));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
+            //var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(1.0E-2));
             Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -369,7 +400,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nmax_corr_cdf(x * y, k, rho) * chidens(y, n);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
             Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -384,7 +415,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nmm_corr_pdf(x * y, k, rho) * chidens(y, n) * y;
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
             Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -398,7 +429,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nmm_corr_cdf(x * y, k, rho) * chidens(y, n);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
             Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -411,7 +442,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nrange_pdf(x * y, k) * chidens(y, n) * y;
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
             Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -425,7 +456,7 @@ namespace TestXlCalcNetPrecCS
                 CtxScalar res = nrange_cdf(x * y, k) * chidens(y, n);
                 return res;
             };
-            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero(), b: Ctx.inf(), tol: Ctx.t(0.0));
+            var pdf = Ctx.TanhSinh(F2, a: Ctx.zero, b: Ctx.inf, tol: Ctx.t(0.0));
             //Console.WriteLine("pdf (integral, error, cond.no., level): {0}", pdf);
             return pdf.Item1;
         }
@@ -486,12 +517,14 @@ namespace TestXlCalcNetPrecCS
         }
 
 
+#if UsingDouble
+
         public static void demo_nmax_neg_corr_cdf()
         {
             Console.WriteLine("demo_nmax_neg_corr_cdf: " + Ctx.name);
             int k = 5;
             CtxScalar x = Ctx.t(2.08);
-            CtxScalar rho = -Ctx.t(1) / Ctx.t(k-1);
+            CtxScalar rho = -Ctx.t(1) / Ctx.t(k - 1);
             var pdf = nmax_neg_corr_cdf(x, k, rho);
             Console.WriteLine("cdf: {0}", pdf);
             Console.WriteLine();
@@ -508,6 +541,8 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine("cdf: {0}", pdf);
             Console.WriteLine();
         }
+
+#endif
 
 
         public static void demo_nmm_corr_pdf()
@@ -735,31 +770,34 @@ namespace TestXlCalcNetPrecCS
 
         public static void RunTestsCalculus2()
         {
-            //DemoBracketRoot();
-            //DemoNewtonRaphson();
-            //DemoHalley();
-            //DemoSchroder();
-            //DemoBrent_Minimum();
+            DemoBracketRoot();
+            DemoNewtonRaphson();
+            DemoHalley();
+            DemoSchroder();
+            DemoBrent_Minimum();
 
-            //DemoTrapezoidal();
-            //DemoGaussLegendre();
-            //DemoGaussKronrod();
-            //DemoTanhSinh();
-            //DemoSinhSinh();
-            //DemoExpSinh();
+            DemoTrapezoidal();
+            DemoGaussLegendre();
+            DemoGaussKronrod();
+            DemoTanhSinh();
+            DemoSinhSinh();
+            DemoExpSinh();
 
-            //DemoOoura_Cos();
-            //DemoOoura_Sin();
-            //DemoOoura_Cos2();
-            //DemoOoura_Sin2();
+            DemoOoura_Cos();
+            DemoOoura_Sin();
 
-            //DemoOoura_Cos2_Chi2();
-            //DemoOoura_Sin2_Chi2();
+#if UsingDouble
 
-            //DemoOoura_Chi2();
-            //DemoOoura_Chi2_PDF();
+            DemoOoura_Cos2();
+            DemoOoura_Sin2();
+
+            DemoOoura_Chi2();
+            DemoOoura_Chi2_PDF();
 
             DemoOoura_WilksLambda();
+
+#endif
+
         }
 
 
@@ -913,9 +951,9 @@ namespace TestXlCalcNetPrecCS
         public static void DemoTrapezoidal()
         {
             Console.WriteLine("Trapezoidal: " + Ctx.name);
-            var a = Ctx.zero();
-            var b = 2 * Ctx.pi();
-            var res1 = Ctx.Trapezoidal(f13, a, b, tol: Ctx.zero());
+            var a = Ctx.zero;
+            var b = 2 * Ctx.pi;
+            var res1 = Ctx.Trapezoidal(f13, a, b, tol: Ctx.zero);
             Console.WriteLine("res1 (integral, error, cond.no.): {0}", res1);
             Console.WriteLine();
         }
@@ -950,7 +988,7 @@ namespace TestXlCalcNetPrecCS
         {
             Console.WriteLine("GaussKronrod: " + Ctx.name);
             var a = Ctx.t(0.0);
-            var b = Ctx.inf();
+            var b = Ctx.inf;
             var tol = Ctx.t(0.0);
             var res1 = Ctx.GaussKronrod(f15, a, b, tol);
             Console.WriteLine("res1 (integral, error, cond.no.): {0}", res1);
@@ -1026,6 +1064,8 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine();
         }
 
+#if UsingDouble
+
         public static void DemoOoura_Cos2()
         {
             Console.WriteLine("Ooura_Cos2: " + Ctx.name);
@@ -1035,7 +1075,7 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine();
         }
 
-
+#endif
 
         public static CtxScalar f20(CtxScalar x)
         {
@@ -1051,6 +1091,8 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine();
         }
 
+#if UsingDouble
+
         public static void DemoOoura_Sin2()
         {
             Console.WriteLine("Ooura_Sin2: " + Ctx.name);
@@ -1060,7 +1102,7 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine();
         }
 
-
+#endif
 
         public static Complex cd_chisquared(Double k, Double t)
         {
@@ -1085,6 +1127,7 @@ namespace TestXlCalcNetPrecCS
             return result;
         }
 
+#if UsingDouble
 
         public static void DemoOoura_Chi2()
         {
@@ -1098,9 +1141,11 @@ namespace TestXlCalcNetPrecCS
             var SinInt = Ctx.Ooura_Sin2(g_chisquared_cdf_sin, omega);
             Console.WriteLine("SinInt (integral, error): {0}", SinInt);
 
-            Double cdf = 0.5 - (CosInt.Item1 - SinInt.Item1) / dreal.pi();
+            Double cdf = 0.5 - (CosInt.Item1 - SinInt.Item1) / dreal.pi;
             Console.WriteLine("cdf: {0}", cdf);
         }
+
+#endif
 
         public static Double g_chisquared_pdf_cos(Double t)
         {
@@ -1119,6 +1164,7 @@ namespace TestXlCalcNetPrecCS
             return result;
         }
 
+#if UsingDouble
 
         public static void DemoOoura_Chi2_PDF()
         {
@@ -1132,11 +1178,11 @@ namespace TestXlCalcNetPrecCS
             var SinInt = Ctx.Ooura_Sin2(g_chisquared_pdf_sin, omega);
             Console.WriteLine("SinInt (integral, error): {0}", SinInt);
 
-            Double pdf = (CosInt.Item1 + SinInt.Item1) / dreal.pi();
+            Double pdf = (CosInt.Item1 + SinInt.Item1) / dreal.pi;
             Console.WriteLine("cdf: {0}", pdf);
         }
 
-
+#endif
 
 
 
@@ -1179,6 +1225,7 @@ namespace TestXlCalcNetPrecCS
             return result;
         }
 
+#if UsingDouble
 
         public static void DemoOoura_WilksLambda()
         {
@@ -1191,11 +1238,11 @@ namespace TestXlCalcNetPrecCS
             var SinInt = Ctx.Ooura_Sin2(g_WilksLambda_cdf_sin, omega);
             Console.WriteLine("SinInt (integral, error): {0}", SinInt);
 
-            Double cdf = 0.5 - (CosInt.Item1 - SinInt.Item1) / dreal.pi();
+            Double cdf = 0.5 - (CosInt.Item1 - SinInt.Item1) / dreal.pi;
             Console.WriteLine("cdf: {0}", cdf);
         }
 
-
+#endif
 
 
 
@@ -1463,14 +1510,14 @@ namespace TestXlCalcNetPrecCS
         public static void DemoLevenbergClass()
         {
             Console.WriteLine("Hello DemoLevenbergClassSReal() ");
-            int n = 3;
-            int m = 15;
+            int m = 15;  // number of observations
+            int n = 3;  // number of variables
             var matInput = Ctx.mat_zeros(n, 1);
             matInput[0] = Ctx.t(1);
             matInput[1] = Ctx.t(2);
             matInput[2] = Ctx.t(0);
 
-            var matX = Ctx.Levenberg(XmatLM, XmatLMJ, matInput, n, m);
+            var matX = Ctx.LevenbergMarquardt(XmatLM, XmatLMJ, matInput, n, m);
             Console.WriteLine("");
             matX.Print("X (solution):", 10);
             var matEval = Ctx.mat_zeros(m, 1);
@@ -1552,6 +1599,21 @@ namespace TestXlCalcNetPrecCS
 
 
 
+        public static void DemoBfgsSolverCtx()
+        {
+            Console.WriteLine("BfgsSolver:" + Ctx.name);
+            var InitialState = Ctx.VecParams(-1.0d, 2.0d);
+            var matRes = Ctx.BfgsSolver(CtxNormRosenthal, CtxGradRosenthal, InitialState);
+            Console.WriteLine();
+            Console.WriteLine("fx0: {0}", matRes[0]);
+            Console.WriteLine("fx1: {0}", matRes[1]);
+            var norm = CtxNormRosenthal(matRes);
+            Console.WriteLine("Norm: {0}", norm);
+            Console.WriteLine("");
+        }
+
+
+
         public static void DemoLbfgsSolverCtx()
         {
             Console.WriteLine("LbfgsSolver:" + Ctx.name);
@@ -1565,20 +1627,6 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine("");
         }
 
-
-
-        public static void DemoBfgsSolverCtx()
-        {
-            Console.WriteLine("BfgsSolver:" + Ctx.name);
-            var InitialState = Ctx.VecParams(-1.0d, 2.0d);
-            var matRes = Ctx.BfgsSolver(CtxNormRosenthal, CtxGradRosenthal, InitialState);
-            Console.WriteLine();
-            Console.WriteLine("fx0: {0}", matRes[0]);
-            Console.WriteLine("fx1: {0}", matRes[1]);
-            var norm = CtxNormRosenthal(matRes);
-            Console.WriteLine("Norm: {0}", norm);
-            Console.WriteLine("");
-        }
 
 
 

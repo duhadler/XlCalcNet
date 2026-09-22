@@ -170,10 +170,10 @@ namespace TestXlCalcNetPrecCS
             var SPlus = +S0;
             for (int i = 0, loopTo = S0.rows - 1; i <= loopTo; i++)
             {
-                if (S0[i] != Ctx.zero())
-                    SPlus[i] = Ctx.one() / S0[i];
+                if (S0[i] != Ctx.zero)
+                    SPlus[i] = Ctx.one / S0[i];
                 else
-                    SPlus[i] = Ctx.zero();
+                    SPlus[i] = Ctx.zero;
             }
             var Pinv = V1 * SPlus.AsDiagonal() * U1.Adjoint();
             Pinv.Print("Pinv = V * SPlus * U^T: ", digits);
@@ -270,10 +270,10 @@ namespace TestXlCalcNetPrecCS
             var SPlus = +S0;
             for (int i = 0, loopTo = S0.rows - 1; i <= loopTo; i++)
             {
-                if (S0[i] != Ctx.zero())
-                    SPlus[i] = Ctx.one() / S0[i];
+                if (S0[i] != Ctx.zero)
+                    SPlus[i] = Ctx.one / S0[i];
                 else
-                    SPlus[i] = Ctx.zero();
+                    SPlus[i] = Ctx.zero;
             }
             var Pinv = V1 * SPlus.AsDiagonal() * U1.Adjoint();
             Pinv.Print("Pinv = V * SPlus * U^T: ", digits);

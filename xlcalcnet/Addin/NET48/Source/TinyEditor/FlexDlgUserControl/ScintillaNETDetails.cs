@@ -402,10 +402,10 @@ namespace FlexDlgUserCtrl
                 }
             }
             else
-            if (toolStripButtonRun.Text == "Run*")
-            {
-                toolStripButtonRun.Text = "Run";
-            }
+                if (toolStripButtonRun.Text == "Run*")
+                {
+                    toolStripButtonRun.Text = "Run";
+                }
             toolStripButtonRun.Invalidate();
             //this.Refresh();
         }
@@ -518,6 +518,8 @@ namespace FlexDlgUserCtrl
 
         public void AutoCSelectionChange2(string LastCategory, string MethodName)
         {
+            //MessageBox.Show("AutoCSelectionChange2: LastCategory=" + LastCategory + ", MethodName=" + MethodName);
+
             DocFileHtml = "xlcalcnet";
 
             string Ext = Path.GetExtension(ActiveFileName);
@@ -565,7 +567,7 @@ namespace FlexDlgUserCtrl
 
             else if ((LastCategory == "npm") || (LastCategory == "mpm") || (LastCategory == "ipm") || (LastCategory == "fpm") || (LastCategory == "dpm") || (LastCategory == "gpm") || (LastCategory == "apm"))
             {
-                DocFileHtml = "mpfunlab";
+                DocFileHtml = "xlcalcnet";
                 XMLCommentsFilePath = GetBinPath1 + @"\MpPrecNet.xml";
                 AssemblyFilePath = GetBinPath1 + @"\MpPrecNet.dll";
             }
@@ -628,19 +630,70 @@ namespace FlexDlgUserCtrl
 
                 var XLtypes = Assemblies.GetTypes();
                 Type CurType;
-                //string MethodName = e.Text;
-                //MethodInfo minfo = null;
                 for (int j = 0, loopTo1 = XLtypes.Count() - 1; j <= loopTo1; j++)
                 {
                     var XName = XLtypes[j].Name;
                     if (XName.ToUpper() == LastCategory.ToUpper())
                     {
                         CurType = XLtypes[j];
+
+                        foreach (PropertyInfo p in CurType.GetProperties())
+                        {
+                            if (p.Name.ToUpper() == MethodName.ToUpper())
+                            {
+                                string StrPara = LastCategory + "." + p.Name;
+                                string ReturnedType = p.GetMethod.ReturnType.ToString();
+                                if (!string.IsNullOrWhiteSpace(ReturnedType))
+                                {
+                                    ReturnedType = ReturnedType.Replace("System.", "");
+                                    ReturnedType = ReturnedType.Replace("Numerics.", "");
+                                    ReturnedType = ReturnedType.Replace("FixedPrecNet.", "");
+                                    ReturnedType = ReturnedType.Replace("ArbPrecNet.", "");
+                                }
+                                if (!string.IsNullOrWhiteSpace(ReturnedType))
+                                {
+                                    if (Ext == ".py")
+                                    {
+                                        StrPara += " -> " + ReturnedType;
+                                    }
+                                    else if (Ext == ".cs")
+                                    {
+                                        StrPara = ReturnedType + " " + StrPara;
+                                    }
+                                }
+                                InfoDataScintilla.AppendText(StrPara + Environment.NewLine);
+
+                                var comments = reader.GetMemberComments(p);
+                                if (comments != null)
+                                {
+                                    var cs = comments.Summary;
+                                    if (!string.IsNullOrWhiteSpace(cs))
+                                    {
+                                        InfoDataScintilla.AppendText(cs + Environment.NewLine + Environment.NewLine);
+                                    }
+                                    var slist = comments.SeeAlso;
+                                    if (slist.Count > 0)
+                                    {
+                                        MoreInfo = slist[0].Text;
+                                        toolStripButtonMoreInfo.Visible = true;
+                                    }
+                                    else
+                                    {
+                                        MoreInfo = "";
+                                        toolStripButtonMoreInfo.Visible = false;
+                                    }
+                                }
+                            }
+                        }
+
+
+
                         foreach (MethodInfo m in CurType.GetMethods())
                         {
+                            bool found = false;
                             if (m.Name.ToUpper() == MethodName.ToUpper())
                             {
-
+                                found = true;
                                 string ReturnedType = Clean_Parameter(m.ReturnType.ToString());
                                 if (!string.IsNullOrWhiteSpace(ReturnedType))
                                 {
@@ -650,6 +703,7 @@ namespace FlexDlgUserCtrl
                                 }
 
 
+                                string StrPara0 = LastCategory + "." + m.Name + "(";
                                 string StrPara = LastCategory + "." + m.Name + "(";
                                 ParameterInfo[] parameters = m.GetParameters();
                                 for (int k = 0, loopTo3 = parameters.Count() - 1; k <= loopTo3; k++)
@@ -673,12 +727,20 @@ namespace FlexDlgUserCtrl
 
                                     if (Ext == ".py")
                                     {
-                                        StrPara += parameters[k].Name + ": " + Clean_Parameter(parameters[k].ParameterType.Name.Replace("&", "").Replace("[", "(").Replace("]", ")"));
+                                        if ((parameters.Count() == 1) && (parameters[k].IsOptional) && (parameters[k].Name=="PyStr"))
+                                        {
+                                            StrPara = StrPara0 + parameters[k].DefaultValue.ToString();
+                                        }
+                                        else
+                                        {
+                                            StrPara += parameters[k].Name + ": " + Clean_Parameter(parameters[k].ParameterType.Name.Replace("&", "").Replace("[", "(").Replace("]", ")"));
+                                        }
+
                                     }
-                                    else if (Ext == ".vb")
-                                    {
-                                        StrPara += parameters[k].Name + " As " + Clean_Parameter(parameters[k].ParameterType.Name.Replace("&", "").Replace("[", "(").Replace("]", ")"));
-                                    }
+                                    //else if (Ext == ".vb")
+                                    //{
+                                    //    StrPara += parameters[k].Name + " As " + Clean_Parameter(parameters[k].ParameterType.Name.Replace("&", "").Replace("[", "(").Replace("]", ")"));
+                                    //}
                                     else if (Ext == ".cs")
                                     {
                                         StrPara += Clean_Parameter(parameters[k].ParameterType.Name.Replace("&", "").Replace("[", "(").Replace("]", ")")) + " " + parameters[k].Name;
@@ -747,6 +809,7 @@ namespace FlexDlgUserCtrl
                                     var slist = comments.SeeAlso;
                                     if (slist.Count > 0)
                                     {
+
                                         //InfoDataScintilla.AppendText("See also:" + Environment.NewLine);
                                         //foreach (var s in slist)
                                         //{
@@ -764,6 +827,10 @@ namespace FlexDlgUserCtrl
                                     }
 
                                 }
+                            }
+                            if (found)
+                            {
+                                //break; // get out of the foreachloop
                             }
                         }
                         //minfo = CurType.GetMethod(MethodName);

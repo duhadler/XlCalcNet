@@ -31,7 +31,7 @@ namespace FlexDlgUserCtrl
 
             CommentStr = "//";
             InfoDataScintilla.LexerName = "cpp";
-            InfoDataScintilla.SetKeywords(0, " dynamic decimal default double string s uint ulong ushort  void Object Int32 ");
+            InfoDataScintilla.SetKeywords(0, " dynamic decimal default double string s uint ulong ushort  void Object Int32 True False None true false");
 
             InfoDataScintilla.SetKeywords(1, XlCalcKeyWords1 + XlCalcKeyWords2);
 
@@ -60,6 +60,9 @@ namespace FlexDlgUserCtrl
 
 
             InfoDataScintilla.Styles[Style.Cpp.Character].SizeF = FontSize;
+            InfoDataScintilla.Styles[Style.Cpp.Character].ForeColor = Color.FromArgb(255, 163, 21, 21);
+            //InfoDataScintilla.Styles[Style.Cpp.Operator].ForeColor = Color.Green;
+
             InfoDataScintilla.Styles[Style.Cpp.Identifier].SizeF = FontSize;
             InfoDataScintilla.Styles[Style.Cpp.Number].SizeF = FontSize;
             InfoDataScintilla.Styles[Style.Cpp.String].SizeF = FontSize;

@@ -1,0 +1,6 @@
+﻿
+<DnaLibrary RuntimeVersion="v4.0" Language="CS">
+
+<ExternalLibrary Path="MpFunLabAddin64.dll"/>
+
+</DnaLibrary>

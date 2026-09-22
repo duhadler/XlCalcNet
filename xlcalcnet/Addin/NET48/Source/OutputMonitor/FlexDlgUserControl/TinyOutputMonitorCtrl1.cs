@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-//using System.Windows.Controls;
 using System.Windows.Forms;
 
 
@@ -23,11 +22,29 @@ namespace TinyOutputMonitorCtrl
         bool dataGridViewTablesIsNotFormatted = true;
 
 
-        public string GetFullOutputPathTop()
+        private static string GetFullOutputPathTop()
         {
-            string LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            return LocalAppDataDir + @"\XlCalcNetIDE\OutputMonitor";
+            string _LocalAppDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string rootPath = _LocalAppDataDir + @"\XlCalcNetIDE\OutputMonitor";
+            string retValue = rootPath;
+
+            //If the folder does not exist, it will be created.
+            try
+            {
+                if (!Directory.Exists(rootPath))
+                {
+                    Directory.CreateDirectory(rootPath);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error: Unable to create the folder: " + rootPath, "Folder Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return retValue;
         }
+
+
+
 
 
         public OutputMonitorCtrl(string PythonRootDir)

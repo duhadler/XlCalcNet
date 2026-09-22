@@ -49,8 +49,8 @@ namespace TestXlCalcNetPrecCS
                             d1 = 1.0d;
                             break;
                         }
-                        // Case 3 : d1 = math53.posinf()
-                        // Case 4 : d1 = math53.nan()
+                        // Case 3 : d1 = math53.posinf
+                        // Case 4 : d1 = math53.nan
                 }
                 z1 = d1;
                 Console.WriteLine(" :: ");
@@ -100,20 +100,20 @@ namespace TestXlCalcNetPrecCS
         // Console.WriteLine()
         // Console.WriteLine("Hello DemoFprReal0!")
 
-        // Console.WriteLine("pi: {0}", math53.pi())
-        // Console.WriteLine("log2: {0}", math53.ln2())
-        // Console.WriteLine("log10: {0}", math53.ln10())
-        // Console.WriteLine("euler_gamma: {0}", math53.egamma())
-        // Console.WriteLine("catalan: {0}", math53.catalan())
-        // Console.WriteLine("e: {0}", math53.e())
-        // Console.WriteLine("khinchin: {0}", math53.khinchin())
-        // Console.WriteLine("glaisher: {0}", math53.glaisher())
-        // Console.WriteLine("apery: {0}", math53.apery())
+        // Console.WriteLine("pi: {0}", math53.pi)
+        // Console.WriteLine("log2: {0}", math53.ln2)
+        // Console.WriteLine("log10: {0}", math53.ln10)
+        // Console.WriteLine("euler_gamma: {0}", math53.egamma)
+        // Console.WriteLine("catalan: {0}", math53.catalan)
+        // Console.WriteLine("e: {0}", math53.e)
+        // Console.WriteLine("khinchin: {0}", math53.khinchin)
+        // Console.WriteLine("glaisher: {0}", math53.glaisher)
+        // Console.WriteLine("apery: {0}", math53.apery)
         // ' 
-        // Console.WriteLine("nan: {0}", math53.nan())
-        // Console.WriteLine("posinf: {0}", math53.posinf())
-        // Console.WriteLine("neginf: {0}", math53.neginf())
-        // Console.WriteLine("one: {0}", math53.one())
+        // Console.WriteLine("nan: {0}", math53.nan)
+        // Console.WriteLine("posinf: {0}", math53.posinf)
+        // Console.WriteLine("neginf: {0}", math53.neginf)
+        // Console.WriteLine("one: {0}", math53.one)
 
         // Console.WriteLine("machine_epsilon: {0}", math53.epsilon())
         // Console.WriteLine("maxval: {0}", math53.maxvalue())
@@ -170,19 +170,19 @@ namespace TestXlCalcNetPrecCS
             // Dim n As Int32
             double x, y, res;
 
-            // res = math53.posinf()
+            // res = math53.posinf
             // Console.WriteLine("res = math53.PositiveInfinity(): {0}", res)
 
-            res = math53.neginf();
+            res = math53.neginf;
             Console.WriteLine("res = math53.NegativeInfinity(): {0}", res);
 
-            res = math53.nan();
-            Console.WriteLine("res = math53.Nan(): {0}", res);
+            res = math53.nan;
+            Console.WriteLine("res = math53.nan: {0}", res);
 
-            res = math53.pi();
+            res = math53.pi;
             Console.WriteLine("res = math53.PI(): {0}", res);
 
-            res = math53.e();
+            res = math53.e;
             Console.WriteLine("res = math53.E(): {0}", res);
 
             res = math53.epsilon();
@@ -195,37 +195,37 @@ namespace TestXlCalcNetPrecCS
             // Console.WriteLine("res = math53.MinValue(): {0}", res)
 
 
-            res = math53.ln2();
+            res = math53.ln2;
             Console.WriteLine("res = math53.ConstLog2(): {0}", res);
 
-            res = math53.ln10();
+            res = math53.ln10;
             Console.WriteLine("res = math53.ConstLog10(): {0}", res);
 
-            res = math53.pi();
+            res = math53.pi;
             Console.WriteLine("res = math53.ConstPi(): {0}", res);
 
-            res = math53.e();
+            res = math53.e;
             Console.WriteLine("res = math53.ConstE(): {0}", res);
 
-            res = math53.egamma();
+            res = math53.egamma;
             Console.WriteLine("res = math53.ConstEulerGamma(): {0}", res);
 
-            res = math53.phi();
+            res = math53.phi;
             Console.WriteLine("res = math53.ConstPhi(): {0}", res);
 
-            res = math53.catalan();
+            res = math53.catalan;
             Console.WriteLine("res = math53.ConstCatalan(): {0}", res);
 
-            res = math53.khinchin();
+            res = math53.khinchin;
             Console.WriteLine("res = math53.ConstKhinchin(): {0}", res);
 
-            res = math53.glaisher();
+            res = math53.glaisher;
             Console.WriteLine("res = math53.ConstGlaisher(): {0}", res);
 
-            res = math53.apery();
+            res = math53.apery;
             Console.WriteLine("res = math53.ConstApery(): {0}", res);
 
-            res = math53.degree();
+            res = math53.degree;
             Console.WriteLine("res = math53.ConstDegree(): {0}", res);
 
 
@@ -535,10 +535,10 @@ namespace TestXlCalcNetPrecCS
 
 
 
-            x = 4.5d;
-            n = 12;
-            fr = math53.nroot(x, n);
-            Console.WriteLine("x: {0}, n: {1}, math53.Nroot(x, n): {2}", x, n, fr);
+            //x = 4.5d;
+            //n = 12;
+            //fr = math53.nroot(x, n);
+            //Console.WriteLine("x: {0}, n: {1}, math53.Nroot(x, n): {2}", x, n, fr);
 
 
 
@@ -662,10 +662,10 @@ namespace TestXlCalcNetPrecCS
 
 
 
-            x = 20.75d;
-            fr = math53.Cotd(x);
-            Console.WriteLine("x: {0}, math53.Cotd(x): {1}", x, fr);
-            Console.WriteLine();
+            //x = 20.75d;
+            //fr = math53.Cotd(x);
+            //Console.WriteLine("x: {0}, math53.Cotd(x): {1}", x, fr);
+            //Console.WriteLine();
 
 
             x = 20.75d;
@@ -823,8 +823,8 @@ namespace TestXlCalcNetPrecCS
 
 
             x = 20.75d;
-            fr = math53.gudermann(x);
-            Console.WriteLine("x: {0}, math53.Gudermann(x): {1}", x, fr);
+            fr = math53.gd(x);
+            Console.WriteLine("x: {0}, math53.gd(x): {1}", x, fr);
             Console.WriteLine();
 
 
@@ -883,9 +883,9 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine("x: {0}, math53.Asech(x): {1}", x, fr);
 
 
-            x = 0.75d;
-            fr = math53.arcgudermann(x);
-            Console.WriteLine("x: {0}, math53.Arcgd(x): {1}", x, fr);
+            //x = 0.75d;
+            //fr = math53.arcgudermann(x);
+            //Console.WriteLine("x: {0}, math53.Arcgd(x): {1}", x, fr);
 
 
 
@@ -1014,9 +1014,9 @@ namespace TestXlCalcNetPrecCS
             res = math53.airy_ai_prime(x);
             Console.WriteLine("x: {0}, math53.AiryAip(x): {1}", x, res);
 
-            x = 0.75d;
-            res = math53.airy_ai_scaled_(x);
-            Console.WriteLine("x: {0}, math53.AiryAis(x): {1}", x, res);
+            //x = 0.75d;
+            //res = math53.airy_ai_scaled_(x);
+            //Console.WriteLine("x: {0}, math53.AiryAis(x): {1}", x, res);
 
             x = 0.75d;
             res = math53.airy_bi(x);
@@ -1026,9 +1026,9 @@ namespace TestXlCalcNetPrecCS
             res = math53.airy_bi_prime(x);
             Console.WriteLine("x: {0}, math53.AiryBip(x): {1}", x, res);
 
-            x = 0.75d;
-            res = math53.airy_bi_scaled_(x);
-            Console.WriteLine("x: {0}, math53.AiryBis(x): {1}", x, res);
+            //x = 0.75d;
+            //res = math53.airy_bi_scaled_(x);
+            //Console.WriteLine("x: {0}, math53.AiryBis(x): {1}", x, res);
 
             x = 0.75d;
             res = math53.airy_gi(x);
@@ -1302,36 +1302,36 @@ namespace TestXlCalcNetPrecCS
 
             z = 0.75d;
             k = 0.1d;
-            res = math53.ellipticF(z, k);
+            res = math53.EllipticF(z, k);
             Console.WriteLine("z: {0}, k: {1}, math53.EllipticF(z, k): {2}", z, k, res);
 
             k = 0.75d;
-            res = math53.ellipticK(k);
+            res = math53.EllipticK(k);
             Console.WriteLine("k: {0}, math53.EllipticK(k): {1}", k, res);
 
             k = 0.75d;
-            res = math53.ellipticKim(k);
+            res = math53.EllipticKim(k);
             Console.WriteLine("k: {0}, math53.EllipticKim(k): {1}", k, res);
 
             k = 0.75d;
-            res = math53.ellipticCK(k);
+            res = math53.EllipticCK(k);
             Console.WriteLine("k: {0}, math53.EllipticCK(k): {1}", k, res);
 
             z = 0.75d;
             k = 0.1d;
-            res = math53.ellipticE(z, k);
+            res = math53.EllipticE(z, k);
             Console.WriteLine("z: {0}, k: {1}, math53.EllipticE(z, k): {2}", z, k, res);
 
             k = 0.75d;
-            res = math53.ellipticEC(k);
+            res = math53.EllipticEC(k);
             Console.WriteLine("k: {0}, math53.EllipticEC(k): {1}", k, res);
 
             k = 0.75d;
-            res = math53.ellipticECim(k);
+            res = math53.EllipticECim(k);
             Console.WriteLine("k: {0}, math53.EllipticECim(k): {1}", k, res);
 
             k = 0.75d;
-            res = math53.ellipticCE(k);
+            res = math53.EllipticCE(k);
             Console.WriteLine("k: {0}, math53.EllipticCE(k): {1}", k, res);
 
 
@@ -1339,25 +1339,25 @@ namespace TestXlCalcNetPrecCS
             z = 0.75d;
             nu = 1.4d;
             k = 0.6d;
-            res = math53.ellipticPi(z, nu, k);
+            res = math53.EllipticPi(z, nu, k);
             Console.WriteLine("z: {0}, nu: {1}, k: {2}, math53.EllipticPi(z, nu, k): {3}", z, nu, k, res);
 
 
             nu = 1.4d;
             k = 0.6d;
-            res = math53.ellipticPiC(nu, k);
+            res = math53.EllipticPiC(nu, k);
             Console.WriteLine("nu: {0}, k: {1}, math53.EllipticPiC(nu, k): {2}", nu, k, res);
 
 
             nu = 1.4d;
             k = 0.6d;
-            res = math53.ellipticCPi(nu, k);
+            res = math53.EllipticCPi(nu, k);
             Console.WriteLine("nu: {0}, k: {1}, math53.EllipticCPi(nu, k): {2}", nu, k, res);
 
 
             nu = 1.4d;
             k = 0.6d;
-            res = math53.ellipticPiCim(nu, k);
+            res = math53.EllipticPiCim(nu, k);
             Console.WriteLine("nu: {0}, k: {1}, math53.EllipticPiCim(nu, k): {2}", nu, k, res);
 
 
@@ -1545,11 +1545,11 @@ namespace TestXlCalcNetPrecCS
 
             Console.WriteLine();
 
-            int nn = 1;
+            //int nn = 1;
             x = 0.3d;
             q = 0.75d;
-            res = math53.jacobi_theta(nn, x, q);
-            Console.WriteLine("n: {0}, x: {1}, k: {2}, math53.JacobiTheta(nn, x, q): {3}", nn, x, k, res);
+            //res = math53.jacobi_theta(nn, x, q);
+            //Console.WriteLine("n: {0}, x: {1}, k: {2}, math53.JacobiTheta(nn, x, q): {3}", nn, x, k, res);
 
             q = 0.75d;
             res = math53.jacobi_theta1p(q);
@@ -1596,22 +1596,22 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine();
 
             x = 0.3d;
-            res = math53.acos_lemniscate(x);
-            Console.WriteLine("x: {0}, math53.AcosLemniscate(x): {1}", x, res);
+            res = math53.arccl(x);
+            Console.WriteLine("x: {0}, math53.arccl(x): {1}", x, res);
 
             x = 0.3d;
-            res = math53.asin_lemniscate(x);
-            Console.WriteLine("x: {0}, math53.AsinLemniscate(x): {1}", x, res);
+            res = math53.arcsl(x);
+            Console.WriteLine("x: {0}, math53.arcsl(x): {1}", x, res);
 
             // MISSING: SinCosLemniscate
 
             x = 0.3d;
-            res = math53.sin_lemniscate(x);
-            Console.WriteLine("x: {0}, math53.SinLemniscate(x): {1}", x, res);
+            res = math53.sinlemn(x);
+            Console.WriteLine("x: {0}, math53.sinlemn(x): {1}", x, res);
 
             x = 0.3d;
-            res = math53.cos_lemniscate(x);
-            Console.WriteLine("x: {0}, math53.CosLemniscate(x): {1}", x, res);
+            res = math53.coslemn(x);
+            Console.WriteLine("x: {0}, math53.coslemn(x): {1}", x, res);
 
 
 
@@ -2098,10 +2098,6 @@ namespace TestXlCalcNetPrecCS
 
 
             Console.WriteLine();
-
-            x = 12.1d;
-            res = math53.psi(x);
-            Console.WriteLine("x: {0}, math53.Psi(x): {1}", x, res);
 
             x = 12.1d;
             res = math53.psistar(x);
@@ -2902,16 +2898,6 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine("a: {0}, b: {1}, y: {2}, math53.KumaraswamyInv(a, b, y): {3}", a, b, y, res);
 
 
-            Console.WriteLine();
-
-            x = 2.1d;
-            res = math53.kolmogorovcdf(x);
-            Console.WriteLine("x: {0}, math53.KolmogorovCdf(x): {1}", x, res);
-
-            y = 0.95d;
-            res = math53.kolmogorovinv(y);
-            Console.WriteLine("y: {0}, math53.KolmogorovInv(x): {1}", y, res);
-
 
             Console.WriteLine();
 
@@ -3159,20 +3145,6 @@ namespace TestXlCalcNetPrecCS
             Console.WriteLine("b: {0}, y: {1}, math53.RayleighInv(b, y): {2}", b, y, res);
 
 
-            Console.WriteLine();
-
-            x = 0.75d;
-            res = math53.normstd_pdf(x);
-            Console.WriteLine("x: {0}, math53.NormstdPdf(b, x): {1}", x, res);
-
-            x = 0.75d;
-            res = math53.normstd_cdf(x);
-            Console.WriteLine("x: {0}, math53.NormstdCdf(b, x): {1}", x, res);
-
-            y = 0.95d;
-            res = math53.normstd_qtf(y);
-            Console.WriteLine("y: {0}, math53.NormstdInv(b, x): {1}", y, res);
-
 
             Console.WriteLine();
 
@@ -3360,7 +3332,7 @@ namespace TestXlCalcNetPrecCS
             double b = 20.0d;
             double eps = 0.00000001d;
             double tol = 0.00000001d;
-            var Res1 = math53.localmin(new cb1SDouble1S(F1), a, b, eps, tol);
+            var Res1 = math53.localmin(new math53.cb1SRet1S(F1), a, b, eps, tol);
             Console.WriteLine("Res1:(x, fx, ic) {0}", Res1);
             Console.WriteLine();
         }
@@ -3474,7 +3446,7 @@ namespace TestXlCalcNetPrecCS
             double epsrel = 0.00000001d;
             int limit = 0;
             Console.WriteLine("Qags: f = F4, a = {0}, b = {1}, epsabs = {2}, epsrel = {3}, limit = {4}", a, b, epsabs, epsrel, limit);
-            var Res2 = math53.qags(new cb1SDouble1S(F4), a, b, epsabs, epsrel);
+            var Res2 = math53.qags(new math53.cb1SRet1S(F4), a, b, epsabs, epsrel);
             Console.WriteLine("Res2:(result, abserr, neval, ier) {0}", Res2);
             Console.WriteLine();
         }
