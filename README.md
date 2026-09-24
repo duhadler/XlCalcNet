@@ -1,14 +1,14 @@
 ### XlCalcNet
 
-XlCalcNet (Microsoft E**X**ce**l** addin for **Calc**ulations in multiprecision, based on Python**Net**) is a python library that focusses on numerical calculations in multiple precision and data visualisation, which can also be used within spreadsheet formulas.
+XlCalcNet (Microsoft E**X**ce**l** and LibreOffice **Calc** addin, based on Python**Net**) is a python library with focus on numerical calculations in multiple precision and data visualisation, which can also be used within spreadsheet formulas.
 
 The full manual is available online in HTML format: [XlCalcNet.html](https://duhadler.github.io/XlCalcNetDocsHTML/).
 
-The manual can also be downloaded in PDF format from [here](https://github.com/duhadler/DocsXlCalcNet/blob/master/pdf/xlcalcnet.pdf).
+The manual can also be downloaded in PDF format from [here](https://github.com/duhadler/DocsXlCalcNet/raw/master/pdf/xlcalcnet.pdf).
 
 XlCalcNet can be installed as a python package from [PyPI](https://pypi.org/project/xlcalcnet/). More detailed information regarding the installation and general usage of XlCalcNet can be found [here](https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C01_Setup.html).
 
-Since one of the main goals of XlCalcNet is to enable the use of functions written in Python or C# within spreadsheet formulas, it is assumed that Microsoft Excel (2010 or later, 64 bit) is installed on the users system, running under Windows (7.1 or later, 64 bit), with .NET Framework 4.8/4.8.1 installed.
+Since one of the main goals of XlCalcNet is to enable the use of functions written in Python or C# within spreadsheet formulas, it is assumed that Microsoft Excel (2010 or later, 64 bit) is installed on the users system, running under Windows (7.1 or later, 64 bit).
 
 
 
@@ -16,10 +16,10 @@ Since one of the main goals of XlCalcNet is to enable the use of functions writt
 ### Use with Microsoft Excel
 
 
-Once MS Excel has been prepared for using XlCalcNet (see [here](https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C01_Setup.html#preparing-ms-excel-for-using-xlcalcnet-first-steps) for details), one can call small Python scripts in spreadsheet formulas and pass parameters from other spreadsheet cells. If the example workbook “Simple.xlsx” has been loaded, the following dialog box will appear when the user clicks on the “Insert Function” button in Excel’s formula bar:
+Once MS Excel has been prepared for using XlCalcNet (see [here](https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C01_Setup.html#preparing-ms-excel-for-using-xlcalcnet-first-steps) for details), one can run small Python scripts in spreadsheet formulas, using parameters which are passed from other spreadsheet cells. If the example workbook "Simple.xlsx" has been loaded, the following dialog box will appear when the user clicks on the "Insert Function" button in Excel's formula bar:
 
 <p align="center">
-  <img src="images/FunctionArguments.png" alt="Excel's function dialog" width="600">
+  <img src="images/XL_FunctionArguments.png" alt="Excel's function dialog" width="600">
 </p>
 
 
@@ -27,7 +27,7 @@ XlCalcNet can also be used for procedures. To access the relevant dialog, right-
 
 
 <p align="center">
-  <img src="images/ContextMenu.png" alt="Excel's context menu" width="400">
+  <img src="images/XL_ContextMenu.png" alt="Excel's context menu" width="400">
 </p>
 
 
@@ -35,7 +35,37 @@ Click on Navigator for XlCalcNet. The following dialog box will appear:
 
 
 <p align="center">
-  <img src="images/NavigatorXlCalcNet.png" alt="Navigator for XlCalcNet" width="500">
+  <img src="images/XL_NavigatorXlCalcNet.png" alt="Navigator for XlCalcNet" width="500">
+</p>
+
+This can be used to call external procedures, which are not used in spreadsheet formulas. The procedures can be used to generate plots, for example. The generated plots can be saved as bitmap files or as interactive 3D plots in a separate window.
+
+
+
+
+### Use with LibreOffice Calc
+
+
+Once LibreOffice Calc has been prepared for using XlCalcNet (see [here](https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C01_Setup.html#preparing-libreoffice-calc-for-using-xlcalcnet-first-steps) for details), one can run small Python scripts in spreadsheet formulas, using parameters which are passed from other spreadsheet cells. If the example workbook "Simple.xlsx" has been loaded, the following dialog box will appear when the user clicks on the "Insert Function" button in LibreOffice Calc's formula bar:
+
+<p align="center">
+  <img src="images/LO_FunctionArguments.png" alt="LibreOffice Calc's function wizard" width="600">
+</p>
+
+
+XlCalcNet can also be used for procedures. To access the relevant dialog, click on the XlCalcNet logo (in orange) on the main menu bar:
+
+
+<p align="center">
+  <img src="images/LO_MainMenu.png" alt="LibreOffice Calc's main menu" width="300">
+</p>
+
+
+The following dialog box will appear:
+
+
+<p align="center">
+  <img src="images/LO_NavigatorXlCalcNet.png" alt="LibreOffice Calc Navigator for XlCalcNet" width="500">
 </p>
 
 This can be used to call external procedures, which are not used in spreadsheet formulas. The procedures can be used to generate plots, for example. The generated plots can be saved as bitmap files or as interactive 3D plots in a separate window.
@@ -44,7 +74,9 @@ This can be used to call external procedures, which are not used in spreadsheet 
 
 ### Additional information
 
-Since the main goal is to give access to software written in Python (or, via [PythonNet](https://github.com/pythonnet/pythonnet), software written in C#) within Microsoft Excel spreadsheet formulas, a dedicated CPython installation is strongly recommended, to make it easier to configure the interaction with Microsoft Excel, without disturbing existing Python installations.
+Since one of the main goals is to give access to software written in Python (or, via [PythonNet](https://github.com/pythonnet/pythonnet), software written in C#) within Microsoft Excel spreadsheet formulas, a dedicated CPython installation is strongly recommended, to make it easier to configure the interaction with Microsoft Excel and/or LibreOffice Calc, without disturbing existing Python installations.
+
+The interaction with LibreOffice Calc is based on the fact that LibreOffice has built-in support for writing spreadsheet functions (which appear in the Function Wizard) in Python.
 
 The interaction with Microsoft Excel is achieved by running a socket server written in Python, which is called from spreadsheet formulas using the functionality provided by [ExcelDna](https://github.com/Excel-DNA/ExcelDna).
 
@@ -54,9 +86,9 @@ Also included in XlCalcNet is (a slightly patched version of) of [S3Dlib](https:
 
 On the Pascal/C/C++ side, XlCalcNet uses [DAMath](https://github.com/duhadler/DAMath), [Boost Math](https://github.com/boostorg/math/), [Boost Multiprecision](https://github.com/boostorg/multiprecision), [Boost Odeint](https://www.boost.org/doc/libs/latest/libs/numeric/odeint/doc/html/index.html) and [Eigen](https://libeigen.gitlab.io/) to provide numerical functions in single, double, extended, quadruple and octuple precision, which are available to the user both from C# and Python.
 
-The [XlCalcNet2](https://duhadler.github.io/XlCalcNet2/) library, which is licensed under the LGPL-3.0 and is therefore provided in a separate repository, is based on Boost Math, Boost Multiprecision, Boost Odeint, Eigen, [GMP](https://gmplib.org/), [MPFR](https://www.mpfr.org/), [MPC](https://www.multiprecision.org/mpc/) and [FLINT](https://flintlib.org/) and provides functions for the same data types as XlCalcNet and also in arbitrary precision, which are available to the user both from C# and Python.
+The [XlCalcNet2](https://duhadler.github.io/XlCalcNet2/) library, which is licensed under the LGPL-3.0 and is therefore provided in a separate repository, is based on Boost Math, Boost Multiprecision, Boost Odeint, Eigen, [GMP](https://gmplib.org/), [MPFR](https://www.mpfr.org/), [MPC](https://www.multiprecision.org/mpc/) and [FLINT](https://flintlib.org/) and provides additional functions for the same fixed precision data types as XlCalcNet and also in arbitrary precision, which are available to the user both from C# and Python.
 
-XlCalcNet is intended to be used together with existing Python libraries like [NumPy](https://numpy.org/) (described in the manual [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C08_Numpy.html)), [Matplotlib](https://matplotlib.org/) (described in the manual [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C09_Matplotlib.html)), [Pandas](https://pandas.pydata.org/) (described in the manual [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C10_Pandas.html)), [SciPy](https://scipy.org/) (described in the manual [here](https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C11_Scipy.html)). 
+XlCalcNet is intended to be used together with existing Python libraries like [NumPy](https://numpy.org/), [Matplotlib](https://matplotlib.org/), [Pandas](https://pandas.pydata.org/) or [SciPy](https://scipy.org/), and many of the examples in the manual can only be reproduced when these libraries are installed.
 
 
 
