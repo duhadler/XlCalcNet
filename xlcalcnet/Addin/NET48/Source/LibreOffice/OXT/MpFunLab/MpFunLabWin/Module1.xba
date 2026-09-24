@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Module1" script:language="StarBasic" script:moduleType="normal">
+
+Option Compatible
+
+Public Function BasicFromPython(ParamArray args() As Variant) As Variant
+    Dim Tag As String, Script As Object
+    smgr = GetProcessServiceManager()
+    mspf = smgr.createInstance(&quot;com.sun.star.script.provider.MasterScriptProviderFactory&quot;)
+    scriptProvider = mspf.createScriptProvider(&quot;&quot;)
+    Tag = args(UBound(args))
+    If Tag = &quot;path&quot; Then
+        GetCPythonPathName = &quot;MpFunlabLocal.CallsFromPython.GetCPythonPathLocal&quot;
+        Script = scriptProvider.getScript(&quot;vnd.sun.star.script:&quot; + GetCPythonPathName + &quot;?language=Basic&amp;location=application&quot;)
+        ResultArray = Script.invoke(Array(), Array(), Array())
+        BasicFromPython = ResultArray(0)(0)
+    End If
+End Function
+
+Sub ShowMpFunlabMainDlg
+    Dim Script As Object
+    smgr = GetProcessServiceManager()
+    mspf = smgr.createInstance(&quot;com.sun.star.script.provider.MasterScriptProviderFactory&quot;)
+    scriptProvider = mspf.createScriptProvider(&quot;&quot;)
+    BasicScriptName = &quot;MpFunlabLocal.CallsFromPython.ShowMpFunlabMainDlgLocal&quot;
+    Script = scriptProvider.getScript(&quot;vnd.sun.star.script:&quot; + BasicScriptName + &quot;?language=Basic&amp;location=application&quot;)
+    ResultArray = Script.invoke(Array(), Array(), Array())
+End Sub
+
+</script:module>

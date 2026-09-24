@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="BasicAndDialogs" script:language="StarBasic">REM  *****  BASIC  *****
+REM see also https://www.pitonyak.org/oo.php
+
+
+Option Compatible &apos; &quot;Standard.Scripting&quot; module
+&apos;Option Explicit
+
+
+
+Sub Main
+
+End Sub
+
+
+Dim dlgMpFunLabWinLocal
+
+
+Sub ShowMpFunLabWinDialogLocal()
+    With GlobalScope.Basiclibraries
+       If Not .IsLibraryLoaded(&quot;Tools&quot;) Then .LoadLibrary(&quot;Tools&quot;)
+    End With
+    dlgMpFunLabWinLocal = ModuleControls.LoadDialog(&quot;MpFunlabLocal&quot;, &quot;dlgMpFunLabWinLocal&quot;)
+    dlgMpFunLabWinLocal.Execute()
+End Sub    
+
+
+
+
+Sub ShowScriptEditorCalledFromMainLocal()
+	dlgMpFunLabWinLocal.endExecute()
+	DemoStartScriptEditorLocal()
+End Sub
+
+
+Sub ShowOfficePythonCalledFromMainLocal
+	dlgMpFunLabWinLocal.endExecute()
+	DemoLibreOfficePythonCalledLocal()
+End Sub 
+
+
+Sub ShowArrayFormulasCalledFromMainLocal()
+	dlgMpFunLabWinLocal.endExecute()
+    With GlobalScope.Basiclibraries
+       If Not .IsLibraryLoaded(&quot;Tools&quot;) Then .LoadLibrary(&quot;Tools&quot;)
+    End With
+    dlgArrayFormulas = ModuleControls.LoadDialog(&quot;MpFunlabLocal&quot;, &quot;dlgArrayFormulasLocal&quot;)
+    dlgArrayFormulas.Execute()		
+End Sub 
+
+
+
+&apos; ********************************************************************************************************************************
+
+
+
+Sub interpreter_console2_macos
+    ps = CreateUnoService(&quot;com.sun.star.util.PathSettings&quot;)
+    install_path = ConvertFromURL(ps.Module)
+    print( install_path + GetPathSeparator() + &quot;python&quot; )
+End Sub
+
+
+
+Sub interpreter_console_macos
+   REM Cmd = &quot;osascript -e &apos;tell app &quot;&quot;Numbers&quot;&quot; to activate&apos; &quot;
+   
+    Cmd = &quot;osascript -e &apos;tell app &quot;&quot;Terminal&quot;&quot; to do script &quot;&quot;/Applications/LibreOffice.app/Contents/Resources/python&quot;&quot; &apos; &quot;
+	REM print Cmd
+    Shell(Cmd)
+    
+    Cmd = &quot;osascript -e &apos;tell app &quot;&quot;Terminal&quot;&quot; to activate&apos; &quot;
+	REM print Cmd
+    Shell(Cmd)
+End Sub
+
+
+
+Public Function GetPythonPath_macos() As String
+	s2 = &quot;/Library/Python/3.7/site-packages&quot;	
+	GetPythonPath = &quot;&quot;
+
+REM	GetPythonPath = s6 &amp; &quot;,&quot;  &amp;  s5 &amp; &quot;,&quot; &amp; s4 &amp; &quot;,&quot; &amp; s3 &amp; &quot;,&quot; &amp; s2 &amp; &quot;,&quot; &amp; s1
+End Function
+
+
+
+Function SysPat_macos()
+
+&apos;s = &quot;[&apos;&apos;, &apos;/Users/dietrichhadler/Documents&apos;, 
+&apos;/Library/Frameworks/Python.framework/Versions/3.8/lib/python38.zip&apos;, 
+&apos;/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8&apos;, 
+&apos;/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/lib-dynload&apos;, 
+&apos;/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages&apos;]&quot;
+
+End Function
+
+
+
+
+
+Sub DemoLibreOfficePythonCalledLocal()
+	fa = createUnoService(&quot;com.sun.star.sheet.FunctionAccess&quot;)  
+	Code = &quot;result = os.path.dirname(str(sys.executable))&quot;
+	ResultArray = fa.callFunction(&quot;APY0&quot;, Array(Code))
+	path = ResultArray(0)(0) + &quot;\python.exe&quot;
+&apos;	MsgBox(path)
+	Shell(path)
+End Sub 
+
+
+Sub DemoStartScriptEditorLocal()
+	s =  GetCPythonExeDirLocal()
+	&apos;Print(s)
+	path = s + &quot;\Lib\site-packages\xlcalcnet\Bin\TinyEditorXL64.exe&quot;
+	&apos;Print(path)
+	Shell(path)
+End Sub
+
+
+
+
+
+&apos; ********************************************************************************************************************************
+
+
+
+
+
+
+
+Sub Print2(ParamArray args() As Variant, Optional sep As String = &quot; &quot;)
+    &apos;&apos;&apos; Print item list of variable number &apos;&apos;&apos;
+    &apos; all CStr() convertible args are accepted
+    Dim str As String, i As Integer
+    If UBound(args) &gt;= 0 Then
+        For i = 0 To UBound(args)
+            str = str + Cstr(args(i))+ sep
+        Next i
+    End If
+    Print str
+End Sub &apos; Standard.Scripting.Print2()
+
+Public Function SUM2(ParamArray args() As Variant) As Variant
+    &apos;&apos;&apos; SUM a variable list of numbers &apos;&apos;&apos;
+    Dim ndx As Integer
+    Dim SUM As Variant
+    SUM = 0
+    If UBound(args) &gt;= 0 Then
+        For ndx = 0 To UBound(args)
+            SUM = SUM + args(ndx)
+        Next ndx
+    End If
+    SUM2 = Array( Array(SUM, 2*SUM),  Array(3*SUM, 4*SUM, 5*SUM) )
+End Function &apos; Standard.Scripting.SUM2()
+
+Sub TestSUM2()
+	Dim Result
+	Result = SUM2(1, 2, 3)
+	MsgBox(Result)
+End Sub
+
+
+Sub test()
+fa = createUnoService(&quot;com.sun.star.sheet.FunctionAccess&quot;)  
+MsgBox(fa.callFunction(&quot;ISNUMBER&quot;, Array(&quot;NaN&quot;)))
+MsgBox(fa.callFunction(&quot;ISNUMBER&quot;, Array(fa.callFunction(&quot;PI&quot;, Array()))))
+End Sub  
+
+
+Sub TestSF()
+	GlobalScope.BasicLibraries.LoadLibrary(&quot;ScriptForge&quot;)
+	Dim exc : exc = CreateScriptService(&quot;Exception&quot;)
+	exc.ConsoleClear(0)
+	exc.DebugPrint(Null, Array(1, 2, 3), &quot;line1&quot; &amp; Chr(10) &amp; &quot;Line2&quot;, DateSerial(2020, 04, 09))
+	&apos; [NULL]   [ARRAY] (0:2) (1, 2, 3)  line1\nLine2  2020-04-09
+	exc.Console(Modal := False)
+End Sub  
+
+
+Sub showResultArray(ResultArray)
+	GlobalScope.BasicLibraries.LoadLibrary(&quot;ScriptForge&quot;)
+	Dim exc : exc = CreateScriptService(&quot;Exception&quot;)
+	exc.ConsoleClear(0)	
+&apos;	exc.Console(Modal := False)
+		
+	L1 = LBound(ResultArray, 1)
+	U1 = UBound(ResultArray, 1)
+	L2 = LBound(ResultArray(0), 1)
+	U2 = UBound(ResultArray(0), 1)
+
+	exc.DebugPrint(&quot;L1: &quot;  + Str(L1) + &quot; U1: &quot; + Str(U1) + &quot;;  L2: &quot;  + Str(L2) + &quot; U2: &quot; + Str(U2))
+	For i = L1 to U1
+		For j = L1 to U2
+			exc.DebugPrint(&quot;i: &quot;  + Str(i) + &quot;,  j: &quot; + Str(j) + &quot;;  Result: &quot;  + ResultArray(i)(j))
+		Next j
+	Next i
+	exc.Console(Modal := False)
+End Sub  
+
+
+
+Sub test1()
+fa = createUnoService(&quot;com.sun.star.sheet.FunctionAccess&quot;)  
+result1 = fa.callFunction(&quot;PI&quot;, Array())
+MsgBox(TypeName(result1))
+MsgBox(fa.callFunction(&quot;PI&quot;, Array()))
+MsgBox(fa.callFunction(&quot;BESSELY&quot;, Array(3.0, 4.0)))
+End Sub  
+
+
+
+Sub test2()
+fa = createUnoService(&quot;com.sun.star.sheet.FunctionAccess&quot;)  
+Code = &quot;result = os.path.dirname(str(sys.executable))&quot;
+ResultArray = fa.callFunction(&quot;OPY0&quot;, Array(Code))
+result = ResultArray(0)(0)
+MsgBox(result)
+End Sub  
+
+
+Sub convertResultArray(ResultArray)
+	L1 = LBound(ResultArray, 1)
+	U1 = UBound(ResultArray, 1)
+	L2 = LBound(ResultArray(0), 1)
+	U2 = UBound(ResultArray(0), 1)
+	&apos;MsgBox(&quot;L1: &quot;  + Str(L1) + &quot; U1: &quot; + Str(U1) + &quot;;  L2: &quot;  + Str(L2) + &quot; U2: &quot; + Str(U2))
+	For i = L1 to U1
+		For j = L1 to U2
+			MsgBox(&quot;i: &quot;  + Str(i) + &quot;,  j: &quot; + Str(j) + &quot;;  Result: &quot;  + ResultArray(i)(j))
+		Next j
+	Next i
+End Sub  
+
+
+	Sub DemoBasicFromPython11()
+	Dim res As Variant, res2 As Variant
+	res = BasicFromPython(&quot;path&quot;, &quot;path&quot;)
+	print res
+	End Sub
+
+
+	Sub DemoBasicFromPython12()
+	Dim res As Variant
+	res = BasicFromPython(&quot;result = 2&quot;, &quot;cp&quot;)
+	print res
+	End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script:module>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dlg:window PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "dialog.dtd">
+<dlg:window xmlns:dlg="http://openoffice.org/2000/dialog" xmlns:script="http://openoffice.org/2000/script" dlg:id="dlgNumpyAndRelated" dlg:tab-index="0" dlg:left="10" dlg:top="10" dlg:width="390" dlg:height="325" dlg:closeable="true" dlg:moveable="true" dlg:title="MpFunLab function browser">
+ <dlg:styles>
+  <dlg:style dlg:style-id="0" dlg:background-color="0xffffff"/>
+ </dlg:styles>
+ <dlg:bulletinboard>
+  <dlg:text dlg:id="lblResult" dlg:tab-index="7" dlg:left="12" dlg:top="283" dlg:width="365" dlg:height="30"/>
+  <dlg:text dlg:id="lblNumpyPythonScript" dlg:tab-index="4" dlg:left="10" dlg:top="200" dlg:width="240" dlg:height="10" dlg:value="Python script example (for use in a spreadsheet formula)"/>
+  <dlg:textfield dlg:style-id="0" dlg:id="tbNumpyPythonScript" dlg:tab-index="5" dlg:left="10" dlg:top="210" dlg:width="240" dlg:height="60" dlg:hide-inactive-selection="false" dlg:multiline="true"/>
+  <dlg:titledbox dlg:id="frameResult" dlg:tab-index="6" dlg:left="10" dlg:top="275" dlg:width="370" dlg:height="40">
+   <dlg:title dlg:value="Result"/>
+  </dlg:titledbox>
+  <dlg:button dlg:id="CommandButton8" dlg:tab-index="14" dlg:left="311" dlg:top="205" dlg:width="0" dlg:height="6" dlg:value="CommandButton8"/>
+  <dlg:button dlg:id="CommandButton9" dlg:tab-index="15" dlg:left="317" dlg:top="203" dlg:width="0" dlg:height="6" dlg:value="CommandButton9"/>
+  <dlg:button dlg:id="btnNumpyPrev" dlg:tab-index="8" dlg:disabled="true" dlg:left="260" dlg:top="210" dlg:width="40" dlg:height="14" dlg:value="Prev"/>
+  <dlg:button dlg:id="btnNumpyNext" dlg:tab-index="9" dlg:disabled="true" dlg:left="260" dlg:top="233" dlg:width="40" dlg:height="14" dlg:value="Next"/>
+  <dlg:button dlg:id="btnNumpyRun" dlg:tab-index="10" dlg:left="260" dlg:top="256" dlg:width="40" dlg:height="14" dlg:default="true" dlg:value="Run">
+   <script:event script:event-name="on-performaction" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpyRunButton?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:button>
+  <dlg:button dlg:id="btnNumpyHelp" dlg:tab-index="11" dlg:left="340" dlg:top="210" dlg:width="40" dlg:height="14" dlg:value="Help">
+   <script:event script:event-name="on-performaction" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpyHelpButton?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:button>
+  <dlg:button dlg:id="btnNumpyOK" dlg:tab-index="12" dlg:left="340" dlg:top="233" dlg:width="40" dlg:height="14" dlg:value="Insert">
+   <script:event script:event-name="on-performaction" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpyInsertButton?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:button>
+  <dlg:button dlg:id="btnNumpyCancel" dlg:tab-index="13" dlg:left="340" dlg:top="256" dlg:width="40" dlg:height="14" dlg:value="Cancel" dlg:button-type="cancel"/>
+  <dlg:menulist dlg:style-id="0" dlg:id="lboxNumpyCategory" dlg:tab-index="18" dlg:left="10" dlg:top="80" dlg:width="110" dlg:height="110">
+   <script:event script:event-name="on-keyup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpyCategoryChanged?language=Basic&amp;location=application" script:language="Script"/>
+   <script:event script:event-name="on-mouseup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpyCategoryChanged?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:menulist>
+  <dlg:menulist dlg:style-id="0" dlg:id="lboxNumpyPart" dlg:tab-index="19" dlg:left="10" dlg:top="20" dlg:width="110" dlg:height="46">
+   <script:event script:event-name="on-keyup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpyPartChanged?language=Basic&amp;location=application" script:language="Script"/>
+   <script:event script:event-name="on-mouseup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpyPartChanged?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:menulist>
+  <dlg:menulist dlg:style-id="0" dlg:id="lboxNumpySubCategory" dlg:tab-index="17" dlg:left="130" dlg:top="20" dlg:width="120" dlg:height="170">
+   <script:event script:event-name="on-keyup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpySubCategoryChanged?language=Basic&amp;location=application" script:language="Script"/>
+   <script:event script:event-name="on-mouseup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpySubCategoryChanged?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:menulist>
+  <dlg:menulist dlg:style-id="0" dlg:id="lboxNumpyFunction" dlg:tab-index="16" dlg:left="260" dlg:top="20" dlg:width="120" dlg:height="170">
+   <script:event script:event-name="on-keyup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpyFunctionChanged?language=Basic&amp;location=application" script:language="Script"/>
+   <script:event script:event-name="on-mouseup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgNumpyAndRelatedBasic.NumpyFunctionChanged?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:menulist>
+  <dlg:text dlg:id="lblNumpyCategory" dlg:tab-index="3" dlg:left="10" dlg:top="70" dlg:width="110" dlg:height="10" dlg:value="Category"/>
+  <dlg:text dlg:id="lblNumpyPart" dlg:tab-index="0" dlg:left="10" dlg:top="10" dlg:width="110" dlg:height="10" dlg:value="Part"/>
+  <dlg:text dlg:id="lblNumpySubCategory" dlg:tab-index="1" dlg:left="130" dlg:top="10" dlg:width="110" dlg:height="10" dlg:value="SubCategory"/>
+  <dlg:text dlg:id="lblNumpyFunction" dlg:tab-index="2" dlg:left="260" dlg:top="10" dlg:width="110" dlg:height="10" dlg:value="Function"/>
+ </dlg:bulletinboard>
+</dlg:window>

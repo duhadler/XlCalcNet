@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="dlgNumpyAndRelatedBasic" script:language="StarBasic" script:moduleType="normal">
+&apos;********************************* Beginning of internal dialog routines *****************************************************
+
+Private dlgNumpy1
+Private LastNumpyPartPos As Integer
+Private LastNumpyCategoryPos As Integer
+Private LastNumpySubCategoryPos As Integer
+Private LastNumpyFunctionPos As Integer
+
+
+Sub ShowNumpyDialog()
+    With GlobalScope.Basiclibraries
+       If Not .IsLibraryLoaded(&quot;Tools&quot;) Then .LoadLibrary(&quot;Tools&quot;)
+    End With
+   dlgNumpy1 = ModuleControls.LoadDialog(&quot;MpFunlabLocal&quot;, &quot;dlgNumpyAndRelated&quot;)
+	dlgNumpy1.setPosSize(300, 300, 0, 0, 3)
+    lboxNumpyPart =dlgNumpy1.GetControl(&quot;lboxNumpyPart&quot;)
+    lboxNumpyPart.addItems(MenuNumpy0(), 0) 
+    lboxNumpyPart.selectItemPos(0, True)
+    Selector0 =  lboxNumpyPart.getSelectedItem()     
+    LastNumpyPartPos = 0
+    
+    lboxNumpyCategory =dlgNumpy1.GetControl(&quot;lboxNumpyCategory&quot;)
+    lboxNumpyCategory.addItems(MenuNumpy1(Selector0), 0) 
+    lboxNumpyCategory.selectItemPos(0, True)
+    Selector1 =  lboxNumpyCategory.getSelectedItem()   
+    LastNumpyCategoryPos = 0
+    
+    lboxNumpySubCategory =dlgNumpy1.GetControl(&quot;lboxNumpySubCategory&quot;)
+    lboxNumpySubCategory.addItems(MenuNumpy2(Selector0, Selector1), 0) 
+    lboxNumpySubCategory.selectItemPos(0, True)
+    Selector2 =  lboxNumpySubCategory.getSelectedItem() 
+    LastNumpySubCategoryPos = 0
+    
+    lboxNumpyFunction =dlgNumpy1.GetControl(&quot;lboxNumpyFunction&quot;)
+    lboxNumpyFunction.addItems(MenuNumpy3(Selector0, Selector1, Selector2), 0) 
+    lboxNumpyFunction.selectItemPos(0, True)
+    Selector3 =  lboxNumpyFunction.getSelectedItem() 
+    LastNumpyFunctionPos = 0
+    
+	SetExamplePyCode( Selector0, Selector1, Selector2,Selector3)
+    dlgNumpy1.Execute()   
+End Sub
+
+
+Sub SetExamplePyCode( Selector0 As String, Selector1 As String, Selector2 As String,Selector3 As String)
+    tbNumpyPythonScript =dlgNumpy1.GetControl(&quot;tbNumpyPythonScript&quot;)
+    PyCode = &quot;# Example for: &quot; + Selector0 +&quot; | &quot; + Selector1 + &quot; | &quot;   + Selector2 +&quot; | &quot;   + Selector3 + &quot;:&quot;  + Chr(10) 
+    PyCode = PyCode + &quot;temp = 0 $n for i in range(14): $n$t temp += i $n result = 2 * temp&quot;
+	tbNumpyPythonScript.setText(PyCode)
+	
+End Sub
+
+
+Sub NumpyPartChanged()
+	lboxNumpyPart =dlgNumpy1.GetControl(&quot;lboxNumpyPart&quot;)
+	CurrentPos = lboxNumpyPart.getSelectedItemPos()
+	If (LastNumpyPartPos &lt;&gt; CurrentPos) Then
+		LastNumpyPartPos  = CurrentPos
+		Selector0 =  lboxNumpyPart.getSelectedItem()
+		
+	    lboxNumpyCategory =dlgNumpy1.GetControl(&quot;lboxNumpyCategory&quot;) 
+	    lboxNumpyCategory.removeItems(0, lboxNumpyCategory.getItemCount())
+	    lboxNumpyCategory.addItems(MenuNumpy1(Selector0), 0) 
+	    lboxNumpyCategory.selectItemPos(0, True)
+		Selector1 =  lboxNumpyCategory.getSelectedItem()	    
+	    LastNumpyCategoryPos = 0
+			
+	    lboxNumpySubCategory =dlgNumpy1.GetControl(&quot;lboxNumpySubCategory&quot;) 
+	    lboxNumpySubCategory.removeItems(0, lboxNumpySubCategory.getItemCount())
+	    lboxNumpySubCategory.addItems(MenuNumpy2(Selector0, Selector1), 0) 
+	    lboxNumpySubCategory.selectItemPos(0, True)
+	    Selector2 =  lboxNumpySubCategory.getSelectedItem()	 	    
+	    LastNumpySubCategoryPos = 0
+	    
+	    lboxNumpyFunction =dlgNumpy1.GetControl(&quot;lboxNumpyFunction&quot;)
+	    Selector2 =  lboxNumpySubCategory.getSelectedItem() 
+	    lboxNumpyFunction.removeItems(0, lboxNumpyFunction.getItemCount())
+	    lboxNumpyFunction.addItems(MenuNumpy3(Selector0, Selector1, Selector2), 0) 
+	    lboxNumpyFunction.selectItemPos(0, True)
+	    LastNumpyFunctionPos = 0		
+	    Selector3 =  lboxNumpyFunction.getSelectedItem()
+	    SetExamplePyCode( Selector0, Selector1, Selector2,Selector3)	  	    
+	End If
+End Sub
+
+
+
+Sub NumpyCategoryChanged()
+	lboxNumpyPart =dlgNumpy1.GetControl(&quot;lboxNumpyPart&quot;)
+	lboxNumpyCategory =dlgNumpy1.GetControl(&quot;lboxNumpyCategory&quot;)	
+	CurrentPos = lboxNumpyCategory.getSelectedItemPos()
+	Selector0 = &quot;Numpy and related&quot;
+	If (LastNumpyCategoryPos &lt;&gt; CurrentPos) Then
+		LastNumpyCategoryPos  = CurrentPos
+		Selector0 =  lboxNumpyPart.getSelectedItem()		
+		Selector1 =  lboxNumpyCategory.getSelectedItem()
+		
+	    lboxNumpySubCategory =dlgNumpy1.GetControl(&quot;lboxNumpySubCategory&quot;) 
+	    lboxNumpySubCategory.removeItems(0, lboxNumpySubCategory.getItemCount())
+	    lboxNumpySubCategory.addItems(MenuNumpy2(Selector0, Selector1), 0) 
+	    lboxNumpySubCategory.selectItemPos(0, True)
+	    Selector2 =  lboxNumpySubCategory.getSelectedItem()	    
+	    LastNumpySubCategoryPos = 0
+	    
+	    lboxNumpyFunction =dlgNumpy1.GetControl(&quot;lboxNumpyFunction&quot;)
+	    lboxNumpyFunction.removeItems(0, lboxNumpyFunction.getItemCount())
+	    lboxNumpyFunction.addItems(MenuNumpy3(Selector0, Selector1, Selector2), 0) 
+	    lboxNumpyFunction.selectItemPos(0, True)
+	    LastNumpyFunctionPos = 0			
+	    Selector3 =  lboxNumpyFunction.getSelectedItem()
+	    SetExamplePyCode( Selector0, Selector1, Selector2,Selector3)	    
+	End If
+End Sub
+
+
+Sub NumpySubCategoryChanged()
+	lboxNumpyPart =dlgNumpy1.GetControl(&quot;lboxNumpyPart&quot;)
+	lboxNumpySubCategory =dlgNumpy1.GetControl(&quot;lboxNumpySubCategory&quot;)
+	CurrentPos = lboxNumpySubCategory.getSelectedItemPos()
+	If (LastNumpySubCategoryPos &lt;&gt; CurrentPos) Then
+		LastNumpySubCategoryPos  = CurrentPos
+		lboxNumpyCategory =dlgNumpy1.GetControl(&quot;lboxNumpyCategory&quot;)
+		Selector0 =  lboxNumpyPart.getSelectedItem()		
+		Selector1 =  lboxNumpyCategory.getSelectedItem()
+		Selector2 =  lboxNumpySubCategory.getSelectedItem()
+		lboxNumpyFunction =dlgNumpy1.GetControl(&quot;lboxNumpyFunction&quot;)
+	    lboxNumpyFunction.removeItems(0, lboxNumpyFunction.getItemCount())
+	    lboxNumpyFunction.addItems(MenuNumpy3(Selector0, Selector1, Selector2), 0) 
+	    lboxNumpyFunction.selectItemPos(0, True)
+	    LastNumpyFunctionPos = 0
+	    Selector3 =  lboxNumpyFunction.getSelectedItem()
+	    SetExamplePyCode( Selector0, Selector1, Selector2,Selector3)
+	End If
+End Sub
+
+
+
+
+
+
+Sub NumpyFunctionChanged()
+	lboxNumpyPart =dlgNumpy1.GetControl(&quot;lboxNumpyPart&quot;)
+	Selector0 =  lboxNumpyPart.getSelectedItem()
+    lboxNumpyCategory =dlgNumpy1.GetControl(&quot;lboxNumpyCategory&quot;) 
+	Selector1 =  lboxNumpyCategory.getSelectedItem()	    			    
+    lboxNumpySubCategory =dlgNumpy1.GetControl(&quot;lboxNumpySubCategory&quot;)
+    Selector2 =  lboxNumpySubCategory.getSelectedItem() 
+	lboxNumpyFunction =dlgNumpy1.GetControl(&quot;lboxNumpyFunction&quot;)
+	Selector3 =  lboxNumpyFunction.getSelectedItem() 
+	CurrentPos = Selector3
+	If (LastNumpyFunctionPos &lt;&gt; CurrentPos) Then
+		LastNumpyFunctionPos  = CurrentPos
+		SetExamplePyCode( Selector0, Selector1, Selector2,Selector3)
+	End If
+End Sub
+
+
+
+Sub NumpyRunButton()
+	tbNumpyPythonScript =dlgNumpy1.GetControl(&quot;tbNumpyPythonScript&quot;)
+	PyCode = tbNumpyPythonScript.getText()
+	fa = createUnoService(&quot;com.sun.star.sheet.FunctionAccess&quot;)  
+	ResultArray = fa.callFunction(&quot;APY0&quot;, Array(PyCode))
+	Result = ResultArray(0)(0)
+	lblResult =dlgNumpy1.GetControl(&quot;lblResult&quot;)	
+	lblResult.setText(Str(Result))
+End Sub
+
+
+Sub NumpyInsertButton()
+	ActiveCell = ThisComponent.CurrentSelection 
+	If NOT ActiveCell.SupportsService(&quot;com.sun.star.sheet.SheetCell&quot;) Then 
+		Exit Sub 
+	Else		
+		tbNumpyPythonScript =dlgNumpy1.GetControl(&quot;tbNumpyPythonScript&quot;)
+		PyCode = tbNumpyPythonScript.getText()		
+		FormulaFull = &quot;=com.duhadler.release.mpfunlab.python.mpfunlabimpl.apy0(&quot; &amp; &quot;&quot;&quot;&quot; &amp; PyCode &amp; &quot;&quot;&quot;&quot; &amp; &quot;)&quot;
+		dlgNumpy1.endExecute()
+		ActiveCell.setFormula(FormulaFull)
+	End If 
+End Sub
+
+
+
+Sub NumpyHelpButton()
+	&apos;Print(&quot;In NumpyHelpButton&quot;)
+    site = &quot;file:///C:/Users/dietrichhadler/Documents/Docs/mpfunlab/html/&quot;
+    topic = &quot;045_Numerical_Calculus_mpmath/20_mpmath_numerical_calculus.html#numerical-integration&quot;
+    url =  site &amp; topic
+    Code = &quot;import webbrowser $n webbrowser.open(&quot; &amp; &quot;&quot;&quot;&quot; &amp; url &amp; &quot;&quot;&quot;&quot; &amp; &quot;)  $n  result = 0&quot;
+    &apos;Print Code
+	fa = createUnoService(&quot;com.sun.star.sheet.FunctionAccess&quot;)  
+	ResultArray = fa.callFunction(&quot;APY0&quot;, Array(Code))
+End Sub
+
+
+
+
+
+&apos;********************************* End of internal dialog routines *****************************************************
+
+
+
+
+Public Function MenuNumpy0() As Variant
+    MenuNumpy0 = Array(&quot;Numpy and related&quot;, &quot;Special functions&quot;, &quot;Statistical distributions&quot;, &quot;CPython built-in functions&quot;, _
+        &quot;R functions, called from CPython&quot;)
+End Function
+
+
+
+
+Public Function MenuNumpy1(Selector0 As String) As Variant
+    result = Array(&quot;None&quot;)
+
+    If Selector0 = &quot;Numpy and related&quot; Then
+    result = Array( _
+        &quot;Array Creation&quot;, &quot;Array manipulation&quot;, &quot;Record Array&quot;, &quot;Sorting and selecting&quot;, _
+        &quot;Descriptive Statistics&quot;, &quot;Vectorized math&quot;, &quot;Elementary functions&quot;, &quot;Real functions and their inverses&quot;, _
+        &quot;Linear Algebra&quot;, &quot;Polynomials&quot;, &quot;Numerical Calculus&quot;, &quot;Random numbers&quot;)
+    End If
+    
+    If Selector0 = &quot;Special functions&quot; Then
+        result = Array( _
+         &quot;Elliptic functions and integrals&quot;, &quot;Lerch’s transcendent and related&quot;, &quot;Hypergeometric 0F1 and related&quot;, _
+         &quot;Hypergeometric 1F1 and related&quot;, &quot;Hypergeometric 2F1 and related&quot;, &quot;Hypergeometric pFq and related&quot;, _
+         &quot;Generalizations of various functions&quot;, &quot;Algebra with random variables&quot;, &quot;Inferential Statistics&quot;)
+    End If
+      
+    If Selector0 = &quot;Statistical distributions&quot; Then
+        result = Array( _
+            &quot;Based on elementary functions (A-K)&quot;, &quot;Based on elementary functions (L-Z)&quot;, &quot;Based on the error function&quot;, _
+            &quot;Based on incomplete gamma&quot;, &quot;Based on incomplete beta&quot;, &quot;Noncentral  (continuous)&quot;, &quot;Multiple comparisons of means&quot;, _
+            &quot;Multivariate statistical analysis&quot;, &quot;Miscellaneous (continuous)&quot;, &quot;Elementary discrete (lattice)&quot;, &quot;Discrete, related to rank tests&quot;, _
+            &quot;Discrete, non-lattice&quot;)
+    End If
+       
+
+       
+    MenuNumpy1 = result
+End Function
+
+
+
+Public Function MenuNumpy2(Selector0 As String, Selector1 As String) As Variant
+    result = Array(&quot;None&quot;)
+    
+    If Selector0 = &quot;Numpy and related&quot; Then
+    Select Case Selector1
+        Case &quot;Array Creation&quot;: result = Array( _
+            &quot;From shape or value&quot;, &quot;From existing data&quot;, &quot;Numerical ranges&quot;, &quot;Building matrices&quot;, &quot;As masked array&quot;)
+        Case &quot;Array manipulation&quot;: result = Array( _
+            &quot;Array shape&quot;, &quot;Transpose-like operations&quot;, &quot;Changing number of dimensions&quot;, _
+            &quot;Joining arrays&quot;, &quot;Splitting arrays&quot;, &quot;Adding and removing elements&quot;, &quot;Rearranging elements&quot;, &quot;Indexing-like operations&quot;, _
+            &quot;Inserting data into arrays&quot;)
+       Case &quot;Record Array&quot;: result = Array( _
+        &quot;Create&quot;, &quot;Attributes&quot;, &quot;Methods (A-C)&quot;, &quot;Methods (D-R)&quot;, &quot;Methods (S-Z)&quot;)
+        Case &quot;Sorting and selecting&quot;: result = Array( _
+            &quot;Sorting&quot;, &quot;Searching&quot;, &quot;Counting&quot;)
+        Case &quot;Descriptive Statistics&quot;: result = Array( _
+            &quot;Order statistics&quot;, &quot;Averages and variances&quot;, &quot;Correlating&quot;, &quot;Histograms&quot;)
+        Case &quot;Vectorized math&quot;: result = Array( _
+            &quot;Rounding&quot;, &quot;Sums, products, differences&quot;, &quot;Floating point routines&quot;, _
+            &quot;Rational routines&quot;, &quot;Arithmetic operations&quot;, &quot;Handling complex numbers&quot;, &quot;Extrema Finding&quot;, &quot;Miscellaneous&quot;)
+        Case &quot;Elementary functions&quot;: result = Array( _
+            &quot;Exponential and related&quot;, &quot;Logarithms and related&quot;, &quot;Square, roots and power&quot;, &quot;Trigonometric and related&quot;, _
+            &quot;Hyperbolic&quot;, &quot;Inverse trigonometric&quot;, &quot;Inverse hyperbolic&quot;, &quot;Factorials and related&quot;, &quot;Gamma function and related&quot;)
+        Case &quot;Real functions and their inverses&quot;: result = Array( _
+            &quot;Error functions&quot;, &quot;Incomplete gamma functions&quot;, &quot;Incomplete beta functions&quot;)
+        Case &quot;Linear Algebra&quot;: result = Array( _
+            &quot;Matrix and vector products&quot;, &quot;Decompositions&quot;, &quot;Matrix eigenvalues&quot;, _
+            &quot;Norms and other numbers&quot;, &quot;Solving equations and inverting matrices&quot;)
+        Case &quot;Polynomials&quot;: result = Array( _
+            &quot;Power Series, part 1&quot;, &quot;Power Series, part 2&quot;, &quot;Chebyshev Series, part 1&quot;, _
+            &quot;Chebyshev Series, part 2&quot;, &quot;Hermite Series, Physicists, part 1&quot;, &quot;Hermite Series, Physicists, part 2&quot;, _
+            &quot;Hermite Series, Probabilists, part 1&quot;, &quot;Hermite Series, Probabilists, part 2&quot;, &quot;Laguerre Series, part 1&quot;, &quot;Laguerre Series, part 2&quot;, _
+            &quot;Legendre Series, part 1&quot;, &quot;Legendre Series, part 2&quot;)
+        Case &quot;Numerical Calculus&quot;: result = Array( _
+            &quot;Polynomials&quot;, &quot;Rootfinder&quot;, &quot;Sums, products, limits and extrapolation&quot;, _
+            &quot;Numerical differentiation and ODEs&quot;, &quot;Numerical integration&quot;, &quot;Numerical inverse Laplace transform&quot;, _
+            &quot;Asymptotic expansions&quot;, &quot;Function approximation&quot;, &quot;Number identification&quot;)
+        Case &quot;Random numbers&quot;: result = Array( _
+            &quot;General&quot;, &quot;Discrete random numbers&quot;, &quot;Continuous random numbers (A-M)&quot;, &quot;Continuous random numbers (N-Z)&quot;)
+        Case Else: result = Array(&quot;None&quot;)
+    End Select
+    End If
+    
+    If Selector0 = &quot;Special functions&quot; Then
+    Select Case Selector1
+        Case &quot;Elliptic functions and integrals&quot;: result = Array( _
+            &quot;Conversions of parameters&quot;, &quot;Legendre elliptic integrals, and related&quot;, &quot;Carlson symmetric elliptic integrals&quot;, _
+            &quot;Jacobi elliptic functions&quot;, &quot;Weierstrass elliptic functions&quot;, &quot;Jacobi theta functions and related&quot;)
+        Case &quot;Lerch’s transcendent and related&quot;: result = Array( _
+            &quot;Overview&quot;, &quot;Polygamma functions&quot;, &quot;Polylogarithms and related&quot;, &quot;Hurwitz zeta and related&quot;, _
+            &quot;Riemann zeta and related&quot;, &quot;Numbertheoretic functions&quot;)
+        Case &quot;Hypergeometric 0F1 and related&quot;: result = Array( _
+            &quot;Overview&quot;, &quot;Bessel functions&quot;, &quot;Spherical Bessel functions&quot;, &quot;Airy functions&quot;, &quot;Kelvin functions&quot;)
+        Case &quot;Hypergeometric 1F1 and related&quot;: result = Array( _
+            &quot;Overview&quot;, &quot;Incomplete gamma&quot;, &quot;Error function and related&quot;, &quot;Exponential integrals and related&quot;, &quot;Orthogonal polynomials&quot;, _
+            &quot;Coulomb functions&quot;, &quot;Whittaker functions&quot;, &quot;Parabolic cylinder functions&quot;)
+        Case &quot;Hypergeometric 2F1 and related&quot;: result = Array( _
+            &quot;Overview&quot;, &quot;Orthogonal polynomials&quot;, &quot;Incomplete Beta Function&quot;)
+        Case &quot;Hypergeometric pFq and related&quot;: result = Array( _
+            &quot;Generalized hypergeometric&quot;, &quot;Hypergeometric 1F2 and related&quot;)
+        Case &quot;Generalizations of various functions&quot;: result = Array( _
+            &quot;Appell Functions&quot;, &quot;Q Functions&quot;, &quot;Further generalizations&quot;)
+            
+        Case &quot;Algebra with random variables&quot;: result = Array( _
+            &quot;Probability density function (pdf)&quot;, &quot;Probability mass function (pmf)&quot;, &quot;Cumulative distribution function (cdf)&quot;, _
+            &quot;Quantile function (qtf)&quot;, &quot;Characteristic function (cf)&quot;, _
+            &quot;Moment generating function (mgf)&quot;, &quot;Cumulant generating function (cgf)&quot;, _
+            &quot;Probability generating function (pgf)&quot;, &quot;Factorial Moments&quot;, _
+            &quot;Raw Moments&quot;, &quot;Central Moments&quot;, &quot;Cumulants&quot;)
+                       
+        Case &quot;Inferential Statistics&quot;: result = Array( _
+            &quot;Basic tests for 1 sample&quot;, &quot;Basic tests for 2 independent samples&quot;, &quot;Basic tests for 2 correlated samples&quot;, _
+            &quot;CR design: Anova, trend tests, Scheffe&quot;, &quot;CR design: Multiple comparisons of means&quot;, _
+            &quot;RB design: Anova, trend tests, Scheffe&quot;, &quot;RB design: Multiple comparisons of means&quot;, _
+            &quot;Tests for proportians, 1 or 2 samples&quot;, &quot;Rank tests, 1 or 2 samples&quot;, _
+            &quot;Rank tests, k samples&quot;, &quot;Multivariate tests, part 1&quot;, &quot;Multivariate tests, part 2&quot;)
+        Case Else: result = Array(&quot;None&quot;)
+    End Select
+    End If
+     
+    If Selector0 = &quot;Statistical distributions&quot; Then
+    Select Case Selector1
+        Case &quot;Based on elementary functions (A-K)&quot;: result = Array( _
+            &quot;Arcsine&quot;, &quot;Cauchy&quot;, &quot;Dagum (Burr Type III)&quot;, &quot;Exponential&quot;, &quot;Fisk (log-logistic)&quot;, &quot;Fréchet&quot;, &quot;Generalized Extreme Value&quot;, _
+            &quot;Generalized Pareto&quot;, &quot;Gompertz-Makeham&quot;, &quot;Gumbel&quot;, &quot;Hyperexponential&quot;, &quot;Kumaraswamy&quot;)
+        Case &quot;Based on elementary functions (L-Z)&quot;: result = Array( _
+            &quot;Laplace&quot;, &quot;Logistic&quot;, &quot;Lomax&quot;, _
+            &quot;Pareto&quot;, &quot;Rayleigh&quot;, &quot;Shifted Gompertz&quot;, &quot;Singh-Maddala (Burr Type XII)&quot;, &quot;Triangular&quot;, &quot;Uniform&quot;, &quot;Weibull&quot;)
+        Case &quot;Based on the error function&quot;: result = Array( _
+            &quot;Birnbaum-Saunders&quot;, &quot;Exponentially Modified Gaussian&quot;, &quot;Folded normal&quot;, &quot;Half-normal&quot;, &quot;Johnson SB&quot;, &quot;Johnson SU&quot;, &quot;Lévy&quot;, _
+            &quot;Lognormal (Johnson SL)&quot;, &quot;Moyal&quot;, &quot;Lognormal (Johnson SN)&quot;, &quot;Normal maximum&quot;, &quot;Normal maximum modulus&quot;, _
+            &quot;Sinh-arcsinh normal&quot;, &quot;Skew normal&quot;, &quot;Truncated normal&quot;, &quot;Wald (or Inverse Gaussian)&quot;)
+        Case &quot;Based on incomplete gamma&quot;: result = Array( _
+            &quot;Amoroso&quot;, &quot;Chi&quot;, &quot;Chi-Squared&quot;, &quot;Log(chisquared rv)&quot;, &quot;Gamma (Pearson Type III)&quot;, &quot;Hypoexponential&quot;, &quot;Inverse chisquared&quot;, _
+            &quot;Inverse Gamma (Pearson Type V)&quot;, &quot;Maxwell &quot;, &quot;Lindley (generalized)&quot;, &quot;Nakagami&quot;, &quot;Skew exponential power&quot;, _
+            &quot;Stacy (generalized gamma)&quot;)
+        Case &quot;Based on incomplete beta&quot;: result = Array( _
+            &quot;Beta (Pearson Type I and II)&quot;, &quot;Negative Log(beta rv)&quot;, &quot;Beta-prime (Pearson Type VI)&quot;, &quot;Generalized Beta (Type 1)&quot;, _
+            &quot;Generalized Beta (Type 2)&quot;, &quot;Generalized logistic&quot;, &quot;Generalized beta-exponential&quot;, &quot;Feller-Pareto&quot;, _
+            &quot;Fisher F&quot;, &quot;Fisher z&quot;, &quot;Student t (Pearson Type VII)&quot;, &quot;Skew t-distribution (Jones)&quot;, &quot;Pearson’s rho (under H0)&quot;)
+        Case &quot;Noncentral  (continuous)&quot;: result = Array( _
+            &quot;Noncentral Chi-Squared&quot;, &quot;Noncentral Chi&quot;, &quot;Rice (Nakagami-n)&quot;, &quot;Noncentral Student t&quot;, &quot;Noncentral Pearson’s rho&quot;, _
+            &quot;Noncentral Fisher F&quot;, &quot;Noncentral Beta Type I&quot;, &quot;Negative Log(noncentral beta rv)&quot;, &quot;Fisher’s R2, Type I&quot;, &quot;Log (Fisher’s 1-R2)&quot;, _
+            &quot;Doubly noncentral Student t&quot;, &quot;Doubly noncentral Fisher F&quot;)
+        Case &quot;Multiple comparisons of means&quot;: result = Array( _
+            &quot;Normal maximum, same rho&quot;, &quot;Normal maximum modulus, same rho&quot;, &quot;Normal maximum, rho=lilj&quot;, _
+            &quot;Normal maximum modulus, rho=lilj&quot;, &quot;Normal range&quot;, &quot;Studentized maximum&quot;, &quot;Studentized maximum modulus&quot;, _
+            &quot;Dunnett’s t, one-sided&quot;, &quot;Dunnett’s t, two-sided&quot;, &quot;Nair’s t&quot;, &quot;Halperin’s t&quot;, &quot;Studentized range&quot;)
+        Case &quot;Multivariate statistical analysis&quot;: result = Array( _
+            &quot;Covariance matrix (LRT)&quot;, &quot;Mean and covariance matrix (LRT)&quot;, &quot;Product of beta rv&quot;, &quot;Log(product of beta rv)&quot;, _
+            &quot;Bartlett-test (equal variances)&quot;, &quot;Wilks-test for Ip&quot;, &quot;Mauchley-test (spericity)&quot;, &quot;Wilks-test (compound symmetry)&quot;, _
+            &quot;Wilks-test (k independent var groups)&quot;, &quot;Box-test (equal cov matrices, equal N)&quot;, &quot;Box-test (same mv normal, equal N)&quot;, _
+             &quot;Box-test (equal cov matrices, unequal N)&quot;, &quot;Box-test (same mv normal, unequal N)&quot;, _
+             &quot;Roy&apos;s largest root&quot;, &quot;Wilks Lambda&quot;, &quot;Pillai&apos;s V&quot;, &quot;Hotelling&apos;s T2&quot;, &quot;Noncentral Wilks Lambda: GLM&quot;, &quot;Noncentral Wilks Lambda: IND&quot;)
+        Case &quot;Miscellaneous (continuous)&quot;: result = Array( _
+            &quot;Lévy alpha-stable&quot;, &quot;Landau&quot;, &quot;Pearson Type IV&quot;, &quot;Meixner&quot;, &quot;Voigt Profile&quot;, &quot;Wrapped Cauchy&quot;, &quot;Wrapped normal&quot;, _
+            &quot;Von Mises&quot;, &quot;Generalized inverse Gaussian&quot;, &quot;Harmonic&quot;, &quot;Halphen A&quot;, &quot;Halphen B &quot;, &quot;Halphen IB&quot;, &quot;Generalized hyperbolic&quot;, _
+            &quot;Hyperbolic&quot;, &quot;Variance-gamma&quot;)
+        Case &quot;Elementary discrete (lattice)&quot;: result = Array( _
+            &quot;Geometric&quot;, &quot;Log-series&quot;, &quot;Poisson&quot;, &quot;Skellam&quot;, &quot;Binomial&quot;, &quot;Negative binomial&quot;, &quot;Delaporte&quot;, _
+            &quot;Beta-Poisson (Quinkert)&quot;, &quot;Beta-binomial&quot;, &quot;Beta-negative binomial (Waring)&quot;, &quot;Classical hypergeometric&quot;, _
+            &quot;Negative hypergeometric&quot;, &quot;Pólya-Eggenberger&quot;, &quot;General hypergeometric&quot;, &quot;Noncentral hypergeometric (Fisher)&quot;, _
+            &quot;Zeta distribution&quot;)
+        Case &quot;Discrete, related to rank tests&quot;: result = Array( _
+            &quot;Wilcoxon Signed Rank&quot;, &quot;Noncentral Wilcoxon Signed Rank (Bennett)&quot;, &quot;Mann-Whitney U&quot;, _
+            &quot;Noncentral Mann-Whitney U (Lehmann)&quot;, &quot;Noncentral Mann-Whitney U (Milton)&quot;, &quot;Kendall’s tau&quot;, &quot;Jonckheere-Terpsta S&quot;, _
+            &quot;Generalized Page L&quot;, &quot;Noncentral Generalized Page L (Milton)&quot;)
+        Case &quot;Discrete, non-lattice&quot;: result = Array( _
+            &quot;Cochran-Friedman-Quade&quot;, &quot;Kruskal-Wallis&quot;)
+        Case Else: result = Array(&quot;None&quot;)
+    End Select
+    End If
+
+    MenuNumpy2 = result
+End Function
+
+
+
+
+
+Public Function MenuNumpy3(Selector0 As String, Selector1 As String, Selector2 As String) As Variant
+    result = Array(&quot;None&quot;)
+    
+    
+    
+    If Selector0 = &quot;Numpy and related&quot; Then
+    
+    Select Case Selector1
+        Case &quot;Array Creation&quot;
+            Select Case Selector2
+                Case &quot;From shape or value&quot;: result = Array( _
+                    &quot;empty&quot;, &quot;eye&quot;, &quot;identity&quot;, &quot;ones&quot;, &quot;zeros&quot;, &quot;full&quot;)
+                Case &quot;From existing data&quot;: result = Array( _
+                    &quot;array&quot;, &quot;asarray&quot;, &quot;asanyarry&quot;, &quot;asarray_chkfinite&quot;, &quot;fromiter&quot;, &quot;fromfunction&quot;, _
+                    &quot;fromstring&quot;, &quot;fromfile&quot;, &quot;loadtxt&quot;)
+                Case &quot;Numerical ranges&quot;: result = Array( _
+                    &quot;arange&quot;, &quot;linspace&quot;, &quot;logspace&quot;, &quot;geomspace&quot;, &quot;meshgrid&quot;, &quot;mgrid&quot;, &quot;ogrid&quot;)
+                 Case &quot;Building matrices&quot;: result = Array( _
+                    &quot;diag&quot;, &quot;diagonal&quot;, &quot;diagflat&quot;, &quot;tri&quot;, &quot;triu&quot;, &quot;tril&quot;, &quot;vander&quot;)
+                 Case &quot;As masked array&quot;: result = Array( _
+                    &quot;DataAndMask&quot;)
+                 Case Else: result = Array(&quot;None&quot;)
+            End Select
+        
+        Case &quot;Array manipulation&quot;
+            Select Case Selector2
+                Case &quot;Array shape&quot;: result = Array( _
+                    &quot;shape&quot;, &quot;reshape&quot;, &quot;ravel&quot;, &quot;flat&quot;, &quot;flatten&quot;)
+                Case &quot;Transpose-like operations&quot;: result = Array( _
+                    &quot;moveaxis&quot;, &quot;rollaxis&quot;, &quot;swapaxis&quot;, &quot;transpose&quot;)
+                Case &quot;Changing number of dimensions&quot;: result = Array( _
+                    &quot;atleast_1d&quot;, &quot;atleast_2d&quot;, &quot;atleast_3d&quot;, &quot;broadcast&quot;, &quot;broadcasr_to&quot;, &quot;broadcast_arrays&quot;, &quot;expand_dims&quot;, &quot;squeeze&quot;)
+                Case &quot;Joining arrays&quot;: result = Array( _
+                    &quot;concatenate&quot;, &quot;stack&quot;, &quot;block&quot;, &quot;vstack&quot;, &quot;hstack&quot;, &quot;dstack&quot;, &quot;column_stack&quot;, &quot;tile&quot;, &quot;repeat&quot;)
+                Case &quot;Splitting arrays&quot;: result = Array( _
+                    &quot;split&quot;, &quot;array_split&quot;, &quot;dsplit&quot;, &quot;hsplit&quot;, &quot;vsplit&quot;)
+                Case &quot;Adding and removing elements&quot;: result = Array( _
+                    &quot;delete&quot;, &quot;insert&quot;, &quot;append&quot;, &quot;resize&quot;, &quot;trim_zeros&quot;, &quot;unique&quot;)
+                Case &quot;Rearranging elements&quot;: result = Array( _
+                    &quot;flip&quot;, &quot;fliplr&quot;, &quot;flipud&quot;, &quot;roll&quot;, &quot;rot90&quot;)
+                Case &quot;Indexing-like operations&quot;: result = Array( _
+                    &quot;take&quot;, &quot;take_along_axis&quot;, &quot;choose&quot;, &quot;compress&quot;, &quot;select&quot;)
+                Case &quot;Inserting data into arrays&quot;: result = Array( _
+                    &quot;place&quot;, &quot;put&quot;, &quot;put_along_axis&quot;, &quot;putmask&quot;, &quot;fill_diagonal&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+              
+        Case &quot;Record Array&quot;
+            Select Case Selector2
+                Case &quot;Create&quot;: result = Array( _
+                    &quot;Standard&quot;, &quot;From spreadsheet table&quot;, &quot;From SQLite table&quot;)
+                Case &quot;Attributes&quot;: result = Array( _
+                    &quot;Standard&quot;, &quot;Transposed&quot;, &quot;Real&quot;, &quot;Imag&quot;, &quot;Shape&quot;, &quot;Size&quot;)
+                Case &quot;Methods (A-C)&quot;: result = Array( _
+                    &quot;All&quot;, &quot;Any&quot;, &quot;Argmax&quot;, &quot;Argmin&quot;, &quot;Argpartition&quot;, &quot;Argsort&quot;, &quot;Astype&quot;, &quot;Byteswap&quot;, &quot;Chose&quot;, &quot;clip&quot;, &quot;Compress&quot;, _
+                    &quot;Conj&quot;, &quot;Conjugate&quot;, &quot;Copy&quot;, &quot;Cumprod&quot;, &quot;Cumsum&quot;)
+                 Case &quot;Methods (D-R)&quot;: result = Array( _
+                    &quot;Diagonal&quot;, &quot;Dump&quot;, &quot;Dumps&quot;, &quot;Fill&quot;, &quot;Flatten&quot;, &quot;Getfield&quot;, &quot;Item&quot;, &quot;Max&quot;, &quot;Mean&quot;, &quot;Min&quot;, &quot;Nonzero&quot;, &quot;Partition&quot;, _
+                    &quot;Prod&quot;, &quot;Put&quot;, &quot;Ravel&quot;, &quot;Repeat&quot;, &quot;Reshape&quot;, &quot;Resize&quot;, &quot;Round&quot;)
+                 Case &quot;Methods (S-Z)&quot;: result = Array( _
+                    &quot;SearchSorted&quot;, &quot;Sort&quot;, &quot;Squeeze&quot;, &quot;Std&quot;, &quot;Sum&quot;, &quot;Swapaxes&quot;, &quot;Take&quot;, &quot;ToBytes&quot;, &quot;ToFile&quot;, &quot;ToList&quot;, &quot;ToString&quot;, _
+                    &quot;Trace&quot;, &quot;Transpose&quot;, &quot;Var&quot;, &quot;View&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+       
+        Case &quot;Sorting and selecting&quot;
+            Select Case Selector2
+                Case &quot;Sorting&quot;: result = Array( _
+                    &quot;Sort&quot;, &quot;Lexsort&quot;, &quot;Argsort&quot;, &quot;ndarray.sort&quot;, &quot;sort_complex&quot;, &quot;Partition&quot;, &quot;Argpartition&quot;)
+                Case &quot;Searching&quot;: result = Array( _
+                    &quot;ArgMax&quot;, &quot;Nanargmax&quot;, &quot;Argmin&quot;, &quot;Nanargmin&quot;, &quot;Argwhere&quot;, &quot;Nonzero&quot;, &quot;Flatnonzero&quot;, &quot;Where&quot;, &quot;SearchSorted&quot;, &quot;Extract&quot;)
+                Case &quot;Counting&quot;: result = Array( _
+                    &quot;CountNonzero&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                  
+        Case &quot;Descriptive Statistics&quot;
+            Select Case Selector2
+                Case &quot;Order statistics&quot;: result = Array( _
+                    &quot;ptp&quot;, &quot;percentile&quot;, &quot;nanpercentile&quot;, &quot;quantile&quot;, &quot;nanquantile&quot;)
+                Case &quot;Averages and variances&quot;: result = Array( _
+                    &quot;Median&quot;, &quot;Average&quot;, &quot;Mean&quot;, &quot;Std&quot;, &quot;Var&quot;, &quot;NanMedian&quot;, &quot;NanMean&quot;, &quot;Nanstd&quot;, &quot;Nanvar&quot;)
+                Case &quot;Correlating&quot;: result = Array( _
+                    &quot;Corrcoeff&quot;, &quot;Correlate&quot;, &quot;Cov&quot;)
+                Case &quot;Histograms&quot;: result = Array( _
+                    &quot;Histgram&quot;, &quot;Histogram2d&quot;, &quot;Histogramdd&quot;, &quot;Bincount&quot;, &quot;Histogram_bin_edges&quot;, &quot;Digitize&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                         
+        Case &quot;Vectorized math&quot;
+            Select Case Selector2
+                Case &quot;Rounding&quot;: result = Array( _
+                    &quot;round&quot;, &quot;around&quot;, &quot;rint&quot;, &quot;fix&quot;, &quot;floor&quot;, &quot;ceil&quot;, &quot;trunc&quot;)
+                Case &quot;Sums, products, differences&quot;: result = Array( _
+                    &quot;prod&quot;, &quot;sum&quot;, &quot;nanprod&quot;, &quot;nansum&quot;, &quot;cumprod&quot;, &quot;cumsum&quot;, _
+                    &quot;nancumprod&quot;, &quot;nancumsum&quot;, &quot;diff&quot;, &quot;ediff1d&quot;, &quot;gradient&quot;, &quot;cross&quot;, &quot;trapz&quot;)
+                Case &quot;Other special functions&quot;: result = Array( _
+                    &quot;io&quot;, &quot;sinc&quot;)
+                Case &quot;Floating point routines&quot;: result = Array( _
+                    &quot;signbit&quot;, &quot;copysign&quot;, &quot;frexp&quot;, &quot;ldexp&quot;, &quot;nextafter&quot;, &quot;spacing&quot;)
+                Case &quot;Rational routines&quot;: result = Array( _
+                    &quot;lcm&quot;, &quot;gcd&quot;)
+                Case &quot;Arithmetic operations&quot;: result = Array( _
+                    &quot;add&quot;, &quot;reciprocal&quot;, &quot;positive&quot;, &quot;negative&quot;, &quot;multiply&quot;, &quot;divide&quot;, &quot;power&quot;, &quot;subtract&quot;, _
+                    &quot;true_divide&quot;, &quot;floor_divide&quot;, &quot;float_power&quot;, &quot;fmod&quot;, &quot;mod&quot;, &quot;modf&quot;, &quot;remainder&quot;, &quot;divmod&quot;)
+                Case &quot;Handling complex numbers&quot;: result = Array( _
+                    &quot;angle&quot;, &quot;real&quot;, &quot;imag&quot;, &quot;conj&quot;, &quot;conjugate&quot;)
+                Case &quot;Extrema Finding&quot;: result = Array( _
+                    &quot;maximum&quot;, &quot;max&quot;, &quot;amax&quot;, &quot;fmax&quot;, &quot;nanmax&quot;, &quot;minimum&quot;, &quot;min&quot;, &quot;amin&quot;, &quot;fmin&quot;, _
+                    &quot;nanmin&quot;)
+                Case &quot;Miscellaneous&quot;: result = Array( _
+                    &quot;convolve&quot;, &quot;clip&quot;, &quot;sqrt&quot;, &quot;cbrt&quot;, &quot;square&quot;, &quot;absolute&quot;, &quot;fabs&quot;, &quot;sign&quot;, &quot;heaviside&quot;, _
+                    &quot;nan_to_num&quot;, &quot;real_if_close&quot;, &quot;interp&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                       
+        Case &quot;Elementary functions&quot;
+            Select Case Selector2
+                Case &quot;Exponential and related&quot;: result = Array( _
+                    &quot;Exp&quot;, &quot;Expj&quot;, &quot;Expjpi&quot;, &quot;Exp10&quot;, &quot;Exp2&quot;, &quot;Expm1&quot;, &quot;Exp10m1&quot;, &quot;Exp2m1&quot;, &quot;Exprel&quot;, &quot;Logistic&quot;)
+                Case &quot;Logarithms and related&quot;: result = Array( _
+                    &quot;Ln&quot;, &quot;Log&quot;, &quot;Logb&quot;, &quot;Log1p&quot;, &quot;Log10&quot;, &quot;Log2&quot;, &quot;Log1mexp&quot;, &quot;Log2p1&quot;, &quot;Log10p1&quot;, &quot;Ln1mexp&quot;, &quot;Ln1pexp&quot;, &quot;Ln1pmx&quot;, _
+                    &quot;Logit&quot;, &quot;Lambertw&quot;, &quot;Agm&quot;)
+                Case &quot;Square, roots and power&quot;: result = Array( _
+                    &quot;Square&quot;, &quot;Sqrt&quot;, &quot;Rsqrt&quot;, &quot;Cbrt&quot;, &quot;Cuberoot&quot;, &quot;Nthroot&quot;, &quot;Unitroots&quot;, &quot;hypot&quot;, &quot;Power&quot;, &quot;Pow&quot;, &quot;Powm1&quot;, &quot;Pow1p&quot;, &quot;Pow1pm1&quot;, _
+                    &quot;Fibonacci&quot;, &quot;Fibpoly&quot;, &quot;Lucas&quot;, &quot;Lucaspoly&quot;)
+                Case &quot;Trigonometric and related&quot;: result = Array( _
+                    &quot;Radians&quot;, &quot;Degrees&quot;, &quot;Sin&quot;, &quot;Cos&quot;, &quot;SinCos&quot;, &quot;Tan&quot;, &quot;Sec&quot;, &quot;Csc&quot;, &quot;Cot&quot;, &quot;Haversine&quot;, &quot;Sinpi&quot;, &quot;Sinc&quot;, &quot;Sincpi&quot;, &quot;Cospi&quot;)
+                Case &quot;Hyperbolic&quot;: result = Array( _
+                    &quot;Sinh&quot;, &quot;Cosh&quot;, &quot;Tanh&quot;, &quot;Sech&quot;, &quot;Csch&quot;, &quot;Coth&quot;)
+                Case &quot;Inverse trigonometric&quot;: result = Array( _
+                    &quot;Asin&quot;, &quot;Acos&quot;, &quot;Atan&quot;, &quot;Atan2&quot;, &quot;Asec&quot;, &quot;Acsc&quot;, &quot;Acot&quot;, &quot;Gudermannian (gd)&quot;, &quot;Inverse haversine (archav)&quot;)
+                Case &quot;Inverse hyperbolic&quot;: result = Array( _
+                    &quot;Asinh&quot;, &quot;Acosh&quot;, &quot;Atanh&quot;, &quot;Asech&quot;, &quot;Acsch&quot;, &quot;Acoth&quot;, &quot;Inverse Gudermannian (arcgd)&quot;)
+                Case &quot;Factorials and related&quot;: result = Array( _
+                    &quot;Factorial&quot;, &quot;Binomial&quot;, &quot;Multinomial&quot;, &quot;Rising factorial (rf)&quot;, &quot;Falling factorial (ff)&quot;, &quot;Double factorial (fac2)&quot;)
+                Case &quot;Gamma function and related&quot;: result = Array( _
+                    &quot;Gamma&quot;, &quot;Tgamma1pm1&quot;, &quot;Rgamma&quot;, &quot;Loggamma&quot;, &quot;Beta&quot;, &quot;Logbeta&quot;, &quot;GammaRatio&quot;, &quot;GammaDeltaRatio&quot;, _
+                    &quot;CatalanC&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+        
+        Case &quot;Real functions and their inverses&quot;
+            Select Case Selector2
+                Case &quot;Error functions&quot;: result = Array( _
+                    &quot;real_erf&quot;, &quot;real_erfc&quot;, &quot;real_erfinv&quot;, &quot;real_erfcinv&quot;, &quot;ndens&quot;, &quot;ndis&quot;, &quot;ndis_inv&quot;)
+                Case &quot;Incomplete gamma functions&quot;: result = Array( _
+                    &quot;real_gamma_lower&quot;, &quot;real_gamma_upper&quot;, &quot;real_gamma_p&quot;, &quot;real_gamma_q&quot;, &quot;real_gamma_tricomi&quot;, _
+                    &quot;real_gamma_p_inv&quot;, &quot;real_gamma_q_inv&quot;, &quot;real_gamma_p_inva&quot;, &quot;real_gamma_q_inva&quot;, &quot;real_gamma_derivative&quot;)
+                Case &quot;Incomplete beta functions&quot;: result = Array( _
+                    &quot;real_beta3&quot;, &quot;real_betac&quot;, &quot;real_ibeta&quot;, &quot;real_ibetac&quot;, &quot;real_ibeta_inv&quot;, &quot;real_ibetac_inv&quot;, &quot;real_ibeta_inva&quot;, _
+                    &quot;real_ibetac_inva&quot;, &quot;real_ibeta_invb&quot;, &quot;real_ibetac_invb&quot;, &quot;real_beta_derivative&quot;)
+            End Select
+                  
+        Case &quot;Linear Algebra&quot;
+            Select Case Selector2
+                Case &quot;Matrix and vector products&quot;: result = Array( _
+                    &quot;dot&quot;, &quot;vdot&quot;, &quot;inner&quot;, &quot;outer&quot;, &quot;matmul&quot;, &quot;matrix_power&quot;, &quot;kron&quot;)
+                Case &quot;Decompositions&quot;: result = Array( _
+                    &quot;cholesky&quot;, &quot;qr&quot;, &quot;svd&quot;)
+                Case &quot;Matrix eigenvalues&quot;: result = Array( _
+                    &quot;eig&quot;, &quot;eigh&quot;, &quot;eigvals&quot;, &quot;eigvalsh&quot;)
+                Case &quot;Norms and other numbers&quot;: result = Array( _
+                    &quot;norm&quot;, &quot;cond&quot;, &quot;det&quot;, &quot;matrix_rank&quot;, &quot;slogdet&quot;, &quot;trace&quot;)
+                Case &quot;Solving equations and inverting matrices&quot;: result = Array( _
+                    &quot;solve&quot;, &quot;lstsq&quot;, &quot;inv&quot;, &quot;pinv&quot;, &quot;&quot;)
+                Case &quot;Functions of matrix argument&quot;: result = Array( _
+                    &quot;Standard&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                                                       
+        Case &quot;Polynomials&quot;
+            Select Case Selector2
+                Case &quot;Power Series, part 1&quot;: result = Array( _
+                    &quot;polyadd&quot;, &quot;polysub&quot;, &quot;polymulx&quot;, &quot;polymul&quot;, &quot;polydiv&quot;, &quot;polypow&quot;, &quot;polyval&quot;, _
+                    &quot;polyval2d&quot;, &quot;polyval3d&quot;, &quot;polygrid2d&quot;, &quot;polygrid3d&quot;, &quot;polyder&quot;, &quot;polyint&quot;)
+                 Case &quot;Power Series, part 2&quot;: result = Array( _
+                    &quot;polyfromroots&quot;, &quot;polyroots&quot;, &quot;polyvalfromroots&quot;, _
+                    &quot;polyvander&quot;, &quot;polyvander2d&quot;, &quot;polyvander3d&quot;, &quot;polycompanion&quot;, &quot;polyfit&quot;, &quot;polytrim&quot;, &quot;polyline&quot;)
+                Case &quot;Chebyshev Series, part 1&quot;: result = Array( _
+                    &quot;chebadd&quot;, &quot;chebsub&quot;, &quot;chebmulx&quot;, &quot;chebmul&quot;, &quot;chebdiv&quot;, &quot;chebpow&quot;, &quot;chebval&quot;, _
+                    &quot;chebval2d&quot;, &quot;chebval3d&quot;, &quot;chebgrid2d&quot;, &quot;chebgrid3d&quot;, &quot;chebder&quot;, &quot;chebint&quot;)
+                 Case &quot;Chebyshev Series, part 2&quot;: result = Array( _
+                    &quot;chebfromroots&quot;, &quot;chebroots&quot;, &quot;chebvalfromroots&quot;, _
+                    &quot;chebvander&quot;, &quot;chebvander2d&quot;, &quot;chebvander3d&quot;, &quot;chebgauss&quot;, &quot;chebweight&quot;, &quot;chebcompanion&quot;, &quot;chebfit&quot;, _
+                    &quot;chebpts1&quot;, &quot;chebpts2&quot;, &quot;chebtrim&quot;, &quot;chebline&quot;, &quot;cheb2poly&quot;, &quot;poly2cheb&quot;, &quot;chebinterpolate&quot;)
+                Case &quot;Hermite Series, Physicists, part 1&quot;: result = Array( _
+                    &quot;hermadd&quot;, &quot;hermsub&quot;, &quot;hermmulx&quot;, &quot;hermmul&quot;, &quot;hermdiv&quot;, &quot;hermpow&quot;, &quot;hermval&quot;, _
+                    &quot;hermval2d&quot;, &quot;hermval3d&quot;, &quot;hermgrid2d&quot;, &quot;hermgrid3d&quot;, &quot;hermder&quot;, &quot;hermint&quot;)
+                 Case &quot;Hermite Series, Physicists, part 2&quot;: result = Array( _
+                    &quot;hermfromroots&quot;, &quot;hermroots&quot;, &quot;hermvalfromroots&quot;, _
+                    &quot;hermvander&quot;, &quot;hermvander2d&quot;, &quot;hermvander3d&quot;, &quot;hermgauss&quot;, &quot;hermweight&quot;, &quot;hermcompanion&quot;, &quot;hermfit&quot;, _
+                    &quot;hermtrim&quot;, &quot;hermline&quot;, &quot;herm2poly&quot;, &quot;poly2herm&quot;)
+                Case &quot;Hermite Series, Probabilists, part 1&quot;: result = Array( _
+                    &quot;hermeadd&quot;, &quot;hermesub&quot;, &quot;hermemulx&quot;, &quot;hermemul&quot;, &quot;hermediv&quot;, &quot;hermepow&quot;, &quot;hermeval&quot;, _
+                    &quot;hermeval2d&quot;, &quot;hermeval3d&quot;, &quot;hermegrid2d&quot;, &quot;hermegrid3d&quot;, &quot;hermeder&quot;, &quot;hermeint&quot;)
+                 Case &quot;Hermite Series, Probabilists, part 2&quot;: result = Array( _
+                    &quot;hermefromroots&quot;, &quot;hermeroots&quot;, &quot;hermevalfromroots&quot;, _
+                    &quot;hermevander&quot;, &quot;hermevander2d&quot;, &quot;hermevander3d&quot;, &quot;hermegauss&quot;, &quot;hermeweight&quot;, &quot;hermecompanion&quot;, &quot;hermefit&quot;, _
+                    &quot;hermetrim&quot;, &quot;hermeline&quot;, &quot;herme2poly&quot;, &quot;poly2herme&quot;)
+                Case &quot;Laguerre Series, part 1&quot;: result = Array( _
+                    &quot;lagadd&quot;, &quot;lagsub&quot;, &quot;lagmulx&quot;, &quot;lagmul&quot;, &quot;lagdiv&quot;, &quot;lagpow&quot;, &quot;lagval&quot;, _
+                    &quot;lagval2d&quot;, &quot;lagval3d&quot;, &quot;laggrid2d&quot;, &quot;laggrid3d&quot;, &quot;lagder&quot;, &quot;lagint&quot;)
+                 Case &quot;Laguerre Series, part 2&quot;: result = Array( _
+                    &quot;lagfromroots&quot;, &quot;lagroots&quot;, &quot;lagvalfromroots&quot;, _
+                    &quot;lagvander&quot;, &quot;lagvander2d&quot;, &quot;lagvander3d&quot;, &quot;laggauss&quot;, &quot;lagweight&quot;, &quot;lagcompanion&quot;, &quot;lagfit&quot;, _
+                    &quot;lagtrim&quot;, &quot;lagline&quot;, &quot;lag2poly&quot;, &quot;poly2lag&quot;)
+                Case &quot;Legendre Series, part 1&quot;: result = Array( _
+                    &quot;legadd&quot;, &quot;legsub&quot;, &quot;legmulx&quot;, &quot;legmul&quot;, &quot;legdiv&quot;, &quot;legpow&quot;, &quot;legval&quot;, _
+                    &quot;legval2d&quot;, &quot;legval3d&quot;, &quot;leggrid2d&quot;, &quot;leggrid3d&quot;, &quot;legder&quot;, &quot;legint&quot;)
+                 Case &quot;Legendre Series, part 2&quot;: result = Array( _
+                    &quot;legfromroots&quot;, &quot;legroots&quot;, &quot;legvalfromroots&quot;, _
+                    &quot;legvander&quot;, &quot;legvander2d&quot;, &quot;legvander3d&quot;, &quot;leggauss&quot;, &quot;legweight&quot;, &quot;legcompanion&quot;, &quot;legfit&quot;, _
+                    &quot;legtrim&quot;, &quot;legline&quot;, &quot;leg2poly&quot;, &quot;poly2leg&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                  
+        Case &quot;Numerical Calculus&quot;
+            Select Case Selector2
+                Case &quot;Polynomials&quot;: result = Array( _
+                    &quot;Polynomial evaluation&quot;, &quot;Polynomial roots&quot;)
+                Case &quot;Rootfinder&quot;: result = Array( _
+                    &quot;Newton&quot;, &quot;Secant&quot;, &quot;MNewton&quot;, &quot;Halley&quot;, &quot;Muller&quot;, &quot;Bisection&quot;, &quot;Illinois&quot;, &quot;Pegasus&quot;, &quot;Anderson&quot;, &quot;Ridder&quot;)
+                Case &quot;Sums, products, limits and extrapolation&quot;: result = Array( _
+                    &quot;Summation of infinite series&quot;, &quot;Euler-Maclaurin formula&quot;, &quot;Abel-Plana formula&quot;, &quot;Products&quot;, _
+                    &quot;Limits, general&quot;, &quot;Richardson extrapolation&quot;, &quot;Shanks extrapolation&quot;, &quot;Levin extrapolation&quot;, _
+                    &quot;Cohan alternating extrapolation&quot;)
+                Case &quot;Numerical differentiation and ODEs&quot;: result = Array( _
+                    &quot;Numerical derivatives&quot;, &quot;Nth derivative&quot;, &quot;Forward difference&quot;, &quot;Sequence of derivatives&quot;, _
+                    &quot;Composition of derivatives&quot;, &quot;Composition of exponential of derivatives&quot;, &quot;Fractional derivatives / differintegration&quot;, _
+                    &quot;Solving the ODE initial value problem&quot;)
+                Case &quot;Numerical integration&quot;: result = Array( _
+                    &quot;Standard quadrature&quot;, &quot;Doubly exponential quadrature&quot;, &quot;Gauss-Legendre quadrature&quot;, &quot;Quadrature with subdivision&quot;, _
+                    &quot;Quadrature of oscillatory functions (Filon)&quot;, &quot;Verified numerical integration (Okayama)&quot;)
+                Case &quot;Numerical inverse Laplace transform&quot;: result = Array( _
+                    &quot;Standard inverse Laplace transform&quot;, &quot;Talbot method&quot;, &quot;Stehfest method&quot;, &quot;de Hoog, Knight, and Stokes&quot;)
+                Case &quot;Asymptotic expansions&quot;: result = Array( _
+                    &quot;Edgeworth expansion&quot;, &quot;Cornish-Fisher expansion&quot;, &quot;Sheppard correction&quot;, &quot;Luggannini-Rice expansion&quot;, _
+                    &quot;Jensen expansion&quot;, &quot;Box-Davis expansion&quot;, &quot;Inverse Box-Davis expansion&quot;)
+                Case &quot;Function approximation&quot;: result = Array( _
+                    &quot;Taylor series&quot;, &quot;Pade approximation&quot;, &quot;Chebyshev approximation&quot;, &quot;Fourier series&quot;, &quot;Fourier series evaluation&quot;)
+                Case &quot;Number identification&quot;: result = Array( _
+                    &quot;Constant recognition&quot;, &quot;Algebraic identification&quot;, &quot;Integer relations (PSLQ)&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                          
+        Case &quot;Random numbers&quot;
+            Select Case Selector2
+                Case &quot;General&quot;: result = Array( _
+                    &quot;integers&quot;, &quot;random&quot;, &quot;choice&quot;, &quot;bytes&quot;, &quot;shuffle&quot;, &quot;permutation&quot;, &quot;permuted&quot;)
+                Case &quot;Discrete random numbers&quot;: result = Array( _
+                    &quot;binomial&quot;, &quot;geometric&quot;, &quot;hypergeometric&quot;, &quot;logseries&quot;, &quot;multinomial&quot;, &quot;multivariate_hypergeometric&quot;, _
+                    &quot;negative_binomial&quot;, &quot;poisson&quot;, &quot;zipf&quot;)
+                Case &quot;Continuous random numbers (A-M)&quot;: result = Array( _
+                    &quot;beta&quot;, &quot;chisquare&quot;, &quot;dirichlet&quot;, &quot;exponential&quot;, &quot;fisher_f&quot;, &quot;gamma&quot;, &quot;gumbel&quot;, &quot;laplace&quot;, &quot;logistic&quot;, &quot;lognormal&quot;, _
+                    &quot;multivariate_normal&quot;, &quot;noncentral_chisquare&quot;, &quot;noncentral_f&quot;, &quot;normal&quot;)
+                Case &quot;Continuous random numbers (N-Z)&quot;: result = Array( _
+                    &quot;pareto&quot;, &quot;power&quot;, &quot;rayleigh&quot;, _
+                    &quot;standard_cauchy&quot;, &quot;standard_exponential&quot;, &quot;standard_gamma&quot;, &quot;standard_normal&quot;, &quot;standard_t&quot;, _
+                    &quot;triangular&quot;, &quot;uniform&quot;, &quot;vonmises&quot;, &quot;wald&quot;, &quot;weibull&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+               
+        Case Else: result = Array(&quot;None&quot;)
+    End Select  &apos; Selector 1
+    End If
+        
+        
+        
+    If Selector0 = &quot;Special functions&quot; Then
+    Select Case Selector1
+
+        Case &quot;Elliptic functions and integrals&quot;
+            Select Case Selector2
+                Case &quot;Conversions of parameters&quot;: result = Array( _
+                    &quot;qfrom&quot;, &quot;qbarfrom&quot;, &quot;mfrom&quot;, &quot;kfrom&quot;, &quot;taufrom&quot;, &quot;efrom&quot;, &quot;gfrom&quot;)
+                Case &quot;Legendre elliptic integrals, and related&quot;: result = Array( _
+                    &quot;elliptic_k&quot;, &quot;elliptic_e&quot;, &quot;elliptic_pi&quot;, &quot;elliptic_f&quot;, &quot;elliptic_e_inc&quot;, &quot;elliptic_pi_inc&quot;, &quot;elliptic_d&quot;, &quot;jacobi_zeta&quot;, _
+                    &quot;heuman_lambda&quot;)
+                Case &quot;Carlson symmetric elliptic integrals&quot;: result = Array( _
+                    &quot;elliprf&quot;, &quot;elliprg&quot;, &quot;elliprj&quot;, &quot;elliprd&quot;, &quot;elliprc&quot;)
+                Case &quot;Jacobi elliptic functions&quot;: result = Array( _
+                    &quot;ellipfun&quot;, &quot;jacobi_sn&quot;, &quot;jacobi_cn&quot;, &quot;jacobi_dn&quot;, &quot;jacobi_ns&quot;, &quot;jacobi_nc&quot;, &quot;jacobi_nd&quot;, &quot;jacobi_sc&quot;, &quot;jacobi_sd&quot;, _
+                    &quot;jacobi_dc&quot;, &quot;jacobi_ds&quot;, &quot;jacobi_cs&quot;, &quot;jacobi_cd&quot;)
+                Case &quot;Weierstrass elliptic functions&quot;: result = Array( _
+                    &quot;weierstrass_p&quot;, &quot;weierstrass_p_prime&quot;, &quot;weierstrass_p_inv&quot;, &quot;weierstrass_zeta&quot;, &quot;weierstrass_sigma&quot;)
+                Case &quot;Jacobi theta functions and related&quot;: result = Array( _
+                    &quot;jtheta&quot;, &quot;dedekind_eta&quot;, &quot;modular_lambda&quot;, &quot;modular_delta&quot;, &quot;kleinj&quot;, &quot;elliptic_roots&quot;, &quot;elliptic_invariants&quot;)
+            End Select
+
+        Case &quot;Lerch’s transcendent and related&quot;
+            Select Case Selector2
+                Case &quot;Overview&quot;: result = Array( _
+                    &quot;lerchphi&quot;, &quot;lerch_zeta&quot;)
+                Case &quot;Polygamma functions&quot;: result = Array( _
+                    &quot;polygamma&quot;, &quot;trigamma&quot;, &quot;digamma&quot;)
+                Case &quot;Polylogarithms and related&quot;: result = Array( _
+                    &quot;polylog&quot;, &quot;trilog&quot;, &quot;dilog&quot;, &quot;clsin&quot;, &quot;clcos&quot;, &quot;cl2&quot;, &quot;bose_einstein&quot;, &quot;fermi_dirac&quot;, &quot;legendre_chi&quot;, &quot;ti&quot;, &quot;debye&quot;)
+                Case &quot;Hurwitz zeta and related&quot;: result = Array( _
+                    &quot;hurwitz&quot;, &quot;stieltjes&quot;, &quot;harmonic&quot;, &quot;harmonic2&quot;, &quot;bernoulli&quot;, &quot;bernfrac&quot;, &quot;bernpoly&quot;, &quot;eulernum&quot;, &quot;eulerpoly&quot;, _
+                    &quot;lnbarnesg&quot;, &quot;barnesg&quot;, &quot;hyperfac&quot;, &quot;superfac&quot;)
+                Case &quot;Riemann zeta and related&quot;: result = Array( _
+                    &quot;dirichlet_l&quot;, &quot;zeta&quot;, &quot;zetam1&quot;, &quot;riemann_xi&quot;, &quot;dirichlet_eta&quot;, &quot;dirichlet_etam1&quot;, &quot;dirichlet_etam1&quot;, &quot;dirichlet_lambda&quot;, _
+                    &quot;siegelz&quot;, &quot;siegeltheta&quot;, &quot;backlunds&quot;, &quot;grampoint&quot;, &quot;nzeros&quot;, &quot;zetazero&quot;, &quot;secondzeta&quot;)
+                Case &quot;Numbertheoretic functions&quot;: result = Array( _
+                    &quot;primepi&quot;, &quot;mangoldt&quot;, &quot;riemannr&quot;, &quot;primezeta&quot;, &quot;const_mertens&quot;, &quot;const_twinprime&quot;, &quot;cyclotomic&quot;, _
+                    &quot;stirling1&quot;, &quot;stirling2&quot;, &quot;bell&quot;, &quot;polyexp&quot;)
+            End Select
+
+        Case &quot;Hypergeometric 0F1 and related&quot;
+            Select Case Selector2
+                Case &quot;Overview&quot;: result = Array( _
+                    &quot;hyp0f1&quot;, &quot;hyp0f1r&quot;)
+                Case &quot;Bessel functions&quot;: result = Array( _
+                    &quot;besselj&quot;, &quot;bessely&quot;, &quot;besseljzero&quot;, &quot;besselyzero&quot;, &quot;besseli&quot;, &quot;besselk&quot;, &quot;besselj_prime&quot;, &quot;bessely_prime&quot;, _
+                    &quot;besseli_prime&quot;, &quot;besselk_prime&quot;, &quot;hankel1&quot;, &quot;hankel2&quot;)
+                Case &quot;Spherical Bessel functions&quot;: result = Array( _
+                    &quot;sph_bessel_jn&quot;, &quot;sph_bessel_yn&quot;, &quot;sph_bessel_in&quot;, &quot;sph_bessel_kn&quot;, &quot;sph_bessel_jn_prime&quot;, _
+                    &quot;sph_bessel_yn_prime&quot;, &quot;sph_hankel_h1&quot;, &quot;sph_hankel_h2&quot;)
+                Case &quot;Airy functions&quot;: result = Array( _
+                    &quot;airyai&quot;, &quot;airybi&quot;, &quot;airyaizero&quot;, &quot;airybizero&quot;, &quot;airy_aip&quot;, &quot;airy_bip&quot;)
+                Case &quot;Kelvin functions&quot;: result = Array( _
+                    &quot;kelvinber&quot;, &quot;kelvinbei&quot;, &quot;kelvinker&quot;, &quot;kelvinkei&quot;)
+            End Select
+
+        Case &quot;Hypergeometric 1F1 and related&quot;
+            Select Case Selector2
+                Case &quot;Overview&quot;: result = Array( _
+                    &quot;hyp1f1&quot;, &quot;hyp1f1r&quot;, &quot;hyperu&quot;)
+                Case &quot;Incomplete gamma&quot;: result = Array( _
+                    &quot;gammainc&quot;, &quot;gamma_lower&quot;, &quot;gamma_upper&quot;, &quot;gamma_p&quot;, &quot;gamma_q&quot;, &quot;gamma_tricomi&quot;, &quot;gamma_derivative&quot;)
+                Case &quot;Error function and related&quot;: result = Array( _
+                    &quot;erf&quot;, &quot;erfc&quot;, &quot;inerfc&quot;, &quot;erfi&quot;, &quot;dawson&quot;, &quot;fresnels&quot;, &quot;fresnelc&quot;, &quot;faddeeva&quot;, &quot;voigt_u&quot;, &quot;voigt_v&quot;, &quot;voigt_h&quot;)
+                Case &quot;Exponential integrals and related&quot;: result = Array( _
+                    &quot;chi&quot;, &quot;ci&quot;, &quot;e1&quot;, &quot;ei&quot;, &quot;expint&quot;, &quot;li&quot;, &quot;primepi2_upper&quot;, &quot;primepi2_lower&quot;, &quot;shi&quot;, &quot;si&quot;)
+                Case &quot;Orthogonal polynomials&quot;: result = Array( _
+                    &quot;hermite&quot;, &quot;hermite_he&quot;, &quot;laguerre_l&quot;, &quot;laguerre&quot;)
+                Case &quot;Coulomb functions&quot;: result = Array( _
+                    &quot;coulombc&quot;, &quot;coulombf&quot;, &quot;coulombg&quot;)
+                Case &quot;Whittaker functions&quot;: result = Array( _
+                    &quot;whitm&quot;, &quot;whitw&quot;, &quot;Power&quot;)
+                Case &quot;Parabolic cylinder functions&quot;: result = Array( _
+                    &quot;pcfd&quot;, &quot;pcfu&quot;, &quot;pcfv&quot;, &quot;pcfw&quot;)
+            End Select
+
+        Case &quot;Hypergeometric 2F1 and related&quot;
+            Select Case Selector2
+                Case &quot;Overview&quot;: result = Array( _
+                    &quot;hyp2f1&quot;, &quot;hyp2f1r&quot;)
+                Case &quot;Orthogonal polynomials&quot;: result = Array( _
+                    &quot;chebyt&quot;, &quot;chebyu&quot;, &quot;gegenbauer&quot;, &quot;jacobi&quot;, &quot;legendre&quot;, &quot;legenp&quot;, &quot;legenq&quot;, &quot;spherharm&quot;)
+                Case &quot;Incomplete Beta Function&quot;: result = Array( _
+                    &quot;betainc&quot;, &quot;ibeta&quot;, &quot;beta3&quot;)
+            End Select
+
+        Case &quot;Hypergeometric pFq and related&quot;
+            Select Case Selector2
+                Case &quot;Generalized hypergeometric&quot;: result = Array( _
+                    &quot;hyper&quot;, &quot;hyp2f3&quot;, &quot;hyp3f2&quot;, &quot;hyp2f2&quot;, &quot;hyp2f0&quot;)
+                Case &quot;Hypergeometric 1F2 and related&quot;: result = Array( _
+                    &quot;hyp1f2&quot;, &quot;hyp1f2r&quot;, &quot;scorergi&quot;, &quot;scorerhi&quot;, &quot;struveh&quot;, &quot;struvel&quot;, &quot;struvek&quot;, &quot;struvem&quot;, &quot;angerj&quot;, _
+                    &quot;webere&quot;, &quot;lommels1&quot;, &quot;lommels2&quot;)
+            End Select
+
+        Case &quot;Generalizations of various functions&quot;
+            Select Case Selector2
+                Case &quot;Appell Functions&quot;: result = Array( _
+                    &quot;appellf1&quot;, &quot;appellf2&quot;, &quot;appellf3&quot;, &quot;appellf4&quot;)
+                Case &quot;Q Functions&quot;: result = Array( _
+                    &quot;qp&quot;, &quot;qgamma&quot;, &quot;qfac&quot;, &quot;qhyper&quot;)
+                Case &quot;Further generalizations&quot;: result = Array( _
+                    &quot;gammaprod&quot;, &quot;hypercomb&quot;, &quot;meijerg&quot;, &quot;bihyper&quot;, &quot;hyper2d&quot;)
+            End Select
+
+
+
+        Case &quot;Algebra with random variables&quot;
+            Select Case Selector2
+                Case &quot;Probability density function (pdf)&quot;: result = Array( _
+                    &quot;Pdf from the cdf&quot;, &quot;Pdf from the characteristic function&quot;)
+                Case &quot;Probability mass function (pmf)&quot;: result = Array( _
+                    &quot;Pmf from the cdf&quot;, &quot;Pmf from the characteristic function&quot;, &quot;Pmf from the factorial moments&quot;, &quot;Pmf with asymptotic expansions&quot;)
+                Case &quot;Cumulative distribution function (cdf)&quot;: result = Array( _
+                    &quot;Cdf from the pdf&quot;, &quot;cdf from the pmf&quot;, &quot;Cdf from the characteristic function&quot;, _
+                    &quot;Cdf from the characteristic function (lattice distribution)&quot;, &quot;Cdf from the factorial moments (lattice distributions)&quot;)
+                Case &quot;Quantile function (qtf)&quot;: result = Array( _
+                    &quot;Qtf from the cdf&quot;, &quot;Qtf from the cgf&quot;, &quot;Qtf from the cumulants&quot;)
+                Case &quot;Characteristic function (cf)&quot;: result = Array( _
+                    &quot;Cf from the pdf (continuous)&quot;, &quot;Cf from the pdf (lattice)&quot;, &quot;Cf from the qtf&quot;, &quot;Cf from the raw moments&quot;)
+                Case &quot;Moment generating function (mgf)&quot;: result = Array( _
+                    &quot;Mgf from the pdf (continuous)&quot;, &quot;Mgf from the cf&quot;, &quot;Mgf from the cgf&quot;, &quot;Mgf from the pgf (lattice)&quot;, _
+                    &quot;Mgf from the raw moments&quot;)
+                Case &quot;Cumulant generating function (cgf)&quot;: result = Array( _
+                    &quot;Cgf from the cf&quot;, &quot;Cgf from the mgf&quot;, &quot;Cgf from the pgf (lattice)&quot;, &quot;Cgf from the cumulants&quot;)
+                Case &quot;Probability generating function (pgf)&quot;: result = Array( _
+                    &quot;Pgf from pmf vector&quot;, &quot;pgf from mgf&quot;)
+                Case &quot;Factorial Moments&quot;: result = Array( _
+                    &quot;Factorial moments from the raw moment&quot;, &quot;Factorial moments from the cumulants&quot;)
+                Case &quot;Raw Moments&quot;: result = Array( _
+                    &quot;Raw moments from the pdf&quot;, &quot;Raw moments from the pmf&quot;, &quot;Raw moments from the factorial moments&quot;, _
+                    &quot;Raw moments from the central moments&quot;, &quot;Raw moments from the cumulants&quot;, &quot;Raw moments from the mgf&quot;, _
+                    &quot;Raw moments from the cf&quot;, &quot;Raw moments from the pgf&quot;)
+                Case &quot;Central Moments&quot;: result = Array( _
+                    &quot;Central moments from factorial moments&quot;, &quot;Central moments from raw moments&quot;, &quot;Central moments from cumulants&quot;)
+                Case &quot;Cumulants&quot;: result = Array( _
+                    &quot;Cumulants from the pmf vector&quot;, &quot;Cumulants from the factorial moments&quot;, &quot;Cumulants from the raw moments&quot;, _
+                    &quot;Cumulants from the central moments&quot;, &quot;Cumulants from the cgf&quot;)
+            End Select
+
+
+
+        Case &quot;Inferential Statistics&quot;
+            Select Case Selector2
+                Case &quot;Basic tests for 1 sample&quot;: result = Array( _
+                    &quot;Student&apos;s t-test: test (p-value)&quot;, &quot;Student&apos;s t-test: confidence interval&quot;, &quot;Student&apos;s t-test: power&quot;, &quot;Student&apos;s t-test: samples size&quot;, _
+                    &quot;Student&apos;s t-test: effect size&quot;, &quot;Student&apos;s t-test: tolerance interval&quot;, &quot;Student&apos;s t-test: prediction interval&quot;, _
+                    &quot;Variance: test (p-value)&quot;, &quot;Variance: confidence interval&quot;, &quot;Variance: power&quot;, &quot;Variance: samples size&quot;)
+                Case &quot;Basic tests for 2 independent samples&quot;: result = Array( _
+                    &quot;Student&apos;s t-test: test (p-value)&quot;, &quot;Student&apos;s t-test: confidence interval&quot;, &quot;Student&apos;s t-test: power&quot;, &quot;Student&apos;s t-test: samples size&quot;, _
+                    &quot;Student&apos;s t-test: effect size&quot;, &quot;Student&apos;s t-test: failure to stratify&quot;, &quot;Student&apos;s t-test: equivalence&quot;, _
+                    &quot;F-test (2 variances): test (p-value)&quot;, &quot;F-test (2 variances): confidence interval&quot;, &quot;F-test (2 variances): power&quot;, _
+                    &quot;F-test (2 variances): samples size&quot;)
+                Case &quot;Basic tests for 2 correlated samples&quot;: result = Array( _
+                     &quot;Student&apos;s t test: test (p-value)&quot;, &quot;Student&apos;s t-test: confidence interval&quot;, &quot;Student&apos;s t-test: power&quot;, &quot;Student&apos;s t-test: samples size&quot;, _
+                    &quot;Morgan-Pitman-test: test (p-value)&quot;, &quot;Morgan-Pitman-test: confidence interval&quot;, &quot;Morgan-Pitman-test: power&quot;, _
+                    &quot;Morgan-Pitman-test: samples size&quot;, _
+                    &quot;Pearson&apos;s rho: test (p-value)&quot;, _
+                    &quot;Pearson&apos;s rho, Type I: confidence interval&quot;, &quot;Pearson&apos;s rho, Type I: power&quot;, &quot;Pearson&apos;s rho, Type I: samples size&quot;, _
+                    &quot;Pearson&apos;s rho, Type II: confidence interval&quot;, &quot;Pearson&apos;s rho, Type II: power&quot;, &quot;Pearson&apos;s rho, Type II: samples size&quot;)
+                Case &quot;CR design: Anova, trend tests, Scheffe&quot;: result = Array( _
+                  &quot;Anova: test (p-value)&quot;, &quot;Anova: confidence interval&quot;, &quot;Anova: power&quot;, &quot;Anova: samples size&quot;, _
+                  &quot;Orthogonal polynomials: test (p-value)&quot;, &quot;Orthogonal polynomials: conf. intv.&quot;, &quot;Orthogonal polynomials: power&quot;, _
+                  &quot;Orthogonal polynomials: samples size&quot;, _
+                  &quot;Scheffé-test: test (p-value)&quot;, &quot;Scheffé-test: confidence interval&quot;, &quot;Scheffé-test: power&quot;, &quot;Scheffé-test: samples size&quot;)
+                Case &quot;CR design: Multiple comparisons of means&quot;: result = Array( _
+                    &quot;Tukey-Kramer-test: test (p-value)&quot;, &quot;Tukey-Kramer-test: confidence interval&quot;, &quot;Tukey-Kramer-test: power&quot;, _
+                    &quot;Tukey-Kramer-test: samples size&quot;, _
+                    &quot;Fisher-Hayter test: test (p-value)&quot;, &quot;REGWQ test: test (p-value)&quot;, &quot;Newman-Keuls test: test (p-value)&quot;, _
+                    &quot;Duncan-test: test (p-value)&quot;, _
+                    &quot;Dunnett t-test: test (p-value)&quot;, &quot;Dunnett t-test: confidence interval&quot;, &quot;Dunnett t-test: power&quot;, &quot;Dunnett t-test: samples size&quot;, _
+                    &quot;Marcus t-test: test (p-value)&quot;, &quot;Hsu t-test: test (p-value)&quot;)
+                Case &quot;RB design: Anova, trend tests, Scheffe&quot;: result = Array( _
+                  &quot;Anova: test (p-value)&quot;, &quot;Anova: confidence interval&quot;, &quot;Anova: power&quot;, &quot;Anova: samples size&quot;, _
+                  &quot;Orthogonal polynomials: test (p-value)&quot;, &quot;Orthogonal polynomials: conf. intv.&quot;, &quot;Orthogonal polynomials: power&quot;, _
+                  &quot;Orthogonal polynomials: samples size&quot;, _
+                  &quot;Scheffé-test: test (p-value)&quot;, &quot;Scheffé-test: confidence interval&quot;, &quot;Scheffé-test: power&quot;, &quot;Scheffé-test: samples size&quot;)
+                Case &quot;RB design: Multiple comparisons of means&quot;: result = Array( _
+                    &quot;Tukey-Kramer-test: test (p-value)&quot;, &quot;Tukey-Kramer-test: confidence interval&quot;, &quot;Tukey-Kramer-test: power&quot;, _
+                    &quot;Tukey-Kramer-test: samples size&quot;, &quot;Fisher-Hayter test: test (p-value)&quot;, _
+                    &quot;Dunnett t-test: test (p-value)&quot;, &quot;Dunnett t-test: confidence interval&quot;, &quot;Dunnett t-test: power&quot;, &quot;Dunnett t-test: samples size&quot;, _
+                    &quot;Marcus t-test: test (p-value)&quot;, &quot;Hsu t-test: test (p-value)&quot;)
+                Case &quot;Tests for proportians, 1 or 2 samples&quot;: result = Array( _
+                    &quot;Sign test: p-value&quot;, &quot;Sign test: confidence interval&quot;, &quot;Sign test: power&quot;, &quot;Sign test: sample size&quot;, _
+                    &quot;Brown-Mood test: p-value&quot;, &quot;Brown-Mood test: confidence interval&quot;, &quot;Brown-Mood test: power&quot;, _
+                    &quot;Brown-Mood test: sample size&quot;, &quot;&quot;)
+                Case &quot;Rank tests, 1 or 2 samples&quot;: result = Array( _
+                    &quot;Wilcoxon signed rank test: p-value&quot;, &quot;Wilcoxon signed rank test:: confidence interval&quot;, &quot;Wilcoxon signed rank test: power&quot;, _
+                    &quot;Wilcoxon signed rank test: sample size&quot;, _
+                    &quot;Mann-Whitney test: p-value&quot;, &quot;Mann-Whitney test: confidence interval&quot;, _
+                    &quot;Mann-Whitney test: power (Lehmann)&quot;, &quot;Mann-Whitney test: sample size (Lehmann)&quot;, _
+                    &quot;Mann-Whitney test: power (Milton)&quot;, &quot;Mann-Whitney test: sample size (Milton)&quot;, _
+                    &quot;Siegel-Tukey test: p-value&quot;, &quot;Siegel-Tukey test: confidence interval&quot;, &quot;Spearman&apos;s test: p-value&quot;, _
+                    &quot;Kendall&apos;s tau: p-value&quot;, &quot;Kendall&apos;s tau: confidence interval&quot;, _
+                    &quot;Theill&apos;s test: p-value&quot;, &quot;Theill&apos;s test: confidence interval&quot;)
+                Case &quot;Rank tests, k samples&quot;: result = Array( _
+                    &quot;J.-Terpsta-test: p-value&quot;, &quot;J.-Terpsta-test: confidence interval&quot;, _
+                    &quot;J.-Terpsta-test: power (Shorack)&quot;, &quot;J.-Terpsta-test: sample size (Shorack)&quot;, _
+                    &quot;J.-Terpsta-test: power (Milton)&quot;, &quot;J.-Terpsta-test: sample size (Milton)&quot;, _
+                    &quot;Generalized Page L test: p-value&quot;, &quot;Generalized Page L test: power&quot;, &quot;Generalized Page L test: sample size&quot;, _
+                    &quot;Generalized Quade L test: p-value&quot;, &quot;Kruskal-Wallis’ H: p-value&quot;, &quot;Cochran’s S: p-value&quot;, _
+                    &quot;Friedman’s S: p-value&quot;, &quot;Quade&apos;s S: p-value&quot;)
+                Case &quot;Multivariate tests, part 1&quot;: result = Array( _
+                    &quot;Multiple linear regression: p-value&quot;, &quot;Mult. lin. regression: confidence interval&quot;, _
+                    &quot;Mult. lin. regression Type I: power&quot;, &quot;Mult. lin. regression Type I: sample size&quot;, _
+                    &quot;Mult. lin. regression Type II: power&quot;, &quot;Mult. lin. regression Type II: sample size&quot;, _
+                    &quot;Hotelling&apos;s T2, 1 sample: test (p-value)&quot;, &quot;Hotelling&apos;s T2, 1 sample: power&quot;, &quot;Hotelling&apos;s T2, 1 sample: samples size&quot;, _
+                    &quot;Hotelling&apos;s T2, 2 samples: test (p-value)&quot;, &quot;Hotelling&apos;s T2, 2 samples: power&quot;, &quot;Hotelling&apos;s T2, 2 samples: samples size&quot;)
+                Case &quot;Multivariate tests, part 2&quot;: result = Array( _
+                    &quot;Manova: p-value&quot;, &quot;Canonical correlation: p-value&quot;, &quot;2 covariance matrices: p-value&quot;, _
+                    &quot;Manova: power&quot;, &quot;Manova: sample size&quot;, _
+                    &quot;Canonical correlation: power&quot;, &quot;Canonical correlation: sample size&quot;, _
+                    &quot;Test for a given covariance matrix: p-value&quot;, &quot;Wilk&apos;s test for no correlation: p-value&quot;, _
+                    &quot;Mauchley&apos;s test for sphericity: p-value&quot;, &quot;Box test for equal cov. matrices: p-value&quot;, _
+                    &quot;Box test for same mvn distribution: p-value&quot;)
+            End Select
+        Case Else: result = Array(&quot;None&quot;)
+    End Select  &apos; Selector 1
+    End If
+    
+    
+     
+    If Selector0 = &quot;Statistical distributions&quot; Then
+        If (Selector1 = &quot;Elementary discrete (lattice)&quot;) Or (Selector1 = &quot;Discrete, related to rank tests&quot;) _
+            Or (Selector1 = &quot;Discrete, non-lattice&quot;) Then
+            result = Array(&quot;Probability mass function&quot;, &quot;Cumulative distribution function&quot;, &quot;Survival function&quot;, &quot;Quantile function&quot;, _
+            &quot;Inverse Survival function&quot;, &quot;Probability generating function&quot;, _
+            &quot;Characteristic function&quot;, &quot;Moment generating function&quot;, &quot;Cumulant generating function&quot;, _
+            &quot;Raw moments&quot;, &quot;Central moments&quot;, &quot;Cumulants&quot;, &quot;Entropy&quot;, &quot;Log(pmf)&quot;, &quot;Pmf vector&quot;)
+        Else
+            result = Array(&quot;Probability density function&quot;, &quot;Cumulative distribution function&quot;, &quot;Survival function&quot;, &quot;Quantile function&quot;, _
+            &quot;Inverse Survival function&quot;, &quot;Probability sparsity function&quot;, &quot;Hazard function&quot;, &quot;Cumulative Hazard Function&quot;, _
+            &quot;Differerential entropy&quot;, &quot;Negative loglikelihood function&quot;, _
+            &quot;Characteristic function&quot;, &quot;Moment generating function&quot;, &quot;Cumulant generating function&quot;, _
+            &quot;Raw moments&quot;, &quot;Central moments&quot;, &quot;Cumulants&quot;)
+        End If
+    End If
+
+
+    MenuNumpy3 = result
+End Function
+
+
+
+
+
+
+</script:module>

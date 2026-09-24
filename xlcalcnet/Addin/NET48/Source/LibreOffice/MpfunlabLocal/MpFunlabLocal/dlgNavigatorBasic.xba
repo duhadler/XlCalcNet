@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="dlgNavigatorBasic" script:language="StarBasic" script:moduleType="normal">
+&apos;********************************* Beginning of internal dialog routines *****************************************************
+
+Private dlgNavigator1
+Private LastLibraryPos As Integer
+
+Sub ShowNavigatorDialog()
+    With GlobalScope.Basiclibraries
+       If Not .IsLibraryLoaded(&quot;Tools&quot;) Then .LoadLibrary(&quot;Tools&quot;)
+    End With
+    dlgNavigator1 = ModuleControls.LoadDialog(&quot;MpFunlabLocal&quot;, &quot;dlgNavigator&quot;)
+    dlgNavigator1.setPosSize(300, 300, 0, 0, 3)
+ 	dlgNavigator1Result = &quot;Cancel&quot;
+    lboxLibrary = dlgNavigator1.GetControl(&quot;lboxLibrary&quot;)
+    lboxLibrary.addItems(MenuNavigator1(), 0) 
+    lboxLibrary.selectItemPos(0, True)
+    LastLibraryPos = 0
+    lboxSubroutine = dlgNavigator1.GetControl(&quot;lboxSubroutine&quot;)
+    Selector1 =  lboxLibrary.getSelectedItem() 
+    lboxSubroutine.addItems(MenuNavigator2(Selector1), 0) 
+    lboxSubroutine.selectItemPos(0, True)
+    dlgNavigator1Result = dlgNavigator1.Execute()   
+	If (dlgNavigator1Result = 1) Then
+	    Selector1 = lboxLibrary.getSelectedItem()
+		Selector2 = lboxSubroutine.getSelectedItem()
+		Call RunNavigatorCmd(Selector1, Selector2)
+	End If
+End Sub
+
+Sub LibraryChanged()
+	lboxLibrary = dlgNavigator1.GetControl(&quot;lboxLibrary&quot;)
+	CurrentPos = lboxLibrary.getSelectedItemPos()
+	If (LastLibraryPos &lt;&gt; CurrentPos) Then
+		LastLibraryPos  = CurrentPos
+		Selector1 =  lboxLibrary.getSelectedItem()
+	    lboxSubroutine = dlgNavigator1.GetControl(&quot;lboxSubroutine&quot;) 
+	    lboxSubroutine.removeItems(0, lboxSubroutine.getItemCount())
+	    lboxSubroutine.addItems(MenuNavigator2(Selector1), 0) 
+	    lboxSubroutine.selectItemPos(0, True)		
+	End If
+End Sub
+
+&apos;********************************* End of internal dialog routines *****************************************************
+
+
+
+Public Function MenuNavigator1() As Variant
+    MenuNavigator1 = Array( &quot;Intern, General&quot;, &quot;Extern, General&quot;, &quot;Utilities&quot;)
+End Function
+
+Public Function MenuNavigator2(Selector1 As String) As Variant
+    Result = Array(&quot;None&quot;)
+    Select Case Selector1
+        Case &quot;Intern, General&quot;: Result = Array(&quot;Numpy and related&quot;, &quot;Statistical calculator&quot;)
+        Case &quot;Extern, General&quot;: Result = Array(&quot;TinyEditor+&quot;,  &quot;LO Python Console&quot;)
+        Case &quot;Utilities&quot;: Result = Array(&quot;Convert to SQLite&quot;, &quot;Expand array formulas&quot;, &quot;Condense array formulas&quot;)
+        Case Else: Result = Array(&quot;None&quot;)
+    End Select
+    MenuNavigator2 = Result
+End Function
+
+Public Sub RunNavigatorCmd(ByVal Selector1 As String, ByVal Selector2 As String)
+    Select Case Selector1 
+         Case &quot;Intern, General&quot; &apos; Selector1
+            Select Case Selector2  &apos; Selector2
+                Case &quot;Numpy and related&quot;: :ShowNumpyDialog()
+                Case &quot;Statistical calculator&quot;: ShowStatCalcDialog()
+                Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector2
+            End Select  &apos; Selector2
+        Case &quot;Extern, General&quot;  &apos; Selector1
+            Select Case Selector2  &apos; Selector2
+                Case &quot;TinyEditor+&quot;: DemoStartScriptEditorLocal()
+                Case &quot;LO Python Console&quot;: DemoLibreOfficePythonCalledLocal()
+                Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector2
+            End Select  &apos; Selector2
+         Case &quot;Utilities&quot; &apos; Selector1
+            Select Case Selector2  &apos; Selector2
+                Case &quot;Convert to SQLite&quot;: Print(&quot;Convert to SQLite&quot;)
+                Case &quot;Expand array formulas&quot;: Print(&quot;Expand array formulas&quot;)
+                Case &quot;Condense array formulas&quot;: Print(&quot;Condense array formulas&quot;)
+                Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector2
+            End Select  &apos; Selector2
+        Case Else: Debug.Print &quot;No matching procedure found&quot; &amp; Selector1
+    End Select  &apos; Selector 1
+End Sub
+
+
+
+</script:module>

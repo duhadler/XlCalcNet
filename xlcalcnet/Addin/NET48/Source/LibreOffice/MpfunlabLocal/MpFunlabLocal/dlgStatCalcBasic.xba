@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="dlgStatCalcBasic" script:language="StarBasic" script:moduleType="normal">
+
+&apos;********************************* Beginning of internal dialog routines *****************************************************
+
+
+Private dlgStatCalc1
+Private dlgStatCalc1Result As String
+Private LastCategoryPos As Integer
+Private LastProceduresPos As Integer
+Private LastTargetPos As Integer
+
+
+Sub ShowStatCalcDialog()
+    With GlobalScope.Basiclibraries
+       If Not .IsLibraryLoaded(&quot;Tools&quot;) Then .LoadLibrary(&quot;Tools&quot;)
+    End With
+    dlgStatCalc1 = ModuleControls.LoadDialog(&quot;MpFunlabLocal&quot;, &quot;dlgStatCalc&quot;)
+ 	dlgStatCalc1Result = &quot;Cancel&quot;
+ 	dlgStatCalc1.setPosSize(300, 600, 0, 0, 3)
+    lboxCategories = dlgStatCalc1.GetControl(&quot;lboxCategories&quot;)
+    lboxCategories.addItems(MenuStatCalc1(), 0) 
+    lboxCategories.selectItemPos(0, True)
+    LastCategoryPos = 0
+     
+    lboxProcedures = dlgStatCalc1.GetControl(&quot;lboxProcedures&quot;)
+    Selector1 =  lboxCategories.getSelectedItem() 
+    lboxProcedures.addItems(MenuStatCalc2(Selector1), 0) 
+    lboxProcedures.selectItemPos(0, True)
+    LastProceduresPos = 0
+    
+    lboxTargets = dlgStatCalc1.GetControl(&quot;lboxTargets&quot;)
+    Selector2 =  lboxProcedures.getSelectedItem() 
+    lboxTargets.addItems(MenuStatCalc3(Selector1, Selector2), 0) 
+    lboxTargets.selectItemPos(0, True)
+    LastTargetPos = 0
+     
+    cboxGroups = dlgStatCalc1.GetControl(&quot;cboxGroups&quot;)
+    cboxGroups.addItems(Array(&quot;NoOfGroups = 1&quot;), 0) 
+    cboxGroups.selectItemPos(0, True)
+      
+    cboxVariables = dlgStatCalc1.GetControl(&quot;cboxVariables&quot;)
+    cboxVariables.addItems(Array(&quot;NoOfVariables = 1&quot;), 0) 
+    cboxVariables.selectItemPos(0, True)
+      
+    cboxBlocks = dlgStatCalc1.GetControl(&quot;cboxBlocks&quot;)
+    cboxBlocks.addItems(Array(&quot;NoOfBlocks = 1&quot;), 0) 
+    cboxBlocks.selectItemPos(0, True)
+ 
+    cboxExtra1 = dlgStatCalc1.GetControl(&quot;cboxExtra1&quot;)
+    cboxExtra1.addItems(Array(&quot;(not used)&quot;), 0) 
+    cboxExtra1.selectItemPos(0, True)
+    cboxExtra1.setEnable(False)
+    &apos;MsgBox cboxExtra1.dbg_methods
+	&apos;MsgBox cboxExtra1.dbg_supportedInterfaces
+	&apos;MsgBox cboxExtra1.dbg_properties
+    
+    cboxExtra2 = dlgStatCalc1.GetControl(&quot;cboxExtra2&quot;)
+    cboxExtra2.addItems(Array(&quot;(not used)&quot;), 0) 
+    cboxExtra2.selectItemPos(0, True)
+    cboxExtra2.setEnable(False)
+    
+    cboxCommon = dlgStatCalc1.GetControl(&quot;cboxCommon&quot;)
+    cboxCommon.addItems(Array(&quot;Common = N&quot;, &quot;Common = StDev&quot;, &quot;Common = N, StDev&quot;), 0) 
+    cboxCommon.selectItemPos(0, True)
+ 
+ 
+     dlgStatCalc1.Execute()   
+    
+	&apos;Print(&quot;Result: &quot; + dlgStatCalc1Result)
+	If (dlgStatCalc1Result &lt;&gt; &quot;Cancel&quot;) Then
+		SplitResult = Split(dlgStatCalc1Result, &quot;|&quot;)
+		Selector1 = SplitResult(0)
+		Selector2 = SplitResult(1)
+		Selector3 = SplitResult(2)
+		Call RunStatCalcCmd(Selector1, Selector2, Selector3)
+	End If
+
+End Sub
+
+
+Sub CatChanged()
+	lboxCategories = dlgStatCalc1.GetControl(&quot;lboxCategories&quot;)
+	CurrentPos = lboxCategories.getSelectedItemPos()
+	If (LastCategoryPos &lt;&gt; CurrentPos) Then
+		LastCategoryPos  = CurrentPos
+		
+		Selector1 =  lboxCategories.getSelectedItem()
+	    lboxProcedures = dlgStatCalc1.GetControl(&quot;lboxProcedures&quot;) 
+	    lboxProcedures.removeItems(0, lboxProcedures.getItemCount())
+	    lboxProcedures.addItems(MenuStatCalc2(Selector1), 0) 
+	    lboxProcedures.selectItemPos(0, True)
+	    LastProceduresPos = 0
+	    
+	    lboxTargets = dlgStatCalc1.GetControl(&quot;lboxTargets&quot;)
+	    Selector2 =  lboxProcedures.getSelectedItem() 
+	    lboxTargets.removeItems(0, lboxTargets.getItemCount())
+	    lboxTargets.addItems(MenuStatCalc3(Selector1, Selector2), 0) 
+	    lboxTargets.selectItemPos(0, True)
+	    LastTargetPos = 0			
+	End If
+End Sub
+
+
+Sub ProcChanged()
+	lboxProcedures = dlgStatCalc1.GetControl(&quot;lboxProcedures&quot;)
+	CurrentPos = lboxProcedures.getSelectedItemPos()
+	If (LastProceduresPos &lt;&gt; CurrentPos) Then
+		LastProceduresPos  = CurrentPos
+		lboxCategories = dlgStatCalc1.GetControl(&quot;lboxCategories&quot;)
+		Selector1 =  lboxCategories.getSelectedItem()
+		Selector2 =  lboxProcedures.getSelectedItem()
+		lboxTargets = dlgStatCalc1.GetControl(&quot;lboxTargets&quot;)
+	    lboxTargets.removeItems(0, lboxTargets.getItemCount())
+	    lboxTargets.addItems(MenuStatCalc3(Selector1, Selector2), 0) 
+	    lboxTargets.selectItemPos(0, True)
+	    LastTargetPos = 0
+	End If
+End Sub
+
+
+Sub TargetChanged()
+	lboxTargets = dlgStatCalc1.GetControl(&quot;lboxTargets&quot;)
+	CurrentPos = lboxTargets.getSelectedItemPos()
+	If (LastTargetPos &lt;&gt; CurrentPos) Then
+		LastTargetPos  = CurrentPos
+		&apos;Print(&quot;Need to update Target dependencies!&quot;)
+	End If
+End Sub
+
+
+Sub StatCalcOKButton()
+	lboxCategories = dlgStatCalc1.GetControl(&quot;lboxCategories&quot;)
+	Selector1 = lboxCategories.getSelectedItem()
+	lboxProcedures = dlgStatCalc1.GetControl(&quot;lboxProcedures&quot;)
+	Selector2 = lboxProcedures.getSelectedItem()
+	lboxTargets = dlgStatCalc1.GetControl(&quot;lboxTargets&quot;)
+	Selector3 = lboxTargets.getSelectedItem()
+	dlgStatCalc1Result = Selector1 + &quot;|&quot; + Selector2 + &quot;|&quot; + Selector3
+	dlgStatCalc1.endExecute()
+End Sub
+
+
+
+
+&apos;********************************* End of internal dialog routines *****************************************************
+
+
+
+
+Public Function MenuStatCalc1() As Variant
+    MenuStatCalc1 = Array(&quot;Tests for 1 sample&quot;, &quot;Tests for 2 independent samples&quot;, &quot;Tests for 2 correlated samples&quot;, &quot;Tests for k independent samples&quot;, &quot;Tests for k correlated samples&quot;, &quot;Multivariate tests&quot;)
+End Function
+
+
+
+Public Function MenuStatCalc2(Selector1 As String) As Variant
+    result = Array(&quot;None&quot;)
+    
+    Select Case Selector1
+        Case &quot;Tests for 1 sample&quot;: result = Array(&quot;Student&apos;s t-test&quot;, &quot;Chi-Square-test (variance)&quot;, &quot;Wilcoxon test&quot;, &quot;Binomial test&quot;, &quot;Sign test&quot;)
+        Case &quot;Tests for 2 independent samples&quot;: result = Array(&quot;Student&apos;s t-test&quot;, &quot;Mann-Whitney test&quot;, &quot;Fisher&apos;s exact test&quot;, &quot;Brown-Mood test&quot;, &quot;F test (2 variances)&quot;, &quot;Bartlett test (2 variances)&quot;)
+        Case &quot;Tests for 2 correlated samples&quot;: result = Array(&quot;Student&apos;s t-test&quot;, &quot;Wilcoxon test&quot;, &quot;Sign test and McNemar&apos;s test&quot;, &quot;Pitman-Morgan test (variances)&quot;, &quot;Pearson&apos;s rho&quot;, &quot;Spearman&apos;s rho&quot;, &quot;Kendall&apos;s tau&quot;)
+        Case &quot;Tests for k independent samples&quot;: result = Array(&quot;Classical F-test (Anova)&quot;, &quot;Orthogonal polynomials&quot;, &quot;Scheffé test&quot;, &quot;Tukey-Kramer test&quot;, &quot;Dunnett-Shaffer test&quot;, &quot;Dunn-Sidak t-test&quot;, &quot;Kruskal-Wallis test&quot;, &quot;Jonckheere-Terpsta test&quot;)
+        Case &quot;Tests for k correlated samples&quot;: result = Array(&quot;Classical F-test (Anova)&quot;, &quot;Orthogonal polynomials&quot;, &quot;Scheffé test&quot;, &quot;Tukey-Kramer test&quot;, &quot;Dunnett-Shaffer test&quot;, &quot;Dunn-Sidak t-test&quot;, &quot;Friedman test&quot;, &quot;Page-Koziol test&quot;, &quot;Multiple linear regression&quot;)
+        Case &quot;Multivariate tests&quot;: result = Array(&quot;Wilk&apos;s Lambda&quot;, &quot;Hotelling&apos;s T2&quot;, &quot;Pillai&apos;s V&quot;, &quot;Roy&apos;s largest root&quot;, &quot;Canonical correlation&quot;, &quot;Mauchley-test (spericity)&quot;, &quot;Bartlett-test (equal matrices)&quot;)
+ 
+        Case Else: result = Array(&quot;None&quot;)
+    End Select
+        
+    MenuStatCalc2 = result
+End Function
+
+
+Public Function MenuStatCalc3(Selector1 As String, Selector2 As String) As Variant
+    result = Array(&quot;None&quot;)
+    
+    Select Case Selector1
+       
+        Case &quot;Tests for 1 sample&quot;
+            Select Case Selector2
+                Case &quot;Student&apos;s t-test&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Chi-Square-test (variance)&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Wilcoxon test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Binomial test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Sign test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+        
+        Case &quot;Tests for 2 independent samples&quot;
+            Select Case Selector2
+                Case &quot;Student&apos;s t-test&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Mann-Whitney test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Fisher&apos;s exact test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Brown-Mood test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;F test (2 variances)&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Bartlett test (2 variances)&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                     
+        Case &quot;Tests for 2 correlated samples&quot;
+            Select Case Selector2
+                Case &quot;Student&apos;s t-test&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Wilcoxon test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Sign test and McNemar&apos;s test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Pitman-Morgan test (variances)&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Pearson&apos;s rho&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Spearman&apos;s rho&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Kendall&apos;s tau&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+     
+        Case &quot;Tests for k independent samples&quot;
+            Select Case Selector2
+                Case &quot;Classical F-test (Anova)&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Orthogonal polynomials&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Scheffé test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Tukey-Kramer test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Dunnett-Shaffer test&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Dunn-Sidak t-test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Kruskal-Wallis test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Jonckheere-Terpsta test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                     
+        Case &quot;Tests for k correlated samples&quot;
+            Select Case Selector2
+                Case &quot;Classical F-test (Anova)&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Orthogonal polynomials&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Scheffé test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Tukey-Kramer test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Dunnett-Shaffer test&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Dunn-Sidak t-test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Friedman test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Page-Koziol test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Multiple linear regression&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                
+        Case &quot;Multivariate tests&quot;
+            Select Case Selector2
+                Case &quot;Wilk&apos;s Lambda&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Hotelling&apos;s T2&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Scheffé test&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Pillai&apos;s V&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Canonical correlation&quot;: result = Array(&quot;p-values&quot;, &quot;Confidence intervals&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Mauchley-test (spericity)&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case &quot;Bartlett-test (equal matrices)&quot;: result = Array(&quot;p-values&quot;, &quot;Power&quot;, &quot;Sample size&quot;)
+                Case Else: result = Array(&quot;None&quot;)
+            End Select
+                      
+        Case Else: result = Array(&quot;None&quot;)
+    End Select  &apos; Selector 1
+    
+    MenuStatCalc3 = result
+End Function
+
+
+
+Public Sub RunStatCalcCmd(ByVal Selector1 As String, ByVal Selector2 As String, ByVal Selector3 As String)
+       
+    Select Case Selector1
+        Case &quot;1 sample&quot;  &apos; Selector1
+            Select Case Selector2  &apos; Selector2
+                Case &quot;Student&apos;s t-test&quot;:
+                    Select Case Selector3
+                        Case &quot;p-values&quot;:
+                        Case &quot;Confidence intervals&quot;:
+                        Case &quot;Power&quot;:
+                        Case &quot;Sample size&quot;:
+                        Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector3
+                    End Select
+                Case &quot;Wilcoxon test&quot;:
+                    Select Case Selector3
+                        Case &quot;p-values&quot;:
+                        Case &quot;Power&quot;:
+                        Case &quot;Sample size&quot;:
+                        Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector3
+                    End Select
+                Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector2
+            End Select  &apos; Selector2
+                
+         Case &quot;2 independent samples&quot; &apos; Selector1
+            Select Case Selector2  &apos; Selector2
+                Case &quot;Student&apos;s t-test&quot;:
+                   Select Case Selector3
+                        Case &quot;p-values&quot;:
+                        Case &quot;Confidence intervals&quot;:
+                        Case &quot;Power&quot;:
+                        Case &quot;Sample size&quot;:
+                        Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector3
+                    End Select
+                Case &quot;Mann-Whitney test&quot;:
+                    Select Case Selector3
+                        Case &quot;p-values&quot;:
+                        Case &quot;Power&quot;:
+                        Case &quot;Sample size&quot;:
+                       Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector3
+                    End Select
+                Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector2
+            End Select  &apos; Selector2
+                    
+         Case &quot;2 correlated samples&quot; &apos; Selector1
+            Select Case Selector2  &apos; Selector2
+                Case &quot;Student&apos;s t-test&quot;:
+                   Select Case Selector3
+                        Case &quot;p-values&quot;:
+                        Case &quot;Confidence intervals&quot;:
+                        Case &quot;Power&quot;:
+                        Case &quot;Sample size&quot;:
+                        Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector3
+                    End Select
+                Case &quot;Wilcoxon test&quot;:
+                    Select Case Selector3
+                        Case &quot;p-values&quot;:
+                        Case &quot;Power&quot;:
+                        Case &quot;Sample size&quot;:
+                       Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector3
+                    End Select
+                Case Else: Debug.Print &quot;No matching procedure found for &quot; &amp; Selector2
+            End Select  &apos; Selector2
+      
+                
+        Case Else: Debug.Print &quot;No matching procedure found&quot; &amp; Selector1
+    End Select  &apos; Selector 1
+
+End Sub
+
+
+
+
+</script:module>

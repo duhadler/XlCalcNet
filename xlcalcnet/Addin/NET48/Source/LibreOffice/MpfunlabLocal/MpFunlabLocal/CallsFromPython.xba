@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="CallsFromPython" script:language="StarBasic" script:moduleType="normal">REM  *****  BASIC  *****
+
+
+
+Public Function GetCPythonExeDirLocal() As String
+	GetCPythonExeDirLocal =&quot;C:\Users\dietrichhadler\Documents\Python38&quot;
+End Function
+
+
+Public Function GetCPythonPathLocal() As String
+	Dim PP As String
+	PP = GetCPythonExeDirLocal()
+	GetCPythonPathLocal = PP + &quot;,&quot; + PP + &quot;\DLLs,&quot; + PP + &quot;\Lib,&quot; + PP + &quot;\Lib\site-packages&quot;
+End Function
+
+
+Sub DemCPythonPath()
+	s =  GetCPythonPathLocal()
+	Print(s)
+End Sub
+
+
+Sub ShowMpFunlabMainDlgLocal()
+	&apos;ShowMpFunLabWinDialogLocal()
+	 ShowNavigatorDialog()
+	
+End Sub
+
+
+
+
+
+
+
+
+
+
+</script:module>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dlg:window PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "dialog.dtd">
+<dlg:window xmlns:dlg="http://openoffice.org/2000/dialog" xmlns:script="http://openoffice.org/2000/script" dlg:id="dlgStatCalc" dlg:left="10" dlg:top="10" dlg:width="340" dlg:height="190" dlg:tag="Tada" dlg:closeable="true" dlg:moveable="true" dlg:title="Statistical Calculator">
+ <dlg:styles>
+  <dlg:style dlg:style-id="0" dlg:background-color="0xffffff"/>
+ </dlg:styles>
+ <dlg:bulletinboard>
+  <dlg:button dlg:id="CommandButton1" dlg:tab-index="6" dlg:left="290" dlg:top="170" dlg:width="40" dlg:height="14" dlg:value="Cancel" dlg:button-type="cancel"/>
+  <dlg:text dlg:id="Label1" dlg:tab-index="0" dlg:left="10" dlg:top="10" dlg:width="100" dlg:height="10" dlg:value="Categories" dlg:tabstop="false"/>
+  <dlg:text dlg:id="Label2" dlg:tab-index="7" dlg:left="120" dlg:top="10" dlg:width="100" dlg:height="10" dlg:value="Procedures"/>
+  <dlg:text dlg:id="Label3" dlg:tab-index="8" dlg:left="230" dlg:top="10" dlg:width="100" dlg:height="10" dlg:value="Targets"/>
+  <dlg:button dlg:id="CommandButton2" dlg:tab-index="5" dlg:left="290" dlg:top="150" dlg:width="40" dlg:height="14" dlg:value="OK">
+   <script:event script:event-name="on-performaction" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgStatCalcBasic.StatCalcOKButton?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:button>
+  <dlg:button dlg:id="CommandButton3" dlg:tab-index="4" dlg:left="290" dlg:top="130" dlg:width="40" dlg:height="14" dlg:value="Preview"/>
+  <dlg:menulist dlg:style-id="0" dlg:id="lboxCategories" dlg:tab-index="1" dlg:left="10" dlg:top="20" dlg:width="100" dlg:height="100">
+   <script:event script:event-name="on-keyup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgStatCalcBasic.CatChanged?language=Basic&amp;location=application" script:language="Script"/>
+   <script:event script:event-name="on-mouseup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgStatCalcBasic.CatChanged?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:menulist>
+  <dlg:menulist dlg:style-id="0" dlg:id="lboxProcedures" dlg:tab-index="2" dlg:left="120" dlg:top="20" dlg:width="100" dlg:height="100">
+   <script:event script:event-name="on-keyup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgStatCalcBasic.ProcChanged?language=Basic&amp;location=application" script:language="Script"/>
+   <script:event script:event-name="on-mouseup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgStatCalcBasic.ProcChanged?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:menulist>
+  <dlg:menulist dlg:style-id="0" dlg:id="lboxTargets" dlg:tab-index="3" dlg:left="230" dlg:top="20" dlg:width="100" dlg:height="100">
+   <script:event script:event-name="on-keyup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgStatCalcBasic.TargetChanged?language=Basic&amp;location=application" script:language="Script"/>
+   <script:event script:event-name="on-mouseup" script:macro-name="vnd.sun.star.script:MpFunlabLocal.dlgStatCalcBasic.TargetChanged?language=Basic&amp;location=application" script:language="Script"/>
+  </dlg:menulist>
+  <dlg:menulist dlg:id="cboxGroups" dlg:tab-index="11" dlg:left="10" dlg:top="130" dlg:width="100" dlg:height="10" dlg:spin="true"/>
+  <dlg:menulist dlg:id="cboxVariables" dlg:tab-index="10" dlg:left="10" dlg:top="150" dlg:width="100" dlg:height="10" dlg:spin="true"/>
+  <dlg:menulist dlg:id="cboxBlocks" dlg:tab-index="9" dlg:left="10" dlg:top="170" dlg:width="100" dlg:height="10" dlg:spin="true"/>
+  <dlg:menulist dlg:id="cboxExtra1" dlg:tab-index="12" dlg:left="120" dlg:top="130" dlg:width="100" dlg:height="10" dlg:spin="true"/>
+  <dlg:menulist dlg:id="cboxExtra2" dlg:tab-index="13" dlg:left="120" dlg:top="150" dlg:width="100" dlg:height="10" dlg:spin="true"/>
+  <dlg:menulist dlg:id="cboxCommon" dlg:tab-index="14" dlg:left="120" dlg:top="170" dlg:width="100" dlg:height="10" dlg:spin="true"/>
+ </dlg:bulletinboard>
+</dlg:window>
