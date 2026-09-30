@@ -17,7 +17,8 @@ namespace TinyOutputMonitorCtrl
             // Creating the columns
             foreach (var headerLine in File.ReadLines(filePath, Encoding.UTF8).Take(1))
             {
-                foreach (var headerItem in headerLine.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var headerItem in headerLine.Split(new[] { ';' }))
+                    //foreach (var headerItem in headerLine.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
                     //foreach (var headerItem in headerLine.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
 
                     {
@@ -28,8 +29,8 @@ namespace TinyOutputMonitorCtrl
             // Adding the rows
             foreach (var line in File.ReadLines(filePath).Skip(1))
             {
-                //dt.Rows.Add(line.Split(';'));
-                dt.Rows.Add(line.Split(','));
+                dt.Rows.Add(line.Split(';'));
+                //dt.Rows.Add(line.Split(','));
             }
 
             dataGridViewTablesOutput.DataSource = dt;

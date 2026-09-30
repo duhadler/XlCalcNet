@@ -48,7 +48,7 @@ class table(object):
         df = pd.DataFrame(self.data, rowheaders, colheaders)
         #print(df)
         fname = fname
-        df.to_csv(fname, index=True)
+        df.to_csv(fname, sep=';', index=True)
 
 
 
@@ -65,7 +65,7 @@ class inferential_statistics(object):
         import numpy as np
         #print("Student t-test for 1 sample: tests and confidence intervals")
         res = table(ctx)
-        res.columns = ['G1', 'G2', 'G3', 'G4']
+        res.columns = ['Group1', 'Group2', 'Group3', 'Group4']
         res.index, res.data = [], []
         I = kwargs['I'] if 'I' in kwargs else True
         D = kwargs['D'] if 'D' in kwargs else True
@@ -81,11 +81,11 @@ class inferential_statistics(object):
             for i in range(len(item), cols):
                 item.append(item[i-1])
 
-        n = ctx.t1 * np.array(p[0])
-        mu0 = ctx.t1 * np.array(p[1])
-        mean = ctx.t1 * np.array(p[2])
-        stdev = ctx.t1 * np.array(p[3])
-        alpha = ctx.t1 * np.array(p[4])
+        n = ctx.t(1) * np.array(p[0])
+        mu0 = ctx.t(1) * np.array(p[1])
+        mean = ctx.t(1) * np.array(p[2])
+        stdev = ctx.t(1) * np.array(p[3])
+        alpha = ctx.t(1) * np.array(p[4])
 
         df, diff, StdDiff, a, t, r = [], [], [], [], [], []
         t_alpha1, t_alpha2, p_H01, p_H02, p_H03 = [], [], [], [], []
@@ -115,7 +115,7 @@ class inferential_statistics(object):
         if I:
             res.index.append('n'); res.data.append(n)
             res.index.append('mean'); res.data.append(mean)
-            res.index.append('mu0'); res.data.append(mu0)
+            res.index.append('μ0'); res.data.append(mu0)
             res.index.append('stdev'); res.data.append(stdev)
             res.index.append('alpha'); res.data.append(alpha)
         if D:
@@ -131,25 +131,25 @@ class inferential_statistics(object):
                 res.data.append(t_alpha2)
         if T:
             if Onesided:
-                res.index.append('test, p-value (H01: mu1 >= mu0)')
+                res.index.append('test, p-value (H01: μ1 ≥ μ0)')
                 res.data.append(p_H01)
-                res.index.append('test, p-value (H02: mu1 <= mu0)')
+                res.index.append('test, p-value (H02: μ1 ≤ μ0)')
                 res.data.append(p_H02)
             if Twosided:
-                res.index.append('test, p-value (H03: mu1 = mu2)')
+                res.index.append('test, p-value (H03: μ1 = μ0)')
                 res.data.append(p_H03)
         if C:
             if Onesided:
-                res.index.append('mu1 - mu0, CI upper limit (1-sided)')
+                res.index.append('μ1 - μ0, CI upper limit (1-sided)')
                 res.data.append(CI_UL1)
-                res.index.append('mu1 - mu0, CI lower limit (1-sided)')
+                res.index.append('μ1 - μ0, CI lower limit (1-sided)')
                 res.data.append(CI_LL1)
             if Twosided:
-                res.index.append('mu1 - mu0, CI upper limit (2-sided)')
+                res.index.append('μ1 - μ0, CI upper limit (2-sided)')
                 res.data.append(CI_UL2)
-                res.index.append('mu1 - mu0, CI lower limit (2-sided)')
+                res.index.append('μ1 - μ0, CI lower limit (2-sided)')
                 res.data.append(CI_LL2)
-                res.index.append('mu1 - mu0, CI-length (2-sided)')
+                res.index.append('μ1 - μ0, CI-length (2-sided)')
                 res.data.append(CILength)
         return res
 
@@ -178,10 +178,10 @@ class inferential_statistics(object):
                 item.append(item[i-1])
 
         n = ctx.t1 * np.array(p[0])
-        mu0 = ctx.t1 * np.array(p[1])
-        mu1 = ctx.t1 * np.array(p[2])
-        sigma = ctx.t1 * np.array(p[3])
-        alpha = ctx.t1 * np.array(p[4])
+        mu0 = ctx.t(1) * np.array(p[1])
+        mu1 = ctx.t(1) * np.array(p[2])
+        sigma = ctx.t(1) * np.array(p[3])
+        alpha = ctx.t(1) * np.array(p[4])
 
         df, diff, StdDiff, a, t, r = [], [], [], [], [], []
         t_alpha1, t_alpha2, p_H01, p_H02, p_H03 = [], [], [], [], []

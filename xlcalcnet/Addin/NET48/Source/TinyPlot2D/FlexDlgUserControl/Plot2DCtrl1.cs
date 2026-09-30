@@ -846,38 +846,18 @@ namespace TinyPlot2DCtrl
                     }
                     richTextBox1.AppendText(xeLabel + ": " + res.ToString() + Environment.NewLine);
                 }
-                //if ((TagStr == "ScriptEvaluator") && wpfSettings1.Plot3DType1.Contains("New Builtin"))
-                //{
-                //    var xeLabel = xe.Label.Trim();
-                //    string Stmt = xe.Value.ToString();
-                //    dynamic res;
-                //    try
-                //    {
-                //        //res = evaluator.ScriptEvaluate(Stmt);
-                //        res = ScriptEval(Stmt);
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        res = ex.Message;
-                //        MessageBox.Show(res.ToString());
-                //        tabControl1.SelectedTab = tabLog;
-                //    }
-                //    richTextBox1.AppendText(xeLabel + ": " + res.ToString() + Environment.NewLine);
-                //}
             }
         }
 
         private void StartSocketServer()
         {
-            string PyScriptPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //string MainPath = GetCPythonPath();
-            //if (MainPath == "") return;
+            string PyScriptPath = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C01_Setup";
             string PyExe = _PythonRootDir + @"\python.exe";
-            if (File.Exists(PyExe))
+            if (System.IO.File.Exists(PyExe))
             {
                 var process = new Process();
                 process.StartInfo.FileName = PyExe;
-                process.StartInfo.Arguments = PyScriptPath + @"\socketspy.py";
+                process.StartInfo.Arguments = PyScriptPath + @"\D05_SocketServer.py";
                 process.StartInfo.CreateNoWindow = false;
                 // process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                 process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;

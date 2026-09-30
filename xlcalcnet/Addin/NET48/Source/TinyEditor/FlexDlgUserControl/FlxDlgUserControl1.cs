@@ -1,4 +1,5 @@
-﻿using ScintillaNET;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using ScintillaNET;
 using ScintillaNET_FindReplaceDialog;
 using System;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace FlexDlgUserCtrl
 {
@@ -403,7 +405,7 @@ namespace FlexDlgUserCtrl
             foreach (var file in di.GetFiles())
             {
                 //if (true)
-                if ((file.Name.ToLower().EndsWith(".py")) || (file.Name.ToLower().EndsWith(".txt")) || (file.Name.ToLower().EndsWith(".bib")) || (file.Name.ToLower().EndsWith(".css")) || (file.Name.ToLower().EndsWith(".svg")) || (file.Name.ToLower().EndsWith(".rst")) || (file.Name.ToLower().EndsWith(".cs")) || (file.Name.ToLower().EndsWith(".vb")) || (file.Name.ToLower().EndsWith(".r")) || (file.Name.ToLower().EndsWith(".xml")) || (file.Name.ToLower().EndsWith(".h")) || (file.Name.ToLower().EndsWith(".bat")) || (file.Name.ToLower().EndsWith(".tex")) || (file.Name.ToLower().EndsWith(".pas")))
+                if ((file.Name.ToLower().EndsWith(".py")) || (file.Name.ToLower().EndsWith(".txt")) || (file.Name.ToLower().EndsWith(".bib")) || (file.Name.ToLower().EndsWith(".css")) || (file.Name.ToLower().EndsWith(".svg")) || (file.Name.ToLower().EndsWith(".rst")) || (file.Name.ToLower().EndsWith(".cs")) || (file.Name.ToLower().EndsWith(".json")) || (file.Name.ToLower().EndsWith(".r")) || (file.Name.ToLower().EndsWith(".xml")) || (file.Name.ToLower().EndsWith(".h")) || (file.Name.ToLower().EndsWith(".bat")) || (file.Name.ToLower().EndsWith(".tex")) || (file.Name.ToLower().EndsWith(".pas")))
                 {
                     DataRow row = dtFiles.NewRow();
                     row["FileName"] = file.Name;
@@ -503,7 +505,7 @@ namespace FlexDlgUserCtrl
             //string FileName = GetDataPath() + s + @"\" + FName;
             string FileName = GetDataPath() + @"\" + s + @"\" + FName;
 
-            if ((Ext == ".cs") || (Ext == ".vb") || (Ext == ".r") || (Ext == ".txt") || (Ext == ".css") || (Ext == ".rst") || (Ext == ".svg") || (Ext == ".bib") || (Ext == ".xml") || (Ext == ".py") || (Ext == ".tex") || (Ext == ".bat") || (Ext == ".h") || (Ext == ".pas"))
+            if ((Ext == ".cs") || (Ext == ".json") || (Ext == ".r") || (Ext == ".txt") || (Ext == ".css") || (Ext == ".rst") || (Ext == ".svg") || (Ext == ".bib") || (Ext == ".xml") || (Ext == ".py") || (Ext == ".tex") || (Ext == ".bat") || (Ext == ".h") || (Ext == ".pas"))
             {
                 if ((!IsBuildingUserLibDoc()) && (!IsBuildingUserLibCSharp())) LogScintilla.Text = "";
                 //richTextBoxLog.Clear();
@@ -1053,6 +1055,36 @@ namespace FlexDlgUserCtrl
 
 
 
+        private void StartSocketServer()
+        {
+            string PyScriptPath = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C01_Setup";
+            string PyExe = _PythonRootDir + @"\python.exe";
+            if (System.IO.File.Exists(PyExe))
+            {
+                var process = new Process();
+                process.StartInfo.FileName = PyExe;
+                process.StartInfo.Arguments = PyScriptPath + @"\D05_SocketServer.py";
+                process.StartInfo.CreateNoWindow = false;
+                // process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+                //process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                process.StartInfo.UseShellExecute = true;
+                process.Start();
+            }
+            else
+            {
+                MessageBox.Show("Could not find: " + PyExe);
+            }
+        }
+
+
+
+        private void startSocketServerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartSocketServer();
+        }
+
+
 
         // Standard python idle shell
         void StartStandardPythonIDLEShellToolStripMenuItemClick(object sender, EventArgs e)
@@ -1072,30 +1104,6 @@ namespace FlexDlgUserCtrl
             process.Start();
         }
 
-
-        private void startSocketServerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string PyScriptPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //string MainPath = GetCPythonPath();
-            //if (MainPath == "") return;
-            string PyExe = _PythonRootDir + @"\python.exe";
-            if (System.IO.File.Exists(PyExe))
-            {
-                var process = new Process();
-                process.StartInfo.FileName = PyExe;
-                process.StartInfo.Arguments = PyScriptPath + @"\socketspy.py";
-                process.StartInfo.CreateNoWindow = false;
-                // process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-                //process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                process.StartInfo.UseShellExecute = true;
-                process.Start();
-            }
-            else
-            {
-                MessageBox.Show("Could not find: " + PyExe);
-            }
-        }
 
         void OptionsToolStripMenuItemClick(object sender, EventArgs e)
         {

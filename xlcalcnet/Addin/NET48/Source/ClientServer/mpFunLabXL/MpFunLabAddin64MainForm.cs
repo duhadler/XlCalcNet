@@ -89,7 +89,7 @@ namespace MpFunLabAddin64
         private const string TransposeDesc = "Optional: If set to a non-zero value, the output will be transposed";
         private const string ShowShapeDesc = "Optional: If set to a non-zero value, the shape will be indicated in the output";
 
-        private const string HelpRef = "https://duhadler.github.io/XlCalcNetDocsOnline/B01_GeneralUsage/C01_Setup.html#installing-and-using-the-tiny-ide-as-a-python-application";
+        private const string HelpRef = "https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C01_Setup.html#preparing-ms-excel-for-using-xlcalcnet-first-steps";
 
 
         private const string P2Desc = "the second" + PD1 + "2";
@@ -288,7 +288,8 @@ namespace MpFunLabAddin64
         public static dynamic ASDOUBLE([ExcelArgument(Description = PythonCodeDesc)] string MpString)
         {
             string Result;
-            Result = MpFunLabSocketClientClass.CallSocketServer("result = float(" + MpString + ")");
+            string Formula = "result = float(Fraction('" + MpString + "') if  '/' in '" + MpString + "' else Decimal('" + MpString + "'))";
+            Result = MpFunLabSocketClientClass.CallSocketServer(Formula);
             return Result;
         }
 

@@ -239,8 +239,8 @@ namespace FlexDlgUserCtrl
                     case ".py":
                         ScriptType = "Python";
                         break;
-                    case ".vb":
-                        ScriptType = "Visual Basic";
+                    case ".json":
+                        ScriptType = "Json";
                         break;
                     case ".cs":
                         ScriptType = "CSharp";
@@ -2192,93 +2192,60 @@ namespace FlexDlgUserCtrl
 
 
 
-            #region Visual Basic specific syntax coloring
+            #region Json specific syntax coloring
 
-            if (ScriptType.Contains("Visual Basic"))
+            if (ScriptType.Contains("Json"))
             {
-                //MessageBox.Show("Using Visual Basic Lexer");
+                //MessageBox.Show("Using Json lexer");
                 CommentStr = "'";
-                //scintilla1.Lexer = Lexer.Vb;
-                scintilla1.LexerName = "vb";
+                scintilla1.LexerName = "json";
                 scintilla1.EdgeMode = EdgeMode.None;
 
 
+                // see: https://json-schema.org/understanding-json-schema/keywords
 
-                scintilla1.SetKeywords(0, "addressof alias and as attribute base begin binary boolean byref byte byval call case cdbl cint clng compare const csng cstr currency date decimal declare defbool defbyte defcur defdate defdbl defdec defint deflng defobj defsng defstr defvar dim do double each else elseif empty end enum eqv erase error event exit explicit for friend function get global gosub goto if imp implements in input integer is len let lib like load lock long loop lset me mid midb mod new next not null object on option optional or paramarray preserve print private property public raiseevent randomize redim rem resume return rset seek select set single static step stop string sub text then time to type typeof unload until variant wend while with withevents xor");
+                scintilla1.SetKeywords(0, "$anchor $comment $defs $dynamicAnchor $dynamicRef $id $ref $schema $vocabulary additionalProperties allOf anyOf const contains contentEncoding contentMediaType contentSchema default dependentRequired dependentSchemas deprecated description else enum examples exclusiveMaximum exclusiveMinimum format if items maxContains maximum maxItems maxLength maxProperties minContains minimum minItems minLength minProperties multipleOf not oneOf pattern patternProperties prefixItems properties propertyNames readOnly required then title type unevaluatedItems unevaluatedProperties uniqueItems writeOnly");
 
-                scintilla1.SetKeywords(1, "aggregate group into join equals order by descending ascending from where addhandler andalso ansi assembly auto catch cbool cbyte cchar cdate cdec char class cobj continue csbyte cshort ctype cuint culng cushort custom default delegate directcast endif externalsource finally gettype handles imports inherits interface isfalse isnot istrue module mustinherit mustoverride my mybase myclass namespace narrowing notinheritable notoverridable of off operator orelse overloads overridable overrides partial protected readonly region removehandler sbyte shadows shared short strict structure synclock throw try trycast uinteger ulong unicode ushort using when widening writeonly");
 
-                scintilla1.SetKeywords(2, "false true nothing complex fixedprecnet arbprecnet userprecnet math53 cmath53 flint53 flintc53 boost53 sreal slib srealflint srealmat sboost scplx scplxflint scplxmat sreal_t scplx_t srealmat_t scplxmat_t  freal frealflint frealmat fboost fcplx fcplxflint fcplxmat freal_t fcplx_t frealmat_t fcplxmat_t  xreal xrealflint xrealmat xboost xcplx xcplxflint xcplxmat xreal_t xcplx_t xrealmat_t xcplxmat_t  qreal qrealflint qrealmat qboost qcplx qcplxflint qcplxmat qreal_t qcplx_t qrealmat_t qcplxmat_t  dreal drealflint drealmat dcplx dcplxflint dcplxmat dreal_t dcplx_t drealmat_t dcplxmat_t  oreal orealflint oboost ocplx ocplxflint oreal_t ocplx_t  mreal mrealflint mrealmat mcplx mcplxflint mcplxmat mreal_t mcplx_t mrealmat_t mcplxmat_t  ireal irealflint irealmat icplx icplxflint icplxmat ireal_t icplx_t irealmat_t icplxmat_t  areal arealflint arealmat acplx acplxflint acplxmat areal_t acplx_t arealmat_t acplxmat_t  breal brealflint brealmat bcplx bcplxflint bcplxmat breal_t bcplx_t brealmat_t bcplxmat_t  creal cboost crealflint ccplx ccplxflint creal_t ccplx_t  sreal_cs scplx_cs  freal_cs fcplx_cs  xreal_cs xcplx_cs  qreal_cs qcplx_cs  dreal_cs dcplx_cs  oreal_cs ocplx_cs  mreal_cs mcplx_cs  ireal_cs icplx_cs  areal_cs acplx_cs  breal_cs bcplx_cs  creal_cs ccplx_cs sreal_vb scplx_vb  freal_vb fcplx_vb  xreal_vb xcplx_vb  qreal_vb qcplx_vb  dreal_vb dcplx_vb  oreal_vb ocplx_vb  mreal_vb mcplx_vb  ireal_vb icplx_vb  areal_vb acplx_vb  breal_vb bcplx_vb  creal_vb ccplx_vb math_cs cmath_cs  math_vb cmath_vb");
 
-                scintilla1.SetKeywords(3, "#end #region region");
+                scintilla1.Styles[Style.Json.Default].BackColor = backColor;
+                scintilla1.Styles[Style.Json.Default].ForeColor = Color.Black;
+                scintilla1.Styles[Style.Json.Default].Bold = false;
+                scintilla1.Styles[Style.Json.Default].Italic = false;
+                scintilla1.Styles[Style.Json.Default].Underline = false;
+                scintilla1.Styles[Style.Json.Default].Font = FontName;
+                scintilla1.Styles[Style.Json.Default].SizeF = FontSize;
 
-                scintilla1.Styles[Style.Vb.Default].BackColor = backColor;
-                scintilla1.Styles[Style.Vb.Default].ForeColor = Color.Black;
-                scintilla1.Styles[Style.Vb.Default].Bold = false;
-                scintilla1.Styles[Style.Vb.Default].Italic = false;
-                scintilla1.Styles[Style.Vb.Default].Underline = false;
-                scintilla1.Styles[Style.Vb.Default].Font = FontName;
-                scintilla1.Styles[Style.Vb.Default].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.LineComment].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.LineComment].ForeColor = Color.Green;
+                scintilla1.Styles[Style.Json.LineComment].Italic = true;
 
-                scintilla1.Styles[Style.Vb.Asm].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.BlockComment].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.BlockComment].ForeColor = Color.Gray;
 
-                scintilla1.Styles[Style.Vb.BinNumber].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.PropertyName].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.PropertyName].ForeColor = Color.DarkBlue;
 
-                scintilla1.Styles[Style.Vb.Comment].SizeF = FontSize;
-                scintilla1.Styles[Style.Vb.Comment].ForeColor = Color.Green;
-                scintilla1.Styles[Style.Vb.Comment].Italic = true;
+                scintilla1.Styles[Style.Json.Error].SizeF = FontSize;
 
-                scintilla1.Styles[Style.Vb.CommentBlock].SizeF = FontSize;
-                scintilla1.Styles[Style.Vb.CommentBlock].ForeColor = Color.Gray;
+                scintilla1.Styles[Style.Json.Keyword].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.Keyword].ForeColor = Color.Blue;
 
-                scintilla1.Styles[Style.Vb.Constant].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.Number].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.Number].ForeColor = Color.DarkGreen;
 
-                scintilla1.Styles[Style.Vb.Date].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.Operator].SizeF = FontSize;
 
-                scintilla1.Styles[Style.Vb.DocBlock].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.String].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.String].ForeColor = Color.DarkRed;
 
-                scintilla1.Styles[Style.Vb.DocKeyword].SizeF = FontSize;
-
-                scintilla1.Styles[Style.Vb.DocLine].SizeF = FontSize;
-
-                scintilla1.Styles[Style.Vb.Error].SizeF = FontSize;
-
-                scintilla1.Styles[Style.Vb.HexNumber].SizeF = FontSize;
-
-                scintilla1.Styles[Style.Vb.Identifier].SizeF = FontSize;
-
-                scintilla1.Styles[Style.Vb.Keyword].SizeF = FontSize;
-                scintilla1.Styles[Style.Vb.Keyword].ForeColor = Color.Blue;
-
-                scintilla1.Styles[Style.Vb.Keyword2].SizeF = FontSize;
-                scintilla1.Styles[Style.Vb.Keyword2].ForeColor = Color.Blue;
-
-                scintilla1.Styles[Style.Vb.Keyword3].SizeF = FontSize;
-                scintilla1.Styles[Style.Vb.Keyword3].ForeColor = Color.DarkCyan;
-
-                scintilla1.Styles[Style.Vb.Keyword4].SizeF = FontSize;
-                scintilla1.Styles[Style.Vb.Keyword4].ForeColor = Color.DarkCyan;
-
-                scintilla1.Styles[Style.Vb.Label].SizeF = FontSize;
-
-                scintilla1.Styles[Style.Vb.Number].SizeF = FontSize;
-                scintilla1.Styles[Style.Vb.Number].ForeColor = Color.SaddleBrown;
-
-                scintilla1.Styles[Style.Vb.Operator].SizeF = FontSize;
-
-                scintilla1.Styles[Style.Vb.Preprocessor].SizeF = FontSize;
-
-                scintilla1.Styles[Style.Vb.String].SizeF = FontSize;
-                scintilla1.Styles[Style.Vb.String].ForeColor = Color.DarkRed;
-
-                scintilla1.Styles[Style.Vb.StringEol].SizeF = FontSize;
+                scintilla1.Styles[Style.Json.StringEol].SizeF = FontSize;
 
                 // Enable code folding
                 scintilla1.SetProperty("fold", "1");
 
                 // Does not display empty lines between folded items
                 scintilla1.SetProperty("fold.compact", "1");
-
 
             }
 

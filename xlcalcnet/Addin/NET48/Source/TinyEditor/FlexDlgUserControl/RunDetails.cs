@@ -457,14 +457,14 @@ namespace FlexDlgUserCtrl
             {
                 //if (ActiveFileNameBuidDoc.Contains("builddoc.py"))
                 //{
-                    //MessageBox.Show("In Contains");
-                    string M = @"C:\Users\DUHad\Documents";
-                    eOut = eOut.Replace(M, "\r\n\r\n" + "  File \"" + M);
-                    eOut = eOut.Replace(".rst:", ".rst\", line ");
-                    eOut = eOut.Replace("WARNING:", "\r\n" + "WARNING:");
-                    eOut = eOut.Replace("n't", " not");
-                    eOut = eOut.Replace(@"\Lib01\index.rst", @"\Lib01\static\index.txt");
-                    eOut = eOut.Replace(@"\Lib01\conf.py", @"\Lib01\static\conf.py");
+                //MessageBox.Show("In Contains");
+                string M = @"C:\Users\DUHad\Documents";
+                eOut = eOut.Replace(M, "\r\n\r\n" + "  File \"" + M);
+                eOut = eOut.Replace(".rst:", ".rst\", line ");
+                eOut = eOut.Replace("WARNING:", "\r\n" + "WARNING:");
+                eOut = eOut.Replace("n't", " not");
+                eOut = eOut.Replace(@"\Lib01\index.rst", @"\Lib01\static\index.txt");
+                eOut = eOut.Replace(@"\Lib01\conf.py", @"\Lib01\static\conf.py");
 
                 //}
                 //else
@@ -667,36 +667,27 @@ namespace FlexDlgUserCtrl
             }
 
 
-            else if (ActiveFileName.EndsWith(".vb"))
-            {
-                ClearAllAnnotations();
-                SaveScript();
-                tabControl1.SelectedTab = tabNewLog;
-                int result = RunCompiler();
-                if (result == 0)
-                {
-                    RunVbCsExe();
-                }
-                else
-                {
-                    tabControl1.SelectedTab = tabNewLog;
-                }
-            }
-
 
             else if (ActiveFileName.EndsWith(".py"))
             {
                 ClearAllAnnotations();
                 SaveScript();
-                var tpath = Path.GetDirectoryName(ActiveFileName);
-                var ExternalFileName = tpath + @"\__external__.py";
-                if (File.Exists(ExternalFileName))
+                if (ActiveFileName.Contains("\\A01_ExamplesPython\\B01_GeneralUsage\\C01_Setup\\D05_SocketServer.py"))
                 {
-                    File.Delete(ExternalFileName);
-                    ComboBoxProjectUpdate();
+                    StartSocketServer();
                 }
+                else
+                {
+                    var tpath = Path.GetDirectoryName(ActiveFileName);
+                    var ExternalFileName = tpath + @"\__external__.py";
+                    if (File.Exists(ExternalFileName))
+                    {
+                        File.Delete(ExternalFileName);
+                        ComboBoxProjectUpdate();
+                    }
 
-                RunPythonExe();
+                    RunPythonExe();
+                }
             }
 
 
