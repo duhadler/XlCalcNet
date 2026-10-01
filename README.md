@@ -16,7 +16,7 @@ Since one of the main goals of XlCalcNet is to enable the use of functions writt
 ### Use with Microsoft Excel
 
 
-Once MS Excel has been prepared for using XlCalcNet (see [here](https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C01_Setup.html#preparing-ms-excel-for-using-xlcalcnet-first-steps) for details), one can run small Python scripts in spreadsheet formulas, using parameters which are passed from other spreadsheet cells. If the example workbook "Simple.xlsx" has been loaded, the following dialog box will appear when the user clicks on the "Insert Function" button in Excel's formula bar:
+Once MS Excel has been prepared for using XlCalcNet (see [here](https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C02_MSExcel.html) for details), one can run small Python scripts in spreadsheet formulas, using parameters which are passed from other spreadsheet cells. If the example workbook "Simple.xlsx" has been loaded, the following dialog box will appear when the user clicks on the "Insert Function" button in Excel's formula bar:
 
 <p align="center">
   <img src="images/XL_FunctionArguments.png" alt="Excel's function dialog" width="600">
@@ -46,7 +46,7 @@ This can be used to call external procedures, which are not used in spreadsheet 
 ### Use with LibreOffice Calc
 
 
-Once LibreOffice Calc has been prepared for using XlCalcNet (see [here](https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C01_Setup.html#preparing-libreoffice-calc-for-using-xlcalcnet-first-steps) for details), one can run small Python scripts in spreadsheet formulas, using parameters which are passed from other spreadsheet cells. If the example workbook "Simple.xlsx" has been loaded, the following dialog box will appear when the user clicks on the "Insert Function" button in LibreOffice Calc's formula bar:
+Once LibreOffice Calc has been prepared for using XlCalcNet (see [here](https://duhadler.github.io/XlCalcNetDocsHTML/B01_GeneralUsage/C03_LibreOfficeCalc.html) for details), one can run small Python scripts in spreadsheet formulas, using parameters which are passed from other spreadsheet cells. If the example workbook "Simple.xlsx" has been loaded, the following dialog box will appear when the user clicks on the "Insert Function" button in LibreOffice Calc's formula bar:
 
 <p align="center">
   <img src="images/LO_FunctionArguments.png" alt="LibreOffice Calc's function wizard" width="600">
