@@ -245,28 +245,28 @@ namespace TinyOutputMonitorCtrl
             // tinyIDEexternalToolStripMenuItem
             // 
             this.tinyIDEexternalToolStripMenuItem.Name = "tinyIDEexternalToolStripMenuItem";
-            this.tinyIDEexternalToolStripMenuItem.Size = new System.Drawing.Size(353, 44);
+            this.tinyIDEexternalToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.tinyIDEexternalToolStripMenuItem.Text = "Tiny IDE (external)";
             this.tinyIDEexternalToolStripMenuItem.Click += new System.EventHandler(this.tinyIDEexternalToolStripMenuItem_Click);
             // 
             // outputViewerToolStripMenuItem
             // 
             this.outputViewerToolStripMenuItem.Name = "outputViewerToolStripMenuItem";
-            this.outputViewerToolStripMenuItem.Size = new System.Drawing.Size(353, 44);
+            this.outputViewerToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.outputViewerToolStripMenuItem.Text = "Output Viewer";
             this.outputViewerToolStripMenuItem.Click += new System.EventHandler(this.outputViewerToolStripMenuItem_Click);
             // 
             // interactive2DPlotsToolStripMenuItem
             // 
             this.interactive2DPlotsToolStripMenuItem.Name = "interactive2DPlotsToolStripMenuItem";
-            this.interactive2DPlotsToolStripMenuItem.Size = new System.Drawing.Size(353, 44);
+            this.interactive2DPlotsToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.interactive2DPlotsToolStripMenuItem.Text = "Interactive 2D Plots";
             this.interactive2DPlotsToolStripMenuItem.Click += new System.EventHandler(this.interactive2DPlotsToolStripMenuItem_Click);
             // 
             // interactive3DPlotsToolStripMenuItem
             // 
             this.interactive3DPlotsToolStripMenuItem.Name = "interactive3DPlotsToolStripMenuItem";
-            this.interactive3DPlotsToolStripMenuItem.Size = new System.Drawing.Size(353, 44);
+            this.interactive3DPlotsToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.interactive3DPlotsToolStripMenuItem.Text = "Interactive 3D Plots";
             this.interactive3DPlotsToolStripMenuItem.Click += new System.EventHandler(this.interactive3DPlotsToolStripMenuItem_Click);
             // 

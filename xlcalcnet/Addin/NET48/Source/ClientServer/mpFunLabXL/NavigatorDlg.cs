@@ -132,55 +132,6 @@ namespace MpFunLabAddin64
 
 
 
-        private void StartSocketServer()
-        {
-            string _MyDocDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string _WorkDir = _MyDocDir + @"\DataXlCalcNet";
-            string PyScriptPath = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C01_Setup";
-            string PyExe = GetCPythonPath() + @"\python.exe";
-            if (System.IO.File.Exists(PyExe))
-            {
-                var process = new Process();
-                process.StartInfo.FileName = PyExe;
-                process.StartInfo.Arguments = PyScriptPath + @"\D05_SocketServer.py";
-                process.StartInfo.CreateNoWindow = false;
-                // process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-                //process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                process.StartInfo.UseShellExecute = true;
-                process.Start();
-            }
-            else
-            {
-                MessageBox.Show("Could not find: " + PyExe);
-            }
-        }
-
-
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string PyScriptPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string PyExe = GetCPythonPath() + @"\python.exe";
-            if (File.Exists(PyExe))
-            {
-                var process = new Process();
-                process.StartInfo.FileName = PyExe;
-                process.StartInfo.Arguments = PyScriptPath + @"\socketspy.py";
-                process.StartInfo.CreateNoWindow = false;
-                // process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-                //process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                process.StartInfo.UseShellExecute = true;
-                process.Start();
-            }
-            else
-            {
-                MessageBox.Show("Could not find: " + PyExe);
-            }
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
 

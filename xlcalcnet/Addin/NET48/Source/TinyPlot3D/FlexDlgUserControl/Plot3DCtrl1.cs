@@ -1366,7 +1366,7 @@ namespace TinyPlot3DCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowEditor.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C01_Setup\D03_ShowEditor.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -1384,7 +1384,7 @@ namespace TinyPlot3DCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowPlot3d.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D03_ShowPlot3d.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -1416,7 +1416,7 @@ namespace TinyPlot3DCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowDataViewer.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D04_ShowDataViewer.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;

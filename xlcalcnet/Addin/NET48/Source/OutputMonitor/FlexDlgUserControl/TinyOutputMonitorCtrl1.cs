@@ -13,6 +13,9 @@ namespace TinyOutputMonitorCtrl
     public partial class OutputMonitorCtrl : UserControl
     {
         string _PythonRootDir = "";
+        string _WorkDir = "";
+
+
         private string ActiveFileName = "";
         private float Row0Height = 0;
         private float Col1Width = 0;
@@ -50,6 +53,9 @@ namespace TinyOutputMonitorCtrl
         public OutputMonitorCtrl(string PythonRootDir)
         {
             _PythonRootDir = PythonRootDir;
+            string _MyDocDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            _WorkDir = _MyDocDir + @"\DataXlCalcNet";
+
             InitializeComponent();
             SuspendLayout();
             dtFiles.Columns.Add("FileName", typeof(string));
@@ -451,7 +457,7 @@ namespace TinyOutputMonitorCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowEditor.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C01_Setup\D03_ShowEditor.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -467,7 +473,7 @@ namespace TinyOutputMonitorCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowOutputViewer.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D04_ShowDataViewer.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -483,7 +489,7 @@ namespace TinyOutputMonitorCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowPlot2d.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D02_ShowPlot2d.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -499,7 +505,7 @@ namespace TinyOutputMonitorCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = MainPath + @"\Lib\site-packages\xlcalcnet\ShowPlot3d.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D03_ShowPlot3d.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;

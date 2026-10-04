@@ -1,13 +1,15 @@
-﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using ExcelDna.Integration;
+﻿using ExcelDna.Integration;
 using ExcelDna.Integration.CustomUI;
 using Microsoft.VisualBasic;
 using MpFunLabClient;
+using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MpFunLabAddin64
@@ -39,6 +41,60 @@ namespace MpFunLabAddin64
         }
 
 
+        private static string GetCPythonPath()
+        {
+            string BinPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            //MessageBox.Show(BinPath);
+            bool found = false;
+            while (!found)
+            {
+                try
+                {
+                    BinPath = Directory.GetParent(BinPath).FullName;
+                    string Temp = BinPath + @"\python.exe";
+                    //MessageBox.Show(Temp);
+                    if (File.Exists(Temp)) found = true;
+                }
+                catch (Exception)
+                {
+                    found = true;
+                    BinPath = "";
+                    MessageBox.Show("Could not find path to python.exe");
+                }
+            }
+            //MessageBox.Show(BinPath);
+            return BinPath;
+        }
+
+        public static void StartSocketServer()
+        {
+            string _MyDocDir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string _WorkDir = _MyDocDir + @"\DataXlCalcNet";
+
+            string PyScriptPath = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C01_Setup";
+            string PyExe = GetCPythonPath() + @"\python.exe";
+            if (System.IO.File.Exists(PyExe))
+            {
+                var process = new Process();
+                process.StartInfo.FileName = PyExe;
+                process.StartInfo.Arguments = PyScriptPath + @"\D05_SocketServer.py";
+                process.StartInfo.CreateNoWindow = false;
+                // process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+                //process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+                process.StartInfo.UseShellExecute = true;
+
+                //MessageBox.Show(process.StartInfo.FileName + "   " + process.StartInfo.Arguments);
+
+                process.Start();
+            }
+            else
+            {
+                MessageBox.Show("Could not find: " + PyExe);
+            }
+        }
+
+
 
         private static MpFunLabSocketClientClass scc = null;
 
@@ -58,6 +114,7 @@ namespace MpFunLabAddin64
                 System.Windows.Forms.Application.EnableVisualStyles();
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+                StartSocketServer();
                 scc = new MpFunLabSocketClientClass();
 
             }
@@ -288,8 +345,22 @@ namespace MpFunLabAddin64
         public static dynamic ASDOUBLE([ExcelArgument(Description = PythonCodeDesc)] string MpString)
         {
             string Result;
+            dynamic ResultFinal="";
             string Formula = "result = float(Fraction('" + MpString + "') if  '/' in '" + MpString + "' else Decimal('" + MpString + "'))";
             Result = MpFunLabSocketClientClass.CallSocketServer(Formula);
+            if (Result.StartsWith("$float$"))
+            {
+                try
+                {
+                    string ResultTemp = Result.Substring(7);
+                    ResultFinal = double.Parse(ResultTemp);
+                    return ResultFinal;
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+            }
             return Result;
         }
 

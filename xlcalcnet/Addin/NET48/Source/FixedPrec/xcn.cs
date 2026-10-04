@@ -60,6 +60,11 @@ namespace FixedPrecNet
 
         public static Boolean UseRawDouble = false;
 
+        public static string Version()
+        {
+            return "0.5.0";
+        }
+
 
         public static bool IsExactDouble(Double z)
         {

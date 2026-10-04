@@ -13,25 +13,34 @@ namespace TinyDataViewerCtrl
 
         private void readCSV(string filePath)
         {
-            var dt = new DataTable();
-            // Creating the columns
-            foreach (var headerLine in File.ReadLines(filePath, Encoding.UTF8).Take(1))
+            try
             {
-                foreach (var headerItem in headerLine.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                var dt = new DataTable();
+                // Creating the columns
+                foreach (var headerLine in File.ReadLines(filePath, Encoding.UTF8).Take(1))
                 {
-                    dt.Columns.Add(headerItem.Trim());
+                    foreach (var headerItem in headerLine.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        dt.Columns.Add(headerItem.Trim());
+                    }
                 }
-            }
 
-            // Adding the rows
-            foreach (var line in File.ReadLines(filePath).Skip(1))
+                // Adding the rows
+                foreach (var line in File.ReadLines(filePath).Skip(1))
+                {
+                    dt.Rows.Add(line.Split(','));
+                }
+
+                dataGridViewTablesOutput.DataSource = dt;
+
+                FormatDataGridViewTablesOutputForGeneralTable();
+            }
+            catch (Exception)
             {
-                dt.Rows.Add(line.Split(','));
+                MessageBox.Show("Error reading the CSV file. Please ensure the file is in the correct format and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
 
-            dataGridViewTablesOutput.DataSource = dt;
-
-            FormatDataGridViewTablesOutputForGeneralTable();
         }
 
 

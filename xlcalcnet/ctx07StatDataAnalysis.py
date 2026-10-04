@@ -14,32 +14,77 @@ Created on Fri Apr  3 20:13:25 2015
 
 class table(object):
 
-    def __init__(self, ctx, data=None, index=None, columns=None):
+
+    def __init__(self, ctx, res):
         self.ctx = ctx
-        self.data = data
-        self.index = index
-        self.columns = columns
-        #print("In table __init__")
+        self.data = [] if res is None else res.data
+        self.index = [] if res is None else res.index
+        self.columns = [] if res is None else res.columns
+
 
     def __str__(self):
-        maxlen = 0
-        for i in range(len(self.index)):
-            if len(self.index[i]) > maxlen:
-                maxlen = len(self.index[i])
-        #print(maxlen)
-        #s = ' ' * (maxlen-9) + 'Parameter  ' + str(self.columns[0]) + '\n'
-        s = ' ' * (maxlen-9) + 'Parameter  ' + str(self.columns) + '\n'
-        n = len(self.index)
-        for i in range(n):
-            pad = ' ' * (maxlen - len(self.index[i]))
-            s = s + pad + self.index[i] + ': ' + str(self.data[i])
-            if i < (n-1):
-                s = s + '\n'
-        return s
+        def drawlines(L,M,R):
+            s = L + '─' * (clen[0]+2) + M
+            for j in range(cols):
+                s += '─' * (clen[j+1]+2)
+                if j<cols-1: s += M
+                else: s += R
+            string_builder.write(s)
+
+        def printdata(start, stop):
+            for i in range(start, stop):
+                s = "│ "
+                for j in range(cols+1):
+                    s += ' ' * (clen[j]-cl[i][j]) + tbl[i][j] + ' │ '
+                s += '\n'
+                string_builder.write(s)
+
+        import io
+        string_builder = io.StringIO()
+        tbl = self.to_list()
+        cols = len(self.columns)
+        rows = len(self.index)
+        clen = [0] * (cols+1)
+        cl = [[0 for i in range(cols+1)] for j in range(rows+1)]
+
+        for i in range(rows+1):
+            for j in range(cols+1):
+                cl[i][j] = len(tbl[i][j])
+                if cl[i][j] > clen[j]: clen[j] = cl[i][j]
+
+        drawlines('┌', '┬', '┐\n')
+        printdata(0, 1)
+        drawlines('├', '┼', '┤\n')
+        printdata(1, rows+1)
+        drawlines('└', '┴', '┘\n')
+
+        res = string_builder.getvalue()
+        string_builder.close()
+        return res
+
 
     def __repr__(self):
-        #return "table('" + str(self) + "')"
         return str(self)
+
+
+    def to_list(self):
+        cols = len(self.columns)
+        rows = len(self.index)
+        tbl = [[0 for i in range(cols+1)] for j in range(rows+1)]
+
+        tbl[0][0] = "Item"
+        for j in range(cols):
+            tbl[0][j+1] = self.columns[j]
+
+        for i in range(len(self.index)):
+            tbl[i+1][0] = self.index[i]
+
+        for i in range(rows):
+            for j in range(cols):
+                tbl[i+1][j+1] = str(self.data[i][j])
+
+        return tbl
+
 
     def to_csv(self, fname):
         import pandas as pd
@@ -48,7 +93,59 @@ class table(object):
         df = pd.DataFrame(self.data, rowheaders, colheaders)
         #print(df)
         fname = fname
-        df.to_csv(fname, sep=';', index=True)
+        df.to_csv(fname, sep=';', index=True, index_label="Items")
+
+
+    def to_xlsx(self, fname):
+        import xlsxwriter
+
+        def R1C1toA1(r, c):
+            Digits = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            return '$' + Digits[c-1] + '$' + str(r)
+
+        tbl = self.to_list()
+        cols = len(self.columns)
+        rows = len(self.index)
+        workbook = xlsxwriter.Workbook(fname)
+        worksheet = workbook.add_worksheet()
+        RangeEnd = R1C1toA1(rows+2, cols+1)
+        RangeDef = "=Sheet1!$A$1:" + RangeEnd
+        workbook.define_name("OutputRange2", RangeDef)
+
+        cell_format1 = workbook.add_format()
+        cell_format1.set_bold()
+        cell_format1.set_align('center')
+        cell_format1.set_top(1)
+        cell_format1.set_bottom(1)
+
+        cell_format2 = workbook.add_format()
+        cell_format2.set_bold()
+        cell_format2.set_align('right')
+
+        cell_format3 = workbook.add_format()
+        cell_format3.set_align('right')
+
+        cell_format4 = workbook.add_format()
+        cell_format4.set_align('right')
+        cell_format4.set_top(1)
+        cell_format4.set_bold()
+
+
+        for i in range(rows+2):
+            for j in range(cols+1):
+                if (i==rows+1):
+                    worksheet.write(i, j, "", cell_format4)
+                elif (i==0):
+                    worksheet.write(i, j, tbl[i][j], cell_format1)
+                elif (j==0):
+                    worksheet.write(i, j, tbl[i][j], cell_format2)
+                else:
+                    worksheet.write(i, j, tbl[i][j], cell_format3 )
+
+
+        worksheet.autofit()
+        workbook.close()
+
 
 
 
@@ -63,9 +160,9 @@ class inferential_statistics(object):
 
     def student_t_1sample_test(self, ctx, n, mu0, mean, stdev, alpha,**kwargs):
         import numpy as np
-        #print("Student t-test for 1 sample: tests and confidence intervals")
-        res = table(ctx)
-        res.columns = ['Group1', 'Group2', 'Group3', 'Group4']
+        from xlcalcnet import npm
+        to_ctx = npm.vectorize(ctx.t, otypes=[object])
+        res = table(ctx, None)
         res.index, res.data = [], []
         I = kwargs['I'] if 'I' in kwargs else True
         D = kwargs['D'] if 'D' in kwargs else True
@@ -81,11 +178,17 @@ class inferential_statistics(object):
             for i in range(len(item), cols):
                 item.append(item[i-1])
 
-        n = ctx.t(1) * np.array(p[0])
-        mu0 = ctx.t(1) * np.array(p[1])
-        mean = ctx.t(1) * np.array(p[2])
-        stdev = ctx.t(1) * np.array(p[3])
-        alpha = ctx.t(1) * np.array(p[4])
+        res.columns = []
+        for i in range(cols):
+            res.columns.append('Group' + str(i+1))
+
+        n = to_ctx(np.array(p[0]))
+        mu0 = to_ctx(np.array(p[1]))
+        mean = to_ctx(np.array(p[2]))
+        stdev = to_ctx(np.array(p[3]))
+        alpha = to_ctx(np.array(p[4]))
+
+
 
         df, diff, StdDiff, a, t, r = [], [], [], [], [], []
         t_alpha1, t_alpha2, p_H01, p_H02, p_H03 = [], [], [], [], []

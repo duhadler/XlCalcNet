@@ -259,13 +259,13 @@ class gui():
 
             try:
                 import FixedPrecNet
-                print ("FixedPrecNet version: ", "1.0.0")
+                print ("FixedPrecNet version: ", FixedPrecNet.xcn.Version())
             except:
                 print("FixedPrecNet is not available")
 
             try:
                 import ArbPrecNet
-                print ("ArbPrecNet version: ", "1.0.0")
+                print ("ArbPrecNet version: ", ArbPrecNet.ArbPrec.Version())
             except:
                 print("ArbPrecNet is not available")
 
@@ -294,6 +294,12 @@ class gui():
             print ("scipy version: ", scipy.version.version)
         except:
             print("scipy is not available")
+
+        try:
+            import seaborn
+            print ("seaborn version: ", seaborn.__version__)
+        except:
+            print("seaborn is not available")
 
         try:
             import gmpy2

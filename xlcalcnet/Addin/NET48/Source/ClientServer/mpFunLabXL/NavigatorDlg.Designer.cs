@@ -37,7 +37,6 @@ namespace MpFunLabAddin64
             this.TableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.RichTextBox1 = new System.Windows.Forms.RichTextBox();
             this.lbLibrary = new System.Windows.Forms.ListBox();
             this.lbProc = new System.Windows.Forms.ListBox();
@@ -80,7 +79,6 @@ namespace MpFunLabAddin64
             this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.TableLayoutPanel2.Controls.Add(this.btnCancel, 3, 0);
             this.TableLayoutPanel2.Controls.Add(this.btnOK, 2, 0);
-            this.TableLayoutPanel2.Controls.Add(this.button1, 0, 0);
             this.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableLayoutPanel2.Location = new System.Drawing.Point(6, 541);
             this.TableLayoutPanel2.Name = "TableLayoutPanel2";
@@ -113,17 +111,6 @@ namespace MpFunLabAddin64
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(254, 48);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Start socket server";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // RichTextBox1
             // 
@@ -215,6 +202,5 @@ namespace MpFunLabAddin64
         internal System.Windows.Forms.Label Label1;
         internal System.Windows.Forms.Label Label2;
         internal System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button button1;
     }
 }

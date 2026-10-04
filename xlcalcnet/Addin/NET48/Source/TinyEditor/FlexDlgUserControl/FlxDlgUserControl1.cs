@@ -990,7 +990,7 @@ namespace FlexDlgUserCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C02_GuiFunctions\D01_ShowOutputMonitor.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D01_ShowOutputMonitor.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -1007,7 +1007,7 @@ namespace FlexDlgUserCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C02_GuiFunctions\D04_ShowDataViewer.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D04_ShowDataViewer.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -1024,7 +1024,7 @@ namespace FlexDlgUserCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C02_GuiFunctions\D02_ShowPlot2d.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D02_ShowPlot2d.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
@@ -1042,7 +1042,7 @@ namespace FlexDlgUserCtrl
             string MainPath = _PythonRootDir;
             if (MainPath == "") return;
             string FullPathExe = MainPath + @"\pythonw.exe";
-            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C02_GuiFunctions\D03_ShowPlot3d.py";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D03_ShowPlot3d.py";
             Process process = new Process();
             process.StartInfo.FileName = FullPathExe;
             process.StartInfo.Arguments = FullPathArg;
