@@ -216,6 +216,12 @@ class gui():
         return LocalDir
 
 
+    def get_dataxlcalcnet(self):
+        """Return the current user's local DataXlCalcNet folder."""
+        Documents = self.get_my_documents()
+        DataXlCalcNetDir = os.sep.join([Documents, 'DataXlCalcNet'])
+        return DataXlCalcNetDir
+
 
 
     def get_my_documents(self):
