@@ -793,31 +793,6 @@ namespace FlexDlgUserCtrl
         }
 
 
-        //private void viewItem1ToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    ShowEditor();
-        //}
-
-        //private void viewItem2ToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    ShowPropertyGrid();
-        //}
-
-        //private void showDataInputToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    ShowDataInput();
-        //}
-
-        //        private void showEditorAndPropertygridToolStripMenuItem_Click(object sender, EventArgs e)
-        //        {
-        //            ShowEditorAndPropertyGrid();
-        //        }
-
-        //        private void showGridAndDataInputToolStripMenuItem_Click(object sender, EventArgs e)
-        //        {
-        //            ShowPropertyGridAndDataInput();
-        //        }
-
 
         #endregion
 
@@ -934,6 +909,12 @@ namespace FlexDlgUserCtrl
         private void cTutorialonlineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/overview");
+        }
+
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("XlCalcNet IDE, Version 0.7.0\n\nCopyright (c) 2020-2026 by D.U. Hadler\n\nThis software is provided under the terms of the Mozilla Public License, version 2.0.", "About XlCalcNet Tiny IDE");
         }
 
 
@@ -1105,24 +1086,6 @@ namespace FlexDlgUserCtrl
         }
 
 
-        void OptionsToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            Control mParent = this.Parent;
-            OptionsForm mOptionsForm = new OptionsForm(_optionsSettings1);
-            mOptionsForm.StartPosition = FormStartPosition.CenterParent;
-
-            if (mOptionsForm.ShowDialog(mParent) == DialogResult.OK)
-            {
-                _optionsSettings1.Save(GetOptionsPath());
-            }
-            else
-            {
-                _optionsSettings1 = _optionsSettings1.Load(GetOptionsPath());
-            }
-            mOptionsForm.Dispose();
-        }
-
-
 
 
         private void ClearAllAnnotations()
@@ -1196,7 +1159,6 @@ namespace FlexDlgUserCtrl
                 tabControl1.SelectedTab = tabFunctionInfo;
             }
         }
-
 
     }
 }

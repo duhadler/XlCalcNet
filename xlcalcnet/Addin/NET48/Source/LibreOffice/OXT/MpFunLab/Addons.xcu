@@ -28,7 +28,7 @@
                                 <value/>
                             </prop>
                             <prop oor:name="Title" oor:type="xs:string">
-                                <value xml:lang="en">Tiny Script Editor+ (for LibreOffice)</value>
+                                <value xml:lang="en">Navigator for XlCalcNet</value>
                             </prop>
                             <prop oor:name="URL" oor:type="xs:string">
                                 <value>vnd.sun.star.script:MpFunLabWin.Module1.ShowMpFunlabMainDlg?language=Basic&amp;location=application</value>

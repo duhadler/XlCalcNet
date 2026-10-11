@@ -116,14 +116,6 @@
     <Compile Include="NewLogDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="OptionDetails.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="OptionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="OptionsForm.Designer.cs" />
-    <Compile Include="OptionsOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FlxDlgUserControl1.cs">
       <SubType>UserControl</SubType>
@@ -157,7 +149,6 @@
     <EmbeddedResource Include="FlxDlgUserControl1.resx">
       <DependentUpon>FlxDlgUserControl1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OptionsForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace FlexDlgUserCtrl
@@ -30,20 +27,20 @@ namespace FlexDlgUserCtrl
 
 
 
-    public class GenericOptions
-    {
+    //public class GenericOptions
+    //{
 
 
-        [Category("Compiler Settings"),
-        Description("References which need to be included for successful compilation")]
-        public string[] CompilerReferences { get; set; }
+    //    [Category("Compiler Settings"),
+    //    Description("References which need to be included for successful compilation")]
+    //    public string[] CompilerReferences { get; set; }
 
 
-        [Category("General Settings"),
-         Description("TabName of the current setting")]
-        public string TabName { get; set; }
+    //    [Category("General Settings"),
+    //     Description("TabName of the current setting")]
+    //    public string TabName { get; set; }
 
-    } // public class LanguageOptions
+    //} // public class LanguageOptions
 
 
 

@@ -3,6 +3,11 @@ import sys
 import os
 import platform
 import math 
+import cmath 
+import importlib
+from fractions import Fraction
+from decimal import Decimal
+import datetime as dt  
 from itertools import zip_longest
 import uno
 import unohelper
@@ -23,21 +28,6 @@ def reformat(Formula):
         FinalString += FLine + '\n'
     return FinalString
 
-
-
-def maketuple_old(P1):
-    if isinstance(P1, str):
-        return tuple([[P1]])
-    if hasattr(P1, '__iter__'):
-        if isinstance(P1[0], str):
-            return tuple([P1])
-        elif hasattr(P1[0], '__iter__'):
-            return tuple(P1)
-        else:
-            return tuple([P1])
-    else:
-        return tuple([[P1]])
-    return tuple([["Error: returned value needs to be a scalar, a vector, or a matrix"]])
 
 
 
@@ -95,6 +85,14 @@ def maketuple(P1, Transposed_, ShowShape_):
 
 
 
+def get_documents_folder():
+    """Returns the documents folder."""
+    import ctypes, ctypes.wintypes
+    buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+    ctypes.windll.shell32.SHGetFolderPathW(None, 0x0005, None, 0, buf)
+    return str(buf.value)
+
+
 
 class MpFunlabImpl(unohelper.Base, XMpFunlab):
     def __init__(self, ctx):
@@ -113,15 +111,19 @@ class MpFunlabImpl(unohelper.Base, XMpFunlab):
             if not newpath in sys.path:
                 sys.path.insert(0, newpath)  # Add to search path
 
+        docspath = get_documents_folder() + r"\DataXlCalcNet"
+        if not docspath in sys.path:
+            sys.path.insert(0, docspath)  # Add to search path
+
 
 
     def asdouble(self, MpString):
         try:
-            Formula = "result = float(" + MpString + ")"
+            Formula = "result = float(Fraction('" + MpString +"') if  '/' in '" + MpString + "' else Decimal('" + MpString + "'))"
             Formula = reformat(Formula)
             localdict = dict()
             exec(Formula, globals(), localdict)
-            return maketuple(localdict['result'])
+            return maketuple(localdict['result'], 0, 0)
         except Exception as e:
             return  tuple([['Exception: ' + str(e)]])
 

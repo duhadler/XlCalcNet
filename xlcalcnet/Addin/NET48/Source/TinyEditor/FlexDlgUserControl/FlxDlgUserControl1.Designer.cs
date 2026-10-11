@@ -103,8 +103,6 @@ namespace FlexDlgUserCtrl
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.startStandardPythonIDLEShellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ironpython32BitConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButtonHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.xlCalcNetManualHTMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xlCalcNetSectionHelponlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -460,7 +458,7 @@ namespace FlexDlgUserCtrl
             this.outdentToolStripMenuItem.Name = "outdentToolStripMenuItem";
             this.outdentToolStripMenuItem.ShortcutKeyDisplayString = "Shift+Tab";
             this.outdentToolStripMenuItem.Size = new System.Drawing.Size(410, 44);
-            this.outdentToolStripMenuItem.Text = "Outdent";
+            this.outdentToolStripMenuItem.Text = "Unindent";
             this.outdentToolStripMenuItem.Click += new System.EventHandler(this.outdentToolStripMenuItem_Click);
             // 
             // toolStripSeparator19
@@ -659,9 +657,7 @@ namespace FlexDlgUserCtrl
             this.sampleDataViewerToolStripMenuItem,
             this.toolStripSeparator11,
             this.startStandardPythonIDLEShellToolStripMenuItem,
-            this.ironpython32BitConsoleToolStripMenuItem,
-            this.toolStripSeparator12,
-            this.optionsToolStripMenuItem});
+            this.ironpython32BitConsoleToolStripMenuItem});
             this.toolStripDropDownButtonTools.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonTools.Name = "toolStripDropDownButtonTools";
             this.toolStripDropDownButtonTools.ShowDropDownArrow = false;
@@ -734,18 +730,6 @@ namespace FlexDlgUserCtrl
             this.ironpython32BitConsoleToolStripMenuItem.Text = "Python Console";
             this.ironpython32BitConsoleToolStripMenuItem.Click += new System.EventHandler(this.CPythonConsoleToolStripMenuItem_Click);
             // 
-            // toolStripSeparator12
-            // 
-            this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(401, 6);
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(404, 44);
-            this.optionsToolStripMenuItem.Text = "Options";
-            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.OptionsToolStripMenuItemClick);
-            // 
             // toolStripDropDownButtonHelp
             // 
             this.toolStripDropDownButtonHelp.AutoToolTip = false;
@@ -815,6 +799,7 @@ namespace FlexDlgUserCtrl
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(481, 44);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparatorMain1
             // 
@@ -1332,8 +1317,6 @@ namespace FlexDlgUserCtrl
             this.ResumeLayout(false);
 
         }
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem startStandardPythonIDLEShellToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllBookmarksToolStripMenuItem1;
