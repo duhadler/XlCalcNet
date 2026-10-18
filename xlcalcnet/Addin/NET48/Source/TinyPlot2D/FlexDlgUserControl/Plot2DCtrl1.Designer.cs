@@ -38,8 +38,8 @@ namespace TinyPlot2DCtrl
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Plot2DCtrl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.toolStripTop = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButtonFile = new System.Windows.Forms.ToolStripDropDownButton();
@@ -236,47 +236,47 @@ namespace TinyPlot2DCtrl
             // startSocketServerToolStripMenuItem
             // 
             this.startSocketServerToolStripMenuItem.Name = "startSocketServerToolStripMenuItem";
-            this.startSocketServerToolStripMenuItem.Size = new System.Drawing.Size(404, 44);
+            this.startSocketServerToolStripMenuItem.Size = new System.Drawing.Size(420, 44);
             this.startSocketServerToolStripMenuItem.Text = "Start Socket Server";
             this.startSocketServerToolStripMenuItem.Click += new System.EventHandler(this.startSocketServerToolStripMenuItem_Click);
             // 
             // startOutputMonitorToolStripMenuItem
             // 
             this.startOutputMonitorToolStripMenuItem.Name = "startOutputMonitorToolStripMenuItem";
-            this.startOutputMonitorToolStripMenuItem.Size = new System.Drawing.Size(404, 44);
+            this.startOutputMonitorToolStripMenuItem.Size = new System.Drawing.Size(420, 44);
             this.startOutputMonitorToolStripMenuItem.Text = "Start Output Monitor";
             this.startOutputMonitorToolStripMenuItem.Click += new System.EventHandler(this.startOutputMonitorToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(401, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(417, 6);
             // 
             // scriptEditorexternalToolStripMenuItem
             // 
             this.scriptEditorexternalToolStripMenuItem.Name = "scriptEditorexternalToolStripMenuItem";
-            this.scriptEditorexternalToolStripMenuItem.Size = new System.Drawing.Size(404, 44);
+            this.scriptEditorexternalToolStripMenuItem.Size = new System.Drawing.Size(420, 44);
             this.scriptEditorexternalToolStripMenuItem.Text = "Tiny IDE";
             this.scriptEditorexternalToolStripMenuItem.Click += new System.EventHandler(this.scriptEditorexternalToolStripMenuItem_Click);
             // 
             // matplotlib2DSVGPlotsToolStripMenuItem
             // 
             this.matplotlib2DSVGPlotsToolStripMenuItem.Name = "matplotlib2DSVGPlotsToolStripMenuItem";
-            this.matplotlib2DSVGPlotsToolStripMenuItem.Size = new System.Drawing.Size(404, 44);
-            this.matplotlib2DSVGPlotsToolStripMenuItem.Text = "Matplotlib 2D SVG plots";
+            this.matplotlib2DSVGPlotsToolStripMenuItem.Size = new System.Drawing.Size(420, 44);
+            this.matplotlib2DSVGPlotsToolStripMenuItem.Text = "Gallery of Plots (external) ";
             this.matplotlib2DSVGPlotsToolStripMenuItem.Click += new System.EventHandler(this.matplotlib2DSVGPlotsToolStripMenuItem_Click);
             // 
             // dViewerexternalToolStripMenuItem1
             // 
             this.dViewerexternalToolStripMenuItem1.Name = "dViewerexternalToolStripMenuItem1";
-            this.dViewerexternalToolStripMenuItem1.Size = new System.Drawing.Size(404, 44);
+            this.dViewerexternalToolStripMenuItem1.Size = new System.Drawing.Size(420, 44);
             this.dViewerexternalToolStripMenuItem1.Text = "Interactive 3D Wpf Plots";
             this.dViewerexternalToolStripMenuItem1.Click += new System.EventHandler(this.dViewerexternalToolStripMenuItem1_Click);
             // 
             // tinyDataViewerToolStripMenuItem
             // 
             this.tinyDataViewerToolStripMenuItem.Name = "tinyDataViewerToolStripMenuItem";
-            this.tinyDataViewerToolStripMenuItem.Size = new System.Drawing.Size(404, 44);
+            this.tinyDataViewerToolStripMenuItem.Size = new System.Drawing.Size(420, 44);
             this.tinyDataViewerToolStripMenuItem.Text = "Tiny Data Viewer";
             this.tinyDataViewerToolStripMenuItem.Click += new System.EventHandler(this.tinyDataViewerToolStripMenuItem_Click);
             // 
@@ -474,24 +474,24 @@ namespace TinyPlot2DCtrl
             this.dataGridViewProject.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewProject.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewProject.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewProject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewProject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewProject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProject.ColumnHeadersVisible = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewProject.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewProject.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewProject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewProject.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewProject.Location = new System.Drawing.Point(0, 150);

@@ -425,6 +425,24 @@ namespace TinyDataViewerCtrl
             process.Start();
         }
 
+
+        private void tinyDataViewerexternalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string MainPath = _PythonRootDir;
+            if (MainPath == "") return;
+            string FullPathExe = MainPath + @"\pythonw.exe";
+            string FullPathArg = _WorkDir + @"\A01_ExamplesPython\B01_GeneralUsage\C04_GuiFunctions\D04_ShowDataViewer.py";
+            Process process = new Process();
+            process.StartInfo.FileName = FullPathExe;
+            process.StartInfo.Arguments = FullPathArg;
+            process.StartInfo.CreateNoWindow = true;
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
+            process.StartInfo.WorkingDirectory = MainPath;
+            process.StartInfo.UseShellExecute = false;
+            process.Start();
+        }
+
+
         private void toolStripButtonHideProjectPanel_Click(object sender, EventArgs e)
         {
             if (toolStripButtonHideProjectPanel.Text == "Hide")
@@ -442,6 +460,8 @@ namespace TinyDataViewerCtrl
 
 
         }
+
+
 
         private void buttonOffice_Click(object sender, EventArgs e)
         {

@@ -25,8 +25,8 @@ namespace TestXlCalcNetPrecCS
             string[] NumTypeArray = NTA1.Concat(NTA2).ToArray();
 
             //string[] FunctionArray = new[] { "all" };
-            string[] FunctionArray = new[] { "besseltheta" };
-            bool scaled = true;
+            string[] FunctionArray = new[] { "kelvin_ber" };
+            bool scaled = false;
             DemoChapter0F1(NumTypeArray, FunctionArray, scaled);
         }
 
@@ -126,116 +126,6 @@ namespace TestXlCalcNetPrecCS
 
             #endregion
 
-
-
-
-            #region Bessel functions of integer order
-
-            //Console.WriteLine("Hello DemoDoubleBessel!");
-
-
-            //int n_;
-            //double x_, res_; //, v_, u_
-
-
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_j0(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselJ0(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_j1(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselJ1(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //n_ = 3;
-            //res_ = math53.bessel_jn(n_, x_);
-            //Console.WriteLine("n_: {0}, x_: {1}, math53.BesselJn(n_, x_): {2}", n_, x_, res_);
-
-
-            //Console.WriteLine();
-
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_y0(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselY0(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_y1(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselY1(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //n_ = 3;
-            //res_ = math53.bessel_yn(n_, x_);
-            //Console.WriteLine("n_: {0}, x_: {1}, math53.BesselYn(n_, x_): {2}", n_, x_, res_);
-
-
-            //Console.WriteLine();
-
-
-
-            //#endregion
-
-
-
-
-            //#region Modified Bessel functions of integer order
-
-
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_i0(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselI0(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_i0e(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselI0e(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_i1(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselI1(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_i1e(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselI1e(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //n_ = 3;
-            //res_ = math53.bessel_in(n_, x_);
-            //Console.WriteLine("n_: {0}, x_: {1}, math53.BesselIn(n_, x_): {2}", n_, x_, res_);
-
-
-            //Console.WriteLine();
-
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_k0(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselK0(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_k0e(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselK0e(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_k1(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselK1(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //res_ = math53.bessel_k1e(x_);
-            //Console.WriteLine("x_: {0}, math53.BesselK1e(x_): {1}", x_, res_);
-
-            //x_ = 0.75d;
-            //n_ = 3;
-            //res_ = math53.bessel_kn(n_, x_);
-            //Console.WriteLine("n_: {0}, x_: {1}, math53.BesselIn(n_, x_): {2}", n_, x_, res_);
-
-
-
-
-
-
-
-            #endregion
 
 
 
@@ -1597,6 +1487,7 @@ namespace TestXlCalcNetPrecCS
                             case "qflint": { res1 = qflint.airy_bi_zero(m); break; }
                             case "oflint": { res1 = oflint.airy_bi_zero(m); break; }
                             case "mflint": { res1 = mflint.airy_bi_zero(m); break; }
+                            case "aflint": { res1 = aflint.airy_bi_zero(m); break; }
 #endif
                         }
                         Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);

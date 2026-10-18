@@ -50,7 +50,6 @@ namespace TinyOutputMonitorCtrl
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.toolStripBottom = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButtonFile = new System.Windows.Forms.ToolStripDropDownButton();
-            this.openProjectPanelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openContainingFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openAppdataLocalFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openBinaryFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -176,7 +175,6 @@ namespace TinyOutputMonitorCtrl
             this.toolStripDropDownButtonFile.AutoToolTip = false;
             this.toolStripDropDownButtonFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButtonFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openProjectPanelToolStripMenuItem,
             this.openContainingFolderToolStripMenuItem,
             this.openAppdataLocalFolderToolStripMenuItem,
             this.openBinaryFolderToolStripMenuItem,
@@ -187,13 +185,6 @@ namespace TinyOutputMonitorCtrl
             this.toolStripDropDownButtonFile.ShowDropDownArrow = false;
             this.toolStripDropDownButtonFile.Size = new System.Drawing.Size(55, 44);
             this.toolStripDropDownButtonFile.Text = "File";
-            // 
-            // openProjectPanelToolStripMenuItem
-            // 
-            this.openProjectPanelToolStripMenuItem.Name = "openProjectPanelToolStripMenuItem";
-            this.openProjectPanelToolStripMenuItem.Size = new System.Drawing.Size(437, 44);
-            this.openProjectPanelToolStripMenuItem.Text = "Open Project Panel";
-            this.openProjectPanelToolStripMenuItem.Click += new System.EventHandler(this.openProjectPanelToolStripMenuItem_Click);
             // 
             // openContainingFolderToolStripMenuItem
             // 
@@ -245,28 +236,28 @@ namespace TinyOutputMonitorCtrl
             // tinyIDEexternalToolStripMenuItem
             // 
             this.tinyIDEexternalToolStripMenuItem.Name = "tinyIDEexternalToolStripMenuItem";
-            this.tinyIDEexternalToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.tinyIDEexternalToolStripMenuItem.Size = new System.Drawing.Size(353, 44);
             this.tinyIDEexternalToolStripMenuItem.Text = "Tiny IDE (external)";
             this.tinyIDEexternalToolStripMenuItem.Click += new System.EventHandler(this.tinyIDEexternalToolStripMenuItem_Click);
             // 
             // outputViewerToolStripMenuItem
             // 
             this.outputViewerToolStripMenuItem.Name = "outputViewerToolStripMenuItem";
-            this.outputViewerToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.outputViewerToolStripMenuItem.Size = new System.Drawing.Size(353, 44);
             this.outputViewerToolStripMenuItem.Text = "Output Viewer";
             this.outputViewerToolStripMenuItem.Click += new System.EventHandler(this.outputViewerToolStripMenuItem_Click);
             // 
             // interactive2DPlotsToolStripMenuItem
             // 
             this.interactive2DPlotsToolStripMenuItem.Name = "interactive2DPlotsToolStripMenuItem";
-            this.interactive2DPlotsToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.interactive2DPlotsToolStripMenuItem.Size = new System.Drawing.Size(353, 44);
             this.interactive2DPlotsToolStripMenuItem.Text = "Interactive 2D Plots";
             this.interactive2DPlotsToolStripMenuItem.Click += new System.EventHandler(this.interactive2DPlotsToolStripMenuItem_Click);
             // 
             // interactive3DPlotsToolStripMenuItem
             // 
             this.interactive3DPlotsToolStripMenuItem.Name = "interactive3DPlotsToolStripMenuItem";
-            this.interactive3DPlotsToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.interactive3DPlotsToolStripMenuItem.Size = new System.Drawing.Size(353, 44);
             this.interactive3DPlotsToolStripMenuItem.Text = "Interactive 3D Plots";
             this.interactive3DPlotsToolStripMenuItem.Click += new System.EventHandler(this.interactive3DPlotsToolStripMenuItem_Click);
             // 
@@ -1009,7 +1000,6 @@ namespace TinyOutputMonitorCtrl
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonTools;
         private System.Windows.Forms.ToolStripMenuItem tinyIDEexternalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem outputViewerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openProjectPanelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem interactive2DPlotsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem interactive3DPlotsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButtonHideProjectPanel;

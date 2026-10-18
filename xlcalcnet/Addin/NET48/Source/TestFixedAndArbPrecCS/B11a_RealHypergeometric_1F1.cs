@@ -488,6 +488,50 @@ namespace TestXlCalcNetPrecCS
             }
 
 
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("gamma_p_prime"))
+            {
+                string name = "gamma_p_prime";
+                InputArray1 = new[] { 1.0d, 1.5d, 4.333d };
+                InputArray2 = new[] { 1.0d, 1.5d, 4.333d };
+                foreach (var a in InputArray1)
+                {
+                    foreach (var x in InputArray2)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine(name + "(a={0}, x={1})", a, x);
+                        foreach (var NumType in NumTypeArray)
+                        {
+                            object res1 = "Not done";
+                            switch (NumType ?? "")
+                            {
+                                case "math53": { res1 = math53.gamma_p_prime(a, x); break; }
+                                case " sreal": { res1 = sreal.gamma_p_prime(a, x); break; }
+                                case " dreal": { res1 = dreal.gamma_p_prime(a, x); break; }
+                                case " ereal": { res1 = ereal.gamma_p_prime(a, x); break; }
+                                case " qreal": { res1 = qreal.gamma_p_prime(a, x); break; }
+                                case " oreal": { res1 = oreal.gamma_p_prime(a, x); break; }
+#if HasArbPrecNet
+                                case " mreal": { res1 = mreal.gamma_p_prime(a, x); break; }
+                                case "sflint": { res1 = sflint.gamma_p_prime(a, x); break; }
+                                case "dflint": { res1 = dflint.gamma_p_prime(a, x); break; }
+                                case "eflint": { res1 = eflint.gamma_p_prime(a, x); break; }
+                                case "qflint": { res1 = qflint.gamma_p_prime(a, x); break; }
+                                case "oflint": { res1 = oflint.gamma_p_prime(a, x); break; }
+                                case "mflint": { res1 = mflint.gamma_p_prime(a, x); break; }
+                                case "aflint": { res1 = aflint.gamma_p_prime(a, x); break; }
+
+
+#endif
+                            }
+                            Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
+                        }
+                    }
+                }
+                Console.WriteLine();
+            }
+
+
+
             if (FunctionArray.Contains("all") | FunctionArray.Contains("gamma_p_inv"))
             {
                 string name = "gamma_p_inv";
@@ -614,49 +658,6 @@ namespace TestXlCalcNetPrecCS
                                 case " oreal": { res1 = oreal.gamma_q_inva(x, p); break; }
 #if HasArbPrecNet
                                 case " mreal": { res1 = mreal.gamma_q_inva(x, p); break; }
-#endif
-                            }
-                            Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
-                        }
-                    }
-                }
-                Console.WriteLine();
-            }
-
-
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("gamma_p_prime"))
-            {
-                string name = "gamma_p_prime";
-                InputArray1 = new[] { 1.0d, 1.5d, 4.333d };
-                InputArray2 = new[] { 1.0d, 1.5d, 4.333d };
-                foreach (var a in InputArray1)
-                {
-                    foreach (var x in InputArray2)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine(name + "(a={0}, x={1})", a, x);
-                        foreach (var NumType in NumTypeArray)
-                        {
-                            object res1 = "Not done";
-                            switch (NumType ?? "")
-                            {
-                                case "math53": { res1 = math53.gamma_p_prime(a, x); break; }
-                                case " sreal": { res1 = sreal.gamma_p_prime(a, x); break; }
-                                case " dreal": { res1 = dreal.gamma_p_prime(a, x); break; }
-                                case " ereal": { res1 = ereal.gamma_p_prime(a, x); break; }
-                                case " qreal": { res1 = qreal.gamma_p_prime(a, x); break; }
-                                case " oreal": { res1 = oreal.gamma_p_prime(a, x); break; }
-#if HasArbPrecNet
-                                case " mreal": { res1 = mreal.gamma_p_prime(a, x); break; }
-                                case "sflint": { res1 = sflint.gamma_p_prime(a, x); break; }
-                                case "dflint": { res1 = dflint.gamma_p_prime(a, x); break; }
-                                case "eflint": { res1 = eflint.gamma_p_prime(a, x); break; }
-                                case "qflint": { res1 = qflint.gamma_p_prime(a, x); break; }
-                                case "oflint": { res1 = oflint.gamma_p_prime(a, x); break; }
-                                case "mflint": { res1 = mflint.gamma_p_prime(a, x); break; }
-                                case "aflint": { res1 = aflint.gamma_p_prime(a, x); break; }
-
-
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);

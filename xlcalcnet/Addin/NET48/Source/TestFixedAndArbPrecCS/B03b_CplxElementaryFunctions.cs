@@ -29,7 +29,7 @@ namespace TestXlCalcNetPrecCS
             //string[] NumTypeArray = { "cmath53", "  ecplx" };
 
             //string[] FunctionArray = { "all" };
-            string[] FunctionArray = new[] { "binomial" };
+            string[] FunctionArray = new[] { "pow_si" };
 
             DemoChapterElementaryCplx(NumTypeArray, FunctionArray);
 

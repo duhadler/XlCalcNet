@@ -1,6 +1,7 @@
 ﻿using MpFunLabClient;
 using System;
 using TinyPlot2DCtrl;
+using System.Windows.Forms;
 
 
 
@@ -28,14 +29,24 @@ namespace TinyPlot2DUserCtrl
             string LocalImports = "";
             if (!string.IsNullOrEmpty(_wpfSettings1.LocalImports))
                 LocalImports = _wpfSettings1.LocalImports;
+            LocalImports = LocalImports.Replace("\n", "");
 
             string Kwargs = "";
             if (!string.IsNullOrEmpty(_wpfSettings1.Code))
                 Kwargs = ", " + _wpfSettings1.Code;
+            Kwargs = Kwargs.Replace("\n", "");
 
-            string Code2 = _wpfSettings1.ImportStatement
+            string ImportStatement = _wpfSettings1.ImportStatement;
+            ImportStatement = ImportStatement.Replace("\n", "");
+            //MessageBox.Show(ImportStatement);
+
+            string FunctionName = _wpfSettings1.FunctionName;
+            FunctionName = FunctionName.Replace("\n", "");
+            //MessageBox.Show(ImportStatement);
+
+            string Code2 = ImportStatement
                 + LocalImports
-                + _wpfSettings1.FunctionName
+                + FunctionName
                 + "(" 
                 + "OutputDir='Temp', "
                 + "Title=" + "r'" + _wpfSettings1.Title + "', "

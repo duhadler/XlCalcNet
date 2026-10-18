@@ -5940,7 +5940,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_p/*' />
-        public static Single jacobi_p(int n, Single alpha, Single beta, Single x)
+        internal static Single jacobi_p_(int n, Single alpha, Single beta, Single x)
         {
             Single res = 0.0F;
             Lib_SReal_Jacobi(ref res, n, ref alpha, ref beta, ref x);
@@ -5954,6 +5954,32 @@ namespace FixedPrecNet
         public static Single jacobi_p(int n, dynamic alpha, dynamic beta, dynamic x)
         {
             return jacobi_p(n, t(alpha), t(beta), t(x));
+        }
+
+        public static Single jacobi_p(Single n, Single alpha, Single beta, Single x)
+        {
+            if (!sreal.isinteger(n)) return sreal.nan;
+            return jacobi_p_(lrint(n), alpha, beta, x);
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
+        public static Single zernike_r(Single n, Single m, Single r)
+        {
+            if (!sreal.isinteger(n)) return sreal.nan;
+            if (!sreal.isinteger(m)) return sreal.nan;
+            if ((n < m) || (m < 0)) return sreal.zero;
+            if (!((n - m) % 2 == 0)) return sreal.zero;
+            if (r < 0) return sreal.zero;
+            return pow(r, m) * jacobi_p((n - m) / 2, 0, m, 2 * r * r - 1);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
+        public static Single zernike_r(dynamic n, dynamic m, dynamic r)
+        {
+            return zernike_r(t(n), t(m), t(r));
         }
 
 

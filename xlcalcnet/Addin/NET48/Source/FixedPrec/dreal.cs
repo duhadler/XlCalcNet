@@ -4970,7 +4970,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_p/*' />
-        public static Double jacobi_p_(int n, Double alpha, Double beta, Double x)
+        internal static Double jacobi_p_(int n, Double alpha, Double beta, Double x)
         {
             Double res = 0.0;
             Lib_FReal_Jacobi(ref res, n, ref alpha, ref beta, ref x);
@@ -4990,6 +4990,26 @@ namespace FixedPrecNet
         public static Double jacobi_p(dynamic n, dynamic alpha, dynamic beta, dynamic x)
         {
             return jacobi_p(t(n), t(alpha), t(beta), t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
+        public static Double zernike_r(Double n, Double m, Double r)
+        {
+            if (!dreal.isinteger(n)) return dreal.nan;
+            if (!dreal.isinteger(m)) return dreal.nan;
+            if ((n < m) || (m < 0)) return dreal.zero;
+            if (!((n - m) % 2 == 0)) return dreal.zero;
+            if (r < 0) return dreal.zero;
+            return pow(r, m) * jacobi_p((n - m) / 2, 0, m, 2 * r * r - 1);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
+        public static Double zernike_r(dynamic n, dynamic m, dynamic r)
+        {
+            return zernike_r(t(n), t(m), t(r));
         }
 
 
@@ -5038,27 +5058,6 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_LegendreQ", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_LegendreQ(ref Double res, int n, ref Double x);
 
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
-        public static Double zernike_r(Double n, Double m, Double r)
-        {
-            if (!dreal.isinteger(n)) return dreal.nan;
-            if (!dreal.isinteger(m)) return dreal.nan;
-            if ((n < m) || (m < 0)) return dreal.zero;
-            if (!((n - m) % 2 == 0)) return dreal.zero;
-            if (r < 0) return dreal.zero;
-            return pow(r, m) * jacobi_p((n - m) / 2, 0, m, 2 * r * r - 1);
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
-        public static Double zernike_r(dynamic n, dynamic m, dynamic r)
-        {
-            return zernike_r(t(n), t(m), t(r));
-        }
 
 
 

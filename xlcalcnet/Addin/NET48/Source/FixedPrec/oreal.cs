@@ -6543,7 +6543,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_p/*' />
-        public static Octuple jacobi_p(int n, Octuple alpha, Octuple beta, Octuple x)
+        public static Octuple jacobi_p_(int n, Octuple alpha, Octuple beta, Octuple x)
         {
             var res = new Octuple();
             Lib_OReal_Jacobi(res.mpPtr, n, alpha.mpPtr, beta.mpPtr, x.mpPtr);
@@ -6552,12 +6552,39 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_OReal_Jacobi", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_OReal_Jacobi(IntPtr res, int n, IntPtr alpha, IntPtr beta, IntPtr x);
 
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_p/*' />
-        public static Octuple jacobi_p(int n, dynamic alpha, dynamic beta, dynamic x)
+        public static Octuple jacobi_p(Octuple n, Octuple alpha, Octuple beta, Octuple x)
         {
-            return jacobi_p(n, t(alpha), t(beta), t(x));
+            if (!oreal.isinteger(n)) return oreal.nan;
+            return jacobi_p_(lrint(n), alpha, beta, x);
         }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_p/*' />
+        public static Octuple jacobi_p(dynamic n, dynamic alpha, dynamic beta, dynamic x)
+        {
+            return jacobi_p(t(n), t(alpha), t(beta), t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
+        public static Octuple zernike_r(Octuple n, Octuple m, Octuple r)
+        {
+            if (!oreal.isinteger(n)) return oreal.nan;
+            if (!oreal.isinteger(m)) return oreal.nan;
+            if ((n < m) || (m < 0)) return oreal.zero;
+            if (!((lrint(n) - lrint(m)) % 2 == 0)) return oreal.zero;
+            if (r < 0) return oreal.zero;
+            return pow(r, m) * jacobi_p((n - m) / 2, 0, m, 2 * r * r - 1);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
+        public static Octuple zernike_r(dynamic n, dynamic m, dynamic r)
+        {
+            return zernike_r(t(n), t(m), t(r));
+        }
+
 
 
 

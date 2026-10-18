@@ -6352,7 +6352,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_p/*' />
-        public static Extended jacobi_p(int n, Extended alpha, Extended beta, Extended x)
+        public static Extended jacobi_p_(int n, Extended alpha, Extended beta, Extended x)
         {
             var res = new Extended();
             Lib_XReal_Jacobi(res.mpPtr, n, alpha.mpPtr, beta.mpPtr, x.mpPtr);
@@ -6361,13 +6361,38 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Jacobi", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_XReal_Jacobi(IntPtr res, int n, IntPtr alpha, IntPtr beta, IntPtr x);
 
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/jacobi_p/*' />
-        public static Extended jacobi_p(int n, dynamic alpha, dynamic beta, dynamic x)
+        public static Extended jacobi_p(Extended n, Extended alpha, Extended beta, Extended x)
         {
-            return jacobi_p(n, t(alpha), t(beta), t(x));
+            if (!ereal.isinteger(n)) return ereal.nan;
+            return jacobi_p_(lrint(n), alpha, beta, x);
         }
 
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_p/*' />
+        public static Extended jacobi_p(dynamic n, dynamic alpha, dynamic beta, dynamic x)
+        {
+            return jacobi_p(t(n), t(alpha), t(beta), t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
+        public static Extended zernike_r(Extended n, Extended m, Extended r)
+        {
+            if (!ereal.isinteger(n)) return ereal.nan;
+            if (!ereal.isinteger(m)) return ereal.nan;
+            if ((n < m) || (m < 0)) return ereal.zero;
+            if (!((lrint(n) - lrint(m)) % 2 == 0)) return ereal.zero;
+            if (r < 0) return ereal.zero;
+            return pow(r, m) * jacobi_p((n - m) / 2, 0, m, 2 * r * r - 1);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/zernike_r/*' />
+        public static Extended zernike_r(dynamic n, dynamic m, dynamic r)
+        {
+            return zernike_r(t(n), t(m), t(r));
+        }
 
 
 

@@ -114,7 +114,7 @@ namespace TinyPlot2DCtrl
                 "svg",
                 "pdf",
                 "jpg",
-                "pnf",
+                "png",
             };
         }
 
@@ -195,13 +195,21 @@ namespace TinyPlot2DCtrl
 
 
 
-
-        [Category("01. General"), Description("Import Statement"), DisplayName("A. Import Statement")]
+        [Tag("ScriptEvaluator"), Editor(typeof(MultilineStringEditor), typeof(UITypeEditor)), Category("01. General"), Description("General Import Statement"), Browsable(true), DisplayName("A. Import Statement")]
         public string ImportStatement { get; set; }
 
 
-        [Category("01. General"), Description("Function Name"), DisplayName("B. Function Name")]
+        //[Category("01. General"), Description("Import Statement"), DisplayName("A. Import Statement")]
+        //public string ImportStatement { get; set; }
+
+
+
+        [Tag("ScriptEvaluator"), Editor(typeof(MultilineStringEditor), typeof(UITypeEditor)), Category("01. General"), Description("FunctionName"), Browsable(true), DisplayName("B. Function Namet")]
         public string FunctionName { get; set; }
+
+
+        //[Category("01. General"), Description("Function Name"), DisplayName("B. Function Name")]
+        //public string FunctionName { get; set; }
 
 
         [Category("01. General"), Description("Title"), DisplayName("C. Title")]
@@ -241,7 +249,7 @@ namespace TinyPlot2DCtrl
 
 
 
-        [Tag("ScriptEvaluator"), Editor(typeof(MultilineStringEditor), typeof(UITypeEditor)), Category("01. General"), Description("The key word arguments which fine tune the result"), Browsable(true), DisplayName("J. Key word aguments")]
+        [Tag("ScriptEvaluator"), Editor(typeof(MultilineStringEditor), typeof(UITypeEditor)), Category("01. General"), Description("The keyword arguments which fine tune the result"), Browsable(true), DisplayName("J. Keyword arguments")]
         public string Code { get; set; }
 
 

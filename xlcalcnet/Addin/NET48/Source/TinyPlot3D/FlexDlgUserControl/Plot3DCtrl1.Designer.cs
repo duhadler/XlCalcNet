@@ -38,8 +38,8 @@ namespace TinyPlot3DCtrl
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Plot3DCtrl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.toolStripTop = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButtonFile = new System.Windows.Forms.ToolStripDropDownButton();
@@ -89,7 +89,6 @@ namespace TinyPlot3DCtrl
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.contextMenuStripPropertyGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.collapseAllCarwgoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.collapseAllCatgoriesButThisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.expandAllCategoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenu3D = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -443,24 +442,24 @@ namespace TinyPlot3DCtrl
             this.dataGridViewProject.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewProject.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewProject.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewProject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewProject.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewProject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProject.ColumnHeadersVisible = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewProject.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewProject.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewProject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewProject.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewProject.Location = new System.Drawing.Point(0, 150);
@@ -690,29 +689,21 @@ namespace TinyPlot3DCtrl
             this.contextMenuStripPropertyGrid.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStripPropertyGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.collapseAllCarwgoriesToolStripMenuItem,
-            this.collapseAllCatgoriesButThisToolStripMenuItem,
             this.expandAllCategoriesToolStripMenuItem});
             this.contextMenuStripPropertyGrid.Name = "contextMenuStripPropertyGrid";
-            this.contextMenuStripPropertyGrid.Size = new System.Drawing.Size(426, 118);
+            this.contextMenuStripPropertyGrid.Size = new System.Drawing.Size(333, 80);
             // 
             // collapseAllCarwgoriesToolStripMenuItem
             // 
             this.collapseAllCarwgoriesToolStripMenuItem.Name = "collapseAllCarwgoriesToolStripMenuItem";
-            this.collapseAllCarwgoriesToolStripMenuItem.Size = new System.Drawing.Size(425, 38);
+            this.collapseAllCarwgoriesToolStripMenuItem.Size = new System.Drawing.Size(332, 38);
             this.collapseAllCarwgoriesToolStripMenuItem.Text = "Collapse All Categories";
             this.collapseAllCarwgoriesToolStripMenuItem.Click += new System.EventHandler(this.CollapseAllCategoriesToolStripMenuItemClick);
-            // 
-            // collapseAllCatgoriesButThisToolStripMenuItem
-            // 
-            this.collapseAllCatgoriesButThisToolStripMenuItem.Name = "collapseAllCatgoriesButThisToolStripMenuItem";
-            this.collapseAllCatgoriesButThisToolStripMenuItem.Size = new System.Drawing.Size(425, 38);
-            this.collapseAllCatgoriesButThisToolStripMenuItem.Text = "Collapse All Categories But This";
-            this.collapseAllCatgoriesButThisToolStripMenuItem.Click += new System.EventHandler(this.CollapseAllCatgoriesButThisToolStripMenuItemClick);
             // 
             // expandAllCategoriesToolStripMenuItem
             // 
             this.expandAllCategoriesToolStripMenuItem.Name = "expandAllCategoriesToolStripMenuItem";
-            this.expandAllCategoriesToolStripMenuItem.Size = new System.Drawing.Size(425, 38);
+            this.expandAllCategoriesToolStripMenuItem.Size = new System.Drawing.Size(332, 38);
             this.expandAllCategoriesToolStripMenuItem.Text = "Expand All Categories";
             this.expandAllCategoriesToolStripMenuItem.Click += new System.EventHandler(this.ExpandAllCategoriesToolStripMenuItemClick);
             // 
@@ -799,7 +790,6 @@ namespace TinyPlot3DCtrl
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripPropertyGrid;
         private System.Windows.Forms.ToolStripMenuItem collapseAllCarwgoriesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem collapseAllCatgoriesButThisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem expandAllCategoriesToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenu3D;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;

@@ -32,7 +32,7 @@ namespace TestXlCalcNetPrecCS
             string[] NumTypeArray = NTA1.Concat(NTA2).ToArray();
 
             //string[] FunctionArray = new[] { "all" };
-            string[] FunctionArray = new[] { "spherical_y" };
+            string[] FunctionArray = new[] { "zernike_r" };
 
             DemoChapterpFq(NumTypeArray, FunctionArray);
 
@@ -431,20 +431,20 @@ namespace TestXlCalcNetPrecCS
                                 switch (NumType ?? "")
                                 {
                                     case "math53": { res1 = math53.zernike_r(n, m, x); break; }
-                                    //case " sreal": { res1 = sreal.zernike_r(n, m, x); break; }
+                                    case " sreal": { res1 = sreal.zernike_r(n, m, x); break; }
                                     case " dreal": { res1 = dreal.zernike_r(n, m, x); break; }
-                                        //case " ereal": { res1 = ereal.zernike_r(n, m, x); break; }
-                                        //case " qreal": { res1 = qreal.zernike_r(n, m, x); break; }
-                                        //case " oreal": { res1 = oreal.zernike_r(n, m, x); break; }
+                                    case " ereal": { res1 = ereal.zernike_r(n, m, x); break; }
+                                    case " qreal": { res1 = qreal.zernike_r(n, m, x); break; }
+                                    case " oreal": { res1 = oreal.zernike_r(n, m, x); break; }
 #if HasArbPrecNet
-                                        //case " mreal": { res1 = mreal.zernike_r(n, m, x); break; }
-                                        //case "sflint": { res1 = sflint.zernike_r(n, m, x); break; }
-                                        //case "dflint": { res1 = dflint.zernike_r(n, m, x); break; }
-                                        //case "eflint": { res1 = eflint.zernike_r(n, m, x); break; }
-                                        //case "qflint": { res1 = qflint.zernike_r(n, m, x); break; }
-                                        //case "oflint": { res1 = oflint.zernike_r(n, m, x); break; }
-                                        //case "mflint": { res1 = mflint.zernike_r(n, m, x); break; }
-                                        //case "aflint": { res1 = aflint.zernike_r(n, m, x); break; }
+                                    case " mreal": { res1 = mreal.zernike_r(n, m, x); break; }
+                                    case "sflint": { res1 = sflint.zernike_r(n, m, x); break; }
+                                    case "dflint": { res1 = dflint.zernike_r(n, m, x); break; }
+                                    case "eflint": { res1 = eflint.zernike_r(n, m, x); break; }
+                                    case "qflint": { res1 = qflint.zernike_r(n, m, x); break; }
+                                    case "oflint": { res1 = oflint.zernike_r(n, m, x); break; }
+                                    case "mflint": { res1 = mflint.zernike_r(n, m, x); break; }
+                                    case "aflint": { res1 = aflint.zernike_r(n, m, x); break; }
 #endif
                                 }
                                 Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
