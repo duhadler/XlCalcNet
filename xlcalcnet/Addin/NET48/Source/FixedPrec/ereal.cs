@@ -6,23 +6,6 @@ using System.Numerics;
 namespace FixedPrecNet
 {
 
-    //public delegate Extended cb1SRet1S(Extended x);
-
-    //public delegate void cb1S1V(Extended t, ExtendedVec x);
-
-    //public delegate void cb1S2V(Extended t, ExtendedVec x, ExtendedVec y);
-
-    //public delegate void cb2M(ExtendedMat x, ExtendedMat y);
-
-
-    //public delegate Extended cb1VRet1S(ExtendedVec x);
-
-    //public delegate void cb2V(ExtendedVec x, ExtendedVec y);
-
-    //public delegate void cb1V1M(ExtendedVec x, ExtendedMat y);
-
-
-
 
     /// <summary>
     /// Represents an  extended-precision binary floating point number
@@ -2564,6 +2547,21 @@ namespace FixedPrecNet
         }
 
 
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Extended log(Extended x, Extended b)
+        {
+            return log(x) / log(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Extended log(dynamic x, dynamic b)
+        {
+            return log(t(x), t(b));
+        }
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Extended log2(Extended x)
         {
@@ -3659,6 +3657,21 @@ namespace FixedPrecNet
         {
             return ndis(t(x));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Extended ndisx(Extended q)
+        {
+            return -sqrt(2) * erfc_inv(2 * q);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Extended ndisx(dynamic q)
+        {
+            return ndisx(ereal.t(q));
+        }
+
 
 
 
@@ -5487,6 +5500,21 @@ namespace FixedPrecNet
         {
             return bessel_yv_zero(n + 0.5, m);
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Extended marcum_q(Extended m, Extended a, Extended b)
+        {
+            return ereal.dist_chi2_nc(2 * m, a * a).sf(b * b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Extended marcum_q(dynamic m, dynamic a, dynamic b)
+        {
+            return marcum_q(ereal.t(m), ereal.t(a), ereal.t(b));
+        }
+
 
 
 

@@ -4078,140 +4078,140 @@
             <summary>
                 Returns sqrt(1 + x^2) - x, accurate also for x near 0
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.sqrt1pmx</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.sqrt1pmx</seealso>
         </sqrt1pmx>
 
         <bring>
             <summary>
                 Returns the Bring radical
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.bring</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.bring</seealso>
         </bring>
 
         <expmx2h>
             <summary>
                 Returns exp(-x^2/2) with damped error amplification.
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.expmx2h</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.expmx2h</seealso>
         </expmx2h>
 
         <exprel>
             <summary>
                 Returns exprel(x) = exp(x) - 1, 1 for x = 0
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.exprel</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.exprel</seealso>
         </exprel>
 
         <expx2>
             <summary>
                 Returns exp(x*|x|), with damped error amplification.
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.expx2</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.expx2</seealso>
         </expx2>
 
         <logistic>
             <summary>
                 Returns the logistic function.
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.logistic</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.logistic</seealso>
         </logistic>
 
         <einstein>
             <summary>
                 Returns the Einstein function
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.einstein</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.einstein</seealso>
         </einstein>
 
         <log1mexp>
             <summary>
                 Returns log(1 - exp(-|x|)), calculated in an accurate and efficient way
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.log1mexp</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.log1mexp</seealso>
         </log1mexp>
 
         <log1pexp>
             <summary>
                 Returns log(1 + exp(-|x|)), calculated in an accurate and efficient way
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.log1pexp</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.log1pexp</seealso>
         </log1pexp>
 
         <log1pmx>
             <summary>
                 Returns log(1 + x) - x, calculated in an accurate and efficient way
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.log1pmx</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.log1pmx</seealso>
         </log1pmx>
 
         <logaddexp>
             <summary>
                 Returns log(exp(x) + exp(y)), calculated in an accurate and efficient way
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.logaddexp</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.logaddexp</seealso>
         </logaddexp>
 
         <logsubexp>
             <summary>
                 Returns log(exp(x) - exp(y)), calculated in an accurate and efficient way
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.logsubexp</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.logsubexp</seealso>
         </logsubexp>
 
         <logit>
             <summary>
                 Returns log(x / (1 - x)), accurate also near x = 0.5
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.logit</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.logit</seealso>
         </logit>
 
         <wright_omega>
             <summary>
                 Returns the Wright omega function, the inverse of f(w) = w * exp(w)
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.wright_omega</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.wright_omega</seealso>
         </wright_omega>
 
         <compound>
             <summary>
                 Returns the compound function
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.compound</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.compound</seealso>
         </compound>
 
         <comprel>
             <summary>
                 Returns (1 + x)^n - 1, computed accurately also when is very close to 0.
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.comprel</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.comprel</seealso>
         </comprel>
 
         <hypot3>
             <summary>
                 Returns sqrt(x^2 + y^2 + z^2) in a way which avoids undue underflow and overflow
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.hypot3</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.hypot3</seealso>
         </hypot3>
 
         <fibpoly>
             <summary>
                 Returns the Fibonacci polynomial
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.fibpoly</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.fibpoly</seealso>
         </fibpoly>
 
         <lucaspoly>
             <summary>
                 Returns the Lucas polynomial
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.lucaspoly</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.lucaspoly</seealso>
         </lucaspoly>
 
         <fibfun>
             <summary>
                 Returns the Fibonacci function
             </summary>
-            <seealso href="">B26_MoreElementary/C01_ExpLogPower.html#math53.fibfun</seealso>
+            <seealso href="">B26_Math53Elementary/C01_ExpLogPower.html#math53.fibfun</seealso>
         </fibfun>
 
 
@@ -4222,105 +4222,105 @@
             <summary>
                 Returns the sine of the angle in degrees
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.sind</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.sind</seealso>
         </sind>
 
         <asind>
             <summary>
                 Returns the arcsine of the angle in degrees
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.asind</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.asind</seealso>
         </asind>
 
         <cosd>
             <summary>
                 Returns the cosine of the angle in degrees
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.cosd</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.cosd</seealso>
         </cosd>
 
         <acosd>
             <summary>
                 Returns the arccosine of the angle in degrees
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.acosd</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.acosd</seealso>
         </acosd>
 
         <tand>
             <summary>
                 Returns the tangent of the angle in degrees
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.tand</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.tand</seealso>
         </tand>
 
         <atand>
             <summary>
                 Returns the arctangent of the angle in degrees
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.atand</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.atand</seealso>
         </atand>
 
         <cotd>
             <summary>
                 Returns the cotangent of the angle in degrees
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.cotd</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.cotd</seealso>
         </cotd>
 
         <acos1m>
             <summary>
                 Returns acos(1 - x), 0 &#8804; x &#8804; 1, calculated in an accurate and efficient way
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.acos1m</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.acos1m</seealso>
         </acos1m>
 
         <hav>
             <summary>
                 Returns the haversine function hav(x) = sin^2(x/2)
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.hav</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.hav</seealso>
         </hav>
 
         <archav>
             <summary>
                 Returns the inverse haversine function archav(x) = acos(1 - 2x) = 2 * asin(sqrt(x))
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.archav</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.archav</seealso>
         </archav>
 
         <vers>
             <summary>
                 Returns the versine function vers(x) = 1 - cos(x)
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.vers</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.vers</seealso>
         </vers>
 
         <covers>
             <summary>
                 Returns the coversine function covers(x) = 1 - sin(x)
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.covers</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.covers</seealso>
         </covers>
 
         <versint>
             <summary>
                 Returns the versine integral function
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.versint</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.versint</seealso>
         </versint>
 
         <cosint>
             <summary>
                 Returns the cosine integral function
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.cosint</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.cosint</seealso>
         </cosint>
 
         <sinint>
             <summary>
                 Returns the sine integral function
             </summary>
-            <seealso href="">B26_MoreElementary/C02_Trigonometric.html#math53.sinint</seealso>
+            <seealso href="">B26_Math53Elementary/C02_Trigonometric.html#math53.sinint</seealso>
         </sinint>
 
 
@@ -4331,77 +4331,77 @@
             <summary>
                 Returns the cardinal hyperbolic sine function
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.sinhc</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.sinhc</seealso>
         </sinhc>
 
         <sinhmx>
             <summary>
                 Returns sinh(x) - x, calculated in an accurate and efficient way
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.sinhmx</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.sinhmx</seealso>
         </sinhmx>
 
         <coshm1>
             <summary>
                 Returns cosh(x) - 1, calculated in an accurate and efficient way
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.coshm1</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.coshm1</seealso>
         </coshm1>
 
         <acosh1p>
             <summary>
                 Returns acosh(1 + x), x &#8805; 0, calculated in an accurate and efficient way
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.acosh1p</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.acosh1p</seealso>
         </acosh1p>
 
         <logcosh>
             <summary>
                 Returns the logarithm of the hyperbolic cosine function, accurate for x near 0, and without overflow for large x
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.logcosh</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.logcosh</seealso>
         </logcosh>
 
         <logsinh>
             <summary>
                 Returns the logarithm of the hyperbolic sine function, accurate for x near 0, and without overflow for large x
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.logsinh</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.logsinh</seealso>
         </logsinh>
 
         <gd>
             <summary>
                 Returns the Gudermannian function
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.gd</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.gd</seealso>
         </gd>
 
         <arcgd>
             <summary>
                 Returns the inverse Gudermannian function
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.arcgd</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.arcgd</seealso>
         </arcgd>
 
         <langevin_l>
             <summary>
                 Returns the the Langevin function
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.langevin_l</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.langevin_l</seealso>
         </langevin_l>
 
         <langevin_l_inv>
             <summary>
                 Returns the functional inverse of the Langevin function
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.langevin_l_inv</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.langevin_l_inv</seealso>
         </langevin_l_inv>
 
         <kepler>
             <summary>
                 Returns the solutions (eccentric anomaly x) of Kepler's equation from the mean anomaly M and the eccentricity e
             </summary>
-            <seealso href="">B26_MoreElementary/C03_Hyperbolic.html#math53.kepler</seealso>
+            <seealso href="">B26_Math53Elementary/C03_Hyperbolic.html#math53.kepler</seealso>
         </kepler>
 
 
@@ -4412,77 +4412,77 @@
             <summary>
                 Returns the sign of the gamma function
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.signgamma</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.signgamma</seealso>
         </signgamma>
 
         <lgamma_s>
             <summary>
                 Returns simultaneously the logarithm and the sign of the gamma function as a tuple
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.lgamma_s</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.lgamma_s</seealso>
         </lgamma_s>
 
         <lgamma1p>
             <summary>
                 Returns the logarithm of the gamma function for 1+x, accurate for x near 0
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.lgamma1p</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.lgamma1p</seealso>
         </lgamma1p>
 
         <logfactorial>
             <summary>
                 Returns the logarithm of the factorial function
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.logfactorial</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.logfactorial</seealso>
         </logfactorial>
 
         <logbinomial>
             <summary>
                 Returns the logarithm of the binomial coefficient
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.logbinomial</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.logbinomial</seealso>
         </logbinomial>
 
         <logbeta>
             <summary>
                 Returns the logarithm of the beta function
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.logbeta</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.logbeta</seealso>
         </logbeta>
 
         <gamma_inv>
             <summary>
                 Returns the functional inverse of the gamma function, y &#8805; 0.8857421875
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.gamma_inv</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.gamma_inv</seealso>
         </gamma_inv>
 
         <lgamma_inv>
             <summary>
                 Returns the functional inverse of the lgamma function, y &#8805; -0.12142
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.lgamma_inv</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.lgamma_inv</seealso>
         </lgamma_inv>
 
         <gammastar>
             <summary>
                 Returns Temme's gamma-star function
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.gammastar</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.gammastar</seealso>
         </gammastar>
 
         <poch1>
             <summary>
                 Returns the relative Pochhammer symbol
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.poch1</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.poch1</seealso>
         </poch1>
 
         <catalan_c>
             <summary>
                 Returns the Catalan function C
             </summary>
-            <seealso href="">B26_MoreElementary/C04_Gamma.html#math53.catalan_c</seealso>
+            <seealso href="">B26_Math53Elementary/C04_Gamma.html#math53.catalan_c</seealso>
         </catalan_c>
 
 
@@ -4493,21 +4493,21 @@
             <summary>
                 Returns the elliptic nome
             </summary>
-            <seealso href="">B27_MoreElliptic/C01_ConversionsElliptic.html#math53.elliptic_nome</seealso>
+            <seealso href="">B27_Math53Elliptic/C01_ConversionsElliptic.html#math53.elliptic_nome</seealso>
         </elliptic_nome>
 
         <elliptic_modulus>
             <summary>
                 Returns the elliptic modulus
             </summary>
-            <seealso href="">B27_MoreElliptic/C01_ConversionsElliptic.html#math53.elliptic_modulus</seealso>
+            <seealso href="">B27_Math53Elliptic/C01_ConversionsElliptic.html#math53.elliptic_modulus</seealso>
         </elliptic_modulus>
 
         <jacobi_amplitude>
             <summary>
                 Returns the Jacobi amplitude
             </summary>
-            <seealso href="">B27_MoreElliptic/C01_ConversionsElliptic.html#math53.jacobi_amplitude</seealso>
+            <seealso href="">B27_Math53Elliptic/C01_ConversionsElliptic.html#math53.jacobi_amplitude</seealso>
         </jacobi_amplitude>
 
 
@@ -4518,42 +4518,42 @@
             <summary>
                 Returns the Legendre complete elliptic integral B(k)
             </summary>
-            <seealso href="">B27_MoreElliptic/C02_AdditionalEllipticIntegrals.html#math53.elliptic_b</seealso>
+            <seealso href="">B27_Math53Elliptic/C02_AdditionalEllipticIntegrals.html#math53.elliptic_b</seealso>
         </elliptic_b>
 
         <elliptic_d>
             <summary>
                 Returns the Legendre complete elliptic integral D(k)
             </summary>
-            <seealso href="">B27_MoreElliptic/C02_AdditionalEllipticIntegrals.html#math53.elliptic_d</seealso>
+            <seealso href="">B27_Math53Elliptic/C02_AdditionalEllipticIntegrals.html#math53.elliptic_d</seealso>
         </elliptic_d>
 
         <elliptic_b_inc>
             <summary>
                 Returns the Legendre incomplete elliptic integral B(phi, k)
             </summary>
-            <seealso href="">B27_MoreElliptic/C02_AdditionalEllipticIntegrals.html#math53.elliptic_b_inc</seealso>
+            <seealso href="">B27_Math53Elliptic/C02_AdditionalEllipticIntegrals.html#math53.elliptic_b_inc</seealso>
         </elliptic_b_inc>
 
         <elliptic_d_inc>
             <summary>
                 Returns the Legendre incomplete elliptic integral D(phi, k)
             </summary>
-            <seealso href="">B27_MoreElliptic/C02_AdditionalEllipticIntegrals.html#math53.elliptic_d_inc</seealso>
+            <seealso href="">B27_Math53Elliptic/C02_AdditionalEllipticIntegrals.html#math53.elliptic_d_inc</seealso>
         </elliptic_d_inc>
 
         <heuman_lambda>
             <summary>
                 Returns Heuman’s Lambda function
             </summary>
-            <seealso href="">B27_MoreElliptic/C02_AdditionalEllipticIntegrals.html#math53.heuman_lambda</seealso>
+            <seealso href="">B27_Math53Elliptic/C02_AdditionalEllipticIntegrals.html#math53.heuman_lambda</seealso>
         </heuman_lambda>
 
         <jacobi_zeta>
             <summary>
                 Returns Jacobi’s Zeta function
             </summary>
-            <seealso href="">B27_MoreElliptic/C02_AdditionalEllipticIntegrals.html#math53.jacobi_zeta</seealso>
+            <seealso href="">B27_Math53Elliptic/C02_AdditionalEllipticIntegrals.html#math53.jacobi_zeta</seealso>
         </jacobi_zeta>
 
 
@@ -4564,42 +4564,42 @@
             <summary>
                 Returns Bulirsch’s complete elliptic integral of the first kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C03_BulirschIntegrals.html#math53.cel1</seealso>
+            <seealso href="">B27_Math53Elliptic/C03_BulirschIntegrals.html#math53.cel1</seealso>
         </cel1>
 
         <cel2>
             <summary>
                 Returns Bulirsch’s complete elliptic integral of the second kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C03_BulirschIntegrals.html#math53.cel2</seealso>
+            <seealso href="">B27_Math53Elliptic/C03_BulirschIntegrals.html#math53.cel2</seealso>
         </cel2>
 
         <cel>
             <summary>
                 Returns Bulirsch’s general complete elliptic integral
             </summary>
-            <seealso href="">B27_MoreElliptic/C03_BulirschIntegrals.html#math53.cel</seealso>
+            <seealso href="">B27_Math53Elliptic/C03_BulirschIntegrals.html#math53.cel</seealso>
         </cel>
 
         <el1>
             <summary>
                 Returns Bulirsch’s incomplete elliptic integral of the first kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C03_BulirschIntegrals.html#math53.el1</seealso>
+            <seealso href="">B27_Math53Elliptic/C03_BulirschIntegrals.html#math53.el1</seealso>
         </el1>
 
         <el2>
             <summary>
                 Returns Bulirsch’s incomplete elliptic integral of the second kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C03_BulirschIntegrals.html#math53.el2</seealso>
+            <seealso href="">B27_Math53Elliptic/C03_BulirschIntegrals.html#math53.el2</seealso>
         </el2>
 
         <el3>
             <summary>
                 Returns Bulirsch’s incomplete elliptic integral of the third kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C03_BulirschIntegrals.html#math53.el3</seealso>
+            <seealso href="">B27_Math53Elliptic/C03_BulirschIntegrals.html#math53.el3</seealso>
         </el3>
 
 
@@ -4610,84 +4610,84 @@
             <summary>
                 Returns the complete elliptic integral of the first kind K(k)
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticK</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticK</seealso>
         </EllipticK>
 
         <EllipticKim>
             <summary>
                 Returns the complete elliptic integral of the first kind for the imaginary modulus ik
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticKim</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticKim</seealso>
         </EllipticKim>
 
         <EllipticCK>
             <summary>
                 Returns the complementary complete elliptic integral of the first kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticCK</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticCK</seealso>
         </EllipticCK>
 
         <EllipticEC>
             <summary>
                 Returns the complete elliptic integral of the second kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticEC</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticEC</seealso>
         </EllipticEC>
 
         <EllipticECim>
             <summary>
                 Returns the complete elliptic integral of the second kind for the imaginary modulus ik
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticECim</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticECim</seealso>
         </EllipticECim>
 
         <EllipticCE>
             <summary>
                 Returns the complementary complete elliptic integral of the second kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticCE</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticCE</seealso>
         </EllipticCE>
 
         <EllipticPiC>
             <summary>
                 Returns the complementary complete elliptic integral of the third kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticPiC</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticPiC</seealso>
         </EllipticPiC>
 
         <EllipticPiCim>
             <summary>
                 Returns the complementary complete elliptic integral of the third kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticPiCim</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticPiCim</seealso>
         </EllipticPiCim>
 
         <EllipticCPi>
             <summary>
                 Returns the complementary complete elliptic integral of the third kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticCPi</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticCPi</seealso>
         </EllipticCPi>
 
         <EllipticF>
             <summary>
                 Returns the incomplete elliptic integral of the first kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticF</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticF</seealso>
         </EllipticF>
 
         <EllipticE>
             <summary>
                 Returns the incomplete elliptic integral of the second kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticE</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticE</seealso>
         </EllipticE>
 
         <EllipticPi>
             <summary>
                 Returns the incomplete elliptic integral of the third kind
             </summary>
-            <seealso href="">B27_MoreElliptic/C04_MapleIntegrals.html#math53.EllipticPi</seealso>
+            <seealso href="">B27_Math53Elliptic/C04_MapleIntegrals.html#math53.EllipticPi</seealso>
         </EllipticPi>
 
 
@@ -4698,28 +4698,28 @@
             <summary>
                 Returns the Jacobi theta function jacobi_theta1p
             </summary>
-            <seealso href="">B27_MoreElliptic/C05_JacobiTheta.html#math53.jacobi_theta1p</seealso>
+            <seealso href="">B27_Math53Elliptic/C05_JacobiTheta.html#math53.jacobi_theta1p</seealso>
         </jacobi_theta1p>
 
         <jacobi_theta02>
             <summary>
                 Returns the Jacobi theta function jacobi_theta02
             </summary>
-            <seealso href="">B27_MoreElliptic/C05_JacobiTheta.html#math53.jacobi_theta02</seealso>
+            <seealso href="">B27_Math53Elliptic/C05_JacobiTheta.html#math53.jacobi_theta02</seealso>
         </jacobi_theta02>
 
         <jacobi_theta03>
             <summary>
                 Returns the Jacobi theta function jacobi_theta03
             </summary>
-            <seealso href="">B27_MoreElliptic/C05_JacobiTheta.html#math53.jacobi_theta03</seealso>
+            <seealso href="">B27_Math53Elliptic/C05_JacobiTheta.html#math53.jacobi_theta03</seealso>
         </jacobi_theta03>
 
         <jacobi_theta04>
             <summary>
                 Returns the Jacobi theta function jacobi_theta04
             </summary>
-            <seealso href="">B27_MoreElliptic/C05_JacobiTheta.html#math53.jacobi_theta04</seealso>
+            <seealso href="">B27_Math53Elliptic/C05_JacobiTheta.html#math53.jacobi_theta04</seealso>
         </jacobi_theta04>
 
 
@@ -4730,84 +4730,84 @@
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arcsn
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcsn</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcsn</seealso>
         </jacobi_arcsn>
 
         <jacobi_arccn>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arccn
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arccn</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arccn</seealso>
         </jacobi_arccn>
 
         <jacobi_arcdn>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arcdn
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcdn</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcdn</seealso>
         </jacobi_arcdn>
 
         <jacobi_arccd>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arccd
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arccd</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arccd</seealso>
         </jacobi_arccd>
 
         <jacobi_arcsd>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arcsd
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcsd</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcsd</seealso>
         </jacobi_arcsd>
 
         <jacobi_arcnd>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arcnd
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcnd</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcnd</seealso>
         </jacobi_arcnd>
 
         <jacobi_arcdc>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arcdc
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcdc</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcdc</seealso>
         </jacobi_arcdc>
 
         <jacobi_arcnc>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arcnc
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcnc</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcnc</seealso>
         </jacobi_arcnc>
 
         <jacobi_arcsc>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arcsc
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcsc</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcsc</seealso>
         </jacobi_arcsc>
 
         <jacobi_arcns>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arcns
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcns</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcns</seealso>
         </jacobi_arcns>
 
         <jacobi_arcds>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arcds
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcds</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arcds</seealso>
         </jacobi_arcds>
 
         <jacobi_arccs>
             <summary>
                 Returns the inverse Jacobi elliptic function jacobi_arccs
             </summary>
-            <seealso href="">B27_MoreElliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arccs</seealso>
+            <seealso href="">B27_Math53Elliptic/C06_InverseJacobiEllipticFunctions.html#math53.jacobi_arccs</seealso>
         </jacobi_arccs>
 
 
@@ -4818,28 +4818,28 @@
             <summary>
                 Returns the lemniscate sine function
             </summary>
-            <seealso href="">B27_MoreElliptic/C07_LemniscateFunctions.html#math53.sinlemn</seealso>
+            <seealso href="">B27_Math53Elliptic/C07_LemniscateFunctions.html#math53.sinlemn</seealso>
         </sinlemn>
 
         <coslemn>
             <summary>
                 Returns the lemniscate cosine function
             </summary>
-            <seealso href="">B27_MoreElliptic/C07_LemniscateFunctions.html#math53.coslemn</seealso>
+            <seealso href="">B27_Math53Elliptic/C07_LemniscateFunctions.html#math53.coslemn</seealso>
         </coslemn>
 
         <arcsl>
             <summary>
                 Returns the inverse lemniscate sine function
             </summary>
-            <seealso href="">B27_MoreElliptic/C07_LemniscateFunctions.html#math53.arcsl</seealso>
+            <seealso href="">B27_Math53Elliptic/C07_LemniscateFunctions.html#math53.arcsl</seealso>
         </arcsl>
 
         <arcsl>
             <summary>
                 Returns the inverse lemniscate cosine function
             </summary>
-            <seealso href="">B27_MoreElliptic/C07_LemniscateFunctions.html#math53.arcsl</seealso>
+            <seealso href="">B27_Math53Elliptic/C07_LemniscateFunctions.html#math53.arcsl</seealso>
         </arcsl>
 
 
@@ -4850,35 +4850,35 @@
             <summary>
                 Returns the pentagamma function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C01_Polygamma.html#math53.pentagamma</seealso>
+            <seealso href="">B28_Math53LerchPhi/C01_Polygamma.html#math53.pentagamma</seealso>
         </pentagamma>
 
         <tetragamma>
             <summary>
                 Returns the tetragamma function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C01_Polygamma.html#math53.tetragamma</seealso>
+            <seealso href="">B28_Math53LerchPhi/C01_Polygamma.html#math53.tetragamma</seealso>
         </tetragamma>
 
         <psistar>
             <summary>
                 Returns the psistar function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C01_Polygamma.html#math53.psistar</seealso>
+            <seealso href="">B28_Math53LerchPhi/C01_Polygamma.html#math53.psistar</seealso>
         </psistar>
 
         <psi_inv>
             <summary>
                 Returns the psi_inv function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C01_Polygamma.html#math53.psi_inv</seealso>
+            <seealso href="">B28_Math53LerchPhi/C01_Polygamma.html#math53.psi_inv</seealso>
         </psi_inv>
 
         <bateman_g>
             <summary>
                 Returns the bateman_g function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C01_Polygamma.html#math53.bateman_g</seealso>
+            <seealso href="">B28_Math53LerchPhi/C01_Polygamma.html#math53.bateman_g</seealso>
         </bateman_g>
 
 
@@ -4889,77 +4889,77 @@
             <summary>
                 Returns the polylogarithm of integer order n
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.polylog_i</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.polylog_i</seealso>
         </polylog_i>
 
         <fermi_dirac_i>
             <summary>
                 Returns the Fermi-Dirac integral of integer order n
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_i</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_i</seealso>
         </fermi_dirac_i>
 
         <fermi_dirac_m05>
             <summary>
                 Returns the Fermi-Dirac integral fermi_dirac_m05
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_m05</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_m05</seealso>
         </fermi_dirac_m05>
 
         <fermi_dirac_p05>
             <summary>
                 Returns the Fermi-Dirac integral fermi_dirac_p05
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_p05</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_p05</seealso>
         </fermi_dirac_p05>
 
         <fermi_dirac_p15>
             <summary>
                 Returns the Fermi-Dirac integral fermi_dirac_p15
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_p15</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_p15</seealso>
         </fermi_dirac_p15>
 
         <fermi_dirac_p25>
             <summary>
                 Returns the Fermi-Dirac integral fermi_dirac_p25
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_p25</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.fermi_dirac_p25</seealso>
         </fermi_dirac_p25>
 
         <tangent_int_2>
             <summary>
                 Returns the inverse tangent integral
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.tangent_int_2</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.tangent_int_2</seealso>
         </tangent_int_2>
 
         <lobachevsky_c>
             <summary>
                 Returns Lobachevsky’s log-cos integral
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.lobachevsky_c</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.lobachevsky_c</seealso>
         </lobachevsky_c>
 
         <lobachevsky_s>
             <summary>
                 Returns Lobachevsky’s log-sin integral
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.lobachevsky_s</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.lobachevsky_s</seealso>
         </lobachevsky_s>
 
         <debye>
             <summary>
                 Returns the Debye function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.debye</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.debye</seealso>
         </debye>
 
         <transport_jn>
             <summary>
                 Returns the transport function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C02_Polylogarithm.html#math53.transport_jn</seealso>
+            <seealso href="">B28_Math53LerchPhi/C02_Polylogarithm.html#math53.transport_jn</seealso>
         </transport_jn>
 
 
@@ -4970,63 +4970,63 @@
             <summary>
                 Returns the Riemann zeta function for integer arguments n
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C03_RiemannZeta.html#math53.zeta_i</seealso>
+            <seealso href="">B28_Math53LerchPhi/C03_RiemannZeta.html#math53.zeta_i</seealso>
         </zeta_i>
 
         <zeta1p>
             <summary>
                 Returns the Riemann zeta function zeta(1 + x), accurate for x near 0
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C03_RiemannZeta.html#math53.zeta1p</seealso>
+            <seealso href="">B28_Math53LerchPhi/C03_RiemannZeta.html#math53.zeta1p</seealso>
         </zeta1p>
 
         <dirichlet_eta_i>
             <summary>
                 Returns the Dirichlet eta function for integer arguments n
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C03_RiemannZeta.html#math53.dirichlet_eta_i</seealso>
+            <seealso href="">B28_Math53LerchPhi/C03_RiemannZeta.html#math53.dirichlet_eta_i</seealso>
         </dirichlet_eta_i>
 
         <prime_zeta>
             <summary>
                 Returns the prime zeta function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C03_RiemannZeta.html#math53.prime_zeta</seealso>
+            <seealso href="">B28_Math53LerchPhi/C03_RiemannZeta.html#math53.prime_zeta</seealso>
         </prime_zeta>
 
         <riemann_r>
             <summary>
                 Returns the Riemann R function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C03_RiemannZeta.html#math53.riemann_r</seealso>
+            <seealso href="">B28_Math53LerchPhi/C03_RiemannZeta.html#math53.riemann_r</seealso>
         </riemann_r>
 
         <riemann_r_inv>
             <summary>
                 Returns the inverse of the Riemann R function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C03_RiemannZeta.html#math53.riemann_r_inv</seealso>
+            <seealso href="">B28_Math53LerchPhi/C03_RiemannZeta.html#math53.riemann_r_inv</seealso>
         </riemann_r_inv>
 
         <rogers_ramanujan_cf>
             <summary>
                 Returns the Rogers-Ramanujan continued fraction
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C03_RiemannZeta.html#math53.rogers_ramanujan_cf</seealso>
+            <seealso href="">B28_Math53LerchPhi/C03_RiemannZeta.html#math53.rogers_ramanujan_cf</seealso>
         </rogers_ramanujan_cf>
 
         <moebius>
             <summary>
                 Returns the Moebius function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C03_RiemannZeta.html#math53.moebius</seealso>
+            <seealso href="">B28_Math53LerchPhi/C03_RiemannZeta.html#math53.moebius</seealso>
         </moebius>
 
         <euler_q>
             <summary>
                 Returns the Euler q-function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C03_RiemannZeta.html#math53.euler_q</seealso>
+            <seealso href="">B28_Math53LerchPhi/C03_RiemannZeta.html#math53.euler_q</seealso>
         </euler_q>
 
 
@@ -5037,28 +5037,28 @@
             <summary>
                 Returns the log-series probability mass function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C04_Miscellaneous.html#math53.logseries_pmf</seealso>
+            <seealso href="">B28_Math53LerchPhi/C04_Miscellaneous.html#math53.logseries_pmf</seealso>
         </logseries_pmf>
 
         <logseries_cdf>
             <summary>
                 Returns the log-series cumulative distribution function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C04_Miscellaneous.html#math53.logseries_cdf</seealso>
+            <seealso href="">B28_Math53LerchPhi/C04_Miscellaneous.html#math53.logseries_cdf</seealso>
         </logseries_cdf>
 
         <zeta_pmf>
             <summary>
                 Returns the zeta probability mass function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C04_Miscellaneous.html#math53.zeta_pmf</seealso>
+            <seealso href="">B28_Math53LerchPhi/C04_Miscellaneous.html#math53.zeta_pmf</seealso>
         </zeta_pmf>
 
         <zeta_cdf>
             <summary>
                 Returns the zeta cumulative distribution function
             </summary>
-            <seealso href="">B28_MoreLerchPhi/C04_Miscellaneous.html#math53.zeta_cdf</seealso>
+            <seealso href="">B28_Math53LerchPhi/C04_Miscellaneous.html#math53.zeta_cdf</seealso>
         </zeta_cdf>
 
 
@@ -5306,14 +5306,14 @@
             <summary>
                 Returns the truncated exponential sum function
             </summary>
-            <seealso href="">B30_More1F1AndOther/C01_IncompleteGamma.html#math53.expn</seealso>
+            <seealso href="">B30_Math531F1AndOther/C01_IncompleteGamma.html#math53.expn</seealso>
         </expn>
 
         <expreln>
             <summary>
                 Returns the relative exponential
             </summary>
-            <seealso href="">B30_More1F1AndOther/C01_IncompleteGamma.html#math53.expreln</seealso>
+            <seealso href="">B30_Math531F1AndOther/C01_IncompleteGamma.html#math53.expreln</seealso>
         </expreln>
 
 
@@ -5324,28 +5324,28 @@
             <summary>
                 Returns the normalizing Gamow constant for Coulomb wave functions
             </summary>
-            <seealso href="">B30_More1F1AndOther/C02_CoulombWave.html#math53.coulomb_cl</seealso>
+            <seealso href="">B30_Math531F1AndOther/C02_CoulombWave.html#math53.coulomb_cl</seealso>
         </coulomb_cl>
 
         <coulomb_sl>
             <summary>
                 Returns the Coulomb phase shift for Coulomb wave functions
             </summary>
-            <seealso href="">B30_More1F1AndOther/C02_CoulombWave.html#math53.coulomb_sl</seealso>
+            <seealso href="">B30_Math531F1AndOther/C02_CoulombWave.html#math53.coulomb_sl</seealso>
         </coulomb_sl>
 
         <coulomb_f_fprime>
             <summary>
                 Returns simultaneously the regular Coulomb wave function and its first derivative
             </summary>
-            <seealso href="">B30_More1F1AndOther/C02_CoulombWave.html#math53.coulomb_f_fprime</seealso>
+            <seealso href="">B30_Math531F1AndOther/C02_CoulombWave.html#math53.coulomb_f_fprime</seealso>
         </coulomb_f_fprime>
 
         <coulomb_g_gprime>
             <summary>
                 Returns simultaneously the irregular Coulomb wave function and its first derivative
             </summary>
-            <seealso href="">B30_More1F1AndOther/C02_CoulombWave.html#math53.coulomb_g_gprime</seealso>
+            <seealso href="">B30_Math531F1AndOther/C02_CoulombWave.html#math53.coulomb_g_gprime</seealso>
         </coulomb_g_gprime>
 
 
@@ -5356,119 +5356,119 @@
             <summary>
                 Returns the exponentially scaled complementary error function
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.erfcx</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.erfcx</seealso>
         </erfcx>
 
         <erfh>
             <summary>
                 Returns the difference of error functions
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.erfh</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.erfh</seealso>
         </erfh>
 
         <erf2>
             <summary>
                 Returns the difference of error functions
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.erf2</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.erf2</seealso>
         </erf2>
 
         <erfq>
             <summary>
                 Returns the probability function Q(x)
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.erfq</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.erfq</seealso>
         </erfq>
 
         <erfcx_inv>
             <summary>
                 Returns the functional inverse of the exponentially scaled complementary error function
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.erfcx_inv</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.erfcx_inv</seealso>
         </erfcx_inv>
 
         <erfi_inv>
             <summary>
                 Returns the functional inverse of erfi
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.erfi_inv</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.erfi_inv</seealso>
         </erfi_inv>
 
         <dawson2>
             <summary>
                 Returns the generalized Dawson integral
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.dawson2</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.dawson2</seealso>
         </dawson2>
 
         <erfg>
             <summary>
                 Returns the generalized error function
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.erfg</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.erfg</seealso>
         </erfg>
 
         <expint3>
             <summary>
                 Returns the expint3 function
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.expint3</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.expint3</seealso>
         </expint3>
 
         <inerfc>
             <summary>
                 Returns scaled repeated integrals of the complementary error function
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.inerfc</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.inerfc</seealso>
         </inerfc>
 
         <fresnel_f>
             <summary>
                 Returns the Fresnel auxiliary function f
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.fresnel_f</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.fresnel_f</seealso>
         </fresnel_f>
 
         <fresnel_g>
             <summary>
                 Returns the Fresnel auxiliary function g
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.fresnel_g</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.fresnel_g</seealso>
         </fresnel_g>
 
         <goodwin_staton>
             <summary>
                 Returns the Goodwin-Staton integral
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.goodwin_staton</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.goodwin_staton</seealso>
         </goodwin_staton>
 
         <voigt_u>
             <summary>
                 Returns the Voigt u function
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.voigt_u</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.voigt_u</seealso>
         </voigt_u>
 
         <voigt_v>
             <summary>
                 Returns the Voigt v function
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.voigt_v</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.voigt_v</seealso>
         </voigt_v>
 
         <voigt_h>
             <summary>
                 Returns the Voigt h function
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.voigt_h</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.voigt_h</seealso>
         </voigt_h>
 
         <voigt_profile_pdf>
             <summary>
                 Returns the Voigt profile PDF
             </summary>
-            <seealso href="">B30_More1F1AndOther/C03_ErrorFunctions.html#math53.voigt_profile_pdf</seealso>
+            <seealso href="">B30_Math531F1AndOther/C03_ErrorFunctions.html#math53.voigt_profile_pdf</seealso>
         </voigt_profile_pdf>
 
 
@@ -5479,77 +5479,77 @@
             <summary>
                 Returns the entire cosine integral
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#cin</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#cin</seealso>
         </cin>
 
         <cinh>
             <summary>
                 Returns the entire hyperbolic cosine integral
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#cinh</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#cinh</seealso>
         </cinh>
 
         <ein>
             <summary>
                 Returns the entire hyperbolic cosine integral
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#ein</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#ein</seealso>
         </ein>
 
         <exp_integral_e1_scaled>
             <summary>
                 Returns the scaled exponential integral e1s
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#exp_integral_e1_scaled</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#exp_integral_e1_scaled</seealso>
         </exp_integral_e1_scaled>
 
         <exp_integral_ei_scaled>
             <summary>
                 Returns the scaled exponential integral eis
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#exp_integral_ei_scaled</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#exp_integral_ei_scaled</seealso>
         </exp_integral_ei_scaled>
 
         <eisx2>
             <summary>
                 Returns the scaled exponential integral eisx2
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#eisx2</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#eisx2</seealso>
         </eisx2>
 
         <ei_inv>
             <summary>
                 Returns the functional inverse of the exponential integral
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#ei_inv</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#ei_inv</seealso>
         </ei_inv>
 
         <gei>
             <summary>
                 Returns the generalized exponential integral of real order p
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#gei</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#gei</seealso>
         </gei>
 
         <eibeta>
             <summary>
                 Returns the exponential integral eibeta
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#gei</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#gei</seealso>
         </eibeta>
 
         <log_integral_inv>
             <summary>
                 Returns the functional inverse of the logarithmic integral
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#log_integral_inv</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#log_integral_inv</seealso>
         </log_integral_inv>
 
         <shifted_sin_integral>
             <summary>
                 Returns the shifted sine integral
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#shifted_sin_integral</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#shifted_sin_integral</seealso>
         </shifted_sin_integral>
 
 
@@ -5560,28 +5560,28 @@
             <summary>
                 Returns the Struve function H0
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#struve_h0</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#struve_h0</seealso>
         </struve_h0>
 
         <struve_h1>
             <summary>
                 Returns the Struve function H1
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#struve_h1</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#struve_h1</seealso>
         </struve_h1>
 
         <struve_l0>
             <summary>
                 Returns the Struve function L0
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#struve_l0</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#struve_l0</seealso>
         </struve_l0>
 
         <struve_l1>
             <summary>
                 Returns the Struve function L1
             </summary>
-            <seealso href="">B30_More1F1AndOther/C04_ExponentialIntegrals.html#struve_l1</seealso>
+            <seealso href="">B30_Math531F1AndOther/C04_ExponentialIntegrals.html#struve_l1</seealso>
         </struve_l1>
 
 
@@ -5592,35 +5592,35 @@
             <summary>
                 Returns the square root of (1 - z^2)
             </summary>
-            <seealso href="">B31_MoreComplex/C01_Elementary.html#sqrt1mz2</seealso>
+            <seealso href="">B31_Cmath53/C01_Elementary.html#sqrt1mz2</seealso>
         </sqrt1mz2>
 
         <cuberoot>
             <summary>
                 Returns the cube root of z in a way which gives a negative realnumber for negative real input
             </summary>
-            <seealso href="">B31_MoreComplex/C01_Elementary.html#cuberoot</seealso>
+            <seealso href="">B31_Cmath53/C01_Elementary.html#cuberoot</seealso>
         </cuberoot>
 
         <surd>
             <summary>
                 Returns the complex nth root
             </summary>
-            <seealso href="">B31_MoreComplex/C01_Elementary.html#surd</seealso>
+            <seealso href="">B31_Cmath53/C01_Elementary.html#surd</seealso>
         </surd>
 
         <acotc>
             <summary>
                 Returns the continuous inverse cotangent
             </summary>
-            <seealso href="">B31_MoreComplex/C01_Elementary.html#acotc</seealso>
+            <seealso href="">B31_Cmath53/C01_Elementary.html#acotc</seealso>
         </acotc>
 
         <acothc>
             <summary>
                 Returns the continuous hyperbolic inverse cotangent
             </summary>
-            <seealso href="">B31_MoreComplex/C01_Elementary.html#acothc</seealso>
+            <seealso href="">B31_Cmath53/C01_Elementary.html#acothc</seealso>
         </acothc>
 
 
@@ -5631,28 +5631,28 @@
             <summary>
                 Returns the Neville theta function neville_theta_s
             </summary>
-            <seealso href="">B31_MoreComplex/C02_NevilleThetaFunctions.html#neville_theta_s</seealso>
+            <seealso href="">B31_Cmath53/C02_NevilleThetaFunctions.html#neville_theta_s</seealso>
         </neville_theta_s>
 
         <neville_theta_c>
             <summary>
                 Returns the Neville theta function neville_theta_c
             </summary>
-            <seealso href="">B31_MoreComplex/C02_NevilleThetaFunctions.html#neville_theta_c</seealso>
+            <seealso href="">B31_Cmath53/C02_NevilleThetaFunctions.html#neville_theta_c</seealso>
         </neville_theta_c>
 
         <neville_theta_d>
             <summary>
                 Returns the Neville theta function neville_theta_d
             </summary>
-            <seealso href="">B31_MoreComplex/C02_NevilleThetaFunctions.html#neville_theta_d</seealso>
+            <seealso href="">B31_Cmath53/C02_NevilleThetaFunctions.html#neville_theta_d</seealso>
         </neville_theta_d>
 
         <neville_theta_n>
             <summary>
                 Returns the Neville theta function neville_theta_n
             </summary>
-            <seealso href="">B31_MoreComplex/C02_NevilleThetaFunctions.html#neville_theta_n</seealso>
+            <seealso href="">B31_Cmath53/C02_NevilleThetaFunctions.html#neville_theta_n</seealso>
         </neville_theta_n>
 
 
@@ -5663,21 +5663,21 @@
             <summary>
                 Returns the elliptic roots from g2 and g3
             </summary>
-            <seealso href="">B31_MoreComplex/C03_WeierstrassConversions.html#elliptic_roots_from_g2g3</seealso>
+            <seealso href="">B31_Cmath53/C03_WeierstrassConversions.html#elliptic_roots_from_g2g3</seealso>
         </elliptic_roots_from_g2g3>
 
         <elliptic_halfperiods_from_g2g3>
             <summary>
                 Returns the elliptic half-periods from g2 and g3
             </summary>
-            <seealso href="">B31_MoreComplex/C03_WeierstrassConversions.html#elliptic_halfperiods_from_g2g3</seealso>
+            <seealso href="">B31_Cmath53/C03_WeierstrassConversions.html#elliptic_halfperiods_from_g2g3</seealso>
         </elliptic_halfperiods_from_g2g3>
 
         <OmegaAndTau>
             <summary>
                 Returns the elliptic half-periods from g2 and g3
             </summary>
-            <seealso href="">B31_MoreComplex/C03_WeierstrassConversions.html#OmegaAndTau</seealso>
+            <seealso href="">B31_Cmath53/C03_WeierstrassConversions.html#OmegaAndTau</seealso>
         </OmegaAndTau>
 
 
@@ -5688,35 +5688,35 @@
             <summary>
                 Returns the Weierstrass p-function in terms of g2 and g3
             </summary>
-            <seealso href="">B31_MoreComplex/C04_WeierstrassG2G3.html#weierstrass_p_g</seealso>
+            <seealso href="">B31_Cmath53/C04_WeierstrassG2G3.html#weierstrass_p_g</seealso>
         </weierstrass_p_g>
 
         <weierstrass_p_prime_g>
             <summary>
                 Returns the  first derivative of the Weierstrass p-function in terms of g2 and g3
             </summary>
-            <seealso href="">B31_MoreComplex/C04_WeierstrassG2G3.html#weierstrass_p_prime_g</seealso>
+            <seealso href="">B31_Cmath53/C04_WeierstrassG2G3.html#weierstrass_p_prime_g</seealso>
         </weierstrass_p_prime_g>
 
         <weierstrass_p_inv_g>
             <summary>
                 Returns the inverse of the Weierstrass p-function in terms of g2 and g3
             </summary>
-            <seealso href="">B31_MoreComplex/C04_WeierstrassG2G3.html#weierstrass_p_inv_g</seealso>
+            <seealso href="">B31_Cmath53/C04_WeierstrassG2G3.html#weierstrass_p_inv_g</seealso>
         </weierstrass_p_inv_g>
 
         <weierstrass_zeta_g>
             <summary>
                 Returns the Weierstrass zeta-function in terms of g2 and g3
             </summary>
-            <seealso href="">B31_MoreComplex/C04_WeierstrassG2G3.html#weierstrass_zeta_g</seealso>
+            <seealso href="">B31_Cmath53/C04_WeierstrassG2G3.html#weierstrass_zeta_g</seealso>
         </weierstrass_zeta_g>
 
         <weierstrass_sigma_g>
             <summary>
                 Returns the Weierstrass sigma-function in terms of g2 and g3
             </summary>
-            <seealso href="">B31_MoreComplex/C04_WeierstrassG2G3.html#weierstrass_sigma_g</seealso>
+            <seealso href="">B31_Cmath53/C04_WeierstrassG2G3.html#weierstrass_sigma_g</seealso>
         </weierstrass_sigma_g>
 
 
@@ -5728,35 +5728,35 @@
             <summary>
                 Returns the Weierstrass p-function lattice roots e1,e2
             </summary>
-            <seealso href="">B31_MoreComplex/C05_WeierstrassE1E2.html#weierstrass_p_e</seealso>
+            <seealso href="">B31_Cmath53/C05_WeierstrassE1E2.html#weierstrass_p_e</seealso>
         </weierstrass_p_e>
 
         <weierstrass_p_prime_e>
             <summary>
                 Returns the  first derivative of the Weierstrass p-function lattice roots e1,e2
             </summary>
-            <seealso href="">B31_MoreComplex/C05_WeierstrassE1E2.html#weierstrass_p_prime_e</seealso>
+            <seealso href="">B31_Cmath53/C05_WeierstrassE1E2.html#weierstrass_p_prime_e</seealso>
         </weierstrass_p_prime_e>
 
         <weierstrass_p_inv_e>
             <summary>
                 Returns the inverse of the Weierstrass p-function lattice roots e1,e2
             </summary>
-            <seealso href="">B31_MoreComplex/C05_WeierstrassE1E2.html#weierstrass_p_inv_e</seealso>
+            <seealso href="">B31_Cmath53/C05_WeierstrassE1E2.html#weierstrass_p_inv_e</seealso>
         </weierstrass_p_inv_e>
 
         <weierstrass_zeta_e>
             <summary>
                 Returns the Weierstrass zeta-function lattice roots e1,e2
             </summary>
-            <seealso href="">B31_MoreComplex/C05_WeierstrassE1E2.html#weierstrass_zeta_e</seealso>
+            <seealso href="">B31_Cmath53/C05_WeierstrassE1E2.html#weierstrass_zeta_e</seealso>
         </weierstrass_zeta_e>
 
         <weierstrass_sigma_e>
             <summary>
                 Returns the Weierstrass sigma-function lattice roots e1,e2
             </summary>
-            <seealso href="">B31_MoreComplex/C05_WeierstrassE1E2.html#weierstrass_sigma_e</seealso>
+            <seealso href="">B31_Cmath53/C05_WeierstrassE1E2.html#weierstrass_sigma_e</seealso>
         </weierstrass_sigma_e>
 
 
@@ -5768,35 +5768,35 @@
             <summary>
                 Returns the Weierstrass p-function half-periods omega1 and omega2
             </summary>
-            <seealso href="">B31_MoreComplex/C06_WeierstrassOmega.html#weierstrass_p_o</seealso>
+            <seealso href="">B31_Cmath53/C06_WeierstrassOmega.html#weierstrass_p_o</seealso>
         </weierstrass_p_o>
 
         <weierstrass_p_prime_o>
             <summary>
                 Returns the  first derivative of the Weierstrass p-function half-periods omega1 and omega2
             </summary>
-            <seealso href="">B31_MoreComplex/C06_WeierstrassOmega.html#weierstrass_p_prime_o</seealso>
+            <seealso href="">B31_Cmath53/C06_WeierstrassOmega.html#weierstrass_p_prime_o</seealso>
         </weierstrass_p_prime_o>
 
         <weierstrass_p_inv_o>
             <summary>
                 Returns the inverse of the Weierstrass p-function half-periods omega1 and omega2
             </summary>
-            <seealso href="">B31_MoreComplex/C06_WeierstrassOmega.html#weierstrass_p_inv_o</seealso>
+            <seealso href="">B31_Cmath53/C06_WeierstrassOmega.html#weierstrass_p_inv_o</seealso>
         </weierstrass_p_inv_o>
 
         <weierstrass_zeta_o>
             <summary>
                 Returns the Weierstrass zeta-function half-periods omega1 and omega2
             </summary>
-            <seealso href="">B31_MoreComplex/C06_WeierstrassOmega.html#weierstrass_zeta_o</seealso>
+            <seealso href="">B31_Cmath53/C06_WeierstrassOmega.html#weierstrass_zeta_o</seealso>
         </weierstrass_zeta_o>
 
         <weierstrass_sigma_o>
             <summary>
                 Returns the Weierstrass sigma-function half-periods omega1 and omega2
             </summary>
-            <seealso href="">B31_MoreComplex/C06_WeierstrassOmega.html#weierstrass_sigma_o</seealso>
+            <seealso href="">B31_Cmath53/C06_WeierstrassOmega.html#weierstrass_sigma_o</seealso>
         </weierstrass_sigma_o>
 
 

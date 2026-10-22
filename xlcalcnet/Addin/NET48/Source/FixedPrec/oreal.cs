@@ -7,24 +7,6 @@ using System.Numerics;
 namespace FixedPrecNet
 {
 
-    //public delegate Octuple cb1SRet1S(Octuple x);
-
-    //public delegate void cb1S1V(Octuple t, OctupleVec matX);
-
-    //public delegate void cb1S2V(Octuple t, OctupleVec matX, OctupleVec matY);
-
-
-    //public delegate void cb2M(OctupleMat matX, OctupleMat matY);
-
-
-    //public delegate Octuple cb1VRet1S(OctupleVec x);
-
-    //public delegate void cb2V(OctupleVec x, OctupleVec y);
-
-    //public delegate void cb1V1M(OctupleVec x, OctupleMat y);
-
-
-
 
 
     /// <summary>
@@ -2605,12 +2587,27 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_OReal_Log", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_OReal_Log(IntPtr res, IntPtr x);
 
-
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Octuple log(dynamic x)
         {
             return log(t(x));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Octuple log(Octuple x, Octuple b)
+        {
+            return log(x) / log(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Octuple log(dynamic x, dynamic b)
+        {
+            return log(t(x), t(b));
+        }
+
+
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
@@ -3733,6 +3730,21 @@ namespace FixedPrecNet
         {
             return ndis(t(x));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Octuple ndisx(Octuple q)
+        {
+            return -sqrt(2) * erfc_inv(2 * q);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Octuple ndisx(dynamic q)
+        {
+            return ndisx(oreal.t(q));
+        }
+
 
 
 
@@ -5555,6 +5567,21 @@ namespace FixedPrecNet
         {
             return bessel_yv_zero(n + 0.5, m);
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Octuple marcum_q(Octuple m, Octuple a, Octuple b)
+        {
+            return oreal.dist_chi2_nc(2 * m, a * a).sf(b * b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Octuple marcum_q(dynamic m, dynamic a, dynamic b)
+        {
+            return marcum_q(oreal.t(m), oreal.t(a), oreal.t(b));
+        }
+
 
 
 

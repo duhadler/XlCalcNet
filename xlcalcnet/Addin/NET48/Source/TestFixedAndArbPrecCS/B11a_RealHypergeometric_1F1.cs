@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Linq;
 using FixedPrecNet;
+using System.Xml.Linq;
+
 
 
 #if HasArbPrecNet
@@ -34,7 +36,7 @@ namespace TestXlCalcNetPrecCS
 
 
             //string[] FunctionArray = new[] { "all" };
-            string[] FunctionArray = new[] { "cos_integral" };
+            string[] FunctionArray = new[] { "ndis" };
 
             DemoChapter1F1(NumTypeArray, FunctionArray);
 
@@ -71,7 +73,7 @@ namespace TestXlCalcNetPrecCS
                         foreach (var x in InputArray3)
                         {
                             Console.WriteLine();
-                            Console.WriteLine(name + "(a={0}, b={1}, x={1})", a, b, x);
+                            Console.WriteLine(name + "(a={0}, b={1}, x={2})", a, b, x);
                             foreach (var NumType in NumTypeArray)
                             {
                                 object res1 = "Not done";
@@ -116,7 +118,7 @@ namespace TestXlCalcNetPrecCS
                         foreach (var x in InputArray3)
                         {
                             Console.WriteLine();
-                            Console.WriteLine(name + "(a={0}, b={1}, x={1})", a, b, x);
+                            Console.WriteLine(name + "(a={0}, b={1}, x={2})", a, b, x);
                             foreach (var NumType in NumTypeArray)
                             {
                                 object res1 = "Not done";
@@ -242,7 +244,7 @@ namespace TestXlCalcNetPrecCS
                     foreach (var x in InputArray1)
                     {
                         Console.WriteLine();
-                        Console.WriteLine(name + "(n={0}, x={1})", n,x);
+                        Console.WriteLine(name + "(n={0}, x={1})", n, x);
                         foreach (var NumType in NumTypeArray)
                         {
                             object res1 = "Not done";
@@ -1076,13 +1078,13 @@ namespace TestXlCalcNetPrecCS
                             case " oreal": { res1 = oreal.erf_inv(x); break; }
 #if HasArbPrecNet
                             case " mreal": { res1 = mreal.erf_inv(x); break; }
-                            //case "sflint": { res1 = sflint.erfc_inv(x); break; }
-                            //case "dflint": { res1 = dflint.erfc_inv(x); break; }
-                            //case "eflint": { res1 = eflint.erfc_inv(x); break; }
-                            //case "qflint": { res1 = qflint.erfc_inv(x); break; }
-                            //case "oflint": { res1 = oflint.erfc_inv(x); break; }
-                            //case "mflint": { res1 = mflint.erfc_inv(x); break; }
-                            //case "aflint": { res1 = aflint.erfc_inv(x); break; }
+                            case "sflint": { res1 = sflint.erf_inv(x); break; }
+                            case "dflint": { res1 = dflint.erf_inv(x); break; }
+                            case "eflint": { res1 = eflint.erf_inv(x); break; }
+                            case "qflint": { res1 = qflint.erf_inv(x); break; }
+                            case "oflint": { res1 = oflint.erf_inv(x); break; }
+                            case "mflint": { res1 = mflint.erf_inv(x); break; }
+                            case "aflint": { res1 = aflint.erf_inv(x); break; }
 #endif
                         }
                         Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -1094,29 +1096,152 @@ namespace TestXlCalcNetPrecCS
 
             if (FunctionArray.Contains("all") | FunctionArray.Contains("erfc_inv"))
             {
+                string name = "erfc_inv";
                 InputArray1 = new[] { 0.0, 0.001, 0.5, 1.0, 1.5, 1.999, 2.0 };
-                foreach (var x1 in InputArray1)
+                foreach (var x in InputArray1)
                 {
+                    Console.WriteLine();
+                    Console.WriteLine(name + "(x={0})", x);
                     foreach (var NumType in NumTypeArray)
                     {
                         object res1 = "Not done";
                         switch (NumType ?? "")
                         {
-                            case "math53": { res1 = math53.erfc_inv(x1); break; }
-                            case " sreal": { res1 = sreal.erfc_inv(x1); break; }
-                            case " dreal": { res1 = dreal.erfc_inv(x1); break; }
-                            case " ereal": { res1 = ereal.erfc_inv(x1); break; }
-                            case " qreal": { res1 = qreal.erfc_inv(x1); break; }
-                            case " oreal": { res1 = oreal.erfc_inv(x1); break; }
+                            case "math53": { res1 = math53.erfc_inv(x); break; }
+                            case " sreal": { res1 = sreal.erfc_inv(x); break; }
+                            case " dreal": { res1 = dreal.erfc_inv(x); break; }
+                            case " ereal": { res1 = ereal.erfc_inv(x); break; }
+                            case " qreal": { res1 = qreal.erfc_inv(x); break; }
+                            case " oreal": { res1 = oreal.erfc_inv(x); break; }
 #if HasArbPrecNet
-                            case " mreal": { res1 = mreal.erfc_inv(x1); break; }
+                            case " mreal": { res1 = mreal.erfc_inv(x); break; }
+                            case "sflint": { res1 = sflint.erfc_inv(x); break; }
+                            case "dflint": { res1 = dflint.erfc_inv(x); break; }
+                            case "eflint": { res1 = eflint.erfc_inv(x); break; }
+                            case "qflint": { res1 = qflint.erfc_inv(x); break; }
+                            case "oflint": { res1 = oflint.erfc_inv(x); break; }
+                            case "mflint": { res1 = mflint.erfc_inv(x); break; }
+                            case "aflint": { res1 = aflint.erfc_inv(x); break; }
 #endif
                         }
-                        Console.WriteLine("{0}: erfc({1}):" + f(NumType) + "{2}", NumType, x1, res1);
+                        Console.WriteLine("{0}: erfc({1}):" + f(NumType) + "{2}", NumType, x, res1);
                     }
                 }
                 Console.WriteLine();
             }
+
+
+
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("ndens"))
+            {
+                string name = "ndens";
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
+                foreach (var x in InputArray1)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(name + "(x={0})", x);
+                    foreach (var NumType in NumTypeArray)
+                    {
+                        object res1 = "Not done";
+                        switch (NumType ?? "")
+                        {
+                            case "math53": { res1 = math53.ndens(x); break; }
+                            case " sreal": { res1 = sreal.ndens(x); break; }
+                            case " dreal": { res1 = dreal.ndens(x); break; }
+                            case " ereal": { res1 = ereal.ndens(x); break; }
+                            case " qreal": { res1 = qreal.ndens(x); break; }
+                            case " oreal": { res1 = oreal.ndens(x); break; }
+#if HasArbPrecNet
+                            case " mreal": { res1 = mreal.ndens(x); break; }
+                            case "sflint": { res1 = sflint.ndens(x); break; }
+                            case "dflint": { res1 = dflint.ndens(x); break; }
+                            case "eflint": { res1 = eflint.ndens(x); break; }
+                            case "qflint": { res1 = qflint.ndens(x); break; }
+                            case "oflint": { res1 = oflint.ndens(x); break; }
+                            case "mflint": { res1 = mflint.ndens(x); break; }
+                            case "aflint": { res1 = aflint.ndens(x); break; }
+#endif
+                        }
+                        Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
+                    }
+                }
+                Console.WriteLine();
+            }
+
+
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("ndis"))
+            {
+                string name = "ndis";
+                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
+                foreach (var x in InputArray1)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(name + "(x={0})", x);
+                    foreach (var NumType in NumTypeArray)
+                    {
+                        object res1 = "Not done";
+                        switch (NumType ?? "")
+                        {
+                            case "math53": { res1 = math53.ndis(x); break; }
+                            case " sreal": { res1 = sreal.ndis(x); break; }
+                            case " dreal": { res1 = dreal.ndis(x); break; }
+                            case " ereal": { res1 = ereal.ndis(x); break; }
+                            case " qreal": { res1 = qreal.ndis(x); break; }
+                            case " oreal": { res1 = oreal.ndis(x); break; }
+#if HasArbPrecNet
+                            case " mreal": { res1 = mreal.ndis(x); break; }
+                            case "sflint": { res1 = sflint.ndis(x); break; }
+                            case "dflint": { res1 = dflint.ndis(x); break; }
+                            case "eflint": { res1 = eflint.ndis(x); break; }
+                            case "qflint": { res1 = qflint.ndis(x); break; }
+                            case "oflint": { res1 = oflint.ndis(x); break; }
+                            case "mflint": { res1 = mflint.ndis(x); break; }
+                            case "aflint": { res1 = aflint.ndis(x); break; }
+#endif
+                        }
+                        Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
+                    }
+                }
+                Console.WriteLine();
+            }
+
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("ndisx"))
+            {
+                string name = "ndisx";
+                InputArray1 = new[] { 0.0, 0.001, 0.5, 0.999, 1.0 };
+                foreach (var x in InputArray1)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(name + "(x={0})", x);
+                    foreach (var NumType in NumTypeArray)
+                    {
+                        object res1 = "Not done";
+                        switch (NumType ?? "")
+                        {
+                            case "math53": { res1 = math53.ndisx(x); break; }
+                            case " sreal": { res1 = sreal.ndisx(x); break; }
+                            case " dreal": { res1 = dreal.ndisx(x); break; }
+                            case " ereal": { res1 = ereal.ndisx(x); break; }
+                            case " qreal": { res1 = qreal.ndisx(x); break; }
+                            case " oreal": { res1 = oreal.ndisx(x); break; }
+#if HasArbPrecNet
+                            case " mreal": { res1 = mreal.ndisx(x); break; }
+                            case "sflint": { res1 = sflint.ndisx(x); break; }
+                            case "dflint": { res1 = dflint.ndisx(x); break; }
+                            case "eflint": { res1 = eflint.ndisx(x); break; }
+                            case "qflint": { res1 = qflint.ndisx(x); break; }
+                            case "oflint": { res1 = oflint.ndisx(x); break; }
+                            case "mflint": { res1 = mflint.ndisx(x); break; }
+                            case "aflint": { res1 = aflint.ndisx(x); break; }
+#endif
+                        }
+                        Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
+                    }
+                }
+                Console.WriteLine();
+            }
+
+
 
 
 
@@ -1243,83 +1368,6 @@ namespace TestXlCalcNetPrecCS
                 Console.WriteLine();
             }
 
-
-
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("ndens"))
-            {
-                string name = "erf";
-                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
-                foreach (var x in InputArray1)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine(name + "(x={0})", x);
-                    foreach (var NumType in NumTypeArray)
-                    {
-                        object res1 = "Not done";
-                        switch (NumType ?? "")
-                        {
-                            case "math53": { res1 = math53.ndens(x); break; }
-                            case " sreal": { res1 = sreal.ndens(x); break; }
-                            case " dreal": { res1 = dreal.ndens(x); break; }
-                            case " ereal": { res1 = ereal.ndens(x); break; }
-                            case " qreal": { res1 = qreal.ndens(x); break; }
-                            case " oreal": { res1 = oreal.ndens(x); break; }
-#if HasArbPrecNet
-                            case " mreal": { res1 = mreal.ndens(x); break; }
-                            case "sflint": { res1 = sflint.ndens(x); break; }
-                            case "dflint": { res1 = dflint.ndens(x); break; }
-                            case "eflint": { res1 = eflint.ndens(x); break; }
-                            case "qflint": { res1 = qflint.ndens(x); break; }
-                            case "oflint": { res1 = oflint.ndens(x); break; }
-                            case "mflint": { res1 = mflint.ndens(x); break; }
-                            case "aflint": { res1 = aflint.ndens(x); break; }
-#endif
-                        }
-                        Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
-                    }
-                }
-                Console.WriteLine();
-            }
-
-
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("ndis"))
-            {
-                string name = "erf";
-                InputArray1 = new[] { dreal.neginf, -4.333d, 0.0d, 4.333d, dreal.inf, dreal.nan };
-                foreach (var x in InputArray1)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine(name + "(x={0})", x);
-                    foreach (var NumType in NumTypeArray)
-                    {
-                        object res1 = "Not done";
-                        switch (NumType ?? "")
-                        {
-                            case "math53": { res1 = math53.ndis(x); break; }
-                            case " sreal": { res1 = sreal.ndis(x); break; }
-                            case " dreal": { res1 = dreal.ndis(x); break; }
-                            case " ereal": { res1 = ereal.ndis(x); break; }
-                            case " qreal": { res1 = qreal.ndis(x); break; }
-                            case " oreal": { res1 = oreal.ndis(x); break; }
-#if HasArbPrecNet
-                            case " mreal": { res1 = mreal.ndis(x); break; }
-                            case "sflint": { res1 = sflint.ndis(x); break; }
-                            case "dflint": { res1 = dflint.ndis(x); break; }
-                            case "eflint": { res1 = eflint.ndis(x); break; }
-                            case "qflint": { res1 = qflint.ndis(x); break; }
-                            case "oflint": { res1 = oflint.ndis(x); break; }
-                            case "mflint": { res1 = mflint.ndis(x); break; }
-                            case "aflint": { res1 = aflint.ndis(x); break; }
-#endif
-                        }
-                        Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
-                    }
-                }
-                Console.WriteLine();
-            }
-
-
-
             if (FunctionArray.Contains("all") | FunctionArray.Contains("owen_t"))
             {
                 InputArray1 = new[] { 0.0d, 0.75d, 1.5d };
@@ -1351,7 +1399,7 @@ namespace TestXlCalcNetPrecCS
             }
 
 
-            #endregion
+#endregion
 
 
 

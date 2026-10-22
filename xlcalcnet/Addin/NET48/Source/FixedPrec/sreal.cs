@@ -7,13 +7,6 @@ namespace FixedPrecNet
 {
 
 
-    //public delegate Single cb1SRet1S(Single x);
-
-
-    //public delegate void cb1S1V(Single t, SingleVec x);
-
-    //public delegate void cb1S2V(Single t, SingleVec x, SingleVec y);
-
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void cb2RefSingle(ref Single x, ref Single result);
@@ -23,16 +16,6 @@ namespace FixedPrecNet
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void cb1Ptr1RefSingle(IntPtr x, ref Single t);
-
-
-    //public delegate void cb2M(SingleMat x, SingleMat y);
-
-
-    //public delegate Single cb1VRet1S(SingleVec x);
-
-    //public delegate void cb2V(SingleVec x, SingleVec y);
-
-    //public delegate void cb1V1M(SingleVec x, SingleMat y);
 
 
 
@@ -2004,6 +1987,22 @@ namespace FixedPrecNet
         }
 
 
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Single log(Single x, Single b)
+        {
+            return log(x) / log(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Single log(dynamic x, dynamic b)
+        {
+            return log(t(x), t(b));
+        }
+
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Single log2(Single x)
         {
@@ -3100,6 +3099,20 @@ namespace FixedPrecNet
         public static Single ndis(dynamic x)
         {
             return ndis(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Single ndisx(Single q)
+        {
+            return -sqrt(2) * erfc_inv(2 * q);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Single ndisx(dynamic q)
+        {
+            return ndisx(sreal.t(q));
         }
 
 
@@ -4925,6 +4938,21 @@ namespace FixedPrecNet
         {
             return bessel_yv_zero(n + 0.5, m);
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Single marcum_q(Single m, Single a, Single b)
+        {
+            return sreal.dist_chi2_nc(2 * m, a * a).sf(b * b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Single marcum_q(dynamic m, dynamic a, dynamic b)
+        {
+            return marcum_q(sreal.t(m), sreal.t(a), sreal.t(b));
+        }
+
 
 
 

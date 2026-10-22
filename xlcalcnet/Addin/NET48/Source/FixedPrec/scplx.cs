@@ -1550,6 +1550,23 @@ namespace FixedPrecNet
 
 
 
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static SingleC log(SingleC x, SingleC b)
+        {
+            return log(x) / log(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static SingleC log(dynamic x, dynamic b)
+        {
+            return log(t(x), t(b));
+        }
+
+
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static SingleC log2(SingleC x)
         {

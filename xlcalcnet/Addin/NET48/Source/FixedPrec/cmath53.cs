@@ -828,8 +828,8 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logbase/*' />
-        public static Complex logbase(Complex z1, Complex z2)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Complex log_(Complex z1, Complex z2)
         {
             Double res_re = 0.0, res_im = 0.0;
             damath_clogbase(z1.Real, z1.Imaginary, z2.Real, z2.Imaginary, ref res_re, ref res_im);
@@ -838,17 +838,23 @@ namespace FixedPrecNet
         [DllImport(xcn.libwe64d, EntryPoint = "damath_clogbase", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void damath_clogbase(Double x_re, Double x_im, Double y_re, Double y_im, ref Double res_re, ref Double res_im);
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logbase/*' />
-        public static Complex logbase(dynamic z1, dynamic z2)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Complex log(Complex x, Complex b)
         {
-            return logbase(t(z1), t(z2));
+            return log_(t(b), t(x));
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Complex log(dynamic x, dynamic b)
+        {
+            return log(t(x), t(b));
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Complex log2(Complex x)
         {
-            return logbase(2, x);
+            return log(x, 2);
         }
 
 
@@ -5812,7 +5818,7 @@ namespace FixedPrecNet
         #region Conversions of parameters of Weierstrass P
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/halfPeriods/*' />
-        public static Tuple<Complex, Complex> halfPeriods(Complex g2, Complex g3)
+        public static Tuple<Complex, Complex> o1o2_from_g2g3(Complex g2, Complex g3)
         {
             // Half-periods omega_1 and omega_2 from the elliptic invariants.
             return EllipticFunctions.halfPeriods(g2, g3);
@@ -5820,7 +5826,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ellipticInvariants/*' />
-        public static Tuple<Complex, Complex> ellipticInvariants(Complex omega1, Complex omega2)
+        public static Tuple<Complex, Complex> elliptic_invariants_from_roots(Complex omega1, Complex omega2)
         {
             // Weierstrass elliptic invariants g_2 and g_3 from the half-periods.
             return EllipticFunctions.ellipticInvariants(omega1, omega2);
@@ -5830,7 +5836,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/EllipticInvariantG2G3/*' />
-        public static Tuple<Complex, Complex> elliptic_invariants_from_roots(Complex e1, Complex e2)
+        public static Tuple<Complex, Complex> g2g3_from_e1e2(Complex e1, Complex e2)
         {
             Complex e3 = -e1 - e2;
             Complex g2 = 2 * (e1 * e1 + e2 * e2 + e3 * e3);
@@ -5839,9 +5845,9 @@ namespace FixedPrecNet
         }
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/EllipticInvariantG2G3/*' />
-        public static Tuple<Complex, Complex> elliptic_invariants_from_roots(dynamic e1, dynamic e2)
+        public static Tuple<Complex, Complex> g2g3_from_e1e2(dynamic e1, dynamic e2)
         {
-            return elliptic_invariants_from_roots(dcplx.t(e1), dcplx.t(e2));
+            return g2g3_from_e1e2(dcplx.t(e1), dcplx.t(e2));
         }
 
 
@@ -5869,14 +5875,14 @@ namespace FixedPrecNet
         #region Weierstrass elliptic functions, in terms of(real) lattice invariants g2, g3
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_p_g/*' />
-        public static Complex weierstrass_p_g(Complex z, Complex g2, Complex g3)
+        public static Complex weierstrass_pg(Complex z, Complex g2, Complex g3)
         {
             // Weierstrass p-function in terms of g2 und g3
             return EllipticFunctions.wp(z, 0, 0, 0, g2, g3, 0, "g2g3");
         }
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_g/*' />
-        public static Complex weierstrass_pprime_g(Complex z, Complex g2, Complex g3)
+        public static Complex weierstrass_pg_prime(Complex z, Complex g2, Complex g3)
         {
             // Weierstrass p-function, first drivative, in terms of g2 und g3
             return EllipticFunctions.wp(z, 0, 0, 0, g2, g3, 1, "g2g3");
@@ -5905,35 +5911,24 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_p_e/*' />
-        public static Complex weierstrass_p_e(Complex z, Complex e1, Complex e2)
+        public static Complex weierstrass_pe(Complex z, Complex e1, Complex e2)
         {
             // Weierstrass p-function in terms of lattice roots e1 and e2
             Complex e3 = -e1 - e2;
             Complex g2 = 2 * (e1 * e1 + e2 * e2 + e3 * e3);
             Complex g3 = 4 * e1 * e2 * e3;
-            return weierstrass_p_g(z, g2, g3);
+            return weierstrass_pg(z, g2, g3);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_e/*' />
-        public static Complex weierstrass_pprime_e(Complex z, Complex e1, Complex e2)
+        public static Complex weierstrass_pe_prime(Complex z, Complex e1, Complex e2)
         {
             // Weierstrass p-function, first drivative, in terms of lattice roots e1 and e2
             Complex e3 = -e1 - e2;
             Complex g2 = 2 * (e1 * e1 + e2 * e2 + e3 * e3);
             Complex g3 = 4 * e1 * e2 * e3;
-            return weierstrass_pprime_g(z, g2, g3);
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_e/*' />
-        public static Complex weierstrass_sigma_e(Complex z, Complex e1, Complex e2)
-        {
-            // Weierstrass sigma-function in terms of lattice roots e1 and e2
-            Complex e3 = -e1 - e2;
-            Complex g2 = 2 * (e1 * e1 + e2 * e2 + e3 * e3);
-            Complex g3 = 4 * e1 * e2 * e3;
-            return weierstrass_sigma_g(z, g2, g3);
+            return weierstrass_pg_prime(z, g2, g3);
         }
 
 
@@ -5948,6 +5943,17 @@ namespace FixedPrecNet
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_e/*' />
+        public static Complex weierstrass_sigma_e(Complex z, Complex e1, Complex e2)
+        {
+            // Weierstrass sigma-function in terms of lattice roots e1 and e2
+            Complex e3 = -e1 - e2;
+            Complex g2 = 2 * (e1 * e1 + e2 * e2 + e3 * e3);
+            Complex g3 = 4 * e1 * e2 * e3;
+            return weierstrass_sigma_g(z, g2, g3);
+        }
+
+
         #endregion
 
 
@@ -5955,34 +5961,34 @@ namespace FixedPrecNet
         #region Weierstrass elliptic functions, in terms of half-period omega1 and omega2
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_o/*' />
-        public static Complex weierstrass_p_o(Complex z, Complex omega1, Complex omega2)
-        {
-            // Weierstrass p-function in terms of omega1 und omega2
-            return EllipticFunctions.wp(z, 0, omega1, omega2, 0, 0, 0, "omega");
-        }
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_o/*' />
+        //public static Complex weierstrass_p_o(Complex z, Complex omega1, Complex omega2)
+        //{
+        //    // Weierstrass p-function in terms of omega1 und omega2
+        //    return EllipticFunctions.wp(z, 0, omega1, omega2, 0, 0, 0, "omega");
+        //}
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_o/*' />
-        public static Complex weierstrass_pprime_o(Complex z, Complex omega1, Complex omega2)
-        {
-            // Weierstrass p-function, first drivative, in terms of omega1 und omega2
-            return EllipticFunctions.wp(z, 0, omega1, omega2, 0, 0, 1, "omega");
-        }
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_o/*' />
+        //public static Complex weierstrass_pprime_o(Complex z, Complex omega1, Complex omega2)
+        //{
+        //    // Weierstrass p-function, first drivative, in terms of omega1 und omega2
+        //    return EllipticFunctions.wp(z, 0, omega1, omega2, 0, 0, 1, "omega");
+        //}
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_o/*' />
-        public static Complex weierstrass_sigma_o(Complex z, Complex omega1, Complex omega2)
-        {
-            // Weierstrass sigma-function in terms of omega1 und omega2
-            return EllipticFunctions.wsigma(z, 0, omega1, omega2, 0, 0, 0, "omega");
-        }
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_o/*' />
+        //public static Complex weierstrass_sigma_o(Complex z, Complex omega1, Complex omega2)
+        //{
+        //    // Weierstrass sigma-function in terms of omega1 und omega2
+        //    return EllipticFunctions.wsigma(z, 0, omega1, omega2, 0, 0, 0, "omega");
+        //}
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_o/*' />
-        public static Complex weierstrass_zeta_o(Complex z, Complex omega1, Complex omega2)
-        {
-            // Weierstrass zeta-function in terms of omega1 und omega2
-            return EllipticFunctions.wzeta(z, 0, omega1, omega2, 0, 0, 0, "omega");
-        }
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_o/*' />
+        //public static Complex weierstrass_zeta_o(Complex z, Complex omega1, Complex omega2)
+        //{
+        //    // Weierstrass zeta-function in terms of omega1 und omega2
+        //    return EllipticFunctions.wzeta(z, 0, omega1, omega2, 0, 0, 0, "omega");
+        //}
 
 
 
@@ -5990,6 +5996,11 @@ namespace FixedPrecNet
 
 
         #endregion
+
+
+
+
+
 
 
 

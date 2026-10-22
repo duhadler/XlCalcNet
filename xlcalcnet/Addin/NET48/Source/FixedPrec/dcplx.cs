@@ -1031,11 +1031,24 @@ namespace FixedPrecNet
             return Complex.Log(x);
         }
 
-
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Complex log(dynamic x)
         {
             return log(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Complex log(Complex x, Complex b)
+        {
+            return log(x) / log(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Complex log(dynamic x, dynamic b)
+        {
+            return log(t(x), t(b));
         }
 
 

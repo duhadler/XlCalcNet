@@ -1565,6 +1565,14 @@ namespace FixedPrecNet
         public static extern Double log(Double x);
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logbase/*' />
+        [DllImport(xcn.libwe64d, EntryPoint = "damath_logbase", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern Double log_(Double x, Double b);
+
+        public static Double log(Double x, Double b)
+        {
+        return log_(b, x);
+        }
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log10/*' />
         [DllImport(xcn.libwe64d, EntryPoint = "damath_log10", CallingConvention = CallingConvention.Cdecl)]
@@ -1574,11 +1582,6 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         [DllImport(xcn.libwe64d, EntryPoint = "damath_log2", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double log2(Double x);
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logbase/*' />
-        [DllImport(xcn.libwe64d, EntryPoint = "damath_logbase", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Double logbase(Double b, Double x);
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log1p/*' />
@@ -4489,12 +4492,6 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_tricomi/*' />    
-        [DllImport(xcn.libwe64d, EntryPoint = "damath_igammat", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Double gamma_tricomi(Double a, Double x);
-
-
-
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_p_prime/*' />    
         [DllImport(xcn.libwe64d, EntryPoint = "damath_igammap_der", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double gamma_p_prime(Double a, Double x);
@@ -4559,7 +4556,7 @@ namespace FixedPrecNet
             Double gc = 0.0;
             Double gcp = 0.0;
             int ifail = 0;
-            coulomb_g_gprime(l1, eta, x, ref gc, ref gcp, ref ifail);
+            coulomb_g_gprime_(l1, eta, x, ref gc, ref gcp, ref ifail);
             return gc;
         }
 
@@ -4616,8 +4613,8 @@ namespace FixedPrecNet
         public static extern Double damath_erf_inv(Double x);
         public static Double erf_inv(Double x)
         {
-            if (x == -1.0) return dreal.inf;
-            else if (x == 1.0) return dreal.neginf;
+            if (x <= -1.0) return dreal.neginf;
+            else if (x >= 1.0) return dreal.inf;
             else return damath_erf_inv(x);
         }
 
@@ -4627,8 +4624,8 @@ namespace FixedPrecNet
         public static extern Double damath_erfc_inv(Double x);
         public static Double erfc_inv(Double x)
         {
-            if (x == 0.0) return dreal.inf;
-            else if (x == 2.0) return dreal.neginf;
+            if (x <= 0.0) return dreal.inf;
+            else if (x >= 2.0) return dreal.neginf;
             else return damath_erfc_inv(x);
         }
 
@@ -4644,6 +4641,19 @@ namespace FixedPrecNet
         [DllImport(xcn.libwe64d, EntryPoint = "damath_erf_p", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double ndis(Double x);
 
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Double ndisx(Double q)
+        {
+            return -sqrt(2) * erfc_inv(2 * q);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Double ndisx(dynamic q)
+        {
+            return ndisx(t(q));
+        }
 
 
 
@@ -5706,12 +5716,6 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot3/*' />
-        [DllImport(xcn.libwe64d, EntryPoint = "damath_hypot3", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Double hypot3(Double x, Double y, Double z);
-
-
-
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/compound_si/*' />
         [DllImport(xcn.libwe64d, EntryPoint = "damath_compound", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double compound_si(Double x, int n);
@@ -5721,6 +5725,11 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/comprel/*' />
         [DllImport(xcn.libwe64d, EntryPoint = "damath_comprel", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double comprel(Double x, int n);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hypot3/*' />
+        [DllImport(xcn.libwe64d, EntryPoint = "damath_hypot3", CallingConvention = CallingConvention.Cdecl)]
+        public static extern Double hypot3(Double x, Double y, Double z);
 
 
 
@@ -5955,9 +5964,9 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lgamma_s/*' />    
         public static Tuple<Double, int> lgamma_s(Double x)
         {
-            int res2 = 0;
-            Double res1 = damath_lngammas(x, ref res2);
-            return new Tuple<Double, int>(res1, res2);
+            int s = 0;
+            Double res1 = damath_lngammas(x, ref s);
+            return new Tuple<Double, int>(res1, s);
         }
 
 
@@ -6710,6 +6719,12 @@ namespace FixedPrecNet
         #region Additional incomplete gamma functions
 
 
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gamma_tricomi/*' />    
+        [DllImport(xcn.libwe64d, EntryPoint = "damath_igammat", CallingConvention = CallingConvention.Cdecl)]
+        public static extern Double gamma_tricomi(Double a, Double x);
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/expn/*' />    
         [DllImport(xcn.libwe64d, EntryPoint = "damath_expn", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double expn(int n, Double x);
@@ -6740,15 +6755,33 @@ namespace FixedPrecNet
         public static extern Double coulomb_sl(int L, Double eta);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coulomb_f_fprime/*' />
         [DllImport(xcn.libwe64d, EntryPoint = "damath_CoulombFFp", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void coulomb_f_fprime(int L, Double eta, Double x, ref Double fc, ref Double fcp, ref int ifail);
+        internal static extern void coulomb_f_fprime_(int L, Double eta, Double x, ref Double fc, ref Double fcp, ref int ifail);
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coulomb_f_fprime/*' />
+        public static Tuple<Double, Double> coulomb_f_fprime(int L, Double eta, Double x)
+        {
+            Double fc = 0.0;
+            Double fcp = 0.0;
+            int ifail = 0;
+            coulomb_f_fprime_(L, eta, x, ref fc, ref fcp, ref ifail);
+            return new Tuple<Double, Double>(fc, fcp);
+        }
 
 
+        [DllImport(xcn.libwe64d, EntryPoint = "damath_CoulombGGp", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void coulomb_g_gprime_(int L, Double eta, Double x, ref Double gc, ref Double gcp, ref int ifail);
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coulomb_g_gprime/*' />
-        [DllImport(xcn.libwe64d, EntryPoint = "damath_CoulombGGp", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void coulomb_g_gprime(int L, Double eta, Double x, ref Double gc, ref Double gcp, ref int ifail);
+        public static Tuple<Double, Double> coulomb_g_gprime(int L, Double eta, Double x)
+        {
+            Double gc = 0.0;
+            Double gcp = 0.0;
+            int ifail = 0;
+            coulomb_g_gprime_(L, eta, x, ref gc, ref gcp, ref ifail);
+            return new Tuple<Double, Double>(gc, gcp);
+        }
+
 
         #endregion
 
@@ -6782,7 +6815,6 @@ namespace FixedPrecNet
         public static extern Double erfq(Double x);
 
 
-        // !! MISSING: Standard normal quantile function.
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erfcx_inv/*' />    
@@ -6837,6 +6869,36 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/goodwin_staton/*' />
         [DllImport(xcn.libwe64d, EntryPoint = "damath_gsi", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double goodwin_staton(Double x);
+
+
+        public static Double voigt_u(Double x, Double t)
+        {
+            Complex z = dcplx.t(1, -x) / (2 * sqrt(t));
+            Complex res = sqrt(pi / (4 * t)) * cmath53.faddeeva(z * dcplx.onej);
+            return res.Real;
+        }
+
+
+        public static Double voigt_v(Double x, Double t)
+        {
+            Complex z = dcplx.t(1, -x) / (2 * sqrt(t));
+            Complex res = sqrt(pi / (4 * t)) * cmath53.faddeeva(z * dcplx.onej);
+            return res.Imaginary;
+        }
+
+
+        public static Double voigt_h(Double a, Double u)
+        {
+            return voigt_u(u / a, 1 / (4 * a * a)) / (a * sqrt(pi));
+        }
+
+
+        public static Double voigt_profile_pdf(Double x, Double sigma, Double gamma)
+        {
+            Complex z = dcplx.t(x, gamma) / (sigma * sqrt(pi));
+            Double res = cmath53.faddeeva(z).Real;
+            return res / (sigma * sqrt(2 * pi));
+        }
 
 
 
@@ -7034,6 +7096,39 @@ namespace FixedPrecNet
         #region Weierstrass elliptic and modular functions, real or imaginary arguments, real parameters
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_g/*' />
+        public static Double weierstrass_zeta_g(Double z, Double g2, Double g3)
+        {
+            // Weierstrass zeta-function in terms of g2 und g3
+            return cmath53.weierstrass_zeta_g(z,g2,g3).Real;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_g/*' />
+        public static Double weierstrass_sigma_g(Double z, Double g2, Double g3)
+        {
+            // Weierstrass sigma-function in terms of g2 und g3
+            return cmath53.weierstrass_sigma_g(z, g2, g3).Real;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_e/*' />
+        public static Double weierstrass_zeta_e(Double z, Double e1, Double e2)
+        {
+            // Weierstrass zeta-function in terms of lattice roots e1 and e2
+            return cmath53.weierstrass_zeta_e(z, e1, e2).Real;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_e/*' />
+        public static Double weierstrass_sigma_e(Double z, Double e1, Double e2)
+        {
+            // Weierstrass sigma-function in terms of lattice roots e1 and e2
+            return cmath53.weierstrass_sigma_e(z, e1, e2).Real;
+        }
+
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pl/*' />    
         [DllImport(xcn.libwe64d, EntryPoint = "damath_wpl", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double weierstrass_pl(Double y);
@@ -7093,6 +7188,8 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/klein_j_i/*' />    
         [DllImport(xcn.libwe64d, EntryPoint = "damath_KleinJ", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double klein_j_i(Double y);
+
+
 
 
 

@@ -1542,12 +1542,26 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_QCplx_Log", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_QCplx_Log(IntPtr res, IntPtr x);
 
-
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static QuadrupleC log(dynamic x)
         {
             return log(t(x));
         }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static QuadrupleC log(QuadrupleC x, QuadrupleC b)
+        {
+            return log(x) / log(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static QuadrupleC log(dynamic x, dynamic b)
+        {
+            return log(t(x), t(b));
+        }
+
+
 
 
 

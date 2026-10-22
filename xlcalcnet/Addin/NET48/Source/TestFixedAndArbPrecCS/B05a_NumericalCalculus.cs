@@ -88,13 +88,381 @@ namespace TestXlCalcNetPrecCS
 #if HasArbPrecNet
             ArbPrec.SetDps(64);
 #endif
-
+            DemoAMathCalculus();
             RunTestsMCP();
             RunTestsCalculus2();
             RunTestsBoostOdeint2();
             RunTestsEigenCalculus2();
             DemoCtxOpt2();
         }
+
+
+
+
+        #region AMath Calculus
+
+
+        public static void DemoDoubleToolsQuad()
+        {
+            double a, b, c;
+            a = -13;
+            b = 4.0d;
+            c = 5.0d;
+            var Res = math53.squadx(a, b, c);
+            Console.WriteLine("Roots of Quadratic Equation: a = {0}, b = {1}, c = {2}", a, b, c);
+            Console.WriteLine("Res: {0}", Res);
+            Console.WriteLine();
+        }
+
+        public static void DemoDoubleToolsCube()
+        {
+            double a, b, c, d;
+            a = -13;
+            b = 4.0d;
+            c = 5.0d;
+            d = 1.0d;
+            var Res = math53.cubsolve(a, b, c, d);
+            Console.WriteLine("Roots of Cubic Equation: a = {0}, b = {1}, c = {2}, d = {3}", a, b, c, d);
+            Console.WriteLine("Res: {0}", Res);
+        }
+
+
+
+
+
+        public static double F1(double x)
+        {
+            double y;
+            y = -Math.Exp(-x * x);
+            // Console.WriteLine("x : {0}, y: {1}", x, y)
+            return y;
+        }
+
+        public static void DemoLocalMin()
+        {
+            double a = -10.0d;
+            double b = 20.0d;
+            double eps = 0.00000001d;
+            double tol = 0.00000001d;
+            var Res1 = math53.localmin(new math53.cb1SRet1S(F1), a, b, eps, tol);
+            Console.WriteLine("Res1:(x, fx, ic) {0}", Res1);
+            Console.WriteLine();
+        }
+
+
+        public static void DemoMBrent()
+        {
+            double a = -10.0d;
+            double b = 20.0d;
+            double tol = 0.00000001d;
+            var Res2 = math53.mbrent(F1, a, b, tol);
+            Console.WriteLine("Res1:(x, fx, ic) {0}", Res2);
+            Console.WriteLine();
+        }
+
+
+        public static double F3(double x)
+        {
+            double y;
+            y = Math.Exp(x) - 10.0d;
+            // Console.WriteLine("x : {0}, y: {1}", x, y)
+            return y;
+        }
+
+        public static void DemoZBrent()
+        {
+            int a = -20;
+            int b = 10;
+            double tol = 0.000000000001d;
+            var Res3 = math53.zbrent(F3, a, b, tol);
+            Console.WriteLine("Res3:(x, ic, err) {0}", Res3);
+            Console.WriteLine();
+        }
+
+        public static void DemoZeroIn()
+        {
+            int a = -20;
+            int b = 10;
+            double tol = 0.000000000001d;
+            double Res4 = math53.zeroin(F3, a, b, tol);
+            Console.WriteLine("Res4:(x, ic, err) {0}", Res4);
+            Console.WriteLine();
+        }
+
+
+
+
+        public static void DemoAmToolsMinAndRootsLambda()
+        {
+            double a = -10.0d;
+            double b = 20.0d;
+            double eps = 0.00000001d;
+            double tol = 0.00000001d;
+            Console.WriteLine("LocalMin: f = -Math.Exp(-x * x), a = {0}, b = {1}, eps = {2}, tol = {3}", a, b, eps, tol);
+            var Res1 = math53.localmin(x => -Math.Exp(-x * x), a, b, eps, tol);
+            Console.WriteLine("Res1:(x, fx, ic) {0}", Res1);
+            Console.WriteLine();
+
+            a = -10;
+            b = 20.0d;
+            tol = 0.000000000001d;
+            Console.WriteLine("MBrent: f = -Math.Exp(-x * x), a = {0}, b = {1}, tol = {2}", a, b, tol);
+            var Res2 = math53.mbrent(x => -Math.Exp(-x * x), a, b, tol);
+            Console.WriteLine("Res2:(x, fx, ic) {0}", Res2);
+            Console.WriteLine();
+
+            a = -20;
+            b = 10.0d;
+            tol = 0.00000001d;
+            Console.WriteLine("ZBrent: f = Math.Exp(x) - 10, a = {0}, b = {1}, tol = {2}", a, b, tol);
+            var Res3 = math53.zbrent(x => Math.Exp(x) - 10.0d, a, b, tol);
+            Console.WriteLine("Res3:(x, ic, err) {0}", Res3);
+            Console.WriteLine();
+
+            a = -20;
+            b = 10.0d;
+            tol = 0.00000001d;
+            Console.WriteLine("ZeroIn: f = Math.Exp(x) - 10, a = {0}, b = {1}, tol = {2}", a, b, tol);
+            double Res4 = math53.zeroin(x => Math.Exp(x) - 10.0d, a, b, tol);
+            Console.WriteLine("Res4: {0}", Res4);
+            Console.WriteLine();
+        }
+
+
+
+        public static double F4(double x)
+        {
+            double y;
+            y = math53.student_t_pdf(10, x);
+            // Console.WriteLine("x : {0}, y: {1}", x, y)
+            return y;
+        }
+
+        public static void DemoQuanc8()
+        {
+            double a = 0.0d;
+            double b = 2.0d;
+            double abserr = 0.00000001d;
+            double relerr = 0.00000001d;
+            Console.WriteLine("quanc8: f = F4, a = {0}, b = {1}, abserr = {2}, abserr = {3}", a, b, abserr, relerr);
+            var Res1 = math53.quanc8(F4, a, b, abserr, relerr);
+            Console.WriteLine("Res1:(result, errest, flag, neval) {0}", Res1);
+            Console.WriteLine();
+        }
+
+        public static void DemoQags()
+        {
+            double a = 0.0d;
+            double b = 2.0d;
+            double epsabs = 0.00000001d;
+            double epsrel = 0.00000001d;
+            int limit = 0;
+            Console.WriteLine("Qags: f = F4, a = {0}, b = {1}, epsabs = {2}, epsrel = {3}, limit = {4}", a, b, epsabs, epsrel, limit);
+            var Res2 = math53.qags(new math53.cb1SRet1S(F4), a, b, epsabs, epsrel);
+            Console.WriteLine("Res2:(result, abserr, neval, ier) {0}", Res2);
+            Console.WriteLine();
+        }
+
+        public static void DemoQagi()
+        {
+            double bound = 0.0d;
+            int inf = 1;
+            double epsabs = 0.00000001d;
+            double epsrel = 0.00000001d;
+            int limit = 0;
+            Console.WriteLine("Qagi: f = F4, a = {0}, b = {1}, epsabs = {2}, epsrel = {3}, limit = {4}", bound, inf, epsabs, epsrel, limit);
+            var Res3 = math53.qagi(F4, bound, inf, epsabs, epsrel);
+            Console.WriteLine("Res3:(result, abserr, neval, ier) {0}", Res3);
+            Console.WriteLine();
+        }
+
+
+
+
+
+        public static double F5(double x)
+        {
+            double y;
+            y = 1.0d / (1.0d * (5.0d * x * x * x + 6.0d));
+            // Console.WriteLine("x : {0}, y: {1}", x, y)
+            return y;
+        }
+
+        public static void DemoQawc()
+        {
+            double a = -1.0d;
+            double b = 5.0d;
+            double c = 0.0d;
+            double epsabs = 0.00001d;
+            double epsrel = 0.00001d;
+            int limit = 0;
+            Console.WriteLine("Qawc: f = F5, a = {0}, b = {1}, c = {2}, epsabs = {3}, epsrel = {4}, limit = {5}", a, b, c, epsabs, epsrel, limit);
+            var Res4 = math53.qawc(F5, a, b, c, epsabs, epsrel);
+            Console.WriteLine("Res4:(result, abserr, neval, ier) {0}", Res4);
+            Console.WriteLine();
+        }
+
+
+
+        public static void DemoIntde()
+        {
+            double a = 0.0d;
+            double b = 2.0d;
+            double epsabs = 0.00000001d;
+            Console.WriteLine("Intde: f = F4, a = {0}, b = {1}, epsabs = {2}", a, b, epsabs);
+            var Res5 = math53.intde(F4, a, b, epsabs);
+            Console.WriteLine("Res5:(result, abserr, neval, ier) {0}", Res5);
+            Console.WriteLine();
+        }
+
+
+
+        public static void DemoIntdei()
+        {
+            double a = 0.0d;
+            double epsabs = 0.00000001d;
+            Console.WriteLine("Intdei: f = F4, a = {0}, epsabs = {1}", a, epsabs);
+            var Res6 = math53.intdei(F4, a, epsabs);
+            Console.WriteLine("Res6:(result, abserr, neval, ier) {0}", Res6);
+            Console.WriteLine();
+        }
+
+
+
+
+
+        public static double F6(double x)
+        {
+            double y;
+            double alpha = 2.0d;
+            y = math53.sin(x * alpha) / math53.sqrt(x);
+            // Console.WriteLine("x : {0}, y: {1}", x, y)
+            return y;
+        }
+
+
+        public static void DemoIntdeo()
+        {
+            double alpha = 2.0d;
+            double a = 0.0d;
+            double epsabs = 0.000000000001d;
+            Console.WriteLine("Intdeo: f = F6, a = {0}, alpha = {1}, epsabs = {2}", a, alpha, epsabs);
+            var Res7 = math53.intdeo(F6, a, alpha, epsabs);
+            Console.WriteLine("Res7:(result, abserr, neval, ier) {0}", Res7);
+            Console.WriteLine("Analytic: {0}", math53.sqrt(0.5d * Math.PI / alpha));
+            Console.WriteLine();
+        }
+
+
+
+
+        public static void DemoAmToolsQuadpack()
+        {
+            double a = 0.0d;
+            double b = 2.0d;
+            double c = 0.0d;
+            double abserr = 0.00000001d;
+            double relerr = 0.00000001d;
+            Console.WriteLine("Quanc8: f = StudentTPdf(10, x), a = {0}, b = {1}, abserr = {2}, abserr = {3}", a, b, abserr, relerr);
+            var Res1 = math53.quanc8(x => math53.student_t_pdf(10, x), a, b, abserr, relerr);
+            Console.WriteLine("Res1:(result, errest, flag, neval) {0}", Res1);
+            Console.WriteLine();
+
+
+            double epsabs = 0.00000001d;
+            double epsrel = 0.00000001d;
+            int limit = 0;
+            a = 0.0d;
+            b = 2.0d;
+            Console.WriteLine("Qags: f = StudentTPdf(10, x), a = {0}, b = {1}, epsabs = {2}, epsrel = {3}, limit = {4}", a, b, epsabs, epsrel, limit);
+            var Res2 = math53.qags(x => math53.student_t_pdf(10, x), a, b, epsabs, epsrel);
+            Console.WriteLine("Res2:(result, abserr, neval, ier) {0}", Res2);
+            Console.WriteLine();
+
+
+            epsabs = 0.00000001d;
+            epsrel = 0.00000001d;
+            limit = 0;
+            double bound = 0.0d;
+            int inf = 1;
+            Console.WriteLine("Qagi: f = StudentTPdf(10, x), a = {0}, b = {1}, epsabs = {2}, epsrel = {3}, limit = {4}", bound, inf, epsabs, epsrel, limit);
+            var Res3 = math53.qagi(x => math53.student_t_pdf(10, x), bound, inf, epsabs, epsrel);
+            Console.WriteLine("Res3:(result, abserr, neval, ier) {0}", Res3);
+            Console.WriteLine();
+
+
+            // Piessens, page 109
+            a = -1.0d;
+            b = 5.0d;
+            c = 0.0d;
+            epsabs = 0.00001d;
+            epsrel = 0.00001d;
+            limit = 0;
+            Console.WriteLine("Qawc: f = 1.0/(x*(5*x*x*x + 6)), a = {0}, b = {1}, c = {2}, epsabs = {3}, epsrel = {4}, limit = {5}", a, b, c, epsabs, epsrel, limit);
+            var Res4 = math53.qawc(x => 1.0d / (1.0d * (5.0d * x * x * x + 6.0d)), a, b, c, epsabs, epsrel);
+            Console.WriteLine("Res4:(result, abserr, neval, ier) {0}", Res4);
+            Console.WriteLine();
+
+
+            a = 0.0d;
+            b = 2.0d;
+            epsabs = 0.00000001d;
+            epsrel = 0.00000001d;
+            limit = 0;
+            Console.WriteLine("Intde: f = StudentTPdf(10, x), a = {0}, b = {1}, epsabs = {2}", a, b, epsabs);
+            var Res5 = math53.intde(x => math53.student_t_pdf(10, x), a, b, epsabs);
+            Console.WriteLine("Res5:(result, abserr, neval, ier) {0}", Res5);
+            Console.WriteLine();
+
+
+            a = 0.0d;
+            epsabs = 0.00000001d;
+            Console.WriteLine("Intdei: f = StudentTPdf(10, x), a = {0}, epsabs = {1}", a, epsabs);
+            var Res6 = math53.intdei(x => math53.student_t_pdf(10, x), a, epsabs);
+            Console.WriteLine("Res6:(result, abserr, neval, ier) {0}", Res6);
+            Console.WriteLine();
+
+
+            double alpha = 2.0d;
+            a = 0.0d;
+            epsabs = 0.000000000001d;
+            Console.WriteLine("Intdeo: f = math53.Sin(x*alpha)/math53.Sqrt(x), a = {0}, alpha = {1}, epsabs = {2}", a, alpha, epsabs);
+            var Res7 = math53.intdeo(x => math53.sin(x * alpha) / math53.sqrt(x), a, alpha, epsabs);
+            Console.WriteLine("Res7:(result, abserr, neval, ier) {0}", Res7);
+            Console.WriteLine("Analytic: {0}", math53.sqrt(0.5d * Math.PI / alpha));
+            Console.WriteLine();
+
+        }
+
+
+        public static void DemoAMathCalculus()
+        {
+            DemoDoubleToolsQuad();
+            DemoDoubleToolsCube();
+
+            DemoLocalMin();
+            DemoMBrent();
+            DemoZBrent();
+            DemoZeroIn();
+
+            DemoAmToolsMinAndRootsLambda();
+
+            DemoQuanc8();
+            DemoQags();
+            DemoQagi();
+            DemoQawc();
+            DemoIntde();
+            DemoIntdei();
+            DemoIntdeo();
+
+            DemoAmToolsQuadpack();
+        }
+
+
+
+        #endregion
+
+
 
 
 

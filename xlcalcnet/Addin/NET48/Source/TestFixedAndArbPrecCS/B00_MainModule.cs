@@ -127,14 +127,12 @@ namespace TestXlCalcNetPrecCS
 
             //Tests.CplxHypergeometric_1F1();  // B11
 
-            Tests.RealHypergeometric_pFq();  // B12
+            //Tests.RealHypergeometric_pFq();  // B12
 
             //Tests.CplxHypergeometric_pFq();  // B12
 
 
-            //TestMath53.Test_Math53();
-
-            //TestmathC53.Test_mathC53();
+            TestMath53.Test_Math53();
 
             //Tests.RankDistributions();
 

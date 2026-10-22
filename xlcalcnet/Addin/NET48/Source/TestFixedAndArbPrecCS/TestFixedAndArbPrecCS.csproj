@@ -139,7 +139,6 @@
     <Compile Include="B01_RealCompare.cs" />
     <Compile Include="B04_Distributions.cs" />
     <Compile Include="Test_Math53_.cs" />
-    <Compile Include="Test_MathC53_.cs" />
     <Compile Include="B05a_NumericalCalculus.cs" />
   </ItemGroup>
   <ItemGroup>

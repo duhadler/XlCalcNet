@@ -9,17 +9,6 @@
 MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_xsf_cplx_polylog(int n, double z_re, double z_im, double* res_re, double* res_im);
 
 
-MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_xsf_weierstrass_p(double g2, double g3, double x, double* res);
-
-MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_xsf_weierstrass_pprime(double g2, double g3, double x, double* res);
-
-MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_xsf_weierstrass_zeta(double g2, double g3, double x, double* res);
-
-MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_xsf_weierstrass_sigma(double g2, double g3, double x, double* res);
-
-
-
-
 MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_xsf_cplx_w(double z_re, double z_im, double* res_re, double* res_im);
 
 MPNUMC_DLL_IMPORTEXPORT void __cdecl Lib_xsf_cplx_erfcx(double z_re, double z_im, double* res_re, double* res_im);

@@ -68,23 +68,19 @@ namespace FixedPrecNet
 
 
 
-        //internal string Get_QReal_Str(IntPtr mpPtr)
-        //{
-        //    int StrSize = 128;
-        //    var sb = new StringBuilder(StrSize + 10);
-        //    Lib_QReal_Get_Str(sb, "%+-#*.34Qe", mpPtr);
-        //    return (sb.ToString()).Trim();
-        //}
-        //[DllImport(xcn.mpNum, EntryPoint = "Lib_QReal_Get_Str", CallingConvention = CallingConvention.Cdecl)]
-        //internal static extern void Lib_QReal_Get_Str(StringBuilder sb, string Template1, IntPtr in1);
-
-
         internal string Get_QReal_Str(IntPtr mpPtr)
         {
-            int StrSize = 128;
-            var sb = new StringBuilder(StrSize + 10);
-            ShowQuadNet(sb, mpPtr);
-            return (sb.ToString().Trim());
+            if (1 == (qreal.Lib_QReal_Isnan(mpPtr)))
+            {
+                return "NaN";
+            }
+            else
+            {
+                int StrSize = 128;
+                var sb = new StringBuilder(StrSize + 10);
+                ShowQuadNet(sb, mpPtr);
+                return (sb.ToString().Trim());
+            }
         }
         [DllImport(xcn.mpNum, EntryPoint = "ShowQuadNet", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void ShowQuadNet(StringBuilder sb, IntPtr in1);
@@ -1119,7 +1115,9 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/signbit/*' />
         public static int signbit(Quadruple x)
         {
-            return Lib_QReal_Signbit(x.mpPtr);
+            int res = Lib_QReal_Signbit(x.mpPtr);
+            if (res != 0) res = 1;
+            return res;
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_QReal_Signbit", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int Lib_QReal_Signbit(IntPtr x);
@@ -2580,12 +2578,25 @@ namespace FixedPrecNet
         [DllImport(xcn.mpNum, EntryPoint = "Lib_QReal_Log", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_QReal_Log(IntPtr res, IntPtr x);
 
-
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
         public static Quadruple log(dynamic x)
         {
             return log(t(x));
         }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Quadruple log(Quadruple x, Quadruple b)
+        {
+            return log(x) / log(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Quadruple log(dynamic x, dynamic b)
+        {
+            return log(t(x), t(b));
+        }
+
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
@@ -3696,6 +3707,21 @@ namespace FixedPrecNet
         {
             return ndis(t(x));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Quadruple ndisx(Quadruple q)
+        {
+            return -sqrt(2) * erfc_inv(2 * q);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Quadruple ndisx(dynamic q)
+        {
+            return ndisx(qreal.t(q));
+        }
+
 
 
 
@@ -5477,6 +5503,21 @@ namespace FixedPrecNet
         public static Quadruple sph_bessel_yn_zero(int n, int m)
         {
             return bessel_yv_zero(n + 0.5, m);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Quadruple marcum_q(Quadruple m, Quadruple a, Quadruple b)
+        {
+            return qreal.dist_chi2_nc(2 * m, a * a).sf(b * b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Quadruple marcum_q(dynamic m, dynamic a, dynamic b)
+        {
+            return marcum_q(qreal.t(m), qreal.t(a), qreal.t(b));
         }
 
 

@@ -2,54 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Boost64OReal" />
-	<File name="BoostDouble.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8397" topLine="261" />
-		</Cursor>
-	</File>
-	<File name="BoostFReal.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="40984" topLine="1676" />
-		</Cursor>
-	</File>
-	<File name="Include\BoostOReal.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="17094" topLine="404" />
-		</Cursor>
-	</File>
-	<File name="BoostSReal.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="39811" topLine="1652" />
-		</Cursor>
-	</File>
-	<File name="Include\BoostSReal.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="16131" topLine="416" />
-		</Cursor>
-	</File>
-	<File name="Include\BoostDouble.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2026" topLine="0" />
-		</Cursor>
-	</File>
 	<File name="Include\BoostXReal.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="19507" topLine="409" />
-		</Cursor>
-	</File>
-	<File name="Include\BoostQReal.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="17249" topLine="418" />
-		</Cursor>
-	</File>
-	<File name="BoostOReal.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="60632" topLine="1826" />
-		</Cursor>
-	</File>
-	<File name="BoostQReal.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="57989" topLine="1837" />
 		</Cursor>
 	</File>
 	<File name="Include\BoostFReal.h" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -57,9 +12,54 @@
 			<Cursor1 position="16858" topLine="416" />
 		</Cursor>
 	</File>
+	<File name="BoostQReal.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8897" topLine="245" />
+		</Cursor>
+	</File>
+	<File name="BoostSReal.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="39811" topLine="1652" />
+		</Cursor>
+	</File>
+	<File name="BoostFReal.cpp" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9637" topLine="262" />
+		</Cursor>
+	</File>
+	<File name="Include\BoostQReal.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="17249" topLine="418" />
+		</Cursor>
+	</File>
+	<File name="Include\BoostSReal.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="16131" topLine="416" />
+		</Cursor>
+	</File>
+	<File name="Include\BoostOReal.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="17094" topLine="404" />
+		</Cursor>
+	</File>
+	<File name="BoostDouble.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8397" topLine="261" />
+		</Cursor>
+	</File>
 	<File name="BoostXReal.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="46566" topLine="1758" />
+		</Cursor>
+	</File>
+	<File name="BoostOReal.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="60632" topLine="1826" />
+		</Cursor>
+	</File>
+	<File name="Include\BoostDouble.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2026" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

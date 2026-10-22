@@ -25,7 +25,7 @@ namespace TestXlCalcNetPrecCS
             string[] NumTypeArray = NTA1.Concat(NTA2).ToArray();
 
             //string[] FunctionArray = new[] { "all" };
-            string[] FunctionArray = new[] { "kelvin_ber" };
+            string[] FunctionArray = new[] { "marcum_q" };
             bool scaled = false;
             DemoChapter0F1(NumTypeArray, FunctionArray, scaled);
         }
@@ -549,6 +549,46 @@ namespace TestXlCalcNetPrecCS
                 }
                 Console.WriteLine();
             }
+
+
+
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("marcum_q"))
+            {
+                string name = "marcum_q";
+                InputArrayInt1 = new[] { 1, 2, 3, 4 };
+                InputArray1 = new[] { 1.5d, 2.5d, 13.5d };
+                InputArray2 = new[] { 2.1d, 12.1d, 53.5d };
+                foreach (var m in InputArrayInt1)
+                {
+                    foreach (var a in InputArray1)
+                    {
+                        foreach (var b in InputArray2)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(name + "(m={0}, a={1}, b={2})", m, a, b);
+                            foreach (var NumType in NumTypeArray)
+                            {
+                                object res1 = "Not done";
+                                switch (NumType ?? "")
+                                {
+                                    case "math53": { res1 = math53.marcum_q(m, a, b); break; }
+                                    case " sreal": { res1 = sreal.marcum_q(m, a, b); break; }
+                                    case " dreal": { res1 = dreal.marcum_q(m, a, b); break; }
+                                    case " ereal": { res1 = ereal.marcum_q(m, a, b); break; }
+                                    case " qreal": { res1 = qreal.marcum_q(m, a, b); break; }
+                                    case " oreal": { res1 = oreal.marcum_q(m, a, b); break; }
+#if HasArbPrecNet
+                                    case " mreal": { res1 = mreal.marcum_q(m, a, b); break; }
+#endif
+                                }
+                                Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
+                            }
+                        }
+                    }
+                }
+                Console.WriteLine();
+            }
+
 
 
 

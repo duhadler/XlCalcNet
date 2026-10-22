@@ -48,14 +48,6 @@ namespace TestXlCalcNetPrecCS
 
 
 
-            #region See cmath53: Conversions of parameters of elliptic functions
-
-
-
-            #endregion
-
-
-
 
             #region Carlson symmetric elliptic integrals
 
@@ -1058,12 +1050,6 @@ namespace TestXlCalcNetPrecCS
             #endregion
 
 
-
-            #region  Todo: Weierstrass elliptic functions, in terms of lattice roots half-periods omega1, omega2
-
-
-
-            #endregion
 
 
 

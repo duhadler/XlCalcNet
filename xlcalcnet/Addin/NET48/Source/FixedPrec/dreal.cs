@@ -1940,6 +1940,21 @@ namespace FixedPrecNet
         }
 
 
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Double log(Double x, Double b)
+        {
+            return log(x) / log(b);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log/*' />
+        public static Double log(dynamic x, dynamic b)
+        {
+            return log(t(x), t(b));
+        }
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/log2/*' />
         public static Double log2(Double x)
         {
@@ -3895,7 +3910,17 @@ namespace FixedPrecNet
 
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Double marcum_q(Double m, Double a, Double b)
+        {
+            return dreal.dist_chi2_nc(2 * m, a * a).sf(b * b);
+        }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/marcum_q/*' />
+        public static Double marcum_q(dynamic m, dynamic a, dynamic b)
+        {
+            return marcum_q(dreal.t(m), dreal.t(a), dreal.t(b));
+        }
 
 
 
@@ -4760,6 +4785,22 @@ namespace FixedPrecNet
         {
             return ndis(t(x));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Double ndisx(Double q)
+        {
+            return -sqrt(2) * erfc_inv(2 * q);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndisx/*' />    
+        public static Double ndisx(dynamic q)
+        {
+            return ndisx(dreal.t(q));
+        }
+
+
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/owen_t/*' />
