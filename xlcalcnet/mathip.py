@@ -65,8 +65,8 @@ def get_frac(z):
 
 
 def get_nint(z):
-    z = t(z)
-    return
+    t2 = mp.nint(mp.mpf(z.mid))
+    return iv.mpf(t2)
 
 
 def get_floor(z):
@@ -90,8 +90,9 @@ def get_ldexp(z, n):
 
 def get_frexp(z):
     z = t(z)
-    y, n = mp.frexp(mp.mpf(z.mid))
-    return mpi(y, n)
+    y1, n = mp.frexp(mp.mpf(z.a))
+    y2, n = mp.frexp(mp.mpf(z.b))
+    return (mpi(y1,y2), n)
 
 
 # Transzendental functions

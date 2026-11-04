@@ -63,7 +63,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Contexts"]/fmtname/*' />
         public static String fmtname
         {
-            get { return "  dreal"; }
+            get { return " math53"; }
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Contexts"]/prec/*' />
@@ -430,6 +430,8 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(Double x)
         {
+            if (isnan(x) || isinf(x))
+                return false;
             return 0 != (Lib_FReal_Isinteger(ref x));
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Isinteger", CallingConvention = CallingConvention.Cdecl)]
@@ -1038,6 +1040,40 @@ namespace FixedPrecNet
         {
             return remquo(t(x), t(y));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Double frac(Double x)
+        {
+            return x - floor(x);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Double frac(dynamic x)
+        {
+            return frac(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Double fractionalpart(Double x)
+        {
+            var s = sign(x);
+            x = abs(x);
+            return s * (x - floor(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Double fractionalpart(dynamic x)
+        {
+            return fractionalpart(t(x));
+        }
+
+
+
 
         #endregion
 
@@ -1824,7 +1860,12 @@ namespace FixedPrecNet
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />    
         [DllImport(xcn.libwe64d, EntryPoint = "damath_arctan2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Double atan2(Double y, Double x);
+        public static extern Double atan2_(Double x, Double y);
+
+        public static Double atan2(Double x, Double y)
+        {
+            return atan2_(y, x);
+        }
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan/*' />    
@@ -5966,6 +6007,7 @@ namespace FixedPrecNet
         {
             int s = 0;
             Double res1 = damath_lngammas(x, ref s);
+            if (s == 65535) s = -1;
             return new Tuple<Double, int>(res1, s);
         }
 
@@ -5985,7 +6027,7 @@ namespace FixedPrecNet
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logbinomial/*' />    
         [DllImport(xcn.libwe64d, EntryPoint = "damath_lnbinomial", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Double logbinomial(Double n, Double k);
+        public static extern Double logbinomial(int n, int k);
 
 
 

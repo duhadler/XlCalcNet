@@ -16,6 +16,9 @@ from xlcalcnet.ctx_mpm import mpm
 from xlcalcnet import ctx_fp53
 fp = ctx_fp53.FP53Context()
 
+
+
+
 # from xlcalcnet import FRealBoost, Math53, Math53C
 #from System import Numerics
 
@@ -143,13 +146,16 @@ class fpm():
         return self
 
     def fmt(self, z):
-        z = self.t(z)
-        s1 = "{:.15G}".format(z.real)
-        if self.ismpf(z):
-            return ' ' + s1
-        else:
-            s2 = "{:.15G}".format(z.imag)
-            return " " + "(" + s1 + ", " + s2 + ")"
+        try:
+            z = self.t(z)
+            s1 = "{:.15G}".format(z.real)
+            if self.ismpf(z):
+                return ' ' + s1
+            else:
+                s2 = "{:.15G}".format(z.imag)
+                return " " + "(" + s1 + ", " + s2 + ")"
+        except:
+            return str(z)
 
 
     @property
@@ -208,6 +214,18 @@ class fpm():
 
 # This is implemented in fp, mp, iv, dp, gp, ap
 
+    def fma(self, x, y, z):
+        return x * y + z
+
+    def fmax(self, x, y):
+        if (x >= y): return x
+        else: return y
+
+    def fmin(self, x, y):
+        if (x <= y): return x
+        else: return y
+
+
 
     def fadd(self, x, y, **kwargs):
         return fp.fadd(x, y, **kwargs)
@@ -224,8 +242,8 @@ class fpm():
     def fdiv(self, x, y, **kwargs):
         return fp.fdiv(x, y, **kwargs)
 
-    def fmod(self, x, y):
-        return fp.fdiv(x, y)
+##    def fmod(self, x, y):
+##        return fp.fmod(x, y)
 
     def fsum(self, terms, absolute=False, squared=False):
         return fp.fsum(terms, absolute, squared)
@@ -329,10 +347,14 @@ class fpm():
         return z.conjugate()
 
     def polar(self, z):
-        return fp.polar(z)
+        z = self.t(z)
+        res = mp.polar(z)
+        return (self.t(res[0]), self.t(res[1]))
 
     def rect(self, r, phi):
-        return fp.rect(r, phi)
+        r = self.t(r)
+        phi = self.t(phi)
+        return r * self.expj(phi)
 
 
 
@@ -346,11 +368,56 @@ class fpm():
         z = self.t(z)
         return float(math.ceil(z))
 
-    def nint(self, z):
-        return fp.nint(z)
 
-    def frac(self, z):
-        return fp.frac(z)
+
+    def rint(self, z):
+        return self.nint(z)
+
+    def nearbyint(self, z):
+        return self.nint(z)
+
+
+
+    def round(self, z):
+        z = self.t(z)
+        return self.nint(z)
+
+
+    def trunc(self, x):
+        x = self.t(x)
+        return self.floor(x) if x >= 0 else self.ceil(x)
+
+
+    def lrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        return ereal.lrint(z)
+
+    def llrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        return ereal.llrint(z)
+
+
+    def lround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        return ereal.lround(z)
+
+    def llround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        return ereal.llround(z)
+
+
+
+
+
+    def nint(self, z):
+        return round(z)
+
+##    def frac(self, z):
+##        return fp.frac(z)
 
 
 
@@ -366,6 +433,11 @@ class fpm():
 
 # %%%  2.7 Properties of numbers
 
+    def signbit(self, z):
+        if (z < 0): return 1
+        else: return 0
+
+
     def ismpf(self, z):
         return isinstance(z, fp.mpf)
 
@@ -376,11 +448,70 @@ class fpm():
     def isinf(self, z):
         return fp.isinf(z)
 
+
+
+
+    def isposinf(self, z):
+        z = self.t(z)
+        return fp.isinf(z) and z>0
+
+    def isneginf(self, z):
+        z = self.t(z)
+        return fp.isinf(z) and z<0
+
+    def iszero(self, z):
+        z = self.t(z)
+        return z==0
+
+    def isone(self, z):
+        z = self.t(z)
+        return z==1
+
+    def isinteger(self, z):
+        z = self.t(z)
+        return fp.isint(z)
+
+
+
+
     def isnan(self, z):
+        z = self.t(z)
         return fp.isnan(z)
 
     def isnormal(self, z):
+        z = self.t(z)
         return fp.isnormal(z)
+
+
+
+
+    def isnumber(self, z):
+        z = self.t(z)
+        return not(self.isinf(z) or self.isnan(z))
+
+    def isregular(self, z):
+        z = self.t(z)
+        return self.isnumber(z) and (z != self.t(0))
+
+    def isunordered(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.isnan(x) or self.isnan(y)
+
+    def fitsint32(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-2147483648')) and (z <= self.t('2147483647'))
+
+    def fitsint64(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-9223372036854775808')) and (z <= self.t('9223372036854775807'))
+
+
+
+
+
 
     def isfinite(self, z):
         return fp.isfinite(z)
@@ -388,17 +519,115 @@ class fpm():
     def isint(self, z):
         return fp.isint(z)
 
+
+    def copysign(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return math.copysign(x, y)
+
+
+    def fdim(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        if (x > y): return x - y
+        else: return self.zero
+
+
     def ldexp(self, x, n):
+        x = self.t(x)
+        n = int(n)
         return fp.ldexp(x, n)
+
+    def scalbn(self, x, n):
+        return self.ldexp(x, n)
+
+    def scalbln(self, x, n):
+        return self.ldexp(x, n)
+
+
 
     def frexp(self, x):
         return fp.frexp(x)
+
+
+    def logb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return self.t(res[1] - 1)
+
+
+    def ilogb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return int(res[1] - 1)
 
     def mag(self, x):
         return fp.mag(x)
 
     def nint_distance(self, x):
         return fp.nint_distance(x)
+
+
+    def modf(self, x):
+        res = math.modf(x)
+        return (res[1], res[0])
+
+    def fmod(self, x, y):
+        return math.fmod(x, y)
+
+    def frac(self, x):
+        x = self.t(x)
+        return x - self.floor(x)
+
+    def fractionalpart(self, x):
+        x = self.t(x)
+        s = self.sign(x)
+        x = abs(x)
+        res = x - self.floor(x)
+        return s * res
+
+
+    def remainder(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return math.remainder(x, y)
+
+    def remquo(self, x, y):
+        from xlcalcnet import ereal
+        res1 = ereal.remquo(x, y)
+        i1 = int(res1.Item2)
+        res0 = self.remainder(x,y)
+        return (res0, i1)
+
+
+    def ulp(self, x):
+        # Note: eps = ulp(0)
+        # See https://docs.python.org/3/library/math.html#math.ulp
+        x = self.t(x)
+        return math.ulp(x)
+
+    def epsilon(self):
+        return self.eps
+
+    def maxvalue(self):
+        import sys
+        return sys.float_info.max
+
+    def lowestvalue(self):
+        import sys
+        return -sys.float_info.max
+
+    def minposvalue(self):
+        import sys
+        return sys.float_info.min
+
+
+    def nextafter(self, x, y):
+        # See https://docs.python.org/3/library/math.html#math.nextafter
+        x = self.t(x)
+        y = self.t(y)
+        return math.nextafter(x, y)
+
 
 
 # %%%  2.8 Number generation
@@ -423,27 +652,39 @@ class fpm():
 
     @property
     def zero(self):
-        return fp.zero
+        return +fp.zero
+
+    @property
+    def negzero(self):
+        return -fp.zero
 
     @property
     def one(self):
-        return fp.one
+        return +fp.one
 
     @property
     def j(self):
-        return fp.j
+        return +fp.j
+
+    @property
+    def onej(self):
+        return +fp.j
 
     @property
     def inf(self):
-        return fp.inf
+        return +fp.inf
 
     @property
     def ninf(self):
-        return fp.ninf
+        return +fp.ninf
+
+    @property
+    def neginf(self):
+        return +fp.ninf
 
     @property
     def nan(self):
-        return fp.nan
+        return +fp.nan
 
 
 
@@ -473,6 +714,10 @@ class fpm():
 
     @property
     def euler(self):
+        return +fp.euler
+
+    @property
+    def egamma(self):
         return +fp.euler
 
     @property
@@ -671,11 +916,11 @@ class fpm():
 
 # 3.2.1 Logarithm with base b, log_b(x)
 
-    def logb(self, z, b):
-        '''Returns the base b logarithm of z, logb(z,b) = ln(z)/ln(b).'''
-        z = self.t(z)
-        b = self.t(b)
-        return mp.log(z, b)
+##    def logb(self, z, b):
+##        '''Returns the base b logarithm of z, logb(z,b) = ln(z)/ln(b).'''
+##        z = self.t(z)
+##        b = self.t(b)
+##        return mp.log(z, b)
 
 
 # 3.2.2 Natural logarithm ln(z)
@@ -798,6 +1043,22 @@ class fpm():
         k = int(k)
         return mp.lambertw(z, k)
 
+    def lambert_wk(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        k = int(k)
+        return mp.lambertw(z, k)
+
+    def lambert_w0(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, 0)
+
+    def lambert_wm1(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, -1)
+
 
 # 3.2.14 Arithmetic-geometric mean (AGM)
 
@@ -816,6 +1077,16 @@ class fpm():
         '''Returns square(z) = z * z.'''
         z = self.t(z)
         return z * z
+
+    def sqr(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z
+
+    def cube(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z * z
 
 
 # 3.3.2 Square root
@@ -871,6 +1142,10 @@ class fpm():
         n = int(n)
         return mp.nthroot(z, n)
 
+    def root_si(self, z, n):
+        return self.nthroot(z, n)
+
+
 
 # 3.3.8 Unit roots
 
@@ -903,8 +1178,10 @@ class fpm():
         a = self.t(a)
         b = self.t(b)
         return self.t(mp.power(a, b))
-##        if isinstance(z, mp.mpf): return float(res)
-##        return complex(res.real, res.imag)
+
+    def pow_si(self, x, n):
+        '''Returns pow(a, b) = exp(b*log(a)).'''
+        return pow(x, n)
 
 
 # 3.3.11 Auxiliary function a^b - 1
@@ -1291,7 +1568,7 @@ class fpm():
     def acoth(self, z):
         '''Returns the inverse hyperbolic cotangent of z, acoth(z).'''
         z = self.t(z)
-        return mp.acoth(z)
+        return self.t(mp.acoth(z))
 
 
 # 3.7.7 Inverse Gudermannian function arcgd(x) = atanh(sin(x))
@@ -1300,7 +1577,7 @@ class fpm():
         '''Returns the inverse Gudermannian function,
         arcgd(x) = atanh(sin(x)).'''
         z = self.t(z)
-        return mp.atanh(mp.sin(z))
+        return self.t(mp.atanh(mp.sin(z)))
 
 
 # %%%  3.8 Factorials and related functions
@@ -1310,7 +1587,7 @@ class fpm():
     def factorial(self, z):
         '''Returns the factorial of z, z! = Gamma(z+1).'''
         z = self.t(z)
-        return mp.factorial(z)
+        return self.t(mp.factorial(z))
 
 
 # 3.8.2 Binomial coefficient
@@ -1319,12 +1596,8 @@ class fpm():
         '''Returns binomial(n, k), the binomial coefficient n!/(k!(n-k)!) .'''
         n = self.t(n)
         k = self.t(k)
-        return mp.factorial(n) / (mp.factorial(k) * mp.factorial(n - k))
+        return self.t(mp.factorial(n) / (mp.factorial(k) * mp.factorial(n - k)))
 
-# 3.8.3 Multinomial coefficient
-    def multinomial(self, n, k):
-        '''NOT IMPLEMENTED.'''
-        raise Exception("NOT IMPLEMENTED")
 
 
 # 3.8.4 Rising factorial (Pochhammer symbol)
@@ -1333,7 +1606,13 @@ class fpm():
         '''Returns the rising factorial (or Pochhammer symbol).'''
         z = self.t(z)
         n = self.t(n)
-        return mp.rf(z, n)
+        return self.t(mp.rf(z, n))
+
+    def rising_factorial(self, z, n):
+        '''Returns the rising factorial (or Pochhammer symbol).'''
+        z = self.t(z)
+        n = self.t(n)
+        return self.t(mp.rf(z, n))
 
 
 # 3.8.5 Falling factorial
@@ -1342,7 +1621,13 @@ class fpm():
         '''Returns the falling factorial.'''
         z = self.t(z)
         n = self.t(n)
-        return mp.ff(z, n)
+        return self.t(mp.ff(z, n))
+
+    def falling_factorial(self, z, n):
+        '''Returns the falling factorial.'''
+        z = self.t(z)
+        n = self.t(n)
+        return self.t(mp.ff(z, n))
 
 
 # 3.8.6 Double factorial
@@ -1350,7 +1635,12 @@ class fpm():
     def fac2(self, z):
         '''Returns the double factorial.'''
         z = self.t(z)
-        return mp.fac2(z)
+        return self.t(mp.fac2(z))
+
+    def doublefactorial(self, z):
+        '''Returns the double factorial.'''
+        z = self.t(z)
+        return self.t(mp.fac2(z))
 
 
 # %%%  3.9 Gamma function and related functions
@@ -1360,7 +1650,12 @@ class fpm():
     def gamma(self, z):
         '''Returns the Gamma function.'''
         z = self.t(z)
-        return mp.gamma(z)
+        return self.t(mp.gamma(z))
+
+    def gamma1pm1(self, z):
+        '''Returns gamma(z+1)-1.'''
+        z = self.t(z)
+        return self.t(mp.gamma(z+1)-1)
 
 
 # 3.9.2 Reciprocal Gamma function
@@ -1368,7 +1663,7 @@ class fpm():
     def rgamma(self, z):
         '''Returns the Reciprocal Gamma function.'''
         z = self.t(z)
-        return mp.rgamma(z)
+        return self.t(mp.rgamma(z))
 
 
 # 3.9.3 Log-Gamma function
@@ -1376,7 +1671,12 @@ class fpm():
     def loggamma(self, z):
         '''Returns the Log-Gamma function.'''
         z = self.t(z)
-        return mp.loggamma(z)
+        return self.t(mp.loggamma(z))
+
+    def lgamma(self, z):
+        '''Returns the Log-Gamma function.'''
+        z = self.t(z)
+        return self.t(mp.loggamma(z))
 
 
 # 3.9.4 Beta function
@@ -1385,7 +1685,7 @@ class fpm():
         '''Returns the Beta function.'''
         a = self.t(a)
         b = self.t(b)
-        return mp.beta(a, b)
+        return self.t(mp.beta(a, b))
 
 
 # 3.9.5 Log-Beta function
@@ -1394,7 +1694,7 @@ class fpm():
         '''Returns the Log-Beta function.'''
         a = self.t(a)
         b = self.t(b)
-        return mp.ln(mp.beta(a, b))
+        return self.t(mp.ln(mp.beta(a, b)))
 
 
 # 3.9.6 Ratio of gamma functions
@@ -1403,7 +1703,7 @@ class fpm():
         '''Returns the ratio of gamma functions.'''
         a = self.t(a)
         b = self.t(b)
-        return mp.gamma(a) / mp.gamma(b)
+        return self.t(mp.gamma(a) / mp.gamma(b))
 
 
 # 3.9.7 Gamma-delta ratio
@@ -1412,7 +1712,7 @@ class fpm():
         '''Returns the Gamma-delta ratio.'''
         a = self.t(a)
         delta = self.t(delta)
-        return mp.gamma(a) / mp.gamma(a + delta)
+        return self.t(mp.gamma(a) / mp.gamma(a + delta))
 
 
 # 3.9.8 Catalan function
@@ -1421,7 +1721,7 @@ class fpm():
         '''Returns the Catalan function.'''
         z = self.t(z)
         t = mp.gamma(z+1)
-        return mp.gamma(2*z+1) / ((z+1)*t*t)
+        return self.t(mp.gamma(2*z+1) / ((z+1)*t*t))
 
 
 # %% 04 Real scalar functions

@@ -1288,6 +1288,8 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(Extended x)
         {
+            if (isnan(x) || isinf(x))
+                return false;
             return 0 != (Lib_XReal_Isinteger(x.mpPtr));
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Isinteger", CallingConvention = CallingConvention.Cdecl)]
@@ -1829,6 +1831,40 @@ namespace FixedPrecNet
         {
             return remquo(t(x), t(y));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Extended frac(Extended x)
+        {
+            return x - floor(x);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Extended frac(dynamic x)
+        {
+            return frac(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Extended fractionalpart(Extended x)
+        {
+            var s = sign(x);
+            x = abs(x);
+            return s * (x - floor(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Extended fractionalpart(dynamic x)
+        {
+            return fractionalpart(t(x));
+        }
+
+
+
 
         #endregion
 

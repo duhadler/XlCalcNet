@@ -939,7 +939,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/cube/*' />
         public static Complex cube(Complex x)
         {
-            return x * x;
+            return x * x * x;
         }
 
 
@@ -1016,7 +1016,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/pow1pm1/*' />
         public static Complex pow1pm1(Complex x, Complex y)
         {
-            return dcplx.pow1p(x, y);
+            return dcplx.pow1pm1(x, y);
         }
 
 
@@ -1249,8 +1249,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinc/*' />
         public static Complex sinc(Complex x)
         {
-            if (dcplx.iszero(x)) return new Complex(1, 0);
-            else return sinpi(x) / (x * dreal.pi);
+            return dcplx.sinc(x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/sinc/*' />
@@ -5482,7 +5481,7 @@ namespace FixedPrecNet
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acotc/*' />
         public static Complex acotc(Complex z1)
-        // Returns the principal value of the complex inverse circular cotangent w = arccotc(z) = Pi/2 - arctan(z)
+        // Returns the principal value of the continuous complex inverse circular cotangent w = arccotc(z) = Pi/2 - arctan(z)
         {
             Double res_re = 0.0, res_im = 0.0;
             damath_carccotc(z1.Real, z1.Imaginary, ref res_re, ref res_im);
@@ -5502,7 +5501,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/acothc/*' />
         public static Complex acothc(Complex z1)
         {
-            // Returns the principal value of the complex inverse hyperbolic cotangent w = arccothc(z) = arctanh(z) + i*Pi/2
+            // Returns the principal value of the continuous complex inverse hyperbolic cotangent w = arccothc(z) = arctanh(z) + i*Pi/2
             Double res_re = 0.0, res_im = 0.0;
             damath_carccothc(z1.Real, z1.Imaginary, ref res_re, ref res_im);
             return new Complex(res_re, res_im);
@@ -5881,12 +5880,30 @@ namespace FixedPrecNet
             return EllipticFunctions.wp(z, 0, 0, 0, g2, g3, 0, "g2g3");
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_p_g/*' />
+        public static Complex weierstrass_pg(dynamic z, dynamic g2, dynamic g3)
+        {
+            return weierstrass_pg(dcplx.t(z), dcplx.t(g2), dcplx.t(g3));
+        }
+
+
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_g/*' />
         public static Complex weierstrass_pg_prime(Complex z, Complex g2, Complex g3)
         {
             // Weierstrass p-function, first drivative, in terms of g2 und g3
             return EllipticFunctions.wp(z, 0, 0, 0, g2, g3, 1, "g2g3");
         }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_g/*' />
+        public static Complex weierstrass_pg_prime(dynamic z, dynamic g2, dynamic g3)
+        {
+            return weierstrass_pg_prime(dcplx.t(z), dcplx.t(g2), dcplx.t(g3));
+        }
+
+
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_g/*' />
         public static Complex weierstrass_zeta_g(Complex z, Complex g2, Complex g3)
@@ -5895,11 +5912,25 @@ namespace FixedPrecNet
             return EllipticFunctions.wzeta(z, 0, 0, 0, g2, g3, 0, "g2g3");
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_g/*' />
+        public static Complex weierstrass_zeta_g(dynamic z, dynamic g2, dynamic g3)
+        {
+            return weierstrass_zeta_g(dcplx.t(z), dcplx.t(g2), dcplx.t(g3));
+        }
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_g/*' />
         public static Complex weierstrass_sigma_g(Complex z, Complex g2, Complex g3)
         {
             // Weierstrass sigma-function in terms of g2 und g3
             return EllipticFunctions.wsigma(z, 0, 0, 0, g2, g3, 0, "g2g3");
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_g/*' />
+        public static Complex weierstrass_sigma_g(dynamic z, dynamic g2, dynamic g3)
+        {
+            return weierstrass_sigma_g(dcplx.t(z), dcplx.t(g2), dcplx.t(g3));
         }
 
 
@@ -5920,6 +5951,13 @@ namespace FixedPrecNet
             return weierstrass_pg(z, g2, g3);
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_p_e/*' />
+        public static Complex weierstrass_pe(dynamic z, dynamic e1, dynamic e2)
+        {
+            return weierstrass_pe(dcplx.t(z), dcplx.t(e1), dcplx.t(e2));
+        }
+
+
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_e/*' />
         public static Complex weierstrass_pe_prime(Complex z, Complex e1, Complex e2)
@@ -5930,6 +5968,14 @@ namespace FixedPrecNet
             Complex g3 = 4 * e1 * e2 * e3;
             return weierstrass_pg_prime(z, g2, g3);
         }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_e/*' />
+        public static Complex weierstrass_pe_prime(dynamic z, dynamic e1, dynamic e2)
+        {
+            return weierstrass_pe_prime(dcplx.t(z), dcplx.t(e1), dcplx.t(e2));
+        }
+
+
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_e/*' />
@@ -5942,6 +5988,15 @@ namespace FixedPrecNet
             return weierstrass_zeta_g(z, g2, g3);
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_e/*' />
+        public static Complex weierstrass_zeta_e(dynamic z, dynamic e1, dynamic e2)
+        {
+            return weierstrass_zeta_e(dcplx.t(z), dcplx.t(e1), dcplx.t(e2));
+        }
+
+
+
+
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_e/*' />
         public static Complex weierstrass_sigma_e(Complex z, Complex e1, Complex e2)
@@ -5953,8 +6008,15 @@ namespace FixedPrecNet
             return weierstrass_sigma_g(z, g2, g3);
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_e/*' />
+        public static Complex weierstrass_sigma_e(dynamic z, dynamic e1, dynamic e2)
+        {
+            return weierstrass_sigma_e(dcplx.t(z), dcplx.t(e1), dcplx.t(e2));
+        }
 
         #endregion
+
+
 
 
 

@@ -217,6 +217,20 @@ class mpm():
 
 # 2.2.1 Addition using a custom precision and rounding mode
 
+
+    def fma(self, x, y, z):
+        return x * y + z
+
+    def fmax(self, x, y):
+        if (x >= y): return x
+        else: return y
+
+    def fmin(self, x, y):
+        if (x <= y): return x
+        else: return y
+
+
+
     def fadd(self, x, y, **kwargs):
         """ returns the sum of x and y """
         return mp.fadd(x, y, **kwargs)
@@ -254,6 +268,8 @@ class mpm():
 
     def fmod(self, x, y):
         ''' returns x mod y '''
+        x = self.t(x)
+        y = self.t(y)
         return mp.fmod(x, y)
 
 
@@ -420,7 +436,8 @@ class mpm():
         returns the rectangular coordinates calculated from the polar
         representation of a real or complex number
         '''
-        z = self.t(z)
+        r = self.t(r)
+        phi = self.t(phi)
         return mp.rect(r, phi)
 
 
@@ -440,6 +457,52 @@ class mpm():
         ''' returns the ceiling of a real or complex number '''
         z = self.t(z)
         return mp.ceil(z)
+
+
+    def round(self, z):
+        z = self.t(z)
+        return self.nint(z)
+
+
+
+
+    def rint(self, z):
+        return self.nint(z)
+
+    def nearbyint(self, z):
+        return self.nint(z)
+
+
+    def trunc(self, x):
+        x = self.t(x)
+        return self.floor(x) if x >= 0 else self.ceil(x)
+
+
+    def lrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.lrint(s)
+
+    def llrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.llrint(s)
+
+
+    def lround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.lround(s)
+
+    def llround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.llround(s)
+
 
 
 # 2.5.3 Nearest integer(s) of a real or complex number
@@ -479,6 +542,12 @@ class mpm():
 
 # 2.7.1 Testing for a real number in a given context
 
+    def signbit(self, z):
+        if (z < 0): return 1
+        else: return 0
+
+
+
     def ismpf(self, z):
         ''' Testing for a real number in a given context '''
         return isinstance(z, mp.mpf)
@@ -498,6 +567,33 @@ class mpm():
         return mp.isinf(z)
 
 
+
+
+    def isposinf(self, z):
+        z = self.t(z)
+        return mp.isinf(z) and z>0
+
+    def isneginf(self, z):
+        z = self.t(z)
+        return mp.isinf(z) and z<0
+
+    def iszero(self, z):
+        z = self.t(z)
+        return z==0
+
+    def isone(self, z):
+        z = self.t(z)
+        return z==1
+
+    def isinteger(self, z):
+        z = self.t(z)
+        return mp.isint(z)
+
+
+
+
+
+
 # 2.7.4 Testing if a real or complex number is NaN
 
     def isnan(self, z):
@@ -507,9 +603,43 @@ class mpm():
 
 # 2.7.5 Testing if a real or complex number is "normal"
 
+
+
     def isnormal(self, z):
         ''' Testing if a real or complex number is "normal" '''
         return mp.isnormal(z)
+
+
+
+
+
+    def isnumber(self, z):
+        z = self.t(z)
+        return not(self.isinf(z) or self.isnan(z))
+
+    def isregular(self, z):
+        z = self.t(z)
+        return self.isnumber(z) and (z != self.t(0))
+
+    def isunordered(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.isnan(x) or self.isnan(y)
+
+    def fitsint32(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-2147483648')) and (z <= self.t('2147483647'))
+
+    def fitsint64(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-9223372036854775808')) and (z <= self.t('9223372036854775807'))
+
+
+
+
+
 
 
 # 2.7.6 Testing if a real or complex number is finite
@@ -528,16 +658,52 @@ class mpm():
 
 # 2.7.8 Calculating x * 2^n efficiently for a real number
 
+
+
+    def copysign(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.abs(x) * self.sign(y)
+
+
+    def fdim(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        if (x > y): return x - y
+        else: return self.zero
+
+
     def ldexp(self, x, n):
         ''' Calculating x * 2^n efficiently for a real number '''
+        x = self.t(x)
+        n = int(n)
         return mp.ldexp(x, n)
+
+    def scalbn(self, x, n):
+        return self.ldexp(x, n)
+
+    def scalbln(self, x, n):
+        return self.ldexp(x, n)
 
 
 # 2.7.9 Calculating (y,n) such that  x = y * 2^n (real numbers only)
 
     def frexp(self, x):
         ''' Calculating (y,n) such that  x = y * 2^n (real numbers only) '''
+        x = self.t(x)
         return mp.frexp(x)
+
+
+    def logb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return self.t(res[1] - 1)
+
+
+    def ilogb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return int(res[1] - 1)
 
 
 # 2.7.10 Quick logarithmic magnitude estimate
@@ -552,6 +718,66 @@ class mpm():
     def nint_distance(self, x):
         ''' Nearest integer and distance estimate '''
         return mp.nint_distance(x)
+
+
+    def modf(self, x):
+        x = self.t(x)
+        return (self.trunc(x), self.fractionalpart(x))
+
+    def frac(self, x):
+        x = self.t(x)
+        return x - self.floor(x)
+
+    def fractionalpart(self, x):
+        x = self.t(x)
+        s = self.sign(x)
+        x = abs(x)
+        res = x - self.floor(x)
+        return s * res
+
+    def remainder(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        n = self.nint(x/y)
+        res = x - n * y
+        return res
+
+    def remquo(self, x, y):
+        from xlcalcnet import ereal
+        res1 = ereal.remquo(x, y)
+        i1 = int(res1.Item2)
+        res0 = self.remainder(x,y)
+        return (res0, i1)
+
+    def ulp(self, x):
+        # Note: eps = ulp(0)
+        x = self.t(x)
+        if x < 0: x = -x
+        # See https://github.com/mpmath/mpmath/issues/1020
+        # See https://docs.python.org/3/library/math.html#math.ulp
+        _, _, e, bc = x._mpf_
+        return mp.mpf((0, 1, e + (bc - mp.prec), 1))
+
+    def epsilon(self):
+        return self.eps
+
+    def maxvalue(self):
+        return self.t('2.09857871646738769240435811688383907063809796547335262778664622571024044777576820818355304E+323228496')
+
+    def lowestvalue(self):
+        return self.t('-2.09857871646738769240435811688383907063809796547335262778664622571024044777576820818355304E+323228496')
+
+    def minposvalue(self):
+        return self.t('2.38256490488795107321616978173267452041519612555923978795502375260094538610432437489305775E-323228497')
+
+
+    def nextafter(self, x, y):
+        # See https://docs.python.org/3/library/math.html#math.nextafter
+        x = self.t(x)
+        y = self.t(y)
+        if x == y: return y
+        if x < y: return x + self.ulp(x)
+        if x > y: return x - self.ulp(x)
 
 
 # %%%  2.8 Number generation
@@ -586,52 +812,50 @@ class mpm():
 
 # %%%  2.9 Exact mathematical constants
 
-# 2.9.1 Zero
-
     @property
     def zero(self):
         ''' returns zero '''
-        return mp.zero
+        return +mp.zero
 
-
-# 2.9.2 One
+    @property
+    def negzero(self):
+        ''' returns -zero '''
+        return -mp.zero
 
     @property
     def one(self):
         ''' returns one '''
-        return mp.one
-
-
-# 2.9.3 Imaginary unit
+        return +mp.one
 
     @property
     def j(self):
         ''' returns the imaginary unit '''
-        return mp.j
+        return +mp.j
 
-
-# 2.9.4 Positive Infinity
+    @property
+    def onej(self):
+        ''' returns the imaginary unit '''
+        return +mp.j
 
     @property
     def inf(self):
         ''' returns positive infinity '''
-        return mp.inf
-
-
-# 2.9.5 Negative Infinity
+        return +mp.inf
 
     @property
     def ninf(self):
         ''' returns negative infinity '''
-        return mp.ninf
+        return +mp.ninf
 
-
-# 2.9.6 Not-a-Number: NaN
+    @property
+    def neginf(self):
+        ''' returns negative infinity '''
+        return +mp.ninf
 
     @property
     def nan(self):
         ''' returns Not-a-Number: NaN '''
-        return mp.nan
+        return +mp.nan
 
 
 
@@ -681,6 +905,11 @@ class mpm():
 
     @property
     def euler(self):
+        ''' returns the Euler-Mascheroni constant gamma '''
+        return +mp.euler
+
+    @property
+    def egamma(self):
         ''' returns the Euler-Mascheroni constant gamma '''
         return +mp.euler
 
@@ -964,11 +1193,11 @@ class mpm():
 
 # 3.2.1 Logarithm with base b, log_b(x)
 
-    def logb(self, z, b):
-        '''Returns the base b logarithm of z, logb(z,b) = ln(z)/ln(b).'''
-        z = self.t(z)
-        b = self.t(b)
-        return mp.log(z, b)
+##    def logb(self, z, b):
+##        '''Returns the base b logarithm of z, logb(z,b) = ln(z)/ln(b).'''
+##        z = self.t(z)
+##        b = self.t(b)
+##        return mp.log(z, b)
 
 
 # 3.2.2 Natural logarithm ln(z)
@@ -978,9 +1207,12 @@ class mpm():
         z = self.t(z)
         return mp.ln(z)
 
-    def log(self, z):
+
+
+    def log(self, z, b=None):
         '''Returns the natural logarithm of z, log(z) = ln(z).'''
         z = self.t(z)
+
         return mp.ln(z)
 
 
@@ -1091,6 +1323,22 @@ class mpm():
         k = int(k)
         return mp.lambertw(z, k)
 
+    def lambert_wk(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        k = int(k)
+        return mp.lambertw(z, k)
+
+    def lambert_w0(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, 0)
+
+    def lambert_wm1(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, -1)
+
 
 # 3.2.14 Arithmetic-geometric mean (AGM)
 
@@ -1117,6 +1365,16 @@ class mpm():
         '''Returns sqrt(z), the square root of z.'''
         z = self.t(z)
         return mp.sqrt(z)
+
+    def sqr(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z
+
+    def cube(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z * z
 
 
 # 3.3.3 Reciprocal of the square root
@@ -1164,6 +1422,10 @@ class mpm():
         n = int(n)
         return mp.nthroot(z, n)
 
+    def root_si(self, z, n):
+        return self.nthroot(z, n)
+
+
 
 # 3.3.8 Unit roots
 
@@ -1195,6 +1457,10 @@ class mpm():
         a = self.t(a)
         b = self.t(b)
         return mp.power(a, b)
+
+    def pow_si(self, x, n):
+        '''Returns pow(a, b) = exp(b*log(a)).'''
+        return pow(x, n)
 
 
 # 3.3.11 Auxiliary function a^b - 1
@@ -1634,6 +1900,12 @@ class mpm():
         n = self.t(n)
         return mp.rf(z, n)
 
+    def rising_factorial(self, z, n):
+        '''Returns the rising factorial (or Pochhammer symbol).'''
+        z = self.t(z)
+        n = self.t(n)
+        return mp.rf(z, n)
+
 
 # 3.8.5 Falling factorial
 
@@ -1643,10 +1915,21 @@ class mpm():
         n = self.t(n)
         return mp.ff(z, n)
 
+    def falling_factorial(self, z, n):
+        '''Returns the falling factorial.'''
+        z = self.t(z)
+        n = self.t(n)
+        return mp.ff(z, n)
+
 
 # 3.8.6 Double factorial
 
     def fac2(self, z):
+        '''Returns the double factorial.'''
+        z = self.t(z)
+        return mp.fac2(z)
+
+    def doublefactorial(self, z):
         '''Returns the double factorial.'''
         z = self.t(z)
         return mp.fac2(z)
@@ -1661,6 +1944,11 @@ class mpm():
         z = self.t(z)
         return mp.gamma(z)
 
+    def gamma1pm1(self, z):
+        '''Returns gamma(z+1)-1.'''
+        z = self.t(z)
+        return mp.gamma(z+1)-1
+
 
 # 3.9.2 Reciprocal Gamma function
 
@@ -1673,6 +1961,11 @@ class mpm():
 # 3.9.3 Log-Gamma function
 
     def loggamma(self, z):
+        '''Returns the Log-Gamma function.'''
+        z = self.t(z)
+        return mp.loggamma(z)
+
+    def lgamma(self, z):
         '''Returns the Log-Gamma function.'''
         z = self.t(z)
         return mp.loggamma(z)

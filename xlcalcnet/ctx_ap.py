@@ -138,20 +138,18 @@ class APContext(StandardBaseContext):
 
     def isinf(ctx, x):
         z = ctx.convert(x)
-        return z.Real.IsInfinite() or z.Imag.IsInfinite()
+        return not ctx.isfinite(x) and not ctx.isnan(x)
 
-    def isfinite(ctx, x):
-        if ctx.isinf(x) or ctx.isnan(x):
-            return False
-        return True
+    def isfinite(ctx, z):
+        return z.real.is_finite() and z.imag.is_finite()
 
     def isint(ctx, z):
         z = ctx.convert(z)
-        return z.Real.IsInteger() and (z.Imag.IsZero())
+        return z.real.is_integer() and (z.imag.is_zero())
 
     def isnpint(ctx, z):
         z = ctx.convert(z)
-        return z.Real <= 0.0 and ctx.isint(z)
+        return z.real <= 0.0 and ctx.isint(z)
 
 
     def get_from_rational(ctx, p, q):

@@ -101,12 +101,29 @@ class gui():
         return self._ctxlist_real
 
 
+
+    def _set_ctxlist_noboost_real(self, ctxlist_noboost_real):
+        self._ctxlist_noboost_real = ctxlist_noboost_real
+
+    @property
+    def ctxlist_noboost_real(self):
+        return self._ctxlist_noboost_real
+
+
     def _set_ctxlist_cplx(self, ctxlist_cplx):
         self._ctxlist_cplx = ctxlist_cplx
 
     @property
     def ctxlist_cplx(self):
         return self._ctxlist_cplx
+
+
+    def _set_ctxlist_noboost_cplx(self, ctxlist_noboost_cplx):
+        self._ctxlist_noboost_cplx = ctxlist_noboost_cplx
+
+    @property
+    def ctxlist_noboost_cplx(self):
+        return self._ctxlist_noboost_cplx
 
 
 

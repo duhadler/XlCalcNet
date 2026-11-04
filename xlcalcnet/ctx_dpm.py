@@ -612,6 +612,20 @@ class dpm():
 # This is implemented in fp, mp, iv, dp, gp, ap
 
 
+    def fma(self, x, y, z):
+        return x * y + z
+
+    def fmax(self, x, y):
+        if (x >= y): return x
+        else: return y
+
+    def fmin(self, x, y):
+        if (x <= y): return x
+        else: return y
+
+
+
+
     def fadd(self, x, y, **kwargs):
         return dp.fadd(x, y, **kwargs)
 
@@ -627,8 +641,8 @@ class dpm():
     def fdiv(self, x, y, **kwargs):
         return dp.fdiv(x, y, **kwargs)
 
-    def fmod(self, x, y):
-        return dp.fdiv(x, y)
+##    def fmod(self, x, y):
+##        return dp.fmod(x, y)
 
     def fsum(self, terms, absolute=False, squared=False):
         return dp.fsum(terms, absolute, squared)
@@ -764,6 +778,53 @@ class dpm():
         z = self.t(z)
         return z.to_integral_value(rounding=ROUND_CEILING)
 
+
+
+    def rint(self, z):
+        return self.nint(z)
+
+    def nearbyint(self, z):
+        return self.nint(z)
+
+
+
+    def round(self, z):
+        z = self.t(z)
+        return self.nint(z)
+
+
+    def trunc(self, x):
+        x = self.t(x)
+        return self.floor(x) if x >= 0 else self.ceil(x)
+
+
+    def lrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.lrint(s)
+
+    def llrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.llrint(s)
+
+
+    def lround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.lround(s)
+
+    def llround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.llround(s)
+
+
+
     def nint(self, z):
         return dp.nint(z)
 
@@ -784,6 +845,12 @@ class dpm():
 
 # %%%  2.7 Properties of numbers
 
+    def signbit(self, z):
+        if (z < 0): return 1
+        else: return 0
+
+
+
     def ismpf(self, z):
         return dp.ismpf(z)
 
@@ -794,11 +861,71 @@ class dpm():
     def isinf(self, z):
         return dp.isinf(z)
 
+
+
+
+    def isposinf(self, z):
+        z = self.t(z)
+        return dp.isinf(z) and z>0
+
+    def isneginf(self, z):
+        z = self.t(z)
+        return dp.isinf(z) and z<0
+
+    def iszero(self, z):
+        z = self.t(z)
+        return z==0
+
+    def isone(self, z):
+        z = self.t(z)
+        return z==1
+
+    def isinteger(self, z):
+        z = self.t(z)
+        return dp.isint(z)
+
+
+
+
+
     def isnan(self, z):
         return dp.isnan(z)
 
     def isnormal(self, z):
         return dp.isnormal(z)
+
+
+
+
+    def isnumber(self, z):
+        z = self.t(z)
+        return not(self.isinf(z) or self.isnan(z))
+
+    def isregular(self, z):
+        z = self.t(z)
+        return self.isnumber(z) and (z != self.t(0))
+
+    def isunordered(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.isnan(x) or self.isnan(y)
+
+    def fitsint32(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-2147483648')) and (z <= self.t('2147483647'))
+
+    def fitsint64(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-9223372036854775808')) and (z <= self.t('9223372036854775807'))
+
+
+
+
+
+
+
 
     def isfinite(self, z):
         return dp.isfinite(z)
@@ -806,17 +933,133 @@ class dpm():
     def isint(self, z):
         return dp.isint(z)
 
+
+    def copysign(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.abs(x) * self.sign(y)
+
+
+    def fdim(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        if (x > y): return x - y
+        else: return self.zero
+
+
+
     def ldexp(self, x, n):
         return dp.ldexp(x, n)
 
+    def scalbn(self, x, n):
+        return self.ldexp(x, n)
+
+    def scalbln(self, x, n):
+        return self.ldexp(x, n)
+
+
+
     def frexp(self, x):
         return dp.frexp(x)
+
+
+    def logb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return self.t(res[1] - 1)
+
+
+    def ilogb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return int(res[1] - 1)
+
 
     def mag(self, x):
         return dp.mag(x)
 
     def nint_distance(self, x):
         return dp.nint_distance(x)
+
+
+    def modf(self, x):
+        x = self.t(x)
+        return (self.trunc(x), self.fractionalpart(x))
+
+    def fmod(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        c = dec_context()
+        return c.remainder(x, y)
+
+
+    def frac(self, x):
+        x = self.t(x)
+        return x - self.floor(x)
+
+    def fractionalpart(self, x):
+        x = self.t(x)
+        s = self.sign(x)
+        x = abs(x)
+        res = x - self.floor(x)
+        return s * res
+
+
+
+
+
+    def remainder(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        c = dec_context()
+        return c.remainder_near(x, y)
+
+
+    def remquo(self, x, y):
+        from xlcalcnet import ereal
+        res1 = ereal.remquo(x, y)
+        i1 = int(res1.Item2)
+        res0 = self.remainder(x,y)
+        return (res0, i1)
+
+
+
+
+    def ulp(self, x):
+        x = self.t(x)
+        if x < 0: return self.ulp(-x)
+        if self.isposinf(x): return x
+        if self.iszero(x): return self.minposvalue()
+        res0 = self.nextafter(x, self.inf)
+        res = res0 - x
+        return res
+
+    def epsilon(self):
+        return self.eps
+
+    def maxvalue(self):
+        from decimal import Context, MAX_EMAX
+        d = Context(Emax=MAX_EMAX, prec=1).create_decimal('9e'+str(MAX_EMAX))
+        return d
+
+    def lowestvalue(self):
+        from decimal import Context, MAX_EMAX
+        d = Context(Emax=MAX_EMAX, prec=1).create_decimal('-9e'+str(MAX_EMAX))
+        #d = -d
+        return d
+
+    def minposvalue(self):
+        from decimal import Context, MIN_EMIN
+        d = Context(Emin=MIN_EMIN, prec=1).create_decimal('9e'+str(MIN_EMIN))
+        return d
+
+
+    def nextafter(self, x, y):
+        # See https://docs.python.org/3/library/math.html#math.nextafter
+        x = self.t(x)
+        y = self.t(y)
+        return x.next_toward(y)
+
 
 
 # %%%  2.8 Number generation
@@ -841,27 +1084,39 @@ class dpm():
 
     @property
     def zero(self):
-        return dp.zero
+        return +dp.zero
+
+    @property
+    def negzero(self):
+        return -dp.zero
 
     @property
     def one(self):
-        return dp.one
+        return +dp.one
 
     @property
     def j(self):
-        return dp.j
+        return +dp.j
+
+    @property
+    def onej(self):
+        return +dp.j
 
     @property
     def inf(self):
-        return dp.inf
+        return +dp.inf
 
     @property
     def ninf(self):
-        return dp.ninf
+        return +dp.ninf
+
+    @property
+    def neginf(self):
+        return +dp.ninf
 
     @property
     def nan(self):
-        return dp.nan
+        return +dp.nan
 
 
 
@@ -892,6 +1147,10 @@ class dpm():
 
     @property
     def euler(self):
+        return +dp.euler
+
+    @property
+    def egamma(self):
         return +dp.euler
 
     @property
@@ -1051,51 +1310,60 @@ class dpm():
 
 # %%%  3.2 Logarithms and related functions
 
-    def logb(self, z, b):
-        z = self.t(z)
-        b = self.t(b)
-        return self._f2(ipm.logb, z, b)
+##    def logb(self, z, b):
+##        z = self.t(z)
+##        b = self.t(b)
+##        return self._f2(ipm.logb, z, b)
 
     def ln(self, z):
         z = self.t(z)
         if isinstance(z, D):
             return z.ln()   # use the built-in routine
         else:
-            return self._f1(ipm.ln, z)
+            return self._f1(ipm.ln, z + self.t(0+0j))
 
     def log(self, z):
         z = self.t(z)
         if isinstance(z, D):
-            return z.ln()   # use the built-in routine
+            if (z>=0): return z.ln()   # use the built-in routine
+            else: return self._f1(ipm.ln, z + self.t(0+0j))
         else:
             return self._f1(ipm.ln, z)
 
     def log1p(self, z):
         z = self.t(z)
+        if isinstance(z, D):
+            if (z < -1):
+                z = z + self.t(0+0j)
         return self._f1(ipm.log1p, z)
+
 
     def log10(self, z):
         z = self.t(z)
         if isinstance(z, D):
-            return z.log10()   # use the built-in routine
+            if (z>=0): return z.log10()   # use the built-in routine
+            else: return self._f1(ipm.log10, z + self.t(0+0j))
         else:
             return self._f1(ipm.log10, z)
 
     def log2(self, z):
         z = self.t(z)
+        if isinstance(z, D):
+            if (z < 0):
+                z = z + self.t(0+0j)
         return self._f1(ipm.log2, z)
 
     def log1mexp(self, z):
         z = self.t(z)
         return self._f1(ipm.log1mexp, z)
 
+
     def log2p1(self, z):
-        z = self.t(z)
-        return self._f1(ipm.log2p1, z)
+        return self.log1p(z) / self.ln2
+
 
     def log10p1(self, z):
-        z = self.t(z)
-        return self._f1(ipm.log10p1, z)
+        return self.log1p(z) / self.ln10
 
     def ln1mexp(self, z):
         z = self.t(z)
@@ -1114,15 +1382,21 @@ class dpm():
         return self._f1(ipm.logit, z)
 
     def lambertw(self, z, k=0):
-        z = self.t(z)
-        k = int(k)
-        return self._f2(ipm.lambertw, z, k)
+        return self.nan
+
+    def lambert_wk(self, z, k=0):
+        return self.nan
+
+    def lambert_w0(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        return self.nan
+
+    def lambert_wm1(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        return self.nan
 
     def agm(self, a, b=1):
-        a = self.t(a)
-        b = self.t(b)
-        #return self._fm2(mpm.agm, a, b)
-        return a
+        return self.nan
 
 
 # %%%  3.3 Square, roots and power functions
@@ -1131,17 +1405,32 @@ class dpm():
         z = self.t(z)
         return z * z
 
+    def sqr(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z
+
+    def cube(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z * z
+
+
     def sqrt(self, z):
         z = self.t(z)
         if isinstance(z, D):
             if (z>=0): return z.sqrt()   # use the built-in routine
-            else: return self._f1(ipm.sqrt, z)
+            else:
+                z = -z
+                res = z.sqrt()
+                res = res * self.j
+                return res
         else:
             return self._f1(ipm.sqrt, z)
 
     def rsqrt(self, z):
-        #res = 1/self.sqrt(z) # AttributeError: 'decimal.Decimal' object has no attribute '_DecCplx__real'
-        return z
+        res = self.sqrt(z)
+        return 1/res
 
     def sqrt1pm1(self, z):
         z = self.t(z)
@@ -1161,6 +1450,9 @@ class dpm():
             z = DecCplx(z, D(0))
         n = int(n)
         return self._f2(ipm.nthroot, z, n)
+
+    def root_si(self, z, n):
+        return self.nthroot(z, n)
 
     def unitroot(self, k, n):
         k = D(int(k))
@@ -1182,6 +1474,10 @@ class dpm():
 
     def pow(self, a, b):
         return self.power(a, b)
+
+    def pow_si(self, x, n):
+        '''Returns pow(a, b) = exp(b*log(a)).'''
+        return pow(x, n)
 
     def powm1(self, a, b):
         a = self.t(a)
@@ -1323,8 +1619,8 @@ class dpm():
 
     def acos(self, z):
         z = self.t(z)
-        #return self._f1c(ipm.acos, z) # infinite loop
-        return z
+        return self._f1c(ipm.acos, z)
+
 
     def atan(self, z):
         z = self.t(z)
@@ -1396,8 +1692,8 @@ class dpm():
     def binomial(self, n, k):
         n = self.t(n)
         k = self.t(k)
-        # return self._f2(ipm.binomial, n, k) # infinite loop
-        return n
+        return self._f2(ipm.binomial, n, k) # infinite loop
+        #return n
 
     def multinomial(self, n, k):
         raise Exception("NOT IMPLEMENTED")
@@ -1407,12 +1703,26 @@ class dpm():
         n = self.t(n)
         return self._f2(ipm.rf, z, n)
 
+    def rising_factorial(self, z, n):
+        z = self.t(z)
+        n = self.t(n)
+        return self._f2(ipm.rf, z, n)
+
     def ff(self, z, n):
         z = self.t(z)
         n = self.t(n)
         return self._f2(ipm.ff, z, n)
 
+    def falling_factorial(self, z, n):
+        z = self.t(z)
+        n = self.t(n)
+        return self._f2(ipm.falling_factorial, z, n)
+
     def fac2(self, z):
+        z = self.t(z)
+        return self._f1(ipm.fac2, z)
+
+    def doublefactorial(self, z):
         z = self.t(z)
         return self._f1(ipm.fac2, z)
 
@@ -1423,11 +1733,20 @@ class dpm():
         z = self.t(z)
         return self._f1(ipm.gamma, z)
 
+    def gamma1pm1(self, z):
+        '''Returns gamma(z+1)-1.'''
+        z = self.t(z)
+        return self._f1(ipm.gamma1pm1, z)
+
     def rgamma(self, z):
         z = self.t(z)
         return self._f1(ipm.rgamma, z)
 
     def loggamma(self, z):
+        z = self.t(z)
+        return self._f1(ipm.loggamma, z)
+
+    def lgamma(self, z):
         z = self.t(z)
         return self._f1(ipm.loggamma, z)
 

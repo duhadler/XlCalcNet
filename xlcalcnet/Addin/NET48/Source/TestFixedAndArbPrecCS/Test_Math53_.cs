@@ -1590,8 +1590,10 @@ namespace TestXlCalcNetPrecCS
 
         public static void RunTestsFReal()
         {
-            TestRawOperations();
+            //TestRawOperations();
             //TestFRealRawOperations2();
+
+            Demo26RealElementaryFunctions();
         }
 
 

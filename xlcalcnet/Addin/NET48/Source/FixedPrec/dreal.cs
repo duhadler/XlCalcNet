@@ -771,6 +771,8 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(Double x)
         {
+            if (isnan(x) || isinf(x))
+                return false;
             return 0 != (Lib_FReal_Isinteger(ref x));
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Isinteger", CallingConvention = CallingConvention.Cdecl)]
@@ -850,6 +852,17 @@ namespace FixedPrecNet
             return isunordered(t(x), t(y));
         }
 
+        //public static void demo_maxmin()
+        //{
+        //    var res1 = Int32.MinValue;
+        //    var res2 = Int64.MinValue;
+        //    var res3 = Int32.MaxValue;
+        //    var res4 = Int64.MaxValue;
+        //    Console.WriteLine("Int32.MinValue = " + res1.ToString());
+        //    Console.WriteLine("Int64.MinValue = " + res2.ToString());
+        //    Console.WriteLine("Int32.MaxValue = " + res3.ToString());
+        //    Console.WriteLine("Int64.MaxValue = " + res4.ToString());
+        //}
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fitsint32/*' />
@@ -1307,6 +1320,40 @@ namespace FixedPrecNet
         {
             return remquo(t(x), t(y));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Double frac(Double x)
+        {
+            return x - floor(x);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Double frac(dynamic x)
+        {
+            return frac(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Double fractionalpart(Double x)
+        {
+            var s = sign(x);
+            x = abs(x);
+            return s * (x - floor(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Double fractionalpart(dynamic x)
+        {
+            return fractionalpart(t(x));
+        }
+
+
+
 
         #endregion
 
@@ -2736,7 +2783,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />
-        public static Double atan2(Double x, Double y)
+        public static Double atan2_(Double x, Double y)
         {
             Double res = 0.0;
             Lib_FReal_Atan2(ref res, ref x, ref y);
@@ -2744,6 +2791,13 @@ namespace FixedPrecNet
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Atan2", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void Lib_FReal_Atan2(ref Double res, ref Double x, ref Double y);
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />
+        public static Double atan2(Double x, Double y)
+        {
+            return atan2_(t(x), t(y));
+        }
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/atan2/*' />

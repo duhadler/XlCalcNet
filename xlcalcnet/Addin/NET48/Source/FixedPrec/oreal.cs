@@ -1275,6 +1275,8 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(Octuple x)
         {
+            if (isnan(x) || isinf(x))
+                return false;
             return 0 != (Lib_OReal_Isinteger(x.mpPtr));
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_OReal_Isinteger", CallingConvention = CallingConvention.Cdecl)]
@@ -1865,6 +1867,40 @@ namespace FixedPrecNet
         {
             return remquo(t(x), t(y));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Octuple frac(Octuple x)
+        {
+            return x - floor(x);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Octuple frac(dynamic x)
+        {
+            return frac(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Octuple fractionalpart(Octuple x)
+        {
+            var s = sign(x);
+            x = abs(x);
+            return s * (x - floor(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Octuple fractionalpart(dynamic x)
+        {
+            return fractionalpart(t(x));
+        }
+
+
+
 
         #endregion
 

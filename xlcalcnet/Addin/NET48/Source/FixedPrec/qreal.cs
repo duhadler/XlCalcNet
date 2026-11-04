@@ -1272,6 +1272,8 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/isinteger/*' />
         public static bool isinteger(Quadruple x)
         {
+            if (isnan(x) || isinf(x))
+                return false;
             return 0 != (Lib_QReal_Isinteger(x.mpPtr));
         }
         [DllImport(xcn.mpNum, EntryPoint = "Lib_QReal_Isinteger", CallingConvention = CallingConvention.Cdecl)]
@@ -1861,6 +1863,40 @@ namespace FixedPrecNet
         {
             return remquo(t(x), t(y));
         }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Quadruple frac(Quadruple x)
+        {
+            return x - floor(x);
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/frac/*' />
+        public static Quadruple frac(dynamic x)
+        {
+            return frac(t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Quadruple fractionalpart(Quadruple x)
+        {
+            var s = sign(x);
+            x = abs(x);
+            return s * (x - floor(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/fractionalpart/*' />
+        public static Quadruple fractionalpart(dynamic x)
+        {
+            return fractionalpart(t(x));
+        }
+
+
+
 
         #endregion
 

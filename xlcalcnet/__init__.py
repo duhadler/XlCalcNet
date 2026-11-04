@@ -298,6 +298,21 @@ if (platform.system()=='Windows'):
     gui._set_ctxlist_real(ctxlist_real)
 
 
+    ctxlist_noboost_real = []
+    try:
+        ctxlist_noboost_real = [fpm, mpm, dpm, ipm]
+        if use_gpm: ctxlist_noboost_real.append(gpm)
+        if use_apm: ctxlist_noboost_real.append(apm)
+
+        ctxlist_noboost_real += [math53]
+        if use_xlcalcnet2: ctxlist_noboost_real += [sflint, dflint, eflint, qflint, oflint, \
+            mflint, aflint]
+    except:
+        print("ctxlist_noboost_real is not available")
+
+    gui._set_ctxlist_noboost_real(ctxlist_noboost_real)
+
+
     ctxlist_cplx = []
     try:
         ctxlist_cplx = [fpm, mpm, dpm, ipm]
@@ -311,6 +326,21 @@ if (platform.system()=='Windows'):
         print("ctxlist_cplx is not available")
 
     gui._set_ctxlist_cplx(ctxlist_cplx)
+
+
+    ctxlist_noboost_cplx = []
+    try:
+        ctxlist_noboost_cplx = [fpm, mpm, dpm, ipm]
+        if use_gpm: ctxlist_noboost_cplx.append(gpm)
+        if use_apm: ctxlist_noboost_cplx.append(apm)
+
+        ctxlist_noboost_cplx += [cmath53]
+        if use_xlcalcnet2: ctxlist_noboost_cplx += [sflintc, dflintc, eflintc, qflintc, oflintc, \
+            mflintc, aflintc]
+    except:
+        print("ctxlist_noboost_cplx is not available")
+
+    gui._set_ctxlist_noboost_cplx(ctxlist_noboost_cplx)
 
 
     ctxlist_pm_user = []

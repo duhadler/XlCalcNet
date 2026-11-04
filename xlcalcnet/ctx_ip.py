@@ -215,36 +215,20 @@ class IPContext(StandardBaseContext):
 
     def isint(ctx, z):
         z = ctx.convert(z)
-        if z.imag:
-            return False
-        return z.real.is_integer()
+        return (z.a==z.b) and _mp.isint(_mp.convert(z))
+        #return z.real.is_integer()
 
     def isnpint(ctx, z):
         z = ctx.convert(z)
         if z.imag:
             return False
-        return z.real <= 0.0 and z.real.is_integer()
+        return z.real <= 0.0 and mp.isint(mp.convert(z))
 
     def fraction(ctx, p, q):
         return ctx.constant(lambda: mathip.get_from_rational(p, q), '%s/%s' % (p, q))
         # return ctx.constant(lambda prec, rnd: mathip.get_from_rational(p,q), '%s/%s' % (p, q))
         # return ctx.constant(lambda prec, rnd: from_rational(p, q, prec, rnd), '%s/%s' % (p, q))
 
-#    def nint_distance(ctx, z):
-#        n = round(z.real)
-#        if n == z:
-#            return n, ctx.ninf
-#        return n, ctx.mag(abs(z-n))
-
-
-#    def nint_distance(ctx, z):
-#        if hasattr(z, "imag"):   # float/int don't have .real/.imag in py2.5
-#            n = round(z.real)
-#        else:
-#            n = round(z)
-#        if n == z:
-#            return n, ctx.ninf
-#        return n, ctx.mag(abs(z-n))
 
     def convert(ctx, x):
         return mathip.t(x)

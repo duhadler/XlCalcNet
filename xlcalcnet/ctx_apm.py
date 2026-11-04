@@ -10,7 +10,7 @@ ap = ctx_ap.APContext()
 
 from xlcalcnet import ctx_shared
 ctxm = ctx_shared.ctxUtil()
-
+from xlcalcnet.mpmath import mp
 
 class apm():
 
@@ -111,6 +111,17 @@ class apm():
 # %%%  2.2 Arithmetic operations
 
 
+    def fma(self, x, y, z):
+        return x * y + z
+
+    def fmax(self, x, y):
+        if (x >= y): return x
+        else: return y
+
+    def fmin(self, x, y):
+        if (x <= y): return x
+        else: return y
+
 
 
     def fadd(self, x, y, **kwargs):
@@ -128,8 +139,8 @@ class apm():
     def fdiv(self, x, y, **kwargs):
         return ap.fdiv(x, y, **kwargs)
 
-    def fmod(self, x, y):
-        return ap.fdiv(x, y)
+##    def fmod(self, x, y):
+##        return ap.fdiv(x, y)
 
     def fsum(self, terms, absolute=False, squared=False):
         return ap.fsum(terms, absolute, squared)
@@ -221,12 +232,12 @@ class apm():
 
     def polar(self, z):
         z = self.t(z)
-        return ap.polar(z)
+        return (self.abs(z), self.phase(z))
 
     def rect(self, r, phi):
         r = self.t(r)
         phi = self.t(phi)
-        return ap.rect(r, phi)
+        return r * self.expj(phi)
 
 
 
@@ -239,10 +250,60 @@ class apm():
 
     def ceil(self, x):
         x = self.t(x)
-        return x.floor()
+        return x.ceil()
+
+
+
+
+    def rint(self, z):
+        return self.nint(z)
+
+    def nearbyint(self, z):
+        return self.nint(z)
+
+
+    def round(self, z):
+        z = self.t(z)
+        return self.nint(z)
+
+
+    def trunc(self, x):
+        x = self.t(x)
+        return self.floor(x) if x >= 0 else self.ceil(x)
+
+
+    def lrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = z.mid().str(radius=False)
+        return ereal.lrint(s)
+
+    def llrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = z.mid().str(radius=False)
+        return ereal.llrint(s)
+
+
+    def lround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = z.mid().str(radius=False)
+        return ereal.lround(s)
+
+    def llround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = z.mid().str(radius=False)
+        return ereal.llround(s)
+
 
     def nint(self, z):
-        return ap.nint(z)
+        z = self.t(z)
+        s = z.mid().str(radius=False)
+        x = mp.convert(s)
+        res = mp.nint(x)
+        return self.t(str(res))
 
     def frac(self, z):
         return ap.frac(z)
@@ -259,6 +320,12 @@ class apm():
 
 
 # %%%  2.7 Properties of numbers
+
+    def signbit(self, z):
+        if (z < 0): return 1
+        else: return 0
+
+
 
     def ismpf(self, z):
         return ap.ismpf(z)
@@ -286,6 +353,32 @@ class apm():
         z = self.t(z)
         return ap.isinf(z)
 
+
+
+
+    def isposinf(self, z):
+        z = self.t(z)
+        return ap.isinf(z) and z>0
+
+    def isneginf(self, z):
+        z = self.t(z)
+        return ap.isinf(z) and z<0
+
+    def iszero(self, z):
+        z = self.t(z)
+        return z==0
+
+    def isone(self, z):
+        z = self.t(z)
+        return z==1
+
+    def isinteger(self, z):
+        z = self.t(z)
+        return ap.isint(z)
+
+
+
+
     def isnan(self, z):
         z = self.t(z)
         return ap.isnan(z)
@@ -293,6 +386,35 @@ class apm():
     def isnormal(self, z):
         z = self.t(z)
         return ap.isnormal(z)
+
+
+
+
+    def isnumber(self, z):
+        z = self.t(z)
+        return not(self.isinf(z) or self.isnan(z))
+
+    def isregular(self, z):
+        z = self.t(z)
+        return self.isnumber(z) and (z != self.t(0))
+
+    def isunordered(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.isnan(x) or self.isnan(y)
+
+    def fitsint32(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-2147483648')) and (z <= self.t('2147483647'))
+
+    def fitsint64(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-9223372036854775808')) and (z <= self.t('9223372036854775807'))
+
+
+
 
     def isfinite(self, z):
         z = self.t(z)
@@ -308,13 +430,57 @@ class apm():
         return ap.isnpint(z)
 
 
-    def ldexp(self, z, k):
+
+
+    def copysign(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.abs(x) * self.sign(y)
+
+
+    def fdim(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        if (x > y): return x - y
+        else: return self.zero
+
+
+    def ldexp(self, z, e):
         z = self.t(z)
-        return ap.ldexp(z, k)
+        e = int(e)
+        return z * 2**e
+
+    def scalbn(self, x, n):
+        return self.ldexp(x, n)
+
+    def scalbln(self, x, n):
+        return self.ldexp(x, n)
+
+
 
     def frexp(self, z):
         z = self.t(z)
-        return ap.frexp(z)
+        if self.isnormal(z):
+            s = z.mid().str(radius=False)
+            x = mp.convert(s)
+            res = mp.frexp(x)
+            return (self.t(str(res[0])), res[1])
+        else: return (z, 0)
+
+
+    def logb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return self.t(res[1] - 1)
+
+
+    def ilogb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return int(res[1] - 1)
+
+
+
 
     def mag(self, z):
         z = self.t(z)
@@ -323,6 +489,77 @@ class apm():
     def nint_distance(self, z):
         z = self.t(z)
         return ap.nint_distance(z)
+
+
+    def modf(self, x):
+        x = self.t(x)
+        return (self.trunc(x), self.fractionalpart(x))
+
+    def fmod(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        res = x - y * self.floor(x/y)
+        return res
+
+    def frac(self, x):
+        x = self.t(x)
+        return x - self.floor(x)
+
+    def fractionalpart(self, x):
+        x = self.t(x)
+        s = self.sign(x)
+        x = abs(x)
+        res = x - self.floor(x)
+        return s * res
+
+
+
+    def remainder(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        n = self.nint(x/y)
+        res = x - n * y
+        return res
+
+
+    def remquo(self, x, y):
+        from xlcalcnet import ereal
+        res1 = ereal.remquo(x, y)
+        i1 = int(res1.Item2)
+        res0 = self.remainder(x,y)
+        return (res0, i1)
+
+
+    def ulp(self, x):
+        # Note: eps = ulp(0)
+        x = mp.convert(x)
+        if x < 0: x = -x
+        # See https://github.com/mpmath/mpmath/issues/1020
+        # See https://docs.python.org/3/library/math.html#math.ulp
+        _, _, e, bc = x._mpf_
+        res = mp.mpf((0, 1, e + (bc - mp.prec), 1))
+        return self.t(str(res))
+
+    def epsilon(self):
+        return self.eps
+
+    def maxvalue(self):
+        return self.t('2.09857871646738769240435811688383907063809796547335262778664622571024044777576820818355304E+323228496')
+
+    def lowestvalue(self):
+        return self.t('-2.09857871646738769240435811688383907063809796547335262778664622571024044777576820818355304E+323228496')
+
+    def minposvalue(self):
+        return self.t('2.38256490488795107321616978173267452041519612555923978795502375260094538610432437489305775E-323228497')
+
+
+    def nextafter(self, x, y):
+        # See https://docs.python.org/3/library/math.html#math.nextafter
+        x = self.t(x)
+        y = self.t(y)
+        if x == y: return y
+        if x < y: return x + self.ulp(x)
+        if x > y: return x - self.ulp(x)
 
 
 
@@ -351,27 +588,39 @@ class apm():
 
     @property
     def zero(self):
-        return ap.zero
+        return +ap.zero
+
+    @property
+    def negzero(self):
+        return -ap.zero
 
     @property
     def one(self):
-        return ap.one
+        return +ap.one
 
     @property
     def j(self):
-        return ap.j
+        return +ap.j
+
+    @property
+    def onej(self):
+        return +ap.j
 
     @property
     def inf(self):
-        return ap.inf
+        return +ap.inf
 
     @property
     def ninf(self):
-        return ap.ninf
+        return +ap.ninf
+
+    @property
+    def neginf(self):
+        return +ap.ninf
 
     @property
     def nan(self):
-        return ap.nan
+        return +ap.nan
 
 
 
@@ -381,51 +630,55 @@ class apm():
 
     @property
     def eps(self):
-        return arb((2,-self.prec))
+        return +arb((2,-self.prec))
 
     @property
     def ln2(self):
-        return arb.const_log2()
+        return +arb.const_log2()
 
     @property
     def ln10(self):
-        return arb.const_log10()
+        return +arb.const_log10()
 
     @property
     def pi(self):
-        return arb.pi()
+        return +arb.pi()
 
     @property
     def e(self):
-        return arb.const_e()
+        return +arb.const_e()
 
     @property
     def euler(self):
-        return arb.const_euler()
+        return +arb.const_euler()
+
+    @property
+    def egamma(self):
+        return +arb.const_euler()
 
     @property
     def phi(self):
-        return (1+arb(5).sqrt())/2
+        return +(1+arb(5).sqrt())/2
 
     @property
     def catalan(self):
-        return arb.const_catalan()
+        return +arb.const_catalan()
 
     @property
     def khinchin(self):
-        return arb.const_khinchin()
+        return +arb.const_khinchin()
 
     @property
     def glaisher(self):
-        return arb.const_glaisher()
+        return +arb.const_glaisher()
 
     @property
     def apery(self):
-        return arb(3).zeta()
+        return +arb(3).zeta()
 
     @property
     def degree(self):
-        return arb.pi() / arb(180)
+        return +arb.pi() / arb(180)
 
 
 
@@ -593,19 +846,25 @@ class apm():
 
 # %%%  3.2 Logarithms and related functions
 
-    def logb(self, z, b):
-        z = self.t(z)
-        b = self.t(b)
-        return self.log(z) / self.log(b)
+##    def logbase(self, z, b):
+##        z = self.t(z)
+##        b = self.t(b)
+##        return self.log(z) / self.log(b)
 
     def ln(self, z):
         z = self.t(z)
         return self.log(z)
 
-    def log(self, z):
+    def log(self, z, base=None):
         z = self.t(z)
-        if isinstance(z, arb): return arb(z).log()
-        return acb(z).log()
+        if base is None:
+            if isinstance(z, arb): return arb(z).log()
+            else: return acb(z).log()
+        else:
+            if isinstance(z, arb) and isinstance(base, arb):
+                return arb(z).log() / arb(base).log()
+            return acb(z).log()
+
 
     def log1p(self, z):
         z = self.t(z)
@@ -614,12 +873,15 @@ class apm():
 
     def log10(self, z):
         z = self.t(z)
-        return self.logb(z,10)
+        return self.log(z)/self.ln10
 
     def log2(self, z):
         z = self.t(z)
-        if isinstance(z, arb): return arb(z).log2()
-        return acb(z).log2()
+##        return self.log(z,2)
+        return self.log(z)/self.ln2
+
+##        if isinstance(z, arb): return arb(z).log2()
+##        return acb(z).log2()
 
     def log1mexp(self, z):
         z = self.t(z)
@@ -658,8 +920,24 @@ class apm():
     def lambertw(self, z, k):
         z = self.t(z)
         k = int(k)
-        if isinstance(z, arb): return arb(z).lambertw()
+        if isinstance(z, arb): return arb(z).lambertw(k)
         return acb(z).lambertw(k)
+
+    def lambert_wk(self, z, k):
+        z = self.t(z)
+        k = int(k)
+        if isinstance(z, arb): return arb(z).lambertw(k)
+        return acb(z).lambertw(k)
+
+    def lambert_w0(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, 0)
+
+    def lambert_wm1(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, -1)
 
     def agm(self, a, b=1):
         a = self.t(a)
@@ -673,6 +951,17 @@ class apm():
     def square(self, z):
         z = self.t(z)
         return z * z
+
+    def sqr(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z
+
+    def cube(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z * z
+
 
     def sqrt(self, z):
         z = self.t(z)
@@ -702,6 +991,10 @@ class apm():
         z = self.t(z)
         return self.exp(self.log(z)/n)
 
+    def root_si(self, z, n):
+        return self.nthroot(z, n)
+
+
     def unitroot(self, k, n):
         return self.exp((2j*k*self.pi)/n)
 
@@ -719,6 +1012,11 @@ class apm():
         a = self.t(a)
         b = self.t(b)
         return a**b
+
+    def pow_si(self, x, n):
+        '''Returns pow(a, b) = exp(b*log(a)).'''
+        return pow(x, n)
+
 
     def powm1(self, a, b):
         a = self.t(a)
@@ -902,26 +1200,20 @@ class apm():
         x = self.t(x)
         y = self.t(y)
         if isinstance(x, arb) and isinstance(y, arb):
-            return arb(x).atan2(y)
+            return arb.atan2(x, y)
         raise Exception("NOT IMPLEMENTED")
 
     def asec(self, z):
         z = self.t(z)
         return self.acos(1/z)
-##        if isinstance(z, arb): return arb(z).asec()
-##        return acb(z).asec()
 
     def acsc(self, z):
         z = self.t(z)
         return self.asin(1/z)
-##        if isinstance(z, arb): return arb(z).acsc()
-##        return acb(z).acsc()
 
     def acot(self, z):
         z = self.t(z)
         return self.atan(1/z)
-##        if isinstance(z, arb): return arb(z).acot()
-##        return acb(z).acot()
 
     def gd(self, z):
         z = self.t(z)
@@ -992,7 +1284,17 @@ class apm():
         n = self.t(n)
         return self.gamma(z+n) / self.gamma(z)
 
+    def rising_factorial(self, z, n):
+        z = self.t(z)
+        n = self.t(n)
+        return self.gamma(z+n) / self.gamma(z)
+
     def ff(self, z, n):
+        z = self.t(z)
+        n = self.t(n)
+        return self.gamma(z+1) / self.gamma(z-n+1)
+
+    def falling_factorial(self, z, n):
         z = self.t(z)
         n = self.t(n)
         return self.gamma(z+1) / self.gamma(z-n+1)
@@ -1002,6 +1304,12 @@ class apm():
         w = 0.25*(self.cospi(z)-1)
         return 2**(0.5*z) * (0.5*self.pi)**w * self.gamma(0.5*z+1)
 
+    def doublefactorial(self, z):
+        z = self.t(z)
+        w = 0.25*(self.cospi(z)-1)
+        return 2**(0.5*z) * (0.5*self.pi)**w * self.gamma(0.5*z+1)
+
+
 
 # %%%  3.9 Gamma function and related functions
 
@@ -1010,6 +1318,11 @@ class apm():
         if isinstance(z, arb): return arb(z).gamma()
         return acb(z).gamma()
 
+    def gamma1pm1(self, z):
+        '''Returns gamma(z+1)-1.'''
+        z = self.t(z)
+        return self.gamma(z+1)-1
+
     def rgamma(self, z):
         z = self.t(z)
         if isinstance(z, arb): return arb(z).rgamma()
@@ -1017,22 +1330,23 @@ class apm():
 
     def loggamma(self, z):
         z = self.t(z)
-        if isinstance(z, arb): return arb(z).loggamma()
-        return acb(z).loggamma()
+        if isinstance(z, arb): return arb(z).lgamma()
+        return acb(z).lgamma()
+
+    def lgamma(self, z):
+        z = self.t(z)
+        if isinstance(z, arb): return arb(z).lgamma()
+        return acb(z).lgamma()
 
     def beta(self, a, b):
         a = self.t(a)
         b = self.t(b)
-        if isinstance(a, arb) and isinstance(b, arb):
-            return arb(a).beta(b)
-        return acb(a).beta(b)
+        return self.gamma(a) * self.gamma(b) / self.gamma(a+b)
 
     def gamma_ratio(self, a, b):
         a = self.t(a)
         b = self.t(b)
-        if isinstance(a, arb) and isinstance(b, arb):
-            return arb(a).gammaratio(b)
-        return acb(a).gammaratio(b)
+        return self.gamma(a) / self.gamma(b)
 
     def gamma_delta_ratio(self, a, delta):
         a = self.t(a)

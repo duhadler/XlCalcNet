@@ -2815,6 +2815,39 @@ namespace TestXlCalcNetPrecCS
             }
 
 
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("lambert_wk"))
+            {
+                InputArray1 = new[] { dcplx.t(-4.333d), 0.0d, 4.333d };
+                InputArrayInt1 = new[] { 1, 2, 3 };
+                foreach (var x in InputArray1)
+                {
+                    foreach (var k in InputArrayInt1)
+                    {
+                        foreach (var NumType in NumTypeArray)
+                        {
+                            object res1 = "Not done";
+                            switch (NumType ?? "")
+                            {
+                                case "cmath53": { res1 = cmath53.lambert_wk(x, k); break; }
+#if HasArbPrecNet
+                                case "sflintc": { res1 = sflintc.lambert_wk(x, k); break; }
+                                case "dflintc": { res1 = dflintc.lambert_wk(x, k); break; }
+                                case "eflintc": { res1 = eflintc.lambert_wk(x, k); break; }
+                                case "qflintc": { res1 = qflintc.lambert_wk(x, k); break; }
+                                case "oflintc": { res1 = oflintc.lambert_wk(x, k); break; }
+                                case "mflintc": { res1 = mflintc.lambert_wk(x, k); break; }
+                                case "aflintc": { res1 = aflintc.lambert_wk(x, k); break; }
+#endif
+                            }
+                            Console.WriteLine("{0}: lambert_wk({1}, {2}): " + f(NumType) + "{3}", NumType, x, k, res1);
+                        }
+                    }
+                }
+                Console.WriteLine();
+            }
+
+
+
             if (FunctionArray.Contains("all") | FunctionArray.Contains("agm"))
             {
                 InputArray1 = new[] { dcplx.t(-4.333d), 0.0d, 4.333d };
@@ -2845,6 +2878,7 @@ namespace TestXlCalcNetPrecCS
                 }
                 Console.WriteLine();
             }
+
 
 
             #endregion

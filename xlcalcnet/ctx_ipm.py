@@ -119,6 +119,18 @@ class ipm():
 # This is implemented in fp, mp, iv, dp, gp, ap
 
 
+    def fma(self, x, y, z):
+        return x * y + z
+
+    def fmax(self, x, y):
+        if (x >= y): return x
+        else: return y
+
+    def fmin(self, x, y):
+        if (x <= y): return x
+        else: return y
+
+
     def fadd(self, x, y, **kwargs):
         return ip.fadd(x, y, **kwargs)
 
@@ -134,8 +146,6 @@ class ipm():
     def fdiv(self, x, y, **kwargs):
         return ip.fdiv(x, y, **kwargs)
 
-    def fmod(self, x, y):
-        return ip.fdiv(x, y)
 
     def fsum(self, terms, absolute=False, squared=False):
         return ip.fsum(terms, absolute, squared)
@@ -230,10 +240,13 @@ class ipm():
             return iv.mpc(x, y)
 
     def polar(self, z):
-        return mp.polar(z)
+        z = self.t(z)
+        return iv.polar(z)
 
     def rect(self, r, phi):
-        return mp.rect(r, phi)
+        r = self.t(r)
+        phi = self.t(phi)
+        return iv.rect(r, phi)
 
 
 
@@ -252,10 +265,60 @@ class ipm():
         return iv.mpf(t)
 
 
+
+
+
+    def rint(self, z):
+        return self.nint(z)
+
+    def nearbyint(self, z):
+        return self.nint(z)
+
+
+
+    def round(self, z):
+        z = self.t(z)
+        return self.nint(z)
+
+
+    def trunc(self, x):
+        x = self.t(x)
+        return self.floor(x) if x >= 0 else self.ceil(x)
+
+
+    def lrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = str(mp.mpf(z.mid))
+        return ereal.lrint(s)
+
+    def llrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = str(mp.mpf(z.mid))
+        return ereal.llrint(s)
+
+
+    def lround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = str(mp.mpf(z.mid))
+        return ereal.lround(s)
+
+    def llround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = str(mp.mpf(z.mid))
+        return ereal.llround(s)
+
+
+
     def nint(self, z):
+        z = self.t(z)
         return ip.nint(z)
 
     def frac(self, z):
+        z = self.t(z)
         return ip.frac(z)
 
 
@@ -271,6 +334,12 @@ class ipm():
 
 # %%%  2.7 Properties of numbers
 
+    def signbit(self, z):
+        if (z < 0): return 1
+        else: return 0
+
+
+
     def ismpf(self, z):
         return isinstance(z, iv.mpf)
 
@@ -282,6 +351,33 @@ class ipm():
         z = self.t(z)
         return ip.isinf(z)
 
+
+
+
+    def isposinf(self, z):
+        z = self.t(z)
+        return ip.isinf(z) and z>0
+
+    def isneginf(self, z):
+        z = self.t(z)
+        return ip.isinf(z) and z<0
+
+    def iszero(self, z):
+        z = self.t(z)
+        return z==0
+
+    def isone(self, z):
+        z = self.t(z)
+        return z==1
+
+    def isinteger(self, z):
+        z = self.t(z)
+        return ip.isint(z)
+
+
+
+
+
     def isnan(self, z):
         z = self.t(z)
         return ip.isnan(z)
@@ -289,6 +385,36 @@ class ipm():
     def isnormal(self, z):
         z = self.t(z)
         return ip.isnormal(z)
+
+
+
+
+    def isnumber(self, z):
+        z = self.t(z)
+        return not(self.isinf(z) or self.isnan(z))
+
+    def isregular(self, z):
+        z = self.t(z)
+        return self.isnumber(z) and (z != self.t(0))
+
+    def isunordered(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.isnan(x) or self.isnan(y)
+
+    def fitsint32(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-2147483648')) and (z <= self.t('2147483647'))
+
+    def fitsint64(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-9223372036854775808')) and (z <= self.t('9223372036854775807'))
+
+
+
+
 
     def isfinite(self, z):
         z = self.t(z)
@@ -298,13 +424,50 @@ class ipm():
         z = self.t(z)
         return ip.isint(z)
 
+
+    def copysign(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.abs(x) * self.sign(y)
+
+
+    def fdim(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        if (x > y): return x - y
+        else: return self.zero
+
+
+
     def ldexp(self, x, n):
         x = self.t(x)
         return ip.ldexp(x, n)
 
+    def scalbn(self, x, n):
+        return self.ldexp(x, n)
+
+    def scalbln(self, x, n):
+        return self.ldexp(x, n)
+
+
+
     def frexp(self, x):
         x = self.t(x)
         return ip.frexp(x)
+
+
+    def logb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return self.t(res[1] - 1)
+
+
+    def ilogb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return int(res[1] - 1)
+
+
 
     def mag(self, x):
         x = self.t(x)
@@ -313,6 +476,88 @@ class ipm():
     def nint_distance(self, x):
         x = self.t(x)
         return ip.nint_distance(x)
+
+
+    def modf(self, x):
+        x = self.t(x)
+        return (self.trunc(x), self.fractionalpart(x))
+
+
+    def fmod(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        l = mp.fmod(mp.mpf(x.a), mp.mpf(y.a))
+        r = mp.fmod(mp.mpf(x.b), mp.mpf(y.b))
+        #return self.union(res1, res2)
+        if (l<r): return iv.mpf([l, r])
+        else: return iv.mpf([r, l])
+
+
+    def frac(self, x):
+        x = self.t(x)
+        return x - self.floor(x)
+
+    def fractionalpart(self, x):
+        x = self.t(x)
+        s = self.sign(x)
+        x = abs(x)
+        res = x - self.floor(x)
+        return s * res
+
+
+
+    def remainder(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        n = self.nint(x/y)
+        res = x - n * y
+        return res
+
+
+    def remquo(self, x, y):
+        from xlcalcnet import ereal
+        res1 = ereal.remquo(x, y)
+        i1 = int(res1.Item2)
+##        print(res1)
+##        print(i1)
+        res0 = self.remainder(x,y)
+        return (res0, i1)
+
+
+    def ulp(self, x):
+        # Note: eps = ulp(0)
+        x = self.t(x)
+        x = mp.mpf(x.mid)
+        if x < 0: return self.ulp(-x)
+        if self.isposinf(x): return x
+        if self.iszero(x): return self.minposvalue()
+        # See https://github.com/mpmath/mpmath/issues/1020
+        # See https://docs.python.org/3/library/math.html#math.ulp
+        _, _, e, bc = x._mpf_
+        res = mp.mpf((0, 1, e + (bc - mp.prec), 1))
+        return self.t(str(res))
+
+    def epsilon(self):
+        return self.eps
+
+    def maxvalue(self):
+        return self.t('2.09857871646738769240435811688383907063809796547335262778664622571024044777576820818355304E+323228496')
+
+    def lowestvalue(self):
+        return self.t('-2.09857871646738769240435811688383907063809796547335262778664622571024044777576820818355304E+323228496')
+
+    def minposvalue(self):
+        return self.t('2.38256490488795107321616978173267452041519612555923978795502375260094538610432437489305775E-323228497')
+
+
+    def nextafter(self, x, y):
+        # See https://docs.python.org/3/library/math.html#math.nextafter
+        x = self.t(x)
+        y = self.t(y)
+        if x == y: return y
+        if x < y: return x + self.ulp(x)
+        if x > y: return x - self.ulp(x)
+
 
 
 
@@ -339,27 +584,39 @@ class ipm():
 
     @property
     def zero(self):
-        return ip.zero
+        return +ip.zero
+
+    @property
+    def negzero(self):
+        return -ip.zero
 
     @property
     def one(self):
-        return ip.one
+        return +ip.one
 
     @property
     def j(self):
-        return ip.j
+        return +ip.j
+
+    @property
+    def onej(self):
+        return +ip.j
 
     @property
     def inf(self):
-        return ip.inf
+        return +ip.inf
 
     @property
     def ninf(self):
-        return ip.ninf
+        return +ip.ninf
+
+    @property
+    def neginf(self):
+        return +ip.ninf
 
     @property
     def nan(self):
-        return ip.nan
+        return +ip.nan
 
 
 
@@ -391,6 +648,10 @@ class ipm():
 
     @property
     def euler(self):
+        return +ip.euler
+
+    @property
+    def egamma(self):
         return +ip.euler
 
     @property
@@ -578,29 +839,34 @@ class ipm():
 
 # %%%  3.2 Logarithms and related functions
 
-    def logb(self, z, b):
-        z = self.t(z)
-        b = self.t(b)
-        return iv.log(z, b)
+##    def logb(self, z, b):
+##        z = self.t(z)
+##        b = self.t(b)
+##        return iv.log(z, b)
 
     def ln(self, z):
         z = self.t(z)
+        if (z.real.a<0): z=z+0j
         return iv.ln(z)
 
-    def log(self, z):
+    def log(self, z, base=None):
         z = self.t(z)
+        if (z.real.a<0): z=z+0j
         return iv.ln(z)
 
     def log1p(self, z):
         z = self.t(z)
+        if (z.real.a < -1): z=z+0j
         return iv.log1p(z)
 
     def log10(self, z):
         z = self.t(z)
+        if (z.real.a<0): z=z+0j
         return iv.log10(z)
 
     def log2(self, z):
         z = self.t(z)
+        if (z.real.a<0): z=z+0j
         return iv.log(z, 2)
 
     def log1mexp(self, z):
@@ -614,11 +880,14 @@ class ipm():
 
     def log2p1(self, z):
         z = self.t(z)
-        return iv.log1p(z) / iv.ln(2)
+        if (z.real.a < -1): z=z+0j
+        return self.log1p(z) / iv.ln(2)
 
     def log10p1(self, z):
         z = self.t(z)
-        return iv.log1p(z) / iv.ln(10)
+        if (z.real.a < -1): z=z+0j
+
+        return self.log1p(z) / iv.ln(10)
 
     def ln1mexp(self, z):
         z = self.t(z)  # ComplexResult: logarithm of a negative number
@@ -640,11 +909,27 @@ class ipm():
 
     def lambertw(self, z, k=0):
         #raise Exception("NOT IMPLEMENTED")
-        return z
+        return self.nan
+
+    def lambert_wk(self, z, k=0):
+        #raise Exception("NOT IMPLEMENTED")
+
+
+        return self.nan
+
+    def lambert_w0(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, 0)
+
+    def lambert_wm1(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, -1)
 
     def agm(self, a, b=1):
         #raise Exception("NOT IMPLEMENTED")
-        return a
+        return self.nan
 
 
 # %%%  3.3 Square, roots and power functions
@@ -652,6 +937,17 @@ class ipm():
     def square(self, z):
         z = self.t(z)
         return z * z  # add special case for real
+
+    def sqr(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z
+
+    def cube(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z * z
+
 
     def sqrt(self, z):
         z = self.t(z)
@@ -661,7 +957,7 @@ class ipm():
         else:
             return iv.power(z, 0.5)
 
-    # !!NEW!!
+
     def rsqrt(self, z):
         z = self.t(z)
         return 1/self.sqrt(z)
@@ -686,6 +982,10 @@ class ipm():
         n = int(n)
         return iv.exp(iv.log(z)/n)
 
+    def root_si(self, z, n):
+        return self.nthroot(z, n)
+
+
     def unitroot(self, k, n):
         return self.exp((2j*k*self.pi)/n)
 
@@ -703,6 +1003,10 @@ class ipm():
         a = self.t(a)
         b = self.t(b)
         return iv.power(a, b)
+
+    def pow_si(self, x, n):
+        '''Returns pow(a, b) = exp(b*log(a)).'''
+        return pow(x, n)
 
 
     def powm1(self, a, b):
@@ -980,12 +1284,36 @@ class ipm():
         n = self.t(n)
         return iv.gamma(z+n) / iv.gamma(z)
 
+    def rising_factorial(self, z, n):
+        z = self.t(z)
+        n = self.t(n)
+        return iv.gamma(z+n) / iv.gamma(z)
+
     def ff(self, z, n):
         z = self.t(z)
         n = self.t(n)
         return iv.gamma(z+1) / iv.gamma(z-n+1)
 
+    def falling_factorial(self, z, n):
+        z = self.t(z)
+        n = self.t(n)
+        #print("z+1:", z+1 )
+        r1=iv.gamma(z+1)
+        #print("r1:", r1)
+
+
+        #print("z-n+1:", z-n+1 )
+        r2=iv.gamma(z-n+1)
+        #print("r2:", r2)
+
+        return r1 / r2
+
     def fac2(self, z):
+        z = self.t(z)
+        w = 0.25*(self.cospi(z)-1)
+        return 2**(0.5*z) * (0.5*self.pi)**w * iv.gamma(0.5*z+1)
+
+    def doublefactorial(self, z):
         z = self.t(z)
         w = 0.25*(self.cospi(z)-1)
         return 2**(0.5*z) * (0.5*self.pi)**w * iv.gamma(0.5*z+1)
@@ -997,11 +1325,20 @@ class ipm():
         z = self.t(z)
         return iv.gamma(z)
 
+    def gamma1pm1(self, z):
+        '''Returns gamma(z+1)-1.'''
+        z = self.t(z)
+        return self.gamma(z+1)-1
+
     def rgamma(self, z):
         z = self.t(z)
         return 1/iv.gamma(z)
 
     def loggamma(self, z):
+        z = self.t(z)
+        return iv.loggamma(z)
+
+    def lgamma(self, z):
         z = self.t(z)
         return iv.loggamma(z)
 

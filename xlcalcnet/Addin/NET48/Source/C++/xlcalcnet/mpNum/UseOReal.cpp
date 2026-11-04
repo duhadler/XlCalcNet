@@ -322,7 +322,7 @@ int Lib_OReal_Isinf(const ORealPtr x)
 
 int Lib_OReal_Isposinf(const ORealPtr x)
 {
-    return LibOReal_Isinf(x);
+    return LibOReal_Isposinf(x);
 }
 
 int Lib_OReal_Isneginf(const ORealPtr x)

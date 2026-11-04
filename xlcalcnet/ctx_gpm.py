@@ -150,6 +150,17 @@ class gpm():
 
 # This is implemented in fp, mp, iv, dp, gp, ap
 
+    def fma(self, x, y, z):
+        return x * y + z
+
+    def fmax(self, x, y):
+        if (x >= y): return x
+        else: return y
+
+    def fmin(self, x, y):
+        if (x <= y): return x
+        else: return y
+
 
     def fadd(self, x, y, **kwargs):
         return gp2.fadd(x, y, **kwargs)
@@ -166,8 +177,8 @@ class gpm():
     def fdiv(self, x, y, **kwargs):
         return gp2.fdiv(x, y, **kwargs)
 
-    def fmod(self, x, y):
-        return gp2.fdiv(x, y)
+##    def fmod(self, x, y):
+##        return gp2.fdiv(x, y)
 
     def fsum(self, terms, absolute=False, squared=False):
         return gp2.fsum(terms, absolute, squared)
@@ -301,11 +312,60 @@ class gpm():
         else:
             return gmpy2.mpc(gmpy2.ceil(z.real), gmpy2.ceil(z.imag))
 
+
+
+
+    def rint(self, z):
+        return self.nint(z)
+
+    def nearbyint(self, z):
+        return self.nint(z)
+
+
+
+    def round(self, z):
+        z = self.t(z)
+        return self.nint(z)
+
+
+    def trunc(self, x):
+        x = self.t(x)
+        return self.floor(x) if x >= 0 else self.ceil(x)
+
+
+    def lrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.lrint(s)
+
+    def llrint(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.llrint(s)
+
+
+    def lround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.lround(s)
+
+    def llround(self, z):
+        from xlcalcnet import ereal
+        z = self.t(z)
+        s = ereal.t(z)
+        return ereal.llround(s)
+
+
+
     def nint(self, z):
         return mp.nint(z)
 
     def frac(self, z):
         return mp.frac(z)
+
 
 
 
@@ -323,6 +383,12 @@ class gpm():
 
 # %%%  2.7 Properties of numbers
 
+    def signbit(self, z):
+        if (z < 0): return 1
+        else: return 0
+
+
+
     def ismpf(self, z):
         return gp2.ismpf(z)
 
@@ -333,11 +399,68 @@ class gpm():
     def isinf(self, z):
         return gp2.isinf(z)
 
+
+
+
+    def isposinf(self, z):
+        z = self.t(z)
+        return gp2.isinf(z) and z>0
+
+    def isneginf(self, z):
+        z = self.t(z)
+        return gp2.isinf(z) and z<0
+
+    def iszero(self, z):
+        z = self.t(z)
+        return z==0
+
+    def isone(self, z):
+        z = self.t(z)
+        return z==1
+
+    def isinteger(self, z):
+        z = self.t(z)
+        return gp2.isint(z)
+
+
+
+
+
     def isnan(self, z):
         return gp2.isnan(z)
 
     def isnormal(self, z):
         return gp2.isnormal(z)
+
+
+
+
+    def isnumber(self, z):
+        z = self.t(z)
+        return not(self.isinf(z) or self.isnan(z))
+
+    def isregular(self, z):
+        z = self.t(z)
+        return self.isnumber(z) and (z != self.t(0))
+
+    def isunordered(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.isnan(x) or self.isnan(y)
+
+    def fitsint32(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-2147483648')) and (z <= self.t('2147483647'))
+
+    def fitsint64(self, z):
+        z = self.t(z)
+        if not(self.isnumber(z)): return False
+        return (z >= self.t('-9223372036854775808')) and (z <= self.t('9223372036854775807'))
+
+
+
+
 
     def isfinite(self, z):
         return gp2.isfinite(z)
@@ -345,11 +468,49 @@ class gpm():
     def isint(self, z):
         return gp2.isint(z)
 
+
+
+    def copysign(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return self.abs(x) * self.sign(y)
+
+
+    def fdim(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        if (x > y): return x - y
+        else: return self.zero
+
+
     def ldexp(self, x, n):
         return gp2.ldexp(x, n)
 
+    def scalbn(self, x, n):
+        return self.ldexp(x, n)
+
+    def scalbln(self, x, n):
+        return self.ldexp(x, n)
+
+
+
     def frexp(self, x):
         return gp2.frexp(x)
+
+
+    def logb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return self.t(res[1] - 1)
+
+
+    def ilogb(self, z):
+        z = self.t(z)
+        res = self.frexp(z)
+        return int(res[1] - 1)
+
+
+
 
     def mag(self, x):
         return gp2.mag(x)
@@ -358,6 +519,73 @@ class gpm():
         return gp2.nint_distance(x)
 
 
+    def modf(self, x):
+        x = self.t(x)
+        return gmpy2.modf(x)
+
+    def fmod(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        gmpy2.fmod(x, y)
+        return gmpy2.fmod(x, y)
+
+    def frac(self, x):
+        x = self.t(x)
+        return x - self.floor(x)
+
+    def fractionalpart(self, x):
+        x = self.t(x)
+        return gmpy2.frac(x)
+
+
+    def remainder(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return gmpy2.remainder(x, y)
+
+    def remquo(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        return gmpy2.remquo(x, y)
+
+
+    def ulp(self, x):
+        x = self.t(x)
+        if x < 0: return self.ulp(-x)
+        if self.isposinf(x): return x
+        if self.iszero(x): return self.minposvalue()
+        res0 = self.nextafter(x, self.inf)
+        res = res0 - x
+        return res
+
+    def epsilon(self):
+        return self.eps
+
+    def maxvalue(self):
+        s ='2.09857871646738769240435811688383907063809796547335262778664622571024044777576820818355304'
+        s = s[:1+self.dps]
+        s = s + 'E+323228496'
+        return self.t(s)
+
+    def lowestvalue(self):
+        s ='-2.09857871646738769240435811688383907063809796547335262778664622571024044777576820818355304'
+        s = s[:2+self.dps]
+        s = s + 'E+323228496'
+        return self.t(s)
+
+    def minposvalue(self):
+        s ='2.38256490488795107321616978173267452041519612555923978795502375260094538610432437489305775'
+        s = s[:1+self.dps]
+        s = s + 'E-323228496'
+        return self.t(s)
+
+
+    def nextafter(self, x, y):
+        x = self.t(x)
+        y = self.t(y)
+        if x == y: return x
+        elif x < y: return gmpy2.next_above(x)
+        else: return gmpy2.next_below(x)
 
 
 
@@ -385,27 +613,39 @@ class gpm():
 
     @property
     def zero(self):
-        return gp2.zero
+        return +gp2.zero
+
+    @property
+    def negzero(self):
+        return -gp2.zero
 
     @property
     def one(self):
-        return gp2.one
+        return +gp2.one
 
     @property
     def j(self):
-        return gp2.j
+        return +gp2.j
+
+    @property
+    def onej(self):
+        return +gp2.j
 
     @property
     def inf(self):
-        return gp2.inf
+        return +gp2.inf
 
     @property
     def ninf(self):
-        return gp2.ninf
+        return +gp2.ninf
+
+    @property
+    def neginf(self):
+        return +gp2.ninf
 
     @property
     def nan(self):
-        return gp2.nan
+        return +gp2.nan
 
 
 
@@ -435,6 +675,10 @@ class gpm():
 
     @property
     def euler(self):
+        return +gp2.euler
+
+    @property
+    def egamma(self):
         return +gp2.euler
 
     @property
@@ -607,27 +851,29 @@ class gpm():
 
 # %%%  3.2 Logarithms and related functions
 
-    def logb(self, z, b):
-        z = self.t(z)
-        b = self.t(b)
-        return gmpy2.log(z)/gmpy2.log(b)
-        #return gp2.log(z, b)
+##    def logb(self, z, b):
+##        z = self.t(z)
+##        b = self.t(b)
+##        return gmpy2.log(z)/gmpy2.log(b)
+##        #return gp2.log(z, b)
 
     def ln(self, z):
         z = self.t(z)
         # return gmpy2.log(z)
         return gp2.ln(z)
 
-    def log(self, z):
+    def log(self, z, base=None):
         z = self.t(z)
         # return gmpy2.log(z)
         return gp2.ln(z)
 
     def log1p(self, z):
         z = self.t(z)
-#        if (isinstance(z, gmpy2.mpfr): return gmpy2.log1p(z)
-#        else: return 2*gmpy2.atanh(z/(2+z))
-        return gp2.log1p(z)
+        if isinstance(z, gmpy2.mpfr):
+            if (z < -1):
+                z = z + self.t(0+0j)
+            else: return gmpy2.log1p(z)
+        return 2*gmpy2.atanh(z/(2+z))
 
     def log10(self, z):
         z = self.t(z)
@@ -648,13 +894,29 @@ class gpm():
         else:
             return gmpy2.log1p(-gmpy2.exp(-x))
 
+
     def log2p1(self, z):
         z = self.t(z)
-        return self.log1p(z)/self.ln2
+        if isinstance(z, gmpy2.mpfr):
+            if (z < -1):
+                z = z + self.t(0+0j)
+            else: return gmpy2.log1p(z) / self.ln2
+        return 2*gmpy2.atanh(z/(2+z)) / self.ln2
+
+
 
     def log10p1(self, z):
         z = self.t(z)
-        return self.log1p(z)/self.ln10
+        if isinstance(z, gmpy2.mpfr):
+            if (z < -1):
+                z = z + self.t(0+0j)
+            else: return gmpy2.log1p(z) / self.ln10
+        return 2*gmpy2.atanh(z/(2+z)) / self.ln10
+
+##
+##    def log10p1(self, z):
+##        z = self.t(z)
+##        return self.log1p(z)/self.ln10
 
     def ln1mexp(self, z):
         z = self.t(z)
@@ -677,6 +939,21 @@ class gpm():
         k = int(k)
         return self._fm2(mpm().lambertw, z, k)
 
+    def lambert_wk(self, z, k=0):
+        z = self.t(z)
+        k = int(k)
+        return self._fm2(mpm().lambertw, z, k)
+
+    def lambert_w0(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, 0)
+
+    def lambert_wm1(self, z, k=0):
+        '''Returns lambertw(z), the Lambert W function z.'''
+        z = self.t(z)
+        return self.lambertw(z, -1)
+
     def agm(self, a, b=1):
         a = self.t(a)
         b = self.t(b)
@@ -688,6 +965,17 @@ class gpm():
     def square(self, z):
         z = self.t(z)
         return gmpy2.square(z)
+
+    def sqr(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z
+
+    def cube(self, z):
+        '''Returns sqr(z) = z * z.'''
+        z = self.t(z)
+        return z * z * z
+
 
     def sqrt(self, z):
         z = self.t(z)
@@ -721,6 +1009,10 @@ class gpm():
         else:
             return gmpy2.exp(gmpy2.log(z)/n)
 
+    def root_si(self, z, n):
+        return self.nthroot(z, n)
+
+
     def unitroot(self, k, n):
         return self.exp(2j*k*self.pi/n)
 
@@ -739,6 +1031,12 @@ class gpm():
 
     def pow(self, a, b):
         return self.power(a, b)
+
+
+    def pow_si(self, x, n):
+        '''Returns pow(a, b) = exp(b*log(a)).'''
+        return pow(x, n)
+
 
     def powm1(self, a, b):
         a = self.t(a)
@@ -1002,6 +1300,14 @@ class gpm():
         else:
             return self._fm2(mpm().rf, z, n)
 
+    def rising_factorial(self, z, n):
+        z = self.t(z)
+        n = self.t(n)
+        if (isinstance(z, gmpy2.mpfr)) and (isinstance(n, gmpy2.mpfr)):
+            return gmpy2.gamma(z+n) / gmpy2.gamma(z)
+        else:
+            return self._fm2(mpm().rf, z, n)
+
     def ff(self, z, n):
         z = self.t(z)
         n = self.t(n)
@@ -1010,7 +1316,23 @@ class gpm():
         else:
             return self._fm2(mpm().ff, z, n)
 
+    def falling_factorial(self, z, n):
+        z = self.t(z)
+        n = self.t(n)
+        if (isinstance(z, gmpy2.mpfr)) and (isinstance(n, gmpy2.mpfr)):
+            return gmpy2.gamma(z+1) / gmpy2.gamma(z-n+1)
+        else:
+            return self._fm2(mpm().ff, z, n)
+
     def fac2(self, z):
+        z = self.t(z)
+        if isinstance(z, gmpy2.mpfr):
+            w = 0.25*(self.cospi(z)-1)
+            return 2**(0.5*z) * (0.5*self.pi)**w * self.gamma(0.5*z+1)
+        else:
+            return self._fm1(mpm().fac2, z)
+
+    def doublefactorial(self, z):
         z = self.t(z)
         if isinstance(z, gmpy2.mpfr):
             w = 0.25*(self.cospi(z)-1)
@@ -1028,6 +1350,11 @@ class gpm():
         else:
             return self._fm1(mpm().gamma, z)
 
+    def gamma1pm1(self, z):
+        '''Returns gamma(z+1)-1.'''
+        z = self.t(z)
+        return self.gamma(z+1)-1
+
     def rgamma(self, z):
         z = self.t(z)
         if isinstance(z, gmpy2.mpfr):
@@ -1036,6 +1363,13 @@ class gpm():
             return self._fm1(mpm().rgamma, z)
 
     def loggamma(self, z):
+        z = self.t(z)
+        if isinstance(z, gmpy2.mpfr):
+            return gmpy2.lngamma(z)
+        else:
+            return self._fm1(mpm().loggamma, z)
+
+    def lgamma(self, z):
         z = self.t(z)
         if isinstance(z, gmpy2.mpfr):
             return gmpy2.lngamma(z)
