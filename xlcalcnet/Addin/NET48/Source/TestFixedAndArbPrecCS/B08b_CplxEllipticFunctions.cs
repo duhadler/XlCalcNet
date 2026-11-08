@@ -30,7 +30,7 @@ namespace TestXlCalcNetPrecCS
             string[] NumTypeArray = NTA1.Concat(NTA2).ToArray();
 
             //string[] FunctionArray = new[] { "all" };
-            string[] FunctionArray = new[] { "elliptic_roots_from_tau" };
+            string[] FunctionArray = new[] { "elliptic_pi" };
 
             DemoChapterCplxElliptic(NumTypeArray, FunctionArray);
 

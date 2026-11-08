@@ -1924,9 +1924,8 @@ namespace FixedPrecNet
             return EllipticFunctions.CarlsonRC(x, y);
         }
 
-
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_rf/*' />
-        public static Complex elliptic_rf(dynamic x, dynamic y)
+        public static Complex elliptic_rc(dynamic x, dynamic y)
         {
             return elliptic_rc(t(x), t(y));
         }
@@ -1967,7 +1966,6 @@ namespace FixedPrecNet
         {
             return EllipticFunctions.CarlsonRD(x, y, z);
         }
-
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_rd/*' />
         public static Complex elliptic_rd(dynamic x, dynamic y, dynamic z)
@@ -2035,7 +2033,8 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/m_elliptic_pi/*' />
         public static Complex m_elliptic_pi(Complex n, Complex m)
         {
-            Complex pio2 = (Math.PI * Complex.One / 2) - 1.0E-5;
+            //Complex pio2 = (Math.PI * Complex.One / 2) - 1.0E-5;
+            Complex pio2 = Math.PI * 1.0 / 2;
             return EllipticFunctions.EllipticPI(pio2, n, m);
         }
 
@@ -2142,13 +2141,15 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_pi/*' />
         public static Complex elliptic_pi(Complex n, Complex k)
         {
-            return EllipticFunctions.EllipticPI(Math.PI * 1.0 / 2, n, k * k);
+            //Console.WriteLine("elliptic_pi: n = " + n + ", k = " + k);
+            return m_elliptic_pi(n, k * k);
+            // return EllipticFunctions.EllipticPI(Math.PI * 1.0 / 2, n, k * k);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_pi/*' />
         public static Complex elliptic_pi(dynamic n, dynamic k)
         {
-            return m_elliptic_pi(t(n), t(k));
+            return elliptic_pi(t(n), t(k));
         }
 
 
@@ -2164,7 +2165,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_f/*' />
         public static Complex elliptic_f(dynamic phi, dynamic k)
         {
-            return m_elliptic_f(t(phi), t(k));
+            return elliptic_f(t(phi), t(k));
         }
 
 
@@ -2179,7 +2180,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_e_inc/*' />
         public static Complex elliptic_e_inc(dynamic phi, dynamic k)
         {
-            return m_elliptic_e_inc(t(phi), t(k));
+            return elliptic_e_inc(t(phi), t(k));
         }
 
 
@@ -2196,7 +2197,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_pi_inc/*' />
         public static Complex elliptic_pi_inc(dynamic n, dynamic phi, dynamic k)
         {
-            return m_elliptic_pi_inc(t(n), t(phi), t(k));
+            return elliptic_pi_inc(t(n), t(phi), t(k));
         }
 
 
@@ -2433,11 +2434,23 @@ namespace FixedPrecNet
             return EllipticFunctions.jtheta1(z, q);
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta1/*' />
+        public static Complex jacobi_theta1(dynamic z, dynamic q)
+        {
+            return jacobi_theta1(dcplx.t(z), dcplx.t(q));
+        }
+
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta2/*' />
         public static Complex jacobi_theta2(Complex z, Complex q)
         {
             return EllipticFunctions.jtheta2(z, q);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta2/*' />
+        public static Complex jacobi_theta2(dynamic z, dynamic q)
+        {
+            return jacobi_theta2(dcplx.t(z), dcplx.t(q));
         }
 
 
@@ -2447,11 +2460,23 @@ namespace FixedPrecNet
             return EllipticFunctions.jtheta3(z, q);
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta3/*' />
+        public static Complex jacobi_theta3(dynamic z, dynamic q)
+        {
+            return jacobi_theta3(dcplx.t(z), dcplx.t(q));
+        }
+
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta4/*' />
         public static Complex jacobi_theta4(Complex z, Complex q)
         {
             return EllipticFunctions.jtheta4(z, q);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/jacobi_theta4/*' />
+        public static Complex jacobi_theta4(dynamic z, dynamic q)
+        {
+            return jacobi_theta4(dcplx.t(z), dcplx.t(q));
         }
 
 
@@ -2469,7 +2494,88 @@ namespace FixedPrecNet
 
 
 
+
+        #region Conversions of parameters of Weierstrass P
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/halfPeriods/*' />
+        public static Tuple<Complex, Complex> o1o2_from_g2g3(Complex g2, Complex g3)
+        {
+            // Half-periods omega_1 and omega_2 from the elliptic invariants.
+            return EllipticFunctions.halfPeriods(g2, g3);
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_invariants_from_roots/*' />
+        public static Tuple<Complex, Complex> elliptic_invariants_from_roots(Complex e1, Complex e2)
+        {
+            Complex e3 = -e1 - e2;
+            Complex g2 = 2 * (e1 * e1 + e2 * e2 + e3 * e3);
+            Complex g3 = 4 * e1 * e2 * e3;
+            return new Tuple<Complex, Complex>(g2, g3);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_invariants_from_roots/*' />
+        public static Tuple<Complex, Complex> elliptic_invariants_from_roots(dynamic e1, dynamic e2)
+        {
+            return elliptic_invariants_from_roots(dcplx.t(e1), dcplx.t(e2));
+        }
+
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/EllipticInvariantG2G3/*' />
+        public static Tuple<Complex, Complex> elliptic_invariants_from_tau(Complex tau)
+        {
+            return EllipticFunctions.ellipticInvariants(0.5, 0.5 * tau);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/EllipticInvariantG2G3/*' />
+        public static Tuple<Complex, Complex> elliptic_invariants_from_tau(dynamic tau)
+        {
+            return elliptic_invariants_from_tau(dcplx.t(tau));
+        }
+
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_roots_from_tau/*' />
+        public static Tuple<Complex, Complex, Complex> elliptic_roots_from_tau(Complex tau)
+        {
+            var p = math53.pi;
+            var q = exp(dcplx.onej * p * tau);
+            var a = jacobi_theta2(0, q);
+            var b = jacobi_theta3(0, q);
+            var c = jacobi_theta4(0, q);
+            p = p * p / 3;
+            var a2 = a * a;
+            var a4 = a2 * a2;
+            var b2 = b * b;
+            var b4 = b2 * b2;
+            var c2 = c * c;
+            var c4 = c2 * c2;
+            var e1 = p * (b4 + c4);
+            var e2 = p * (-a4 - b4);
+            var e3 = p * (a4 - c4);
+            return new Tuple<Complex, Complex, Complex>(e1, e2, e3);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/elliptic_roots_from_tau/*' />
+        public static Tuple<Complex, Complex, Complex> elliptic_roots_from_tau(dynamic tau)
+        {
+            return elliptic_roots_from_tau(dcplx.t(tau));
+        }
+
+
+        #endregion
+
+
+
+
         #region Weierstrass elliptic functions, in terms of elliptic period ratio tau
+
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_p_t/*' />
         public static Complex weierstrass_p_t(Complex z, Complex tau)
@@ -2477,6 +2583,14 @@ namespace FixedPrecNet
             // Weierstrass p-function in terms of tau
             return EllipticFunctions.wp(z, tau, 0, 0, 0, 0, 0, "tau");
         }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_p_t/*' />
+        public static Complex weierstrass_p_t(dynamic z, dynamic tau)
+        {
+            // Weierstrass p-function in terms of tau
+            return weierstrass_p_t(dcplx.t(z), dcplx.t(tau));
+        }
+
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_t/*' />
@@ -2486,6 +2600,33 @@ namespace FixedPrecNet
             return EllipticFunctions.wp(z, tau, 0, 0, 0, 0, 1, "tau");
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pprime_t/*' />
+        public static Complex weierstrass_pprime_t(dynamic z, dynamic tau)
+        {
+            // Weierstrass p-function, first drivative, in terms of tau
+            return weierstrass_pprime_t(dcplx.t(z), dcplx.t(tau));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pinv_t/*' />
+        public static Complex weierstrass_pinv_t(Complex z, Complex tau)
+        {
+            var e = elliptic_roots_from_tau(tau);
+            var e1 = e.Item1;
+            var e2 = e.Item2;
+            var e3 = e.Item3;
+            var res = elliptic_rf(z-e1, z- e2, z - e3);
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_pinv_t/*' />
+        public static Complex weierstrass_pinv_t(dynamic z, dynamic tau)
+        {
+            return weierstrass_pinv_t(dcplx.t(z), dcplx.t(tau));
+        }
+
+
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_t/*' />
         public static Complex weierstrass_sigma_t(Complex z, Complex tau)
@@ -2494,6 +2635,15 @@ namespace FixedPrecNet
             return EllipticFunctions.wsigma(z, tau, 0, 0, 0, 0, 0, "tau");
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_sigma_t/*' />
+        public static Complex weierstrass_sigma_t(dynamic z, dynamic tau)
+        {
+            // Weierstrass sigma-function in terms of tau
+            return weierstrass_sigma_t(dcplx.t(z), dcplx.t(tau));
+        }
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_t/*' />
         public static Complex weierstrass_zeta_t(Complex z, Complex tau)
         {
@@ -2501,6 +2651,12 @@ namespace FixedPrecNet
             return EllipticFunctions.wzeta(z, tau, 0, 0, 0, 0, 0, "tau");
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/weierstrass_zeta_t/*' />
+        public static Complex weierstrass_zeta_t(dynamic z, dynamic tau)
+        {
+            // Weierstrass zeta-function in terms of tau
+            return weierstrass_zeta_t(dcplx.t(z), dcplx.t(tau));
+        }
 
 
         #endregion
@@ -2518,11 +2674,23 @@ namespace FixedPrecNet
             return EllipticFunctions.etaDedekind(tau);
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/dedekind_eta/*' />
+        public static Complex dedekind_eta(dynamic tau)
+        {
+            return dedekind_eta(dcplx.t(tau));
+        }
+
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/modular_delta/*' />
         public static Complex modular_delta(Complex tau)
         {
             return 1 * Complex.Pow(EllipticFunctions.etaDedekind(tau), 24);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/modular_delta/*' />
+        public static Complex modular_delta(dynamic tau)
+        {
+            return modular_delta(dcplx.t(tau));
         }
 
 
@@ -2532,6 +2700,12 @@ namespace FixedPrecNet
             return EllipticFunctions.lambda(tau);
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/modular_lambda/*' />
+        public static Complex modular_lambda(dynamic tau)
+        {
+            return modular_lambda(dcplx.t(tau));
+        }
+
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/klein_j/*' />
         public static Complex klein_j(Complex tau)
@@ -2539,13 +2713,12 @@ namespace FixedPrecNet
             return EllipticFunctions.kleinj(tau);
         }
 
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/klein_j_inv/*' />
-        public static Complex klein_j_inv(Complex j)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/klein_j/*' />
+        public static Complex klein_j(dynamic tau)
         {
-            return EllipticFunctions.kleinjinv(j);
+            return klein_j(dcplx.t(tau));
         }
+
 
         // Omitted: EisensteinE2
         // Omitted: EisensteinE4
@@ -2554,6 +2727,8 @@ namespace FixedPrecNet
 
 
         #endregion
+
+
 
 
 
@@ -5812,62 +5987,6 @@ namespace FixedPrecNet
 
         #endregion
 
-
-
-        #region Conversions of parameters of Weierstrass P
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/halfPeriods/*' />
-        public static Tuple<Complex, Complex> o1o2_from_g2g3(Complex g2, Complex g3)
-        {
-            // Half-periods omega_1 and omega_2 from the elliptic invariants.
-            return EllipticFunctions.halfPeriods(g2, g3);
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ellipticInvariants/*' />
-        public static Tuple<Complex, Complex> elliptic_invariants_from_roots(Complex omega1, Complex omega2)
-        {
-            // Weierstrass elliptic invariants g_2 and g_3 from the half-periods.
-            return EllipticFunctions.ellipticInvariants(omega1, omega2);
-        }
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/EllipticInvariantG2G3/*' />
-        public static Tuple<Complex, Complex> g2g3_from_e1e2(Complex e1, Complex e2)
-        {
-            Complex e3 = -e1 - e2;
-            Complex g2 = 2 * (e1 * e1 + e2 * e2 + e3 * e3);
-            Complex g3 = 4 * e1 * e2 * e3;
-            return new Tuple<Complex, Complex>(g2, g3);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/EllipticInvariantG2G3/*' />
-        public static Tuple<Complex, Complex> g2g3_from_e1e2(dynamic e1, dynamic e2)
-        {
-            return g2g3_from_e1e2(dcplx.t(e1), dcplx.t(e2));
-        }
-
-
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/EllipticInvariantG2G3/*' />
-        public static Tuple<Complex, Complex> elliptic_invariants_from_tau(Complex tau)
-        {
-            return EllipticFunctions.ellipticInvariants(0.5, 0.5 * tau);
-        }
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/EllipticInvariantG2G3/*' />
-        public static Tuple<Complex, Complex> elliptic_invariants_from_tau(dynamic tau)
-        {
-            return elliptic_invariants_from_tau(dcplx.t(tau));
-        }
-
-
-
-        #endregion
 
 
 

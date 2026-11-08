@@ -113,7 +113,7 @@ namespace TestXlCalcNetPrecCS
 
             //Tests.RealEllipticFunctions();  // B08
 
-            //Tests.CplxEllipticFunctions();  // B08
+            Tests.CplxEllipticFunctions();  // B08
 
             //Tests.RealLerchPhi();  // B09
 
@@ -132,7 +132,7 @@ namespace TestXlCalcNetPrecCS
             //Tests.CplxHypergeometric_pFq();  // B12
 
 
-            TestMath53.Test_Math53();
+            //TestMath53.Test_Math53();
 
             //Tests.RankDistributions();
 

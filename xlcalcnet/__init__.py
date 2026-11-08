@@ -298,9 +298,24 @@ if (platform.system()=='Windows'):
     gui._set_ctxlist_real(ctxlist_real)
 
 
+    ctxlist_noipm_real = []
+    try:
+        ctxlist_noipm_real = [fpm, mpm, dpm]
+        if use_gpm: ctxlist_noipm_real.append(gpm)
+        if use_apm: ctxlist_noipm_real.append(apm)
+
+        ctxlist_noipm_real += [math53, sreal, dreal, ereal, qreal, oreal]
+        if use_xlcalcnet2: ctxlist_noipm_real += [mreal, sflint, dflint, eflint, qflint, oflint, \
+            mflint, aflint]
+    except:
+        print("ctxlist_noipm_real is not available")
+
+    gui._set_ctxlist_noipm_real(ctxlist_noipm_real)
+
+
     ctxlist_noboost_real = []
     try:
-        ctxlist_noboost_real = [fpm, mpm, dpm, ipm]
+        ctxlist_noboost_real = [fpm, mpm, dpm]
         if use_gpm: ctxlist_noboost_real.append(gpm)
         if use_apm: ctxlist_noboost_real.append(apm)
 
@@ -330,7 +345,7 @@ if (platform.system()=='Windows'):
 
     ctxlist_noboost_cplx = []
     try:
-        ctxlist_noboost_cplx = [fpm, mpm, dpm, ipm]
+        ctxlist_noboost_cplx = [fpm, mpm, dpm]
         if use_gpm: ctxlist_noboost_cplx.append(gpm)
         if use_apm: ctxlist_noboost_cplx.append(apm)
 

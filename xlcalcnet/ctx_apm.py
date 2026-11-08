@@ -1359,165 +1359,492 @@ class apm():
         return self.gamma(2*z+1) / ((z+1)*w*w)
 
 
-# # %% 4 Real scalar functions
 
 
-# # %%% 4.1 Error functions for real arguments
-
-#     def real_erf(self, x):
-#         x = self.t(x)
-#         return Apr.Erf(x)
-
-#     def real_erfc(self, x):
-#         x = self.t(x)
-#         return Apr.Erfc(x)
-
-#     def real_erfinv(self, prob):
-# # !!! Todo: implement Apr.ErfInv !!!
-# #        prob = mp.mpf(self.t(prob).mid)
-# #        s = str(mp.erfinv(prob))
-#         return "mpi(s)"
-
-#     def real_erfcinv(self, prob):
-# # !!! Todo: implement Apr.ErfcInv !!!
-# #        prob = mp.mpf(self.t(prob).mid)
-# #        s = str(mp.erfinv(1-prob))
-#         return "mpi(s)"
+# %% 8 Elliptic functions and integrals
 
 
-# # %%% 4.2 Incomplete gamma functions for non-negative real arguments and parameters
+# %%%  8.1 Carlson symmetric elliptic integrals
 
-#     # Real lower non-normalised incomplete gamma function
+# 8.1.1 Carlson symmetric elliptic integral of the first kind, 𝑅𝐹 (𝑥, 𝑦, 𝑧)
 
-#     def real_gamma_lower(self, a, x):
-#         a = self.t(a)
-#         x = self.t(x)
-#         return Apr.GammaLower(a, x)
-
-#     # Real upper non-normalised incomplete gamma function
-
-#     def real_gamma_upper(self, a, x, ):
-#         a = self.t(a)
-#         x = self.t(x)
-#         return Apr.GammaUpper(a, x)
-
-#     # Real lower normalised incomplete gamma function
-
-#     def real_gamma_p(self, a, x):
-#         a = self.t(a)
-#         x = self.t(x)
-#         return Apr.GammaP(a, x)
-
-#     # Real upper normalised incomplete gamma function
-
-#     def real_gamma_q(self, a, x, **kwargs):
-#         a = self.t(a)
-#         x = self.t(x)
-#         return Apr.GammaQ(a, x)
-
-#     def real_gamma_tricomi(self, a, x, **kwargs):
-#         res = self.real_gamma_p(a, x, **kwargs)
-#         return res * self.power(x, -self.t(a))
-
-#     def real_gamma_p_inv(self, a, prob, **kwargs):
-#         a = self.t(a)
-#         prob = self.t(prob)
-#         return Apr.GammaPInv(a, prob)
-
-#     def real_gamma_q_inv(self, a, prob, **kwargs):
-#         a = self.t(a)
-#         prob = self.t(prob)
-#         return Apr.GammaQInv(a, prob)
-
-#     def real_gamma_p_inva(self, x, prob, **kwargs):
-#         x = self.t(x)
-#         prob = self.t(prob)
-#         return Apr.GammaPInva(x, prob)
-
-#     def real_gamma_q_inva(self, x, prob, **kwargs):
-#         x = self.t(x)
-#         prob = self.t(prob)
-#         return Apr.GammaQInva(x, prob)
-
-#     def real_gamma_derivative(self, a, x):
-#         a = self.t(a)
-#         x = self.t(x)
-#         return Apr.GammaPDerivative(a, x)
-
-#  # %%%  4.3 Incomplete beta functions for non-negative real arguments and parameters
-
-#     def real_beta3(self, a, b, x):
-#         a = self.t(a)
-#         b = self.t(b)
-#         x = self.t(x)
-#         return Apr.BetaLower(a, b, x)
-
-#     def real_betac(self, a, b, x, **kwargs):
-# # !!! Check if there is a equivalent of betac !!!
-#         a = self.t(a)
-#         b = self.t(b)
-#         x = self.t(x)
-#         return Apr.BetaLower(a, b, x)
-
-#     def real_ibeta(self, a, b, x, **kwargs):
-#         a = self.t(a)
-#         b = self.t(b)
-#         x = self.t(x)
-#         return Apr.Ibeta(a, b, x)
-
-#     def real_ibetac(self, a, b, x, **kwargs):
-#         a = self.t(a)
-#         b = self.t(b)
-#         x = self.t(x)
-#         return Apr.Ibetac(a, b, x)
-
-#     def real_ibeta_inv(self, a, b, prob, **kwargs):
-#         a = self.t(a)
-#         b = self.t(b)
-#         prob = self.t(prob)
-#         return Apr.IbetaInv(a, b, prob)
-
-#     def real_ibetac_inv(self, a, b, prob, **kwargs):
-#         a = self.t(a)
-#         b = self.t(b)
-#         prob = self.t(prob)
-#         return Apr.IbetacInv(a, b, prob)
-
-#     def real_ibeta_inva(self, b, x, prob, **kwargs):
-#         x = self.t(x)
-#         b = self.t(b)
-#         prob = self.t(prob)
-#         return Apr.IbetaInva(x, b, prob)
-
-#     def real_ibetac_inva(self, b, x, prob, **kwargs):
-#         x = self.t(x)
-#         b = self.t(b)
-#         prob = self.t(prob)
-#         return Apr.IbetacInva(x, b, prob)
-
-#     # def real_ibeta_invb(self, a, x, prob, **kwargs):
-#     #     x = self.t(x)
-#     #     a = self.t(a)
-#     #     prob = self.t(prob)
-#     #     return Apr.IbetaInv(x, b, prob)
-
-#     # def real_ibetac_invb(self, a, x, prob, **kwargs):
-#     #     x = self.t(x)
-#     #     a = self.t(a)
-#     #     prob = self.t(prob)
-#     #     return Apr.IbetacInv(x, b, prob)
-
-#     def real_ibeta_derivative(self, a, b, x):
-#         a = self.t(a)
-#         b = self.t(b)
-#         x = self.t(x)
-#         return Apr.IbetaDerivative(a, b, x)
+    def elliptic_rf(self, x, y, z):
+        '''Carlson symmetric elliptic integral of the first kind,
+        𝑅𝐹 (𝑥, 𝑦, 𝑧)'''
+        x = self.t(x)
+        y = self.t(y)
+        z = self.t(z)
+        res = acb.elliptic_rf(x, y, z)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
 
 
-# %% 16 Elliptic functions and integrals
+# 8.1.2 Carlson completely symmetric elliptic integral of the second kind,
+    # 𝑅𝐺(𝑥, 𝑦, 𝑧)
 
-# %%%  16.1 Conversions of parameters of elliptic functions
+    def elliptic_rg(self, x, y, z):
+        '''Carlson completely symmetric elliptic integral of the second kind,
+        𝑅𝐺(𝑥, 𝑦, 𝑧)'''
+        x = self.t(x)
+        y = self.t(y)
+        z = self.t(z)
+        res = acb.elliptic_rg(x, y, z)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
 
+
+# 8.1.3 Carlson symmetric elliptic integral of the third kind, 𝑅𝐽 (𝑥, 𝑦, 𝑧, 𝑝)
+
+    def elliptic_rj(self, x, y, z, p):
+        '''Carlson symmetric elliptic integral of the third kind,
+        𝑅𝐽 (𝑥, 𝑦, 𝑧, 𝑝)'''
+        x = self.t(x)
+        y = self.t(y)
+        z = self.t(z)
+        p = self.t(p)
+        res = acb.elliptic_rj(x, y, z, p)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+
+# 8.1.4 Carlson symmetric elliptic integral of the second kind, 𝑅𝐷(𝑥, 𝑦, 𝑧)
+
+    def elliptic_rd(self, x, y, z):
+        '''Carlson symmetric elliptic integral of the second kind,
+        𝑅𝐷(𝑥, 𝑦, 𝑧)'''
+        x = self.t(x)
+        y = self.t(y)
+        z = self.t(z)
+        res = acb.elliptic_rd(x, y, z)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.1.5 Carlson degenerate symmetric elliptic integral of the first kind,
+    # 𝑅𝐶(𝑥, 𝑦)
+
+    def elliptic_rc(self, x, y):
+        '''Carlson degenerate symmetric elliptic integral of the first kind,
+        𝑅𝐶(𝑥, 𝑦)'''
+        x = self.t(x)
+        y = self.t(y)
+        res = acb.elliptic_rc(x, y)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+
+
+
+
+# %%%  8.2 Legendre elliptic integrals (elliptic parameter 𝑚)
+
+
+# 8.2.1 Legendre complete elliptic integral of the first kind, 𝐾(m)
+
+    def m_elliptic_k(self, m):
+        '''Legendre complete elliptic integral of the first kind, 𝐾(m)'''
+        m = self.t(m)
+        res = acb(m).elliptic_k()
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.2.2 Legendre complete elliptic integral of the second kind, 𝐸(m)
+
+    def m_elliptic_e(self, m):
+        '''Legendre complete elliptic integral of the second kind, 𝐸(m)'''
+        m = self.t(m)
+        res = acb(m).elliptic_e()
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.2.3 Legendre complete elliptic integral of the third kind, Π(𝑛, m)
+
+    def m_elliptic_pi(self, n, m):
+        '''Legendre complete elliptic integral of the third kind, Π(𝑛, m)'''
+        n = self.t(n)
+        m = self.t(m)
+        res = acb.elliptic_pi(n, m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.2.4 Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, m)
+
+    def m_elliptic_f(self, phi, m):
+        '''Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, m)'''
+        phi = self.t(phi)
+        m = self.t(m)
+        res = acb.elliptic_f(phi, m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.2.5 Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, m)
+
+    def m_elliptic_e_inc(self, phi, m):
+        '''Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, m)'''
+        phi = self.t(phi)
+        m = self.t(m)
+        res = acb.elliptic_e_inc(phi, m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.2.6 Legendre incomplete elliptic integral of the third kind, Π(𝑛, 𝜑, m)
+
+    def m_elliptic_pi_inc(self, n, phi, m):
+        '''Legendre incomplete elliptic integral of the third kind,
+         Π(𝑛, 𝜑, m)'''
+        n = self.t(n)
+        phi = self.t(phi)
+        m = self.t(m)
+        res = acb.elliptic_pi_inc(n, phi, m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+
+
+# %%%  8.3 Legendre elliptic integrals (elliptic parameter 𝑘)
+
+
+# 8.3.1 Legendre complete elliptic integral of the first kind, 𝐾(𝑘)
+
+    def elliptic_k(self, k):
+        '''Legendre complete elliptic integral of the first kind, 𝐾(𝑘)'''
+        m = self.t(k); m = m*m
+        res = self.m_elliptic_k(m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.3.2 Legendre complete elliptic integral of the second kind, 𝐸(𝑘)
+
+    def elliptic_e(self, k):
+        '''Legendre complete elliptic integral of the second kind, 𝐸(𝑘)'''
+        m = self.t(k); m = m*m
+        res = self.m_elliptic_e(m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+# 8.3.3 Legendre complete elliptic integral of the third kind, Π(𝑛, 𝑘)
+
+    def elliptic_pi(self, n, k):
+        '''Legendre complete elliptic integral of the third kind, Π(𝑛, 𝑘)'''
+        n = self.t(n)
+        m = self.t(k); m = m*m
+        res = self.m_elliptic_pi(n, m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.3.4 Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, 𝑘)
+
+    def elliptic_f(self, phi, k):
+        '''Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, 𝑘)'''
+        phi = self.t(phi)
+        m = self.t(k); m = m*m
+        res = self.m_elliptic_f(phi, m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.3.5 Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, 𝑘)
+
+    def elliptic_e_inc(self, phi, k):
+        '''Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, 𝑘)'''
+        phi = self.t(phi)
+        m = self.t(k); m = m*m
+        res = self.m_elliptic_e_inc(phi, m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.3.6 Legendre incomplete elliptic integral of the third kind, Π(𝑛, 𝜑, 𝑘)
+
+    def elliptic_pi_inc(self, n, phi, k):
+        '''Legendre incomplete elliptic integral of the third kind,
+         Π(𝑛, 𝜑, 𝑘)'''
+        n = self.t(n)
+        phi = self.t(phi)
+        m = self.t(k); m = m*m
+        res = self.m_elliptic_pi_inc(n, phi, m)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.3.7 Jacobi Zeta function, 𝑍(𝜑, 𝑘)
+
+    def jacobi_zeta(self, phi, k):
+        '''Jacobi Zeta function, 𝑍(𝜑, 𝑘)'''
+        phi = self.t(phi)
+        k = self.t(k);
+        res = self.elliptic_e_inc(phi, k)
+        - (self.elliptic_e(k)*self.elliptic_f(phi, k)) / self.elliptic_k(k)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.3.8 Heuman’s Lambda function, Λ(𝜑, 𝑘)
+
+    def heuman_lambda(self, phi, k):
+        '''Heuman’s Lambda function, Λ(𝜑, 𝑘)'''
+        phi = self.t(phi)
+        k = self.t(k); k1 = self.sqrt(1-k*k)
+        res = self.elliptic_f(phi, k1)/self.elliptic_k(k1)
+        res = res + 2*self.elliptic_k(k) * self.jacobi_zeta(phi, k1)/self.pi
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+
+
+
+
+
+
+# %%%  8.4 Jacobi elliptic functions
+
+
+    def jacobi_elliptic_sncndn(self, u, k):
+        u, k = acb(u), acb(k)
+        m = k*k
+        K = acb.elliptic_k(m)
+        Kp = acb.elliptic_k(1 - m)
+        tau = acb(0, 1) * Kp / K
+        z = u / (2 * K)
+        _, t2_0, t3_0, t4_0 = acb(0).modular_theta(tau)
+        t1, t2, t3, t4 = z.modular_theta(tau)
+        sn = (t3_0 / t2_0) * (t1 / t4)
+        cn = (t4_0 / t2_0) * (t2 / t4)
+        dn = (t4_0 / t3_0) * (t3 / t4)
+        return sn, cn, dn
+
+# 8.4.1 Jacobi elliptic function sn
+
+
+    def jacobi_sn(self, u, k):
+        '''Jacobi elliptic function sn'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = sn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.2 Jacobi elliptic function cn
+
+    def jacobi_cn(self, u, k):
+        '''Jacobi elliptic function cn'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = cn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.3 Jacobi elliptic function dn
+
+    def jacobi_dn(self, u, k):
+        '''Jacobi elliptic function dn'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = dn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.4 Jacobi elliptic function ns
+
+    def jacobi_ns(self, u, k):
+        '''Jacobi elliptic function ns'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = 1 / sn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.5 Jacobi elliptic function nc
+
+    def jacobi_nc(self, u, k):
+        '''Jacobi elliptic function nc'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = 1 / cn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.6 Jacobi elliptic function nd
+
+    def jacobi_nd(self, u, k):
+        '''Jacobi elliptic function nd'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = 1 / dn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.7 Jacobi elliptic function sc
+
+    def jacobi_sc(self, u, k):
+        '''Jacobi elliptic function sc'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = sn / cn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.8 Jacobi elliptic function sd
+
+    def jacobi_sd(self, u, k):
+        '''Jacobi elliptic function sd'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = sn / dn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.9 Jacobi elliptic function dc
+
+    def jacobi_dc(self, u, k):
+        '''Jacobi elliptic function dc'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = dn / cn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.10 Jacobi elliptic function ds
+
+    def jacobi_ds(self, u, k):
+        '''Jacobi elliptic function ds'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = dn / sn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.11 Jacobi elliptic function cs
+
+    def jacobi_cs(self, u, k):
+        '''Jacobi elliptic function cs'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = cn / sn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+# 8.4.12 Jacobi elliptic function cd
+
+    def jacobi_cd(self, u, k):
+        '''Jacobi elliptic function cd'''
+        u = self.t(u)
+        k = self.t(k)
+        sn, cn, dn = self.jacobi_elliptic_sncndn(u,k)
+        res = cn / dn
+        if (self.imag(u) == 0) and (self.imag(k) == 0):
+            res = self.real(res)
+        return res
+
+
+
+
+
+
+# %%%  8.5 Jacobi theta functions
+
+
+    def jtheta(self, n, z, q):
+        n = int(n)
+        z = self.t(z)
+        q = self.t(q)
+        p = self.pi
+        tau = self.ln(q) / (p * self.t(1j))
+        z = z / p
+        res = acb(z).modular_theta(tau)[n-1]
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 8.5.1 Jacobi theta1 function
+
+    def jacobi_theta1(self, z, q):
+        '''Jacobi theta1 function'''
+        return self.jtheta(1, z, q)
+
+
+# 8.5.2 Jacobi theta2 function
+
+    def jacobi_theta2(self, z, q):
+        '''Jacobi theta2 function'''
+        return self.jtheta(2, z, q)
+
+
+# 8.5.3 Jacobi theta3 function
+
+    def jacobi_theta3(self, z, q):
+        '''Jacobi theta3 function'''
+        return self.jtheta(3, z, q)
+
+
+# 8.5.4 Jacobi theta4 function
+
+    def jacobi_theta4(self, z, q):
+        '''Jacobi theta4 function'''
+        return self.jtheta(4, z, q)
+
+
+
+# %%%  8.6 Conversions of parameters of elliptic functions
+
+    def taufrom(self, q=None, m=None, k=None, tau=None, qbar=None):
+        if tau is not None:
+            return self.t(tau)
+        if m is not None:
+            m = self.t(m)
+            return self.t(1j)*self.elliptic_k(1-m)/self.elliptic_k(m)
+        if k is not None:
+            k = self.t(k)
+            return self.t(1j)*self.elliptic_k(1-k**2)/self.elliptic_k(k**2)
+        if q is not None:
+            return self.ln(q) / (self.pi*self.t(1j))
+        if qbar is not None:
+            qbar = self.t(qbar)
+            return self.ln(qbar) / (2*self.pi*self.t(1j))
 
     def nome(self, m):
         m = self.t(m)
@@ -1605,271 +1932,7 @@ class apm():
             return self.t(0, 'inf')
         return (self.jtheta(2, 0, q)/self.jtheta(3, 0, q))**2
 
-    def taufrom(self, q=None, m=None, k=None, tau=None, qbar=None):
-        if tau is not None:
-            return self.t(tau)
-        if m is not None:
-            m = self.t(m)
-            return self.t(1j)*self.elliptic_k(1-m)/self.elliptic_k(m)
-        if k is not None:
-            k = self.t(k)
-            return self.t(1j)*self.elliptic_k(1-k**2)/self.elliptic_k(k**2)
-        if q is not None:
-            return self.ln(q) / (self.pi*self.t(1j))
-        if qbar is not None:
-            qbar = self.t(qbar)
-            return self.ln(qbar) / (2*self.pi*self.t(1j))
 
-
-# %%%  16.2 Legendre elliptic integrals
-
-    def elliptic_k(self, m):
-        m = self.t(m)
-        return acb(m).elliptic_k()
-
-    def elliptic_e(self, m):
-        m = self.t(m)
-        return acb(m).elliptic_e()
-
-    def elliptic_pi(self, n, m):
-        n = self.t(n)
-        m = self.t(m)
-        return acb.elliptic_pi(n, m)
-
-    def elliptic_f(self, phi, m):
-        phi = self.t(phi)
-        m = self.t(m)
-        return acb.elliptic_f(phi, m)
-
-    def elliptic_e_inc(self, phi, m):
-        phi = self.t(phi)
-        m = self.t(m)
-        return acb.elliptic_e_inc(phi, m)
-
-    def elliptic_pi_inc(self, n, phi, m):
-        n = self.t(n)
-        phi = self.t(phi)
-        m = self.t(m)
-        return acb.elliptic_pi_inc(n, phi, m)
-
-    def jacobi_zeta(self, phi, m):
-        phi = self.t(phi)
-        m = self.t(m)
-        return self.elliptic_e_inc(phi, m) - \
-            (self.elliptic_e(m)*self.elliptic_f(phi, m)) / self.elliptic_k(m)
-
-    def heuman_lambda(self, phi, m):
-        phi = self.t(phi)
-        m = self.t(m)
-        res = self.elliptic_f(phi, 1-m)/self.elliptic_k(1-m)
-        res = res + 2*self.elliptic_k(m) * \
-            self.jacobi_zeta(phi, 1-m)/self.pi
-        return res
-
-
-# %%%  16.3 Carlson symmetric elliptic integrals
-
-    def elliprf(self, x, y, z):
-        x = self.t(x)
-        y = self.t(y)
-        z = self.t(z)
-        return acb.elliptic_rf(x, y, z)
-
-
-    def elliprg(self, x, y, z):
-        x = self.t(x)
-        y = self.t(y)
-        z = self.t(z)
-        return acb.elliptic_rg(x, y, z)
-
-
-    def elliprj(self, x, y, z, p):
-        x = self.t(x)
-        y = self.t(y)
-        z = self.t(z)
-        p = self.t(p)
-        return acb.elliptic_rj(x, y, z, p)
-
-
-
-    def elliprd(self, x, y, z):
-        x = self.t(x)
-        y = self.t(y)
-        z = self.t(z)
-        return acb.elliptic_rd(x, y, z)
-
-
-    def elliprc(self, x, y):
-        x = self.t(x)
-        y = self.t(y)
-        return acb.elliptic_rc(x, y)
-
-
-# %%%  16.4 Jacobi elliptic functions
-
-
-#    def ellipfun(self, kind, u=None, m=None, q=None, k=None, tau=None):
-#        return mp.ellipfun(kind, u, m, q, k, tau)
-
-    jacobi_spec = {
-        'sn': ([3], [2], [1], [4], 'sin', 'tanh'),
-        'cn': ([4], [2], [2], [4], 'cos', 'sech'),
-        'dn': ([4], [3], [3], [4], '1', 'sech'),
-        'ns': ([2], [3], [4], [1], 'csc', 'coth'),
-        'nc': ([2], [4], [4], [2], 'sec', 'cosh'),
-        'nd': ([3], [4], [4], [3], '1', 'cosh'),
-        'sc': ([3], [4], [1], [2], 'tan', 'sinh'),
-        'sd': ([3, 3], [2, 4], [1], [3], 'sin', 'sinh'),
-        'cd': ([3], [2], [2], [3], 'cos', '1'),
-        'cs': ([4], [3], [2], [1], 'cot', 'csch'),
-        'dc': ([2], [3], [3], [2], 'sec', '1'),
-        'ds': ([2, 4], [3, 3], [3], [1], 'csc', 'csch'),
-        'cc': None,
-        'ss': None,
-        'nn': None,
-        'dd': None
-    }
-
-    def ellipfun(self, kind, u, m=None, q=None, k=None, tau=None):
-        try:
-            S = self.jacobi_spec[kind]
-        except KeyError:
-            raise ValueError("First argument must be a two-character string "
-                              "containing 's', 'c', 'd' or 'n', e.g.: 'sn'")
-        dps = self.dps
-        try:
-            dpsplus = 40
-            self.dps += dpsplus
-            #mp.dps += dpsplus
-            #arbclasses.mp2.setdps(mp4.dps)
-            u = self.t(u)
-            q = self.qfrom(m=m, q=q, k=k, tau=tau)
-            if S is None:
-                v = self.t(1) + 0*q*u
-            elif q == self.t(0):
-                if S[4] == '1':
-                    v = self.t(1)
-                else:
-                    v = getattr(self, S[4])(u)
-                v += 0*q*u
-            elif q == self.t(1):
-                if S[5] == '1':
-                    v = self.t(1)
-                else:
-                    v = getattr(self, S[5])(u)
-                v += 0*q*u
-            else:
-                t = u / self.jtheta(3, 0, q)**2
-                #print("t: ", self.s(t))
-                v = self.t(1)
-                for a in S[0]:
-                    v *= self.jtheta(a, 0, q)  # print("v: ", self.s(v))
-                for b in S[1]:
-                    v /= self.jtheta(b, 0, q)  # print("v: ", self.s(v))
-                for c in S[2]:
-                    v *= self.jtheta(c, t, q)  # print("v: ", self.s(v))
-                for d in S[3]:
-                    v /= self.jtheta(d, t, q)  # print("v: ", self.s(v))
-        finally:
-            self.dps = dps
-            #mp.dps = dps
-            #arbclasses.mp2.setdps(dps)
-        return +v
-
-    def jacobi_sn(self, u, m):
-        return self.ellipfun('sn', u, m)
-
-    def jacobi_cn(self, u, m):
-        return self.ellipfun('cn', u, m)
-
-    def jacobi_dn(self, u, m):
-        return self.ellipfun('dn', u, m)
-
-    def jacobi_ns(self, u, m):
-        return self.ellipfun('ns', u, m)
-
-    def jacobi_nc(self, u, m):
-        return self.ellipfun('nc', u, m)
-
-    def jacobi_nd(self, u, m):
-        return self.ellipfun('nd', u, m)
-
-    def jacobi_sc(self, u, m):
-        return self.ellipfun('sc', u, m)
-
-    def jacobi_sd(self, u, m):
-        return self.ellipfun('sd', u, m)
-
-    def jacobi_dc(self, u, m):
-        return self.ellipfun('dc', u, m)
-
-    def jacobi_ds(self, u, m):
-        return self.ellipfun('ds', u, m)
-
-    def jacobi_cs(self, u, m):
-        return self.ellipfun('cs', u, m)
-
-    def jacobi_cd(self, u, m):
-        return self.ellipfun('cd', u, m)
-
-
-# %%%  16.5 Weierstrass elliptic functions
-
-    def weierstrass_p(self, z, tau):
-# !!! use methods from ARB !!!
-
-        z = self.t(z)
-        tau = self.t(tau)
-        return self.elliptic_p(z, tau)
-
-    def weierstrass_p_prime(self, z, tau):
-        z = self.t(z)
-        tau = self.t(tau)
-        return self.elliptic_p_prime(z, tau)
-
-    def weierstrass_p_inv(self, z, tau):
-        z = self.t(z)
-        tau = self.t(tau)
-        return self.elliptic_inv_p(z, tau)
-
-    def weierstrass_zeta(self, z, tau):
-        z = self.t(z)
-        tau = self.t(tau)
-        return self.elliptic_zeta(z, tau)
-
-    def weierstrass_sigma(self, z, tau):
-        z = self.t(z)
-        tau = self.t(tau)
-        return self.elliptic_sigma(z, tau)
-
-
-# %%%  16.6 Jacobi theta functions and related functions
-
-
-    def jtheta(self, n, z, q):
-        n = int(n)
-        z = self.t(z)
-        q = self.t(q)
-        # p = self.pi
-        # tau = self.ln(q) / (1j*p)
-        # z = z / p
-        return acb(z).modular_theta(q)[n]
-
-    def dedekind_eta(self, tau):
-        tau = self.t(tau)
-        return acb(tau).modular_eta()
-
-    def modular_lambda(self, tau):
-        tau = self.t(tau)
-        return acb(tau).modular_lambda()
-
-    def modular_delta(self, tau):
-        tau = self.t(tau)
-        return acb(tau).modular_delta()
-
-    def kleinj(self, tau):
-        tau = self.t(tau)
-        return acb(tau).modular_j()/1728
 
     def elliptic_roots(self, tau):
         return acb(tau).elliptic_roots()
@@ -1879,9 +1942,138 @@ class apm():
         return acb(tau).elliptic_invariants()
 
 
+
+
+
+
+
+# %%%  8.7 Weierstrass elliptic functions
+
+
+# 8.7.1 Weierstrass function ℘(𝑧, 𝜏 )
+
+    def weierstrass_p_t(self, z, tau):
+        '''Weierstrass function ℘(𝑧, 𝜏 )'''
+        z = self.t(z)
+        tau = self.t(tau)
+        return z.elliptic_p(tau)
+
+
+##    def weierstrass_p_prime_algebraic(z, tau):
+##        z_acb = acb(z)
+##        tau_acb = acb(tau)
+##
+##        # 1. Compute p(z)
+##        pz = z_acb.elliptic_p(tau_acb)
+##
+##        # 2. Get invariants g2 and g3
+##        g2, g3 = tau_acb.elliptic_invariants()
+##
+##        # 3. Apply the differential equation identity
+##        p_prime_sq = 4 * pz**3 - g2 * pz - g3
+##
+##        # 4. Take the square root (Note: Watch out for branch/sign determination)
+##        return p_prime_sq.sqrt()
+
+# 8.7.2 Weierstrass function, first derivative: ℘′(𝑧, 𝜏 )
+
+    def weierstrass_pprime_t(self, z, tau):
+        '''Weierstrass function, first derivative: ℘′(𝑧, 𝜏 )'''
+        from flint import acb, acb_series
+        z = self.t(z)
+        tau = self.t(tau)
+
+        # Create the series z + 1*x + O(x^2)
+        # The linear coefficient represents the derivative at z
+        z_series = acb_series([acb(z), acb(1)], prec=100)
+
+        # Compute the Weierstrass p function of the series
+        p_series = z_series.elliptic_p(acb(tau))
+
+        # Extract the coefficient of x^1, which is p'(z)
+        res = p_series[1]
+        return res
+
+
+
+# 8.7.3 Inverse Weierstrass function ℘−1 (𝑧, 𝜏 )
+
+    def weierstrass_pinv_t(self, z, tau):
+        '''Inverse Weierstrass function ℘−1 (𝑧, 𝜏 )'''
+        z = self.t(z)
+        tau = self.t(tau)
+        return z.elliptic_inv_p(tau)
+
+
+
+# 8.7.4 Weierstrass Zeta
+
+    def weierstrass_zeta_t(self, z, tau):
+        '''Weierstrass Zeta'''
+        z = self.t(z)
+        tau = self.t(tau)
+        return z.elliptic_zeta(tau)
+
+
+# 8.7.5 Weierstrass Sigma
+
+    def weierstrass_sigma_t(self, z, tau):
+        '''Weierstrass Sigma'''
+        z = self.t(z)
+        tau = self.t(tau)
+        return z.elliptic_sigma(tau)
+
+
+
+
+
+# %%%  8.8 Modular forms
+
+
+# 8.8.1 Dedekind eta function
+
+    def dedekind_eta(self, tau):
+        '''Dedekind eta function'''
+        tau = self.t(tau)
+        return acb(tau).modular_eta()
+
+
+# 8.8.2 Elliptic modular Lambda
+
+    def modular_lambda(self, tau):
+        '''Elliptic modular Lambda'''
+        tau = self.t(tau)
+        return acb(tau).modular_lambda()
+
+
+# 8.8.3 Elliptic modular Delta
+
+    def modular_delta(self, tau):
+        '''Elliptic modular Delta'''
+        tau = self.t(tau)
+        return acb(tau).modular_delta()
+
+
+# 8.8.4 Klein j-invariant
+
+    def klein_j(self, tau):
+        '''Klein j-invariant'''
+        tau = self.t(tau)
+        return acb(tau).modular_j()   # /1728
+
+
+
+
+
+
+
 # %% 17 Lerch’s transcendent and related functions
 
 # %%%  17.1 Overview LERCH’S TRANSCENDENT, POLYGAMMA
+
+
+
+
 
 
     def lerchphi(self, z, s, a):

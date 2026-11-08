@@ -5852,599 +5852,530 @@ class dpm():
 # 12.15-12.18 is just text
 
 
-# %% 14 Matrix as dictionaries (mpmath)
 
 
-# %%%  14.1 Matrix functions: decompositions for linear solving
 
+# %% 8 Elliptic functions and integrals
 
-# 14.1.4 Creating a matrix as a dictionary (mpmath matrix)
-    def matrix(self, r, c=1):
-        return dp.matrix(r, c)
 
 
-    def mat_t(self, m, n):
-        matA = dp.matrix(m, n)
-        return matA
+# %%%  8.1 Carlson symmetric elliptic integrals
 
-    def mat_show(self, matA, title="mat"):
-        for i in range(matA.rows):
-            for j in range(matA.cols):
-                x = matA[i, j]
-                print(title+"[" + str(i) + "," + str(j)+"]: ", x)
-            print()
+# 8.1.1 Carlson symmetric elliptic integral of the first kind, 𝑅𝐹 (𝑥, 𝑦, 𝑧)
 
+    def elliptic_rf(self, x, y, z):
+        '''Carlson symmetric elliptic integral of the first kind,
+        𝑅𝐹 (𝑥, 𝑦, 𝑧)'''
+        x = self.t(x)
+        y = self.t(y)
+        z = self.t(z)
+        return self._fm3(mpm.elliptic_rf, x, y, z)
 
 
-# 14.1.5 Creating an identity matrix as a dictionary (mpmath matrix)
-    def eye(self, m):
-        matA = dp.eye(m)
-        return matA
+# 8.1.2 Carlson completely symmetric elliptic integral of the second kind,
+    # 𝑅𝐺(𝑥, 𝑦, 𝑧)
 
-    def mat_identity(self, m):
-        matA = dp.eye(m)
-        return matA
+    def elliptic_rg(self, x, y, z):
+        '''Carlson completely symmetric elliptic integral of the second kind,
+        𝑅𝐺(𝑥, 𝑦, 𝑧)'''
+        x = self.t(x)
+        y = self.t(y)
+        z = self.t(z)
+        return self._fm3(mpm.elliptic_rg, x, y, z)
 
 
-# 14.1.6 Creating a diagonal matrix as a dictionary (mpmath matrix)
-    def diag(self, vecA):
-        return dp.diag(vecA)
+# 8.1.3 Carlson symmetric elliptic integral of the third kind, 𝑅𝐽 (𝑥, 𝑦, 𝑧, 𝑝)
 
+    def elliptic_rj(self, x, y, z, p):
+        '''Carlson symmetric elliptic integral of the third kind,
+        𝑅𝐽 (𝑥, 𝑦, 𝑧, 𝑝)'''
+        x = self.t(x)
+        y = self.t(y)
+        z = self.t(z)
+        p = self.t(p)
+        return self._fm4(mpm.elliptic_rj, x, y, z, p)
 
-# 14.1.7 Creating a matrix of zeros as a dictionary (mpmath matrix)
-    def mat_zeros(self, m, n):
-        matA = dp.zeros(m, n)
-        return matA
 
-    def zeros(self, *args, **kwargs):
-        matA = dp.zeros(*args, **kwargs)
-        return matA
+# 8.1.4 Carlson symmetric elliptic integral of the second kind, 𝑅𝐷(𝑥, 𝑦, 𝑧)
 
+    def elliptic_rd(self, x, y, z):
+        '''Carlson symmetric elliptic integral of the second kind,
+        𝑅𝐷(𝑥, 𝑦, 𝑧)'''
+        x = self.t(x)
+        y = self.t(y)
+        z = self.t(z)
+        return self._fm3(mpm.elliptic_rd, x, y, z)
 
-# 14.1.8 Creating a matrix of ones as a dictionary (mpmath matrix)
-    def mat_ones(self, m, n):
-        matA = dp.ones(m, n)
-        return matA
 
-    def ones(self, *args, **kwargs):
-        matA = dp.ones(*args, **kwargs)
-        return matA
+# 8.1.5 Carlson degenerate symmetric elliptic integral of the first kind,
+    # 𝑅𝐶(𝑥, 𝑦)
 
+    def elliptic_rc(self, x, y):
+        '''Carlson degenerate symmetric elliptic integral of the first kind,
+        𝑅𝐶(𝑥, 𝑦)'''
+        x = self.t(x)
+        y = self.t(y)
+        return self._fm2(mpm.elliptic_rc, x, y)
 
-    def mat_constant(self, m, n, coeff):
-        matA = dp.ones(m, n)
-        matA = matA * coeff
-        return matA
 
 
-# 14.1.9 Creating a Hilbert matrix as a dictionary (mpmath matrix)
-    def hilbert(self, n):
-        matA = dp.hilbert(n)
-        return matA
 
 
-# 14.1.10 Creating a random matrix as a dictionary (mpmath matrix)
-    def randmatrix(self, m, n):
-        return dp.randmatrix(m, n)
+# %%%  8.2 Legendre elliptic integrals (elliptic parameter 𝑚)
 
 
-    def mat_random(self, m, n):
-        matA = dp.randmatrix(m, n)
-        matB = dp.zeros(m, n)
-        for i in range(m):
-            for j in range(n):
-                matB[i, j] = dp.mpf(matA[i, j])
-        return matB
+# 8.2.1 Legendre complete elliptic integral of the first kind, 𝐾(m)
 
-    def mat_random_complex(self, m, n):
-        matA = self.mat_random(m, n) + self.mat_random(m, n) * 1j
-        return matA
-
-
-
-# 14.1.11 Swap of rows in a mpmath matrix
-
-
-# 14.1.12 Extending a mpmath matrix by another column
-
-
-# 14.1.13 Unit vectors
-
-    def unitvector(self, n, i):
-        return dp.unitvector(n, i)
-
-
-
-# %%%  14.2 Methods and arithmetic operators of a mpmath matrix
-
-# this functionality is already built in
-
-
-
-# %%%  14.3 Norms
-
-
-# 14.3.1 Vector norm of a matrix
-    def norm(self, x, p=2):
-        return dp.norm(x, p)
-
-
-# 14.3.2 Matrix norm
-    def mnorm(self, A, p=1):
-        return dp.mnorm(A, p=1)
-
-
-
-# %%%  14.4 Cholesky Decomposition without Pivoting
-
-
-# 14.4.1 Cholesky decomposition
-    def cholesky(self, A, tol=None):
-        return dp.cholesky(A, tol=None)
-
-
-# 14.4.2 Cholesky decomposition, solve
-    def cholesky_solve(self, A, b, **kwargs):
-        return dp.cholesky_solve(A, b, **kwargs)
-
-
-
-
-# %%%  14.5 LU Decomposition with partial Pivoting
-
-
-# 14.5.1 Matrix LU factorization
-    def lu(ctx, A):
-        return dp.lu(A)
-
-
-# 14.5.2 Determinant of a matrix, using LU decomposition
-    def det(self, matA):   # uses  lu decomposition
-        return dp.det(matA)
-
-
-# 14.5.3 Inverse of a matrix, using the LU factorization
-    def inverse(self, A, **kwargs):   # uses  lu decomposition
-        return dp.inverse(A, **kwargs)
-
-
-# 14.5.4 Linear equations: LU solve
-    def lu_solve(ctx, A, b, **kwargs):
-        return dp.lu_solve(A, b, **kwargs)
-
-    def lu_solve_mat(self, a, b):   # uses  lu decomposition
-        return dp.lu_solve_mat(a, b)
-
-
-# 14.5.5 Linear equations: residual of LU solve
-    def residual(self, A, x, b, **kwargs):
-        return dp.residual(A, x, b, **kwargs)
-
-
-# 14.5.6 ??? LU improve solution
-    def improve_solution(ctx, A, x, b, maxsteps=1):
-        return dp.improve_solution(A, x, b, maxsteps=1)
-
-
-# 14.5.7 mpmath: LU condition number
-    def cond(self, A, norm=None):   # uses  lu decomposition
-        return dp.cond(A, norm)
-
-
-
-
-# %%%  14.6 QR Decomposition without Pivoting
-
-
-# 14.6.1 QR factorization
-    def qr(self, A, mode = 'full', edps = 10):
-        return dp.qr(A, mode, edps)
-
-# 14.6.2 QR solve
-    def qr_solve(self, A, b, norm=None, **kwargs):
-        return dp.qr_solve(A, b, norm, **kwargs)
-
-
-# %%%  14.7 Singular Value Decomposition, singular values and full singular vectors
-
-
-# 14.7.1 Real singular value decomposition of a matrix A
-    def svd_r(self, A, full_matrices = False, compute_uv = True, overwrite_a = False):
-        return dp.svd_r(A, full_matrices, compute_uv, overwrite_a)
-
-
-# 14.7.2 Complex singular value decomposition of a matrix A
-    def svd_c(self, A, full_matrices = False, compute_uv = True, overwrite_a = False):
-        return dp.svd_c(A, full_matrices, compute_uv, overwrite_a)
-
-
-# 14.7.3 mpmath: Singular value decomposition of a matrix A (real or complex)
-    def svd(self, A, full_matrices = False, compute_uv = True, overwrite_a = False):
-        return dp.svd(A, full_matrices, compute_uv, overwrite_a)
-
-
-
-
-
-
-# %%%  14.8 Symmetric/Hermitian Eigensystem
-
-
-# 14.8.1 Eigenvalue problem for a real symmetric square matrix A
-    def eigsy(self, A, eigvals_only = False, overwrite_a = False):
-        return dp.eigsy(A, eigvals_only, overwrite_a)
-
-
-# 14.8.2 Eigenvalue problem for a complex hermitian square matrix A
-    def eighe(self, A, eigvals_only = False, overwrite_a = False):
-        return dp.eighe(A, eigvals_only, overwrite_a)
-
-
-# 14.8.3 mpmath: Eigenvalue problem for a selfadjoint square matrix A
-    def eigh(self, A, eigvals_only = False, overwrite_a = False):
-        return dp.eigh(A, eigvals_only, overwrite_a)
-
-
-
-
-
-
-# %%%  14.9 TODO: Tridiagonalization
-
-
-# 14.9.1 mpmath: tridiag_sym
-    def r_sy_tridiag(self, A, D, E, calc_ev = True):
-        return dp.tridiag_eigen(A, D, E, calc_ev = True)
-
-
-# 14.9.2 mpmath tridiag_her
-    def c_he_tridiag_0(self, A, D, E, T):
-        return dp.tridiag_eigen(A, D, E, T)
-
-
-# 14.9.3 mpmath: tridiag_eigen_sym
-    def tridiag_eigen(self, d, e, z = False):
-        return dp.tridiag_eigen(d, e, z = False)
-
-
-
-
-# %%%  14.10 Eigensystem of a general square matrix
-
-
-# 14.10.1 Eigensystem decomposition of a matrix A (real or complex)
-    def eig(self, A, left = False, right = True, overwrite_a = False):
-        return dp.eig(A, left, right, overwrite_a)
-
-
-# 14.10.2 Sorting Eigenvalues
-    def eig_sort(self, E, EL = False, ER = False, f = "real"):
-        return dp.eig_sort(E, EL, ER, f)
-
-
-
-# %%%  14.11 Hessenberg and Schur decompositions
-
-
-# 14.11.1 mpmath: Hessenberg decomposition of a matrix A (real or complex)
-    def hessenberg(self, A, overwrite_a = False):
-        return dp.hessenberg(A, overwrite_a)
-
-
-# 14.11.2 Schur decomposition of a matrix A (real or complex)
-    def schur(self, A, overwrite_a = False):
-        return dp.schur(A, overwrite_a)
-
-
-
-# %%%  14.12 Analytic functions of a matrix (using mpmath or Arb)
-
-
-# 14.12.1 Matrix Exponential
-    def expm(self, A, method='taylor'):
-        return dp.expm(A, method)
-
-
-# 14.12.2 Matrix Sine
-    def sinm(self, A):
-        return dp.sinm(A)
-
-
-# 14.12.3 Matrix Cosine
-    def cosm(self, A):
-        return dp.cosm(A)
-
-
-# 14.12.6 Matrix Square Root
-    def sqrtm(self, A, _may_rotate=2):
-        return dp.sqrtm(A, _may_rotate)
-
-
-# 14.12.7 Matrix Logarithm
-    def logm(self, A):
-        return dp.logm(A)
-
-
-# 14.12.8 Matrix power
-    def powm(self, A, r):
-        return dp.powm(A, r)
-
-
-
-
-
-
-# %% 15 Statistical data analysis
-
-# %%%  15.1 Transformations of raw data
-
-# %%%  15.2 Descriptive Statistics
-
-# %%%  15.3 Descriptive statistical functions: real matrices
-
-# %%%  15.4 Basic classical statistical tests (stratified)
-
-# %%%  15.5 Nonparametric statistical tests
-
-# %%%  15.6 Multivariate statistical tests
-
-
-# %% 16 Elliptic functions and integrals
-
-# %%%  16.1 Conversions of parameters of elliptic functions
-
-    def qfrom(self, **kwargs):
-        return mpm.qfrom(kwargs)
-
-    def qbarfrom(self, **kwargs):
-        return mpm.qbarfrom(kwargs)
-
-    def mfrom(self, **kwargs):
-        return mpm.mfrom(kwargs)
-
-    def kfrom(self, **kwargs):
-        return mpm.kfrom(kwargs)
-
-    def taufrom(self, **kwargs):
-        return mpm.taufrom(kwargs)
-
-
-# %%%  15.2 Legendre elliptic integrals
-
-    def elliptic_k(self, m):
+    def m_elliptic_k(self, m):
+        '''Legendre complete elliptic integral of the first kind, 𝐾(m)'''
         m = self.t(m)
-        return self._fm1(mpm.elliptic_k, m)
+        return self._fm1(mpm.m_elliptic_k, m)
 
-    def elliptic_e(self, m):
+
+# 8.2.2 Legendre complete elliptic integral of the second kind, 𝐸(m)
+
+    def m_elliptic_e(self, m):
+        '''Legendre complete elliptic integral of the second kind, 𝐸(m)'''
         m = self.t(m)
-        return self._fm1(mpm.elliptic_e, m)
+        return self._fm1(mpm.m_elliptic_e, m)
 
-    def elliptic_pi(self, n, m):
+
+# 8.2.3 Legendre complete elliptic integral of the third kind, Π(𝑛, m)
+
+    def m_elliptic_pi(self, n, m):
+        '''Legendre complete elliptic integral of the third kind, Π(𝑛, m)'''
         n = self.t(n)
         m = self.t(m)
-        return self._fm2(mpm.elliptic_pi, n, m)
+        return self._fm2(mpm.m_elliptic_pi, n, m)
 
-    def elliptic_f(self, phi, m):
+
+# 8.2.4 Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, m)
+
+    def m_elliptic_f(self, phi, m):
+        '''Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, m)'''
         phi = self.t(phi)
         m = self.t(m)
-        return self._fm2(mpm.elliptic_f, phi, m)
+        return self._fm2(mpm.m_elliptic_f, phi, m)
 
-    def elliptic_e_inc(self, phi, m):
+
+# 8.2.5 Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, m)
+
+    def m_elliptic_e_inc(self, phi, m):
+        '''Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, m)'''
         phi = self.t(phi)
         m = self.t(m)
-        return self._fm2(mpm.elliptic_e_inc, phi, m)
+        return self._fm2(mpm.m_elliptic_e_inc, phi, m)
 
-    def elliptic_pi_inc(self, n, phi, m):
+
+# 8.2.6 Legendre incomplete elliptic integral of the third kind, Π(𝑛, 𝜑, m)
+
+    def m_elliptic_pi_inc(self, n, phi, m):
+        '''Legendre incomplete elliptic integral of the third kind,
+         Π(𝑛, 𝜑, m)'''
         n = self.t(n)
         phi = self.t(phi)
         m = self.t(m)
-        return self._fm3(mpm.elliptic_pi_inc, n, phi, m)
+        return self._fm3(mpm.m_elliptic_pi_inc, n, phi, m)
+
+
+
+
+
+# %%%  8.3 Legendre elliptic integrals (elliptic parameter 𝑘)
+
+
+# 8.3.1 Legendre complete elliptic integral of the first kind, 𝐾(𝑘)
+
+    def elliptic_k(self, k):
+        '''Legendre complete elliptic integral of the first kind, 𝐾(𝑘)'''
+        k = self.t(k)
+        return self._fm1(mpm.elliptic_k, k)
+
+
+# 8.3.2 Legendre complete elliptic integral of the second kind, 𝐸(𝑘)
+
+    def elliptic_e(self, k):
+        '''Legendre complete elliptic integral of the second kind, 𝐸(𝑘)'''
+        k = self.t(k)
+        return self._fm1(mpm.elliptic_e, k)
+
+
+# 8.3.3 Legendre complete elliptic integral of the third kind, Π(𝑛, 𝑘)
+
+    def elliptic_pi(self, n, k):
+        '''Legendre complete elliptic integral of the third kind, Π(𝑛, 𝑘)'''
+        n = self.t(n)
+        k = self.t(k)
+        return self._fm2(mpm.elliptic_pi, n, k)
+
+
+# 8.3.4 Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, 𝑘)
+
+    def elliptic_f(self, phi, k):
+        '''Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, 𝑘)'''
+        phi = self.t(phi)
+        k = self.t(k)
+        return self._fm2(mpm.elliptic_f, phi, k)
+
+
+# 8.3.5 Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, 𝑘)
+
+    def elliptic_e_inc(self, phi, k):
+        '''Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, 𝑘)'''
+        phi = self.t(phi)
+        k = self.t(k)
+        return self._fm2(mpm.elliptic_e_inc, phi, k)
+
+
+# 8.3.6 Legendre incomplete elliptic integral of the third kind, Π(𝑛, 𝜑, 𝑘)
+
+    def elliptic_pi_inc(self, n, phi, k):
+        '''Legendre incomplete elliptic integral of the third kind,
+         Π(𝑛, 𝜑, 𝑘)'''
+        n = self.t(k)
+        phi = self.t(phi)
+        k = self.t(k)
+        return self._fm3(mpm.elliptic_pi_inc, n, phi, k)
+
+
+
+# 8.3.7 Jacobi Zeta function, 𝑍(𝜑, 𝑘)
 
     def jacobi_zeta(self, phi, k):
+        '''Jacobi Zeta function, 𝑍(𝜑, 𝑘)'''
         phi = self.t(phi)
         k = self.t(k)
         return self._fm2(mpm.jacobi_zeta, phi, k)
 
+
+# 8.3.8 Heuman’s Lambda function, Λ(𝜑, 𝑘)
+
     def heuman_lambda(self, phi, k):
+        '''Heuman’s Lambda function, Λ(𝜑, 𝑘)'''
         phi = self.t(phi)
         k = self.t(k)
         return self._fm2(mpm.heuman_lambda, phi, k)
 
 
-# %%%  15.3 Carlson symmetric elliptic integrals
-
-    def elliprf(self, x, y, z):
-        x = self.t(x)
-        y = self.t(y)
-        z = self.t(z)
-        return self._fm3(mpm.elliprf, x, y, z)
-
-    def elliprg(self, x, y, z):
-        x = self.t(x)
-        y = self.t(y)
-        z = self.t(z)
-        return self._fm3(mpm.elliprg, x, y, z)
-
-    def elliprj(self, x, y, z, p):
-        x = self.t(x)
-        y = self.t(y)
-        z = self.t(z)
-        p = self.t(p)
-        return self._fm4(mpm.elliprj, x, y, z, p)
-
-    def elliprd(self, x, y, z):
-        x = self.t(x)
-        y = self.t(y)
-        z = self.t(z)
-        return self._fm3(mpm.elliprd, x, y, z)
-
-    def elliprc(self, x, y):
-        x = self.t(x)
-        y = self.t(y)
-        return self._fm2(mpm.elliprc, x, y)
 
 
-# %%%  15.4 Jacobi elliptic functions
 
-    def ellipfun(self, kind, u=None, m=None, q=None, k=None, tau=None):
-        return mpm.ellipfun(kind, u, m, q, k, tau)
+# %%%  8.4 Jacobi elliptic functions
+
+##    def ellipfun(self, kind, u=None, m=None, q=None, k=None, tau=None):
+##        u = self.t(u)
+##        m = self.t(m)
+##        return mpm.ellipfun('sn', u, m)
+
+
+# 8.4.1 Jacobi elliptic function sn
+
+    def jacobi_sn(self, u, k):
+        '''Jacobi elliptic function sn'''
         u = self.t(u)
-        m = self.t(m)
-        return mpm.ellipfun('sn', u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_sn, u, k)
 
-    def jacobi_sn(self, u, m):
+
+# 8.4.2 Jacobi elliptic function cn
+
+    def jacobi_cn(self, u, k):
+        '''Jacobi elliptic function cn'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_sn, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_cn, u, k)
 
-    def jacobi_cn(self, u, m):
+# 8.4.3 Jacobi elliptic function dn
+
+    def jacobi_dn(self, u, k):
+        '''Jacobi elliptic function dn'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_cn, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_dn, u, k)
 
-    def jacobi_dn(self, u, m):
+# 8.4.4 Jacobi elliptic function ns
+
+    def jacobi_ns(self, u, k):
+        '''Jacobi elliptic function ns'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_dn, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_ns, u, k)
 
-    def jacobi_ns(self, u, m):
+# 8.4.5 Jacobi elliptic function nc
+
+    def jacobi_nc(self, u, k):
+        '''Jacobi elliptic function nc'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_ns, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_nc, u, k)
 
-    def jacobi_nc(self, u, m):
+# 8.4.6 Jacobi elliptic function nd
+
+    def jacobi_nd(self, u, k):
+        '''Jacobi elliptic function nd'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_nc, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_nd, u, k)
 
-    def jacobi_nd(self, u, m):
+# 8.4.7 Jacobi elliptic function sc
+
+    def jacobi_sc(self, u, k):
+        '''Jacobi elliptic function sc'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_nd, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_sc, u, k)
 
-    def jacobi_sc(self, u, m):
+# 8.4.8 Jacobi elliptic function sd
+
+    def jacobi_sd(self, u, k):
+        '''Jacobi elliptic function sd'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_sc, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_sd, u, k)
 
-    def jacobi_sd(self, u, m):
+    def jacobi_dc(self, u, k):
+        '''Jacobi elliptic function dc'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_sd, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_dc, u, k)
 
-    def jacobi_dc(self, u, m):
+    def jacobi_ds(self, u, k):
+        '''Jacobi elliptic function ds'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_dc, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_ds, u, k)
 
-    def jacobi_ds(self, u, m):
+# 8.4.11 Jacobi elliptic function cs
+
+    def jacobi_cs(self, u, k):
+        '''Jacobi elliptic function cs'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_ds, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_cs, u, k)
 
-    def jacobi_cs(self, u, m):
+# 8.4.12 Jacobi elliptic function cd
+
+    def jacobi_cd(self, u, k):
+        '''Jacobi elliptic function cd'''
         u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_cs, u, m)
-
-    def jacobi_cd(self, u, m):
-        u = self.t(u)
-        m = self.t(m)
-        return self._fm2(mpm.jacobi_cd, u, m)
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_cd, u, k)
 
 
-# %%%  15.5 Weierstrass elliptic functions
 
 
-    def weierstrass_p(self, z, tau):
-        z = self.t(z)
-        tau = self.t(tau)
-        return self._fm2(mpm.weierstrass_p, z, tau)
+# %%%  8.5 Jacobi theta functions and related functions
 
-    def weierstrass_p_prime(self, z, tau):
-        z = self.t(z)
-        tau = self.t(tau)
-        return self._fm2(mpm.weierstrass_p_prime, z, tau)
+# 8.5.1 Jacobi theta functions, general form
 
-    def weierstrass_p_inv(self, z, tau):
-        z = self.t(z)
-        tau = self.t(tau)
-        return self._fm2(mpm.weierstrass_p_inv, z, tau)
-
-    def weierstrass_zeta(self, z, tau):
-        z = self.t(z)
-        tau = self.t(tau)
-        return self._fm2(mpm.weierstrass_zeta, z, tau)
-
-    def weierstrass_sigma(self, z, tau):
-        z = self.t(z)
-        tau = self.t(tau)
-        return self._fm2(mpm.weierstrass_sigma, z, tau)
+##
+##    def jtheta(self, n, z, q, derivative=0):
+##        n = int(n)
+##        z = self.t(z)
+##        q = self.t(q)
+##        derivative = int(derivative)
+##        return self._fm4(mpm.jtheta, n, z, q, derivative)
 
 
-# %%%  15.6 Jacobi theta functions and related functions
 
 
-    def jtheta(self, n, z, q, derivative=0):
-        n = int(n)
+# %%%  8.5 Jacobi theta functions
+
+##
+##    def jtheta(self, n, z, q, derivative=0):
+##        n = int(n)
+##        z = self.t(z)
+##        q = self.t(q)
+##        derivative = int(derivative)
+##        return self._fm4(mpm.jtheta, n, z, q, derivative)
+
+
+# 8.5.1 Jacobi theta1 function
+
+    def jacobi_theta1(self, z, q):
+        '''Jacobi theta1 function'''
         z = self.t(z)
         q = self.t(q)
-        derivative = int(derivative)
-        return self._fm4(mpm.jtheta, n, z, q, derivative)
+        return self._fm2(mpm.jacobi_theta1, z, q)
+
+
+
+# 8.5.2 Jacobi theta2 function
+
+    def jacobi_theta2(self, z, q):
+        '''Jacobi theta2 function'''
+        z = self.t(z)
+        q = self.t(q)
+        return self._fm2(mpm.jacobi_theta2, z, q)
+
+
+# 8.5.3 Jacobi theta3 function
+
+    def jacobi_theta3(self, z, q):
+        '''Jacobi theta3 function'''
+        z = self.t(z)
+        q = self.t(q)
+        return self._fm2(mpm.jacobi_theta3, z, q)
+
+
+# 8.5.4 Jacobi theta4 function
+
+    def jacobi_theta4(self, z, q):
+        '''Jacobi theta4 function'''
+        z = self.t(z)
+        q = self.t(q)
+        return self._fm2(mpm.jacobi_theta4, z, q)
+
+
+
+# %%%  8.6 Conversions of parameters of elliptic functions
+
+
+# 8.6.1 Elliptic nome q
+
+    def qfrom(self, q=None, m=None, k=None, tau=None, qbar=None):
+        '''Elliptic nome q'''
+        return mpm.qfrom(kwargs)
+
+
+# 8.6.2 Number-theoretic nome qbar
+
+    def qbarfrom(self, q=None, m=None, k=None, tau=None, qbar=None):
+        '''Number-theoretic nome qbar'''
+        return mpm.qbarfrom(kwargs)
+
+
+# 8.6.3 Elliptic parameter m
+
+    def mfrom(self, q=None, m=None, k=None, tau=None, qbar=None):
+        '''Elliptic parameter m'''
+        return mpm.mfrom(kwargs)
+
+
+# 8.6.4 Elliptic modulus k
+
+    def kfrom(self, q=None, m=None, k=None, tau=None, qbar=None):
+        '''Elliptic modulus k'''
+        return mpm.kfrom(kwargs)
+
+# 8.6.5 Elliptic half-period ratio tau
+
+    def taufrom(self, q=None, m=None, k=None, tau=None, qbar=None):
+        '''Elliptic modulus k'''
+
+    def taufrom(self, **kwargs):
+        return mpm.taufrom(kwargs)
+
+
+# 8.6.6 Elliptic lattice roots in terms of Elliptic period ratio 𝜏
+
+    def elliptic_roots(self, tau):
+        '''Elliptic lattice roots in terms of Elliptic period ratio 𝜏'''
+        tau = self.t(tau)
+        return self._fm1(mpm.elliptic_roots, tau)
+
+# 8.6.7 Elliptic lattice invariants
+
+    def elliptic_invariants(self, tau):
+        '''Elliptic lattice invariants'''
+        tau = self.t(tau)
+        return self._fm1(mpm.elliptic_roots, tau)
+
+
+
+# %%%  8.7 Weierstrass elliptic functions
+
+# 8.7.1 Weierstrass function ℘(𝑧, 𝜏 )
+
+    def weierstrass_p_t(self, z, tau):
+        '''Weierstrass function ℘(𝑧, 𝜏 )'''
+        z = self.t(z)
+        tau = self.t(tau)
+        return self._fm2(mpm.weierstrass_p_t, z, tau)
+
+
+# 8.7.2 Weierstrass function, first derivative: ℘′(𝑧, 𝜏 )
+
+    def weierstrass_pprime_t(self, z, tau):
+        '''Weierstrass function, first derivative: ℘′(𝑧, 𝜏 )'''
+        z = self.t(z)
+        tau = self.t(tau)
+        return self._fm2(mpm.weierstrass_pprime_t, z, tau)
+
+
+# 8.7.3 Inverse Weierstrass function ℘−1 (𝑧, 𝜏 )
+
+    def weierstrass_pinv_t(self, z, tau):
+        '''Inverse Weierstrass function ℘−1 (𝑧, 𝜏 )'''
+        z = self.t(z)
+        tau = self.t(tau)
+        return self._fm2(mpm.weierstrass_pinv_t, z, tau)
+
+
+# 8.7.4 Weierstrass Zeta
+
+    def weierstrass_zeta_t(self, z, tau):
+        '''Weierstrass Zeta'''
+        z = self.t(z)
+        tau = self.t(tau)
+        return self._fm2(mpm.weierstrass_zeta_t, z, tau)
+
+
+# 8.7.5 Weierstrass Sigma
+
+    def weierstrass_sigma_t(self, z, tau):
+        '''Weierstrass Sigma'''
+        z = self.t(z)
+        tau = self.t(tau)
+        return self._fm2(mpm.weierstrass_sigma_t, z, tau)
+
+
+
+
+# %%%  8.8 Modular forms
+
+
+# 8.8.1 Dedekind eta function
 
     def dedekind_eta(self, tau):
+        '''Dedekind eta function'''
         tau = self.t(tau)
         return self._fm1(mpm.dedekind_eta, tau)
 
+
+# 8.8.2 Elliptic modular Lambda
+
     def modular_lambda(self, tau):
+        '''Elliptic modular Lambda'''
         tau = self.t(tau)
         return self._fm1(mpm.modular_lambda, tau)
 
+
+
+# 8.8.3 Elliptic modular Delta
+
     def modular_delta(self, tau):
+        '''Elliptic modular Delta'''
         tau = self.t(tau)
         return self._fm1(mpm.modular_delta, tau)
 
-    def kleinj(self, tau):
-        tau = self.t(tau)
-        return self._fm1(mpm.kleinj, tau)
 
-    def elliptic_roots(self, tau):
-        tau = self.t(tau)
-        if self.imag(tau) <= 0:
-            raise Exception("imaginary part needs to be > 0")
-        p = self.pi
-        q = self.exp(self.t(1j) * p * tau)
-        a = self.jtheta(2, 0, q)
-        b = self.jtheta(3, 0, q)
-        c = self.jtheta(4, 0, q)
-        p = p*p/3
-        a2 = a*a
-        a4 = a2*a2
-        b2 = b*b
-        b4 = b2*b2
-        c2 = c*c
-        c4 = c2*c2
-        e1 = (b4 + c4)*p
-        e2 = (-a4 - b4)*p
-        e3 = (a4 - c4)*p
-        if self.imag(e1) == self.t(0):
-            e1 = self.real(e1)
-        if self.imag(e2) == self.t(0):
-            e2 = self.real(e2)
-        if self.imag(e3) == self.t(0):
-            e3 = self.real(e3)
-        return e1, e2, e3
+# 8.8.4 Klein j-invariant
 
-    def elliptic_invariants(self, tau):
+    def klein_j(self, tau):
+        '''Klein j-invariant'''
         tau = self.t(tau)
-        e1, e2, e3 = self.elliptic_roots(tau)
-        g2 = (e1*e1 + e2*e2 + e3*e3)*2
-        g3 = e1*e2*e3*4
-        if self.imag(g2) == self.t(0):
-            g2 = self.real(g2)
-        if self.imag(g3) == self.t(0):
-            g3 = self.real(g3)
-        return g2, g3
+        return self._fm1(mpm.klein_j, tau)
+
+
+
+
+
+
+
+
+
+
 
 
 # %% 16 Lerch’s transcendent and related functions

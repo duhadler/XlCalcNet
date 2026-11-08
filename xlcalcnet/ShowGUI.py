@@ -102,12 +102,26 @@ class gui():
 
 
 
+    def _set_ctxlist_noipm_real(self, ctxlist_noipm_real):
+        self._ctxlist_noipm_real = ctxlist_noipm_real
+
+    @property
+    def ctxlist_noipm_real(self):
+        return self._ctxlist_noipm_real
+
+
+
+
+
+
     def _set_ctxlist_noboost_real(self, ctxlist_noboost_real):
         self._ctxlist_noboost_real = ctxlist_noboost_real
 
     @property
     def ctxlist_noboost_real(self):
         return self._ctxlist_noboost_real
+
+
 
 
     def _set_ctxlist_cplx(self, ctxlist_cplx):

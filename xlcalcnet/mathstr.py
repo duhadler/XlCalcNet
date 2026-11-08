@@ -273,7 +273,7 @@ def t_mpm(x, y=None):
         elif isinstance(x, complex):
             y = format(x.imag, '.14g')
             x = format(x.real, '.14g')
-        elif (str(type(x)) == "<class 'xlcalcnet.ctx_dec.DecCplx'>"):
+        elif (str(type(x)) == "<class 'xlcalcnet.mathdp.DecCplx'>"):
             y = str(x.imag)
             x = str(x.real)
         elif isinstance(x, iv.mpc):
