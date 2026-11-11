@@ -3305,18 +3305,18 @@ class mpm():
 
 # %% 09 Lerch’s transcendent and related functions
 
-# %%%  17.1 Overview LERCH’S TRANSCENDENT, POLYGAMMA
+# %%%  9.1 Overview LERCH’S TRANSCENDENT, POLYGAMMA
 
-# 17.1.1 Lerch’s transcendent
+# 9.1.1 Lerch’s transcendent
 
-    def lerchphi(self, z, s, a):
+    def lerch_phi(self, z, s, a):
         '''Lerch’s transcendent'''
         z = self.t(z)
         s = self.t(s)
         a = self.t(a)
         return mp.lerchphi(z, s, a)
 
-# 17.1.2 Lerch’s zeta
+# 9.1.2 Lerch’s zeta
 
     def lerch_zeta(self, lambda1, alpha, s):
         '''Lerch’s zeta'''
@@ -3326,15 +3326,9 @@ class mpm():
         return mp.lerchphi(mp.exp(2*mp.pi()*1j*lambda1), s, alpha)
 
 
-# %%%  17.2 Polygamma functions
+# %%%  9.2 Polygamma functions
 
-# 17.2.1 Polygamma function 𝜓𝑚(𝑥)
-
-    def psi(self, m, z):
-        '''Polygamma function 𝜓𝑚(𝑥)'''
-        m = self.t(m)
-        z = self.t(z)
-        return mp.psi(m, z)
+# 9.2.1 Polygamma function 𝜓𝑚(𝑥)
 
     def polygamma(self, m, z):
         '''Polygamma function 𝜓𝑚(𝑥)'''
@@ -3342,24 +3336,31 @@ class mpm():
         z = self.t(z)
         return mp.psi(m, z)
 
-# 17.2.2 TriGamma function 𝜓′(𝑥)
+# 9.2.2 TriGamma function 𝜓′(𝑥)
 
     def trigamma(self, z):
         '''TriGamma function 𝜓′(𝑥)'''
         z = self.t(z)
         return mp.psi(1, z)
 
-# 17.2.3 DiGamma function 𝜓(𝑥)
+# 9.2.3 DiGamma function 𝜓(𝑥)
 
     def digamma(self, z):
         '''DiGamma function 𝜓(𝑥)'''
         z = self.t(z)
         return mp.psi(0, z)
 
+# 9.2.4 Harmonic numbers
 
-# %%%  17.3 Polylogarithms and related functions
+    def harmonic(self, z):
+        '''Harmonic numbers'''
+        z = self.t(z)
+        return mp.harmonic(z)
 
-# 17.3.1 Polylogarithm, Li𝑠(𝑧)
+
+# %%%  9.3 Polylogarithms and related functions
+
+# 9.3.1 Polylogarithm, Li𝑠(𝑧)
 
     def polylog(self, s, z):
         '''Polylogarithm, Li𝑠(𝑧)'''
@@ -3367,43 +3368,43 @@ class mpm():
         z = self.t(z)
         return mp.polylog(s, z)
 
-# 17.3.2 Trilogarithm Function, Li3(𝑧)
+# 9.3.2 Trilogarithm Function, Li3(𝑧)
 
     def trilog(self, z):
         '''Trilogarithm Function, Li3(𝑧)'''
         z = self.t(z)
         return mp.polylog(3, z)
 
-# 17.3.3 Dilogarithm Function, Li2(𝑧)
+# 9.3.3 Dilogarithm Function, Li2(𝑧)
 
     def dilog(self, z):
         '''Dilogarithm Function, Li2(𝑧)'''
         z = self.t(z)
         return mp.polylog(2, z)
 
-# 17.3.4 Generalized Clausen sine function
-    def clsin(self, s, z):
+# 9.3.4 Generalized Clausen sine function
+    def clausen_sin(self, s, z):
         '''Generalized Clausen sine function'''
         s = self.t(s)
         z = self.t(z)
         return mp.clsin(s, z)
 
-# 17.3.5 Generalized Clausen cosine function
+# 9.3.5 Generalized Clausen cosine function
 
-    def clcos(self, s, z):
+    def clausen_cos(self, s, z):
         '''Generalized Clausen cosine function'''
         s = self.t(s)
         z = self.t(z)
         return mp.clcos(s, z)
 
-# 17.3.6 Classical Clausen function
+# 9.3.6 Classical Clausen function
 
-    def cl2(self, z):
+    def clausen2(self, z):
         '''Classical Clausen function'''
         z = self.t(z)
-        return self.clsin(2, z)
+        return self.clausen_sin(2, z)
 
-# 17.3.7 Bose-Einstein integrals of real order
+# 9.3.7 Bose-Einstein integrals of real order
 
     def bose_einstein(self, s, z, real4real=True):
         '''Bose-Einstein integrals of real order'''
@@ -3414,7 +3415,7 @@ class mpm():
             res = mp.re(res)
         return res
 
-# 17.3.8 Fermi-Dirac integrals
+# 9.3.8 Fermi-Dirac integrals
 
     def fermi_dirac(self, s, z, real4real=True):
         '''Fermi-Dirac integrals'''
@@ -3425,7 +3426,7 @@ class mpm():
             res = mp.re(res)
         return res
 
-# 17.3.9 Legendre’s chi function
+# 9.3.9 Legendre’s chi function
 
     def legendre_chi(self, s, z, real4real=True):
         '''Legendre’s chi function'''
@@ -3436,9 +3437,9 @@ class mpm():
             res = mp.re(res)
         return res
 
-# 17.3.10 Inverse tangent integral
+# 9.3.10 Inverse tangent integral
 
-    def ti(self, s, z):
+    def inverse_tan_integral(self, s, z):
         '''Inverse tangent integral'''
         s = self.t(s)
         z = self.t(z)
@@ -3448,44 +3449,19 @@ class mpm():
             res = mp.re(res)
         return res
 
-# !!! Missing in documentation !!!
-
-    def ti2(self, z):
-        z = self.t(z)
-        return self.ti(2, z)
-
-# 17.3.11 Debye functions
-    def debye(self, n, x):
-        '''Debye functions'''
-        return ctxm.debye(self, n, x)
 
 
-# %%%  17.4 Hurwitz zeta function and related functions
+# %%%  9.4 Hurwitz zeta function and related functions
 
-# 17.4.1 Hurwitz zeta function
+# 9.4.1 Hurwitz zeta function
 
-    def hurwitz(self, s, a, derivative=0):
+    def hurwitz_zeta(self, s, a, derivative=0):
         '''Hurwitz zeta function'''
         s = self.t(s)
         a = self.t(a)
         return mp.zeta(s, a, derivative)
 
-# 17.4.2 Stieltjes constant
-
-    def stieltjes(self, n, a=1):
-        '''Stieltjes constant'''
-        n = int(n)
-        a = self.t(a)
-        return mp.stieltjes(n, a)
-
-# 17.4.3 Harmonic numbers
-
-    def harmonic(self, z):
-        '''Harmonic numbers'''
-        z = self.t(z)
-        return mp.harmonic(z)
-
-# 17.4.4 Generalized harmonic number function
+# 9.4.2 Generalized harmonic number function
 
     def harmonic2(self, z, r):
         '''Generalized harmonic number function'''
@@ -3496,21 +3472,14 @@ class mpm():
         else:
             return mp.zeta(r) - mp.zeta(r, z + 1)
 
-# 17.4.5 Bernoulli numbers
+# 9.4.3 Bernoulli numbers
 
     def bernoulli(self, n):
         '''Bernoulli numbers'''
         n = int(n)
         return mp.bernoulli(n)
 
-# 17.4.6 Bernoulli number as fraction
-
-    def bernfrac(self, n):
-        '''Bernoulli number as fraction'''
-        n = int(n)
-        return mp.bernfrac(n)
-
-# 17.4.7 Bernoulli polynomials
+# 9.4.4 Bernoulli polynomials
 
     def bernpoly(self, n, z):
         '''Bernoulli polynomials'''
@@ -3518,14 +3487,14 @@ class mpm():
         z = self.t(z)
         return mp.bernpoly(n, z)
 
-# 17.4.8 Euler numbers
+# 9.4.5 Euler numbers
 
     def eulernum(self, n):
         '''Euler numbers'''
         n = int(n)
         return mp.eulernum(n)
 
-# 17.4.9 Euler polynomials
+# 9.4.6 Euler polynomials
 
     def eulerpoly(self, n, z):
         '''Euler polynomials'''
@@ -3533,89 +3502,119 @@ class mpm():
         z = self.t(z)
         return mp.eulerpoly(n, z)
 
-# 17.4.10 Logarithm of Barnes G function
+# 9.4.7 Barnes G-function
 
-    def lnbarnesg(self, z):
-        '''Logarithm of Barnes G function'''
-        z = self.t(z)
-        return mp.ln(mp.barnesg(z))
-
-# 17.4.11 Barnes G-function
-
-    def barnesg(self, z):
+    def barnes_g(self, z):
         '''Barnes G-function'''
         z = self.t(z)
         return mp.barnesg(z)
 
-# 17.4.12 Hyperfactorial
+# 9.4.8 Logarithm of Barnes G function
 
-    def hyperfac(self, z):
+    def logbarnes_g(self, z):
+        '''Logarithm of Barnes G function'''
+        z = self.t(z)
+        return mp.ln(mp.barnesg(z))
+
+# 9.4.9 Hyperfactorial
+
+    def hyperfactorial(self, z):
         '''Hyperfactorial'''
         z = self.t(z)
         return mp.hyperfac(z)
 
-# 17.4.13 Superfactorial
+# 9.4.10 Superfactorial
 
-    def superfac(self, z):
+    def superfactorial(self, z):
         '''Superfactorial'''
         z = self.t(z)
         return mp.superfac(z)
 
 
-# %%%  17.5 Dirichlet L series, Riemann zeta function and related functions
+### 9.3.11 Debye functions
+##    def debye(self, n, x):
+##        '''Debye functions'''
+##        return ctxm.debye(self, n, x)
+##
+### 17.4.2 Stieltjes constant
+##
+##    def stieltjes(self, n, a=1):
+##        '''Stieltjes constant'''
+##        n = int(n)
+##        a = self.t(a)
+##        return mp.stieltjes(n, a)
+##
+### 17.4.6 Bernoulli number as fraction
+##
+##    def bernfrac(self, n):
+##        '''Bernoulli number as fraction'''
+##        n = int(n)
+##        return mp.bernfrac(n)
 
-# 17.5.1 Dirichlet L-Series
 
-    def dirichlet_l(self, s, chi, derivative=0):
-        '''Dirichlet L-Series'''
-        s = self.t(s)
-        return mp.dirichlet(s, chi, derivative)
 
-# 17.5.2 Riemann zeta function
 
-    def zeta(self, s, derivative=0):
+# %%%  9.5 Riemann zeta function and related functions
+
+# 9.5.1 Riemann zeta function
+
+    def zeta(self, s):
         '''Riemann zeta function'''
         s = self.t(s)
-        return mp.zeta(s, 1, derivative)
+        return mp.zeta(s, 1)
 
-# 17.5.3 Riemann 𝜁(𝑠) − 1
+# 9.5.2 Riemann 𝜁(𝑠) − 1
 
     def zetam1(self, s):
         '''Riemann 𝜁(𝑠) − 1'''
         s = self.t(s)
         return mp.zeta(s, 2)
 
-# 17.5.4 Riemann (Landau) function 𝜉(𝑠)
+# 9.5.3 Riemann-Siegel theta function
+
+    def hardy_theta(self, t):
+        '''Riemann-Siegel theta function'''
+        t = self.t(t)
+        return mp.siegeltheta(t)
+
+# 9.5.4 Riemann-Siegel Z function
+
+    def hardy_z(self, t):
+        '''Riemann-Siegel Z function'''
+        t = self.t(t)
+        return mp.siegelz(t)
+
+# 9.5.5 Riemann (Landau) function 𝜉(𝑠)
 
     def riemann_xi(self, s):
         '''Riemann (Landau) function 𝜉(𝑠)'''
         s = self.t(s)
-        res = 0.5*s*(s-1)*self.pi()**(-s/2)*self.gamma(s/2)
+        res = 0.5*s*(s-1)*self.pi**(-s/2)*self.gamma(s/2)
         res = res * self.zeta(s)
         return res
 
-# 17.5.5 Dirichlet eta function
+# 9.5.6 Dirichlet eta function
 
     def dirichlet_eta(self, s):
         '''Dirichlet eta function'''
         s = self.t(s)
         return mp.altzeta(s)
 
-# 17.5.6 Dirichlet 𝜂(𝑠) − 1: etam1(s)
+# 9.5.7 Dirichlet 𝜂(𝑠) − 1: etam1(s)
 
     def dirichlet_etam1(self, s):
         '''Dirichlet 𝜂(𝑠) − 1: etam1(s)'''
         s = self.t(s)
         return self.dirichlet_eta(s) - 1
 
-# 17.5.7 Dirichlet Beta function
+# 9.5.8 Dirichlet Beta function
 
     def dirichlet_beta(self, s):
         '''Dirichlet Beta function'''
         s = self.t(s)
         return mp.power(4, -s) * (mp.zeta(s, 0.25) - mp.zeta(s, 0.75))
 
-# 17.5.8 Dirichlet Lambda function
+# 9.5.9 Dirichlet Lambda function
 
     def dirichlet_lambda(self, s):
         '''Dirichlet Lambda function'''
@@ -3623,128 +3622,124 @@ class mpm():
         # return (1 - mp.power(2, -s)) * mp.zeta(s)
         return -self.exp2m1(-s) * self.zeta(s)
 
-# 17.5.9 Riemann-Siegel Z function
+# 9.5.10 The nth nontrivial zero of Riemann's zeta on the critical line
 
-    def siegelz(self, t):
-        '''Riemann-Siegel Z function'''
-        t = self.t(t)
-        return mp.siegelz(t)
-
-# 17.5.10 Riemann-Siegel theta function
-
-    def siegeltheta(self, t):
-        '''Riemann-Siegel theta function'''
-        t = self.t(t)
-        return mp.siegeltheta(t)
-
-# 17.5.11 Backlund S function
-
-    def backlunds(self, t):
-        '''Backlund S function'''
-        t = self.t(t)
-        return mp.backlunds(t)
-
-# 17.5.12 Gram points
-
-    def grampoint(self, n):
-        '''Gram points'''
+    def zeta_zero(self, n):
+        '''The nth nontrivial zero of Riemann's zeta on the critical line'''
         n = int(n)
-        return mp.grampoint(n)
-
-# 17.5.13 Number of zeros of the Riemann zeta function
-
-    def zetazero(self, n, verbose=False):
-        '''Number of zeros of the Riemann zeta function'''
-        n = int(n)
-        return mp.zetazero(n, verbose)
-
-# 17.5.14 Zeros of the Riemann zeta function
-
-    def nzeros(self, t):
-        '''Zeros of the Riemann zeta function'''
-        t = self.t(t)
-        res = mp.nzeros(t)
-        res = self.t(res)
-        return res
-
-# 17.5.15 Secondary zeta function
-
-    def secondzeta(self, s, a=0.015):
-        '''Secondary zeta function'''
-        s = self.t(s)
-        a = self.t(a)
-        return mp.secondzeta(s, a)
+        return mp.zetazero(n)
 
 
-# %%%  17.6 Additional numbertheoretic functions
 
-# 17.6.1 Prime counting function
+### 9.5.10 Zeros of the Riemann zeta function
+##
+##    def nzeros(self, t):
+##        '''number of zeros < t of the Riemann zeta function'''
+##        t = self.t(t)
+##        res = mp.nzeros(t)
+##        res = self.t(res)
+##        return res
+##
+##
+### 17.5.1 Dirichlet L-Series
+##
+##    def dirichlet_l(self, s, chi, derivative=0):
+##        '''Dirichlet L-Series'''
+##        s = self.t(s)
+##        return mp.dirichlet(s, chi, derivative)
+##
+### 17.5.11 Backlund S function
+##
+##    def backlunds(self, t):
+##        '''Backlund S function'''
+##        t = self.t(t)
+##        return mp.backlunds(t)
+##
+### 17.5.12 Gram points
+##
+##    def grampoint(self, n):
+##        '''Gram points'''
+##        n = int(n)
+##        return mp.grampoint(n)
 
-    def primepi(self, x):
-        '''Prime counting function'''
-        return mp.primepi(x)
+### 17.5.15 Secondary zeta function
+##
+##    def secondzeta(self, s, a=0.015):
+##        '''Secondary zeta function'''
+##        s = self.t(s)
+##        a = self.t(a)
+##        return mp.secondzeta(s, a)
 
-# 17.6.2 Mangoldt function
 
-    def mangoldt(self, n):
-        '''Mangoldt function'''
-        return mp.mangoldt(n)
-
-# 17.6.3 Riemann R function
-
-    def riemannr(self, z):
-        '''Riemann R function'''
-        z = self.t(z)
-        return mp.riemannr(z)
-
-# 17.6.4 Prime zeta function
-
-    def primezeta(self, s):
-        '''Prime zeta function'''
-        s = self.t(s)
-        return mp.primezeta(s)
-
-# 17.6.5 Mertens constant
-
-    def mertens(self):
-        '''Mertens constant'''
-        return mp.mertens()
-
-# 17.6.6 Twin prime constant
-
-    def twinprime(self):
-        '''Twin prime constant'''
-        return mp.twinprime()
-
-# 17.6.7 Cyclotomic polynomial
-
-    def cyclotomic(self, n, x):
-        '''Cyclotomic polynomial'''
-        return mp.cyclotomic(n, x)
-
-# 17.6.8 Stirling number of the first kind
-
-    def stirling1(self, n, k, exact=False):
-        '''Stirling number of the first kind'''
-        return mp.stirling1(n, k, exact)
-
-# 17.6.9 Stirling number of the second kind
-
-    def stirling2(self, n, k, exact=False):
-        '''Stirling number of the second kind'''
-        return mp.stirling2(n, k, exact)
-
-# 17.6.10 Bell (Touchard) polynomials
-
-    def bell(self, n, x):
-        '''Bell (Touchard) polynomials'''
-        return mp.bell(n, x)
-
-# 17.6.11 Polyexponential function
-
-    def polyexp(self, s, z):
-        '''Polyexponential function'''
-        return mp.polyexp(s, z)
+### %%%  17.6 Additional numbertheoretic functions
+##
+### 17.6.1 Prime counting function
+##
+##    def primepi(self, x):
+##        '''Prime counting function'''
+##        return mp.primepi(x)
+##
+### 17.6.2 Mangoldt function
+##
+##    def mangoldt(self, n):
+##        '''Mangoldt function'''
+##        return mp.mangoldt(n)
+##
+### 17.6.3 Riemann R function
+##
+##    def riemannr(self, z):
+##        '''Riemann R function'''
+##        z = self.t(z)
+##        return mp.riemannr(z)
+##
+### 17.6.4 Prime zeta function
+##
+##    def primezeta(self, s):
+##        '''Prime zeta function'''
+##        s = self.t(s)
+##        return mp.primezeta(s)
+##
+### 17.6.5 Mertens constant
+##
+##    def mertens(self):
+##        '''Mertens constant'''
+##        return mp.mertens()
+##
+### 17.6.6 Twin prime constant
+##
+##    def twinprime(self):
+##        '''Twin prime constant'''
+##        return mp.twinprime()
+##
+### 17.6.7 Cyclotomic polynomial
+##
+##    def cyclotomic(self, n, x):
+##        '''Cyclotomic polynomial'''
+##        return mp.cyclotomic(n, x)
+##
+### 17.6.8 Stirling number of the first kind
+##
+##    def stirling1(self, n, k, exact=False):
+##        '''Stirling number of the first kind'''
+##        return mp.stirling1(n, k, exact)
+##
+### 17.6.9 Stirling number of the second kind
+##
+##    def stirling2(self, n, k, exact=False):
+##        '''Stirling number of the second kind'''
+##        return mp.stirling2(n, k, exact)
+##
+### 17.6.10 Bell (Touchard) polynomials
+##
+##    def bell(self, n, x):
+##        '''Bell (Touchard) polynomials'''
+##        return mp.bell(n, x)
+##
+### 17.6.11 Polyexponential function
+##
+##    def polyexp(self, s, z):
+##        '''Polyexponential function'''
+##        return mp.polyexp(s, z)
 
 
 # %% 10 Hypergeometric Function 0_F_1 and related functions

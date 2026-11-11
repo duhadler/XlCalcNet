@@ -739,15 +739,15 @@ namespace TestXlCalcNetPrecCS
                             object res1 = "Not done";
                             switch (NumType ?? "")
                             {
-                                case "math53": { res1 = math53.bernpoly(x, n); break; }
+                                case "math53": { res1 = math53.bernpoly(n, x); break; }
 #if HasArbPrecNet
-                                case "sflint": { res1 = sflint.bernpoly(x, n); break; }
-                                case "dflint": { res1 = dflint.bernpoly(x, n); break; }
-                                case "eflint": { res1 = eflint.bernpoly(x, n); break; }
-                                case "qflint": { res1 = qflint.bernpoly(x, n); break; }
-                                case "oflint": { res1 = oflint.bernpoly(x, n); break; }
-                                case "mflint": { res1 = mflint.bernpoly(x, n); break; }
-                                case "aflint": { res1 = aflint.bernpoly(x, n); break; }
+                                case "sflint": { res1 = sflint.bernpoly(n, x); break; }
+                                case "dflint": { res1 = dflint.bernpoly(n, x); break; }
+                                case "eflint": { res1 = eflint.bernpoly(n, x); break; }
+                                case "qflint": { res1 = qflint.bernpoly(n, x); break; }
+                                case "oflint": { res1 = oflint.bernpoly(n, x); break; }
+                                case "mflint": { res1 = mflint.bernpoly(n, x); break; }
+                                case "aflint": { res1 = aflint.bernpoly(n, x); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -803,15 +803,15 @@ namespace TestXlCalcNetPrecCS
                             object res1 = "Not done";
                             switch (NumType ?? "")
                             {
-                                case "math53": { res1 = math53.eulerpoly(x, n); break; }
+                                case "math53": { res1 = math53.eulerpoly(n, x); break; }
 #if HasArbPrecNet
-                                case "sflint": { res1 = sflint.eulerpoly(x, n); break; }
-                                case "dflint": { res1 = dflint.eulerpoly(x, n); break; }
-                                case "eflint": { res1 = eflint.eulerpoly(x, n); break; }
-                                case "qflint": { res1 = qflint.eulerpoly(x, n); break; }
-                                case "oflint": { res1 = oflint.eulerpoly(x, n); break; }
-                                case "mflint": { res1 = mflint.eulerpoly(x, n); break; }
-                                case "aflint": { res1 = aflint.eulerpoly(x, n); break; }
+                                case "sflint": { res1 = sflint.eulerpoly(n, x); break; }
+                                case "dflint": { res1 = dflint.eulerpoly(n, x); break; }
+                                case "eflint": { res1 = eflint.eulerpoly(n, x); break; }
+                                case "qflint": { res1 = qflint.eulerpoly(n, x); break; }
+                                case "oflint": { res1 = oflint.eulerpoly(n, x); break; }
+                                case "mflint": { res1 = mflint.eulerpoly(n, x); break; }
+                                case "aflint": { res1 = aflint.eulerpoly(n, x); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);

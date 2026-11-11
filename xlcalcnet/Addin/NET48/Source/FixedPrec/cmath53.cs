@@ -2737,6 +2737,32 @@ namespace FixedPrecNet
         #region Lerch’s transcendent: Overview
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lerch_phi/*' />
+        public static Complex lerch_phi(Complex z, Complex s, Complex a)
+        {
+            return dcplx.nan;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lerch_phi/*' />
+        public static Complex lerch_phi(dynamic z, dynamic s, dynamic a)
+        {
+            return dcplx.nan;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lerch_zeta/*' />
+        public static Complex lerch_zeta(Complex lambda1, Complex alpha, Complex s)
+        {
+            return dcplx.nan;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/lerch_zeta/*' />
+        public static Complex lerch_zeta(dynamic lambda1, dynamic alpha, dynamic s)
+        {
+            return dcplx.nan;
+        }
+
 
         #endregion
 
@@ -2922,6 +2948,19 @@ namespace FixedPrecNet
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/clausen2/*' />
+        public static Complex clausen2(Complex z)
+        {
+            return clausen_sin(2, z);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/clausen2/*' />
+        public static Complex clausen2(dynamic z)
+        {
+            return clausen_sin(2, t(z));
+        }
+
+
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/legendre_chi/*' />
@@ -3042,6 +3081,15 @@ namespace FixedPrecNet
             return HurwitzZetaPolygamma.GenZeta(s, a + m) + sum;
         }
 
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hurwitz_zeta/*' />
+        public static Complex hurwitz_zeta(dynamic s, dynamic a)
+        {
+            return hurwitz_zeta(t(s), t(a));
+        }
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/gen_zeta/*' />
         public static Complex gen_zeta(Complex s, Complex a)
         {
@@ -3064,33 +3112,85 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bernpoly/*' />
-        public static Complex bernpoly(Complex z, Complex n)
+        public static Complex bernpoly(Complex n, Complex z)
         {
             return -n * hurwitz_zeta(1 - n, z);
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bernpoly/*' />
-        public static Complex bernpoly(dynamic z, dynamic n)
+        public static Complex bernpoly(dynamic n, dynamic z)
         {
-            return bernpoly(t(z), t(n));
+            return bernpoly(t(n), t(z));
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/eulerpoly/*' />
-        public static Complex eulerpoly(Complex z, Complex n_1)
+        public static Complex eulerpoly(Complex n, Complex z)
         {
-            Complex n = n_1 + 1;
-            return (2 / n) * (bernpoly(z, n) - pow(2, n) * bernpoly(z / 2, n));
+            Complex n1 = n + 1;
+            return (2 / n1) * (bernpoly(n1, z) - pow(2, n1) * bernpoly(n1, z / 2));
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/eulerpoly/*' />
-        public static Complex eulerpoly(dynamic z, dynamic n)
+        public static Complex eulerpoly(dynamic n, dynamic z)
         {
-            return eulerpoly(t(z), t(n));
+            return eulerpoly(t(n), t(z));
         }
 
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/barnes_g/*' />
+        public static Complex barnes_g(Complex z)
+        {
+            return dcplx.nan;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/barnes_g/*' />
+        public static Complex barnes_g(dynamic z)
+        {
+            return dcplx.nan;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logbarnes_g/*' />
+        public static Complex logbarnes_g(Complex z)
+        {
+            return dcplx.nan;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/logbarnes_g/*' />
+        public static Complex logbarnes_g(dynamic z)
+        {
+            return dcplx.nan;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperfactorial/*' />
+        public static Complex hyperfactorial(Complex z)
+        {
+            return dcplx.nan;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperfactorial/*' />
+        public static Complex hyperfactorial(dynamic z)
+        {
+            return dcplx.nan;
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/superfactorial/*' />
+        public static Complex superfactorial(Complex z)
+        {
+            return dcplx.nan;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/superfactorial/*' />
+        public static Complex superfactorial(dynamic z)
+        {
+            return dcplx.nan;
+        }
 
 
 
@@ -3236,6 +3336,14 @@ namespace FixedPrecNet
         public static Complex hardy_z(dynamic z1)
         {
             return hardy_z(t(z1));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hardy_z/*' />
+        public static Complex zeta_zero(int t)
+        {
+            return dcplx.nan;
         }
 
 

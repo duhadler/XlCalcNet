@@ -3485,7 +3485,7 @@ namespace FixedPrecNet
         internal static extern Double bernpoly_(int n, Double x);
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bernoulli/*' />
-        public static Double bernpoly(Double x, int n)
+        public static Double bernpoly(int n, Double x)
         {
             return bernpoly_(dreal.lrint(n), x);
         }
@@ -3502,7 +3502,7 @@ namespace FixedPrecNet
         public static extern Double eulerpoly_(int n, Double x);
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/eulernum/*' />
-        public static Double eulerpoly(Double x, int n)
+        public static Double eulerpoly(int n, Double x)
         {
             return eulerpoly_(dreal.lrint(n), x);
         }

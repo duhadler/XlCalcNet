@@ -6012,262 +6012,335 @@ class gpm():
 
 
 
-# %% 16 Lerch’s transcendent and related functions
 
-# %%%  16.1 Overview LERCH’S TRANSCENDENT, POLYGAMMA
+# %% 09 Lerch’s transcendent and related functions
+
+# %%%  9.1 Overview LERCH’S TRANSCENDENT, POLYGAMMA
 
 
-    def lerchphi(self, z, s, a):
+# 9.1.1 Lerch’s transcendent
+
+    def lerch_phi(self, z, s, a):
+        '''Lerch’s transcendent'''
         z = self.t(z)
         s = self.t(s)
         a = self.t(a)
-        return self._fm3(mpm().lerchphi, z, s, a)
+        return self._fm3(mpm.lerch_phi, z, s, a)
+
+
+# 9.1.2 Lerch’s zeta
 
     def lerch_zeta(self, lambda1, alpha, s):
+        '''Lerch’s zeta'''
         lambda1 = self.t(lambda1)
         alpha = self.t(alpha)
         s = self.t(s)
-        return self._fm3(mpm().lerch_zeta, lambda1, alpha, s)
+        return self._fm3(mpm.lerch_zeta, lambda1, alpha, s)
 
 
-# %%%  16.2 Polygamma functions
+# %%%  9.2 Polygamma functions
 
 
-    def psi(self, m, z):
-        m = self.t(m)
-        z = self.t(z)
-        return self._fm2(mpm().polygamma, m, z)
 
+# 9.2.1 Polygamma function 𝜓𝑚(𝑥)
 
     def polygamma(self, m, z):
+        '''Polygamma function 𝜓𝑚(𝑥)'''
         m = self.t(m)
         z = self.t(z)
-        return self._fm2(mpm().polygamma, m, z)
+        return self._fm2(mpm.polygamma, m, z)
+
+
+# 9.2.2 TriGamma function 𝜓′(𝑥)
 
     def trigamma(self, z):
+        '''TriGamma function 𝜓′(𝑥)'''
         z = self.t(z)
-        return self._fm1(mpm().trigamma, z)
+        return self._fm1(mpm.trigamma, z)
+
+
+# 9.2.3 DiGamma function 𝜓(𝑥)
 
     def digamma(self, z):
+        '''DiGamma function 𝜓(𝑥)'''
         z = self.t(z)
-        return self._fm1(mpm().digamma, z)
+        return self._fm1(mpm.digamma, z)
 
 
-# %%%  16.3 Polylogarithms and related functions
-
-    def polylog(self, s, z):
-        s = self.t(s)
-        z = self.t(z)
-        return self._fm2(mpm().polylog, s, z)
-
-    def trilog(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().trilog, z)
-
-    def dilog(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().dilog, z)
-
-    def clsin(self, s, z):
-        s = self.t(s)
-        z = self.t(z)
-        return self._fm2(mpm().clsin, s, z)
-
-    def clcos(self, s, z):
-        s = self.t(s)
-        z = self.t(z)
-        return self._fm2(mpm().clcos, s, z)
-
-    def cl2(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().cl2, z)
-
-    def debye(self, n, x):
-        raise Exception("NOT IMPLEMENTED")
-
-    def bose_einstein(self, s, z):
-        s = self.t(s)
-        z = self.t(z)
-        return self._fm2(mpm().bose_einstein, s, z)
-
-    def fermi_dirac(self, s, z):
-        s = self.t(s)
-        z = self.t(z)
-        return self._fm2(mpm().fermi_dirac, s, z)
-
-    def legendre_chi(self, s, z):
-        s = self.t(s)
-        z = self.t(z)
-        return self._fm2(mpm().legendre_chi, s, z)
-
-    def ti(self, s, z):
-        s = self.t(s)
-        z = self.t(z)
-        return self._fm2(mpm().ti, s, z)
-
-    def ti2(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().ti2, z)
-
-
-# %%%  16.4 Hurwitz zeta function and related functions
-
-    def hurwitz(self, s, a, derivative=0):
-        s = self.t(s)
-        a = self.t(a)
-        return self._fm2(mpm().hurwitz, s, a)
-
-    def stieltjes(self, n, a=1):
-        n = int(n)
-        a = self.t(a)
-        return self._fm2(mpm().stieltjes, n, a)
+# 9.2.4 Harmonic numbers
 
     def harmonic(self, z):
+        '''Harmonic numbers'''
         z = self.t(z)
-        return self._fm1(mpm().harmonic, z)
+        return self._fm1(mpm.harmonic, z)
+
+
+# %%%  9.3 Polylogarithms and related functions
+
+# 9.3.1 Polylogarithm, Li𝑠(𝑧)
+
+    def polylog(self, s, z):
+        '''Polylogarithm, Li𝑠(𝑧)'''
+        s = self.t(s)
+        z = self.t(z)
+        return self._fm2(mpm.polylog, s, z)
+
+
+# 9.3.2 Trilogarithm Function, Li3(𝑧)
+
+    def trilog(self, z):
+        '''Trilogarithm Function, Li3(𝑧)'''
+        z = self.t(z)
+        return self._fm1(mpm.trilog, z)
+
+
+# 9.3.3 Dilogarithm Function, Li2(𝑧)
+
+    def dilog(self, z):
+        '''Dilogarithm Function, Li2(𝑧)'''
+        z = self.t(z)
+        return self._fm1(mpm.dilog, z)
+
+
+# 9.3.4 Generalized Clausen sine function
+    def clausen_sin(self, s, z):
+        '''Generalized Clausen sine function'''
+        s = self.t(s)
+        z = self.t(z)
+        return self._fm2(mpm.clausen_sin, s, z)
+
+
+# 9.3.5 Generalized Clausen cosine function
+
+    def clausen_cos(self, s, z):
+        '''Generalized Clausen cosine function'''
+        s = self.t(s)
+        z = self.t(z)
+        return self._fm2(mpm.clausen_cos, s, z)
+
+
+# 9.3.6 Classical Clausen function
+
+    def clausen2(self, z):
+        '''Classical Clausen function'''
+        z = self.t(z)
+        return self._fm1(mpm.clausen2, z)
+
+
+# 9.3.7 Bose-Einstein integrals of real order
+
+    def bose_einstein(self, s, z, real4real=True):
+        '''Bose-Einstein integrals of real order'''
+        s = self.t(s)
+        z = self.t(z)
+        return self._fm2(mpm.bose_einstein, s, z)
+
+
+# 9.3.8 Fermi-Dirac integrals
+
+    def fermi_dirac(self, s, z, real4real=True):
+        '''Fermi-Dirac integrals'''
+        s = self.t(s)
+        z = self.t(z)
+        return self._fm2(mpm.fermi_dirac, s, z)
+
+
+# 9.3.9 Legendre’s chi function
+
+    def legendre_chi(self, s, z, real4real=True):
+        '''Legendre’s chi function'''
+        s = self.t(s)
+        z = self.t(z)
+        return self._fm2(mpm.legendre_chi, s, z)
+
+
+# 9.3.10 Inverse tangent integral
+
+    def inverse_tan_integral(self, s, z):
+        '''Inverse tangent integral'''
+        s = self.t(s)
+        z = self.t(z)
+        return self._fm2(mpm.inverse_tan_integral, s, z)
+
+
+# %%%  9.4 Hurwitz zeta function and related functions
+
+
+# 9.4.1 Hurwitz zeta function
+
+    def hurwitz_zeta(self, s, a, derivative=0):
+        '''Hurwitz zeta function'''
+        s = self.t(s)
+        a = self.t(a)
+        return self._fm2(mpm.hurwitz_zeta, s, a)
+
+# 9.4.2 Generalized harmonic number function
 
     def harmonic2(self, z, r):
+        '''Generalized harmonic number function'''
         z = self.t(z)
         r = self.t(r)
-        return self._fm2(mpm().harmonic2, z, r)
+        return self._fm2(mpm.harmonic2, z, r)
+
+
+# 9.4.3 Bernoulli numbers
 
     def bernoulli(self, n):
+        '''Bernoulli numbers'''
         n = int(n)
-        return self._fm1(mpm().bernoulli, n)
+        return self._fm1(mpm.bernoulli, n)
 
-    def bernfrac(self, n):
-        n = int(n)
-        return mp.bernfrac(n)
+
+# 9.4.4 Bernoulli polynomials
 
     def bernpoly(self, n, z):
+        '''Bernoulli polynomials'''
         n = int(n)
         z = self.t(z)
-        return self._fm2(mpm().bernpoly, n, z)
+        return self._fm2(mpm.bernpoly, n, z)
+
+
+# 9.4.5 Euler numbers
 
     def eulernum(self, n):
+        '''Euler numbers'''
         n = int(n)
-        return self._fm1(mpm().eulernum, n)
+        return self._fm1(mpm.eulernum, n)
+
+
+# 9.4.6 Euler polynomials
 
     def eulerpoly(self, n, z):
+        '''Euler polynomials'''
         n = int(n)
         z = self.t(z)
-        return self._fm2(mpm().eulerpoly, n, z)
+        return self._fm2(mpm.eulerpoly, n, z)
 
-    def lnbarnesg(self, z):
+
+# 9.4.7 Barnes G-function
+
+    def barnes_g(self, z):
+        '''Barnes G-function'''
         z = self.t(z)
-        return self._fm1(mpm().lnbarnesg, z)
+        return self._fm1(mpm.barnes_g, z)
 
-    def barnesg(self, z):
+
+# 9.4.8 Logarithm of Barnes G function
+
+    def logbarnes_g(self, z):
+        '''Logarithm of Barnes G function'''
         z = self.t(z)
-        return self._fm1(mpm().barnesg, z)
+        return self._fm1(mpm.logbarnes_g, z)
 
-    def hyperfac(self, z):
+# 9.4.9 Hyperfactorial
+
+    def hyperfactorial(self, z):
+        '''Hyperfactorial'''
         z = self.t(z)
-        return self._fm1(mpm().hyperfac, z)
+        return self._fm1(mpm.hyperfactorial, z)
 
-    def superfac(self, z):
+
+# 9.4.10 Superfactorial
+
+    def superfactorial(self, z):
+        '''Superfactorial'''
         z = self.t(z)
-        return self._fm1(mpm().superfac, z)
+        return self._fm1(mpm.superfactorial, z)
 
 
-# %%%  16.5 Dirichlet L series, Riemann zeta function and related functions
+# %%%  9.5 Dirichlet L series, Riemann zeta function and related functions
 
-    def dirichlet_l(self, s, chi, derivative=0):
-        return mp.dirichlet(s, chi, derivative)
 
-    def zeta(self, s, derivative=0):
+# 9.5.1 Riemann zeta function
+
+    def zeta(self, s):
+        '''Riemann zeta function'''
         s = self.t(s)
-        return self._fm1(mpm().zeta, s)
+        return self._fm1(mpm.zeta, s)
+
+
+# 9.5.2 Riemann 𝜁(𝑠) − 1
 
     def zetam1(self, s):
+        '''Riemann 𝜁(𝑠) − 1'''
         s = self.t(s)
-        return self._fm1(mpm().zetam1, s)
+        return self._fm1(mpm.zetam1, s)
+
+
+# 9.5.3 Riemann-Siegel theta function
+
+    def hardy_theta(self, t):
+        '''Riemann-Siegel theta function'''
+        t = self.t(t)
+        return self._fm1(mpm.hardy_theta, t)
+
+
+# 9.5.4 Riemann-Siegel Z function
+
+    def hardy_z(self, t):
+        '''Riemann-Siegel Z function'''
+        t = self.t(t)
+        return self._fm1(mpm.hardy_z, t)
+
+
+# 9.5.5 Riemann (Landau) function 𝜉(𝑠)
 
     def riemann_xi(self, s):
+        '''Riemann (Landau) function 𝜉(𝑠)'''
         s = self.t(s)
-        return self._fm1(mpm().riemann_xi, s)
+        return self._fm1(mpm.riemann_xi, s)
+
+
+# 9.5.6 Dirichlet eta function
 
     def dirichlet_eta(self, s):
+        '''Dirichlet eta function'''
         s = self.t(s)
-        return self._fm1(mpm().dirichlet_eta, s)
+        return self._fm1(mpm.dirichlet_eta, s)
+
+
+# 9.5.7 Dirichlet 𝜂(𝑠) − 1: etam1(s)
 
     def dirichlet_etam1(self, s):
+        '''Dirichlet 𝜂(𝑠) − 1: etam1(s)'''
         s = self.t(s)
-        return self._fm1(mpm().dirichlet_etam1, s)
+        return self._fm1(mpm.dirichlet_etam1, s)
+
+
+# 9.5.8 Dirichlet Beta function
 
     def dirichlet_beta(self, s):
+        '''Dirichlet Beta function'''
         s = self.t(s)
-        return self._fm1(mpm().dirichlet_beta, s)
+        return self._fm1(mpm.dirichlet_beta, s)
+
+
+# 9.5.9 Dirichlet Lambda function
 
     def dirichlet_lambda(self, s):
+        '''Dirichlet Lambda function'''
         s = self.t(s)
-        return self._fm1(mpm().dirichlet_lambda, s)
+        return self._fm1(mpm.dirichlet_lambda, s)
 
-    def siegelz(self, t):
-        t = self.t(t)
-        return self._fm1(mpm().siegelz, t)
 
-    def siegeltheta(self, t):
-        t = self.t(t)
-        return self._fm1(mpm().siegeltheta, t)
+# 9.5.10 The nth nontrivial zero of Riemann's zeta on the critical line
 
-    def backlunds(self, t):
-        t = self.t(t)
-        return self._fm1(mpm().backlunds, t)
-
-    def grampoint(self, n):
+    def zeta_zero(self, n):
+        '''The nth nontrivial zero of Riemann's zeta on the critical line'''
         n = int(n)
-        return self._fm1(mpm().grampoint, n)
-
-    def zetazero(self, n):
-        n = int(n)
-        return self._fm1(mpm().zetazero, n)
-
-    def nzeros(self, t):
-        t = self.t(t)
-        return self._fm1(mpm().nzeros, t)
-
-    def secondzeta(self, s, a=0.015):
-        return mp.secondzeta(s, a)
+        return self._fm1(mpm.zeta_zero, n)
 
 
-# %%%  16.6 Additional numbertheoretic functions
 
-    def riemannr(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().riemannr, z)
 
-    def mertens(self):
-        return mp.mertens()
 
-    def twinprime(self):
-        return mp.twinprime()
 
-    def primepi(self, x):
-        return mp.primepi(x)
 
-    def primezeta(self, s):
-        return mp.primezeta(s)
 
-    def mangoldt(self, n):
-        return mp.mangoldt(n)
 
-    def cyclotomic(self, n, z):
-        z = self.t(z)
-        n = int(n)
-        return self._f2(mpm().cyclotomic, n, z)
 
-    def stirling1(self, n, k, exact=False):
-        return mp.stirling1(n, k, exact)
 
-    def stirling2(self, n, k, exact=False):
-        return mp.stirling2(n, k, exact)
 
-    def bell(self, n, x):
-        return mp.bell(n, x)
-
-    def polyexp(self, s, z):
-        return mp.polyexp(s, z)
 
 
 # %% 17 Hypergeometric Function 0_F_1 and related functions

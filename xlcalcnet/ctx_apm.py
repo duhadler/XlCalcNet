@@ -1959,22 +1959,6 @@ class apm():
         return z.elliptic_p(tau)
 
 
-##    def weierstrass_p_prime_algebraic(z, tau):
-##        z_acb = acb(z)
-##        tau_acb = acb(tau)
-##
-##        # 1. Compute p(z)
-##        pz = z_acb.elliptic_p(tau_acb)
-##
-##        # 2. Get invariants g2 and g3
-##        g2, g3 = tau_acb.elliptic_invariants()
-##
-##        # 3. Apply the differential equation identity
-##        p_prime_sq = 4 * pz**3 - g2 * pz - g3
-##
-##        # 4. Take the square root (Note: Watch out for branch/sign determination)
-##        return p_prime_sq.sqrt()
-
 # 8.7.2 Weierstrass function, first derivative: ℘′(𝑧, 𝜏 )
 
     def weierstrass_pprime_t(self, z, tau):
@@ -1982,15 +1966,8 @@ class apm():
         from flint import acb, acb_series
         z = self.t(z)
         tau = self.t(tau)
-
-        # Create the series z + 1*x + O(x^2)
-        # The linear coefficient represents the derivative at z
-        z_series = acb_series([acb(z), acb(1)], prec=100)
-
-        # Compute the Weierstrass p function of the series
+        z_series = acb_series([acb(z), acb(1)], prec=self.prec)
         p_series = z_series.elliptic_p(acb(tau))
-
-        # Extract the coefficient of x^1, which is p'(z)
         res = p_series[1]
         return res
 
@@ -2067,113 +2044,150 @@ class apm():
 
 
 
-# %% 17 Lerch’s transcendent and related functions
+# %% 09 Lerch’s transcendent and related functions
 
-# %%%  17.1 Overview LERCH’S TRANSCENDENT, POLYGAMMA
-
-
+# %%%  9.1 Overview LERCH’S TRANSCENDENT, POLYGAMMA
 
 
+# 9.1.1 Lerch’s transcendent
 
-
-    def lerchphi(self, z, s, a):
-# !!! update with new version !!!
+    def lerch_phi(self, z, s, a):
+        '''Lerch’s transcendent'''
         z = self.t(z)
         s = self.t(s)
         a = self.t(a)
-        if (s == self.t(0)):
-            return 1/(1-z)
-        elif (z == self.t(1)):
-            return self.hurwitz(s, a)
-        elif (a == self.t(0)):
-            return self.polylog(s, z)
-        elif (a == self.t(1)):
-            return self.polylog(s, z) / z
-        else:
-            #res = iv.mpf('nan')
-            res = self.nan()
-            #if iv.im(a) == iv.mpf(0) and iv.re(a).delta == iv.mpf(0):
-            if a.isreal() and a.delta == acb(0):
-#                r = mp.mpf(a)
-#                if mp.isint(r):
-                r = self.t(a)
-                if self.isint(r):
-                    n = int(r)
-                    Li = self.polylog(s, z) / z
-                    if n >= 1:
-                        sum1 = 0
-                        for k in range(n-1):
-                            zk = z**k
-                            ks = (k+1)**s
-                            sum1 = sum1 + (zk/ks)
-                    res = (Li - sum1) / (z**(n-1))
-            return res
+        res = acb(z).lerch_phi(s, a)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
+
+
+# 9.1.2 Lerch’s zeta
 
     def lerch_zeta(self, lambda1, alpha, s):
+        '''Lerch’s zeta'''
         lambda1 = self.t(lambda1)
         alpha = self.t(alpha)
         s = self.t(s)
-        return self.lerchphi(self.exp(2*self.pi*1j*lambda1), s, alpha)
+        res = self.lerch_phi(self.exp( 2*self.pi* self.j  * lambda1), s, alpha)
+        if self.imag(res) == self.t(0): res = self.real(res)
+        return res
 
 
-# %%%  17.2 Polygamma functions
+# %%%  9.2 Polygamma functions
 
+
+# 9.2.1 Polygamma function 𝜓𝑚(𝑥)
 
     def polygamma(self, m, z):
+        '''Polygamma function 𝜓𝑚(𝑥)'''
         m = self.t(m)
         z = self.t(z)
-        return acb(z).polygamma(m)
+        res = acb(z).polygamma(m)
+        if self.imag(z) == self.t(0): res = self.real(res)
+        return res
+
+
+# 9.2.2 TriGamma function 𝜓′(𝑥)
 
     def trigamma(self, z):
-        return self.polygamma(z, 1)
+        '''TriGamma function 𝜓′(𝑥)'''
+        z = self.t(z)
+        res = self.polygamma(1, z)
+        if self.imag(z) == self.t(0): res = self.real(res)
+        return res
+
+
+# 9.2.3 DiGamma function 𝜓(𝑥)
 
     def digamma(self, z):
-        return self.polygamma(z, 0)
+        '''DiGamma function 𝜓(𝑥)'''
+        res = self.polygamma(0, z)
+        if self.imag(z) == self.t(0): res = self.real(res)
+        return res
 
 
-# %%%  17.3 Polylogarithms and related functions
+# 9.2.4 Harmonic numbers
 
-    def polylog(self, s, z, real4real=True):
+    def harmonic(self, z):
+        '''Harmonic numbers'''
+        z = self.t(z)
+        res = self.digamma(z+1)+self.egamma
+        if self.imag(z) == self.t(0): res = self.real(res)
+        return res
+
+
+# %%%  9.3 Polylogarithms and related functions
+
+
+# 9.3.1 Polylogarithm, Li𝑠(𝑧)
+
+    def polylog(self, s, z):
+        '''Polylogarithm, Li𝑠(𝑧)'''
         s = self.t(s)
         z = self.t(z)
         return acb(z).polylog(s)
 
-    def dilog(self, z):
-        z = self.t(z)
-        return self.polylog(2, z)
+
+# 9.3.2 Trilogarithm Function, Li3(𝑧)
 
     def trilog(self, z):
+        '''Trilogarithm Function, Li3(𝑧)'''
         z = self.t(z)
-        return self.polylog(3, z)
+        res = self.polylog(3, z)
+        if self.imag(z) == self.t(0): res = self.real(res)
+        return res
 
-    def clsin(self, s, z):
+
+# 9.3.3 Dilogarithm Function, Li2(𝑧)
+
+    def dilog(self, z):
+        '''Dilogarithm Function, Li2(𝑧)'''
+        z = self.t(z)
+        res = self.polylog(2, z)
+        if self.imag(z) == self.t(0): res = self.real(res)
+        return res
+
+
+# 9.3.4 Generalized Clausen sine function
+    def clausen_sin(self, s, z):
+        '''Generalized Clausen sine function'''
         s = self.t(s)
         z = self.t(z)
-        res = self.polylog(s, self.exp(1j*z))
-        res = res - self.polylog(s, self.exp(-1j*z))
-        res = res / (2j)
+        res = self.polylog(s, self.exp(self.j*z))
+        res = res - self.polylog(s, self.exp(-self.j*z))
+        res = res / (2*self.j)
         if z.imag == self.t(0):
             res = res.real
         return res
 
-    def clcos(self, s, z):
+
+# 9.3.5 Generalized Clausen cosine function
+
+    def clausen_cos(self, s, z):
+        '''Generalized Clausen cosine function'''
         s = self.t(s)
         z = self.t(z)
-        res = self.polylog(s, self.exp(1j*z))
-        res = res + self.polylog(s, self.exp(-1j*z))
+        res = self.polylog(s, self.exp(self.j*z))
+        res = res + self.polylog(s, self.exp(-self.j*z))
         res = res / (2)
         if z.imag == self.t(0):
             res = res.real
         return res
 
-    def cl2(self, z):
-        z = self.t(z)
-        return self.clsin(2, z)
 
-    def debye(self, n, x):
-        raise Exception("NOT IMPLEMENTED")
+# 9.3.6 Classical Clausen function
+
+    def clausen2(self, z):
+        '''Classical Clausen function'''
+        z = self.t(z)
+        return self.clausen_sin(2, z)
+
+
+
+# 9.3.7 Bose-Einstein integrals of real order
 
     def bose_einstein(self, s, z, real4real=True):
+        '''Bose-Einstein integrals of real order'''
         s = self.t(s)
         z = self.t(z)
         res = self.polylog(s+1, self.exp(z))
@@ -2181,51 +2195,61 @@ class apm():
             res = res.real
         return res
 
-    def fermi_dirac(self, s, z):
+
+# 9.3.8 Fermi-Dirac integrals
+
+    def fermi_dirac(self, s, z, real4real=True):
+        '''Fermi-Dirac integrals'''
         s = self.t(s)
         z = self.t(z)
         res = -self.polylog(s+1, -self.exp(z))
+        if z.imag == self.t(0) and real4real:
+            res = res.real
         return res
 
+
+# 9.3.9 Legendre’s chi function
+
     def legendre_chi(self, s, z, real4real=True):
+        '''Legendre’s chi function'''
         s = self.t(s)
         z = self.t(z)
         res = 0.5 * (self.polylog(s, z) - self.polylog(s, -z))
-        if z.isreal and real4real:
+        if self.isreal(z) and real4real:
             res = res.real
         return res
 
-    def ti(self, s, z, real4real=True):
+
+# 9.3.10 Inverse tangent integral
+
+    def inverse_tan_integral(self, s, z, real4real=True):
+        '''Inverse tangent integral'''
         s = self.t(s)
         z = self.t(z)
-        res = (self.polylog(s, 1j*z) - self.polylog(s, -1j*z))
-        res = res / (2j)
-        if z.isreal() and real4real:
+        res = (self.polylog(s, self.j*z) - self.polylog(s, -self.j*z))
+        res = res / (2 * self.j)
+        if self.isreal(z) and real4real:
             res = res.real
         return res
 
-    def ti2(self, z):
-        z = self.t(z)
-        return self.ti(2, z)
 
 
-# %%%  17.4 Hurwitz zeta function and related functions
+# %%%  9.4 Hurwitz zeta function and related functions
 
-    def hurwitz(self, s, a):
+
+# 9.4.1 Hurwitz zeta function
+
+    def hurwitz_zeta(self, s, a, derivative=0):
+        '''Hurwitz zeta function'''
         s = self.t(s)
         a = self.t(a)
         return acb(s).zeta(a)
 
-    def stieltjes(self, n, a=1):
-        n = int(n)
-        a = self.t(a)
-        return acb.stieltjes(n, a)
 
-    def harmonic(self, z):
-        z = self.t(z)
-        return self.digamma(z+1)+self.const_euler_gamma()
+# 9.4.2 Generalized harmonic number function
 
     def harmonic2(self, z, r):
+        '''Generalized harmonic number function'''
         z = self.t(z)
         r = self.t(r)
         if r == self.t(1):
@@ -2233,165 +2257,203 @@ class apm():
         else:
             return self.zeta(r) - self.hurwitz_zeta(r, z + 1)
 
+
+# 9.4.3 Bernoulli numbers
+
     def bernoulli(self, n):
+        '''Bernoulli numbers'''
         n = int(n)
         return arb.bernoulli(n)
 
-    # def bernfrac(self, n):
-    # !!! Missing !!!
-    #     n = int(n)
-    #     return flint.bernfrac(n)
+
+
+# 9.4.4 Bernoulli polynomials
 
     def bernpoly(self, n, z):
+        '''Bernoulli polynomials'''
         n = int(n)
         z = self.t(z)
         if isinstance(z, arb): return arb(z).bernoulli_poly(n)
         return acb(z).bernoulli_poly(n)
 
-    # def eulernum(self, n):
-    # !!! Missing !!!
-    #     n = int(n)
-    #     return Apr.EulerNumberUi(n)
+
+# 9.4.5 Euler numbers
+
+    def eulernum(self, n):
+        '''Euler numbers'''
+        n = int(n)
+        return 2**n * self.eulerpoly(n, 0.5)
+
+
+# 9.4.6 Euler polynomials
 
     def eulerpoly(self, n, z):
+        '''Euler polynomials'''
         n = int(n)
         z = self.t(z)
         n = n+1
         res = 2*(self.bernpoly(n, z) - (2**n)*self.bernpoly(n, z/2))/n
         return res
 
-    def lnbarnesg(self, z):
+
+# 9.4.7 Barnes G-function
+
+    def barnes_g(self, z):
+        '''Barnes G-function'''
+        z = self.t(z)
+        res = acb(z).barnes_g()
+        #print("res:", res)
+        if self.isreal(z):
+            res = res.real
+        return res
+
+
+
+# 9.4.8 Logarithm of Barnes G function
+
+    def logbarnes_g(self, z):
+        '''Logarithm of Barnes G function'''
         z = self.t(z)
         return acb(z).log_barnes_g()
 
-    def barnesg(self, z):
+
+# 9.4.9 Hyperfactorial
+
+
+    def hyperfactorial(self, z):
+        '''Hyperfactorial'''
         z = self.t(z)
-        return acb(z).barnes_g
+        return (self.exp(z * self.lgamma(z + 1))) / self.barnes_g(z + 1)
 
-    def hyperfac(self, z):
+
+# 9.4.10 Superfactorial
+
+    def superfactorial(self, z):
+        '''Superfactorial'''
         z = self.t(z)
-        return (self.gamma(z+1)**z) / self.barnesg(z+1)
-
-    def superfac(self, z):
-        z = self.t(z)
-        return self.barnesg(z+2)
+        return self.barnes_g(z+2)
 
 
-# %%%  17.5 Dirichlet L series, Riemann zeta function and related functions
 
-    def dirichlet_l(self, s, chi, derivative=0):
-# !!! is missing !!!
-        return #flint.dirichlet(s, chi, derivative)
+# %%%  9.5 Dirichlet L series, Riemann zeta function and related functions
+
+
+
+# 9.5.1 Riemann zeta function
 
     def zeta(self, s):
+        '''Riemann zeta function'''
         s = self.t(s)
-        return acb(s).zeta()
+        res = acb(s).zeta()
+        if self.isreal(s):
+            res = res.real
+        return res
+
+
+# 9.5.2 Riemann 𝜁(𝑠) − 1
 
     def zetam1(self, s):
+        '''Riemann 𝜁(𝑠) − 1'''
         s = self.t(s)
-        return self.hurwitz_zeta(s, 2)
+        res = self.hurwitz_zeta(s, 2)
+        if self.isreal(s):
+            res = res.real
+        return res
 
-    # NEW  see acb_dirichlet_xi, p. 185
+
+# 9.5.3 Riemann-Siegel theta function
+
+    def hardy_theta(self, t):
+        '''Riemann-Siegel theta function'''
+        t = self.t(t)
+        res = (self.lgamma((1+2*self.onej*t)/4) - self.lgamma((1-2*self.onej*t)/4)) / (2*self.onej)
+        res = res - 0.5 * t * self.log(self.pi)
+        if self.isreal(t):
+            res = res.real
+        return res
+
+
+# 9.5.4 Riemann-Siegel Z function
+
+    def hardy_z(self, t):
+        '''Riemann-Siegel Z function'''
+        t = self.t(t)
+        res = self.exp(self.onej*self.hardy_theta(t)) * self.zeta(0.5+self.onej*t)
+        if self.isreal(t):
+            res = res.real
+        return res
+
+
+# 9.5.5 Riemann (Landau) function 𝜉(𝑠)
 
     def riemann_xi(self, s):
-# !!! is missing !!!
+        '''Riemann (Landau) function 𝜉(𝑠)'''
         s = self.t(s)
-        return #flint.dirichlet_xi(s)
+        res = 0.5 * s * (s-1) * self.pi ** (-s/2) * self.gamma(s/2) * self.zeta(s)
+        if self.isreal(s):
+            res = res.real
+        return res
 
-    # NEW  see acb_dirichlet_eta, p. 185
+
+# 9.5.6 Dirichlet eta function
 
     def dirichlet_eta(self, s):
-        return acb(s).dirichlet_eta()
+        '''Dirichlet eta function'''
+        s = self.t(s)
+        res = acb(s).dirichlet_eta()
+        if self.isreal(s):
+            res = res.real
+        return res
+
+
+# 9.5.7 Dirichlet 𝜂(𝑠) − 1: etam1(s)
 
     def dirichlet_etam1(self, s):
+        '''Dirichlet 𝜂(𝑠) − 1: etam1(s)'''
         s = self.t(s)
-        return self.dirichlet_eta(s) - 1
+        res = self.dirichlet_eta(s) - 1
+        if self.isreal(s):
+            res = res.real
+        return res
+
+
+# 9.5.8 Dirichlet Beta function
 
     def dirichlet_beta(self, s):
+        '''Dirichlet Beta function'''
         s = self.t(s)
-        return self.power(4, -s) * (self.hurwitz(s, 0.25) - self.hurwitz(s, 0.75))
+        res = self.power(4, -s) * (self.hurwitz_zeta(s, 0.25) - self.hurwitz_zeta(s, 0.75))
+        if self.isreal(s):
+            res = res.real
+        return res
+
+
+# 9.5.9 Dirichlet Lambda function
 
     def dirichlet_lambda(self, s):
+        '''Dirichlet Lambda function'''
         s = self.t(s)
         # return (1 - self.power(2, -s)) * self.zeta(s)
         return -self.exp2m1(-s) * self.zeta(s)
 
-    # NEW  see acb_dirichlet_hardy_z, p. 192
-    def siegelz(self, t):
-# !!! is missing !!!
-        return #flint.dirichlet_hardy_z(t)
 
-    # NEW  see acb_dirichlet_hardy_theta, p. 192
+# 9.5.10 The nth nontrivial zero of Riemann's zeta on the critical line
 
-    # def siegeltheta(self, t):
-# !!! is missing !!!
-        # t = self.t(t)
-        # return flint.dirichlet_hardy_theta(t)
-
-    # NEW  see acb_dirichlet_backlund_s, p. 194
-
-    def backlunds(self, t):
-# !!! is missing !!!
-        t = self.t(t)
-        t = t.real
-        return #flint.dirichlet_backlund_s(t)
-
-    def grampoint(self, n):
-# !!! is missing !!!
+    def zeta_zero(self, n):
+        '''The nth nontrivial zero of Riemann's zeta on the critical line'''
         n = int(n)
-        return #flint.gram_point_ui(n)
-
-    def zetazero(self, n):
-# !!! is missing !!!
-        n = int(n)
-        return #flint.zeta_zero_ui(n)
-
-    def nzeros(self, t):
-# !!! is missing !!!
-        t = self.t(t)
-        t = t.real
-        return #flint.dirichlet_zeta_nzeros(t)
-
-#    def secondzeta(self, s, a=0.015):
-#        return mp.secondzeta(s, a)
+        return acb.zeta_zero(n)
 
 
-# %%%  17.6 Additional numbertheoretic functions
 
 
-#    def riemannr(self, z):
-#        #z = self.t(z)
-#        return mp.riemannr(z)
-#
-#    def const_mertens(self):
-#        return mp.mertens()
-#
-#    def const_twinprime(self):
-#        return mp.twinprime()
-#
-#    def primepi(self, x):
-#        return mp.primepi(x)
-#
-#    def primezeta(self, s):
-#        return mp.primezeta(s)
-#
-#    def mangoldt(self, n):
-#        return mp.mangoldt(n)
-#
-#    def cyclotomic(self, n, x):
-#        return mp.cyclotomic(n, x)
-#
-#    def stirling1(self, n, k, exact=False):
-#        return mp.stirling1(n, k, exact)
-#
-#    def stirling2(self, n, k, exact=False):
-#        return mp.stirling2(n, k, exact)
-#
-#    def bell(self, n, x):
-#        return mp.bell(n, x)
-#
-#    def polyexp(self, s, z):
-#        return mp.polyexp(s, z)
+
+
+
+
+
+
+
 
 
 # %% 18 Hypergeometric Function 0_F_1 and related functions

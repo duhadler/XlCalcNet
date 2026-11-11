@@ -49,6 +49,62 @@ class fpm():
         pass
 
 
+
+    def _fm1(self, fun, fpm_z1):
+        dps_old = mp.dps
+        mp.dps = 30
+        z1 = mpm.t(fpm_z1)
+        res = fun(z1)
+        res = self.t(res)
+        mp.dps = dps_old
+        return res
+
+    def _fm2(self, fun, fpm_z1, fpm_z2):
+        dps_old = mp.dps
+        mp.dps = 30
+        z1 = mpm.t(fpm_z1)
+        z2 = mpm.t(fpm_z2)
+        res = fun(z1, z2)
+        res = self.t(res)
+        mp.dps = dps_old
+        return res
+
+    def _fm3(self, fun, fpm_z1, fpm_z2, fpm_z3):
+        dps_old = mp.dps
+        mp.dps = 30
+        z1 = mpm.t(fpm_z1)
+        z2 = mpm.t(fpm_z2)
+        z3 = mpm.t(fpm_z3)
+        res = fun(z1, z2, z3)
+        res = self.t(res)
+        mp.dps = dps_old
+        return res
+
+    def _fm3b(self, fun, fpm_z1, fpm_z2, fpm_z3, b):
+        dps_old = mp.dps
+        mp.dps = 30
+        z1 = mpm.t(fpm_z1)
+        z2 = mpm.t(fpm_z2)
+        z3 = mpm.t(fpm_z3)
+        res = fun(z1, z2, z3, b)
+        res = self.t(res)
+        mp.dps = dps_old
+        return res
+
+    def _fm4(self, fun, fpm_z1, fpm_z2, fpm_z3, fpm_z4):
+        dps_old = mp.dps
+        mp.dps = 30
+        z1 = mpm.t(fpm_z1)
+        z2 = mpm.t(fpm_z2)
+        z3 = mpm.t(fpm_z3)
+        z4 = mpm.t(fpm_z4)
+        res = fun(z1, z2, z3, z4)
+        res = self.t(res)
+        mp.dps = dps_old
+        return res
+
+
+
     def tc(self, z2):
         return complex(z2.Real, z2.Imaginary)
 
@@ -79,49 +135,50 @@ class fpm():
 
 
 
-    def s(self, z, mantissa_dps=None):
-        if mantissa_dps is None:
-            mantissa_dps = 15
-            if mp.dps < 15:
-                mantissa_dps = mp.dps
-        f = "{0:." + str(mantissa_dps-1) + "E}"
-        # print(f)
-        z = self.t(z)
-        s = f.format(z)
-        return s
-
-    def _fm1(self, fun, fpm_z1):
-        z1 = mpm().t(fpm_z1)
-        res = fun(z1)
-        return self.t(res)
-
-    def _fm2(self, fun, fpm_z1, fpm_z2):
-        z1 = mpm().t(fpm_z1)
-        z2 = mpm().t(fpm_z2)
-        res = fun(z1, z2)
-        return self.t(res)
-
-    def _fm3(self, fun, fpm_z1, fpm_z2, fpm_z3):
-        z1 = mpm().t(fpm_z1)
-        z2 = mpm().t(fpm_z2)
-        z3 = mpm().t(fpm_z3)
-        res = fun(z1, z2, z3)
-        return self.t(res)
-
-    def _fm3b(self, fun, fpm_z1, fpm_z2, fpm_z3, b):
-        z1 = mpm().t(fpm_z1)
-        z2 = mpm().t(fpm_z2)
-        z3 = mpm().t(fpm_z3)
-        res = fun(z1, z2, z3, b)
-        return self.t(res)
-
-    def _fm4(self, fun, fpm_z1, fpm_z2, fpm_z3, fpm_z4):
-        z1 = mpm().t(fpm_z1)
-        z2 = mpm().t(fpm_z2)
-        z3 = mpm().t(fpm_z3)
-        z4 = mpm().t(fpm_z4)
-        res = fun(z1, z2, z3, z4)
-        return self.t(res)
+##
+##    def s(self, z, mantissa_dps=None):
+##        if mantissa_dps is None:
+##            mantissa_dps = 15
+##            if mp.dps < 15:
+##                mantissa_dps = mp.dps
+##        f = "{0:." + str(mantissa_dps-1) + "E}"
+##        # print(f)
+##        z = self.t(z)
+##        s = f.format(z)
+##        return s
+##
+##    def _fm1(self, fun, fpm_z1):
+##        z1 = mpm().t(fpm_z1)
+##        res = fun(z1)
+##        return self.t(res)
+##
+##    def _fm2(self, fun, fpm_z1, fpm_z2):
+##        z1 = mpm().t(fpm_z1)
+##        z2 = mpm().t(fpm_z2)
+##        res = fun(z1, z2)
+##        return self.t(res)
+##
+##    def _fm3(self, fun, fpm_z1, fpm_z2, fpm_z3):
+##        z1 = mpm().t(fpm_z1)
+##        z2 = mpm().t(fpm_z2)
+##        z3 = mpm().t(fpm_z3)
+##        res = fun(z1, z2, z3)
+##        return self.t(res)
+##
+##    def _fm3b(self, fun, fpm_z1, fpm_z2, fpm_z3, b):
+##        z1 = mpm().t(fpm_z1)
+##        z2 = mpm().t(fpm_z2)
+##        z3 = mpm().t(fpm_z3)
+##        res = fun(z1, z2, z3, b)
+##        return self.t(res)
+##
+##    def _fm4(self, fun, fpm_z1, fpm_z2, fpm_z3, fpm_z4):
+##        z1 = mpm().t(fpm_z1)
+##        z2 = mpm().t(fpm_z2)
+##        z3 = mpm().t(fpm_z3)
+##        z4 = mpm().t(fpm_z4)
+##        res = fun(z1, z2, z3, z4)
+##        return self.t(res)
 
 
 
@@ -2434,7 +2491,9 @@ class fpm():
 
 
 
-# %% 08 Elliptic functions and integrals
+
+# %% 8 Elliptic functions and integrals
+
 
 
 
@@ -2448,12 +2507,8 @@ class fpm():
         x = self.t(x)
         y = self.t(y)
         z = self.t(z)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.elliprf(x, y, z)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm3(mpm.elliptic_rf, x, y, z)
+
 
 # 8.1.2 Carlson completely symmetric elliptic integral of the second kind,
     # 𝑅𝐺(𝑥, 𝑦, 𝑧)
@@ -2464,12 +2519,7 @@ class fpm():
         x = self.t(x)
         y = self.t(y)
         z = self.t(z)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.elliprg(x, y, z)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm3(mpm.elliptic_rg, x, y, z)
 
 
 # 8.1.3 Carlson symmetric elliptic integral of the third kind, 𝑅𝐽 (𝑥, 𝑦, 𝑧, 𝑝)
@@ -2481,12 +2531,7 @@ class fpm():
         y = self.t(y)
         z = self.t(z)
         p = self.t(p)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.elliprj(x, y, z, p)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm4(mpm.elliptic_rj, x, y, z, p)
 
 
 # 8.1.4 Carlson symmetric elliptic integral of the second kind, 𝑅𝐷(𝑥, 𝑦, 𝑧)
@@ -2497,12 +2542,7 @@ class fpm():
         x = self.t(x)
         y = self.t(y)
         z = self.t(z)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.elliprd(x, y, z)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm3(mpm.elliptic_rd, x, y, z)
 
 
 # 8.1.5 Carlson degenerate symmetric elliptic integral of the first kind,
@@ -2513,13 +2553,7 @@ class fpm():
         𝑅𝐶(𝑥, 𝑦)'''
         x = self.t(x)
         y = self.t(y)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.elliprc(x, y)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm2(mpm.elliptic_rc, x, y)
 
 
 
@@ -2533,13 +2567,7 @@ class fpm():
     def m_elliptic_k(self, m):
         '''Legendre complete elliptic integral of the first kind, 𝐾(m)'''
         m = self.t(m)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellipk(m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm1(mpm.m_elliptic_k, m)
 
 
 # 8.2.2 Legendre complete elliptic integral of the second kind, 𝐸(m)
@@ -2547,7 +2575,8 @@ class fpm():
     def m_elliptic_e(self, m):
         '''Legendre complete elliptic integral of the second kind, 𝐸(m)'''
         m = self.t(m)
-        return mp.ellipe(m)
+        return self._fm1(mpm.m_elliptic_e, m)
+
 
 # 8.2.3 Legendre complete elliptic integral of the third kind, Π(𝑛, m)
 
@@ -2555,12 +2584,7 @@ class fpm():
         '''Legendre complete elliptic integral of the third kind, Π(𝑛, m)'''
         n = self.t(n)
         m = self.t(m)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellippi(n, m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.m_elliptic_pi, n, m)
 
 
 # 8.2.4 Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, m)
@@ -2569,7 +2593,8 @@ class fpm():
         '''Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, m)'''
         phi = self.t(phi)
         m = self.t(m)
-        return mp.ellipf(phi, m)
+        return self._fm2(mpm.m_elliptic_f, phi, m)
+
 
 # 8.2.5 Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, m)
 
@@ -2577,28 +2602,20 @@ class fpm():
         '''Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, m)'''
         phi = self.t(phi)
         m = self.t(m)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellipe(phi, m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.m_elliptic_e_inc, phi, m)
 
 
 # 8.2.6 Legendre incomplete elliptic integral of the third kind, Π(𝑛, 𝜑, m)
 
     def m_elliptic_pi_inc(self, n, phi, m):
         '''Legendre incomplete elliptic integral of the third kind,
-         Π(𝑛, 𝜑, 𝑘)'''
+         Π(𝑛, 𝜑, m)'''
         n = self.t(n)
         phi = self.t(phi)
         m = self.t(m)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellippi(n, phi, m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm3(mpm.m_elliptic_pi_inc, n, phi, m)
+
+
 
 
 
@@ -2609,26 +2626,16 @@ class fpm():
 
     def elliptic_k(self, k):
         '''Legendre complete elliptic integral of the first kind, 𝐾(𝑘)'''
-        m = self.t(k); m = m*m
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellipk(m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        k = self.t(k)
+        return self._fm1(mpm.elliptic_k, k)
 
 
 # 8.3.2 Legendre complete elliptic integral of the second kind, 𝐸(𝑘)
 
     def elliptic_e(self, k):
         '''Legendre complete elliptic integral of the second kind, 𝐸(𝑘)'''
-        m = self.t(k); m = m*m
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellipe(m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        k = self.t(k)
+        return self._fm1(mpm.elliptic_e, k)
 
 
 # 8.3.3 Legendre complete elliptic integral of the third kind, Π(𝑛, 𝑘)
@@ -2636,13 +2643,8 @@ class fpm():
     def elliptic_pi(self, n, k):
         '''Legendre complete elliptic integral of the third kind, Π(𝑛, 𝑘)'''
         n = self.t(n)
-        m = self.t(k); m = m*m
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellippi(n, m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        k = self.t(k)
+        return self._fm2(mpm.elliptic_pi, n, k)
 
 
 # 8.3.4 Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, 𝑘)
@@ -2650,13 +2652,8 @@ class fpm():
     def elliptic_f(self, phi, k):
         '''Legendre incomplete elliptic integral of the first kind, 𝐹(𝜑, 𝑘)'''
         phi = self.t(phi)
-        m = self.t(k); m = m*m
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellipf(phi, m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        k = self.t(k)
+        return self._fm2(mpm.elliptic_f, phi, k)
 
 
 # 8.3.5 Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, 𝑘)
@@ -2664,13 +2661,8 @@ class fpm():
     def elliptic_e_inc(self, phi, k):
         '''Legendre incomplete elliptic integral of the second kind, 𝐸(𝜑, 𝑘)'''
         phi = self.t(phi)
-        m = self.t(k); m = m*m
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellipe(phi, m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        k = self.t(k)
+        return self._fm2(mpm.elliptic_e_inc, phi, k)
 
 
 # 8.3.6 Legendre incomplete elliptic integral of the third kind, Π(𝑛, 𝜑, 𝑘)
@@ -2678,53 +2670,41 @@ class fpm():
     def elliptic_pi_inc(self, n, phi, k):
         '''Legendre incomplete elliptic integral of the third kind,
          Π(𝑛, 𝜑, 𝑘)'''
-        n = self.t(n)
+        n = self.t(k)
         phi = self.t(phi)
-        m = self.t(k); m = m*m
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mp.ellippi(n, phi, m)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        k = self.t(k)
+        return self._fm3(mpm.elliptic_pi_inc, n, phi, k)
 
 
-# 8.3.9 Jacobi Zeta function, 𝑍(𝜑, 𝑘)
+
+# 8.3.7 Jacobi Zeta function, 𝑍(𝜑, 𝑘)
 
     def jacobi_zeta(self, phi, k):
         '''Jacobi Zeta function, 𝑍(𝜑, 𝑘)'''
         phi = self.t(phi)
-        k = self.t(k);
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_zeta(phi, k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        k = self.t(k)
+        return self._fm2(mpm.jacobi_zeta, phi, k)
 
 
-# 8.3.10 Heuman’s Lambda function, Λ(𝜑, 𝑘)
+# 8.3.8 Heuman’s Lambda function, Λ(𝜑, 𝑘)
 
     def heuman_lambda(self, phi, k):
         '''Heuman’s Lambda function, Λ(𝜑, 𝑘)'''
         phi = self.t(phi)
-        k = self.t(k);
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.heuman_lambda(phi, k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        k = self.t(k)
+        return self._fm2(mpm.heuman_lambda, phi, k)
+
+
 
 
 
 # %%%  8.4 Jacobi elliptic functions
 
-# 8.4.0 Jacobi elliptic functions, general form
-
 ##    def ellipfun(self, kind, u=None, m=None, q=None, k=None, tau=None):
-##        '''Jacobi elliptic functions, general form'''
-##        return mp.ellipfun(kind, u, m, q, k, tau)
+##        u = self.t(u)
+##        m = self.t(m)
+##        return mpm.ellipfun('sn', u, m)
+
 
 # 8.4.1 Jacobi elliptic function sn
 
@@ -2732,12 +2712,7 @@ class fpm():
         '''Jacobi elliptic function sn'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_sn(u, k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.jacobi_sn, u, k)
 
 
 # 8.4.2 Jacobi elliptic function cn
@@ -2746,12 +2721,7 @@ class fpm():
         '''Jacobi elliptic function cn'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_cn(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.jacobi_cn, u, k)
 
 # 8.4.3 Jacobi elliptic function dn
 
@@ -2759,13 +2729,7 @@ class fpm():
         '''Jacobi elliptic function dn'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_dn(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm2(mpm.jacobi_dn, u, k)
 
 # 8.4.4 Jacobi elliptic function ns
 
@@ -2773,13 +2737,7 @@ class fpm():
         '''Jacobi elliptic function ns'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_ns(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm2(mpm.jacobi_ns, u, k)
 
 # 8.4.5 Jacobi elliptic function nc
 
@@ -2787,13 +2745,7 @@ class fpm():
         '''Jacobi elliptic function nc'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mpm.dps
-        mp.dps = 30
-        res = mpm.jacobi_nc(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm2(mpm.jacobi_nc, u, k)
 
 # 8.4.6 Jacobi elliptic function nd
 
@@ -2801,13 +2753,7 @@ class fpm():
         '''Jacobi elliptic function nd'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mpm.dps
-        mp.dps = 30
-        res = mpm.jacobi_nd(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm2(mpm.jacobi_nd, u, k)
 
 # 8.4.7 Jacobi elliptic function sc
 
@@ -2815,13 +2761,7 @@ class fpm():
         '''Jacobi elliptic function sc'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_sc(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm2(mpm.jacobi_sc, u, k)
 
 # 8.4.8 Jacobi elliptic function sd
 
@@ -2829,40 +2769,19 @@ class fpm():
         '''Jacobi elliptic function sd'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_sd(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
-
-# 8.4.9 Jacobi elliptic function dc
+        return self._fm2(mpm.jacobi_sd, u, k)
 
     def jacobi_dc(self, u, k):
         '''Jacobi elliptic function dc'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_dc(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
-# 8.4.10 Jacobi elliptic function ds
+        return self._fm2(mpm.jacobi_dc, u, k)
 
     def jacobi_ds(self, u, k):
         '''Jacobi elliptic function ds'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_ds(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm2(mpm.jacobi_ds, u, k)
 
 # 8.4.11 Jacobi elliptic function cs
 
@@ -2870,13 +2789,7 @@ class fpm():
         '''Jacobi elliptic function cs'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_cs(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm2(mpm.jacobi_cs, u, k)
 
 # 8.4.12 Jacobi elliptic function cd
 
@@ -2884,27 +2797,12 @@ class fpm():
         '''Jacobi elliptic function cd'''
         u = self.t(u)
         k = self.t(k)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_cd(u, k=k)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.jacobi_cd, u, k)
 
 
 
 
 # %%%  8.5 Jacobi theta functions
-
-# 8.5.1 Jacobi theta functions, general form
-
-##    def jtheta(self, n, z, q, derivative=0):
-##        '''Jacobi theta functions, general form'''
-##        n = int(n)
-##        z = self.t(z)
-##        q = self.t(q)
-##        return mp.jtheta(n, z, q, derivative)
-
 
 
 # 8.5.1 Jacobi theta1 function
@@ -2913,12 +2811,7 @@ class fpm():
         '''Jacobi theta1 function'''
         z = self.t(z)
         q = self.t(q)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_theta1(z, q)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.jacobi_theta1, z, q)
 
 
 
@@ -2928,12 +2821,7 @@ class fpm():
         '''Jacobi theta2 function'''
         z = self.t(z)
         q = self.t(q)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_theta2(z, q)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.jacobi_theta2, z, q)
 
 
 # 8.5.3 Jacobi theta3 function
@@ -2942,12 +2830,7 @@ class fpm():
         '''Jacobi theta3 function'''
         z = self.t(z)
         q = self.t(q)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_theta3(z, q)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.jacobi_theta3, z, q)
 
 
 # 8.5.4 Jacobi theta4 function
@@ -2956,76 +2839,63 @@ class fpm():
         '''Jacobi theta4 function'''
         z = self.t(z)
         q = self.t(q)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.jacobi_theta4(z, q)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.jacobi_theta4, z, q)
+
 
 
 
 # %%%  8.6 Conversions of parameters of elliptic functions
 
+
 # 8.6.1 Elliptic nome q
 
     def qfrom(self, q=None, m=None, k=None, tau=None, qbar=None):
         '''Elliptic nome q'''
-        return mp.qfrom(q, m, k, tau, qbar)
+        return mpm.qfrom(kwargs)
+
 
 # 8.6.2 Number-theoretic nome qbar
 
     def qbarfrom(self, q=None, m=None, k=None, tau=None, qbar=None):
         '''Number-theoretic nome qbar'''
-        return mp.qbarfrom(q, m, k, tau, qbar)
+        return mpm.qbarfrom(kwargs)
+
 
 # 8.6.3 Elliptic parameter m
 
     def mfrom(self, q=None, m=None, k=None, tau=None, qbar=None):
         '''Elliptic parameter m'''
-        return mp.mfrom(q, m, k, tau, qbar)
+        return mpm.mfrom(kwargs)
+
 
 # 8.6.4 Elliptic modulus k
 
     def kfrom(self, q=None, m=None, k=None, tau=None, qbar=None):
         '''Elliptic modulus k'''
-        return mp.kfrom(q, m, k, tau, qbar)
+        return mpm.kfrom(kwargs)
 
 # 8.6.5 Elliptic half-period ratio tau
 
     def taufrom(self, q=None, m=None, k=None, tau=None, qbar=None):
         '''Elliptic modulus k'''
-        return mp.taufrom(q, m, k, tau, qbar)
+
+    def taufrom(self, **kwargs):
+        return mpm.taufrom(kwargs)
 
 
-# 8.6.6 Elliptic lattice roots from tau
+# 8.6.6 Elliptic lattice roots in terms of Elliptic period ratio 𝜏
 
     def elliptic_roots(self, tau):
         '''Elliptic lattice roots in terms of Elliptic period ratio 𝜏'''
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.elliptic_roots(tau)
-        res = (self.t(res[0]), self.t(res[1]), self.t(res[2]))
-        mp.dps = dps_old
-        return res
+        return self._fm1(mpm.elliptic_roots, tau)
 
-
-
-
-
-# 8.6.7 Elliptic lattice invariants from tau
+# 8.6.7 Elliptic lattice invariants
 
     def elliptic_invariants(self, tau):
         '''Elliptic lattice invariants'''
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.elliptic_invariants(tau)
-        res = (self.t(res[0]), self.t(res[1]))
-        mp.dps = dps_old
-        return res
-
+        return self._fm1(mpm.elliptic_roots, tau)
 
 
 
@@ -3037,12 +2907,7 @@ class fpm():
         '''Weierstrass function ℘(𝑧, 𝜏 )'''
         z = self.t(z)
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.weierstrass_p_t(z, tau)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.weierstrass_p_t, z, tau)
 
 
 # 8.7.2 Weierstrass function, first derivative: ℘′(𝑧, 𝜏 )
@@ -3051,12 +2916,7 @@ class fpm():
         '''Weierstrass function, first derivative: ℘′(𝑧, 𝜏 )'''
         z = self.t(z)
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.weierstrass_pprime_t(z, tau)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.weierstrass_pprime_t, z, tau)
 
 
 # 8.7.3 Inverse Weierstrass function ℘−1 (𝑧, 𝜏 )
@@ -3065,12 +2925,7 @@ class fpm():
         '''Inverse Weierstrass function ℘−1 (𝑧, 𝜏 )'''
         z = self.t(z)
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.weierstrass_pinv_t(z, tau)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.weierstrass_pinv_t, z, tau)
 
 
 # 8.7.4 Weierstrass Zeta
@@ -3079,12 +2934,7 @@ class fpm():
         '''Weierstrass Zeta'''
         z = self.t(z)
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.weierstrass_zeta_t(z, tau)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm2(mpm.weierstrass_zeta_t, z, tau)
 
 
 # 8.7.5 Weierstrass Sigma
@@ -3093,13 +2943,7 @@ class fpm():
         '''Weierstrass Sigma'''
         z = self.t(z)
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.weierstrass_sigma_t(z, tau)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
-
+        return self._fm2(mpm.weierstrass_sigma_t, z, tau)
 
 
 
@@ -3107,56 +2951,46 @@ class fpm():
 # %%%  8.8 Modular forms
 
 
-# 8.8.2 Dedekind eta function
+# 8.8.1 Dedekind eta function
 
     def dedekind_eta(self, tau):
         '''Dedekind eta function'''
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.dedekind_eta(tau)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm1(mpm.dedekind_eta, tau)
 
 
-# 8.8.3 Elliptic modular Lambda
+# 8.8.2 Elliptic modular Lambda
 
     def modular_lambda(self, tau):
         '''Elliptic modular Lambda'''
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.modular_lambda(tau)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm1(mpm.modular_lambda, tau)
 
 
-# 8.8.4 Elliptic modular Delta
+
+# 8.8.3 Elliptic modular Delta
 
     def modular_delta(self, tau):
         '''Elliptic modular Delta'''
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.modular_delta(tau)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm1(mpm.modular_delta, tau)
 
 
-# 8.8.5 Klein j-invariant
+# 8.8.4 Klein j-invariant
 
     def klein_j(self, tau):
         '''Klein j-invariant'''
         tau = self.t(tau)
-        dps_old = mp.dps
-        mp.dps = 30
-        res = mpm.klein_j(tau)
-        res = self.t(res)
-        mp.dps = dps_old
-        return res
+        return self._fm1(mpm.klein_j, tau)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3168,446 +3002,329 @@ class fpm():
 
 # %% 09 Lerch’s transcendent and related functions
 
-# %%%  17.1 Overview LERCH’S TRANSCENDENT, POLYGAMMA
+# %%%  9.1 Overview LERCH’S TRANSCENDENT, POLYGAMMA
 
-# 17.1.1 Lerch’s transcendent
 
-    def lerchphi(self, z, s, a):
+# 9.1.1 Lerch’s transcendent
+
+    def lerch_phi(self, z, s, a):
         '''Lerch’s transcendent'''
         z = self.t(z)
         s = self.t(s)
         a = self.t(a)
-        return mp.lerchphi(z, s, a)
+        return self._fm3(mpm.lerch_phi, z, s, a)
 
-# 17.1.2 Lerch’s zeta
+
+# 9.1.2 Lerch’s zeta
 
     def lerch_zeta(self, lambda1, alpha, s):
         '''Lerch’s zeta'''
         lambda1 = self.t(lambda1)
         alpha = self.t(alpha)
         s = self.t(s)
-        return mp.lerchphi(mp.exp(2*mp.pi()*1j*lambda1), s, alpha)
+        return self._fm3(mpm.lerch_zeta, lambda1, alpha, s)
 
 
-# %%%  17.2 Polygamma functions
+# %%%  9.2 Polygamma functions
 
-# 17.2.1 Polygamma function 𝜓𝑚(𝑥)
 
-    def psi(self, m, z):
-        '''Polygamma function 𝜓𝑚(𝑥)'''
-        m = self.t(m)
-        z = self.t(z)
-        return mp.psi(m, z)
+
+# 9.2.1 Polygamma function 𝜓𝑚(𝑥)
 
     def polygamma(self, m, z):
         '''Polygamma function 𝜓𝑚(𝑥)'''
         m = self.t(m)
         z = self.t(z)
-        return mp.psi(m, z)
+        return self._fm2(mpm.polygamma, m, z)
 
-# 17.2.2 TriGamma function 𝜓′(𝑥)
+
+# 9.2.2 TriGamma function 𝜓′(𝑥)
 
     def trigamma(self, z):
         '''TriGamma function 𝜓′(𝑥)'''
         z = self.t(z)
-        return mp.psi(1, z)
+        return self._fm1(mpm.trigamma, z)
 
-# 17.2.3 DiGamma function 𝜓(𝑥)
+
+# 9.2.3 DiGamma function 𝜓(𝑥)
 
     def digamma(self, z):
         '''DiGamma function 𝜓(𝑥)'''
         z = self.t(z)
-        return mp.psi(0, z)
+        return self._fm1(mpm.digamma, z)
 
 
-# %%%  17.3 Polylogarithms and related functions
+# 9.2.4 Harmonic numbers
 
-# 17.3.1 Polylogarithm, Li𝑠(𝑧)
+    def harmonic(self, z):
+        '''Harmonic numbers'''
+        z = self.t(z)
+        return self._fm1(mpm.harmonic, z)
+
+
+# %%%  9.3 Polylogarithms and related functions
+
+# 9.3.1 Polylogarithm, Li𝑠(𝑧)
 
     def polylog(self, s, z):
         '''Polylogarithm, Li𝑠(𝑧)'''
         s = self.t(s)
         z = self.t(z)
-        return mp.polylog(s, z)
+        return self._fm2(mpm.polylog, s, z)
 
-# 17.3.2 Trilogarithm Function, Li3(𝑧)
+
+# 9.3.2 Trilogarithm Function, Li3(𝑧)
 
     def trilog(self, z):
         '''Trilogarithm Function, Li3(𝑧)'''
         z = self.t(z)
-        return mp.polylog(3, z)
+        return self._fm1(mpm.trilog, z)
 
-# 17.3.3 Dilogarithm Function, Li2(𝑧)
+
+# 9.3.3 Dilogarithm Function, Li2(𝑧)
 
     def dilog(self, z):
         '''Dilogarithm Function, Li2(𝑧)'''
         z = self.t(z)
-        return mp.polylog(2, z)
+        return self._fm1(mpm.dilog, z)
 
-# 17.3.4 Generalized Clausen sine function
-    def clsin(self, s, z):
+
+# 9.3.4 Generalized Clausen sine function
+    def clausen_sin(self, s, z):
         '''Generalized Clausen sine function'''
         s = self.t(s)
         z = self.t(z)
-        return mp.clsin(s, z)
+        return self._fm2(mpm.clausen_sin, s, z)
 
-# 17.3.5 Generalized Clausen cosine function
 
-    def clcos(self, s, z):
+# 9.3.5 Generalized Clausen cosine function
+
+    def clausen_cos(self, s, z):
         '''Generalized Clausen cosine function'''
         s = self.t(s)
         z = self.t(z)
-        return mp.clcos(s, z)
+        return self._fm2(mpm.clausen_cos, s, z)
 
-# 17.3.6 Classical Clausen function
 
-    def cl2(self, z):
+# 9.3.6 Classical Clausen function
+
+    def clausen2(self, z):
         '''Classical Clausen function'''
         z = self.t(z)
-        return self.clsin(2, z)
+        return self._fm1(mpm.clausen2, z)
 
-# 17.3.7 Bose-Einstein integrals of real order
+
+# 9.3.7 Bose-Einstein integrals of real order
 
     def bose_einstein(self, s, z, real4real=True):
         '''Bose-Einstein integrals of real order'''
         s = self.t(s)
         z = self.t(z)
-        res = self.polylog(s+1, self.exp(z))
-        if mp.im(z) == mp.mpf(0) and real4real:
-            res = mp.re(res)
-        return res
+        return self._fm2(mpm.bose_einstein, s, z)
 
-# 17.3.8 Fermi-Dirac integrals
+
+# 9.3.8 Fermi-Dirac integrals
 
     def fermi_dirac(self, s, z, real4real=True):
         '''Fermi-Dirac integrals'''
         s = self.t(s)
         z = self.t(z)
-        res = -self.polylog(s+1, -self.exp(z))
-        if mp.im(z) == mp.mpf(0) and real4real:
-            res = mp.re(res)
-        return res
+        return self._fm2(mpm.fermi_dirac, s, z)
 
-# 17.3.9 Legendre’s chi function
+
+# 9.3.9 Legendre’s chi function
 
     def legendre_chi(self, s, z, real4real=True):
         '''Legendre’s chi function'''
         s = self.t(s)
         z = self.t(z)
-        res = 0.5 * (self.polylog(s, z) - self.polylog(s, -z))
-        if mp.im(z) == mp.mpf(0) and real4real:
-            res = mp.re(res)
-        return res
+        return self._fm2(mpm.legendre_chi, s, z)
 
-# 17.3.10 Inverse tangent integral
 
-    def ti(self, s, z):
+# 9.3.10 Inverse tangent integral
+
+    def inverse_tan_integral(self, s, z):
         '''Inverse tangent integral'''
         s = self.t(s)
         z = self.t(z)
-        res = (self.polylog(s, 1j*z) - self.polylog(s, -1j*z))
-        res = res / (2j)
-        if mp.im(z) == mp.mpf(0):
-            res = mp.re(res)
-        return res
-
-# !!! Missing in documentation !!!
-
-    def ti2(self, z):
-        z = self.t(z)
-        return self.ti(2, z)
-
-# 17.3.11 Debye functions
-    def debye(self, n, x):
-        '''Debye functions'''
-        return ctxm.debye(self, n, x)
+        return self._fm2(mpm.inverse_tan_integral, s, z)
 
 
-# %%%  17.4 Hurwitz zeta function and related functions
+# %%%  9.4 Hurwitz zeta function and related functions
 
-# 17.4.1 Hurwitz zeta function
 
-    def hurwitz(self, s, a, derivative=0):
+# 9.4.1 Hurwitz zeta function
+
+    def hurwitz_zeta(self, s, a, derivative=0):
         '''Hurwitz zeta function'''
         s = self.t(s)
         a = self.t(a)
-        return mp.zeta(s, a, derivative)
+        return self._fm2(mpm.hurwitz_zeta, s, a)
 
-# 17.4.2 Stieltjes constant
-
-    def stieltjes(self, n, a=1):
-        '''Stieltjes constant'''
-        n = int(n)
-        a = self.t(a)
-        return mp.stieltjes(n, a)
-
-# 17.4.3 Harmonic numbers
-
-    def harmonic(self, z):
-        '''Harmonic numbers'''
-        z = self.t(z)
-        return mp.harmonic(z)
-
-# 17.4.4 Generalized harmonic number function
+# 9.4.2 Generalized harmonic number function
 
     def harmonic2(self, z, r):
         '''Generalized harmonic number function'''
         z = self.t(z)
         r = self.t(r)
-        if r == mp.mpf(1):
-            return self.harmonic(z)
-        else:
-            return mp.zeta(r) - mp.zeta(r, z + 1)
+        return self._fm2(mpm.harmonic2, z, r)
 
-# 17.4.5 Bernoulli numbers
+
+# 9.4.3 Bernoulli numbers
 
     def bernoulli(self, n):
         '''Bernoulli numbers'''
         n = int(n)
-        return mp.bernoulli(n)
+        return self._fm1(mpm.bernoulli, n)
 
-# 17.4.6 Bernoulli number as fraction
 
-    def bernfrac(self, n):
-        '''Bernoulli number as fraction'''
-        n = int(n)
-        return mp.bernfrac(n)
-
-# 17.4.7 Bernoulli polynomials
+# 9.4.4 Bernoulli polynomials
 
     def bernpoly(self, n, z):
         '''Bernoulli polynomials'''
         n = int(n)
         z = self.t(z)
-        return mp.bernpoly(n, z)
+        return self._fm2(mpm.bernpoly, n, z)
 
-# 17.4.8 Euler numbers
+
+# 9.4.5 Euler numbers
 
     def eulernum(self, n):
         '''Euler numbers'''
         n = int(n)
-        return mp.eulernum(n)
+        return self._fm1(mpm.eulernum, n)
 
-# 17.4.9 Euler polynomials
+
+# 9.4.6 Euler polynomials
 
     def eulerpoly(self, n, z):
         '''Euler polynomials'''
         n = int(n)
         z = self.t(z)
-        return mp.eulerpoly(n, z)
+        return self._fm2(mpm.eulerpoly, n, z)
 
-# 17.4.10 Logarithm of Barnes G function
 
-    def lnbarnesg(self, z):
-        '''Logarithm of Barnes G function'''
-        z = self.t(z)
-        return mp.ln(mp.barnesg(z))
+# 9.4.7 Barnes G-function
 
-# 17.4.11 Barnes G-function
-
-    def barnesg(self, z):
+    def barnes_g(self, z):
         '''Barnes G-function'''
         z = self.t(z)
-        return mp.barnesg(z)
+        return self._fm1(mpm.barnes_g, z)
 
-# 17.4.12 Hyperfactorial
 
-    def hyperfac(self, z):
+# 9.4.8 Logarithm of Barnes G function
+
+    def logbarnes_g(self, z):
+        '''Logarithm of Barnes G function'''
+        z = self.t(z)
+        return self._fm1(mpm.logbarnes_g, z)
+
+# 9.4.9 Hyperfactorial
+
+    def hyperfactorial(self, z):
         '''Hyperfactorial'''
         z = self.t(z)
-        return mp.hyperfac(z)
+        return self._fm1(mpm.hyperfactorial, z)
 
-# 17.4.13 Superfactorial
 
-    def superfac(self, z):
+# 9.4.10 Superfactorial
+
+    def superfactorial(self, z):
         '''Superfactorial'''
         z = self.t(z)
-        return mp.superfac(z)
+        return self._fm1(mpm.superfactorial, z)
 
 
-# %%%  17.5 Dirichlet L series, Riemann zeta function and related functions
+# %%%  9.5 Dirichlet L series, Riemann zeta function and related functions
 
-# 17.5.1 Dirichlet L-Series
 
-    def dirichlet_l(self, s, chi, derivative=0):
-        '''Dirichlet L-Series'''
-        s = self.t(s)
-        return mp.dirichlet(s, chi, derivative)
-
-# 17.5.2 Riemann zeta function
+# 9.5.1 Riemann zeta function
 
     def zeta(self, s, derivative=0):
         '''Riemann zeta function'''
         s = self.t(s)
-        return mp.zeta(s, 1, derivative)
+        return self._fm1(mpm.zeta, s)
 
-# 17.5.3 Riemann 𝜁(𝑠) − 1
+
+# 9.5.2 Riemann 𝜁(𝑠) − 1
 
     def zetam1(self, s):
         '''Riemann 𝜁(𝑠) − 1'''
         s = self.t(s)
-        return mp.zeta(s, 2)
+        return self._fm1(mpm.zetam1, s)
 
-# 17.5.4 Riemann (Landau) function 𝜉(𝑠)
+
+# 9.5.3 Riemann-Siegel theta function
+
+    def hardy_theta(self, t):
+        '''Hardy-Riemann-Siegel theta function'''
+        t = self.t(t)
+        return self._fm1(mpm.hardy_theta, t)
+
+
+# 9.5.4 Riemann-Siegel Z function
+
+    def hardy_z(self, t):
+        '''Riemann-Siegel Z function'''
+        t = self.t(t)
+        return self._fm1(mpm.hardy_z, t)
+
+
+# 9.5.5 Riemann (Landau) function 𝜉(𝑠)
 
     def riemann_xi(self, s):
         '''Riemann (Landau) function 𝜉(𝑠)'''
         s = self.t(s)
-        res = 0.5*s*(s-1)*self.pi()**(-s/2)*self.gamma(s/2)
-        res = res * self.zeta(s)
-        return res
+        return self._fm1(mpm.riemann_xi, s)
 
-# 17.5.5 Dirichlet eta function
+
+# 9.5.6 Dirichlet eta function
 
     def dirichlet_eta(self, s):
         '''Dirichlet eta function'''
         s = self.t(s)
-        return mp.altzeta(s)
+        return self._fm1(mpm.dirichlet_eta, s)
 
-# 17.5.6 Dirichlet 𝜂(𝑠) − 1: etam1(s)
+
+# 9.5.7 Dirichlet 𝜂(𝑠) − 1: etam1(s)
 
     def dirichlet_etam1(self, s):
         '''Dirichlet 𝜂(𝑠) − 1: etam1(s)'''
         s = self.t(s)
-        return self.dirichlet_eta(s) - 1
+        return self._fm1(mpm.dirichlet_etam1, s)
 
-# 17.5.7 Dirichlet Beta function
+
+# 9.5.8 Dirichlet Beta function
 
     def dirichlet_beta(self, s):
         '''Dirichlet Beta function'''
         s = self.t(s)
-        return mp.power(4, -s) * (mp.zeta(s, 0.25) - mp.zeta(s, 0.75))
+        return self._fm1(mpm.dirichlet_beta, s)
 
-# 17.5.8 Dirichlet Lambda function
+
+# 9.5.9 Dirichlet Lambda function
 
     def dirichlet_lambda(self, s):
         '''Dirichlet Lambda function'''
         s = self.t(s)
-        # return (1 - mp.power(2, -s)) * mp.zeta(s)
-        return -self.exp2m1(-s) * self.zeta(s)
+        return self._fm1(mpm.dirichlet_lambda, s)
 
-# 17.5.9 Riemann-Siegel Z function
 
-    def siegelz(self, t):
-        '''Riemann-Siegel Z function'''
-        t = self.t(t)
-        return mp.siegelz(t)
+# 9.5.10 The nth nontrivial zero of Riemann's zeta on the critical line
 
-# 17.5.10 Riemann-Siegel theta function
-
-    def siegeltheta(self, t):
-        '''Riemann-Siegel theta function'''
-        t = self.t(t)
-        return mp.siegeltheta(t)
-
-# 17.5.11 Backlund S function
-
-    def backlunds(self, t):
-        '''Backlund S function'''
-        t = self.t(t)
-        return mp.backlunds(t)
-
-# 17.5.12 Gram points
-
-    def grampoint(self, n):
-        '''Gram points'''
+    def zeta_zero(self, n):
+        '''The nth nontrivial zero of Riemann's zeta on the critical line'''
         n = int(n)
-        return mp.grampoint(n)
-
-# 17.5.13 Number of zeros of the Riemann zeta function
-
-    def zetazero(self, n, verbose=False):
-        '''Number of zeros of the Riemann zeta function'''
-        n = int(n)
-        return mp.zetazero(n, verbose)
-
-# 17.5.14 Zeros of the Riemann zeta function
-
-    def nzeros(self, t):
-        '''Zeros of the Riemann zeta function'''
-        t = self.t(t)
-        res = mp.nzeros(t)
-        res = self.t(res)
-        return res
-
-# 17.5.15 Secondary zeta function
-
-    def secondzeta(self, s, a=0.015):
-        '''Secondary zeta function'''
-        s = self.t(s)
-        a = self.t(a)
-        return mp.secondzeta(s, a)
+        return self._fm1(mpm.zeta_zero, n)
 
 
-# %%%  17.6 Additional numbertheoretic functions
 
-# 17.6.1 Prime counting function
 
-    def primepi(self, x):
-        '''Prime counting function'''
-        return mp.primepi(x)
 
-# 17.6.2 Mangoldt function
 
-    def mangoldt(self, n):
-        '''Mangoldt function'''
-        return mp.mangoldt(n)
 
-# 17.6.3 Riemann R function
 
-    def riemannr(self, z):
-        '''Riemann R function'''
-        z = self.t(z)
-        return mp.riemannr(z)
 
-# 17.6.4 Prime zeta function
-
-    def primezeta(self, s):
-        '''Prime zeta function'''
-        s = self.t(s)
-        return mp.primezeta(s)
-
-# 17.6.5 Mertens constant
-
-    def mertens(self):
-        '''Mertens constant'''
-        return mp.mertens()
-
-# 17.6.6 Twin prime constant
-
-    def twinprime(self):
-        '''Twin prime constant'''
-        return mp.twinprime()
-
-# 17.6.7 Cyclotomic polynomial
-
-    def cyclotomic(self, n, x):
-        '''Cyclotomic polynomial'''
-        return mp.cyclotomic(n, x)
-
-# 17.6.8 Stirling number of the first kind
-
-    def stirling1(self, n, k, exact=False):
-        '''Stirling number of the first kind'''
-        return mp.stirling1(n, k, exact)
-
-# 17.6.9 Stirling number of the second kind
-
-    def stirling2(self, n, k, exact=False):
-        '''Stirling number of the second kind'''
-        return mp.stirling2(n, k, exact)
-
-# 17.6.10 Bell (Touchard) polynomials
-
-    def bell(self, n, x):
-        '''Bell (Touchard) polynomials'''
-        return mp.bell(n, x)
-
-# 17.6.11 Polyexponential function
-
-    def polyexp(self, s, z):
-        '''Polyexponential function'''
-        return mp.polyexp(s, z)
 
 
 # %% 10 Hypergeometric Function 0_F_1 and related functions
