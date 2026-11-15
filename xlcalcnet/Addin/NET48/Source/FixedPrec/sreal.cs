@@ -5192,7 +5192,7 @@ namespace FixedPrecNet
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
-        public static Single besselpoly(Single n, Single x, bool scaled = false)
+        public static Single besselpoly(Single n, Single x)
         {
             if (!sreal.isinteger(n)) return sreal.nan;
             if (abs(x) < t(0.01)) return besselpoly_(lrint(n), x);
@@ -5205,9 +5205,9 @@ namespace FixedPrecNet
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
-        public static Single besselpoly(dynamic n, dynamic x, bool scaled = false)
+        public static Single besselpoly(dynamic n, dynamic x)
         {
-            return besselpoly(t(n), t(x), scaled);
+            return besselpoly(t(n), t(x));
         }
 
 
@@ -5231,7 +5231,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
-        public static Single besseltheta(Single n, Single x, bool scaled = false)
+        public static Single besseltheta(Single n, Single x)
         {
             if (!sreal.isinteger(n)) return sreal.nan;
             if ((x == 0) && (n < 0)) return sreal.nan;
@@ -5247,9 +5247,9 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
-        public static Single besseltheta(dynamic n, dynamic x, bool scaled = false)
+        public static Single besseltheta(dynamic n, dynamic x)
         {
-            return besseltheta(t(n), t(x), scaled);
+            return besseltheta(t(n), t(x));
         }
 
 
@@ -5395,57 +5395,57 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
-        public static SingleC hankel_h1(Single v, Single x)
+        public static SingleC hankel_h1(Single v, Single x, bool scaled = false)
         {
             return bessel_jv(v, x) + scplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
-        public static SingleC hankel_h1(dynamic v, dynamic x)
+        public static SingleC hankel_h1(dynamic v, dynamic x, bool scaled = false)
         {
-            return hankel_h1(t(v), t(x));
+            return hankel_h1(t(v), t(x), scaled);
         }
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
-        public static SingleC hankel_h2(Single v, Single x)
+        public static SingleC hankel_h2(Single v, Single x, bool scaled = false)
         {
             return bessel_jv(v, x) - scplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
-        public static SingleC hankel_h2(dynamic v, dynamic x)
+        public static SingleC hankel_h2(dynamic v, dynamic x, bool scaled = false)
         {
-            return hankel_h2(t(v), t(x));
+            return hankel_h2(t(v), t(x), scaled);
         }
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
-        public static SingleC sph_hankel_h1(int n, Single x)
+        public static SingleC sph_hankel_h1(int n, Single x, bool scaled = false)
         {
             return sph_bessel_jn(n, x) + scplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
-        public static SingleC sph_hankel_h1(int n, dynamic x)
+        public static SingleC sph_hankel_h1(int n, dynamic x, bool scaled = false)
         {
-            return sph_hankel_h1(n, t(x));
+            return sph_hankel_h1(n, t(x), scaled);
         }
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
-        public static SingleC sph_hankel_h2(int n, Single x)
+        public static SingleC sph_hankel_h2(int n, Single x, bool scaled = false)
         {
             return sph_bessel_jn(n, x) - scplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
-        public static SingleC sph_hankel_h2(int n, dynamic x)
+        public static SingleC sph_hankel_h2(int n, dynamic x, bool scaled = false)
         {
-            return sph_hankel_h2(n, t(x));
+            return sph_hankel_h2(n, t(x), scaled);
         }
 
 

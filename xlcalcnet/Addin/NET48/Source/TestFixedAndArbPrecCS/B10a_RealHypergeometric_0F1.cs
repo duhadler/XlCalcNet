@@ -1044,21 +1044,21 @@ namespace TestXlCalcNetPrecCS
                             object res1 = "Not done";
                             switch (NumType ?? "")
                             {
-                                case "math53": { res1 = math53.besselpoly(n, x, scaled); break; }
-                                case " sreal": { res1 = sreal.besselpoly(n, x, scaled); break; }
-                                case " dreal": { res1 = dreal.besselpoly(n, x, scaled); break; }
-                                case " ereal": { res1 = ereal.besselpoly(n, x, scaled); break; }
-                                case " qreal": { res1 = qreal.besselpoly(n, x, scaled); break; }
-                                case " oreal": { res1 = oreal.besselpoly(n, x, scaled); break; }
+                                case "math53": { res1 = math53.besselpoly(n, x); break; }
+                                case " sreal": { res1 = sreal.besselpoly(n, x); break; }
+                                case " dreal": { res1 = dreal.besselpoly(n, x); break; }
+                                case " ereal": { res1 = ereal.besselpoly(n, x); break; }
+                                case " qreal": { res1 = qreal.besselpoly(n, x); break; }
+                                case " oreal": { res1 = oreal.besselpoly(n, x); break; }
 #if HasArbPrecNet
-                                case " mreal": { res1 = mreal.besselpoly(n, x, scaled); break; }
-                                case "sflint": { res1 = sflint.besselpoly(n, x, scaled); break; }
-                                case "dflint": { res1 = dflint.besselpoly(n, x, scaled); break; }
-                                case "eflint": { res1 = eflint.besselpoly(n, x, scaled); break; }
-                                case "qflint": { res1 = qflint.besselpoly(n, x, scaled); break; }
-                                case "oflint": { res1 = oflint.besselpoly(n, x, scaled); break; }
-                                case "mflint": { res1 = mflint.besselpoly(n, x, scaled); break; }
-                                case "aflint": { res1 = aflint.besselpoly(n, x, scaled); break; }
+                                case " mreal": { res1 = mreal.besselpoly(n, x); break; }
+                                case "sflint": { res1 = sflint.besselpoly(n, x); break; }
+                                case "dflint": { res1 = dflint.besselpoly(n, x); break; }
+                                case "eflint": { res1 = eflint.besselpoly(n, x); break; }
+                                case "qflint": { res1 = qflint.besselpoly(n, x); break; }
+                                case "oflint": { res1 = oflint.besselpoly(n, x); break; }
+                                case "mflint": { res1 = mflint.besselpoly(n, x); break; }
+                                case "aflint": { res1 = aflint.besselpoly(n, x); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -1088,21 +1088,21 @@ namespace TestXlCalcNetPrecCS
                             object res1 = "Not done";
                             switch (NumType ?? "")
                             {
-                                case "math53": { res1 = math53.besseltheta(n, x, scaled); break; }
-                                case " sreal": { res1 = sreal.besseltheta(n, x, scaled); break; }
-                                case " dreal": { res1 = dreal.besseltheta(n, x, scaled); break; }
-                                case " ereal": { res1 = ereal.besseltheta(n, x, scaled); break; }
-                                case " qreal": { res1 = qreal.besseltheta(n, x, scaled); break; }
-                                case " oreal": { res1 = oreal.besseltheta(n, x, scaled); break; }
+                                case "math53": { res1 = math53.besseltheta(n, x); break; }
+                                case " sreal": { res1 = sreal.besseltheta(n, x); break; }
+                                case " dreal": { res1 = dreal.besseltheta(n, x); break; }
+                                case " ereal": { res1 = ereal.besseltheta(n, x); break; }
+                                case " qreal": { res1 = qreal.besseltheta(n, x); break; }
+                                case " oreal": { res1 = oreal.besseltheta(n, x); break; }
 #if HasArbPrecNet
-                                case " mreal": { res1 = mreal.besseltheta(n, x, scaled); break; }
-                                case "sflint": { res1 = sflint.besseltheta(n, x, scaled); break; }
-                                case "dflint": { res1 = dflint.besseltheta(n, x, scaled); break; }
-                                case "eflint": { res1 = eflint.besseltheta(n, x, scaled); break; }
-                                case "qflint": { res1 = qflint.besseltheta(n, x, scaled); break; }
-                                case "oflint": { res1 = oflint.besseltheta(n, x, scaled); break; }
-                                case "mflint": { res1 = mflint.besseltheta(n, x, scaled); break; }
-                                case "aflint": { res1 = aflint.besseltheta(n, x, scaled); break; }
+                                case " mreal": { res1 = mreal.besseltheta(n, x); break; }
+                                case "sflint": { res1 = sflint.besseltheta(n, x); break; }
+                                case "dflint": { res1 = dflint.besseltheta(n, x); break; }
+                                case "eflint": { res1 = eflint.besseltheta(n, x); break; }
+                                case "qflint": { res1 = qflint.besseltheta(n, x); break; }
+                                case "oflint": { res1 = oflint.besseltheta(n, x); break; }
+                                case "mflint": { res1 = mflint.besseltheta(n, x); break; }
+                                case "aflint": { res1 = aflint.besseltheta(n, x); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -1142,21 +1142,21 @@ namespace TestXlCalcNetPrecCS
                             object res1 = "Not done";
                             switch (NumType ?? "")
                             {
-                                case "math53": { res1 = math53.hankel_h1(nu, x); break; }
-                                case " sreal": { res1 = sreal.hankel_h1(nu, x); break; }
-                                case " dreal": { res1 = dreal.hankel_h1(nu, x); break; }
-                                case " ereal": { res1 = ereal.hankel_h1(nu, x); break; }
-                                case " qreal": { res1 = qreal.hankel_h1(nu, x); break; }
-                                case " oreal": { res1 = oreal.hankel_h1(nu, x); break; }
+                                case "math53": { res1 = math53.hankel_h1(nu, x, scaled); break; }
+                                case " sreal": { res1 = sreal.hankel_h1(nu, x, scaled); break; }
+                                case " dreal": { res1 = dreal.hankel_h1(nu, x, scaled); break; }
+                                case " ereal": { res1 = ereal.hankel_h1(nu, x, scaled); break; }
+                                case " qreal": { res1 = qreal.hankel_h1(nu, x, scaled); break; }
+                                case " oreal": { res1 = oreal.hankel_h1(nu, x, scaled); break; }
 #if HasArbPrecNet
-                                case " mreal": { res1 = mreal.hankel_h1(nu, x); break; }
-                                case "sflint": { res1 = sflint.hankel_h1(nu, x); break; }
-                                case "dflint": { res1 = dflint.hankel_h1(nu, x); break; }
-                                case "eflint": { res1 = eflint.hankel_h1(nu, x); break; }
-                                case "qflint": { res1 = qflint.hankel_h1(nu, x); break; }
-                                case "oflint": { res1 = oflint.hankel_h1(nu, x); break; }
-                                case "mflint": { res1 = mflint.hankel_h1(nu, x); break; }
-                                case "aflint": { res1 = aflint.hankel_h1(nu, x); break; }
+                                case " mreal": { res1 = mreal.hankel_h1(nu, x, scaled); break; }
+                                case "sflint": { res1 = sflint.hankel_h1(nu, x, scaled); break; }
+                                case "dflint": { res1 = dflint.hankel_h1(nu, x, scaled); break; }
+                                case "eflint": { res1 = eflint.hankel_h1(nu, x, scaled); break; }
+                                case "qflint": { res1 = qflint.hankel_h1(nu, x, scaled); break; }
+                                case "oflint": { res1 = oflint.hankel_h1(nu, x, scaled); break; }
+                                case "mflint": { res1 = mflint.hankel_h1(nu, x, scaled); break; }
+                                case "aflint": { res1 = aflint.hankel_h1(nu, x, scaled); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -1182,21 +1182,21 @@ namespace TestXlCalcNetPrecCS
                             object res1 = "Not done";
                             switch (NumType ?? "")
                             {
-                                case "math53": { res1 = math53.hankel_h2(nu, x); break; }
-                                case " sreal": { res1 = sreal.hankel_h2(nu, x); break; }
-                                case " dreal": { res1 = dreal.hankel_h2(nu, x); break; }
-                                case " ereal": { res1 = ereal.hankel_h2(nu, x); break; }
-                                case " qreal": { res1 = qreal.hankel_h2(nu, x); break; }
-                                case " oreal": { res1 = oreal.hankel_h2(nu, x); break; }
+                                case "math53": { res1 = math53.hankel_h2(nu, x, scaled); break; }
+                                case " sreal": { res1 = sreal.hankel_h2(nu, x, scaled); break; }
+                                case " dreal": { res1 = dreal.hankel_h2(nu, x, scaled); break; }
+                                case " ereal": { res1 = ereal.hankel_h2(nu, x, scaled); break; }
+                                case " qreal": { res1 = qreal.hankel_h2(nu, x, scaled); break; }
+                                case " oreal": { res1 = oreal.hankel_h2(nu, x, scaled); break; }
 #if HasArbPrecNet
-                                case " mreal": { res1 = mreal.hankel_h2(nu, x); break; }
-                                case "sflint": { res1 = sflint.hankel_h2(nu, x); break; }
-                                case "dflint": { res1 = dflint.hankel_h2(nu, x); break; }
-                                case "eflint": { res1 = eflint.hankel_h2(nu, x); break; }
-                                case "qflint": { res1 = qflint.hankel_h2(nu, x); break; }
-                                case "oflint": { res1 = oflint.hankel_h2(nu, x); break; }
-                                case "mflint": { res1 = mflint.hankel_h2(nu, x); break; }
-                                case "aflint": { res1 = aflint.hankel_h2(nu, x); break; }
+                                case " mreal": { res1 = mreal.hankel_h2(nu, x, scaled); break; }
+                                case "sflint": { res1 = sflint.hankel_h2(nu, x, scaled); break; }
+                                case "dflint": { res1 = dflint.hankel_h2(nu, x, scaled); break; }
+                                case "eflint": { res1 = eflint.hankel_h2(nu, x, scaled); break; }
+                                case "qflint": { res1 = qflint.hankel_h2(nu, x, scaled); break; }
+                                case "oflint": { res1 = oflint.hankel_h2(nu, x, scaled); break; }
+                                case "mflint": { res1 = mflint.hankel_h2(nu, x, scaled); break; }
+                                case "aflint": { res1 = aflint.hankel_h2(nu, x, scaled); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -1222,21 +1222,21 @@ namespace TestXlCalcNetPrecCS
                             object res1 = "Not done";
                             switch (NumType ?? "")
                             {
-                                case "math53": { res1 = math53.sph_hankel_h1(n, x); break; }
-                                case " sreal": { res1 = sreal.sph_hankel_h1(n, x); break; }
-                                case " dreal": { res1 = dreal.sph_hankel_h1(n, x); break; }
-                                case " ereal": { res1 = ereal.sph_hankel_h1(n, x); break; }
-                                case " qreal": { res1 = qreal.sph_hankel_h1(n, x); break; }
-                                case " oreal": { res1 = oreal.sph_hankel_h1(n, x); break; }
+                                case "math53": { res1 = math53.sph_hankel_h1(n, x, scaled); break; }
+                                case " sreal": { res1 = sreal.sph_hankel_h1(n, x, scaled); break; }
+                                case " dreal": { res1 = dreal.sph_hankel_h1(n, x, scaled); break; }
+                                case " ereal": { res1 = ereal.sph_hankel_h1(n, x, scaled); break; }
+                                case " qreal": { res1 = qreal.sph_hankel_h1(n, x, scaled); break; }
+                                case " oreal": { res1 = oreal.sph_hankel_h1(n, x, scaled); break; }
 #if HasArbPrecNet
-                                case " mreal": { res1 = mreal.sph_hankel_h1(n, x); break; }
-                                case "sflint": { res1 = sflint.sph_hankel_h1(n, x); break; }
-                                case "dflint": { res1 = dflint.sph_hankel_h1(n, x); break; }
-                                case "eflint": { res1 = eflint.sph_hankel_h1(n, x); break; }
-                                case "qflint": { res1 = qflint.sph_hankel_h1(n, x); break; }
-                                case "oflint": { res1 = oflint.sph_hankel_h1(n, x); break; }
-                                case "mflint": { res1 = mflint.sph_hankel_h1(n, x); break; }
-                                case "aflint": { res1 = aflint.sph_hankel_h1(n, x); break; }
+                                case " mreal": { res1 = mreal.sph_hankel_h1(n, x, scaled); break; }
+                                case "sflint": { res1 = sflint.sph_hankel_h1(n, x, scaled); break; }
+                                case "dflint": { res1 = dflint.sph_hankel_h1(n, x, scaled); break; }
+                                case "eflint": { res1 = eflint.sph_hankel_h1(n, x, scaled); break; }
+                                case "qflint": { res1 = qflint.sph_hankel_h1(n, x, scaled); break; }
+                                case "oflint": { res1 = oflint.sph_hankel_h1(n, x, scaled); break; }
+                                case "mflint": { res1 = mflint.sph_hankel_h1(n, x, scaled); break; }
+                                case "aflint": { res1 = aflint.sph_hankel_h1(n, x, scaled); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -1263,21 +1263,21 @@ namespace TestXlCalcNetPrecCS
                             object res1 = "Not done";
                             switch (NumType ?? "")
                             {
-                                case "math53": { res1 = math53.sph_hankel_h2(n, x); break; }
-                                case " sreal": { res1 = sreal.sph_hankel_h2(n, x); break; }
-                                case " dreal": { res1 = dreal.sph_hankel_h2(n, x); break; }
-                                case " ereal": { res1 = ereal.sph_hankel_h2(n, x); break; }
-                                case " qreal": { res1 = qreal.sph_hankel_h2(n, x); break; }
-                                case " oreal": { res1 = oreal.sph_hankel_h2(n, x); break; }
+                                case "math53": { res1 = math53.sph_hankel_h2(n, x, scaled); break; }
+                                case " sreal": { res1 = sreal.sph_hankel_h2(n, x, scaled); break; }
+                                case " dreal": { res1 = dreal.sph_hankel_h2(n, x, scaled); break; }
+                                case " ereal": { res1 = ereal.sph_hankel_h2(n, x, scaled); break; }
+                                case " qreal": { res1 = qreal.sph_hankel_h2(n, x, scaled); break; }
+                                case " oreal": { res1 = oreal.sph_hankel_h2(n, x, scaled); break; }
 #if HasArbPrecNet
-                                case " mreal": { res1 = mreal.sph_hankel_h2(n, x); break; }
-                                case "sflint": { res1 = sflint.sph_hankel_h2(n, x); break; }
-                                case "dflint": { res1 = dflint.sph_hankel_h2(n, x); break; }
-                                case "eflint": { res1 = eflint.sph_hankel_h2(n, x); break; }
-                                case "qflint": { res1 = qflint.sph_hankel_h2(n, x); break; }
-                                case "oflint": { res1 = oflint.sph_hankel_h2(n, x); break; }
-                                case "mflint": { res1 = mflint.sph_hankel_h2(n, x); break; }
-                                case "aflint": { res1 = aflint.sph_hankel_h2(n, x); break; }
+                                case " mreal": { res1 = mreal.sph_hankel_h2(n, x, scaled); break; }
+                                case "sflint": { res1 = sflint.sph_hankel_h2(n, x, scaled); break; }
+                                case "dflint": { res1 = dflint.sph_hankel_h2(n, x, scaled); break; }
+                                case "eflint": { res1 = eflint.sph_hankel_h2(n, x, scaled); break; }
+                                case "qflint": { res1 = qflint.sph_hankel_h2(n, x, scaled); break; }
+                                case "oflint": { res1 = oflint.sph_hankel_h2(n, x, scaled); break; }
+                                case "mflint": { res1 = mflint.sph_hankel_h2(n, x, scaled); break; }
+                                case "aflint": { res1 = aflint.sph_hankel_h2(n, x, scaled); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);

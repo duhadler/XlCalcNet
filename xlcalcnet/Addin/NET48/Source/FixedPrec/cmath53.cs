@@ -3371,6 +3371,7 @@ namespace FixedPrecNet
             if (b.Imaginary == 0.0)
             {
                 res = bessel_iv(b - 1, 2 * sqrt(z));
+                //Console.WriteLine("b = " + b + ", z = " + z + ", res = " + res);
                 res = res * math53.gamma(b.Real) * pow(z, (1 - b) / 2);
             }
             return res;
@@ -3391,8 +3392,7 @@ namespace FixedPrecNet
             {
                 if (dreal.isinteger(b.Real) && (b.Real <= 0))
                 {
-                    Double n = b.Real;
-                    res = hyperg_0f1(n + 2, z) * pow(z, n + 1) / math53.gamma(n + 2);
+                    res = pow(z, -b + 1) * hyperg_0f1(-b + 2, z) / gamma(-b + 2);
                 }
                 else res = hyperg_0f1(b, z) / math53.gamma(b.Real);
             }
@@ -3444,9 +3444,9 @@ namespace FixedPrecNet
         }
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_jv/*' />
-        public static Complex bessel_jv(dynamic v, dynamic z1, bool scaled = false)
-        {
-            return bessel_jv(scplx.t(v), scplx.t(z1), scaled);
+        public static Complex bessel_jv(dynamic v, dynamic x, bool scaled = false)
+        {   
+            return bessel_jv(dcplx.t(v), dcplx.t(x), scaled);
         }
 
 
@@ -3486,7 +3486,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_yv/*' />
         public static Complex bessel_yv(dynamic v, dynamic z1, bool scaled = false)
         {
-            return bessel_yv(sreal.t(v), scplx.t(z1), scaled);
+            return bessel_yv(dcplx.t(v), dcplx.t(z1), scaled);
         }
 
 
@@ -3528,7 +3528,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_iv/*' />
         public static Complex bessel_iv(dynamic v, dynamic z1, bool scaled = false)
         {
-            return bessel_iv(scplx.t(v), scplx.t(z1), scaled);
+            return bessel_iv(dcplx.t(v), dcplx.t(z1), scaled);
         }
 
 
@@ -3568,7 +3568,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/bessel_kv/*' />
         public static Complex bessel_kv(dynamic v, dynamic z1, bool scaled = false)
         {
-            return bessel_kv(sreal.t(v), scplx.t(z1), scaled);
+            return bessel_kv(dcplx.t(v), dcplx.t(z1), scaled);
         }
 
 
@@ -3746,6 +3746,33 @@ namespace FixedPrecNet
 
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/besselpoly/*' />
+        public static Complex besselpoly(Complex n, Complex x)
+        {
+            return dcplx.nan;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/besselpoly/*' />
+        public static Complex besselpoly(dynamic n, dynamic x)
+        {
+            return besselpoly(dcplx.t(n), dcplx.t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/besseltheta/*' />
+        public static Complex besseltheta(Complex n, Complex x)
+        {
+            return dcplx.nan;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/besseltheta/*' />
+        public static Complex besseltheta(dynamic n, dynamic x)
+        {
+            return besseltheta(dcplx.t(n), dcplx.t(x));
+        }
+
+
 
 
 
@@ -3884,7 +3911,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hankel_h1/*' />
         public static Complex hankel_h1(dynamic v, dynamic z1, bool scaled = false)
         {
-            return hankel_h1(scplx.t(v), scplx.t(z1), scaled);
+            return hankel_h1(dcplx.t(v), dcplx.t(z1), scaled);
         }
 
 
@@ -3921,7 +3948,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hankel_h2/*' />
         public static Complex hankel_h2(dynamic v, dynamic z1, bool scaled = false)
         {
-            return hankel_h2(scplx.t(v), scplx.t(z1), scaled);
+            return hankel_h2(dcplx.t(v), dcplx.t(z1), scaled);
         }
 
 

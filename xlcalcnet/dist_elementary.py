@@ -74,9 +74,6 @@ class ctx_arcsine(ctx_rv_cont):
         return ctx.log(self.m_x(t))
 
 
-    def saddleppoint(self, x):
-        return "calc numerically"
-
 
     def moments(self, k):
         mu = [0]

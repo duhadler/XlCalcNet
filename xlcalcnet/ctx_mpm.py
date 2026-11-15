@@ -2183,7 +2183,7 @@ class mpm():
 
 # 4.2.10 Derivative of the incomplete gamma function
 
-    def real_gamma_derivative(self, a, x):
+    def gamma_p_prime(self, a, x):
         '''Returns the Derivative of the incomplete gamma function.'''
         a = self.t(a)
         x = self.t(x)
@@ -3742,328 +3742,631 @@ class mpm():
 ##        return mp.polyexp(s, z)
 
 
+
+
+
+
+
+
+
+
+
 # %% 10 Hypergeometric Function 0_F_1 and related functions
 
-# %%%  18.1 Overview
+# %%%  10.1 Overview
 
-# 18.1.1 Confluent Hypergeometric Limit Function 0𝐹1
+# 10.1.1 Confluent Hypergeometric Limit Function 0𝐹1
 
-    def hyp0f1(self, a, z):
-        '''Confluent Hypergeometric Limit Function 0𝐹1'''
-        a = self.t(a)
-        z = self.t(z)
-        return mp.hyp0f1(a, z)
-
-# 18.1.2 Regularized Confluent Hypergeometric Limit Function 0𝐹1
-
-    def hyp0f1r(self, a, z):
-        '''Regularized Confluent Hypergeometric Limit Function 0𝐹1'''
-        a = self.t(a)
-        z = self.t(z)
-        return mp.hyp0f1(a, z)/mp.gamma(a)
-
-# !!! Missing in documentation, move to chi-squared !!!
-    def chi_squared_nc_0f1_nc_pdf(self, x, nu, lambda1):
+    def hyperg_0f1(self, b, x):
+        '''Confluent Hypergeometric Limit Function 0F1'''
+        b = self.t(b)
         x = self.t(x)
-        nu = self.t(nu)
-        res = self.exp(-lambda1/2) * self.chi2_pdf(x, nu)
-        res = res * self.hyp0f1(nu/2, x * lambda1 / 4)
+        return mp.hyp0f1(b, x)
+
+
+# 10.1.2 Regularized Confluent Hypergeometric Limit Function 0𝐹1
+
+    def hyperg_0f1r(self, b, x):
+        '''Regularized Confluent Hypergeometric Limit Function 0F1r'''
+        b = self.t(b)
+        x = self.t(x)
+        if self.isinteger(b) and (b <= 0):
+            res = self.pow(x, -b + 1) * self.hyperg_0f1(-b + 2, x) / self.gamma(-b + 2)
+        else:
+            res = self.hyperg_0f1(b, x) / self.gamma(b)
         return res
 
 
-# %%%  18.2 Bessel functions and modified Bessel functions of real or
+### !!! Missing in documentation, move to chi-squared !!!
+##    def chi_squared_nc_0f1_nc_pdf(self, x, nu, lambda1):
+##        x = self.t(x)
+##        nu = self.t(nu)
+##        res = self.exp(-lambda1/2) * self.chi2_pdf(x, nu)
+##        res = res * self.hyp0f1(nu/2, x * lambda1 / 4)
+##        return res
+
+
+# %%%  10.2 Bessel functions and modified Bessel functions of real or
     # complex order
 
-# !!! Missing in documentation, remove? !!!
 
-    def j0(self, z):
-        # return mp.j0(z)
-        return self.besselj(0, z)
+# 10.2.1 Bessel function of the 1st kind 𝐽𝜈(𝑥)
 
-# 18.2.1 Bessel function of the 1st kind 𝐽𝜈(𝑥)
-
-    def besselj(self, n, z, derivative=0):
+    def bessel_jv(self, nu, x, scaled = False):
         '''Bessel function of the 1st kind 𝐽𝜈(𝑥)'''
-        n = self.t(n)
-        z = self.t(z)
-        return mp.besselj(n, z, derivative)
+        nu = self.t(nu)
+        x = self.t(x)
+        return mp.besselj(nu, x)
 
-# 18.2.2 Bessel function of the 2nd kind 𝑌𝜈(𝑥)
+# 10.2.2 Bessel function of the 2nd kind 𝑌𝜈(𝑥)
 
-    def bessely(self, n, z, derivative=0):
+    def bessel_yv(self, nu, x, scaled = False):
         '''Bessel function of the 2nd kind 𝑌𝜈(𝑥)'''
-        n = self.t(n)
-        z = self.t(z)
-        return mp.bessely(n, z, derivative)
+        nu = self.t(nu)
+        x = self.t(x)
+        return mp.bessely(nu, x)
 
-# 18.2.3 Zeros 𝑥𝑖 of the Bessel function of the first kind, 𝐽𝜈(𝑥𝑖) = 0
 
-    def besseljzero(self, n, m, derivative=0):
+# 10.2.3 First derivative of the Bessel function of the first kind: 𝐽′𝜈(𝑥)
+
+    def bessel_jv_prime(self, nu, x, scaled = False):
+        '''First derivative of the Bessel function of the 1st kind 𝐽𝜈(𝑥)'''
+        nu = self.t(nu)
+        x = self.t(x)
+        return mp.besselj(nu, x, derivative=1)
+
+
+
+# 10.2.4 First derivative of the Bessel function of the second kind 𝑌′𝜈 (𝑥)
+
+    def bessel_yv_prime(self, nu, x, scaled = False):
+        '''First derivative of the Bessel function of the 2nd kind 𝐽𝜈(𝑥)'''
+        nu = self.t(nu)
+        x = self.t(x)
+        return mp.bessely(nu, x, derivative=1)
+
+
+
+# 10.2.5 Zeros 𝑥𝑖 of the Bessel function of the first kind, 𝐽𝜈(𝑥𝑖) = 0
+
+    def bessel_jv_zero(self, nu, m):
         '''Zeros 𝑥𝑖 of the Bessel function of the first kind, 𝐽𝜈(𝑥𝑖) = 0'''
-        n = self.t(n)
+        nu = self.t(nu)
         m = int(m)
-        return mp.besseljzero(n, m, derivative)
+        return mp.besseljzero(nu, m)
 
-# 18.2.4 Zeros 𝑥𝑖 of the Bessel function of the second kind, 𝑌𝜈(𝑥𝑖) = 0
+# 10.2.6 Zeros 𝑥𝑖 of the Bessel function of the second kind, 𝑌𝜈(𝑥𝑖) = 0
 
-    def besselyzero(self, n, m, derivative=0):
+    def bessel_yv_zero(self, nu, m):
         '''Zeros 𝑥𝑖 of the Bessel function of the second kind, 𝑌𝜈(𝑥𝑖) = 0'''
-        n = self.t(n)
+        nu = self.t(nu)
         m = int(m)
-        return mp.besselyzero(n, m, derivative)
+        return mp.besselyzero(nu, m)
 
-    # TODO: scaled version
 
-# 18.2.5 Modified Bessel function of the 1st kind 𝐼𝜈(𝑥)
 
-    def besseli(self, n, z, derivative=0):
+
+# %%%  10.3 Modified Bessel functions
+
+
+# 10.3.1 Modified Bessel function of the 1st kind 𝐼𝜈(𝑥)
+
+    def bessel_iv(self, n, z, scaled = False):
         '''Modified Bessel function of the 1st kind 𝐼𝜈(𝑥)'''
         n = self.t(n)
         z = self.t(z)
-        return mp.besseli(n, z, derivative)
+        return mp.besseli(n, z)
 
-    # TODO: scaled version
 
-# 18.2.6 Modified Bessel function of the 2nd kind 𝐾𝜈(𝑥)
+# 10.3.2 Modified Bessel function of the 2nd kind 𝐾𝜈(𝑥)
 
-    def besselk(self, n, z):
+    def bessel_kv(self, n, z, scaled = False):
         '''Modified Bessel function of the 2nd kind 𝐾𝜈(𝑥)'''
         n = self.t(n)
         z = self.t(z)
         return mp.besselk(n, z)
 
-# !!! Missing in documentation, move to t-distribution !!!
-    def student_t_c_x(self, t, n):
-        t = self.t(t)
+
+# 10.3.3 First derivative of the Modified Bessel function of the 1st kind 𝐼'𝜈(𝑥)
+
+    def bessel_iv_prime(self, nu, x, scaled = False):
+        '''First derivative of the Modified Bessel function of the 1st kind 𝐼'𝜈(𝑥)'''
+        nu = self.t(nu)
+        x = self.t(x)
+        return mp.besseli(nu, x, derivative=1)
+
+
+
+# 10.3.4 First derivative of the Modified Bessel function of the 2nd kind 𝐾'𝜈(𝑥)
+
+    def bessel_kv_prime(self, nu, x, scaled = False):
+        '''First derivative of the Modified Bessel function of the 2nd kind 𝐾'𝜈(𝑥)'''
+        nu = self.t(nu)
+        x = self.t(x)
+        return -0.5 * (mp.besselk(nu-1, x) + mp.besselk(nu+1, x))
+
+
+
+
+# 10.3.5 Marcum Q function
+
+    def marcum_q(self, m, a, b):
+        '''Marcum Q function'''
+        m = self.t(m)
+        a = self.t(a)
+        b = self.t(b)
+        return self.dist_chi2_nc(2 * m, a * a).sf(b * b)
+
+
+
+
+### !!! Missing in documentation, move to t-distribution !!!
+##    def student_t_c_x(self, t, n):
+##        t = self.t(t)
+##        n = self.t(n)
+##        res = self.besselk(n/2, self.sqrt(n) * self.fabs(t))
+##        res = self.power(res, n/2)
+##        res = res / self.gamma(n/2) * self.power(2, n/2-1)
+##        return res
+
+
+
+
+
+# %%%  10.4 Spherical Bessel functions
+
+    # See also: https://github.com/fredrik-johansson/mpmath/issues/319
+
+# 10.4.1 Spherical Bessel function of the first kind, 𝑗𝑛(𝑥)
+
+    def sph_bessel_jn(self, n, x, scaled = False):
+        '''Spherical Bessel function of the first kind, 𝑗𝑛(𝑥)'''
         n = self.t(n)
-        res = self.besselk(n/2, self.sqrt(n) * self.fabs(t))
-        res = self.power(res, n/2)
-        res = res / self.gamma(n/2) * self.power(2, n/2-1)
+        x = self.t(x)
+        res = mp.sqrt(0.5*mp.pi) * (1/mp.sqrt(x)) * mp.besselj(n+0.5, x)
+        if self.imag(res) == 0:
+            res = res.real
         return res
 
-# 18.2.7 First derivative of the Bessel function of the first kind: 𝐽′𝜈(𝑥)
 
-# 18.2.8 First derivative of the Bessel function of the second kind 𝑌′𝜈 (𝑥)
+# 10.4.2 Spherical Bessel function of the second kind, 𝑦𝑛(𝑥)
 
-# 18.2.9 First derivative of the modified Bessel function of the first
-    # kind 𝐼′𝜈(𝑥)
+    def sph_bessel_yn(self, n, x, scaled = False):
+        '''Spherical Bessel function of the second kind, 𝑦𝑛(𝑥)'''
+        n = self.t(n)
+        x = self.t(x)
+        res = mp.sqrt(0.5*mp.pi) * (1/mp.sqrt(x)) * mp.bessely(n+0.5, x)
+        if self.imag(res) == 0:
+            res = res.real
+        return res
 
-# 18.2.10 First derivative of the modified Bessel function of the second
-    # kind 𝐾′𝜈(𝑥)
+
+# 10.4.3 First derivative of the spherical Bessel function of the first
+    # kind, 𝑗′𝑛(𝑥)
+
+    def sph_bessel_jn_prime(self, n, x, scaled = False):
+        '''First derivative of the spherical Bessel function of the first kind, 𝑗′𝑛(𝑥)'''
+        n = self.t(n)
+        x = self.t(x)
+        if (abs(2*n+1) > 0.1):
+            res = (n * self.sph_bessel_jn(n-1, x)-(n+1) * self.sph_bessel_jn(n+1, x))
+            res = res / (2*n + 1)
+        else:
+            res = self.sph_bessel_jn(n-1, x)
+            res = res - ((n+1) / x) * self.sph_bessel_jn(n, x)
+        if self.imag(res) == 0:
+            res = res.real
+        return res
 
 
-# 18.2.11 Hankel function of the first kind 𝐻1,𝜈(𝑥)
+# 10.4.4 First derivative of the spherical Bessel function of the second
+    # kind, 𝑦′𝑛(𝑥)
 
-    def hankel1(self, n, z):
+    def sph_bessel_yn_prime(self, n, x, scaled = False):
+        '''First derivative of the spherical Bessel function of the second kind, 𝑦′𝑛(𝑥)'''
+        n = self.t(n)
+        x = self.t(x)
+        if (abs(2*n+1) > 0.1):
+            res = (n * self.sph_bessel_yn(n-1, x)-(n+1) * self.sph_bessel_yn(n+1, x))
+            res = res / (2*n + 1)
+        else:
+            res = self.sph_bessel_yn(n-1, x)
+            res = res - ((n+1) / x) * self.sph_bessel_yn(n, x)
+        if self.imag(res) == 0:
+            res = res.real
+        return res
+
+
+
+# 10.4.5 Zeros 𝑥𝑖 of the spherical Bessel function of the first kind, 𝑗𝑛(𝑥𝑖) = 0
+
+    def sph_bessel_jn_zero(self, n, m):
+        '''Zeros 𝑥𝑖 of the spherical Bessel function of the first kind, 𝐽𝜈(𝑥𝑖) = 0'''
+        n = int(n)
+        m = int(m)
+        return mp.besseljzero(n+0.5, m)
+
+# 10.4.6 Zeros 𝑥𝑖 of the spherical Bessel function of the second kind, 𝑦𝑛(𝑥𝑖) = 0
+
+    def sph_bessel_yn_zero(self, n, m):
+        '''Zeros 𝑥𝑖 of the spherical Bessel function of the second kind, 𝑌𝜈(𝑥𝑖) = 0'''
+        n = int(n)
+        m = int(m)
+        return mp.besselyzero(n+0.5, m)
+
+
+
+
+
+# %%%  10.5 Modified Spherical Bessel functions
+
+
+# 10.5.1 Modified Spherical Bessel function of the first kind, 𝑖𝑛(𝑥)
+
+    def sph_bessel_in(self, n, x, scaled = False):
+        '''Modified Spherical Bessel function of the first kind, 𝑖𝑛(𝑥)'''
+        n = self.t(n)
+        x = self.t(x)
+        res = mp.sqrt(0.5*mp.pi) * (1/mp.sqrt(x)) * mp.besseli(n+0.5, x)
+        if self.imag(res) == 0:
+            res = res.real
+        return res
+
+
+# 10.5.2 Modified Spherical Bessel function of the second kind, 𝑘𝑛(𝑥)
+
+    def sph_bessel_kn(self, n, x, scaled = False):
+        '''Modified Spherical Bessel function of the second kind, 𝑘𝑛(𝑥)'''
+        n = self.t(n)
+        x = self.t(x)
+        res = mp.sqrt(0.5*mp.pi) * (1/mp.sqrt(x)) * mp.besselk(n+0.5, x)
+        if self.imag(res) == 0:
+            res = res.real
+        return res
+
+
+# 10.5.3 First derivative of the Modified Spherical Bessel function of the first kind, 𝑖𝑛'(𝑥)
+
+    def sph_bessel_in_prime(self, n, x, scaled = False):
+        '''First derivative of the Modified Spherical Bessel function of the first kind, 𝑖𝑛'(𝑥'''
+        n = self.t(n)
+        x = self.t(x)
+        if (abs(2*n+1) > 0.1):
+            res = (n * self.sph_bessel_in(n-1, x) + (n+1) * self.sph_bessel_in(n+1, x))
+            res = res / (2*n + 1)
+        else:
+            res = self.sph_bessel_in(n-1, x)
+            res = res - ((n+1) / x) * self.sph_bessel_in(n, x)
+        if self.imag(res) == 0:
+            res = res.real
+        return res
+
+
+##    def sph_bessel_in_prime(self, n, x1, scaled = False):
+##        '''First derivative of the Modified Spherical Bessel function of the first kind, 𝑖𝑛'(𝑥'''
+##        res = mp.diff(lambda x: self.sph_bessel_in(n, x, False), x1)
+##        return res
+
+
+
+# 10.5.4 First derivative of the Modified Spherical Bessel function of the second kind, 𝑘𝑛'(𝑥)
+
+    def sph_bessel_kn_prime(self, n, x, scaled = False):
+        '''First derivative of the Modified Spherical Bessel function of the second kind, 𝑘𝑛'(𝑥)'''
+        n = self.t(n)
+        x = self.t(x)
+        if (abs(2*n+1) > 0.1):
+            res = -(n * self.sph_bessel_kn(n-1, x) + (n+1) * self.sph_bessel_kn(n+1, x))
+            res = res / (2*n + 1)
+        else:
+            res = self.sph_bessel_kn(n-1, x)
+            res = res - ((n+1) / x) * self.sph_bessel_kn(n, x)
+        if self.imag(res) == 0:
+            res = res.real
+        return res
+
+
+##    def sph_bessel_kn_prime(self, n, x1, scaled = False):
+##        '''First derivative of the Modified Spherical Bessel function of the first kind, 𝑖𝑛'(𝑥'''
+##        res = mp.diff(lambda x: self.sph_bessel_kn(n, x, False), x1)
+##        return res
+
+
+
+
+# 10.5.5  Bessel bessel polynomial besselpoly(n, x)
+
+    def besselpoly(self, n, x):
+        '''Bessel bessel polynomial besselpoly(n, x)'''
+
+        def besselpoly_(n, x):
+            res = self.exp2(n + 1) * self.pow(1 / x, n + 1) * self.hyperg_u(n + 1, 2 * n + 2, 2 / x)
+            return res
+
+        n = self.t(n)
+        x = self.t(x)
+        if self.iszero(x):
+            h = self.t(self.sqrt(self.epsilon()));
+            res1 = besselpoly_(n, h * (1 + self.onej));
+            res2 = besselpoly_(n, -h * (1 + self.onej));
+            if (self.sign(res1.real) == self.sign(res2.real)):
+                res = (res1 + res2) / 2
+            else: return self.nan;
+        res = besselpoly_(n, x)
+        if self.imag(res) == 0:
+            res = res.real
+        return res
+
+
+
+# 10.5.6  Reverse Bessel bessel polynomial besseltheta(n, x)
+
+    def besseltheta(self, n, x):
+        '''Reverse Bessel bessel polynomial besseltheta(n, x)'''
+
+        def besseltheta_(n, x):
+            res = self.exp2(n + 1) * self.pow(x, 2 * n + 1) * self.hyperg_u(n + 1, 2 * n + 2, 2 * x)
+            return res
+
+        n = self.t(n)
+        x = self.t(x)
+        if self.iszero(x):
+            h = self.t(self.sqrt(self.epsilon()));
+            res1 = besseltheta_(n, h * (1 + self.onej));
+            res2 = besseltheta_(n, -h * (1 + self.onej));
+            if (self.sign(res1.real) == self.sign(res2.real)):
+                res = (res1 + res2) / 2
+            else: return self.nan;
+        res = besseltheta_(n, x)
+        if self.imag(res) == 0:
+            res = res.real
+        return res
+
+
+
+
+# %%%  10.6 Hankel functions
+
+
+# 10.6.1 Hankel function of the first kind 𝐻1,𝜈(𝑥)
+
+    def hankel_h1(self, n, z, scaled = False):
         '''Hankel function of the first kind 𝐻1,𝜈(𝑥)'''
         n = self.t(n)
         z = self.t(z)
-        return mp.hankel1(n, z)
+        return mp.hankel1(n, z, scaled = False)
 
-# 18.2.12 Hankel function of the second kind 𝐻2,𝜈(𝑥)
+# 10.6.2 Hankel function of the second kind 𝐻2,𝜈(𝑥)
 
-    def hankel2(self, n, z):
+    def hankel_h2(self, n, z, scaled = False):
         '''Hankel function of the second kind 𝐻2,𝜈(𝑥)'''
         n = self.t(n)
         z = self.t(z)
         return mp.hankel2(n, z)
 
 
-# %%%  18.3 Spherical Bessel functions
+# 10.6.3 Spherical Hankel function of the first kind, ℎ1,𝑛(𝑥)
 
-    # See also: https://github.com/fredrik-johansson/mpmath/issues/319
-
-# 18.3.1 Spherical Bessel function of the first kind, 𝑗𝑛(𝑥)
-
-    def sph_bessel_jn(self, n, z, derivative=0):
-        '''Spherical Bessel function of the first kind, 𝑗𝑛(𝑥)'''
-        n = self.t(n)
-        z = self.t(z)
-        res = mp.sqrt(mp.pi()/(2*z)) * mp.besselj(n+0.5, z)
-        return res
-
-# 18.3.2 Spherical Bessel function of the second kind, 𝑦𝑛(𝑥)
-
-    def sph_bessel_yn(self, n, z, derivative=0):
-        '''Spherical Bessel function of the second kind, 𝑦𝑛(𝑥)'''
-        n = self.t(n)
-        z = self.t(z)
-        res = mp.sqrt(mp.pi()/(2*z)) * mp.bessely(n+0.5, z)
-        return res
-
-# 18.3.3 Modified Spherical Bessel function of the first kind, 𝑖𝑛(𝑥)
-
-    def sph_bessel_in(self, n, z, derivative=0):
-        '''Modified Spherical Bessel function of the first kind, 𝑖𝑛(𝑥)'''
-        n = self.t(n)
-        z = self.t(z)
-        res = mp.sqrt(mp.pi()/(2*z)) * mp.besseli(n+0.5, z)
-        return res
-
-# 18.3.4 Modified Spherical Bessel function of the second kind, 𝑘𝑛(𝑥)
-
-    def sph_bessel_kn(self, n, z, derivative=0):
-        '''Modified Spherical Bessel function of the second kind, 𝑘𝑛(𝑥)'''
-        n = self.t(n)
-        z = self.t(z)
-        res = mp.sqrt(mp.pi()/(2*z)) * mp.besselk(n+0.5, z)
-        return res
-
-
-# 18.3.5 First derivative of the spherical Bessel function of the first
-    # kind, 𝑗′𝑛(𝑥)
-
-# 18.3.6 First derivative of the spherical Bessel function of the second
-    # kind, 𝑦′𝑛(𝑥)
-
-
-# Spherical Hankel function of the first kind, ℎ1,𝑛(𝑥)
-
-    def sph_hankel_h1(self, n, z, derivative=0):
+    def sph_hankel_h1(self, n, z, scaled = False):
         '''Spherical Hankel function of the first kind, ℎ1,𝑛(𝑥)'''
         n = self.t(n)
         z = self.t(z)
-        res = mp.sqrt(mp.pi()/(2*z)) * mp.hankel1(n+0.5, z)
+        res = self.sph_bessel_jn(n, z) + self.j * self.sph_bessel_yn(n, z)
         return res
 
-# 18.3.8 Spherical Hankel function of the second kind, ℎ2,𝑛(𝑥)
-    def sph_hankel_h2(self, n, z, derivative=0):
+
+# 10.6.4 Spherical Hankel function of the second kind, ℎ2,𝑛(𝑥)
+    def sph_hankel_h2(self, n, z, scaled = False):
         '''Spherical Hankel function of the first kind, ℎ1,𝑛(𝑥)'''
         n = self.t(n)
         z = self.t(z)
-        res = mp.sqrt(mp.pi()/(2*z)) * mp.hankel2(n+0.5, z)
+        res = self.sph_bessel_jn(n, z) - self.j * self.sph_bessel_yn(n, z)
         return res
 
 
-# %%%  18.4 Airy functions, TODO: scaled functions
 
-# 18.4.1 Airy function Ai
 
-    def airyai(self, z, derivative=0):
+
+# %%%  10.7 Airy functions, TODO: scaled functions
+
+# 10.7.1 Airy function Ai
+
+    def airy_ai(self, z, scaled = False):
         '''Airy function Ai'''
         z = self.t(z)
-        return mp.airyai(z, derivative)
+        return mp.airyai(z)
 
-# 18.4.2 Airy function Bi
 
-    def airybi(self, z, derivative=0):
+# 10.7.2 Airy function Bi
+
+    def airy_bi(self, z, scaled = False):
         '''Airy function Bi'''
         z = self.t(z)
-        return mp.airybi(z, derivative)
+        return mp.airybi(z)
 
-# 18.4.3 Zeros 𝑥𝑖 of the Airy function Ai, Ai(𝑥𝑖) = 0
 
-    def airyaizero(self, k, derivative=0):
-        '''Zeros 𝑥𝑖 of the Airy function Ai, Ai(𝑥𝑖) = 0'''
-        k = int(k)
-        return mp.airyaizero(k, derivative)
+# 10.7.5 Airy Ai'(x)
 
-# 18.4.4 Zeros 𝑥𝑖 of the Airy function Bi, Bi(𝑥𝑖) = 0
-
-    def airybizero(self, k, derivative=0, complex=0):
-        '''Zeros 𝑥𝑖 of the Airy function Bi, Bi(𝑥𝑖) = 0'''
-        k = int(k)
-        return mp.airybizero(k, derivative, complex)
-
-# 18.4.5 Airy Ai'(x)
-
-    def airy_aip(self, z):
+    def airy_ai_prime(self, z, scaled = False):
         '''Airy Ai'(x)'''
         z = self.t(z)
         return mp.airyai(z, 1)
 
-# 18.4.6 Airy Bi'(x)
+# 10.7.6 Airy Bi'(x)
 
-    def airy_bip(self, z):
+    def airy_bi_prime(self, z, scaled = False):
         '''Airy Bi'(x)'''
         z = self.t(z)
         return mp.airybi(z, 1)
 
 
-# %%%  18.5 Kelvin functions, TODO: scaled functions
+# 10.7.3 Zeros 𝑥𝑖 of the Airy function Ai, Ai(𝑥𝑖) = 0
 
-# 18.5.1 Kelvin function ber
+    def airy_ai_zero(self, k):
+        '''Zeros 𝑥𝑖 of the Airy function Ai, Ai(𝑥𝑖) = 0'''
+        k = int(k)
+        return mp.airyaizero(k)
 
-    def ber(self, n, z):
+
+# 10.7.4 Zeros 𝑥𝑖 of the Airy function Bi, Bi(𝑥𝑖) = 0
+
+    def airy_bi_zero(self, k):
+        '''Zeros 𝑥𝑖 of the Airy function Bi, Bi(𝑥𝑖) = 0'''
+        k = int(k)
+        return mp.airybizero(k)
+
+
+
+
+
+
+# %%%  10.5 Kelvin functions, TODO: scaled functions
+
+
+# 10.5.1 Kelvin function ber
+
+    def kelvin_ber(self, nu, x, scaled):
         '''Kelvin function ber'''
-        n = self.t(n)
-        z = self.t(z)
-        return mp.ber(n, z)
-
-    def kelvinber(self, n, z):
-        '''Kelvin function ber'''
-        n = self.t(n)
-        z = self.t(z)
+        nu = self.t(nu)
+        x = self.t(x)
         a = 0.5 * mp.sqrt(mp.mpf(2))
-        j1 = mp.besselj(n, z * (-a + 1j*a))
-        j2 = mp.besselj(n, z * (-a - 1j*a))
+        j1 = mp.besselj(nu, x * (-a + 1j*a))
+        j2 = mp.besselj(nu, x * (-a - 1j*a))
         res = 0.5 * (j1 + j2)
         if mp.im(res) == mp.mpf(0):
             res = mp.re(res)
         return res
 
 
-# 18.5.2 Kelvin function bei
+# 10.5.2 Kelvin function bei
 
-    def bei(self, n, z):
+    def kelvin_bei(self, nu, x, scaled):
         '''Kelvin function bei'''
-        n = self.t(n)
-        z = self.t(z)
-        return mp.bei(n, z)
-
-    def kelvinbei(self, n, z):
-        '''Kelvin function bei'''
-        n = self.t(n)
-        z = self.t(z)
+        nu = self.t(nu)
+        x = self.t(x)
         a = 0.5 * mp.sqrt(mp.mpf(2))
-        j1 = mp.besselj(n, z * (-a + 1j*a))
-        j2 = mp.besselj(n, z * (-a - 1j*a))
+        j1 = mp.besselj(nu, x * (-a + 1j*a))
+        j2 = mp.besselj(nu, x * (-a - 1j*a))
         res = -0.5j * (j1 - j2)
         if mp.im(res) == mp.mpf(0):
             res = mp.re(res)
         return res
 
 
-# 18.5.3 Kelvin function ker
+# 10.5.3 Kelvin function ker
 
-    def ker(self, n, z):
+    def kelvin_ker(self, nu, x, scaled):
         '''Kelvin function ker'''
-        n = self.t(n)
-        z = self.t(z)
-        return mp.ker(n, z)
-
-    def kelvinker(self, n, z):
-        '''Kelvin function ker'''
-        n = self.t(n)
-        z = self.t(z)
+        nu = self.t(nu)
+        x = self.t(x)
         a = 0.5 * mp.sqrt(mp.mpf(2))
-        k1 = mp.exp(-1j*n*mp.pi()/2) * mp.besselk(n, z * (a + 1j*a))
-        k2 = mp.exp(1j*n*mp.pi()/2) * mp.besselk(n, z * (a - 1j*a))
+        k1 = mp.exp(-1j*nu*mp.pi()/2) * mp.besselk(nu, x * (a + 1j*a))
+        k2 = mp.exp(1j*nu*mp.pi()/2) * mp.besselk(nu, x * (a - 1j*a))
         res = 0.5 * (k1 + k2)
         if mp.im(res) == mp.mpf(0):
             res = mp.re(res)
         return res
 
 
-# 18.5.4 Kelvin function kei
+# 10.5.4 Kelvin function kei
 
-    def kei(self, n, z):
+    def kelvin_kei(self, nu, x, scaled):
         '''Kelvin function kei'''
-        n = self.t(n)
-        z = self.t(z)
-        return mp.kei(n, z)
-
-    def kelvinkei(self, n, z):
-        '''Kelvin function kei'''
-        n = self.t(n)
-        z = self.t(z)
+        nu = self.t(nu)
+        x = self.t(x)
         a = 0.5 * mp.sqrt(mp.mpf(2))
-        k1 = mp.exp(-1j*n*mp.pi()/2) * mp.besselk(n, z * (a + 1j*a))
-        k2 = mp.exp(1j*n*mp.pi()/2) * mp.besselk(n, z * (a - 1j*a))
+        k1 = mp.exp(-1j*nu*mp.pi()/2) * mp.besselk(nu, x * (a + 1j*a))
+        k2 = mp.exp(1j*nu*mp.pi()/2) * mp.besselk(nu, x * (a - 1j*a))
         res = -0.5j * (k1 - k2)
         if mp.im(res) == mp.mpf(0):
             res = mp.re(res)
         return res
+
+
+
+
+# 10.5.5 First derivative of Kelvin function ber
+
+    def kelvin_ber_prime(self, nu, x, scaled):
+        '''First derivative of Kelvin function ber'''
+        nu = self.t(nu)
+        x = self.t(x)
+        a = 0.5 * self.sqrt(self.t(2))
+        ia = self.onej * a
+        a1 = -a + ia
+        a2 = -a - ia
+        res = 0.5 * (a1 * self.bessel_jv_prime(nu, x * a1)
+            + a2 * self.bessel_jv_prime(nu, x * a2));
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+# 10.5.6 First derivative of Kelvin function bei
+
+    def kelvin_bei_prime(self, nu, x, scaled):
+        '''First derivative of Kelvin function bei'''
+        nu = self.t(nu)
+        x = self.t(x)
+        a = 0.5 * self.sqrt(self.t(2))
+        i = self.onej
+        ia = i * a
+        a1 = -a + ia
+        a2 = -a - ia
+        res = 0.5 * (a1 * self.bessel_jv_prime(nu, x * a1)
+            - a2 * self.bessel_jv_prime(nu, x * a2)) / i
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+# 10.5.7 First derivative of Kelvin function ker
+
+    def kelvin_ker_prime(self, nu, x, scaled):
+        '''First derivative of Kelvin function ker'''
+        nu = self.t(nu)
+        x = self.t(x)
+        a = 0.5 * self.sqrt(self.t(2))
+        i = self.onej
+        ia = i * a
+        p = 0.5 * i * nu * self.pi;
+        e1 = self.exp(-p);
+        e2 = self.exp(p);
+        a1 = a + ia
+        a2 = a - ia
+        res = 0.5 * (e1 * a1 * self.bessel_kv_prime(nu, x * a1)
+            + e2 * a2 * self.bessel_kv_prime(nu, x * a2))
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+# 10.5.8 First derivative of Kelvin function kei
+
+    def kelvin_kei_prime(self, nu, x, scaled):
+        '''First derivative of Kelvin function kei'''
+        nu = self.t(nu)
+        x = self.t(x)
+        a = 0.5 * self.sqrt(self.t(2))
+        i = self.onej
+        ia = i * a
+        p = 0.5 * i * nu * self.pi;
+        e1 = self.exp(-p);
+        e2 = self.exp(p);
+        a1 = a + ia
+        a2 = a - ia
+        res = 0.5 * (e1 * a1 * self.bessel_kv_prime(nu, x * a1)
+            - e2 * a2 * self.bessel_kv_prime(nu, x * a2)) / i
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+
+
+
+
+
 
 
 # %% 11 Hypergeometric Function 1_F_1 and related functions
@@ -4090,7 +4393,7 @@ class mpm():
 
 # 19.1.3 Tricomi’s Confluent Hypergeometric Function 𝑈
 
-    def hyperu(self, a, b, z):
+    def hyperg_u(self, a, b, z):
         '''Tricomi’s Confluent Hypergeometric Function 𝑈'''
         a = self.t(a)
         b = self.t(b)

@@ -28,37 +28,6 @@ class ctx_chi2_nc(ctx_rv_cont):
         self.set_supportright(ctx.inf)
 
     def pdf(self, x, method='default'):
-        r"""
-        Return the pdf of a non-central chi-squared  distribution with n degrees
-        of freedom and noncentrality parameter lambda1.
-
-        Parameters
-        ----------
-        x : The value for which the pdf is evaluated (a real scalar of type ctx.mpf)
-
-        Returns
-        -------
-        the value of the pdf (a real scalar of type ctx.mpf)
-
-        Use this function like this:
-
-        .. code-block:: python
-
-            rv = mpm2.dist_chi2_nc(10,10)
-            res = rv.pdf(5)
-
-        The pdf can be expressed as
-
-        :math:`\text{pdf}_X(x) = f_{\chi^2}\left(n, x; \lambda_1\right)
-        = f_{\chi^2}(x, n) \times e^{-\lambda_1/2}  \times
-        {}_0F_1 \left(-; \frac{n}{2}; \frac{x \lambda_1}{4}\right).`
-
-        **References**
-
-        1. Wikipedia contributors. *Noncentral chi-squared distribution.
-        Wikipedia, the free encyclopedia*.
-        https://en.wikipedia.org/wiki/Noncentral_chi-squared_distribution
-        """
         ctx = self.ctx
         x = ctx.t(x)
         if method == 'default':
@@ -211,7 +180,7 @@ def chi2_nc_pdf_bessel(ctx, k, x, l):
 
 def chi2_nc_pdf_hyper(ctx, nu, x, l):
     dens0 = ctx.chi2_pdf(x, nu)
-    hyper = ctx.hyp0f1(nu/2, l * x / 4)
+    hyper = ctx.hyperg_0f1(nu/2, l * x / 4)
     result = dens0 * ctx.exp(-l / 2) * hyper
     return result
 
@@ -225,13 +194,13 @@ def chi2_nc_q(ctx, x, f, theta, init_sum):
     del1 = f / 2
     y = x / 2
     max_iter = 1000000
-    errtol = 0.000000000000001
+    errtol = ctx.epsilon() * 100
     sum = init_sum
     k = int(lambda1)
-    poisf = ctx.gamma_p_derivative((1 + k), lambda1)
+    poisf = ctx.gamma_p_prime((1 + k), lambda1)
     poisb = poisf * k / lambda1
     gamf = ctx.gamma_q(del1 + k, y)
-    xtermf = ctx.gamma_p_derivative(del1 + 1 + k, y)
+    xtermf = ctx.gamma_p_prime(del1 + 1 + k, y)
     xtermb = xtermf * (del1 + k) / y
     gamb = gamf - xtermb
     i = 0
@@ -263,7 +232,7 @@ def chi2_nc_p(ctx, y, n, lambda1, init_sum):
     if (y == 0):
         return 0.0
     max_iter = 1000000
-    errtol = 0.000000000000001
+    errtol = ctx.epsilon() * 100
     errorf = 0.0
     errorb = 0.0
     x = y / 2
@@ -274,9 +243,9 @@ def chi2_nc_p(ctx, y, n, lambda1, init_sum):
     if (lambda1 == 0):
         return gamkf
     gamkb = gamkf
-    poiskf = ctx.real_gamma_derivative((k + 1), del1)
+    poiskf = ctx.gamma_p_prime((k + 1), del1)
     poiskb = poiskf
-    xtermf = ctx.real_gamma_derivative(a, x)
+    xtermf = ctx.gamma_p_prime(a, x)
     xtermb = xtermf * x / a
     sum = init_sum + poiskf * gamkf
     if (sum == 0):
@@ -733,7 +702,7 @@ def non_central_t2_p(ctx, v, delta, x, y, init_val):
     pois = 0
     if (k == 0):
         k = 1
-    pois = ctx.real_gamma_derivative((k + 1), d2) \
+    pois = ctx.gamma_p_prime((k + 1), d2) \
         * ctx.gamma_delta_ratio(k + 1, 0.5) \
         * delta / ctx.sqrt(2)
     if (pois == 0):
@@ -791,7 +760,7 @@ def non_central_t2_q(ctx, v, delta, x, y, init_val):
     if (k == 0):
         k = 1
     pois = 0
-    pois = ctx.real_gamma_derivative((k + 1), d2) \
+    pois = ctx.gamma_p_prime((k + 1), d2) \
         * ctx.gamma_delta_ratio(k + 1, 0.5) \
         * delta / ctx.sqrt(2)
     if (pois == 0):
@@ -1603,7 +1572,7 @@ def non_central_beta_p(self, ctx, a, b, lambda1, x, y, init_val):
     k = int(l2)
     if (k == 0):
         k = 1
-    pois = ctx.real_gamma_derivative((k + 1), l2)
+    pois = ctx.gamma_p_prime((k + 1), l2)
     if (pois == 0):
         return init_val
     xterm = 0
@@ -1659,7 +1628,7 @@ def non_central_beta_q(self, ctx, a, b, lambda1, x, y, init_val):
     if (k == 0):
         pois = ctx.exp(-l2)
     else:
-        pois = ctx.real_gamma_derivative((k + 1), l2)
+        pois = ctx.gamma_p_prime((k + 1), l2)
     if (pois == 0):
         return init_val
     xterm = 0

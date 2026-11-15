@@ -5571,7 +5571,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
         public static Extended sph_bessel_jn(Extended n, Extended x, bool scaled = false)
         {
-            var res = qreal.sph_bessel_jn(qreal.t(n), qreal.t(x), scaled);
+            var res = qreal.sph_bessel_jn(qreal.t(n), qreal.t(x));
             return ereal.t(res);
         }
 
@@ -5579,7 +5579,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
         public static Extended sph_bessel_jn(dynamic n, dynamic x, bool scaled = false)
         {
-            return sph_bessel_jn(t(n), t(x), scaled);
+            return sph_bessel_jn(t(n), t(x));
         }
 
 
@@ -5588,7 +5588,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn' />
         public static Extended sph_bessel_yn(Extended n, Extended x, bool scaled = false)
         {
-            var res = qreal.sph_bessel_yn(qreal.t(n), qreal.t(x), scaled);
+            var res = qreal.sph_bessel_yn(qreal.t(n), qreal.t(x));
             return ereal.t(res);
         }
 
@@ -5596,7 +5596,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn/*' />
         public static Extended sph_bessel_yn(dynamic n, dynamic x, bool scaled = false)
         {
-            return sph_bessel_yn(t(n), t(x), scaled);
+            return sph_bessel_yn(t(n), t(x));
         }
 
 
@@ -5604,14 +5604,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in/*' />
         public static Extended sph_bessel_in(Extended n, Extended x, bool scaled = false)
         {
-            var res = qreal.sph_bessel_in(qreal.t(n), qreal.t(x), scaled);
+            var res = qreal.sph_bessel_in(qreal.t(n), qreal.t(x));
             return ereal.t(res);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in/*' />
         public static Extended sph_bessel_in(dynamic n, dynamic x, bool scaled = false)
         {
-            return sph_bessel_in(t(n), t(x), scaled);
+            return sph_bessel_in(t(n), t(x));
         }
 
 
@@ -5619,14 +5619,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn/*' />
         public static Extended sph_bessel_kn(Extended n, Extended x, bool scaled = false)
         {
-            var res = qreal.sph_bessel_kn(qreal.t(n), qreal.t(x), scaled);
+            var res = qreal.sph_bessel_kn(qreal.t(n), qreal.t(x));
             return ereal.t(res);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn/*' />
         public static Extended sph_bessel_kn(dynamic n, dynamic x, bool scaled = false)
         {
-            return sph_bessel_kn(t(n), t(x), scaled);
+            return sph_bessel_kn(t(n), t(x));
         }
 
 
@@ -5647,7 +5647,7 @@ namespace FixedPrecNet
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
-        public static Extended besselpoly(Extended n, Extended x, bool scaled = false)
+        public static Extended besselpoly(Extended n, Extended x)
         {
             if (!ereal.isinteger(n)) return ereal.nan;
             if (abs(x) < t(0.01)) return besselpoly_(lrint(n), x);
@@ -5660,9 +5660,9 @@ namespace FixedPrecNet
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
-        public static Extended besselpoly(dynamic n, dynamic x, bool scaled = false)
+        public static Extended besselpoly(dynamic n, dynamic x)
         {
-            return besselpoly(t(n), t(x), scaled);
+            return besselpoly(t(n), t(x));
         }
 
 
@@ -5702,9 +5702,9 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
-        public static Extended besseltheta(dynamic n, dynamic x, bool scaled = false)
+        public static Extended besseltheta(dynamic n, dynamic x)
         {
-            return besseltheta(t(n), t(x), scaled);
+            return besseltheta(t(n), t(x));
         }
 
 
@@ -5726,14 +5726,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn_prime/*' />
         public static Extended sph_bessel_jn_prime(Extended n, Extended x, bool scaled = false)
         {
-            var res = qreal.sph_bessel_jn_prime(qreal.t(n), qreal.t(x), scaled);
+            var res = qreal.sph_bessel_jn_prime(qreal.t(n), qreal.t(x));
             return ereal.t(res);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_jn_prime/*' />
         public static Extended sph_bessel_jn_prime(dynamic n, dynamic x, bool scaled = false)
         {
-            return sph_bessel_jn_prime(t(n), t(x), scaled);
+            return sph_bessel_jn_prime(t(n), t(x));
         }
 
 
@@ -5742,14 +5742,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn_prime/*' />
         public static Extended sph_bessel_yn_prime(Extended n, Extended x, bool scaled = false)
         {
-            var res = qreal.sph_bessel_yn_prime(qreal.t(n), qreal.t(x), scaled);
+            var res = qreal.sph_bessel_yn_prime(qreal.t(n), qreal.t(x));
             return ereal.t(res);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_yn_prime/*' />
         public static Extended sph_bessel_yn_prime(dynamic n, dynamic x, bool scaled = false)
         {
-            return sph_bessel_yn_prime(t(n), t(x), scaled);
+            return sph_bessel_yn_prime(t(n), t(x));
         }
 
 
@@ -5758,14 +5758,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in_prime/*' />
         public static Extended sph_bessel_in_prime(Extended n, Extended x, bool scaled = false)
         {
-            var res = qreal.sph_bessel_in_prime(qreal.t(n), qreal.t(x), scaled);
+            var res = qreal.sph_bessel_in_prime(qreal.t(n), qreal.t(x));
             return ereal.t(res);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_in_prime/*' />
         public static Extended sph_bessel_in_prime(dynamic n, dynamic x, bool scaled = false)
         {
-            return sph_bessel_in_prime(t(n), t(x), scaled);
+            return sph_bessel_in_prime(t(n), t(x));
         }
 
 
@@ -5774,14 +5774,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn_prime/*' />
         public static Extended sph_bessel_kn_prime(Extended n, Extended x, bool scaled = false)
         {
-            var res = qreal.sph_bessel_kn_prime(qreal.t(n), qreal.t(x), scaled);
+            var res = qreal.sph_bessel_kn_prime(qreal.t(n), qreal.t(x));
             return ereal.t(res);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_bessel_kn_prime/*' />
         public static Extended sph_bessel_kn_prime(dynamic n, dynamic x, bool scaled = false)
         {
-            return sph_bessel_kn_prime(t(n), t(x), scaled);
+            return sph_bessel_kn_prime(t(n), t(x));
         }
 
 
@@ -5801,57 +5801,57 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
-        public static ExtendedC hankel_h1(Extended v, Extended x)
+        public static ExtendedC hankel_h1(Extended v, Extended x, bool scaled = false)
         {
             return bessel_jv(v, x) + ecplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
-        public static ExtendedC hankel_h1(dynamic v, dynamic x)
+        public static ExtendedC hankel_h1(dynamic v, dynamic x, bool scaled = false)
         {
-            return hankel_h1(t(v), t(x));
+            return hankel_h1(t(v), t(x), scaled);
         }
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
-        public static ExtendedC hankel_h2(Extended v, Extended x)
+        public static ExtendedC hankel_h2(Extended v, Extended x, bool scaled = false)
         {
             return bessel_jv(v, x) - ecplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
-        public static ExtendedC hankel_h2(dynamic v, dynamic x)
+        public static ExtendedC hankel_h2(dynamic v, dynamic x, bool scaled = false)
         {
-            return hankel_h2(t(v), t(x));
+            return hankel_h2(t(v), t(x), scaled);
         }
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
-        public static ExtendedC sph_hankel_h1(int n, Extended x)
+        public static ExtendedC sph_hankel_h1(int n, Extended x, bool scaled = false)
         {
             return sph_bessel_jn(n, x) + ecplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
-        public static ExtendedC sph_hankel_h1(int n, dynamic x)
+        public static ExtendedC sph_hankel_h1(int n, dynamic x, bool scaled = false)
         {
-            return sph_hankel_h1(n, t(x));
+            return sph_hankel_h1(n, t(x), scaled);
         }
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
-        public static ExtendedC sph_hankel_h2(int n, Extended x)
+        public static ExtendedC sph_hankel_h2(int n, Extended x, bool scaled = false)
         {
             return sph_bessel_jn(n, x) - ecplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
-        public static ExtendedC sph_hankel_h2(int n, dynamic x)
+        public static ExtendedC sph_hankel_h2(int n, dynamic x, bool scaled = false)
         {
-            return sph_hankel_h2(n, t(x));
+            return sph_hankel_h2(n, t(x), scaled);
         }
 
 

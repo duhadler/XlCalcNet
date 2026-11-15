@@ -738,13 +738,13 @@ namespace TestXlCalcNetPrecCS
                             switch (NumType ?? "")
                             {
 #if HasArbPrecNet
-                                case "sflintc": { res1 = sflintc.besselpoly(n, x, scaled); break; }
-                                case "dflintc": { res1 = dflintc.besselpoly(n, x, scaled); break; }
-                                case "eflintc": { res1 = eflintc.besselpoly(n, x, scaled); break; }
-                                case "qflintc": { res1 = qflintc.besselpoly(n, x, scaled); break; }
-                                case "oflintc": { res1 = oflintc.besselpoly(n, x, scaled); break; }
-                                case "mflintc": { res1 = mflintc.besselpoly(n, x, scaled); break; }
-                                case "aflintc": { res1 = aflintc.besselpoly(n, x, scaled); break; }
+                                case "sflintc": { res1 = sflintc.besselpoly(n, x); break; }
+                                case "dflintc": { res1 = dflintc.besselpoly(n, x); break; }
+                                case "eflintc": { res1 = eflintc.besselpoly(n, x); break; }
+                                case "qflintc": { res1 = qflintc.besselpoly(n, x); break; }
+                                case "oflintc": { res1 = oflintc.besselpoly(n, x); break; }
+                                case "mflintc": { res1 = mflintc.besselpoly(n, x); break; }
+                                case "aflintc": { res1 = aflintc.besselpoly(n, x); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -773,13 +773,13 @@ namespace TestXlCalcNetPrecCS
                             switch (NumType ?? "")
                             {
 #if HasArbPrecNet
-                                case "sflintc": { res1 = sflintc.besseltheta(n, x, scaled); break; }
-                                case "dflintc": { res1 = dflintc.besseltheta(n, x, scaled); break; }
-                                case "eflintc": { res1 = eflintc.besseltheta(n, x, scaled); break; }
-                                case "qflintc": { res1 = qflintc.besseltheta(n, x, scaled); break; }
-                                case "oflintc": { res1 = oflintc.besseltheta(n, x, scaled); break; }
-                                case "mflintc": { res1 = mflintc.besseltheta(n, x, scaled); break; }
-                                case "aflintc": { res1 = aflintc.besseltheta(n, x, scaled); break; }
+                                case "sflintc": { res1 = sflintc.besseltheta(n, x); break; }
+                                case "dflintc": { res1 = dflintc.besseltheta(n, x); break; }
+                                case "eflintc": { res1 = eflintc.besseltheta(n, x); break; }
+                                case "qflintc": { res1 = qflintc.besseltheta(n, x); break; }
+                                case "oflintc": { res1 = oflintc.besseltheta(n, x); break; }
+                                case "mflintc": { res1 = mflintc.besseltheta(n, x); break; }
+                                case "aflintc": { res1 = aflintc.besseltheta(n, x); break; }
 #endif
                             }
                             Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);

@@ -5759,7 +5759,7 @@ namespace FixedPrecNet
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
-        public static Quadruple besselpoly(Quadruple n, Quadruple x, bool scaled = false)
+        public static Quadruple besselpoly(Quadruple n, Quadruple x)
         {
             if (!qreal.isinteger(n)) return qreal.nan;
             if (abs(x) < t(0.01)) return besselpoly_(lrint(n), x);
@@ -5772,9 +5772,9 @@ namespace FixedPrecNet
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besselpoly/*' />
-        public static Quadruple besselpoly(dynamic n, dynamic x, bool scaled = false)
+        public static Quadruple besselpoly(dynamic n, dynamic x)
         {
-            return besselpoly(t(n), t(x), scaled);
+            return besselpoly(t(n), t(x));
         }
 
 
@@ -5798,7 +5798,7 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
-        public static Quadruple besseltheta(Quadruple n, Quadruple x, bool scaled = false)
+        public static Quadruple besseltheta(Quadruple n, Quadruple x)
         {
             if (!qreal.isinteger(n)) return qreal.nan;
             if ((x == 0) && (n < 0)) return qreal.nan;
@@ -5814,9 +5814,9 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/besseltheta/*' />
-        public static Quadruple besseltheta(dynamic n, dynamic x, bool scaled = false)
+        public static Quadruple besseltheta(dynamic n, dynamic x)
         {
-            return besseltheta(t(n), t(x), scaled);
+            return besseltheta(t(n), t(x));
         }
 
 
@@ -5963,57 +5963,57 @@ namespace FixedPrecNet
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
-        public static QuadrupleC hankel_h1(Quadruple v, Quadruple x)
+        public static QuadrupleC hankel_h1(Quadruple v, Quadruple x, bool scaled = false)
         {
             return bessel_jv(v, x) + qcplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h1/*' />
-        public static QuadrupleC hankel_h1(dynamic v, dynamic x)
+        public static QuadrupleC hankel_h1(dynamic v, dynamic x, bool scaled = false)
         {
-            return hankel_h1(t(v), t(x));
+            return hankel_h1(t(v), t(x), scaled);
         }
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
-        public static QuadrupleC hankel_h2(Quadruple v, Quadruple x)
+        public static QuadrupleC hankel_h2(Quadruple v, Quadruple x, bool scaled = false)
         {
             return bessel_jv(v, x) - qcplx.onej * bessel_yv(v, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hankel_h2/*' />
-        public static QuadrupleC hankel_h2(dynamic v, dynamic x)
+        public static QuadrupleC hankel_h2(dynamic v, dynamic x, bool scaled = false)
         {
-            return hankel_h2(t(v), t(x));
+            return hankel_h2(t(v), t(x), scaled);
         }
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
-        public static QuadrupleC sph_hankel_h1(int n, Quadruple x)
+        public static QuadrupleC sph_hankel_h1(int n, Quadruple x, bool scaled = false)
         {
             return sph_bessel_jn(n, x) + qcplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h1/*' />
-        public static QuadrupleC sph_hankel_h1(int n, dynamic x)
+        public static QuadrupleC sph_hankel_h1(int n, dynamic x, bool scaled = false)
         {
-            return sph_hankel_h1(n, t(x));
+            return sph_hankel_h1(n, t(x), scaled);
         }
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
-        public static QuadrupleC sph_hankel_h2(int n, Quadruple x)
+        public static QuadrupleC sph_hankel_h2(int n, Quadruple x, bool scaled = false)
         {
             return sph_bessel_jn(n, x) - qcplx.onej * sph_bessel_yn(n, x);
         }
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/sph_hankel_h2/*' />
-        public static QuadrupleC sph_hankel_h2(int n, dynamic x)
+        public static QuadrupleC sph_hankel_h2(int n, dynamic x, bool scaled = false)
         {
-            return sph_hankel_h2(n, t(x));
+            return sph_hankel_h2(n, t(x), scaled);
         }
 
 
