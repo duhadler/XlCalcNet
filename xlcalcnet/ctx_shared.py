@@ -49,7 +49,8 @@ class ctxUtil(object):
         if "method" in kwargs:
             method = kwargs["method"]
             if method == 'mpmath':
-                res = ctx.gammainc(a, 0, x, regularized=True)
+                #res = ctx.gammainc(a, 0, x, regularized=True)
+                res = ctx.gamma_p(a, x)
                 return ctx.t(res)
             if method == 'peizer':
                 L, R, d = ctxSeries().gamma_peizer_cdf_sf_pdf(ctx, a, x)
@@ -58,7 +59,7 @@ class ctxUtil(object):
                 L, R = ctxSeries().gamma_paris_cdf_sf(ctx, a, x, 20)
                 return L
         else:
-            res = ctx.gammainc(a, 0, x, regularized=True)
+            res = ctx.gamma_p(a, x)
             return ctx.t(res)
 
     def real_gamma_q(self, ctx, a, x, **kwargs):
@@ -67,7 +68,8 @@ class ctxUtil(object):
         if "method" in kwargs:
             method = kwargs["method"]
             if method == 'mpmath':
-                res = ctx.gammainc(a, x, +ctx.inf, regularized=True)
+                #res = ctx.gammainc(a, x, +ctx.inf, regularized=True)
+                res = ctx.gamma_q(a, x)
                 return ctx.t(res)
             if method == 'peizer':
                 L, R, d = ctxSeries().gamma_peizer_cdf_sf_pdf(ctx, a, x)
@@ -76,7 +78,7 @@ class ctxUtil(object):
                 L, R = ctxSeries().gamma_paris_cdf_sf(ctx, a, x, 20)
                 return R
         else:
-            res = ctx.gammainc(a, x, +ctx.inf, regularized=True)
+            res = ctx.gamma_q(a, x)
             return ctx.t(res)
 
     def real_gamma_p_inv(self, ctx, a, LeftTail, **kwargs):

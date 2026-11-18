@@ -6799,238 +6799,440 @@ class gpm():
 
 
 
-# %% 18 Hypergeometric Function 1_F_1 and related functions
+# %% 11 Hypergeometric Function 1_F_1 and related functions
 
-# %%%  18.1 Overview
+# %%%  11.1 Overview
 
+# 11.1.1 Kummer’s Confluent Hypergeometric Function 1𝐹1
 
-    def hyp1f1(self, a, b, z):
+    def hyperg_1f1(self, a, b, x):
+        '''Kummer’s Confluent Hypergeometric Function 1𝐹1'''
         a = self.t(a)
         b = self.t(b)
-        z = self.t(z)
-        return self._fm3(mpm().hyp1f1, a, b, z)
+        x = self.t(x)
+        return self._fm3(mpm.hyperg_1f1, a, b, x)
 
-    def hyp1f1r(self, a, b, z):
+
+# 11.1.2 Regularized Kummer’s Confluent Hypergeometric Function 1𝐹1
+
+    def hyperg_1f1r(self, a, b, x):
+        '''Regularized Kummer’s Confluent Hypergeometric Function 1𝐹1'''
         a = self.t(a)
         b = self.t(b)
-        z = self.t(z)
-        return self._fm3(mpm().hyp1f1r, a, b, z)
+        x = self.t(x)
+        return self._fm3(mpm.hyperg_1f1r, a, b, x)
 
-    def hyperu(self, a, b, z):
+
+# 11.1.3 Tricomi’s Confluent Hypergeometric Function 𝑈
+
+    def hyperg_u(self, a, b, x):
+        '''Tricomi’s Confluent Hypergeometric Function 𝑈'''
         a = self.t(a)
         b = self.t(b)
-        z = self.t(z)
-        return self._fm3(mpm().hyperu, a, b, z)
-
-
-# %%%  18.2 Incomplete gamma functions
-
-
-    def gammainc(self, a, z1=0, z2=mp.inf, regularized=False):
-        a = self.t(a)
-        z1 = self.t(z1)
-        z2 = self.t(z2)
-        return self._fm3b(mpm().gammainc, a, z1, z2, regularized)
-
-    def gamma_lower(self, a, z):
-        a = self.t(a)
-        z = self.t(z)
-        return self._fm2(mpm().gamma_lower, a, z)
-
-    def gamma_upper(self, a, z):
-        a = self.t(a)
-        z = self.t(z)
-        return self._fm2(mpm().gamma_upper, a, z)
-
-    def gamma_p(self, a, z):
-        a = self.t(a)
-        z = self.t(z)
-        return self._fm2(mpm().gamma_p, a, z)
-
-    def gamma_q(self, a, z):
-        a = self.t(a)
-        z = self.t(z)
-        return self._fm2(mpm().gamma_q, a, z)
-
-    def gamma_tricomi(self, a, z):
-        a = self.t(a)
-        z = self.t(z)
-        return self._fm2(mpm().gamma_tricomi, a, z)
-
-    def gamma_derivative(self, a, z):
-        a = self.t(a)
-        z = self.t(z)
-        return self._fm2(mpm().gamma_derivative, a, z)
-
-    def subfac(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().gamma_derivative, z)
-
-
-# %%%  18.3 Error function and related functions
-
-
-    def erf(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().erf, z)
-
-    def erfc(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().erfc, z)
-
-    def inerfc(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        return self._fm2(mpm().inerfc, n, z)
-
-    def erfi(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().erfi, z)
-
-    def dawson(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().dawson, z)
-
-    def fresnels(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().fresnels, z)
-
-    def fresnelc(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().fresnelc, z)
-
-    def faddeeva(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().faddeeva, z)
-
-    def voigt_u(self, x, t):
         x = self.t(x)
-        t = self.t(t)
-        return self._fm2(mpm().voigt_u, x, t)
-
-    def voigt_v(self, x, t):
-        x = self.t(x)
-        t = self.t(t)
-        return self._fm2(mpm().voigt_v, x, t)
-
-    def voigt_h(self, a, u):
-        a = self.t(a)
-        u = self.t(u)
-        return self._fm2(mpm().voigt_h, a, u)
+        return self._fm3(mpm.hyperg_u, a, b, x)
 
 
-# %%%  18.4 Exponential integrals and related functions
+# 11.1.4 Generalized Laguerre polynomials, 𝐿𝑚𝑛(𝑥)
 
-    def chi(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().chi, z)
-
-    def ci(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().ci, z)
-
-    def e1(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().e1, z)
-
-    def ei(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().ei, z)
-
-    def expint(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        return self._fm2(mpm().expint, n, z)
-
-    def li(self, z, offset=False):
-        z = self.t(z)
-        return self._fm1(mpm().li, z)
-
-    def primepi2_upper(self, x):
-        x = self.t(x)
-        return self._fm1(mpm().primepi2_upper, x)
-
-    def primepi2_lower(self, x):
-        x = self.t(x)
-        return self._fm1(mpm().primepi2_lower, x)
-
-    def shi(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().shi, z)
-
-    def si(self, z):
-        z = self.t(z)
-        return self._fm1(mpm().si, z)
-
-
-# %%%  18.5 Orthogonal polynomials
-
-
-    def hermite(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        return self._fm2(mpm().hermite, n, z)
-
-    def hermite_he(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        return self._fm2(mpm().hermite_he, n, z)
-
-    def laguerre_l(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        return self._fm2(mpm().laguerre_l, n, z)
-
-    def laguerre(self, n, a, z):
+    def laguerre_l(self, n, a, x):
+        '''Generalized Laguerre polynomials, 𝐿𝑚𝑛(𝑥)'''
         n = self.t(n)
         a = self.t(a)
-        z = self.t(z)
-        return self._fm3(mpm().laguerre, n, a, z)
+        x = self.t(x)
+        return self._fm3(mpm.laguerre_l, n, a, x)
 
 
-# %%%  18.6 Coulomb functions
+# 11.1.5 Hermite polynomials (physicist)
 
+    def hermite_h(self, n, x):
+        '''Hermite polynomials (physicist)'''
+        n = self.t(n)
+        x = self.t(x)
+        return self._fm2(mpm.hermite_h, n, x)
+
+
+# 11.1.6 Hermite polynomials (probabilist)
+
+    def hermite_he(self, n, x):
+        '''Hermite polynomials (probabilist)'''
+        n = self.t(n)
+        x = self.t(x)
+        return self._fm2(mpm.hermite_he, n, x)
+
+
+
+
+# %%%  11.2 Incomplete gamma functions
+
+# 11.2.1 Lower normalised incomplete gamma function
+
+    def gamma_p(self, a, x):
+        '''Lower normalised incomplete gamma function'''
+        a = self.t(a)
+        x = self.t(x)
+        return self._fm2(mpm.gamma_p, a, x)
+
+
+# 11.2.2 Upper normalised incomplete gamma function
+
+    def gamma_q(self, a, x):
+        '''Upper normalised incomplete gamma function'''
+        a = self.t(a)
+        x = self.t(x)
+        return self._fm2(mpm.gamma_q, a, x)
+
+
+# 11.2.3 Lower non-normalised incomplete gamma function, 𝛾(𝑎, 𝑥)
+
+    def gamma_lower(self, a, x):
+        '''Lower non-normalised incomplete gamma function, 𝛾(𝑎, 𝑥)'''
+        a = self.t(a)
+        x = self.t(x)
+        return self._fm2(mpm.gamma_lower, a, x)
+
+
+# 11.2.4 Upper non-normalised incomplete gamma function, Γ(𝑎, 𝑥)
+
+    def gamma_upper(self, a, x):
+        '''Upper non-normalised incomplete gamma function, Γ(𝑎, 𝑥)'''
+        a = self.t(a)
+        x = self.t(x)
+        return self._fm2(mpm.gamma_upper, a, x)
+
+
+# 11.2.5 Derivative of the incomplete gamma function
+
+    def gamma_p_prime(self, a, x):
+        '''Derivative of the incomplete gamma function'''
+        a = self.t(a)
+        x = self.t(x)
+        return self._fm2(mpm.gamma_p_prime, a, x)
+
+
+# 11.2.6 Inverse of the real lower normalised incomplete gamma function
+
+    def gamma_p_inv(self, a, p):
+        '''Returns the Inverse of the real lower normalised incomplete gamma
+        function.'''
+        a = self.t(a)
+        p = self.t(p)
+        return self._fm2(mpm.gamma_p_inv, a, p)
+
+
+# 11.2.7 Inverse of the real upper normalised incomplete gamma function
+
+    def gamma_q_inv(self, a, q):
+        '''Returns the Inverse of the real upper normalised incomplete gamma
+        function.'''
+        a = self.t(a)
+        q = self.t(q)
+        return self._fm2(mpm.gamma_q_inv, a, q)
+
+
+
+
+
+# %%%  11.3 Coulomb, Whittaker and parabolic cylinder functions
+
+# 11.6.0 Normalizing Gamow constant for Coulomb wave functions
 
     def coulombc(self, l, eta):
+        '''Normalizing Gamow constant for Coulomb wave functions'''
         l = self.t(l)
         eta = self.t(eta)
-        return self._fm2(mpm().coulombc,  l, eta)
+        return mp.coulombc(l, eta)
 
-    def coulombf(self, l, eta, z):
+
+# 11.6.1 Coulomb wave function F
+
+    def coulomb_f(self, l, eta, z):
+        '''Coulomb wave function F'''
         l = self.t(l)
         eta = self.t(eta)
         z = self.t(z)
-        return self._fm3(mpm().coulombf, l, eta, z)
+        return self._fm3(mpm.coulomb_f, l, eta, z)
 
-    def coulombg(self, l, eta, z):
+
+# 11.6.2 Coulomb wave function G
+
+    def coulomb_g(self, l, eta, z):
+        '''Coulomb wave function G'''
         l = self.t(l)
         eta = self.t(eta)
         z = self.t(z)
-        return self._fm3(mpm().coulombg, l, eta, z)
+        return self._fm3(mpm.coulomb_g, l, eta, z)
+
+# 11.3.3 Coulomb wave function Hplus
+
+    def coulomb_hplus(self, l, eta, z):
+        '''Coulomb wave function Hplus'''
+        l = self.t(l)
+        eta = self.t(eta)
+        z = self.t(z)
+        return self._fm3(mpm.coulomb_hplus, l, eta, z)
+
+# 11.3.4 Coulomb wave function Hminus
+
+    def coulomb_hminus(self, l, eta, z):
+        '''Coulomb wave function Hminus'''
+        l = self.t(l)
+        eta = self.t(eta)
+        z = self.t(z)
+        return self._fm3(mpm.coulomb_hminus, l, eta, z)
 
 
-# %%%  18.7 Whittaker functions
+# 11.3.5 Whittaker function M
 
-    def whitm(self, k, m, z):
-        return mp.whitm(k, m, z)
+    def whittaker_m(self, k, m, z):
+        '''Whittaker function M'''
+        k = self.t(k)
+        m = self.t(m)
+        z = self.t(z)
+        return self._fm3(mpm.whittaker_m, k, m, z)
 
-    def whitw(self, k, m, z):
-        return mp.whitw(k, m, z)
+# 11.3.6 Whittaker function W
+
+    def whittaker_w(self, k, m, z):
+        '''Whittaker function W'''
+        k = self.t(k)
+        m = self.t(m)
+        z = self.t(z)
+        return self._fm3(mpm.whittaker_w, k, m, z)
 
 
-# %%%  18.8 Parabolic cylinder functions
+
+# 11.3.7 Parabolic cylinder function D
 
     def pcfd(self, n, z):
-        return mp.pcfd(n, z)
+        '''Parabolic cylinder function D'''
+        n = self.t(n)
+        z = self.t(z)
+        return self._fm2(mpm.pcfd, n, z)
+
+
+# 11.3.8 Parabolic cylinder function U
 
     def pcfu(self, a, z):
-        return mp.pcfu(a, z)
+        '''Parabolic cylinder function U'''
+        a = self.t(a)
+        z = self.t(z)
+        return self._fm2(mpm.pcfu, a, z)
+
+
+# 11.3.9 Parabolic cylinder function V
 
     def pcfv(self, a, z):
-        return mp.pcfv(a, z)
+        '''Parabolic cylinder function V'''
+        a = self.t(a)
+        z = self.t(z)
+        return self._fm2(mpm.pcfv, a, z)
+
+
+# 11.3.10 Parabolic cylinder function W
 
     def pcfw(self, a, z):
-        return mp.pcfw(a, z)
+        '''Parabolic cylinder function W'''
+        a = self.t(a)
+        z = self.t(z)
+        return self._fm2(mpm.pcfw, a, z)
+
+
+
+
+
+
+
+# %%%  11.4 Error function and related functions
+
+
+# 11.4.1 Error function erf
+
+    def erf(self, z):
+        '''Error function erf'''
+        z = self.t(z)
+        return self._fm1(mpm.erf, z)
+
+
+# 11.4.2 Complementary error function erfc
+
+    def erfc(self, z):
+        '''Complementary error function erfc'''
+        z = self.t(z)
+        return self._fm1(mpm.erfc, z)
+
+
+
+# 11.4.3 Inverse of the real error function
+
+    def erf_inv(self, prob):
+        '''Returns the Inverse of the real error function.'''
+        prob = self.t(prob)
+        return self._fm1(mpm.erf_inv, prob)
+
+
+# 11.4.4 Inverse of the real complementory error function
+
+    def erfc_inv(self, prob):
+        '''Returns the Inverse of the real complementory error function.'''
+        prob = self.t(prob)
+        return self._fm1(mpm.erfc_inv, prob)
+
+
+# 11.4.5 Standard normal density function
+
+    def ndens(self, z):
+        '''Returns the Standard normal density function.'''
+        z = self.t(z)
+        return self._fm1(mpm.ndens, z)
+
+
+# 11.4.6 Standard normal cumulative distribution function
+
+    def ndis(self, z):
+        '''Returns the Standard normal cumulative distribution function.'''
+        z = self.t(z)
+        return self._fm1(mpm.ndis, z)
+
+
+# 11.7.7 Standard normal percentage point function
+
+    def ndisx(self, prob):
+        '''Returns the Standard normal percentage point function.'''
+        prob = self.t(prob)
+        return self._fm1(mpm.ndisx, prob)
+
+
+# 11.3.8 Imaginary error function erfi
+
+    def erfi(self, z):
+        '''Imaginary error function erfi'''
+        z = self.t(z)
+        return self._fm1(mpm.erfi, z)
+
+
+# 11.4.9 Dawson’s integral
+
+    def dawson(self, z):
+        '''Dawson’s integral'''
+        z = self.t(z)
+        return self._fm1(mpm.dawson, z)
+
+
+# 11.4.10 Faddeeva function
+
+    def faddeeva(self, z):
+        '''Faddeeva function'''
+        z = self.t(z)
+        return self._fm1(mpm.faddeeva, z)
+
+
+# 11.4.11 Fresnel sine integral
+
+    def fresnel_s(self, z):
+        '''Fresnel sine integral'''
+        z = self.t(z)
+        return self._fm1(mpm.fresnel_s, z)
+
+# 11.4.12 Fresnel cosine integral
+
+    def fresnel_c(self, z):
+        '''Fresnel cosine integral'''
+        z = self.t(z)
+        return self._fm1(mpm.fresnel_c, z)
+
+
+# 11.4.13 Owen’s T function
+
+    def owen_t(self, h, a):
+        '''Returns Owen’s 𝑇 function via Verified Integration'''
+        h = self.t(h)
+        a = self.t(a)
+        return self._fm2(mpm.owen_t, h, a)
+
+
+
+
+
+
+
+
+# %%%  11.5 Exponential integrals and related functions
+
+# 11.5.1 Exponential integral E1
+
+    def exp_integral_e1(self, z):
+        '''Exponential integral E1'''
+        z = self.t(z)
+        return self._fm1(mpm.exp_integral_e1, z)
+
+
+# 11.5.2 Exponential integral Ei
+
+    def exp_integral_ei(self, z):
+        '''Exponential integral Ei'''
+        z = self.t(z)
+        return self._fm1(mpm.exp_integral_ei, z)
+
+
+# 11.5.3 Logarithmic integral li
+
+    def log_integral(self, z, offset=False):
+        '''Logarithmic integral li'''
+        z = self.t(z)
+        return self._fm1(mpm.log_integral, z)
+
+
+# 11.5.4 Hyperbolic sine integral shi
+
+    def sinh_integral(self, z):
+        '''Hyperbolic sine integral shi'''
+        z = self.t(z)
+        return self._fm1(mpm.sinh_integral, z)
+
+
+# 11.5.5 Hyperbolic cosine integral Chi
+
+    def cosh_integral(self, z):
+        '''Hyperbolic cosine integral Chi'''
+        z = self.t(z)
+        return self._fm1(mpm.cosh_integral, z)
+
+
+# 11.5.6 Exponential integral 𝐸𝑛
+
+    def exp_integral_en(self, n, z):
+        '''Exponential integral 𝐸𝑛'''
+        n = self.t(n)
+        z = self.t(z)
+        return self._fm2(mpm.exp_integral_en, n, z)
+
+
+# 11.5.7 Sine integral si
+    def sin_integral(self, z):
+        '''Sine integral si'''
+        z = self.t(z)
+        return self._fm1(mpm.sin_integral, z)
+
+
+# 11.5.8 Cosine integral Ci
+
+    def cos_integral(self, z):
+        '''Cosine integral Ci'''
+        z = self.t(z)
+        return self._fm1(mpm.cos_integral, z)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # %% 19 Hypergeometric Function 2_F_1 and related functions

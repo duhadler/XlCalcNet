@@ -36,7 +36,7 @@ namespace TestXlCalcNetPrecCS
 
 
             //string[] FunctionArray = new[] { "all" };
-            string[] FunctionArray = new[] { "ndis" };
+            string[] FunctionArray = new[] { "coulomb_hplus" };
 
             DemoChapter1F1(NumTypeArray, FunctionArray);
 
@@ -745,6 +745,46 @@ namespace TestXlCalcNetPrecCS
                                     case "oflint": { res1 = oflint.coulomb_g(l, eta, x); break; }
                                     case "mflint": { res1 = mflint.coulomb_g(l, eta, x); break; }
                                     case "aflint": { res1 = aflint.coulomb_g(l, eta, x); break; }
+#endif
+                                }
+                                Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
+                            }
+                        }
+                    }
+                }
+                Console.WriteLine();
+            }
+
+
+
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("coulomb_hplus"))
+            {
+                string name = "coulomb_hplus";
+                InputArray1 = new[] { 1.0d, 2.0d, 13.0d };
+                InputArray2 = new[] { 2.1d, 12.1d, 53.5d };
+                InputArray3 = new[] { -1.5d, 0.0d, 1.5d };
+                foreach (var l in InputArray1)
+                {
+                    foreach (var eta in InputArray2)
+                    {
+                        foreach (var x in InputArray3)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(name + "(l={0}, eta={1}, x={2})", l, eta, x);
+                            foreach (var NumType in NumTypeArray)
+                            {
+                                object res1 = "Not done";
+                                switch (NumType ?? "")
+                                {
+                                    case "math53": { res1 = math53.coulomb_hplus(l, eta, x); break; }
+#if HasArbPrecNet
+                                    case "sflint": { res1 = sflint.coulomb_hplus(l, eta, x); break; }
+                                    case "dflint": { res1 = dflint.coulomb_hplus(l, eta, x); break; }
+                                    case "eflint": { res1 = eflint.coulomb_hplus(l, eta, x); break; }
+                                    case "qflint": { res1 = qflint.coulomb_hplus(l, eta, x); break; }
+                                    case "oflint": { res1 = oflint.coulomb_hplus(l, eta, x); break; }
+                                    case "mflint": { res1 = mflint.coulomb_hplus(l, eta, x); break; }
+                                    //case "aflint": { res1 = aflint.coulomb_hplus(l, eta, x); break; }
 #endif
                                 }
                                 Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);

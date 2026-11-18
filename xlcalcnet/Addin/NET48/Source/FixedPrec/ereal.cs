@@ -6009,11 +6009,15 @@ namespace FixedPrecNet
         public static Extended hyperg_1f1r(Extended a, Extended b, Extended x)
         {
             var res = new Extended();
-            Lib_XReal_Hypergeo1F1r(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            if ((b <= 0) && isinteger(b))
+            {
+                var n = abs(-b);
+                res = rising_factorial(a, n + 1) * pow(x, n + 1) / gamma(n + 2);
+                res *= hyperg_1f1(a + n + 1, n + 2, x);
+            }
+            else res = hyperg_1f1(a, b, x) / gamma(b);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_Hypergeo1F1r", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_XReal_Hypergeo1F1r(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_1f1r/*' />
@@ -6024,23 +6028,55 @@ namespace FixedPrecNet
 
 
 
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
-        public static Extended log_hyperg_1f1(Extended a, Extended b, Extended x)
+        internal static Extended hyperg_u_(Extended a, Extended b, Extended z)
         {
-            var res = new Extended();
-            Lib_XReal_LogHypergeo1F1(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            var res1 = (gamma(1 - b) / gamma(a - b + 1)) * hyperg_1f1(a, b, z);
+            var res2 = (gamma(b - 1) / gamma(a)) * pow(z, 1 - b) * hyperg_1f1(a - b + 1, 2 - b, z);
+            return res1 + res2;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_u/*' />
+        public static Extended hyperg_u(Extended a, Extended b, Extended z)
+        {
+            Extended res = nan;
+            if (isinteger(b))
+            {
+                Extended h = epsilon() * 100;
+                Extended res1 = hyperg_u_(a, b - h, z);
+                Extended res2 = hyperg_u_(a, b + h, z);
+                res = (res2 + res1) / (2);
+            }
+            else res = hyperg_u_(a, b, z);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LogHypergeo1F1", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_XReal_LogHypergeo1F1(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
 
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
-        public static Extended log_hyperg_1f1(dynamic a, dynamic b, dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_u/*' />
+        public static Extended hyperg_u(dynamic a, dynamic b, dynamic z)
         {
-            return log_hyperg_1f1(ereal.t(a), ereal.t(b), ereal.t(x));
+            return hyperg_u(t(a), t(b), t(z));
         }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
+        //public static Extended log_hyperg_1f1(Extended a, Extended b, Extended x)
+        //{
+        //    var res = new Extended();
+        //    Lib_XReal_LogHypergeo1F1(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+        //    return res;
+        //}
+        //[DllImport(xcn.mpNum, EntryPoint = "Lib_XReal_LogHypergeo1F1", CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void Lib_XReal_LogHypergeo1F1(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
+        //public static Extended log_hyperg_1f1(dynamic a, dynamic b, dynamic x)
+        //{
+        //    return log_hyperg_1f1(ereal.t(a), ereal.t(b), ereal.t(x));
+        //}
+
+
+
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/laguerre_l/*' />
@@ -6084,7 +6120,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
         public static Extended hermite_he(int n, Extended x)
         {
-            return exp2(-n / 2) * hermite_h(n, x / sqrt(2));
+            return exp2(-n * 0.5) * hermite_h(n, x / sqrt(2));
         }
 
 

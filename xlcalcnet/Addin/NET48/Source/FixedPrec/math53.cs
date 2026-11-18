@@ -4603,6 +4603,22 @@ namespace FixedPrecNet
 
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coulomb_hplus/*' />
+        public static Complex coulomb_hplus(Double L, Double eta, Double x)
+        {
+            return new Complex(coulomb_g(L, eta, x), coulomb_f(L, eta, x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/coulomb_hminus/*' />
+        public static Complex coulomb_hminus(Double L, Double eta, Double x)
+        {
+            return new Complex(coulomb_g(L, eta, x), -coulomb_f(L, eta, x));
+        }
+
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/whittaker_m/*' />
         [DllImport(xcn.libwe64d, EntryPoint = "damath_WhittakerM", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double whittaker_m(Double k, Double m, Double x);
@@ -4627,6 +4643,12 @@ namespace FixedPrecNet
         [DllImport(xcn.libwe64d, EntryPoint = "damath_CylinderV", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double pcfv(Double a, Double x);
 
+
+
+        public static Double pcfw(Double a, Double x)
+        {
+            return dreal.nan;
+        }
 
 
 
@@ -4708,6 +4730,19 @@ namespace FixedPrecNet
         [DllImport(xcn.libwe64d, EntryPoint = "damath_dawson", CallingConvention = CallingConvention.Cdecl)]
         public static extern Double dawson(Double x);
 
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/faddeeva/*' />    
+        public static Complex faddeeva(Double x)
+        {
+            return cmath53.faddeeva(x);
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/faddeeva/*' />    
+        public static Complex faddeeva(dynamic x)
+        {
+            return faddeeva(t(x));
+        }
 
 
 

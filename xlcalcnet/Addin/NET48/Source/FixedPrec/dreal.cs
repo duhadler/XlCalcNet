@@ -4573,11 +4573,45 @@ namespace FixedPrecNet
         public static Double hyperg_1f1r(Double a, Double b, Double x)
         {
             Double res = 0.0;
-            Lib_FReal_Hypergeo1F1r(ref res, ref a, ref b, ref x);
+            if ((b <= 0) && dreal.isinteger(b))
+            {
+                Double n = Math.Abs(-b);
+                res = rising_factorial(a, n + 1) * pow(x, n + 1) / gamma(n + 2);
+                res *= hyperg_1f1(a + n + 1, n + 2, x);
+            }
+            else res = hyperg_1f1(a, b, x) / gamma(b);
+
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_FReal_Hypergeo1F1r", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_FReal_Hypergeo1F1r(ref Double res, ref Double a, ref Double b, ref Double x);
+
+        internal static Double hyperg_u_(Double a, Double b, Double z)
+        {
+            var res1 = (gamma(1 - b) / gamma(a - b + 1)) * hyperg_1f1(a, b, z);
+            var res2 = (gamma(b - 1) / gamma(a)) * pow(z, 1 - b) * hyperg_1f1(a - b + 1, 2 - b, z);
+            return res1 + res2;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_u/*' />
+        public static Double hyperg_u(Double a, Double b, Double z)
+        {
+            Double res = nan;
+            if (isinteger(b))
+            {
+                Double h = epsilon() * 100;
+                Double res1 = hyperg_u_(a, b - h, z);
+                Double res2 = hyperg_u_(a, b + h, z);
+                res = (res2 + res1) / (2);
+            }
+            else res = hyperg_u_(a, b, z);
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_u/*' />
+        public static Double hyperg_u(dynamic a, dynamic b, dynamic z)
+        {
+            return hyperg_u(t(a), t(b), t(z));
+        }
+
 
 
 
@@ -4623,7 +4657,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
         public static Double hermite_he(int n, Double x)
         {
-            return exp2(-n / 2) * hermite_h(n, x / sqrt(2));
+            return exp2(-n * 0.5) * hermite_h(n, x / sqrt(2));
         }
 
 

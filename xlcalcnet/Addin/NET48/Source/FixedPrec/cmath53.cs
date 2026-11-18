@@ -4497,14 +4497,14 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
         public static Complex hermite_he(Complex n, Complex x)
         {
-            return exp2(n / 2) * hermite_h(n, x / sqrt(2));
+            return exp2(-n * 0.5) * hermite_h(n, x / sqrt(2));
         }
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
         public static Complex hermite_he(dynamic n, dynamic x)
         {
-            return hermite_h(dcplx.t(n), dcplx.t(x));
+            return hermite_he(dcplx.t(n), dcplx.t(x));
         }
 
 
@@ -4543,6 +4543,110 @@ namespace FixedPrecNet
         #region Incomplete gamma functions
 
 
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p/*' />
+        public static Complex gamma_p(Complex a, Complex x)
+        {
+            Complex res = dcplx.nan;
+            //if (a.Imaginary == 0.0)
+            //{
+            //    Double a = 0.5 * dreal.sqrt(2);
+            //    Complex ia = dcplx.onej * a;
+            //    res = 0.5 * (bessel_jv(a, x * (-a + ia)) + bessel_jv(a, x * (-a - ia)));
+            //    if (scaled) res *= exp(-dcplx.abs(x) / dreal.sqrt(2));
+            //}
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p/*' />
+        public static Complex gamma_p(dynamic a, dynamic x)
+        {
+            return gamma_p(dcplx.t(a), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_q/*' />
+        public static Complex gamma_q(Complex a, Complex x)
+        {
+            Complex res = dcplx.nan;
+            //if (a.Imaginary == 0.0)
+            //{
+            //    Double a = 0.5 * dreal.sqrt(2);
+            //    Complex ia = dcplx.onej * a;
+            //    res = 0.5 * (bessel_jv(a, x * (-a + ia)) + bessel_jv(a, x * (-a - ia)));
+            //    if (scaled) res *= exp(-dcplx.abs(x) / dreal.sqrt(2));
+            //}
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_q/*' />
+        public static Complex gamma_q(dynamic a, dynamic x)
+        {
+            return gamma_q(dcplx.t(a), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_lower/*' />
+        public static Complex gamma_lower(Complex a, Complex x)
+        {
+            Complex res = dcplx.nan;
+            //if (a.Imaginary == 0.0)
+            //{
+            //    Double a = 0.5 * dreal.sqrt(2);
+            //    Complex ia = dcplx.onej * a;
+            //    res = 0.5 * (bessel_jv(a, x * (-a + ia)) + bessel_jv(a, x * (-a - ia)));
+            //    if (scaled) res *= exp(-dcplx.abs(x) / dreal.sqrt(2));
+            //}
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_lower/*' />
+        public static Complex gamma_lower(dynamic a, dynamic x)
+        {
+            return gamma_lower(dcplx.t(a), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_upper/*' />
+        public static Complex gamma_upper(Complex a, Complex x)
+        {
+            Complex res = dcplx.nan;
+            //if (a.Imaginary == 0.0)
+            //{
+            //    Double a = 0.5 * dreal.sqrt(2);
+            //    Complex ia = dcplx.onej * a;
+            //    res = 0.5 * (bessel_jv(a, x * (-a + ia)) + bessel_jv(a, x * (-a - ia)));
+            //    if (scaled) res *= exp(-dcplx.abs(x) / dreal.sqrt(2));
+            //}
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_upper/*' />
+        public static Complex gamma_upper(dynamic a, dynamic x)
+        {
+            return gamma_upper(dcplx.t(a), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p_prime/*' />
+        public static Complex gamma_p_prime(Complex a, Complex x)
+        {
+            Complex res = dcplx.nan;
+            //if (a.Imaginary == 0.0)
+            //{
+            //    Double a = 0.5 * dreal.sqrt(2);
+            //    Complex ia = dcplx.onej * a;
+            //    res = 0.5 * (bessel_jv(a, x * (-a + ia)) + bessel_jv(a, x * (-a - ia)));
+            //    if (scaled) res *= exp(-dcplx.abs(x) / dreal.sqrt(2));
+            //}
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/gamma_p_prime/*' />
+        public static Complex gamma_p_prime(dynamic a, dynamic x)
+        {
+            return gamma_p_prime(dcplx.t(a), dcplx.t(x));
+        }
+
 
 
         #endregion
@@ -4550,6 +4654,162 @@ namespace FixedPrecNet
 
 
         #region Coulomb, Whittaker and parabolic cylinder function
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/coulomb_f/*' />
+        public static Complex coulomb_f(Complex l, Complex eta, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/coulomb_f/*' />
+        public static Complex coulomb_f(dynamic l, dynamic eta, dynamic x)
+        {
+            return coulomb_f(dcplx.t(l), dcplx.t(eta), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/coulomb_g/*' />
+        public static Complex coulomb_g(Complex l, Complex eta, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/coulomb_g/*' />
+        public static Complex coulomb_g(dynamic l, dynamic eta, dynamic x)
+        {
+            return coulomb_g(dcplx.t(l), dcplx.t(eta), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/coulomb_hplus/*' />
+        public static Complex coulomb_hplus(Complex l, Complex eta, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/coulomb_hplus/*' />
+        public static Complex coulomb_hplus(dynamic l, dynamic eta, dynamic x)
+        {
+            return coulomb_hplus(dcplx.t(l), dcplx.t(eta), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/coulomb_hminus/*' />
+        public static Complex coulomb_hminus(Complex l, Complex eta, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/coulomb_hminus/*' />
+        public static Complex coulomb_hminus(dynamic l, dynamic eta, dynamic x)
+        {
+            return coulomb_hminus(dcplx.t(l), dcplx.t(eta), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/whittaker_m/*' />
+        public static Complex whittaker_m(Complex k, Complex m, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/whittaker_m/*' />
+        public static Complex whittaker_m(dynamic k, dynamic m, dynamic x)
+        {
+            return whittaker_m(dcplx.t(k), dcplx.t(m), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/whittaker_w/*' />
+        public static Complex whittaker_w(Complex k, Complex m, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/whittaker_w/*' />
+        public static Complex whittaker_w(dynamic k, dynamic m, dynamic x)
+        {
+            return whittaker_w(dcplx.t(k), dcplx.t(m), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pcfd/*' />
+        public static Complex pcfd(Complex nu, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pcfd/*' />
+        public static Complex pcfd(dynamic nu, dynamic x)
+        {
+            return pcfd(dcplx.t(nu), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pcfu/*' />
+        public static Complex pcfu(Complex a, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pcfu/*' />
+        public static Complex pcfu(dynamic a, dynamic x)
+        {
+            return pcfu(dcplx.t(a), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pcfv/*' />
+        public static Complex pcfv(Complex a, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pcfv/*' />
+        public static Complex pcfv(dynamic a, dynamic x)
+        {
+            return pcfv(dcplx.t(a), dcplx.t(x));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pcfw/*' />
+        public static Complex pcfw(Complex a, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/pcfw/*' />
+        public static Complex pcfw(dynamic a, dynamic x)
+        {
+            return pcfw(dcplx.t(a), dcplx.t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/exp_integral_en/*' />
+        public static Complex exp_integral_en(Complex n, Complex x)
+        {
+            Complex res = dcplx.nan;
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="Boost"]/exp_integral_en/*' />
+        public static Complex exp_integral_en(dynamic n, dynamic x)
+        {
+            return exp_integral_en(dcplx.t(n), dcplx.t(x));
+        }
+
 
 
 
@@ -4604,10 +4864,40 @@ namespace FixedPrecNet
             return exp(-0.5 * x * x) / sqrt(2 * dreal.pi);
         }
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndens/*' />
+        public static Complex ndens(dynamic x)
+        {
+            return ndens(t(x));
+        }
+
+
+
+
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndis/*' />
         public static Complex ndis(Complex x)
         {
             return 0.5 * Erfc_Xsf(-x / sqrt(2));
+        }
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/ndis/*' />
+        public static Complex ndis(dynamic x)
+        {
+            return ndis(t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erf/*' />
+        public static Complex erfi(Complex z1)
+        {
+            return erf(Complex.ImaginaryOne * z1) / Complex.ImaginaryOne;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/erf/*' />
+        public static Complex erfi(dynamic z1)
+        {
+            return erfi(t(z1));
         }
 
 

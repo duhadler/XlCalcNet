@@ -6173,11 +6173,15 @@ namespace FixedPrecNet
         public static Quadruple hyperg_1f1r(Quadruple a, Quadruple b, Quadruple x)
         {
             var res = new Quadruple();
-            Lib_QReal_Hypergeo1F1r(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            if ((b <= 0) && isinteger(b))
+            {
+                var n = abs(-b);
+                res = rising_factorial(a, n + 1) * pow(x, n + 1) / gamma(n + 2);
+                res *= hyperg_1f1(a + n + 1, n + 2, x);
+            }
+            else res = hyperg_1f1(a, b, x) / gamma(b);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_QReal_Hypergeo1F1r", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_QReal_Hypergeo1F1r(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/hyperg_1f1r/*' />
@@ -6187,24 +6191,53 @@ namespace FixedPrecNet
         }
 
 
-
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
-        public static Quadruple log_hyperg_1f1(Quadruple a, Quadruple b, Quadruple x)
+        internal static Quadruple hyperg_u_(Quadruple a, Quadruple b, Quadruple z)
         {
-            var res = new Quadruple();
-            Lib_QReal_LogHypergeo1F1(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+            var res1 = (gamma(1 - b) / gamma(a - b + 1)) * hyperg_1f1(a, b, z);
+            var res2 = (gamma(b - 1) / gamma(a)) * pow(z, 1 - b) * hyperg_1f1(a - b + 1, 2 - b, z);
+            return res1 + res2;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_u/*' />
+        public static Quadruple hyperg_u(Quadruple a, Quadruple b, Quadruple z)
+        {
+            Quadruple res = nan;
+            if (isinteger(b))
+            {
+                Quadruple h = epsilon() * 100;
+                Quadruple res1 = hyperg_u_(a, b - h, z);
+                Quadruple res2 = hyperg_u_(a, b + h, z);
+                res = (res2 + res1) / (2);
+            }
+            else res = hyperg_u_(a, b, z);
             return res;
         }
-        [DllImport(xcn.mpNum, EntryPoint = "Lib_QReal_LogHypergeo1F1", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void Lib_QReal_LogHypergeo1F1(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
 
-
-        /// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
-        public static Quadruple log_hyperg_1f1(dynamic a, dynamic b, dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_u/*' />
+        public static Quadruple hyperg_u(dynamic a, dynamic b, dynamic z)
         {
-            return log_hyperg_1f1(qreal.t(a), qreal.t(b), qreal.t(x));
+            return hyperg_u(t(a), t(b), t(z));
         }
+
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
+        //public static Quadruple log_hyperg_1f1(Quadruple a, Quadruple b, Quadruple x)
+        //{
+        //    var res = new Quadruple();
+        //    Lib_QReal_LogHypergeo1F1(res.mpPtr, a.mpPtr, b.mpPtr, x.mpPtr);
+        //    return res;
+        //}
+        //[DllImport(xcn.mpNum, EntryPoint = "Lib_QReal_LogHypergeo1F1", CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void Lib_QReal_LogHypergeo1F1(IntPtr res, IntPtr a, IntPtr b, IntPtr x);
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="Boost"]/log_hyperg_1f1/*' />
+        //public static Quadruple log_hyperg_1f1(dynamic a, dynamic b, dynamic x)
+        //{
+        //    return log_hyperg_1f1(qreal.t(a), qreal.t(b), qreal.t(x));
+        //}
 
 
         /// <include file="docs.xml" path='docs/members[@name="Boost"]/laguerre_l/*' />
@@ -6248,7 +6281,7 @@ namespace FixedPrecNet
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hermite_he/*' />
         public static Quadruple hermite_he(int n, Quadruple x)
         {
-            return exp2(-n / 2) * hermite_h(n, x / sqrt(2));
+            return exp2(-n * 0.5) * hermite_h(n, x / sqrt(2));
         }
 
 

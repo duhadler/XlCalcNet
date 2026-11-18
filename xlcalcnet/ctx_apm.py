@@ -3079,300 +3079,54 @@ class apm():
 
 
 
-# %% 19 Hypergeometric Function 1_F_1 and related functions
+# %% 11 Hypergeometric Function 1_F_1 and related functions
 
-# %%%  19.1 Overview
+# %%%  11.1 Overview
 
-    def hyp1f1(self, a, b, z):
+
+# 11.1.1 Kummer’s Confluent Hypergeometric Function 1𝐹1
+
+    def hyperg_1f1(self, a, b, x):
+        '''Kummer’s Confluent Hypergeometric Function 1𝐹1'''
         a = self.t(a)
         b = self.t(b)
-        z = self.t(z)
-        return acb(z).hypgeom_0f1(a, b)
-
-    def hyp1f1r(self, a, b, z):
-        a = self.t(a)
-        b = self.t(b)
-        z = self.t(z)
-        return acb(z).hypgeom_0f1(a, b, True)
-
-    def hyperg_u(self, a, b, z):
-        a = self.t(a)
-        b = self.t(b)
-        z = self.t(z)
-        return acb(z).hypgeom_u(a, b)
-
-
-# %%%  19.2 Incomplete gamma functions
-
-    def gammainc2(self, a, z1=0, z2=None, regularized=False):
-        res = self.gammainc(a, z1, z2, regularized)
-        res = self.t(res)
-        return res
-
-    def gammainc(self, a, z1=None, z2=None, regularized=False):
-        if z1 is None: z1 = self.zero()
-        if z2 is None: z2 = self.inf()
-        a = self.t(a)
-        z1 = self.t(z1)
-        z2 = self.t(z2)
-        res = self._gammainc(a, z1, z2, regularized)
-        return res
-
-    def _gammainc(self, z, a=0, b=None, regularized=False):
-        regularized = bool(regularized)
-        z = self.t(z)
-        if a is None:
-            a = self.zero()
-            lower_modified = False
-        else:
-            a = self.t(a)
-            lower_modified = a != self.zero()
-        if b is None:
-            b = self.inf()
-            upper_modified = False
-        else:
-            b = self.t(b)
-            upper_modified = b != self.inf()
-        # Complete gamma function
-        if not (upper_modified or lower_modified):
-            if regularized:
-                if z.real < 0:
-                    return self.inf()
-                elif z.real > 0:
-                    return self.one()
-                else:
-                    return self.nan()
-            return self.gamma(z)
-        if a == b:
-            return self.zero()
-        # Standardize
-        #if iv.re(a) > iv.re(b):
-        if a.real > b.real:
-            return -self._gammainc(z, b, a, regularized)
-        # Generalized gamma
-        if upper_modified and lower_modified:
-            return +self._gamma3(z, a, b, regularized)
-        # Upper gamma
-        elif lower_modified:
-            return self._upper_gamma(z, a, regularized)
-        # Lower gamma
-        elif upper_modified:
-            return self._lower_gamma(z, b, regularized)
-
-    def _lower_gamma(self, z, b, regularized=False):
-        if regularized:
-            return self.gamma_p(z, b)
-        else:
-            return self.gamma_lower(z, b)
-
-    def _upper_gamma(self, z, a, regularized=False):
-        if regularized:
-            return self.gamma_q(z, a)
-        else:
-            return self.gamma_upper(z, a)
-
-    def _gamma3(self, z, a, b, regularized=False):
-        if regularized:
-            T1 = self.gamma_p(z, a)
-            T2 = self.gamma_p(z, b)
-            T3 = self.gamma_p(z, a)
-            T4 = self.gamma_p(z, b)
-            # need code to choose best difference
-        else:
-            T1 = self.gamma_lower(z, a)
-            T2 = self.gamma_lower(z, b)
-            T3 = self.gamma_upper(z, a)
-            T4 = self.gamma_upper(z, b)
-            # need code to choose best difference
-        return T1, T2, T3, T4
-
-    def gamma_lower(self, a, z, regularized=0):
-        a = self.t(a)
-        z = self.t(z)
-        return acb(z).gamma_lower(a, regularized)
-
-    def gamma_upper(self, a, z, regularized=0):
-        a = self.t(a)
-        z = self.t(z)
-        return acb(z).gamma_upper(a, regularized)
-
-    def gamma_p(self, a, z):
-        a = self.t(a)
-        z = self.t(z)
-        return self.gamma_lower(a, z, 1)
-
-    def gamma_q(self, a, z):
-        a = self.t(a)
-        z = self.t(z)
-        return self.gamma_upper(a, z, 1)
-
-    def gamma_tricomi(self, a, z):
-        return self.gamma_p(a, z) * self.power(z, -a)
-
-    def gamma_derivative(self, a, z):
-        # !!! Missing !!!
-        a = self.t(a)
-        z = self.t(z)
-        return #Apc.GammaPDerivative(a, z)
-
-
-# %%%  19.3 Error function and related functions
-
-
-    def erf(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).erf()
-        return acb(z).erf()
-
-    def erfc(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).erfc()
-        return acb(z).erfc()
-
-    def inerfc(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        scaled = True
-        res = 1/(2**n * self.sqrt(self.pi))
-        res = res * self.hyperu(0.5*n+0.5, 0.5, z*z)
-        if not(scaled):
-            res = res * self.exp(-z*z)
-        return res
-
-    def erfi(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).erfi()
-        return acb(z).erfi()
-
-    def dawson(self, z):
-        z = self.t(z)
-        res = 0.5 * self.sqrt(self.pi) * self.exp(-z*z)
-        res = res * self.erfi(z)
-        return res
-
-    def fresnels(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).fresnel_s()
-        return acb(z).fresnel_s()
-
-    def fresnelc(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).fresnel_c()
-        return acb(z).fresnel_c()
-
-    def faddeeva(self, z):
-        z = self.t(z)
-        res = self.exp(-z*z) * self.erfc(-1j * z)
-        return res
-
-    def voigt_u(self, x, t):
-        z = (1-1j*x)/(2*self.sqrt(t))
-        res = self.sqrt(self.pi/(4*t)) * self.faddeeva(1j * z)
-        return res.real
-
-    def voigt_v(self, x, t):
-        z = (1-1j*x)/(2*self.sqrt(t))
-        res = self.sqrt(self.pi/(4*t)) * self.faddeeva(1j * z)
-        return res.imag
-
-    def voigt_h(self, a, u):
-        res = 1/(a*self.sqrt(self.pi))
-        res = res * self.voigt_u(u/a, 1/(4*a*a))
-        return res
-
-
-# %%%  19.4 Exponential integrals and related functions
-
-    def chi(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).chi()
-        return acb(z).chi()
-
-    def ci(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).ci()
-        return acb(z).ci()
-
-    def e1(self, z):
-        return self.expint(1, z)
-
-    def ei(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).ei()
-        return acb(z).ei()
-
-    def expint(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        if isinstance(n, arb) and isinstance(z, arb):
-            return arb(z).expint(n)
-        return acb(z).expint(n)
-
-    def li(self, z, offset=False):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).li()
-        return acb(z).li()
-
-    def primepi2_upper(self, x):
         x = self.t(x)
-        m = self.li(x)
-        d = self.sqrt(x) * self.ln(x)/(8*self.pi)
-        res = self.ceil(m+d)
+        res = acb(x).hypgeom_1f1(a, b)
+        if self.imag(res) == self.t(0):
+            res = res.real
         return res
 
-    def primepi2_lower(self, x):
+
+# 11.1.2 Regularized Kummer’s Confluent Hypergeometric Function 1𝐹1
+
+    def hyperg_1f1r(self, a, b, x):
+        '''Regularized Kummer’s Confluent Hypergeometric Function 1𝐹1'''
+        a = self.t(a)
+        b = self.t(b)
         x = self.t(x)
-        m = self.li(x)
-        d = self.sqrt(x) * self.ln(x)/(8*self.pi)
-        res = self.floor(m-d)
+        res = acb(x).hypgeom_1f1(a, b, True)
+        if self.imag(res) == self.t(0):
+            res = res.real
         return res
 
-    def shi(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).shi()
-        return acb(z).shi()
 
-    def si(self, z):
-        z = self.t(z)
-        if isinstance(z, arb):
-            return arb(z).si()
-        return acb(z).si()
+# 11.1.3 Tricomi’s Confluent Hypergeometric Function 𝑈
 
-
-# %%%  19.5 Orthogonal polynomials
-
-
-    def hermite(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        if isinstance(n, arb) and isinstance(z, arb):
-            return arb(z).hermite_h(n)
-        return acb(z).hermite_h(n)
-
-    def hermite_he(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        res = 2**(-n/2) * self.hermite(n, z/self.sqrt(2))
+    def hyperg_u(self, a, b, x):
+        '''Tricomi’s Confluent Hypergeometric Function 𝑈'''
+        a = self.t(a)
+        b = self.t(b)
+        x = self.t(x)
+        res = acb(x).hypgeom_u(a, b)
+        if self.imag(res) == self.t(0):
+            res = res.real
         return res
 
-    def laguerre_l(self, n, z):
-        n = self.t(n)
-        z = self.t(z)
-        if isinstance(n, arb) and isinstance(z, arb):
-            return arb(z).laguerre_l(n)
-        return acb(z).laguerre_l(n)
 
-    def laguerre(self, n, m, z):
+
+# 11.1.4 Generalized Laguerre polynomials, 𝐿𝑚𝑛(𝑥)
+
+    def laguerre_l(self, n, m, z):
         n = self.t(n)
         m = self.t(m)
         z = self.t(z)
@@ -3381,8 +3135,123 @@ class apm():
         return acb(z).laguerre_l(n, m)
 
 
-# %%%  19.6 Coulomb functions
+# 11.1.5 Hermite polynomials (physicist)
 
+    def hermite_h(self, n, z):
+        n = self.t(n)
+        z = self.t(z)
+        if isinstance(n, arb) and isinstance(z, arb):
+            return arb(z).hermite_h(n)
+        return acb(z).hermite_h(n)
+
+
+# 11.1.6 Hermite polynomials (probabilist)
+
+    def hermite_he(self, n, z):
+        n = self.t(n)
+        z = self.t(z)
+        res = 2**(-n/2) * self.hermite_h(n, z/self.sqrt(2))
+        return res
+
+##    def laguerre_l(self, n, z):
+##        n = self.t(n)
+##        z = self.t(z)
+##        if isinstance(n, arb) and isinstance(z, arb):
+##            return arb(z).laguerre_l(n)
+##        return acb(z).laguerre_l(n)
+
+
+
+# %%%  11.2 Incomplete gamma functions
+
+# 11.2.1 Lower normalised incomplete gamma function
+
+    def gamma_p(self, a, z):
+        a = self.t(a)
+        z = self.t(z)
+        res = self.gamma_lower(a, z, 1)
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+# 11.2.2 Upper normalised incomplete gamma function
+
+    def gamma_q(self, a, z):
+        a = self.t(a)
+        z = self.t(z)
+        res = self.gamma_upper(a, z, 1)
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+# 11.2.3 Lower non-normalised incomplete gamma function, 𝛾(𝑎, 𝑥)
+
+    def gamma_lower(self, a, z, regularized=0):
+        a = self.t(a)
+        z = self.t(z)
+        res = acb(z).gamma_lower(a, regularized)
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+# 11.2.4 Upper non-normalised incomplete gamma function, Γ(𝑎, 𝑥)
+
+    def gamma_upper(self, a, z, regularized=0):
+        a = self.t(a)
+        z = self.t(z)
+        res = acb(z).gamma_upper(a, regularized)
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+
+# 11.2.5 Derivative of the incomplete gamma function
+
+    def gamma_p_prime(self, a, z):
+        '''Derivative of the incomplete gamma function'''
+        a = self.t(a)
+        z = self.t(z)
+        res = self.exp(-z) * self.power(z, a-1) / self.gamma(a)
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+
+
+# 11.2.6 Inverse of the real lower normalised incomplete gamma function
+
+    def gamma_p_inv(self, a, p):
+        '''Returns the Inverse of the real lower normalised incomplete gamma
+        function.'''
+        from xlcalcnet import mpm
+        a = mp.convert(str(a))
+        p = mp.convert(str(p))
+        res = mpm.gamma_p_inv( a, p)
+        return self.t(str(res))
+
+
+# 11.2.7 Inverse of the real upper normalised incomplete gamma function
+
+    def gamma_q_inv(self, a, q):
+        '''Returns the Inverse of the real upper normalised incomplete gamma
+        function.'''
+        from xlcalcnet import mpm
+        a = mp.convert(str(a))
+        q = mp.convert(str(q))
+        res = mpm.gamma_q_inv( a, q)
+        return self.t(str(res))
+
+
+
+
+# %%%  11.3 Coulomb, Whittaker and parabolic cylinder functions
+
+# 11.6.0 Normalizing Gamow constant for Coulomb wave functions
 
     def coulombc(self, l, eta):
         l = self.t(l)
@@ -3394,24 +3263,63 @@ class apm():
             res = res.real
         return res
 
-    def coulombf(self, l, eta, z):
-        # !!! Missing !!!
+
+# 11.6.1 Coulomb wave function F
+
+    def coulomb_f(self, l, eta, z):
+        '''Coulomb wave function F'''
         l = self.t(l)
         eta = self.t(eta)
         z = self.t(z)
-        return #Apc.CoulombF(l, eta, z)
+        res = acb(z).coulomb_f(l, eta)
+        if self.iszero(res):
+            res = res.real
+        return res
 
-    def coulombg(self, l, eta, z):
-        # !!! Missing !!!
+
+# 11.6.2 Coulomb wave function G
+
+    def coulomb_g(self, l, eta, z):
+        '''Coulomb wave function G'''
         l = self.t(l)
         eta = self.t(eta)
         z = self.t(z)
-        return #Apc.CoulombG(l, eta, z)
+        res = acb(z).coulomb_g(l, eta)
+        if self.iszero(res):
+            res = res.real
+        return res
 
 
-# %%%  19.7 Whittaker functions
+# 11.3.3 Coulomb wave function Hplus
 
-    def whitm(self, k, m, z):
+    def coulomb_hplus(self, l, eta, z):
+        '''Coulomb wave function Hplus'''
+        l = self.t(l)
+        eta = self.t(eta)
+        z = self.t(z)
+        restuple = acb(z).coulomb(l, eta)
+        res = restuple[2]
+        return res
+
+
+# 11.3.4 Coulomb wave function Hminus
+
+    def coulomb_hminus(self, l, eta, z):
+        '''Coulomb wave function Hminus'''
+        l = self.t(l)
+        eta = self.t(eta)
+        z = self.t(z)
+        restuple = acb(z).coulomb(l, eta)
+        res = restuple[3]
+        return res
+
+
+
+
+# 11.3.5 Whittaker function M
+
+    def whittaker_m(self, k, m, z):
+        '''Whittaker function M'''
         k = self.t(k)
         m = self.t(m)
         z = self.t(z)
@@ -3422,11 +3330,16 @@ class apm():
                 return self.inf() + z
             else:
                 return self.nan() * z
-        x = self.fmul(-0.5, z, exact=True)
-        y = 0.5+m
-        return self.exp(x) * z**y * self.hyp1f1(y-k, 1+2*m, z)
+        #x = self.fmul(-0.5, z, exact=True)
+        x =-0.5 * z
+        y = 0.5 + m
+        return self.exp(x) * z**y * self.hyperg_1f1(y-k, 1+2*m, z)
 
-    def whitw(self, k, m, z):
+
+# 11.3.6 Whittaker function W
+
+    def whittaker_w(self, k, m, z):
+        '''Whittaker function W'''
         k = self.t(k)
         m = self.t(m)
         z = self.t(z)
@@ -3438,20 +3351,27 @@ class apm():
                 return self.inf() + z
             else:
                 return self.nan() * z
-        x = self.fmul(-0.5, z, exact=True)
+        #x = self.fmul(-0.5, z, exact=True)
+        x =-0.5 * z
         y = 0.5+m
-        return self.exp(x) * z**y * self.hyperu(y-k, 1+2*m, z)
+        return self.exp(x) * z**y * self.hyperg_u(y-k, 1+2*m, z)
 
 
-# %%%  19.8 Parabolic cylinder functions
+
+# 11.3.7 Parabolic cylinder function D
 
     def pcfd(self, n, z):
+        '''Parabolic cylinder function D'''
         n = self.t(n)
         z = self.t(z)
         res = self.pcfu(-n-0.5, z)
         return res
 
+
+# 11.3.8 Parabolic cylinder function U
+
     def pcfu(self, a, z):
+        '''Parabolic cylinder function U'''
         a = self.t(a)
         z = self.t(z)
 
@@ -3463,13 +3383,16 @@ class apm():
         p = self.sqrt(p)
         U1 = p / (self.exp2(0.5*a+0.25) * self.gamma(0.75+0.5*a))
         U2 = -p / (self.exp2(0.5*a-0.25) * self.gamma(0.25+0.5*a))
-        F1 = self.hyp1f1(-0.5*a+0.25, 0.5, -0.5*z*z)
-        F2 = self.hyp1f1(-0.5*a+0.75, 1.5, -0.5*z*z)
+        F1 = self.hyperg_1f1(-0.5*a+0.25, 0.5, -0.5*z*z)
+        F2 = self.hyperg_1f1(-0.5*a+0.75, 1.5, -0.5*z*z)
         res = (U1*F1 + U2*z*F2) / self.exp(-0.25*z*z)
 
         self.dps = dps
 
         return +res
+
+
+# 11.3.9 Parabolic cylinder function V
 
     def pcfv(self, a, z):
         a = self.t(a)
@@ -3480,7 +3403,11 @@ class apm():
         res = res / p
         return res
 
+
+# 11.3.10 Parabolic cylinder function W
+
     def pcfw(self, a, z):
+        '''Parabolic cylinder function W'''
         a = self.t(a)
         z = self.t(z)
 
@@ -3488,12 +3415,12 @@ class apm():
         dpsplus = 40
         self.dps += dpsplus
 
-        W1a = self.gamma(0.25 + 0.5j*a) / self.gamma(0.75 + 0.5j*a)
+        W1a = self.gamma(0.25 + 0.5*self.j*a) / self.gamma(0.75 + 0.5*self.j*a)
         W1 = self.exp2(-0.75) * self.sqrt(self.fabs(W1a))
-        W2a = self.gamma(0.75 + 0.5j*a) / self.gamma(0.25 + 0.5j*a)
+        W2a = self.gamma(0.75 + 0.5*self.j*a) / self.gamma(0.25 + 0.5*self.j*a)
         W2 = -self.exp2(-0.25) * self.sqrt(self.fabs(W2a))
-        F1 = self.exp(-0.25j*z*z) * self.hyp1f1(0.25 - 0.5j*a, 0.5, 0.5j*z*z)
-        F2 = self.exp(-0.25j*z*z) * self.hyp1f1(0.75 - 0.5j*a, 1.5, 0.5j*z*z)
+        F1 = self.exp(-0.25*self.j*z*z) * self.hyperg_1f1(0.25 - 0.5*self.j*a, 0.5, 0.5*self.j*z*z)
+        F2 = self.exp(-0.25*self.j*z*z) * self.hyperg_1f1(0.75 - 0.5*self.j*a, 1.5, 0.5*self.j*z*z)
         res = W1*F1 + W2*z*F2
 
         self.dps = dps
@@ -3501,6 +3428,251 @@ class apm():
             res = res.real
 
         return +res
+
+
+
+
+
+
+# %%%  11.4 Error function and related functions
+
+
+# 11.4.1 Error function erf
+
+    def erf(self, z):
+        '''Error function erf'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).erf()
+        return acb(z).erf()
+
+
+# 11.4.2 Complementary error function erfc
+
+    def erfc(self, z):
+        '''Complementary error function erfc'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).erfc()
+        return acb(z).erfc()
+
+
+
+# 11.4.3 Inverse of the real error function
+
+    def erf_inv(self, prob):
+        '''Returns the Inverse of the real error function.'''
+        prob = self.t(prob)
+        return arb(prob).erfinv()
+
+
+# 11.4.4 Inverse of the real complementory error function
+
+    def erfc_inv(self, prob):
+        '''Returns the Inverse of the real complementory error function.'''
+        prob = self.t(prob)
+        return arb(prob).erfcinv()
+
+
+# 11.4.5 Standard normal density function
+
+    def ndens(self, z):
+        '''Returns the Standard normal density function.'''
+        z = self.t(z)
+        a = self.exp(-0.5*z*z)/self.sqrt(2*self.pi)
+        return a
+
+
+# 11.4.6 Standard normal cumulative distribution function
+
+    def ndis(self, x):
+        '''Returns the Standard normal cumulative distribution function.'''
+        x = self.t(x)
+        a = 0.5 * self.erfc(-x/self.sqrt(2))
+        return a
+
+
+# 11.7.7 Standard normal percentage point function
+
+    def ndisx(self, p):
+        '''Returns the Standard normal percentage point function.'''
+        p = self.t(p)
+        return -self.sqrt(2) * self.erfc_inv(2*p)
+
+
+# 11.3.8 Imaginary error function erfi
+
+    def erfi(self, z):
+        '''Imaginary error function erfi'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).erfi()
+        return acb(z).erfi()
+
+
+
+# 11.4.9 Dawson’s integral
+
+    def dawson(self, z):
+        '''Dawson’s integral'''
+        z = self.t(z)
+        res = 0.5 * self.sqrt(self.pi) * self.exp(-z*z)
+        res = res * self.erfi(z)
+        return res
+
+
+
+# 11.4.10 Faddeeva function
+
+    def faddeeva(self, z):
+        '''Faddeeva function'''
+        z = self.t(z)
+        res = self.exp(-z*z) * self.erfc(-self.j * z)
+        return res
+
+
+# 11.4.11 Fresnel sine integral
+
+    def fresnel_s(self, z):
+        '''Fresnel sine integral'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).fresnel_s()
+        return acb(z).fresnel_s()
+
+
+# 11.4.12 Fresnel cosine integral
+
+    def fresnel_c(self, z):
+        '''Fresnel cosine integral'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).fresnel_c()
+        return acb(z).fresnel_c()
+
+
+# 11.4.13 Owen’s T function
+
+    def owen_t(self, h, a):
+        '''Returns Owen’s 𝑇 function via Verified Integration'''
+        from xlcalcnet import mpm
+        h = mpm.t(h)
+        a = mpm.t(a)
+        res = mpm.owen_t(h, a)
+        return self.t(str(res))
+
+
+##    def inerfc(self, n, z):
+##        n = self.t(n)
+##        z = self.t(z)
+##        scaled = True
+##        res = 1/(2**n * self.sqrt(self.pi))
+##        res = res * self.hyperu(0.5*n+0.5, 0.5, z*z)
+##        if not(scaled):
+##            res = res * self.exp(-z*z)
+##        return res
+
+
+##    def voigt_u(self, x, t):
+##        z = (1-1j*x)/(2*self.sqrt(t))
+##        res = self.sqrt(self.pi/(4*t)) * self.faddeeva(1j * z)
+##        return res.real
+##
+##    def voigt_v(self, x, t):
+##        z = (1-1j*x)/(2*self.sqrt(t))
+##        res = self.sqrt(self.pi/(4*t)) * self.faddeeva(1j * z)
+##        return res.imag
+##
+##    def voigt_h(self, a, u):
+##        res = 1/(a*self.sqrt(self.pi))
+##        res = res * self.voigt_u(u/a, 1/(4*a*a))
+##        return res
+
+
+
+
+# %%%  11.5 Exponential integrals and related functions
+
+# 11.5.1 Exponential integral E1
+
+    def exp_integral_e1(self, z):
+        '''Exponential integral E1'''
+        z = self.t(z)
+        return self.exp_integral_en(1, z)
+
+
+
+# 11.5.2 Exponential integral Ei
+
+    def exp_integral_ei(self, z):
+        '''Exponential integral Ei'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).ei()
+        return acb(z).ei()
+
+
+# 11.5.3 Logarithmic integral li
+
+    def log_integral(self, z, offset=False):
+        '''Logarithmic integral li'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).li()
+        return acb(z).li()
+
+
+# 11.5.4 Hyperbolic sine integral shi
+
+    def sinh_integral(self, z):
+        '''Hyperbolic sine integral shi'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).shi()
+        return acb(z).shi()
+
+
+# 11.5.5 Hyperbolic cosine integral Chi
+
+    def cosh_integral(self, z):
+        '''Hyperbolic cosine integral Chi'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).chi()
+        return acb(z).chi()
+
+
+# 11.5.6 Exponential integral 𝐸𝑛
+
+    def exp_integral_en(self, n, z):
+        '''Exponential integral 𝐸𝑛'''
+        n = self.t(n)
+        z = self.t(z)
+        if isinstance(n, arb) and isinstance(z, arb):
+            return arb(z).expint(n)
+        return acb(z).expint(n)
+
+
+# 11.5.7 Sine integral si
+    def sin_integral(self, z):
+        '''Sine integral si'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).si()
+        return acb(z).si()
+
+
+# 11.5.8 Cosine integral Ci
+
+    def cos_integral(self, z):
+        '''Cosine integral Ci'''
+        z = self.t(z)
+        if isinstance(z, arb):
+            return arb(z).ci()
+        return acb(z).ci()
+
+
+
 
 
 # %% 20 Hypergeometric Function 2_F_1 and related functions
