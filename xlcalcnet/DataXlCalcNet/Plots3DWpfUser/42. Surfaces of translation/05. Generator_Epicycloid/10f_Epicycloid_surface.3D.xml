@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Epicycloid, translation in Z direction, resizing in X,Y,Z</Title>
+  <Plot3DType1>Translation surface</Plot3DType1>
+  <CameraAngleTheta>114</CameraAngleTheta>
+  <CameraAnglePhi>109</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <AxesLabelsBackColor>false</AxesLabelsBackColor>
+  <FunctionType />
+  <Code>double c = 0.2;
+double R = c * 5;
+double r = c * 1;
+double h = c * r * 5;
+phi = (double t) =&gt; ((R + r) * Math.Cos(t) - h * Math.Cos(((R + r) / r) * t));
+psi = (double t) =&gt; ((R + r) * Math.Sin(t) - h * Math.Sin(((R + r) / r) * t));
+
+
+</Code>
+  <Resolution>96</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>Pi / 2</xmin>
+  <xmax>5 * Pi / 2</xmax>
+  <zmin />
+  <zmax />
+  <RepeatStart>true</RepeatStart>
+  <TransformRepeat>32</TransformRepeat>
+  <ReScalingFactor />
+  <XRotation />
+  <YRotation />
+  <ZRotation />
+  <XTranslation />
+  <YTranslation />
+  <ZTranslation>0.5</ZTranslation>
+  <XScale>0.9</XScale>
+  <YScale>0.9</YScale>
+  <ZScale>0.7</ZScale>
+  <FinalYRotation>180</FinalYRotation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>false</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>None</SameScale>
+  <ComplexType>TRANSLATION</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0.01</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <HighlightGenerator>true</HighlightGenerator>
+  <GeneratorThickness>0.03</GeneratorThickness>
+  <GeneratorColorString>Black</GeneratorColorString>
+</WpfGraphicsSettings>

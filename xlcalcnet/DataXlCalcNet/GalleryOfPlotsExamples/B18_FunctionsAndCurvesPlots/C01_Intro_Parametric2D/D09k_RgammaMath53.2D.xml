@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B18_FunctionsAndCurvesPlots.C01_Intro_Parametric2D import D09_FuncPlot2d;</ImportStatement>
+  <FunctionName>D09_FuncPlot2d.FuncPlot2d</FunctionName>
+  <Title>Rgamma, math53</Title>
+  <PlotStyle>default</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>7</FigSizeX>
+  <FigSizeY>7</FigSizeY>
+  <Resolution>128</Resolution>
+  <LocalImports>$ndef f1(z): $n$treturn math53.rgamma(z)$n</LocalImports>
+  <Code>ctx=math53, f=f1, xlim=[-4.5, 4.5], ylim=[-5, 5]</Code>
+  <RunAfterLoading>Always</RunAfterLoading>
+</WpfGraphicsSettings>

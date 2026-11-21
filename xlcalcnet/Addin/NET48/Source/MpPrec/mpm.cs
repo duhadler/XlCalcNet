@@ -2540,29 +2540,29 @@ namespace FixedPrecNet
         #region Scorer functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_gi/*' />
-        public static mp_mpf_or_mpc airy_gi(dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_gi/*' />
+        public static mp_mpf_or_mpc scorer_gi(dynamic x)
         {
             return new mp_mpf_or_mpc();
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_hi/*' />
-        public static mp_mpf_or_mpc airy_hi(dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_hi/*' />
+        public static mp_mpf_or_mpc scorer_hi(dynamic x)
         {
             return new mp_mpf_or_mpc();
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_gi_prime/*' />
-        public static mp_mpf_or_mpc airy_gi_prime(dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_gi_prime/*' />
+        public static mp_mpf_or_mpc scorer_gi_prime(dynamic x)
         {
             return new mp_mpf_or_mpc();
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_hi_prime/*' />
-        public static mp_mpf_or_mpc airy_hi_prime(dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_hi_prime/*' />
+        public static mp_mpf_or_mpc scorer_hi_prime(dynamic x)
         {
             return new mp_mpf_or_mpc();
         }

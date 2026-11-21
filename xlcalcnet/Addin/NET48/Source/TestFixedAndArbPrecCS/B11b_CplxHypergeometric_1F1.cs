@@ -544,9 +544,9 @@ namespace TestXlCalcNetPrecCS
             }
 
 
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("coulomb_hpos"))
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("coulomb_hplus"))
             {
-                string name = "coulomb_hpos";
+                string name = "coulomb_hplus";
                 InputArray1 = new[] { 1.5d, 2.5d, 13.5d, dcplx.t(1.5d, 2), dcplx.t(2.5d, 2), dcplx.t(13.5d, 2) };
                 InputArray2 = new[] { 2.000000001d, 12.1d, 53.5d, dcplx.t(2.1d, 2), dcplx.t(12.1d, 2), dcplx.t(53.5d, 2) };
                 InputArray3 = new[] { dcplx.t(-1.5d, 2), dcplx.t(0.0d, 2), dcplx.t(1.5d, 2) };
@@ -564,13 +564,13 @@ namespace TestXlCalcNetPrecCS
                                 switch (NumType ?? "")
                                 {
 #if HasArbPrecNet
-                                    case "sflintc": { res1 = sflintc.coulomb_hpos(l, eta, x); break; }
-                                    case "dflintc": { res1 = dflintc.coulomb_hpos(l, eta, x); break; }
-                                    case "eflintc": { res1 = eflintc.coulomb_hpos(l, eta, x); break; }
-                                    case "qflintc": { res1 = qflintc.coulomb_hpos(l, eta, x); break; }
-                                    case "oflintc": { res1 = oflintc.coulomb_hpos(l, eta, x); break; }
-                                    case "mflintc": { res1 = mflintc.coulomb_hpos(l, eta, x); break; }
-                                    case "aflintc": { res1 = aflintc.coulomb_hpos(l, eta, x); break; }
+                                    case "sflintc": { res1 = sflintc.coulomb_hplus(l, eta, x); break; }
+                                    case "dflintc": { res1 = dflintc.coulomb_hplus(l, eta, x); break; }
+                                    case "eflintc": { res1 = eflintc.coulomb_hplus(l, eta, x); break; }
+                                    case "qflintc": { res1 = qflintc.coulomb_hplus(l, eta, x); break; }
+                                    case "oflintc": { res1 = oflintc.coulomb_hplus(l, eta, x); break; }
+                                    case "mflintc": { res1 = mflintc.coulomb_hplus(l, eta, x); break; }
+                                    case "aflintc": { res1 = aflintc.coulomb_hplus(l, eta, x); break; }
 #endif
                                 }
                                 Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -582,9 +582,9 @@ namespace TestXlCalcNetPrecCS
             }
 
 
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("coulomb_hneg"))
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("coulomb_hminus"))
             {
-                string name = "coulomb_hneg";
+                string name = "coulomb_hminus";
                 InputArray1 = new[] { 1.5d, 2.5d, 13.5d, dcplx.t(1.5d, 2), dcplx.t(2.5d, 2), dcplx.t(13.5d, 2) };
                 InputArray2 = new[] { 2.000000001d, 12.1d, 53.5d, dcplx.t(2.1d, 2), dcplx.t(12.1d, 2), dcplx.t(53.5d, 2) };
                 InputArray3 = new[] { dcplx.t(-1.5d, 2), dcplx.t(0.0d, 2), dcplx.t(1.5d, 2) };
@@ -602,13 +602,13 @@ namespace TestXlCalcNetPrecCS
                                 switch (NumType ?? "")
                                 {
 #if HasArbPrecNet
-                                    case "sflintc": { res1 = sflintc.coulomb_hneg(l, eta, x); break; }
-                                    case "dflintc": { res1 = dflintc.coulomb_hneg(l, eta, x); break; }
-                                    case "eflintc": { res1 = eflintc.coulomb_hneg(l, eta, x); break; }
-                                    case "qflintc": { res1 = qflintc.coulomb_hneg(l, eta, x); break; }
-                                    case "oflintc": { res1 = oflintc.coulomb_hneg(l, eta, x); break; }
-                                    case "mflintc": { res1 = mflintc.coulomb_hneg(l, eta, x); break; }
-                                    case "aflintc": { res1 = aflintc.coulomb_hneg(l, eta, x); break; }
+                                    case "sflintc": { res1 = sflintc.coulomb_hminus(l, eta, x); break; }
+                                    case "dflintc": { res1 = dflintc.coulomb_hminus(l, eta, x); break; }
+                                    case "eflintc": { res1 = eflintc.coulomb_hminus(l, eta, x); break; }
+                                    case "qflintc": { res1 = qflintc.coulomb_hminus(l, eta, x); break; }
+                                    case "oflintc": { res1 = oflintc.coulomb_hminus(l, eta, x); break; }
+                                    case "mflintc": { res1 = mflintc.coulomb_hminus(l, eta, x); break; }
+                                    case "aflintc": { res1 = aflintc.coulomb_hminus(l, eta, x); break; }
 #endif
                                 }
                                 Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);

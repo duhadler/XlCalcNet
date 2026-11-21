@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Morin, k=1.25, n=3, phi=90, theta=90</Title>
+  <Plot3DType1>Parametric surface</Plot3DType1>
+  <CameraAngleTheta>90</CameraAngleTheta>
+  <CameraAnglePhi>90</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>false</ShowAxes>
+  <StyleOfAxes>FullCage</StyleOfAxes>
+  <AxesLabelsBackColor>false</AxesLabelsBackColor>
+  <FunctionType />
+  <Code>var k = 1.25;
+var n = 3.0;
+
+var Sqrt2 = Math.Sqrt(2);
+var cu = Math.Cos(u);
+var su = Math.Sin(u);
+var K = cu / (Sqrt2 - k * Math.Sin(2 * u) * Math.Sin(n * v));
+
+var x = K * (2 / (n - 1) * cu * Math.Cos((n - 1) * v) + Sqrt2 * su * Math.Cos(v));
+var y = K * (2 / (n - 1) * cu * Math.Sin((n - 1) * v) - Sqrt2 * su * Math.Sin(v));
+var z = K * cu;
+
+</Code>
+  <Resolution>128</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>0</xmin>
+  <xmax>Pi</xmax>
+  <zmin>0</zmin>
+  <zmax>Pi</zmax>
+  <RepeatStart>false</RepeatStart>
+  <TransformRepeat>0</TransformRepeat>
+  <XRotation>0</XRotation>
+  <YRotation>0</YRotation>
+  <ZRotation>0</ZRotation>
+  <XTranslation>0</XTranslation>
+  <YTranslation>0</YTranslation>
+  <ZTranslation>0</ZTranslation>
+  <ReScalingFactor>0</ReScalingFactor>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>true</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>REAL</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceColorMap1>LinearGradient0</SurfaceColorMap1>
+  <SurfaceTexture1>GridReal.png</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <HighlightGenerator>false</HighlightGenerator>
+  <GeneratorThickness>0</GeneratorThickness>
+</WpfGraphicsSettings>

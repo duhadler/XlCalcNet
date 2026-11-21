@@ -537,8 +537,8 @@ airy_ais(x)          Return the scaled Airy function Ai(x) if x <= 0, Ai(x)*exp(
 airy_bi(x)           Return the Airy function Bi(x)
 airy_bip(x)          Return the Airy function Bi'(x)
 airy_bis(x)          Return the scaled Airy function Bi(x) if x <= 0, Bi(x)*exp(-2/3*x^1.5) for x > 0
-airy_gi(x)           Return the Airy/Scorer function Gi(x) = 1/Pi*integral(sin(x*t+t^3/3), t=0..INF)
-airy_hi(x)           Return the Airy/Scorer function Hi(x) = 1/Pi*integral(exp(x*t-t^3/3), t=0..INF)
+scorer_gi(x)           Return the Airy/Scorer function Gi(x) = 1/Pi*integral(sin(x*t+t^3/3), t=0..INF)
+scorer_hi(x)           Return the Airy/Scorer function Hi(x) = 1/Pi*integral(exp(x*t-t^3/3), t=0..INF)
 
 kelvin_bei(x)        Return the Kelvin function bei(x)
 kelvin_beip(x)       Return the Kelvin function bei'(x), x >= 0

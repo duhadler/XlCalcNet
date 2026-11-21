@@ -1023,9 +1023,9 @@ namespace TestXlCalcNetPrecCS
             #region Scorer functions
 
 
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("airy_gi"))
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("scorer_gi"))
             {
-                string name = "airy_gi";
+                string name = "scorer_gi";
                 InputArray1 = new[] { dcplx.t(-10.0d, 2), dcplx.t(-2.333d, 2), dcplx.t(0.0d, 2), dcplx.t(4.333d, 2) };
                 foreach (var x1 in InputArray1)
                 {
@@ -1037,15 +1037,15 @@ namespace TestXlCalcNetPrecCS
                         object res1 = "Not done";
                         switch (NumType ?? "")
                         {
-                            case "cmath53": { res1 = cmath53.airy_gi(x1); break; }
+                            case "cmath53": { res1 = cmath53.scorer_gi(x1); break; }
 #if HasArbPrecNet
-                            case "sflintc": { res1 = sflintc.airy_gi(x1); break; }
-                            case "dflintc": { res1 = dflintc.airy_gi(x1); break; }
-                            case "eflintc": { res1 = eflintc.airy_gi(x1); break; }
-                            case "qflintc": { res1 = qflintc.airy_gi(x1); break; }
-                            case "oflintc": { res1 = oflintc.airy_gi(x1); break; }
-                            case "mflintc": { res1 = mflintc.airy_gi(x1); break; }
-                            case "aflintc": { res1 = aflintc.airy_gi(x1); break; }
+                            case "sflintc": { res1 = sflintc.scorer_gi(x1); break; }
+                            case "dflintc": { res1 = dflintc.scorer_gi(x1); break; }
+                            case "eflintc": { res1 = eflintc.scorer_gi(x1); break; }
+                            case "qflintc": { res1 = qflintc.scorer_gi(x1); break; }
+                            case "oflintc": { res1 = oflintc.scorer_gi(x1); break; }
+                            case "mflintc": { res1 = mflintc.scorer_gi(x1); break; }
+                            case "aflintc": { res1 = aflintc.scorer_gi(x1); break; }
 #endif
                         }
                         Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -1055,9 +1055,9 @@ namespace TestXlCalcNetPrecCS
             }
 
 
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("airy_hi"))
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("scorer_hi"))
             {
-                string name = "airy_hi";
+                string name = "scorer_hi";
                 InputArray1 = new[] { dcplx.t(-10.0d, 2), dcplx.t(-2.333d, 2), dcplx.t(0.0d, 2), dcplx.t(4.333d, 2) };
                 foreach (var x1 in InputArray1)
                 {
@@ -1069,15 +1069,15 @@ namespace TestXlCalcNetPrecCS
                         object res1 = "Not done";
                         switch (NumType ?? "")
                         {
-                            case "cmath53": { res1 = cmath53.airy_hi(x1); break; }
+                            case "cmath53": { res1 = cmath53.scorer_hi(x1); break; }
 #if HasArbPrecNet
-                            case "sflintc": { res1 = sflintc.airy_hi(x1); break; }
-                            case "dflintc": { res1 = dflintc.airy_hi(x1); break; }
-                            case "eflintc": { res1 = eflintc.airy_hi(x1); break; }
-                            case "qflintc": { res1 = qflintc.airy_hi(x1); break; }
-                            case "oflintc": { res1 = oflintc.airy_hi(x1); break; }
-                            case "mflintc": { res1 = mflintc.airy_hi(x1); break; }
-                            case "aflintc": { res1 = aflintc.airy_hi(x1); break; }
+                            case "sflintc": { res1 = sflintc.scorer_hi(x1); break; }
+                            case "dflintc": { res1 = dflintc.scorer_hi(x1); break; }
+                            case "eflintc": { res1 = eflintc.scorer_hi(x1); break; }
+                            case "qflintc": { res1 = qflintc.scorer_hi(x1); break; }
+                            case "oflintc": { res1 = oflintc.scorer_hi(x1); break; }
+                            case "mflintc": { res1 = mflintc.scorer_hi(x1); break; }
+                            case "aflintc": { res1 = aflintc.scorer_hi(x1); break; }
 #endif
                         }
                         Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -1087,9 +1087,9 @@ namespace TestXlCalcNetPrecCS
             }
 
 
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("airy_gi_prime"))
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("scorer_gi_prime"))
             {
-                string name = "airy_gi_prime";
+                string name = "scorer_gi_prime";
                 InputArray1 = new[] { dcplx.t(-10.0d, 2), dcplx.t(-2.333d, 2), dcplx.t(0.0d, 2), dcplx.t(4.333d, 2) };
                 foreach (var x1 in InputArray1)
                 {
@@ -1101,15 +1101,15 @@ namespace TestXlCalcNetPrecCS
                         object res1 = "Not done";
                         switch (NumType ?? "")
                         {
-                            case "cmath53": { res1 = cmath53.airy_gi_prime(x1); break; }
+                            case "cmath53": { res1 = cmath53.scorer_gi_prime(x1); break; }
 #if HasArbPrecNet
-                            case "sflintc": { res1 = sflintc.airy_gi_prime(x1); break; }
-                            case "dflintc": { res1 = dflintc.airy_gi_prime(x1); break; }
-                            case "eflintc": { res1 = eflintc.airy_gi_prime(x1); break; }
-                            case "qflintc": { res1 = qflintc.airy_gi_prime(x1); break; }
-                            case "oflintc": { res1 = oflintc.airy_gi_prime(x1); break; }
-                            case "mflintc": { res1 = mflintc.airy_gi_prime(x1); break; }
-                            case "aflintc": { res1 = aflintc.airy_gi_prime(x1); break; }
+                            case "sflintc": { res1 = sflintc.scorer_gi_prime(x1); break; }
+                            case "dflintc": { res1 = dflintc.scorer_gi_prime(x1); break; }
+                            case "eflintc": { res1 = eflintc.scorer_gi_prime(x1); break; }
+                            case "qflintc": { res1 = qflintc.scorer_gi_prime(x1); break; }
+                            case "oflintc": { res1 = oflintc.scorer_gi_prime(x1); break; }
+                            case "mflintc": { res1 = mflintc.scorer_gi_prime(x1); break; }
+                            case "aflintc": { res1 = aflintc.scorer_gi_prime(x1); break; }
 #endif
                         }
                         Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);
@@ -1119,9 +1119,9 @@ namespace TestXlCalcNetPrecCS
             }
 
 
-            if (FunctionArray.Contains("all") | FunctionArray.Contains("airy_hi_prime"))
+            if (FunctionArray.Contains("all") | FunctionArray.Contains("scorer_hi_prime"))
             {
-                string name = "airy_hi_prime";
+                string name = "scorer_hi_prime";
                 InputArray1 = new[] { dcplx.t(-10.0d, 2), dcplx.t(-2.333d, 2), dcplx.t(0.0d, 2), dcplx.t(4.333d, 2) };
                 foreach (var x1 in InputArray1)
                 {
@@ -1133,15 +1133,15 @@ namespace TestXlCalcNetPrecCS
                         object res1 = "Not done";
                         switch (NumType ?? "")
                         {
-                            case "cmath53": { res1 = cmath53.airy_hi_prime(x1); break; }
+                            case "cmath53": { res1 = cmath53.scorer_hi_prime(x1); break; }
 #if HasArbPrecNet
-                            case "sflintc": { res1 = sflintc.airy_hi_prime(x1); break; }
-                            case "dflintc": { res1 = dflintc.airy_hi_prime(x1); break; }
-                            case "eflintc": { res1 = eflintc.airy_hi_prime(x1); break; }
-                            case "qflintc": { res1 = qflintc.airy_hi_prime(x1); break; }
-                            case "oflintc": { res1 = oflintc.airy_hi_prime(x1); break; }
-                            case "mflintc": { res1 = mflintc.airy_hi_prime(x1); break; }
-                            case "aflintc": { res1 = aflintc.airy_hi_prime(x1); break; }
+                            case "sflintc": { res1 = sflintc.scorer_hi_prime(x1); break; }
+                            case "dflintc": { res1 = dflintc.scorer_hi_prime(x1); break; }
+                            case "eflintc": { res1 = eflintc.scorer_hi_prime(x1); break; }
+                            case "qflintc": { res1 = qflintc.scorer_hi_prime(x1); break; }
+                            case "oflintc": { res1 = oflintc.scorer_hi_prime(x1); break; }
+                            case "mflintc": { res1 = mflintc.scorer_hi_prime(x1); break; }
+                            case "aflintc": { res1 = aflintc.scorer_hi_prime(x1); break; }
 #endif
                         }
                         Console.WriteLine("{0}: " + f(NumType) + "{1}", NumType, res1);

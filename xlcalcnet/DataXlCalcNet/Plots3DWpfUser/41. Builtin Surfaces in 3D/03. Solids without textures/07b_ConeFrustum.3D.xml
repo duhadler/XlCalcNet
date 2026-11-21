@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Cone Frustum</Title>
+  <Plot3DType1>Builtin solid</Plot3DType1>
+  <CameraAngleTheta>115</CameraAngleTheta>
+  <CameraAnglePhi>107</CameraAnglePhi>
+  <CameraRadius>-1</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <AxesLabelsBackColor>false</AxesLabelsBackColor>
+  <FunctionType />
+  <Code>var numSides = 32;
+var a = 0.50;
+var b = 0.50;
+var height = 1.2;
+var cutheight = 0.6;
+var cutslope = 0.0;
+var proc = BuiltIn.SetConeFrustum(numSides, a, b, height, cutheight, cutslope);
+
+</Code>
+  <Resolution>1</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>-4</xmin>
+  <xmax>4</xmax>
+  <zmin>-4</zmin>
+  <zmax>4</zmax>
+  <RepeatStart>false</RepeatStart>
+  <TransformRepeat>0</TransformRepeat>
+  <ReScalingFactor>0</ReScalingFactor>
+  <XRotation>0</XRotation>
+  <YRotation>0</YRotation>
+  <ZRotation>0</ZRotation>
+  <XTranslation>0</XTranslation>
+  <YTranslation>0</YTranslation>
+  <ZTranslation>0</ZTranslation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>false</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>None</SameScale>
+  <ComplexType>SCATTER</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>OrangeRed</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>128</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-4128832</BackColorString>
+  <ShowWireframe>true</ShowWireframe>
+  <WireframeThickness>0.005</WireframeThickness>
+  <WireframeColorString>Silver</WireframeColorString>
+  <HighlightVertices>true</HighlightVertices>
+  <VerticesThickness>0.015</VerticesThickness>
+  <VerticesColorString>Gold</VerticesColorString>
+  <HighlightGenerator>false</HighlightGenerator>
+  <GeneratorThickness>0</GeneratorThickness>
+  <GeneratorColorString>Blue</GeneratorColorString>
+</WpfGraphicsSettings>

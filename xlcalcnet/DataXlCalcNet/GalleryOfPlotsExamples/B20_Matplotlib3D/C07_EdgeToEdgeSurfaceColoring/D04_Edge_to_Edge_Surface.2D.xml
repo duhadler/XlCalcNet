@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B20_Matplotlib3D.C07_EdgeToEdgeSurfaceColoring import D04_Edge_to_Edge_Surface;</ImportStatement>
+  <FunctionName>D04_Edge_to_Edge_Surface.EdgeToEdgeSurface</FunctionName>
+  <Title>Edge To Edge Surface</Title>
+  <PlotStyle>default</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>7</FigSizeX>
+  <FigSizeY>7</FigSizeY>
+  <Resolution>128</Resolution>
+  <Code />
+  <RunAfterLoading>Always, clear previous</RunAfterLoading>
+</WpfGraphicsSettings>

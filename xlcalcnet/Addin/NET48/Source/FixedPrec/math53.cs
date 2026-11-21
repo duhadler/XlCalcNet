@@ -4932,51 +4932,56 @@ namespace FixedPrecNet
         internal static extern void spherical_harmonic_(int l, int m, Double theta, Double phi, ref Double yr, ref Double yi);
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/spherical_y/*' />
-        public static Complex spherical_y(Double n, Double m, Double theta, Double phi)
+        public static Complex spherical_y(int l, int m, Double theta, Double phi)
         {
             Double yr = 0.0;
             Double yi = 0.0;
-            spherical_harmonic_(lrint(n), lrint(m), theta, phi, ref yr, ref yi);
+            spherical_harmonic_(l, m, theta, phi, ref yr, ref yi);
             return dcplx.t(yr, yi);
-        }
-
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/toroidal_qlm_2f1/*' />
-        public static Double toroidal_qlm_2f1(int n, int m, Double x)
-        {
-            if (x <= 1.0) return dreal.nan;
-            Double nu = n - 0.5;
-            Double f1a = sqrt(pi) * gamma(nu + m + 1) * pow(x * x - 1, 1.0 * m / 2.0);
-            Double f1b = pow(2.0,nu + 1) * gamma(nu + 1.5) * pow(x, nu + m + 1);
-            Double f1 = f1a / f1b;
-            Double f2 = hyperg_2f1((nu + m + 2) / 2.0, (nu + m + 1) / 2.0, nu + 1.5, 1 / (x * x));
-            int s = -1; if (m % 2 == 0) s = 1;
-            return s * f1 * f2;
-        }
-
-
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/toroidal_plm_2f1/*' />
-        public static Double toroidal_plm_2f1(int n, int m, Double x)
-        {
-            if (x < 1.0) return dreal.nan;
-            Double nu = n - 0.5;
-            Double f2 = hyperg_2f1r(nu + 1, -nu, 1 - m, (1 - x) / 2);
-            if (x == 1.0) return f2; 
-            else return pow((x + 1) / (x - 1), m / 2.0) * f2;
         }
 
 
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/toroidal_plm/*' />
-        [DllImport(xcn.libwe64d, EntryPoint = "damath_toroidal_plm", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Double toroidal_plm(int l, int m, Double x);
+        public static Double toroidal_plm(Double l, Double m, Double x)
+        {
+            Complex nu = l - 0.5;
+            if (x < 1) return dreal.nan;
+            if (x == 1) return cmath53.hyperg_2f1r(nu + 1, -nu, 1 - m, (1 - x) / 2).Real;
+            return cmath53.legendre_plm(cmath53.t(l - 0.5), cmath53.t(m), cmath53.t(x), 3).Real;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/toroidal_plm/*' />
+        public static Double toroidal_plm(dynamic l, dynamic m, dynamic x)
+        {
+            return toroidal_plm(dreal.t(l), dreal.t(m), dreal.t(x));
+        }
+
 
 
         /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/toroidal_qlm/*' />
-        [DllImport(xcn.libwe64d, EntryPoint = "damath_toroidal_qlm", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Double toroidal_qlm(int l, int m, Double x);
+        public static Double toroidal_qlm(Double l, Double m, Double x)
+        {
+            return cmath53.legendre_qlm(dreal.t(l - 0.5), dreal.t(m), dreal.t(x)).Real;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/toroidal_qlm/*' />
+        public static Double toroidal_qlm(dynamic l, dynamic m, dynamic x)
+        {
+            return toroidal_qlm(dreal.t(l), dreal.t(m), dreal.t(x));
+        }
+
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/toroidal_plm/*' />
+        //[DllImport(xcn.libwe64d, EntryPoint = "damath_toroidal_plm", CallingConvention = CallingConvention.Cdecl)]
+        //public static extern Double toroidal_plm(int l, int m, Double x);
+
+
+        ///// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/toroidal_qlm/*' />
+        //[DllImport(xcn.libwe64d, EntryPoint = "damath_toroidal_qlm", CallingConvention = CallingConvention.Cdecl)]
+        //public static extern Double toroidal_qlm(int l, int m, Double x);
 
 
 
@@ -5079,10 +5084,11 @@ namespace FixedPrecNet
                 Double res = pow(1 - t, b2 - a1 - 1) * pow(t, a1 - 1) * hyperg_0f1(b1, t * x);
                 return res;
             };
-
+            if (b2 <= a1) return dreal.nan;
+            if (a1 <= 0) return dreal.nan;
             var res1 = dreal.GaussKronrod(F2, a: 0.0, b: 1, tol: 0.0);
-            Console.WriteLine("res1 (integral, error, cond.no.): {0}", res1);
-            Console.WriteLine();
+            //Console.WriteLine("res1 (integral, error, cond.no.): {0}", res1);
+            //Console.WriteLine();
             return res1.Item1 * gamma(b2) / (gamma(a1) * gamma(b2 - a1));
         }
 
@@ -5103,25 +5109,25 @@ namespace FixedPrecNet
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_gi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_gi/*' />
         [DllImport(xcn.libwe64d, EntryPoint = "damath_airy_gi", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Double airy_gi(Double x);
+        public static extern Double scorer_gi(Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_hi/*' />
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_hi/*' />
         [DllImport(xcn.libwe64d, EntryPoint = "damath_airy_hi", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Double airy_hi(Double x);
+        public static extern Double scorer_hi(Double x);
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_gi_prime/*' />
-        public static Double airy_gi_prime(Double x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_gi_prime/*' />
+        public static Double scorer_gi_prime(Double x)
         {
-            return airy_bi_prime(x) - airy_hi_prime(x);
+            return airy_bi_prime(x) - scorer_hi_prime(x);
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_hi_prime/*' />
-        public static Double airy_hi_prime(Double x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_hi_prime/*' />
+        public static Double scorer_hi_prime(Double x)
         {
             dreal.cb1SRet1S F2 = (Double t) =>
             {

@@ -1964,14 +1964,14 @@ end;
 function damath_airy_gi(x: double): double; cdecl; export;
   {-Return the Airy/Scorer function Gi(x) = 1/Pi*integral(sin(x*t+t^3/3), t=0..INF)}
 begin
-    damath_airy_gi:= airy_gi(x);
+    damath_airy_gi:= scorer_gi(x);
 end;
 
 
 function damath_airy_hi(x: double): double; cdecl; export;
   {-Return the Airy/Scorer function Hi(x) = 1/Pi*integral(exp(x*t-t^3/3), t=0..INF)}
 begin
-    damath_airy_hi:= airy_hi(x);
+    damath_airy_hi:= scorer_hi(x);
 end;
 
 

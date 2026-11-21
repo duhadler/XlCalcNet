@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Lissajous Knot;  352</Title>
+  <Plot3DType1>Path surface</Plot3DType1>
+  <CameraAngleTheta>90</CameraAngleTheta>
+  <CameraAnglePhi>90</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>true</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <Code>double pi = Math.PI;
+double a1, k1, l1;
+double a2, k2, l2;
+double a3, k3, l3;
+a1 = 100; k1 = 3; l1 = 0;
+a2 = 100; k2 = 5; l2 = pi / 2;
+a3 = 100; k3 = 2; l3 = pi / 2;
+var x = (a1 * Math.Cos(k1 * t + l1)) / 50;
+var z = (a3 * Math.Cos(k3 * t + l3)) / 50;
+var y = (a2 * Math.Cos(k2 * t + l2)) / 50;
+</Code>
+  <Resolution>1024</Resolution>
+  <Resolution2>8</Resolution2>
+  <xmin>0.0</xmin>
+  <xmax>2 * Pi</xmax>
+  <zmin>0.0</zmin>
+  <zmax>0.012</zmax>
+  <RepeatStart>true</RepeatStart>
+  <PathEvalOrder>SequenceX</PathEvalOrder>
+  <FinalRotationOrder>X-Y-Z</FinalRotationOrder>
+  <FinalXRotation>0</FinalXRotation>
+  <FinalYRotation>0</FinalYRotation>
+  <FinalZRotation>0</FinalZRotation>
+  <Truncate>10</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>false</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>N/A</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-16256</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>true</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0.01</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0.01</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <SolidType>None</SolidType>
+  <GeneratorColorString>Blue</GeneratorColorString>
+  <BackgroundSolidTransparency>0</BackgroundSolidTransparency>
+</WpfGraphicsSettings>

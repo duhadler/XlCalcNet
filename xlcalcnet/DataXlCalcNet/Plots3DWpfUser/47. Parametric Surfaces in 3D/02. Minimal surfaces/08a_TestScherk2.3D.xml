@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Scherk2</Title>
+  <Plot3DType1>Parametric surface</Plot3DType1>
+  <CameraAngleTheta>91</CameraAngleTheta>
+  <CameraAnglePhi>32</CameraAnglePhi>
+  <CameraRadius>10</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>false</ShowAxes>
+  <StyleOfAxes>FullCage</StyleOfAxes>
+  <AxesLabelsBackColor>false</AxesLabelsBackColor>
+  <FunctionType />
+  <Code>var t = v;
+var r = u;
+var r2 = r * r;
+var ct = Math.Cos(t);
+var st = Math.Sin(t);
+var x = Math.Log((1 + r2 + 2 * r * ct) / (1 + r2 - 2 * r * ct));
+var y = Math.Log((1 + r2 - 2 * r * st) / (1 + r2 + 2 * r * st));
+var z = 2 * Math.Atan((2 * r2 * Math.Sin(2 * t)) / (r2 * r2 - 1));
+y = -y;
+</Code>
+  <Resolution>128</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>0</xmin>
+  <xmax>0.95</xmax>
+  <zmin>0</zmin>
+  <zmax>2 * Pi</zmax>
+  <RepeatStart>false</RepeatStart>
+  <TransformRepeat>0</TransformRepeat>
+  <XRotation>0</XRotation>
+  <YRotation>0</YRotation>
+  <ZRotation>0</ZRotation>
+  <XTranslation>0</XTranslation>
+  <YTranslation>0</YTranslation>
+  <ZTranslation>0</ZTranslation>
+  <ReScalingFactor>0</ReScalingFactor>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>true</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>REAL</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceColorMap1>LinearGradient0</SurfaceColorMap1>
+  <SurfaceTexture1>GridReal.png</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <HighlightGenerator>false</HighlightGenerator>
+  <GeneratorThickness>0</GeneratorThickness>
+</WpfGraphicsSettings>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B19_Bitmaps.C05_DomainColoring import D01_DomainColoring;</ImportStatement>
+  <FunctionName>D01_DomainColoring.DomainColoring</FunctionName>
+  <Title>$f(z)=\sin(z)$</Title>
+  <PlotStyle>default</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>6</FigSizeX>
+  <FigSizeY>6</FigSizeY>
+  <Resolution>256</Resolution>
+  <LocalImports>$ndef f(z): $n$timport numpy as np; $n$treturn np.sin(z); $n</LocalImports>
+  <Code>func=f, style='pm', re=[-3.14, 3.14], im=[-2, 2]</Code>
+  <RunAfterLoading>Always, clear previous</RunAfterLoading>
+</WpfGraphicsSettings>

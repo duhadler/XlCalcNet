@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B18_FunctionsAndCurvesPlots.C01_Intro_Parametric2D import D09_FuncPlot2d;</ImportStatement>
+  <FunctionName>D09_FuncPlot2d.FuncPlot2d</FunctionName>
+  <Title>Simultaneous sqrt and cbrt, mpm</Title>
+  <PlotStyle>default</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>7</FigSizeX>
+  <FigSizeY>7</FigSizeY>
+  <Resolution>128</Resolution>
+  <LocalImports>from xlcalcnet import mpm; $ndef f1(z): $n$tfrom xlcalcnet import mpm $n$treturn mpm.sqrt(z)$n $ndef f2(z): $n$tfrom xlcalcnet import mpm $n$treturn mpm.cbrt(z)$n </LocalImports>
+  <Code>ctx=mpm, f=[f1, f2], xlim=[-4, 4]</Code>
+  <RunAfterLoading>Always</RunAfterLoading>
+</WpfGraphicsSettings>

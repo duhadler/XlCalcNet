@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>ROT Piriform Surface</Title>
+  <Plot3DType1>Rotation surface</Plot3DType1>
+  <CameraAngleTheta>124</CameraAngleTheta>
+  <CameraAnglePhi>122</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <AxesLabelsBackColor>false</AxesLabelsBackColor>
+  <FunctionType />
+  <Code>double a = 1.0;  //(0 to 1) 
+double b = 1.0;  //(0 to 1)
+double r = 0.0;  //(0 to 1)
+phi = (double t) =&gt; b * (Math.Cos(t) * (r + Math.Sin(t)));
+psi = (double t) =&gt; a * (r + Math.Sin(t));
+</Code>
+  <Resolution>48</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>-Pi / 2</xmin>
+  <xmax>Pi / 2</xmax>
+  <zmin />
+  <zmax />
+  <RepeatStart>false</RepeatStart>
+  <TransformRepeat>48</TransformRepeat>
+  <ReScalingFactor />
+  <XRotation />
+  <YRotation />
+  <ZRotation>360.0 / TC</ZRotation>
+  <XTranslation />
+  <YTranslation />
+  <ZTranslation />
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>false</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>ROT</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>64</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>true</ShowWireframe>
+  <WireframeThickness>0.003</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <HighlightGenerator>true</HighlightGenerator>
+  <GeneratorThickness>0.01</GeneratorThickness>
+  <GeneratorColorString>Blue</GeneratorColorString>
+</WpfGraphicsSettings>

@@ -5457,6 +5457,22 @@ namespace FixedPrecNet
 
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/spherical_y/*' />
+        public static Complex spherical_y(int l, int m, Complex theta, Complex phi)
+        {
+            Double res1 = dreal.sqrt((2 * l + 1) / (4 * dreal.pi) * dreal.factorial(l - m) / dreal.factorial(l + m));
+            Complex res = res1 * legendre_plm(l, m, cos(theta), 2) * exp(dcplx.onej * m * phi);
+            return res;
+        }
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/spherical_y/*' />
+        public static Complex spherical_y(int l, int m, dynamic theta, dynamic phi)
+        {
+            return spherical_y(l, m, dcplx.t(theta), dcplx.t(phi));
+        }
+
+
+
 
 
 
@@ -5493,7 +5509,7 @@ namespace FixedPrecNet
             Complex res = dcplx.nan;
             if ((a.Imaginary == 0.0) && (b.Imaginary == 0.0))
             {
-                res = pow(z, a) * hyperg_2f1_(a.Real, 1 - b.Real, a.Real + 1, z) / a;
+                res = (gamma(a+b) / gamma(b)) * pow(z, a) * hyperg_2f1r(a.Real, 1 - b.Real, a.Real + 1, z);
             }
             return res;
         }
@@ -5541,14 +5557,18 @@ namespace FixedPrecNet
                 return resI1.Imaginary;
             };
             Complex res = dcplx.nan;
+
             if ((a1.Imaginary == 0.0) && (b1.Imaginary == 0.0) && (b2.Imaginary == 0.0))
             {
+                if (b2.Real <= a1.Real) return dcplx.nan;
+                if (a1.Real <= 0) return dcplx.nan;
+
                 var resReal = dreal.TanhSinh(FReal, a: 0.0, b: 1, tol: 0.0);
                 var resImag = dreal.TanhSinh(FImag, a: 0.0, b: 1, tol: 0.0);
-                Console.WriteLine("resReal (integral, error, L1, levels): {0}", resReal);
-                Console.WriteLine("resImag (integral, error, L1, levels): {0}", resImag);
+                //Console.WriteLine("resReal (integral, error, L1, levels): {0}", resReal);
+                //Console.WriteLine("resImag (integral, error, L1, levels): {0}", resImag);
                 res = dcplx.t(resReal.Item1, resImag.Item1);
-                Console.WriteLine();
+                //Console.WriteLine();
                 res = res * gamma(b2) / (gamma(a1) * gamma(b2 - a1));
             }
             return res;
@@ -5561,6 +5581,19 @@ namespace FixedPrecNet
         }
 
 
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_1f2r/*' />
+        public static Complex hyperg_1f2(dynamic a1, dynamic b1, dynamic b2, dynamic x)
+        {
+            return hyperg_1f2(dcplx.t(a1), dcplx.t(b1), dcplx.t(b2), dcplx.t(x));
+        }
+
+
+
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/hyperg_1f2r/*' />
+        public static Complex hyperg_1f2r(dynamic a1, dynamic b1, dynamic b2, dynamic x)
+        {
+            return hyperg_1f2r(dcplx.t(a1), dcplx.t(b1), dcplx.t(b2), dcplx.t(x));
+        }
 
 
 
@@ -5573,60 +5606,60 @@ namespace FixedPrecNet
         #region Scorer functions
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_gi/*' />
-        public static Complex airy_gi(Complex x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_gi/*' />
+        public static Complex scorer_gi(Complex x)
         {
             return 1 * airy_bi(x) / 3 - (x * x) * hyperg_1f2(1, dcplx.t(4) / 3, dcplx.t(5) / 3, x * x * x / 9) / (2 * dreal.pi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_gi/*' />
-        public static Complex airy_gi(dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_gi/*' />
+        public static Complex scorer_gi(dynamic x)
         {
-            return airy_gi(dcplx.t(x));
+            return scorer_gi(dcplx.t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_hi/*' />
-        public static Complex airy_hi(Complex x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_hi/*' />
+        public static Complex scorer_hi(Complex x)
         {
             return 2 * airy_bi(x) / 3 + (x * x) * hyperg_1f2(1, dcplx.t(4) / 3, dcplx.t(5) / 3, x * x * x / 9) / (2 * dreal.pi);
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_hi/*' />
-        public static Complex airy_hi(dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_hi/*' />
+        public static Complex scorer_hi(dynamic x)
         {
-            return airy_hi(dcplx.t(x));
+            return scorer_hi(dcplx.t(x));
         }
 
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_gi_prime/*' />
-        public static Complex airy_gi_prime(Complex x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_gi_prime/*' />
+        public static Complex scorer_gi_prime(Complex x)
         {
             Complex x3 = x * x * x;
             Complex x4 = x3 * x;
             return airy_bi_prime(x) / 3 - 1 / (40 * dreal.pi) * (40 * x * hyperg_1f2(1, dcplx.t(4) / 3, dcplx.t(5) / 3, x3 / 9) + (3 * x4 * hyperg_1f2(2, dcplx.t(7) / 3, dcplx.t(8) / 3, x3 / 9)));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_gi_prime/*' />
-        public static Complex airy_gi_prime(dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_gi_prime/*' />
+        public static Complex scorer_gi_prime(dynamic x)
         {
-            return airy_gi_prime(dcplx.t(x));
+            return scorer_gi_prime(dcplx.t(x));
         }
 
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_hi_prime/*' />
-        public static Complex airy_hi_prime(Complex x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_hi_prime/*' />
+        public static Complex scorer_hi_prime(Complex x)
         {
             Complex x3 = x * x * x;
             Complex x4 = x3 * x;
             return 2 * airy_bi_prime(x) / 3 + 1 / (40 * dreal.pi) * (40 * x * hyperg_1f2(1, dcplx.t(4) / 3, dcplx.t(5) / 3, x3 / 9) + (3 * x4 * hyperg_1f2(2, dcplx.t(7) / 3, dcplx.t(8) / 3, x3 / 9)));
         }
 
-        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/airy_hi_prime/*' />
-        public static Complex airy_hi_prime(dynamic x)
+        /// <include file="docs.xml" path='docs/members[@name="ScalarFunctions"]/scorer_hi_prime/*' />
+        public static Complex scorer_hi_prime(dynamic x)
         {
-            return airy_hi_prime(dcplx.t(x));
+            return scorer_hi_prime(dcplx.t(x));
         }
 
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B21_Plotly.C03_SankeyPlots import D02_PlotlySankey;</ImportStatement>
+  <FunctionName>D02_PlotlySankey.Sankey2</FunctionName>
+  <Title>Sankey2</Title>
+  <PlotStyle>ggplot</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>10</FigSizeX>
+  <FigSizeY>5</FigSizeY>
+  <Resolution>256</Resolution>
+  <Code />
+  <RunAfterLoading>Always, clear previous</RunAfterLoading>
+</WpfGraphicsSettings>

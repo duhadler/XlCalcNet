@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Func_Log_2Dy</Title>
+  <Plot3DType1>Path surface</Plot3DType1>
+  <CameraAngleTheta>120</CameraAngleTheta>
+  <CameraAnglePhi>120</CameraAnglePhi>
+  <CameraRadius>1</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <AxesLabelsBackColor>false</AxesLabelsBackColor>
+  <SolidType>None</SolidType>
+  <FunctionType />
+  <Code>var y = (cmath53.log(t)).Imaginary;
+if (y &lt; -1) y = -1;
+var x = t;
+var z = 0;
+</Code>
+  <Resolution>256</Resolution>
+  <Resolution2>8</Resolution2>
+  <xmin>-20.0</xmin>
+  <xmax>20.0</xmax>
+  <zmin>0.0</zmin>
+  <zmax>0.02</zmax>
+  <RepeatStart>false</RepeatStart>
+  <TransformRepeat>0</TransformRepeat>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>false</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>None</SameScale>
+  <ComplexType>PATH</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>Gold</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0.01</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0.01</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <HighlightGenerator>false</HighlightGenerator>
+  <GeneratorThickness>0.01</GeneratorThickness>
+  <GeneratorColorString>Blue</GeneratorColorString>
+</WpfGraphicsSettings>

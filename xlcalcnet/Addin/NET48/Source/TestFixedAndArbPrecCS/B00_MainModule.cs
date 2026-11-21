@@ -123,11 +123,11 @@ namespace TestXlCalcNetPrecCS
 
             //Tests.CplxHypergeometric_0F1();  // B10
 
-            Tests.RealHypergeometric_1F1();  // B11
+            //Tests.RealHypergeometric_1F1();  // B11
 
             //Tests.CplxHypergeometric_1F1();  // B11
 
-            //Tests.RealHypergeometric_pFq();  // B12
+            Tests.RealHypergeometric_pFq();  // B12
 
             //Tests.CplxHypergeometric_pFq();  // B12
 

@@ -1,0 +1,1745 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<docs>
+
+
+    <members name="Contexts">
+        <Name>
+            <summary>
+                Returns the name of the context
+            </summary>
+        </Name>
+        <IsRealCtx>
+            <summary>
+                Returns true if the underlying data type is real, and false otherwise
+            </summary>
+        </IsRealCtx>
+        <IsCplxCtx>
+            <summary>
+                Returns true if the underlying data type is complex, and false otherwise
+            </summary>
+        </IsCplxCtx>
+        <IsIntervalOrBallCtx>
+            <summary>
+                Returns true if the underlying data type is an interval or a ball, and false otherwise
+            </summary>
+        </IsIntervalOrBallCtx>
+        <IsDecimalCtx>
+            <summary>
+                Returns true if the underlying data type is a decimal type, and false otherwise
+            </summary>
+        </IsDecimalCtx>
+        <IsFractionCtx>
+            <summary>
+                Returns true if the underlying data type is a fraction, and false otherwise
+            </summary>
+        </IsFractionCtx>
+        <HasNegativeZero>
+            <summary>
+                Returns true if the underlying data type is supports a negative zero, and false otherwise
+            </summary>
+        </HasNegativeZero>
+        <SupportsBoost>
+            <summary>
+                Returns true if the underlying data type is supports Boost, and false otherwise
+            </summary>
+        </SupportsBoost>
+        <Mat>
+            <summary>
+                Returns the corresponding matrix context
+            </summary>
+        </Mat>
+        <Flint>
+            <summary>
+                Returns the corresponding Flint context
+            </summary>
+        </Flint>
+        <Boost>
+            <summary>
+                Returns the corresponding Boost context
+            </summary>
+        </Boost>
+        <RealCtx>
+            <summary>
+                Returns the corresponding real context context
+            </summary>
+        </RealCtx>
+        <CplxCtx>
+            <summary>
+                Returns the corresponding complex context context
+            </summary>
+        </CplxCtx>
+
+
+    </members>
+
+
+    <members name="ConstantsAndProperties">
+        <IsInfinity>
+            <summary>
+                Returns True if x is infinite
+            </summary>
+        </IsInfinity>
+        <IsNaN>
+            <summary>
+                Returns True if x is NaN
+            </summary>
+        </IsNaN>
+        <IsFinite>
+            <summary>
+                Returns True if x is Finite
+            </summary>
+        </IsFinite>
+        <IsNegativeInfinity>
+            <summary>
+                Returns True if x is Negative Infinity
+            </summary>
+        </IsNegativeInfinity>
+        <IsPositiveInfinity>
+            <summary>
+                Returns True if x is IsPositive Infinity
+            </summary>
+        </IsPositiveInfinity>
+        <PositiveInfinity>
+            <summary>
+                Returns Positive Infinity
+            </summary>
+        </PositiveInfinity>
+        <NegativeInfinity>
+            <summary>
+                Returns Negative Infinity
+            </summary>
+        </NegativeInfinity>
+        <PI>
+            <summary>
+                Returns PI
+            </summary>
+        </PI>
+        <E>
+            <summary>
+                Returns E
+            </summary>
+        </E>
+        <Epsilon>
+            <summary>
+                Returns Epsilon
+            </summary>
+        </Epsilon>
+        <MaxValue>
+            <summary>
+                Returns MaxValue
+            </summary>
+        </MaxValue>
+        <MinValue>
+            <summary>
+                Returns MinValue
+            </summary>
+        </MinValue>
+        <Zero>
+            <summary>
+                Returns Zero
+            </summary>
+        </Zero>
+        <One>
+            <summary>
+                Returns One
+            </summary>
+        </One>
+        <ImaginaryOne>
+            <summary>
+                Returns ImaginaryOne
+            </summary>
+        </ImaginaryOne>
+        <NaN>
+            <summary>
+                Returns NaN
+            </summary>
+        </NaN>
+
+    </members>    
+
+
+
+    <members name="ScalarAndArrayFunctions">
+        <Test>
+            <summary>
+                Summary text for Test.
+            </summary>
+            <remarks>
+                Remark text for Test.
+            </remarks>
+        </Test>
+        <Add>
+            <summary>
+                Calculates the sum of the numbers x and y and returns the result
+            </summary>
+        </Add>
+        <Subtract>
+            <summary>
+                Calculates the difference of the numbers x and y and returns the result
+            </summary>
+        </Subtract>
+        <Multiply>
+            <summary>
+                Calculates the product of the numbers x and y and returns the result
+            </summary>
+        </Multiply>
+        <Divide>
+            <summary>
+                Calculates the quotient of the numbers x and y and returns the result
+            </summary>
+        </Divide>
+        <Pow>
+            <summary>
+                Calculates x^y and returns the result
+            </summary>
+        </Pow>
+        <Abs>
+            <summary>
+                Returns the absolute value of x (elementwise for arrays)
+            </summary>
+        </Abs>
+        <Arg>
+            <summary>
+                Returns the argument or phase value of x (elementwise for arrays)
+            </summary>
+        </Arg>
+       <Acos>
+            <summary>
+                Returns the Acos of x (elementwise for arrays)
+            </summary>
+        </Acos>
+        <Acosh>
+            <summary>
+                Returns the Acosh of x (elementwise for arrays)
+            </summary>
+        </Acosh>
+        <Asin>
+            <summary>
+                Returns the Asin of x (elementwise for arrays)
+            </summary>
+        </Asin>
+        <Asinh>
+            <summary>
+                Returns the Asinh of x (elementwise for arrays)
+            </summary>
+        </Asinh>
+        <Atan>
+            <summary>
+                Returns the Atan of x (elementwise for arrays)
+            </summary>
+        </Atan>
+        <Atanh>
+            <summary>
+                Returns the Atanh of x (elementwise for arrays)
+            </summary>
+        </Atanh>
+        <Atan2>
+            <summary>
+                Returns the Atan2 of x and y (elementwise for arrays)
+            </summary>
+        </Atan2>
+        <Cbrt>
+            <summary>
+                Returns the Cbrt of x (elementwise for arrays)
+            </summary>
+        </Cbrt>
+        <Ceil>
+            <summary>
+                Returns the Ceil of x (elementwise for arrays)
+            </summary>
+        </Ceil>
+        <Conj>
+            <summary>
+                Returns the Conjugate of x (elementwise for arrays)
+            </summary>
+        </Conj>
+        <Copysign>
+            <summary>
+                Returns the Copysign of x and y (elementwise for arrays)
+            </summary>
+        </Copysign>
+        <Cosh>
+            <summary>
+                Returns the Cosh of x (elementwise for arrays)
+            </summary>
+        </Cosh>
+        <Cos>
+            <summary>
+                Returns the Cos of x (elementwise for arrays)
+            </summary>
+        </Cos>
+        <Erf>
+            <summary>
+                Returns the Erf of x (elementwise for arrays)
+            </summary>
+        </Erf>
+        <Erfc>
+            <summary>
+                Returns the Erfc of x (elementwise for arrays)
+            </summary>
+        </Erfc>
+        <Exp2>
+            <summary>
+                Returns the Exp2 of x (elementwise for arrays)
+            </summary>
+        </Exp2>
+        <Exp>
+            <summary>
+                Returns the Exp of x (elementwise for arrays)
+            </summary>
+        </Exp>
+        <Expi>
+            <summary>
+                Returns the Expi of x (elementwise for arrays)
+            </summary>
+        </Expi>
+        <Expm1>
+            <summary>
+                Returns the Expm1 of x (elementwise for arrays)
+            </summary>
+        </Expm1>
+        <Fabs>
+            <summary>
+                Returns the Fabs of x (elementwise for arrays)
+            </summary>
+        </Fabs>
+        <Fdim>
+            <summary>
+                Returns the Fdim of x and y (elementwise for arrays)
+            </summary>
+        </Fdim>
+        <Finite>
+            <summary>
+                Returns the Finite of x (elementwise for arrays)
+            </summary>
+        </Finite>
+        <Floor>
+            <summary>
+                Returns the Floor of x (elementwise for arrays)
+            </summary>
+        </Floor>
+        <Fma>
+            <summary>
+                Returns the Fma of x and y (elementwise for arrays)
+            </summary>
+        </Fma>
+        <Fmax>
+            <summary>
+                Returns the Fmax of x and y (elementwise for arrays)
+            </summary>
+        </Fmax>
+        <Fmin>
+            <summary>
+                Returns the Fmin of x and y (elementwise for arrays)
+            </summary>
+        </Fmin>
+        <Fmod>
+            <summary>
+                Returns the Fmod of x and y (elementwise for arrays)
+            </summary>
+        </Fmod>
+        <Frexp>
+            <summary>
+                Returns the Frexp of x (elementwise for arrays)
+            </summary>
+        </Frexp>
+        <Hypot>
+            <summary>
+                Returns the Hypot of x and y (elementwise for arrays)
+            </summary>
+        </Hypot>
+        <Ilogb>
+            <summary>
+                Returns the Ilogb of x (elementwise for arrays)
+            </summary>
+        </Ilogb>
+        <Ldexp>
+            <summary>
+                Returns the Ldexp of x and e (elementwise for arrays)
+            </summary>
+        </Ldexp>
+        <Lgamma>
+            <summary>
+                Returns the Lgamma of x (elementwise for arrays)
+            </summary>
+        </Lgamma>
+        <Llrint>
+            <summary>
+                Returns the Llrint of x (elementwise for arrays)
+            </summary>
+        </Llrint>
+        <Llround>
+            <summary>
+                Returns the Llround of x (elementwise for arrays)
+            </summary>
+        </Llround>
+        <Logb>
+            <summary>
+                Returns the Logb of x (elementwise for arrays)
+            </summary>
+        </Logb>
+        <Log>
+            <summary>
+                Returns the Log of x (elementwise for arrays)
+            </summary>
+        </Log>
+        <Log10>
+            <summary>
+                Returns the Log10 of x (elementwise for arrays)
+            </summary>
+        </Log10>
+        <Log2>
+            <summary>
+                Returns the Log2 of x (elementwise for arrays)
+            </summary>
+        </Log2>
+        <Log1p>
+            <summary>
+                Returns the Log1p of x (elementwise for arrays)
+            </summary>
+        </Log1p>
+        <Lrint>
+            <summary>
+                Returns the Lrint of x (elementwise for arrays)
+            </summary>
+        </Lrint>
+        <Lround>
+            <summary>
+                Returns the Lround of x (elementwise for arrays)
+            </summary>
+        </Lround>
+        <Modf>
+            <summary>
+                Returns the Modf of x and y (elementwise for arrays)
+            </summary>
+        </Modf>
+        <Nearbyint>
+            <summary>
+                Returns the Nearbyint of x  (elementwise for arrays)
+            </summary>
+        </Nearbyint>
+        <Nextafter>
+            <summary>
+                Returns the Nextafter of x  (elementwise for arrays)
+            </summary>
+        </Nextafter>
+        <Proj>
+            <summary>
+                Returns the Riemann projection of x  (elementwise for arrays)
+            </summary>
+        </Proj>
+        <Remainder>
+            <summary>
+                Returns the Remainder of x and y (elementwise for arrays)
+            </summary>
+        </Remainder>
+        <Remquo>
+            <summary>
+                Returns the Remquo of x and y (elementwise for arrays)
+            </summary>
+        </Remquo>
+        <Rint>
+            <summary>
+                Returns the Rint of x (elementwise for arrays)
+            </summary>
+        </Rint>
+        <Round>
+            <summary>
+                Returns the Round of x (elementwise for arrays)
+            </summary>
+        </Round>
+        <Scalbln>
+            <summary>
+                Returns the Scalbln of x, e (elementwise for arrays)
+            </summary>
+        </Scalbln>
+        <Scalbn>
+            <summary>
+                Returns the Scalbn of x, e (elementwise for arrays)
+            </summary>
+        </Scalbn>
+        <Signbit>
+            <summary>
+                Returns the Signbit of x (elementwise for arrays)
+            </summary>
+        </Signbit>
+        <Sincos>
+            <summary>
+                Returns the Sincos of x (elementwise for arrays)
+            </summary>
+        </Sincos>
+        <Sinh>
+            <summary>
+                Returns the Sinh of x (elementwise for arrays)
+            </summary>
+        </Sinh>
+        <Sin>
+            <summary>
+                Returns the Sin of x (elementwise for arrays)
+            </summary>
+        </Sin>
+        <Sqrt>
+            <summary>
+                Returns the Sqrt of x (elementwise for arrays)
+            </summary>
+        </Sqrt>
+        <Tan>
+            <summary>
+                Returns the Tan of x (elementwise for arrays)
+            </summary>
+        </Tan>
+        <Tanh>
+            <summary>
+                Returns the Tanh of x (elementwise for arrays)
+            </summary>
+        </Tanh>
+        <Tgamma>
+            <summary>
+                Returns the Tgamma of x (elementwise for arrays)
+            </summary>
+        </Tgamma>
+        <Trunc>
+            <summary>
+                Returns the Trunc of x (elementwise for arrays)
+            </summary>
+        </Trunc>
+    </members>
+
+
+
+
+    <members name="Boost">
+        <BernoulliB2n>
+            <summary>
+                Returns the BernoulliB2n
+            </summary>
+        </BernoulliB2n>
+        <TangentT2n>
+            <summary>
+                Returns the TangentT2n
+            </summary>
+        </TangentT2n>
+        <Sqrt1pm1>
+            <summary>
+                Returns the Sqrt1pm1
+            </summary>
+        </Sqrt1pm1>
+        <SinPi>
+            <summary>
+                Returns the SinPi
+            </summary>
+        </SinPi>
+        <CosPi>
+            <summary>
+                Returns the CosPi
+            </summary>
+        </CosPi>
+        <SincPi>
+            <summary>
+                Returns the SincPi
+            </summary>
+        </SincPi>
+        <SinhcPi>
+            <summary>
+                Returns the SinhcPi
+            </summary>
+        </SinhcPi>
+        <Tgamma1pm1>
+            <summary>
+                Returns the Tgamma1pm1
+            </summary>
+        </Tgamma1pm1>
+        <Digamma>
+            <summary>
+                Returns the Digamma
+            </summary>
+        </Digamma>
+        <Trigamma>
+            <summary>
+                Returns the Trigamma
+            </summary>
+        </Trigamma>
+        <Factorial>
+            <summary>
+                Returns the Factorial
+            </summary>
+        </Factorial>
+        <DoubleFactorial>
+            <summary>
+                Returns the DoubleFactorial
+            </summary>
+        </DoubleFactorial>
+        <ErfInv>
+            <summary>
+                Returns the ErfInv
+            </summary>
+        </ErfInv>
+        <ErfcInv>
+            <summary>
+                Returns the ErfcInv
+            </summary>
+        </ErfcInv>
+        <AiryAi>
+            <summary>
+                Returns the AiryAi
+            </summary>
+        </AiryAi>
+        <AiryBi>
+            <summary>
+                Returns the AiryBi
+            </summary>
+        </AiryBi>
+        <AiryAiPrime>
+            <summary>
+                Returns the AiryAiPrime
+            </summary>
+        </AiryAiPrime>
+        <AiryBiPrime>
+            <summary>
+                Returns the AiryBiPrime
+            </summary>
+        </AiryBiPrime>
+        <AiryAiZero>
+            <summary>
+                Returns the AiryAiZero
+            </summary>
+        </AiryAiZero>
+        <AiryBiZero>
+            <summary>
+                Returns the AiryBiZero
+            </summary>
+        </AiryBiZero>
+        <Ellint1K>
+            <summary>
+                Returns the Ellint1K
+            </summary>
+        </Ellint1K>
+        <Ellint2K>
+            <summary>
+                Returns the Ellint2K
+            </summary>
+        </Ellint2K>
+        <Zeta>
+            <summary>
+                Returns the Zeta
+            </summary>
+        </Zeta>
+        <Ei>
+            <summary>
+                Returns the Ei
+            </summary>
+        </Ei>
+        <LambertW0>
+            <summary>
+                Returns the LambertW0
+            </summary>
+        </LambertW0>
+        <LambertWm1>
+            <summary>
+                Returns the LambertWm1
+            </summary>
+        </LambertWm1>
+        <LambertW0Prime>
+            <summary>
+                Returns the LambertW0Prime
+            </summary>
+        </LambertW0Prime>
+        <LambertWm1Prime>
+            <summary>
+                Returns the LambertWm1Prime
+            </summary>
+        </LambertWm1Prime>
+        <Powm1>
+            <summary>
+                Returns the Powm1
+            </summary>
+        </Powm1>
+        <TgammaRatio>
+            <summary>
+                Returns the TgammaRatio
+            </summary>
+        </TgammaRatio>
+        <TgammaDeltaRatio>
+            <summary>
+                Returns the TgammaDeltaRatio
+            </summary>
+        </TgammaDeltaRatio>
+        <Binomial>
+            <summary>
+                Returns the Binomial
+            </summary>
+        </Binomial>
+        <RisingFactorial>
+            <summary>
+                Returns the RisingFactorial
+            </summary>
+        </RisingFactorial>
+        <FallingFactorial>
+            <summary>
+                Returns the FallingFactorial
+            </summary>
+        </FallingFactorial>
+        <BesselJ>
+            <summary>
+                Returns the BesselJ
+            </summary>
+        </BesselJ>
+        <BesselY>
+            <summary>
+                Returns the BesselY
+            </summary>
+        </BesselY>
+        <BesselI>
+            <summary>
+                Returns the BesselI
+            </summary>
+        </BesselI>
+        <BesselK>
+            <summary>
+                Returns the BesselK
+            </summary>
+        </BesselK>
+        <SphBessel>
+            <summary>
+                Returns the SphBessel
+            </summary>
+        </SphBessel>
+        <SphNeumann>
+            <summary>
+                Returns the SphNeumann
+            </summary>
+        </SphNeumann>
+        <BesselJPrime>
+            <summary>
+                Returns the BesselJPrime
+            </summary>
+        </BesselJPrime>
+        <BesselYPrime>
+            <summary>
+                Returns the BesselYPrime
+            </summary>
+        </BesselYPrime>
+        <BesselIPrime>
+            <summary>
+                Returns the BesselIPrime
+            </summary>
+        </BesselIPrime>
+        <BesselKPrime>
+            <summary>
+                Returns the BesselKPrime
+            </summary>
+        </BesselKPrime>
+        <SphBesselPrime>
+            <summary>
+                Returns the SphBesselPrime
+            </summary>
+        </SphBesselPrime>
+        <SphNeumannPrime>
+            <summary>
+                Returns the SphNeumannPrime
+            </summary>
+        </SphNeumannPrime>
+        <BesselJZero>
+            <summary>
+                Returns the BesselJZero
+            </summary>
+        </BesselJZero>
+        <BesselYZero>
+            <summary>
+                Returns the BesselYZero
+            </summary>
+        </BesselYZero>
+        <GammaP>
+            <summary>
+                Returns the GammaP
+            </summary>
+        </GammaP>
+        <GammaQ>
+            <summary>
+                Returns the GammaQ
+            </summary>
+        </GammaQ>
+        <TgammaLower>
+            <summary>
+                Returns the TgammaLower
+            </summary>
+        </TgammaLower>
+        <TgammaUpper>
+            <summary>
+                Returns the TgammaUpper
+            </summary>
+        </TgammaUpper>
+        <GammaPInv>
+            <summary>
+                Returns the GammaPInv
+            </summary>
+        </GammaPInv>
+        <GammaQInv>
+            <summary>
+                Returns the GammaQInv
+            </summary>
+        </GammaQInv>
+        <GammaPInva>
+            <summary>
+                Returns the GammaPInva
+            </summary>
+        </GammaPInva>
+        <GammaQInva>
+            <summary>
+                Returns the GammaQInva
+            </summary>
+        </GammaQInva>
+        <GammaPDerivative>
+            <summary>
+                Returns the GammaPDerivative
+            </summary>
+        </GammaPDerivative>
+        <Beta>
+            <summary>
+                Returns the Beta
+            </summary>
+        </Beta>
+        <LegendreP>
+            <summary>
+                Returns the LegendreP
+            </summary>
+        </LegendreP>
+        <LegendreQ>
+            <summary>
+                Returns the LegendreQ
+            </summary>
+        </LegendreQ>
+        <Laguerre>
+            <summary>
+                Returns the Laguerre
+            </summary>
+        </Laguerre>
+        <Hermite>
+            <summary>
+                Returns the Hermite
+            </summary>
+        </Hermite>
+        <ChebyshevT>
+            <summary>
+                Returns the ChebyshevT
+            </summary>
+        </ChebyshevT>
+        <ChebyshevU>
+            <summary>
+                Returns the ChebyshevU
+            </summary>
+        </ChebyshevU>
+        <Polygamma>
+            <summary>
+                Returns the Polygamma
+            </summary>
+        </Polygamma>
+        <EllintRC>
+            <summary>
+                Returns the EllintRC
+            </summary>
+        </EllintRC>
+        <Ellint1F>
+            <summary>
+                Returns the Ellint1F
+            </summary>
+        </Ellint1F>
+        <Ellint2F>
+            <summary>
+                Returns the Ellint2F
+            </summary>
+        </Ellint2F>
+        <Ellint3K>
+            <summary>
+                Returns the Ellint3K
+            </summary>
+        </Ellint3K>
+        <JacobiCD>
+            <summary>
+                Returns the JacobiCD
+            </summary>
+        </JacobiCD>
+        <JacobiCN>
+            <summary>
+                Returns the JacobiCN
+            </summary>
+        </JacobiCN>
+        <JacobiCS>
+            <summary>
+                Returns the JacobiCS
+            </summary>
+        </JacobiCS>
+        <JacobiDC>
+            <summary>
+                Returns the JacobiDC
+            </summary>
+        </JacobiDC>
+        <JacobiDN>
+            <summary>
+                Returns the JacobiDN
+            </summary>
+        </JacobiDN>
+        <JacobiDS>
+            <summary>
+                Returns the JacobiDS
+            </summary>
+        </JacobiDS>
+        <JacobiNC>
+            <summary>
+                Returns the JacobiNC
+            </summary>
+        </JacobiNC>
+        <JacobiND>
+            <summary>
+                Returns the JacobiND
+            </summary>
+        </JacobiND>
+        <JacobiNS>
+            <summary>
+                Returns the JacobiNS
+            </summary>
+        </JacobiNS>
+        <JacobiSC>
+            <summary>
+                Returns the JacobiSC
+            </summary>
+        </JacobiSC>
+        <JacobiSD>
+            <summary>
+                Returns the JacobiSD
+            </summary>
+        </JacobiSD>
+        <JacobiSN>
+            <summary>
+                Returns the JacobiSN
+            </summary>
+        </JacobiSN>
+        <Expint>
+            <summary>
+                Returns the Expint
+            </summary>
+        </Expint>
+        <OwenT>
+            <summary>
+                Returns the OwenT
+            </summary>
+        </OwenT>
+        <Hypergeo0F1>
+            <summary>
+                Returns the Hypergeo0F1
+            </summary>
+        </Hypergeo0F1>
+        <JacobiTheta1>
+            <summary>
+                Returns the JacobiTheta1
+            </summary>
+        </JacobiTheta1>
+        <JacobiTheta2>
+            <summary>
+                Returns the JacobiTheta2
+            </summary>
+        </JacobiTheta2>
+        <JacobiTheta3>
+            <summary>
+                Returns the JacobiTheta3
+            </summary>
+        </JacobiTheta3>
+        <JacobiTheta4>
+            <summary>
+                Returns the JacobiTheta4
+            </summary>
+        </JacobiTheta4>
+        <IBeta>
+            <summary>
+                Returns the IBeta
+            </summary>
+        </IBeta>
+        <IBetac>
+            <summary>
+                Returns the IBetac
+            </summary>
+        </IBetac>
+        <IBetaNonNormalized>
+            <summary>
+                Returns the IBetaNonNormalized
+            </summary>
+        </IBetaNonNormalized>
+        <IBetacNonNormalized>
+            <summary>
+                Returns the IBetaNonNormalized
+            </summary>
+        </IBetacNonNormalized>
+        <IBetaInv>
+            <summary>
+                Returns the IBetaInv
+            </summary>
+        </IBetaInv>
+        <IBetacInv>
+            <summary>
+                Returns the IBetacInv
+            </summary>
+        </IBetacInv>
+        <IBetaInva>
+            <summary>
+                Returns the IBetaInva
+            </summary>
+        </IBetaInva>
+        <IBetacInva>
+            <summary>
+                Returns the IBetacInva
+            </summary>
+        </IBetacInva>
+        <IBetaInvb>
+            <summary>
+                Returns the IBetaInvb
+            </summary>
+        </IBetaInvb>
+        <IBetacInvb>
+            <summary>
+                Returns the IBetacInvb
+            </summary>
+        </IBetacInvb>
+        <IBetaDerivative>
+            <summary>
+                Returns the IBetaDerivative
+            </summary>
+        </IBetaDerivative>
+        <LegendrePM>
+            <summary>
+                Returns the LegendrePM
+            </summary>
+        </LegendrePM>
+        <LaguerreM>
+            <summary>
+                Returns the LaguerreM
+            </summary>
+        </LaguerreM>
+        <EllipticRF>
+            <summary>
+                Returns the EllipticRF
+            </summary>
+        </EllipticRF>
+        <EllipticRD>
+            <summary>
+                Returns the EllipticRD
+            </summary>
+        </EllipticRD>
+        <Ellint3F>
+            <summary>
+                Returns the Ellint3F
+            </summary>
+        </Ellint3F>
+        <Hypergeo1F1>
+            <summary>
+                Returns the Hypergeo1F1
+            </summary>
+        </Hypergeo1F1>
+        <Hypergeo1F1r>
+            <summary>
+                Returns the Hypergeo1F1r
+            </summary>
+        </Hypergeo1F1r>
+        <LogHypergeo1F1>
+            <summary>
+                Returns the LogHypergeo1F1
+            </summary>
+        </LogHypergeo1F1>
+        <SphericalHarmonicR>
+            <summary>
+                Returns the SphericalHarmonicR
+            </summary>
+        </SphericalHarmonicR>
+        <SphericalHarmonicI>
+            <summary>
+                Returns the SphericalHarmonicI
+            </summary>
+        </SphericalHarmonicI>
+        <EllipticRJ>
+            <summary>
+                Returns the EllipticRJ
+            </summary>
+        </EllipticRJ>
+
+        <Pdf>
+            <summary>
+                Returns the Pdf
+            </summary>
+        </Pdf>
+        <Pmf>
+            <summary>
+                Returns the Pmf
+            </summary>
+        </Pmf>
+        <Cdf>
+            <summary>
+                Returns the Cdf
+            </summary>
+        </Cdf>
+        <Sf>
+            <summary>
+                Returns the Sf
+            </summary>
+        </Sf>
+        <Hf>
+            <summary>
+                Returns the Hf
+            </summary>
+        </Hf>
+        <Chf>
+            <summary>
+                Returns the Chf
+            </summary>
+        </Chf>
+        <Qtf>
+            <summary>
+                Returns the Qtf
+            </summary>
+        </Qtf>
+        <Isf>
+            <summary>
+                Returns the Isf
+            </summary>
+        </Isf>
+        <Mean>
+            <summary>
+                Returns the Mean
+            </summary>
+        </Mean>
+        <Median>
+            <summary>
+                Returns the Median
+            </summary>
+        </Median>
+        <Mode>
+            <summary>
+                Returns the Mode
+            </summary>
+        </Mode>
+        <Variance>
+            <summary>
+                Returns the Variance
+            </summary>
+        </Variance>
+        <Stdev>
+            <summary>
+                Returns the Stdev
+            </summary>
+        </Stdev>
+        <Skewness>
+            <summary>
+                Returns the Skewness
+            </summary>
+        </Skewness>
+        <Kurtosis>
+            <summary>
+                Returns the Kurtosis
+            </summary>
+        </Kurtosis>
+        <KurtosisExcess>
+            <summary>
+                Returns the KurtosisExcess
+            </summary>
+        </KurtosisExcess>
+        <SupportLeft>
+            <summary>
+                Returns the SupportLeft
+            </summary>
+        </SupportLeft>
+        <SupportRight>
+            <summary>
+                Returns the SupportRight
+            </summary>
+        </SupportRight>
+        <RangeLeft>
+            <summary>
+                Returns the RangeLeft
+            </summary>
+        </RangeLeft>
+        <RangeRight>
+            <summary>
+                Returns the RangeRight
+            </summary>
+        </RangeRight>
+
+        <ArcsineDist>
+            <summary>
+                Returns the ArcsineDist
+            </summary>
+        </ArcsineDist>
+        <BetaDist>
+            <summary>
+                Returns the BetaDist
+            </summary>
+        </BetaDist>
+        <BinomialDist>
+            <summary>
+                Returns the BinomialDist
+            </summary>
+        </BinomialDist>
+        <CauchyDist>
+            <summary>
+                Returns the CauchyDist
+            </summary>
+        </CauchyDist>
+        <Chi2Dist>
+            <summary>
+                Returns the Chi2Dist
+            </summary>
+        </Chi2Dist>
+        <ExponentialDist>
+            <summary>
+                Returns the ExponentialDist
+            </summary>
+        </ExponentialDist>
+        <ExtremeValueDist>
+            <summary>
+                Returns the ExtremeValueDist
+            </summary>
+        </ExtremeValueDist>
+        <FisherFDist>
+            <summary>
+                Returns the FisherFDist
+            </summary>
+        </FisherFDist>
+        <GammaDist>
+            <summary>
+                Returns the GammaDist
+            </summary>
+        </GammaDist>
+        <GeometricDist>
+            <summary>
+                Returns the GeometricDist
+            </summary>
+        </GeometricDist>
+        <HypergeometricDist>
+            <summary>
+                Returns the HypergeometricDist
+            </summary>
+        </HypergeometricDist>
+        <InverseChi2Dist>
+            <summary>
+                Returns the InverseChi2Dist
+            </summary>
+        </InverseChi2Dist>
+        <InverseGammaDist>
+            <summary>
+                Returns the InverseGammaDist
+            </summary>
+        </InverseGammaDist>
+        <InverseGaussianDist>
+            <summary>
+                Returns the InverseGaussianDist
+            </summary>
+        </InverseGaussianDist>
+        <LaplaceDist>
+            <summary>
+                Returns the LaplaceDist
+            </summary>
+        </LaplaceDist>
+        <LogisticDist>
+            <summary>
+                Returns the LogisticDist
+            </summary>
+        </LogisticDist>
+        <LognormalDist>
+            <summary>
+                Returns the LognormalDist
+            </summary>
+        </LognormalDist>
+        <NegBinomialDist>
+            <summary>
+                Returns the NegBinomialDist
+            </summary>
+        </NegBinomialDist>
+        <Chi2NCDist>
+            <summary>
+                Returns the Chi2NCDist
+            </summary>
+        </Chi2NCDist>
+        <StudentTNCDist>
+            <summary>
+                Returns the StudentTNCDist
+            </summary>
+        </StudentTNCDist>
+        <FisherNCDist>
+            <summary>
+                Returns the FisherNCDist
+            </summary>
+        </FisherNCDist>
+        <BetaNCDist>
+            <summary>
+                Returns the BetaNCDist
+            </summary>
+        </BetaNCDist>
+        <NormalDist>
+            <summary>
+                Returns the NormalDist
+            </summary>
+        </NormalDist>
+        <ParetoDist>
+            <summary>
+                Returns the ParetoDist
+            </summary>
+        </ParetoDist>
+        <PoissonDist>
+            <summary>
+                Returns the PoissonDist
+            </summary>
+        </PoissonDist>
+        <RayleighDist>
+            <summary>
+                Returns the RayleighDist
+            </summary>
+        </RayleighDist>
+        <SkewNormalDist>
+            <summary>
+                Returns the SkewNormalDist
+            </summary>
+        </SkewNormalDist>
+        <StudentTDist>
+            <summary>
+                Returns the StudentTDist
+            </summary>
+        </StudentTDist>
+        <TriangularDist>
+            <summary>
+                Returns the TriangularDist
+            </summary>
+        </TriangularDist>
+        <UniformDist>
+            <summary>
+                Returns the UniformDist
+            </summary>
+        </UniformDist>
+        <WeibullDist>
+            <summary>
+                Returns the WeibullDist
+            </summary>
+        </WeibullDist>
+
+
+        <BracketRoot>
+            <summary>
+                The TOM 748 algorithm for finding a zero of the function f in the interval (a,b).
+            </summary>
+            <param name="f"></param>
+            <param name="guess"></param>
+            <param name="factor"></param>
+            <param name="is_rising"></param>
+            <param name="get_digits"></param>
+            <param name="maxit"></param>
+            <returns></returns>        
+        </BracketRoot>
+
+        <NewtonRaphson>
+            <summary>
+                The Newton-Raphson algorithm for finding a zero of the function f in the interval (a,b).
+            </summary>
+            <param name="f"></param>
+            <param name="df"></param>
+            <param name="guess"></param>
+            <param name="xmin"></param>
+            <param name="xmax"></param>
+            <param name="get_digits"></param>
+            <param name="maxit"></param>
+            <returns></returns>
+        </NewtonRaphson>
+
+        <Halley>
+            <summary>
+                Halley's algorithm for finding a zero of the function f in the interval (a,b).
+            </summary>
+            <param name="f"></param>
+            <param name="df1"></param>
+            <param name="df2"></param>
+            <param name="guess"></param>
+            <param name="xmin"></param>
+            <param name="xmax"></param>
+            <param name="get_digits"></param>
+            <param name="maxit"></param>
+            <returns></returns>
+        </Halley>
+
+        <Schroder>
+            <summary>
+                Schröder's algorithm for finding a zero of the function f in the interval (a,b).
+            </summary>
+            <param name="f"></param>
+            <param name="df1"></param>
+            <param name="df2"></param>
+            <param name="guess"></param>
+            <param name="xmin"></param>
+            <param name="xmax"></param>
+            <param name="get_digits"></param>
+            <param name="maxit"></param>
+            <returns></returns>
+        </Schroder>
+
+        <BrentMinimum>
+            <summary>
+                Brent's algorithm (with guaranteed convergence) for finding a local minimum of the function f in the interval (a,b).
+            </summary>
+            <param name="f"></param>
+            <param name="bracket_min"></param>
+            <param name="bracket_max"></param>
+            <param name="bits"></param>
+            <param name="maxit"></param>
+            <returns></returns>
+        </BrentMinimum>
+
+        <Trapezoidal>
+            <summary>
+                Trapezoidal integration of the function f in the interval (a,b).
+            </summary>
+            <param name="f"></param>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </Trapezoidal>
+
+        <GaussLegendre>
+            <summary>
+                Gauss-Legendre integration of the function f in the interval (a,b).
+            </summary>
+            <param name="f"></param>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </GaussLegendre>
+
+
+        <GaussKronrod>
+            <summary>
+                Gauss-Kronrod integration of the function f in the interval (a,b).
+            </summary>
+            <param name="f"></param>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </GaussKronrod>
+
+        <TanhSinh>
+            <summary>
+                Tanh-Sinh integration of the function f in the interval (a,b).
+            </summary>
+            <param name="f"></param>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </TanhSinh>
+
+        <SinhSinh>
+            <summary>
+                Sinh-Sinh integration of the function f in the interval (-inf, +inf).
+            </summary>
+            <param name="f"></param>
+            <returns></returns>
+        </SinhSinh>
+
+        <ExpSinh>
+            <summary>
+                Exp-Sinh integration of the function f in the interval (0, +inf).
+            </summary>
+            <param name="f"></param>
+            <returns></returns>
+        </ExpSinh>
+
+        <OouraCos>
+            <summary>
+                Ooura Cos integration of the function f in the interval (0, +inf).
+            </summary>
+            <param name="f"></param>
+            <returns></returns>
+        </OouraCos>
+
+        <OouraSin>
+            <summary>
+                Ooura Sin integration of the function f in the interval (0, +inf).
+            </summary>
+            <param name="f"></param>
+            <returns></returns>
+        </OouraSin>
+
+        <RungeKutta4Const>
+            <summary>
+                Returns RungeKutta4Const, based on Boost-Odeint.
+            </summary>
+            <param name="F1"></param>
+            <param name="F2"></param>
+            <param name="matInput"></param>
+            <param name="StartTime"></param>
+            <param name="EndTime"></param>
+            <param name="dt"></param>
+            <returns></returns>
+        </RungeKutta4Const>
+
+        <DormandPrince5Adaptive>
+            <summary>
+                Returns DormandPrince5Adaptive, based on Boost-Odeint.
+            </summary>
+            <param name="F1"></param>
+            <param name="F2"></param>
+            <param name="matInput"></param>
+            <param name="StartTime"></param>
+            <param name="EndTime"></param>
+            <param name="dt"></param>
+            <param name="epsabs"></param>
+            <param name="epsrel"></param>
+            <returns></returns>
+        </DormandPrince5Adaptive>
+
+        <GradientDescentSolverFunc>
+            <summary>
+                Returns GradientDescentSolverFunc, based on Boost/CppOptLib
+            </summary>
+            <param name="F1"></param>
+            <param name="F2"></param>
+            <param name="matInput"></param>
+            <returns></returns>
+        </GradientDescentSolverFunc>
+
+
+
+    </members>
+
+
+
+
+    <members name="Flint">
+        <LambertW>
+            <summary>
+                Returns the LambertW
+            </summary>
+        </LambertW>
+
+        <BarnesG>
+            <summary>
+                Returns the BarnesG
+            </summary>
+        </BarnesG>
+
+        <LogBarnesG>
+            <summary>
+                Returns the LogBarnesG
+            </summary>
+        </LogBarnesG>
+
+        <BernoulliPoly>
+            <summary>
+                Returns the BernoulliPoly
+            </summary>
+        </BernoulliPoly>
+
+        <AGM>
+            <summary>
+                Returns the AGM
+            </summary>
+        </AGM>
+
+        <HyperGeoU>
+            <summary>
+                Returns the HyperGeoU
+            </summary>
+        </HyperGeoU>
+
+        <HyperGeo2F1>
+            <summary>
+                Returns the HyperGeo2F1
+            </summary>
+        </HyperGeo2F1>
+
+        <Erfi>
+            <summary>
+                Returns the Erfi
+            </summary>
+        </Erfi>
+
+        <FresnelS>
+            <summary>
+                Returns the FresnelS
+            </summary>
+        </FresnelS>
+
+        <FresnelC>
+            <summary>
+                Returns the FresnelC
+            </summary>
+        </FresnelC>
+
+        <Si>
+            <summary>
+                Returns the Si
+            </summary>
+        </Si>
+
+        <Ci>
+            <summary>
+                Returns the Ci
+            </summary>
+        </Ci>
+
+        <Shi>
+            <summary>
+                Returns the Shi
+            </summary>
+        </Shi>
+
+        <Chi>
+            <summary>
+                Returns the Chi
+            </summary>
+        </Chi>
+
+        <Li>
+            <summary>
+                Returns the Li
+            </summary>
+        </Li>
+
+        <Dilog>
+            <summary>
+                Returns the Dilog
+            </summary>
+        </Dilog>
+
+        <MEllipticK>
+            <summary>
+                Returns the MEllipticK
+            </summary>
+        </MEllipticK>
+
+        <MEllipticE>
+            <summary>
+                Returns the MEllipticE
+            </summary>
+        </MEllipticE>
+
+        <MEllipticPi>
+            <summary>
+                Returns the MEllipticPi
+            </summary>
+        </MEllipticPi>
+
+        <MEllipticF>
+            <summary>
+                Returns the MEllipticF
+            </summary>
+        </MEllipticF>
+
+        <MEllipticEInc>
+            <summary>
+                Returns the MEllipticEInc
+            </summary>
+        </MEllipticEInc>
+
+        <MEllipticPiInc>
+            <summary>
+                Returns the MEllipticPiInc
+            </summary>
+        </MEllipticPiInc>
+
+        <EllipticP>
+            <summary>
+                Returns the EllipticP
+            </summary>
+        </EllipticP>
+
+        <EllipticPPrime>
+            <summary>
+                Returns the EllipticPPrime
+            </summary>
+        </EllipticPPrime>
+
+        <EllipticInvariants>
+            <summary>
+                Returns the EllipticInvariants
+            </summary>
+        </EllipticInvariants>
+
+        <EllipticRoots>
+            <summary>
+                Returns the EllipticRoots
+            </summary>
+        </EllipticRoots>
+
+        <EllipticInvP>
+            <summary>
+                Returns the EllipticInvP
+            </summary>
+        </EllipticInvP>
+
+        <EllipticZeta>
+            <summary>
+                Returns the EllipticZeta
+            </summary>
+        </EllipticZeta>
+
+        <EllipticSigma>
+            <summary>
+                Returns the EllipticSigma
+            </summary>
+        </EllipticSigma>
+
+        <ModularEta>
+            <summary>
+                Returns the ModularEta
+            </summary>
+        </ModularEta>
+
+        <ModularJ>
+            <summary>
+                Returns the ModularJ
+            </summary>
+        </ModularJ>
+
+        <ModularLambda>
+            <summary>
+                Returns the ModularLambda
+            </summary>
+        </ModularLambda>
+
+        <ModularDelta>
+            <summary>
+                Returns the ModularDelta
+            </summary>
+        </ModularDelta>
+
+        <RiemannSiegel>
+            <summary>
+                Returns the RiemannSiegel
+            </summary>
+        </RiemannSiegel>
+
+        <HurwitzZeta>
+            <summary>
+                Returns the HurwitzZeta
+            </summary>
+        </HurwitzZeta>
+
+        <LerchPhi>
+            <summary>
+                Returns the LerchPhi
+            </summary>
+        </LerchPhi>
+
+
+
+
+
+
+
+
+    </members>
+
+
+    <members name="MatrixFunction">
+        <Det>
+            <summary>
+                Returns the determinant of matA
+            </summary>
+        </Det>
+    </members>
+    
+    
+    
+</docs>

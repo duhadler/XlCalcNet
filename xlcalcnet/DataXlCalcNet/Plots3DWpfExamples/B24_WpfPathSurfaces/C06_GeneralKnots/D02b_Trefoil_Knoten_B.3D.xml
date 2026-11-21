@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Trefoil Knoten B</Title>
+  <Plot3DType1>Path surface</Plot3DType1>
+  <CameraAngleTheta>90</CameraAngleTheta>
+  <CameraAnglePhi>90</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>true</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <Code>var x = (-10 * Math.Cos(t) - 2 * Math.Cos(5 * t) + 15 * Math.Sin(2 * t)) / 10;
+var z = (-15 * Math.Cos(2 * t) + 10 * Math.Sin(t) - 2 * Math.Sin(5 * t)) / 10;
+var y = (10 * Math.Cos(3 * t)) / 10;
+</Code>
+  <Resolution>1024</Resolution>
+  <Resolution2>32</Resolution2>
+  <xmin>0.0</xmin>
+  <xmax>2 * Pi</xmax>
+  <zmin>0.0</zmin>
+  <zmax>0.01</zmax>
+  <RepeatStart>true</RepeatStart>
+  <PathEvalOrder>SequenceX</PathEvalOrder>
+  <FinalRotationOrder>X-Y-Z</FinalRotationOrder>
+  <FinalXRotation>0</FinalXRotation>
+  <FinalYRotation>0</FinalYRotation>
+  <FinalZRotation>0</FinalZRotation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>false</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>None</SameScale>
+  <ComplexType>N/A</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-16256</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>true</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0.01</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0.01</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <SolidType>None</SolidType>
+  <GeneratorColorString>Blue</GeneratorColorString>
+  <BackgroundSolidTransparency>0</BackgroundSolidTransparency>
+</WpfGraphicsSettings>

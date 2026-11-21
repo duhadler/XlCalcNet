@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B17_VisualisationOfDatasets.C01_BarCharts import D09_HorizontalBarDist;</ImportStatement>
+  <FunctionName>D09_HorizontalBarDist.HorizontalBarDist</FunctionName>
+  <Title>Horizontal bar</Title>
+  <PlotStyle>default</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>7</FigSizeX>
+  <FigSizeY>7</FigSizeY>
+  <Resolution>128</Resolution>
+  <Code />
+  <RunAfterLoading>Always</RunAfterLoading>
+</WpfGraphicsSettings>

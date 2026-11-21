@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Spiral6</Title>
+  <Plot3DType1>Path surface</Plot3DType1>
+  <CameraAngleTheta>110</CameraAngleTheta>
+  <CameraAnglePhi>90</CameraAnglePhi>
+  <CameraRadius>-2</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>true</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <Code>var x = (Math.Sqrt(10000 - 100 * t * t) * Math.Sin(t * Math.PI)) / 100;
+var y = (20 * t) / 100;
+var z = (Math.Sqrt(10000 - 100 * t * t) * Math.Cos(t * Math.PI)) / 100;
+</Code>
+  <Resolution>1024</Resolution>
+  <Resolution2>8</Resolution2>
+  <xmin>-10.0</xmin>
+  <xmax>10.0</xmax>
+  <zmin>0.0</zmin>
+  <zmax>0.03</zmax>
+  <RepeatStart>false</RepeatStart>
+  <PathEvalOrder>SequenceX</PathEvalOrder>
+  <FinalRotationOrder>X-Y-Z</FinalRotationOrder>
+  <FinalXRotation>0</FinalXRotation>
+  <FinalYRotation>0</FinalYRotation>
+  <FinalZRotation>90</FinalZRotation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>false</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>None</SameScale>
+  <ComplexType>N/A</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-16256</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>true</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>true</ShowWireframe>
+  <WireframeThickness>0.0015</WireframeThickness>
+  <WireframeColorString>Black</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0.001</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <SolidType>None</SolidType>
+  <GeneratorColorString>Blue</GeneratorColorString>
+  <BackgroundSolidTransparency>0</BackgroundSolidTransparency>
+</WpfGraphicsSettings>

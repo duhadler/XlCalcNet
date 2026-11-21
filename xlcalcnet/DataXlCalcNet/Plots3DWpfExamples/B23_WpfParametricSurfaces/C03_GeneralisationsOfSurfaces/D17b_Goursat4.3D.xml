@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Bonbon</Title>
+  <CameraAngleTheta>171</CameraAngleTheta>
+  <CameraAnglePhi>132</CameraAnglePhi>
+  <CameraRadius>0</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>false</ShowAxes>
+  <StyleOfAxes>FullCage</StyleOfAxes>
+  <Plot3DType1>Parametric surface</Plot3DType1>
+  <Code>var a = -0.2;
+var b = -1;
+var c = -0.3125;
+var p = -1;
+
+var su = Math.Sin(u);
+var cu = Math.Cos(u);
+var sv = Math.Sin(v);
+var cv = Math.Cos(v);
+
+var su4 = su * su * su * su;
+var cu4 = cu * cu * cu * cu;
+
+var sv4 = sv * sv * sv * sv;
+var cv4 = cv * cv * cv * cv;
+
+var D = (su4 + cu4) * cv4 + sv4;
+var R = Math.Sqrt(Math.Abs(-b + p * Math.Sqrt(Math.Abs(b * b - 4 * c * (a + D))) / (2 * (a + D))));
+//var R = Math.Sqrt((-b + p * Math.Sqrt(b * b - 4 * c * (a + D))) / (2 * (a + D)));
+
+var x = R * cv * cu;
+var y = R * cv * su;
+var z = R * sv;
+</Code>
+  <Resolution>256</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>0</xmin>
+  <xmax>2 * Pi</xmax>
+  <zmin>-Pi / 2</zmin>
+  <zmax>Pi / 2</zmax>
+  <RepeatStart>false</RepeatStart>
+  <PathEvalOrder>N/A</PathEvalOrder>
+  <FinalRotationOrder>X-Y-Z</FinalRotationOrder>
+  <FinalXRotation>0</FinalXRotation>
+  <FinalYRotation>0</FinalYRotation>
+  <FinalZRotation>0</FinalZRotation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>N/A</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>true</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <SolidType>None</SolidType>
+  <GeneratorColorString>White</GeneratorColorString>
+  <BackgroundSolidTransparency>0</BackgroundSolidTransparency>
+</WpfGraphicsSettings>

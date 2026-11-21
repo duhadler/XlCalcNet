@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B18_FunctionsAndCurvesPlots.C07_Contours import D03_08_FieldLinesContours;</ImportStatement>
+  <FunctionName>D03_08_FieldLinesContours.FieldLinesContours</FunctionName>
+  <Title>FieldLines Dipole2 Contours Open</Title>
+  <PlotStyle>default</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>9</FigSizeX>
+  <FigSizeY>7</FigSizeY>
+  <Resolution>256</Resolution>
+  <Code>ContourFilled=False, Model=1</Code>
+  <RunAfterLoading>Never</RunAfterLoading>
+</WpfGraphicsSettings>

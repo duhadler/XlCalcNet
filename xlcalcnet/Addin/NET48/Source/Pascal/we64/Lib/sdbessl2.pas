@@ -516,7 +516,7 @@ const
 var
   x3, t: double;
 begin
-  {Ref: MacLeod's [22], MISCFUN, function airy_gi}
+  {Ref: MacLeod's [22], MISCFUN, function scorer_gi}
   gipos7 := 0.0;
   if x<7.0 then exit
   else if x <= xmax then begin
@@ -556,7 +556,7 @@ const
              -0.136e-17,
              -0.14e-18);
 begin
-  {Ref: MacLeod's [22], MISCFUN, function airy_hi}
+  {Ref: MacLeod's [22], MISCFUN, function scorer_hi}
   hineg8 := 0.0;
   if x > -8.0 then exit;
   if x <= xmin then  hineg8 := (-1.0)/Pi/x
@@ -639,7 +639,7 @@ const
 const
   xmax: double = 104.4362038448; {overflow threshold}
 begin
-  {Pascal port of A.J. MacLeod's [22] MISCFUN function airy_hi. }
+  {Pascal port of A.J. MacLeod's [22] MISCFUN function scorer_hi. }
   {AMath uses airy_bi instead of another Chebyshev approximation}
   if x < 0.0 then begin
     if x > -eps_d then sfd_airy_hi := hizero
@@ -755,7 +755,7 @@ const
 var
   t: double;
 begin
-  {Pascal port of A.J. MacLeod's [22] MISCFUN function airy_gi. }
+  {Pascal port of A.J. MacLeod's [22] MISCFUN function scorer_gi. }
   {AMath uses airy_bi instead of another Chebyshev approximation}
   if x < -8.0 then begin
     t := hineg8(x);

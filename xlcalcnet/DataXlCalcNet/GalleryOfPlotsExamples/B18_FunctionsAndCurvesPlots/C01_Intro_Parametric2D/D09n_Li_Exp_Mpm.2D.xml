@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B18_FunctionsAndCurvesPlots.C01_Intro_Parametric2D import D09_FuncPlot2d;</ImportStatement>
+  <FunctionName>D09_FuncPlot2d.FuncPlot2d</FunctionName>
+  <Title>Li(z) * Exp(z), mpm</Title>
+  <PlotStyle>default</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>7</FigSizeX>
+  <FigSizeY>7</FigSizeY>
+  <Resolution>128</Resolution>
+  <LocalImports>from xlcalcnet import mpm; $ndef f1(z): $n$tfrom xlcalcnet import mpm $n$treturn mpm.exp(z)*mpm.li(z)$n </LocalImports>
+  <Code>ctx=mpm, f=f1, xlim=[-3, 3], ylim=[-10, 10], points=400</Code>
+  <RunAfterLoading>Always</RunAfterLoading>
+</WpfGraphicsSettings>

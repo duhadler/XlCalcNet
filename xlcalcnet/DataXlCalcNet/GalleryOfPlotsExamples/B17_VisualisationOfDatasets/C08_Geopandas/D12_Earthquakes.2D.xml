@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B17_VisualisationOfDatasets.C08_Geopandas import D12_Earthquakes;</ImportStatement>
+  <FunctionName>D12_Earthquakes.EarthQuakes</FunctionName>
+  <Title>Earthquakes worldwide, 2015-2024</Title>
+  <PlotStyle>ggplot</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>7</FigSizeX>
+  <FigSizeY>7</FigSizeY>
+  <Resolution>128</Resolution>
+  <Code />
+  <RunAfterLoading>Never</RunAfterLoading>
+</WpfGraphicsSettings>

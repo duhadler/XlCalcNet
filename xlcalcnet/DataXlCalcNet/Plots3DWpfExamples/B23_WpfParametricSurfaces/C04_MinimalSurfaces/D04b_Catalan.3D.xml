@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Catalan</Title>
+  <CameraAngleTheta>157</CameraAngleTheta>
+  <CameraAnglePhi>100</CameraAnglePhi>
+  <CameraRadius>2</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>false</ShowAxes>
+  <StyleOfAxes>FullCage</StyleOfAxes>
+  <Plot3DType1>Parametric surface</Plot3DType1>
+  <Code>var x = u - Math.Sin(u) * Math.Cosh(v);
+var y = 4 * Math.Sin(u / 2) * Math.Sinh(v / 2);
+var z = 1 - Math.Cos(u) * Math.Cosh(v);
+
+</Code>
+  <Resolution>128</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>-Pi</xmin>
+  <xmax>Pi</xmax>
+  <zmin>-2</zmin>
+  <zmax>2</zmax>
+  <RepeatStart>false</RepeatStart>
+  <PathEvalOrder>N/A</PathEvalOrder>
+  <FinalRotationOrder>X-Y-Z</FinalRotationOrder>
+  <FinalXRotation>0</FinalXRotation>
+  <FinalYRotation>0</FinalYRotation>
+  <FinalZRotation>0</FinalZRotation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>N/A</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>Gradient</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceGradient1>SequenceGradient0</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>SameAsForeground</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <SolidType>None</SolidType>
+  <GeneratorColorString>White</GeneratorColorString>
+  <BackgroundSolidTransparency>0</BackgroundSolidTransparency>
+</WpfGraphicsSettings>

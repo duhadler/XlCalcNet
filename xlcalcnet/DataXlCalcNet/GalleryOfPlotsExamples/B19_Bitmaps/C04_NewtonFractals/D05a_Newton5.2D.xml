@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B19_Bitmaps.C04_NewtonFractals import D05a_Newton5;</ImportStatement>
+  <FunctionName>D05a_Newton5.Newton5</FunctionName>
+  <Title>Newton5</Title>
+  <PlotStyle>ggplot</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>6</FigSizeX>
+  <FigSizeY>6</FigSizeY>
+  <Resolution>128</Resolution>
+  <Code />
+  <RunAfterLoading>Never</RunAfterLoading>
+</WpfGraphicsSettings>

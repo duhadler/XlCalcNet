@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B20_Matplotlib3D.C05_ParametricSurfaces import D16_KleinBottle8;</ImportStatement>
+  <FunctionName>D16_KleinBottle8.KleinBottle8</FunctionName>
+  <Title>Klein Bottle8</Title>
+  <PlotStyle>default</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>7</FigSizeX>
+  <FigSizeY>7</FigSizeY>
+  <Resolution>128</Resolution>
+  <Code />
+  <RunAfterLoading>Never</RunAfterLoading>
+</WpfGraphicsSettings>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>Torus Surface</Title>
+  <Plot3DType1>Rotation surface</Plot3DType1>
+  <CameraAngleTheta>102</CameraAngleTheta>
+  <CameraAnglePhi>121</CameraAnglePhi>
+  <CameraRadius>7</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>false</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <AxesLabelsBackColor>false</AxesLabelsBackColor>
+  <FunctionType />
+  <Code>double a = 0.5;  // ring torus
+double c = 1.5;
+phi = (double t) =&gt; c + a * Math.Cos(t);
+psi = (double t) =&gt; a * (Math.Sin(t));
+</Code>
+  <Resolution>32</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>0</xmin>
+  <xmax>2 * Pi</xmax>
+  <zmin />
+  <zmax />
+  <RepeatStart>true</RepeatStart>
+  <TransformRepeat>5</TransformRepeat>
+  <ReScalingFactor />
+  <XRotation />
+  <YRotation />
+  <ZRotation>360.0 / TC</ZRotation>
+  <XTranslation />
+  <YTranslation />
+  <ZTranslation />
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <KeepRatios>false</KeepRatios>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>ROT</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>128</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>true</ShowWireframe>
+  <WireframeThickness>0.008</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <HighlightGenerator>true</HighlightGenerator>
+  <GeneratorThickness>0.03</GeneratorThickness>
+  <GeneratorColorString>Blue</GeneratorColorString>
+</WpfGraphicsSettings>

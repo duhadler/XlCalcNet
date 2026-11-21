@@ -4856,14 +4856,14 @@ class mpm():
 
 
 
-# %% 12 Hypergeometric Function 2_F_1 and related functions
 
-# %%%  20.1 Overview
+# %% 12 Hypergeometric Function 2F1 and 1F2 (and related functions)
 
+# %%%  12.1 Overview
 
-# 20.1.1 Gauss Hypergeometric Function 2𝐹1
+# 12.1.1 Gauss Hypergeometric Function 2𝐹1
 
-    def hyp2f1(self, a, b, c, z):
+    def hyperg_2f1(self, a, b, c, z):
         '''Gauss Hypergeometric Function 2𝐹1'''
         a = self.t(a)
         b = self.t(b)
@@ -4871,9 +4871,11 @@ class mpm():
         z = self.t(z)
         return mp.hyp2f1(a, b, c, z)
 
-# 20.1.2 Regularized Gauss Hypergeometric Function 2𝐹1
 
-    def hyp2f1r(self, a, b, c, z):
+
+# 12.1.2 Regularized Gauss Hypergeometric Function 2𝐹1
+
+    def hyperg_2f1r(self, a, b, c, z):
         '''Regularized Gauss Hypergeometric Function 2𝐹1'''
         a = self.t(a)
         b = self.t(b)
@@ -4882,36 +4884,66 @@ class mpm():
         return mp.hyp2f1(a, b, c, z) / mp.gamma(c)
 
 
-# %%%  20.2 Orthogonal polynomials
 
-# 20.2.1 Chebyshev polynomial of the first kind, 𝑇𝑛(𝑥)
 
-    def chebyt(self, n, z):
+
+# %%%  12.2 Chebyshev, Gegenbauer and Jacobi polynomials
+
+# 12.2.1 Chebyshev polynomial of the first kind, 𝑇𝑛(𝑥)
+
+    def chebyshev_t(self, n, z):
         '''Chebyshev polynomial of the first kind, 𝑇𝑛(𝑥)'''
         n = self.t(n)
         z = self.t(z)
         return mp.chebyt(n, z)
 
-# 20.2.2 Chebyshev polynomial of the second kind, 𝑈𝑛(𝑥)
 
-    def chebyu(self, n, z):
+# 12.2.2 Chebyshev polynomial of the second kind, 𝑈𝑛(𝑥)
+
+    def chebyshev_u(self, n, z):
         '''Chebyshev polynomial of the second kind, 𝑈𝑛(𝑥)'''
         n = self.t(n)
         z = self.t(z)
         return mp.chebyu(n, z)
 
-# 20.2.3 Gegenbauer polynomials, 𝐶𝛼𝑛 (𝑥)
 
-    def gegenbauer(self, n, a, z):
+# 12.2.3 Chebyshev polynomial of the third kind, n
+    def chebyshev_v(self, n, z):
+        '''Chebyshev polynomial of the third kind, 𝑈𝑛(𝑥)'''
+        n = self.t(n)
+        z = self.t(z)
+        res = self.expjpi(n) * (2 * n + 1) * self.hyperg_2f1(-n, n + 1, self.t(1.5), (1 + z) / 2)
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+# 12.2.4 Chebyshev polynomial of the fourth kind, W
+    def chebyshev_w(self, n, z):
+        '''Chebyshev polynomial of the fourth kind, 𝑈𝑛(𝑥)'''
+        n = self.t(n)
+        z = self.t(z)
+        res = self.expjpi(n) * self.hyperg_2f1(-n, n + 1, self.t(0.5), (1 + z) / 2)
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+
+
+# 12.2.5 Gegenbauer polynomials, 𝐶𝛼𝑛 (𝑥)
+
+    def gegenbauer_c(self, n, a, z):
         '''Gegenbauer polynomials, 𝐶𝛼𝑛 (𝑥)'''
         n = self.t(n)
         a = self.t(a)
         z = self.t(z)
         return mp.gegenbauer(n, a, z)
 
-# 20.2.4 Jacobi polynomials, 𝑃(𝛼,𝛽)𝑛
 
-    def jacobi(self, n, a, b, z):
+# 12.2.6 Jacobi polynomials, 𝑃(𝛼,𝛽)𝑛
+
+    def jacobi_p(self, n, a, b, z):
         '''Jacobi polynomials, 𝑃(𝛼,𝛽)𝑛'''
         n = self.t(n)
         a = self.t(a)
@@ -4919,46 +4951,112 @@ class mpm():
         z = self.t(z)
         return mp.jacobi(n, a, b, z)
 
-# 20.2.5 Legendre polynomials / functions, 𝑃𝑙(𝑥)
 
-    def legendre(self, n, z):
+# 12.2.7 Zernike radial polynomials
+
+    def zernike_r(self, n, m, r):
+        '''Jacobi polynomials, 𝑃(𝛼,𝛽)𝑛'''
+        n = int(n)
+        m = int(m)
+        r = self.t(r)
+        if (r>=0) and (n>=m) and (m>=0) and ((n-m)%2 == 0):
+            return r**m * self.jacobi_p((n - m) / 2, 0, m, 2 * r * r - 1)
+        else: return 0
+
+
+
+
+# %%%  12.3 Legendre polynomials and related
+
+# 12.3.1 Legendre polynomials / functions, 𝑃𝑙(𝑥)
+
+    def legendre_p(self, n, z):
         '''Legendre polynomials / functions, 𝑃𝑙(𝑥)'''
         n = self.t(n)
         z = self.t(z)
-        return mp.legendre(n, z)
+        return self.legendre_plm(n, 0, z)
 
-# 20.2.6 Associated Legendre polynomials / functions, 𝑃𝑚𝑙 (𝑥)
 
-    def legenp(self, n, m, z, type=2):
+# 12.3.2 Associated Legendre polynomials / functions, 𝑃𝑚𝑙 (𝑥)
+
+    def legendre_plm(self, l, m, z):
         '''Associated Legendre polynomials / functions, 𝑃𝑚𝑙 (𝑥)'''
-        n = self.t(n)
-        m = self.t(m)
-        z = self.t(z)
-        return mp.legenp(n, m, z, type)
-
-# 20.2.7 Associated Legendre function of the second kind, 𝑄𝑙(𝑥)
-
-    def legenq(self, n, m, z, type=2):
-        '''Associated Legendre function of the second kind, 𝑄𝑙(𝑥)'''
-        n = self.t(n)
-        m = self.t(m)
-        z = self.t(z)
-        return mp.legenq(n, m, z, type)
-
-# 20.2.8 Spherical harmonics, 𝑌 𝑚𝑛 (𝜃, 𝜑)
-
-    def spherharm(self, l, m, theta, phi):
-        '''Spherical harmonics, 𝑌 𝑚𝑛 (𝜃, 𝜑)'''
         l = self.t(l)
         m = self.t(m)
+        z = self.t(z)
+        if abs(self.real(z)) < 1: res = mp.legenp(l, m, z, 2);
+        else: res = mp.legenp(l, m, z, 3);
+        return res
+
+
+# 12.3.3 Associated Legendre function of the second kind, 𝑄𝑙(𝑥)
+
+    def legendre_q(self, n, z):
+        '''Legendre function of the second kind, 𝑄𝑙(𝑥)'''
+        n = self.t(n)
+        z = self.t(z)
+        return self.legendre_qlm(n, 0, z)
+
+
+# 12.3.4 Associated Legendre function of the second kind, 𝑄𝑙(𝑥)
+
+    def legendre_qlm(self, l, m, z, type=2):
+        '''Associated Legendre function of the second kind, 𝑄𝑙(𝑥)'''
+        l = self.t(l)
+        m = self.t(m)
+        z = self.t(z)
+        if abs(self.real(z)) < 1: res = mp.legenq(l, m, z, 2);
+        else: res = mp.legenq(l, m, z, 3);
+        return res
+
+
+# 12.3.5 Spherical harmonics, 𝑌 𝑚𝑛 (𝜃, 𝜑)
+
+    def spherical_y(self, l, m, theta, phi):
+        '''Spherical harmonics, 𝑌 𝑚𝑛 (𝜃, 𝜑)'''
+        l = int(l)
+        m = int(m)
         theta = self.t(theta)
         phi = self.t(phi)
         return mp.spherharm(l, m, theta, phi)
 
 
-# %%%  20.3 Incomplete Beta
+# 12.3.6 Toroidal harmonics, P
 
-# 20.3.1 General incomplete beta function
+    def toroidal_plm(self, l, m, x):
+        '''Associated Legendre function of the second kind, 𝑄𝑙(𝑥)'''
+        l = int(l)
+        m = int(m)
+        x = self.t(x)
+        nu = l - self.t(0.5);
+        if (x < 1): return self.nan
+        if (x == 1): return self.hyperg_2f1r(nu + 1, -nu, 1 - m, (1 - x) / 2)
+        res = mp.legenp(self.t(l - 0.5), self.t(m), self.t(x), type=3);
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+
+# 12.3.7 Toroidal harmonics, Q
+
+    def toroidal_qlm(self, l, m, x):
+        '''Associated Legendre function of the second kind, 𝑄𝑙(𝑥)'''
+        l = self.t(l)
+        m = self.t(m)
+        x = self.t(x)
+        if (x < 1): return self.nan
+        res = mp.legenq(self.t(l - 0.5), self.t(m), self.t(x), type=3)
+        if self.imag(res) == self.t(0):
+            res = res.real
+        return res
+
+
+
+
+# %%%  12.4 Incomplete Beta
+
+# 12.4.0 General incomplete beta function
 
     def betainc(self, a, b, z1=0, z2=1, regularized=False):
         '''General incomplete beta function'''
@@ -4968,7 +5066,18 @@ class mpm():
         z2 = self.t(z2)
         return mp.betainc(a, b, z1, z2, regularized)
 
-# 20.3.2 Normalised incomplete beta function
+
+# 12.4.1 Non-Normalised incomplete beta function
+
+    def beta_lower(self, a, b, z):
+        '''Non-Normalised incomplete beta function'''
+        a = self.t(a)
+        b = self.t(b)
+        z = self.t(z)
+        return mp.betainc(a, b, 0, z, False)   # beta3
+
+
+# 12.4.2 Normalised incomplete beta function
 
     def ibeta(self, a, b, z):
         '''Normalised incomplete beta function'''
@@ -4977,61 +5086,69 @@ class mpm():
         z = self.t(z)
         return mp.betainc(a, b, 0, z, True)
 
-# 20.3.3 Non-Normalised incomplete beta function
 
-    def beta3(self, a, b, z):
-        '''Non-Normalised incomplete beta function'''
+# 12.4.3 Derivative of the incomplete beta function
+
+    def ibeta_prime(self, a, b, x):
+        '''Derivative of the incomplete beta function'''
+        a = self.t(a)
+        b = self.t(b)
+        x = self.t(x)
+        return self.power(x, a-1) * self.power(1-x, b-1) / self.beta(a, b)
+
+
+# 12.4.4 Real non-normalized upper incomplete beta function
+
+    def beta_upper(self, a, b, z):
+        '''beta_upper'''
         a = self.t(a)
         b = self.t(b)
         z = self.t(z)
-        return mp.betainc(a, b, 0, z, False)
+        return self.beta(a, b) - self.beta_lower(a, b, z)
 
 
-# %% 13 Hypergeometric Function p_F_q and related functions
+# 12.4.5 Real normalized complementory incomplete beta function
 
-
-# %%%  21.1 Generalized hypergeometric functions
-
-# 21.1.1 Generalized hypergeometric function 𝑝𝐹𝑞
-
-    def hyper(self, a_s, b_s, z):
-        '''Generalized hypergeometric function 𝑝𝐹𝑞'''
-        return mp.hyper(a_s, b_s, z)
-
-# 21.1.2 Generalized hypergeometric function 2𝐹3
-
-    def hyp2f3(self, a1, a2, b1, b2, b3, z):
-        '''Generalized hypergeometric function 2𝐹3'''
-        return mp.hyp2f3(a1, a2, b1, b2, b3, z)
-
-# 21.1.3 Generalized hypergeometric function 3𝐹2
-
-    def hyp3f2(self, a1, a2, a3, b1, b2, z):
-        '''Generalized hypergeometric function 3𝐹2'''
-        return mp.hyp3f2(a1, a2, a3, b1, b2, z)
-
-# 21.1.4 Generalized hypergeometric function 2𝐹2
-
-    def hyp2f2(self, a1, a2, b1, b2, z):
-        '''Generalized hypergeometric function 2𝐹2'''
-        return mp.hyp2f2(a1, a2, b1, b2, z)
-
-
-# 21.1.5 Generalized hypergeometric function 2𝐹0
-
-    def hyp2f0(self, a, b, z):
-        '''Generalized hypergeometric function 2𝐹0'''
+    def ibetac(self, a, b, x):
+        '''Real normalized complementory incomplete beta function'''
         a = self.t(a)
         b = self.t(b)
-        z = self.t(z)
-        return mp.hyp2f0(a, b, z)
+        x = self.t(x)
+        return ctxm.real_ibetac(self, a, b, x)
 
 
-# %%%  21.2 Generalized hypergeometric function 1F2 and related functions
+# 12.4.6 Inverse of the real normalised incomplete beta function
 
-# 21.2.1 Non-regularized hypergeometric function 1𝐹2
+    def ibeta_inv(self, a, b, prob):
+        '''Returns the Inverse of the real normalised incomplete beta
+        function.'''
+        a = self.t(a)
+        b = self.t(b)
+        prob = self.t(prob)
+        return ctxm.real_ibeta_inv(self, a, b, prob)
 
-    def hyp1f2(self, a1, b1, b2, z):
+
+
+# 12.4.7 Inverse of the real normalised complementary incomplete beta function
+
+    def ibetac_inv(self, a, b, prob):
+        '''Returns the Inverse of the real normalised complementary incomplete
+        beta function.'''
+        a = self.t(a)
+        b = self.t(b)
+        prob = self.t(prob)
+        return ctxm.real_ibetac_inv(self, a, b, prob)
+
+
+
+
+
+
+# %%%  12.5 Hypergeometric function 1𝐹2
+
+# 12.5.1 Non-regularized hypergeometric function 1𝐹2
+
+    def hyperg_1f2(self, a1, b1, b2, z):
         '''Non-regularized hypergeometric function 1𝐹2'''
         a1 = self.t(a1)
         b1 = self.t(b1)
@@ -5039,12 +5156,14 @@ class mpm():
         z = self.t(z)
         return mp.hyp1f2(a1, b1, b2, z)
 
+
     # see  https://functions.wolfram.com/HypergeometricFunctions/
     # Hypergeometric1F2/25/01/
 
-# 21.2.2 Regularized hypergeometric function 1𝐹2
 
-    def hyp1f2r(self, a1, b1, b2, z):
+# 12.5.2 Regularized hypergeometric function 1𝐹2
+
+    def hyperg_1f2r(self, a1, b1, b2, z):
         '''Regularized hypergeometric function 1𝐹2'''
         a1 = self.t(a1)
         b1 = self.t(b1)
@@ -5054,268 +5173,134 @@ class mpm():
         res = res / (mp.gamma(b1)*mp.gamma(b2))
         return res
 
-# 21.2.3 Scorer function Gi
 
-    def scorergi(self, z):
+
+
+# %%%  12.6 Scorer functions
+
+# 12.6.1 Scorer function Gi
+
+    def scorer_gi(self, z):
         '''Scorer function Gi'''
         z = self.t(z)
         return mp.scorergi(z)
 
-    def scorergi2(self, z):
-        '''Scorer function Gi'''
-        z = self.t(z)
-        t = mp.mpf(1)/mp.mpf(3)
-        res1 = self.airybi(z)/3
-        res2 = (z*z)/(2*self.pi())
-        res3 = self.hyp1f2(1, 4*t, 5*t, z*z*z/9)
-        res = res1 - res2*res3
-        return res
 
+# 12.6.2 Scorer function Hi(x)
 
-# 21.2.4 Scorer function Hi(x)
-
-    def scorerhi(self, z):
+    def scorer_hi(self, z):
         '''Scorer function Hi'''
         z = self.t(z)
         return mp.scorerhi(z)
 
-    def scorerhi2(self, z):
-        '''Scorer function Hi'''
+
+# 12.6.3 Scorer function Gi'(x)
+
+    def scorer_gi_prime(self, z):
+        # Missing
+        '''Scorer function Gi\' '''
         z = self.t(z)
-        t = mp.mpf(1)/mp.mpf(3)
-        res1 = 2*self.airybi(z)/3
-        res2 = (z*z)/(2*self.pi())
-        res3 = self.hyp1f2(1, 4*t, 5*t, z*z*z/9)
-        res = res1 + res2*res3
-        return res
+        return mp.diff(lambda z: mp.scorergi(z), z)
 
 
-# 21.2.5 Struve function 𝐻𝜈(𝑥)
+# 12.6.4 Scorer function Hi'(x)
 
-    def struveh(self, n, z):
+    def scorer_hi_prime(self, z):
+        # Missing
+        '''Scorer function Hi\' '''
+        z = self.t(z)
+        return mp.diff(lambda z: mp.scorerhi(z), z)
+
+
+
+# %%%  12.7 Struve functions
+
+# 12.7.1 Struve function 𝐻𝜈(𝑥)
+
+    def struve_h(self, n, z):
         '''Struve function 𝐻𝜈(𝑥)'''
         n = self.t(n)
         z = self.t(z)
         return mp.struveh(n, z)
 
-    def struveh2(self, n, z):
-        '''Struve function 𝐻𝜈(𝑥)'''
-        n = self.t(n)
-        z = self.t(z)
-        res2 = (z/2)**(n+1)
-        res3 = self.hyp1f2r(1, 1.5, n+1.5, -z*z/4)
-        res = res2*res3
-        return res
 
+# 12.7.2 Struve function 𝐿𝜈(𝑥)
 
-# 21.2.6 Struve function 𝐿𝜈(𝑥)
-
-    def struvel(self, n, z):
+    def struve_l(self, n, z):
         '''Struve function 𝐿𝜈(𝑥)'''
         n = self.t(n)
         z = self.t(z)
         return mp.struvel(n, z)
 
-    def struvel2(self, n, z):
-        '''Struve function 𝐿𝜈(𝑥)'''
-        n = self.t(n)
-        z = self.t(z)
-        res = -1j*self.expjpi(-n/2)*self.struveh(n, 1j*z)
-        if mp.im(res) == mp.mpf(0):
-            res = mp.re(res)
-        return res
 
+# 21.7.3 Struve function K
 
-# 21.2.7 Struve function K
-
-    def struvek(self, n, z):
+    def struve_k(self, n, z):
         '''Struve function K'''
         n = self.t(n)
         z = self.t(z)
-        return self.struveh(n, z) - self.bessely(n, z)
+        return self.struve_h(n, z) - self.bessel_yv(n, z)
 
-# 21.2.8 Struve function M
 
-    def struvem(self, n, z):
+# 12.7.1 Struve function M
+
+    def struve_m(self, n, z):
         '''Struve function M'''
         n = self.t(n)
         z = self.t(z)
-        return self.struvel(n, z) - self.besseli(n, z)
+        return self.struve_l(n, z) - self.bessel_iv(n, z)
 
-# 21.2.9 Anger function J
 
-    def angerj(self, n, z):
+
+
+
+# %%%  12.8 Anger, Weber and Lommel functions
+
+# 12.8.1 Anger function J
+
+    def anger_j(self, n, z):
         '''Anger function J'''
         n = self.t(n)
         z = self.t(z)
         return mp.angerj(n, z)
 
-    def angerj2(self, n, z):
-        '''Anger function J'''
-        # if n is an integer, return besselj(n,z)
-        n = self.t(n)
-        z = self.t(z)
-        tau = self.pi() * n / 2
-        res2a = (z/2)*self.sin(tau)
-        res3a = self.hyp1f2r(1, 0.5*(3-n), 0.5*(3+n), -z*z/4)
-        res2b = self.cos(tau)
-        res3b = self.hyp1f2r(1, 0.5*(2-n), 0.5*(2+n), -z*z/4)
-        res = res2a*res3a + res2b*res3b
-        return res
 
+# 12.8.2 Weber function E
 
-# 21.2.10 Weber function E
-
-    def webere(self, n, z):
+    def weber_e(self, n, z):
         '''Weber function E'''
         n = self.t(n)
         z = self.t(z)
         return mp.webere(n, z)
 
-    def webere2(self, n, z):
-        '''Weber function E'''
-        n = self.t(n)
-        z = self.t(z)
-        tau = self.pi() * n / 2
-        res2a = self.sin(tau)
-        res3a = self.hyp1f2r(1, 0.5*(2-n), 0.5*(2+n), -z*z/4)
-        res2b = (z/2)*self.cos(tau)
-        res3b = self.hyp1f2r(1, 0.5*(3-n), 0.5*(3+n), -z*z/4)
-        res = res2a*res3a - res2b*res3b
-        return res
 
 
-# 21.2.11 Lommel function 𝑆1
+# 12.8.3 Lommel function 𝑆1
 
-    def lommels1(self, mu, nu, z):
+    def lommel_s1(self, mu, nu, z):
         '''Lommel function 𝑆1'''
         mu = self.t(mu)
         nu = self.t(nu)
         z = self.t(z)
         return mp.lommels1(mu, nu, z)
 
-    def lommels1_2(self, mu, nu, z):
-        '''Lommel function 𝑆1'''
-        mu = self.t(mu)
-        nu = self.t(nu)
-        z = self.t(z)
-        res2 = z**(mu+1)/((mu-nu+1)*(mu+nu+1))
-        res3 = self.hyp1f2(1, (mu-nu+3)/2, (mu+nu+3)/2, -z*z/4)
-        res = res2*res3
-        return res
 
+# 12.8.4 Lommel function 𝑆2
 
-# 21.2.12 Lommel function 𝑆2
-
-    def lommels2(self, mu, nu, z):
+    def lommel_s2(self, mu, nu, z):
         '''Lommel function 𝑆2'''
         mu = self.t(mu)
         nu = self.t(nu)
         z = self.t(z)
         return mp.lommels2(mu, nu, z)
 
-    def lommels2_2(self,  mu, nu, z):
-        '''Lommel function 𝑆2'''
-        mu = self.t(mu)
-        nu = self.t(nu)
-        z = self.t(z)
-        res1 = self.lommels1(mu, nu, z)
-        res2 = 2**(mu-1) * self.gamma((mu-nu+1)/2) * self.gamma((mu+nu+1)/2)
-        res3 = self.sin(self.pi()*(mu-nu)/2) * self.besselj(nu, z)
-        res4 = self.cos(self.pi()*(mu-nu)/2) * self.bessely(nu, z)
-        res = res1+res2*(res3-res4)
-        return res
 
 
-# %% 14 Generalizations of gamma and hypergeometric functions
-    # (without ARB support)
 
 
-# %%%  22.1 Appell Functions
-
-# 22.1.1 Appell function 𝐹1
-
-    def appellf1(self, a, b1, b2, c, x, y):
-        '''Appell function 𝐹1'''
-        return mp.appellf1(a, b1, b2, c, x, y)
-
-# 22.1.2 Appell function 𝐹2
-
-    def appellf2(self, a, b1, b2, c1, c2, x, y):
-        '''Appell function 𝐹2'''
-        return mp.appellf2(a, b1, b2, c1, c2, x, y)
-
-# 22.1.3 Appell function 𝐹3
-
-    def appellf3(self, a1, a2, b1, b2, c, x, y):
-        '''Appell function 𝐹3'''
-        return mp.appellf3(a1, a2, b1, b2, c, x, y)
-
-# 22.1.4 Appell function 𝐹4
-
-    def appellf4(self, a, b, c1, c2, x, y):
-        '''Appell function 𝐹4'''
-        return mp.appellf4(a, b, c1, c2, x, y)
 
 
-# %%%  22.2 Q Functions
 
-# 22.2.1 q-Pochhammer symbol
-
-    def qp(self, a, q=None, n=None):
-        '''q-Pochhammer symbol'''
-        return mp.qp(a, q, n)
-
-# 22.2.2 q-gamma function
-
-    def qgamma(self, z, q):
-        '''q-gamma function'''
-        return mp.qgamma(z, q)
-
-# 22.2.3 q-factorial
-
-    def qfac(self, z, q):
-        '''q-factorial'''
-        return mp.qfac(z, q)
-
-# 22.2.4 Hypergeometric q-series
-
-    def qhyper(self, a_s, b_s, q, z):
-        '''Hypergeometric q-series'''
-        return mp.qhyper(a_s, b_s, q, z)
-
-
-# %%%  22.3 Further generalizations of gamma and hypergeometric functions
-
-# 22.3.1 Limit of the product of gamma functions
-
-    def gammaprod(self, a, b):
-        '''Limit of the product of gamma functions'''
-        return mp.gammaprod(a, b)
-
-# 22.3.2 Limit of a weighted combination of hypergeometric functions
-
-    def hypercomb(self, function, params=[], discard_known_zeros=True):
-        '''Limit of a weighted combination of hypergeometric functions'''
-        return mp.hypercomb(function, params, discard_known_zeros)
-
-# 22.3.3 Meijer G-function
-
-    def meijerg(self, a_s, b_s, r, z):
-        '''Meijer G-function'''
-        return mp.meijerg(a_s, b_s, r, z)
-
-# 22.3.4 Bilateral hypergeometric series
-
-    def bihyper(self, a_s, b_s, z):
-        '''Bilateral hypergeometric series'''
-        return mp.bihyper(a_s, b_s, z)
-
-# 22.3.5 Generalized 2D hypergeometric series
-
-    def hyper2d(self, a, b, x, y):
-        '''Generalized 2D hypergeometric series'''
-        return mp.hyper2d(a, b, x, y)
 
 
 

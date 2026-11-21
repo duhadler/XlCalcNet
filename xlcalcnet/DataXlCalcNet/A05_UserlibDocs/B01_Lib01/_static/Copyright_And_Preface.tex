@@ -1,0 +1,63 @@
+﻿
+
+% Begin insert: directly after \begin{document}
+
+\pagestyle{empty}
+\newcommand\sphinxbackoftitlepage{
+
+
+Welcome to the documentation of \sphinxstylestrong{XlCalcNet}, an addin for MS E\sphinxstylestrong{x}ce\sphinxstylestrong{l} and LibreOffice \sphinxstylestrong{Calc}, based on Python\sphinxstylestrong{Net}. This edition of the documentation describes release 1.0.
+
+
+\sphinxstylestrong{XlCalcNet} is a Python library for mathematical functions in multiprecision, based on mpmath (see \sphinxurl{http://mpmath.org}). It is free software released under the Mozilla Public License 2.0 (see {\hyperref[\detokenize{900_Back_Matter/10_License:rst-bsd-3-clause-license}]{\sphinxcrossref{\DUrole{std,std-ref}{License}}}}).
+
+
+The git repository is \sphinxurl{https://github.com/duhadler}.
+There is an issue tracker \sphinxurl{https://github.com/duhadler} for bug reports and feature requests.
+
+This documentation is available in PDF format at \sphinxurl{https://duhadler.files.wordpress.com/2017/06/mpformula.pdf},
+and in HTML format at \sphinxurl{http://mpformula.github.io/C/},
+
+
+\vspace{18.0cm}
+\noindent
+Copyright \copyright \hspace{0.5mm}  2026 Dietrich Hadler
+
+}\sphinxmaketitle
+\pagestyle{plain}
+
+% Tex for Preface: only one page!
+\pagenumbering{roman}%
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+\sphinxstylestrong{XlCalcNet} is a Python  library focussing on the calculation of mathematical functions in arbitrary
+precision. It uses the mpmath library (see \sphinxurl{http://mpmath.org})  as its computational backend, and
+is expected to work on all Python configurations on Windows, macOS and Linux which can run mpmath.
+
+\sphinxstylestrong{XlCalcNet} is intended to be used together with existing software for numerical computing, in particular
+the Python libraries NumPy, SciPy and Matplotlib, but also recent versions of RStudio and R, MATLAB, 
+Microsoft Excel and LibreOffice Calc. It is also possible to interact with .NET languages
+(like C\# or Visual Basic) to speed up calculations.
+
+Examples for how to do this are given in the introduction, and comparisons of speed and accuracy of
+existing numerical software are given in the documentation of many functions.
+
+
+\newpage
+
+%This page intentionally left blank
+
+%\newpage
+
+
+
+\sphinxtableofcontents
+\pagestyle{normal}
+\phantomsection\label{\detokenize{index::doc}}
+
+
+% End insert: directly before \part{Getting started}
+
+
+

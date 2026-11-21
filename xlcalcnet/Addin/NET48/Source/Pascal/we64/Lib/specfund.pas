@@ -229,10 +229,10 @@ function airy_bip(x: double): double;
 function airy_bis(x: double): double;
   {-Return the scaled Airy function Bi(x) if x <= 0, Bi(x)*exp(-2/3*x^1.5) for x > 0}
 
-function airy_gi(x: double): double;
+function scorer_gi(x: double): double;
   {-Return the Airy/Scorer function Gi(x) = 1/Pi*integral(sin(x*t+t^3/3), t=0..INF)}
 
-function airy_hi(x: double): double;
+function scorer_hi(x: double): double;
   {-Return the Airy/Scorer function Hi(x) = 1/Pi*integral(exp(x*t-t^3/3), t=0..INF)}
 
 function bessel_i0(x: double): double;
@@ -2009,18 +2009,18 @@ end;
 
 
 {---------------------------------------------------------------------------}
-function airy_gi(x: double): double;
+function scorer_gi(x: double): double;
   {-Return the Airy/Scorer function Gi(x) = 1/Pi*integral(sin(x*t+t^3/3), t=0..INF)}
 begin
-  airy_gi := sfd_airy_gi(x);
+  scorer_gi := sfd_airy_gi(x);
 end;
 
 
 {---------------------------------------------------------------------------}
-function airy_hi(x: double): double;
+function scorer_hi(x: double): double;
   {-Return the Airy/Scorer function Hi(x) = 1/Pi*integral(exp(x*t-t^3/3), t=0..INF)}
 begin
-  airy_hi := sfd_airy_hi(x);
+  scorer_hi := sfd_airy_hi(x);
 end;
 
 

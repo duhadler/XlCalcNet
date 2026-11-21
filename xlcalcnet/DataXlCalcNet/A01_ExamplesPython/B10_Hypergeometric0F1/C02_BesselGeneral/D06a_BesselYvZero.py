@@ -1,0 +1,85 @@
+﻿
+import time
+from xlcalcnet import gui, fpm, mpm, dpm, ipm
+if gui.has_gpm: from xlcalcnet import gpm
+if gui.has_apm: from xlcalcnet import apm
+if gui.has_xlcalcnet2: from xlcalcnet import ArbPrec, mreal, sflint, dflint, \
+    eflint, qflint, oflint, mflint, aflint
+from xlcalcnet import math53, sreal, dreal, ereal, qreal, oreal
+
+scaled = False
+
+def main_tests():
+    demo_manual_real()
+    demo_bessel_yv_zero_real_ctx()
+    demo_bessel_yv_zero_real_explicit()
+
+
+def demo_manual_real():
+    print('<H1 Title="demo_manual_real">')
+    #from xlcalcnet import *
+    nu = 5.1; m = 2; gui.setdps(90)
+    for ctx in gui.ctxlist_boost_real: print(ctx.fmtname + ': ' + ctx.fmt(ctx.bessel_yv_zero(nu, m)))
+    print('</H1>')
+
+
+def demo_bessel_yv_zero_real_ctx():
+    print('<H1 Title="demo_bessel_yv_zero_real_ctx">')
+    nulist = [5.1, 8.8]; gui.setdps(90)
+    mlist = [1, 2, 4, 6, 8, 10];
+    for nu in nulist:
+        for m in mlist:
+            print('<H2 Title="bessel_yv_zero(nu, m); nu=' + str(nu) + ' m=' + str(m) + '">')
+            for ctx in gui.ctxlist_boost_real:
+                res = ctx.bessel_yv_zero(nu, m)
+                print(ctx.fmtname + ': ' + ctx.fmt(res))
+            print('</H2>')
+            print()
+    print('</H1>')
+    print()
+
+
+def demo_bessel_yv_zero_real_explicit():
+    print('<H1 Title="demo_bessel_yv_zero_real_explicit">')
+    nulist = [5.1, 8.8]; gui.setdps(90)
+    mlist = [1, 2, 4, 6, 8, 10];
+    for nu in nulist:
+        for m in mlist:
+            print('<H2 Title="bessel_yv_zero(nu, m); nu=' + str(nu) + ' m=' + str(m) + '">')
+            res = math53.bessel_yv_zero(nu, m); print('math53: ' + math53.fmt(res))
+            res = sreal.bessel_yv_zero(nu, m); print(' sreal: ' + sreal.fmt(res))
+            res = dreal.bessel_yv_zero(nu, m); print(' dreal: ' + dreal.fmt(res))
+            res = ereal.bessel_yv_zero(nu, m); print(' ereal: ' + ereal.fmt(res))
+            res = qreal.bessel_yv_zero(nu, m); print(' qreal: ' + qreal.fmt(res))
+            res = oreal.bessel_yv_zero(nu, m); print(' oreal: ' + oreal.fmt(res))
+            if gui.has_xlcalcnet2:
+                res = mreal.bessel_yv_zero(nu, m); print(' mreal: ' + mreal.fmt(res))
+            print('</H2>')
+            print()
+    print('</H1>')
+    print()
+
+
+
+try:
+    if __name__ == '__main__':
+        start0 = time.time()
+        main_tests()
+        end0 = time.time()
+        print('Elapsed time:', format(end0 - start0, '.4g'), 'seconds' )
+
+
+except Exception:
+    import traceback
+    print(traceback.format_exc())
+
+
+
+
+
+
+
+
+
+
+

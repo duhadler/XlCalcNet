@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ImportStatement>from A01_ExamplesPython.B20_Matplotlib3D.C07_EdgeToEdgeSurfaceColoring import D05_Spherical_Edge_Filled_Surface;</ImportStatement>
+  <FunctionName>D05_Spherical_Edge_Filled_Surface.SphericalEdgeFilledSurface</FunctionName>
+  <Title>Spherical Edge Filled Surface</Title>
+  <PlotStyle>default</PlotStyle>
+  <OutputMode>svg</OutputMode>
+  <FigSizeX>7</FigSizeX>
+  <FigSizeY>7</FigSizeY>
+  <Resolution>128</Resolution>
+  <Code />
+  <RunAfterLoading>Always, clear previous</RunAfterLoading>
+</WpfGraphicsSettings>

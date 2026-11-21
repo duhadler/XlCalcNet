@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WpfGraphicsSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Title>ShipLame</Title>
+  <CameraAngleTheta>100</CameraAngleTheta>
+  <CameraAnglePhi>130</CameraAnglePhi>
+  <CameraRadius>5</CameraRadius>
+  <CameraIsOrthographic>false</CameraIsOrthographic>
+  <ShowAxes>false</ShowAxes>
+  <StyleOfAxes>BackPanel</StyleOfAxes>
+  <Plot3DType1>Parametric surface</Plot3DType1>
+  <Code>var B = 6.5;
+var L = 4.0;
+var T = 2.0;
+
+var x = u * L;
+var y = Math.Sign(Math.Cos(v)) * B * Math.Sqrt(1 - u * u * u * u) * Math.Sqrt(Math.Abs(Math.Cos(v))) / 2.0;
+var z = Math.Sign(Math.Sin(v)) * T * Math.Sqrt(1 - u * u) * Math.Sqrt(Math.Abs(Math.Sin(v)));
+</Code>
+  <Resolution>256</Resolution>
+  <Resolution2>0</Resolution2>
+  <xmin>-1</xmin>
+  <xmax>1</xmax>
+  <zmin>-Pi/2</zmin>
+  <zmax>Pi/2</zmax>
+  <RepeatStart>false</RepeatStart>
+  <PathEvalOrder>N/A</PathEvalOrder>
+  <FinalRotationOrder>X-Y-Z</FinalRotationOrder>
+  <FinalXRotation>-90</FinalXRotation>
+  <FinalYRotation>0</FinalYRotation>
+  <FinalZRotation>0</FinalZRotation>
+  <Truncate>0</Truncate>
+  <LogLogTransform>false</LogLogTransform>
+  <CenteredXY>false</CenteredXY>
+  <SameScale>All</SameScale>
+  <ComplexType>N/A</ComplexType>
+  <Branchcuts>None</Branchcuts>
+  <SurfaceMaterial1>PlainColor</SurfaceMaterial1>
+  <SurfaceColorString>-4128832</SurfaceColorString>
+  <SurfaceGradient1>None</SurfaceGradient1>
+  <SurfaceColorMap1>None</SurfaceColorMap1>
+  <SurfaceTexture1>None</SurfaceTexture1>
+  <SurfaceSmoothing>false</SurfaceSmoothing>
+  <Transparency>0</Transparency>
+  <BackMaterial1>PlainColor</BackMaterial1>
+  <BackColorString>-8000</BackColorString>
+  <ShowWireframe>false</ShowWireframe>
+  <WireframeThickness>0</WireframeThickness>
+  <WireframeColorString>Green</WireframeColorString>
+  <HighlightVertices>false</HighlightVertices>
+  <VerticesThickness>0</VerticesThickness>
+  <VerticesColorString>Red</VerticesColorString>
+  <SolidType>None</SolidType>
+  <GeneratorColorString>White</GeneratorColorString>
+  <BackgroundSolidTransparency>0</BackgroundSolidTransparency>
+</WpfGraphicsSettings>
