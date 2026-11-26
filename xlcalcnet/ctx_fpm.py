@@ -3,30 +3,86 @@
 Spyder Editor
 """
 
-#from xlcalcnet import fpclasses, fp_backend
-#from xlcalcnet import mathfp
+
+
+from xlcalcnet.dist_elementary import \
+    ctx_arcsine, ctx_cauchy, ctx_dagum, ctx_exponential, ctx_fisk, \
+    ctx_frechet, ctx_gev, ctx_genpareto, ctx_gompertz, ctx_gumbel, \
+    ctx_hyperexponential, ctx_kumaraswamy, ctx_laplace, ctx_logistic,  \
+    ctx_lomax, ctx_pareto, ctx_rayleigh, ctx_shifted_gompertz,   \
+    ctx_singh_maddala, ctx_triangular, ctx_uniform, ctx_weibull
+
+from xlcalcnet.dist_errorfunction import \
+    ctx_birnb_saunders, ctx_emg, ctx_folded_normal, ctx_half_normal,  \
+    ctx_johnson_sb, ctx_johnson_su, ctx_levy, ctx_lognormal, ctx_moyal, \
+    ctx_normal, ctx_normal_max, ctx_normal_maxmod, ctx_sasnormal,  \
+    ctx_skewnormal, ctx_trunc_normal, ctx_wald
+
+from xlcalcnet.dist_gammafunction import \
+    ctx_amoroso, ctx_chi, ctx_chi2, ctx_logrv_chi2, ctx_gamma, ctx_hypoexp, \
+    ctx_invchi2, ctx_invgamma, ctx_maxwell, ctx_lindley, ctx_nakagami, \
+    ctx_skew_exp_power, ctx_stacy
+
+from xlcalcnet.dist_betafunction import \
+    ctx_beta, ctx_logrv_beta, ctx_beta_prime, ctx_genbeta1, ctx_genbeta2, \
+    ctx_genlogistic, ctx_gen_beta_exp, ctx_feller_pareto, ctx_fisher_f, \
+    ctx_fisher_z, ctx_student_t, ctx_skew_t, ctx_pearson_rho \
+
+from xlcalcnet.dist_noncentral import \
+    ctx_chi2_nc, ctx_chi_nc, ctx_rice, ctx_student_t_nc, \
+    ctx_pearson_rho_nc, ctx_fisher_f_nc, ctx_beta_nc_type_I, \
+    ctx_logrv_beta_nc_type_II, ctx_fisher_r2, \
+    ctx_logrv_fisher_1mr2, ctx_student_t_2nc, ctx_fisher_f_2nc
+
+from xlcalcnet.dist_mcp_means import \
+    ctx_nmax_corr, ctx_nmm_corr, ctx_normal_range, ctx_smax, ctx_smm, \
+    ctx_dunnett1_t, ctx_dunnett2_t, ctx_nair_t, ctx_halperin_t,  \
+    ctx_studentized_range
+
+from xlcalcnet.dist_mvstats import \
+    ctx_lrt_s0, ctx_lrt_x0_s0, ctx_betaproduct, ctx_logrv_betaproduct,  \
+    ctx_bartlett, ctx_wilks_ip, ctx_mauchley, ctx_wilks_cs, ctx_wilks_iblocks,\
+    ctx_box_nsame_cov, ctx_box_nsame_means_cov, ctx_box_cov, ctx_box_mvn, \
+    ctx_roy, ctx_wilks_lambda, ctx_pillai_v, ctx_hotelling_t2, \
+    ctx_wilks_lambda_glm,  ctx_wilks_lambda_corr
+
+from xlcalcnet.dist_misc_cont import \
+    ctx_levy_alpha_stable, ctx_landau, ctx_pearson_type_IV, ctx_meixner, \
+    ctx_voigt_profile, ctx_wrapped_cauchy, ctx_wrapped_normal, \
+    ctx_von_mises, ctx_gen_inv_gaussian, ctx_harmonic, ctx_halphen_a, \
+    ctx_halphen_b, ctx_halphen_ib,  ctx_gen_hyperbolic, ctx_hyperbolic, \
+    ctx_variance_gamma
+
+from xlcalcnet.dist_elementary_discrete import \
+    ctx_geometric, ctx_poisson, ctx_logseries, ctx_skellam, ctx_binomial, \
+    ctx_negative_binomial, ctx_delaporte, ctx_betapoisson, ctx_betabinomial, \
+    ctx_beta_negbinomial, ctx_hypergeometric, ctx_neghypergeo, ctx_polya, \
+    ctx_genhypergeo, ctx_hypergeo_nc_fisher, ctx_zeta
+
+from xlcalcnet.dist_lattice_ranktests import \
+    ctx_wilcoxon, ctx_bennett, ctx_mann_whitney_u, ctx_mann_whitney_u_lehmann,\
+    ctx_mann_whitney_u_milton, ctx_kendall_tau, ctx_jterpsta_s, ctx_page_l, \
+    ctx_page_l_nc_milton
+
+from xlcalcnet.dist_nonlattice_ranktests import \
+    ctx_friedman, ctx_kruskal_wallis
+
+
+
+
+
 from xlcalcnet import ctx_shared
 from xlcalcnet import ctx07StatDataAnalysis
 
 from xlcalcnet.mpmath import mp
 import math
 import cmath
-#from xlcalcnet.ctx_mpm import mpm
-
 
 from xlcalcnet import ctx_mpm
 mpm = ctx_mpm.mpm()
 
-
 from xlcalcnet import ctx_fp53
 fp = ctx_fp53.FP53Context()
-
-
-
-
-# from xlcalcnet import FRealBoost, Math53, Math53C
-#from System import Numerics
-
 ctxm = ctx_shared.ctxUtil()
 stat = ctx07StatDataAnalysis.inferential_statistics()
 
@@ -1796,337 +1852,1356 @@ class fpm():
         return self.t(mp.gamma(2*z+1) / ((z+1)*t*t))
 
 
-# %% 04 Real scalar functions
 
 
-# %%% 4.1 Error functions for real arguments
 
-# 4.1.1 Error function erf
+# %% 4 Statistical distributions
 
-    def real_erf(self, x):
-        '''Returns the Error function erf.'''
-        x = self.t(x)
-        return mp.erf(x)
 
+# %% 4.1 Introduction (only text)
 
-# 4.1.2 Complementary error function erfc
 
-    def real_erfc(self, x):
-        '''Returns the Complementary error function erfc.'''
-        x = self.t(x)
-        return mp.erfc(x)
+# %% 4.2 Base class for random variables with univariate distribution functions
+    # Implemented in dist_base.py
 
 
-# 4.1.3 Inverse of the real error function
+# %% 4.3 Base class for random variables with univariate continuous distribution
+    # functions
+    # Implemented in dist_base.py
 
-    def real_erfinv(self, prob):
-        '''Returns the Inverse of the real error function.'''
-        prob = self.t(prob)
-        return mp.erfinv(prob)
 
+# %% 4.4 Base class for random variables with univariate discrete distribution
+    # functions
+    # Implemented in dist_base.py
 
-# 4.1.4 Inverse of the real complementory error function
 
-    def real_erfcinv(self, prob):
-        '''Returns the Inverse of the real complementory error function.'''
-        prob = self.t(prob)
-        return mp.erfinv(1-prob)
 
+# %% 4.5 Closed form distributions, based on elementary functions
 
-# 4.1.5 Standard normal density function
 
-    def ndens(self, z):
-        '''Returns the Standard normal density function.'''
-        z = self.t(z)
-        a = mp.exp(-0.5*z*z)/mp.sqrt(2*mp.pi)
-        return a
+# 4.5.1 Arcsine Distribution
 
+    def dist_arcsine(self, a, b):
+        '''Arcsine distribution'''
+        return ctx_arcsine(self, a, b)
 
-# 4.1.6 Standard normal cumulative distribution function
 
-    def ndis(self, x):
-        '''Returns the Standard normal cumulative distribution function.'''
-        x = self.t(x)
-        a = 0.5 * mp.erfc(-x/mp.sqrt(mp.mpf(2)))
-        return a
+# 4.5.2 Cauchy distribution
 
+    def dist_cauchy(self, a, b):
+        '''Cauchy distribution'''
+        return ctx_cauchy(self, a, b)
 
-# 4.1.7 Standard normal percentage point function
 
-    def ndis_inv(self, q):
-        '''Returns the Standard normal percentage point function.'''
-        q = self.t(q)
-        a = -mp.sqrt(2) * self.real_erfinv(2*q)
-        return a
+# 4.5.3 Exponential distribution
 
-    def ndisx(self, L, R):
-        '''Returns the Standard normal percentage point function.'''
-        return ctxm.ndisx_erf(self, L, R)
+    def dist_exponential(self, lambda1):
+        '''Exponential distribution'''
+        return ctx_exponential(self, lambda1)
 
-    def cplxerfc(self, z):
-        '''Returns the complex error function.'''
-        z = self.t(z)
-        x = self.real(z)
-        if x < 0:
-            y = -z
-            return mp.erfc(y)
-        else:
-            return mp.erfc(z)
 
-#    def cplxerfc2(self, z):
-#        z = self.t(z)
-#        res = arb().erfc(z)
-#        res = self.t(res)
-#        return res
+# 4.5.4 Gumbel (Generalized Extreme Value distribution Type-I) distribution
 
-    def cplxndis(self, z):
-        '''Returns the complex standard normal percentage point function.'''
-        # x = mp.mpf(x)
-        z = self.t(z)
-        a = 0.5 * self.cplxerfc(-z/mp.sqrt(mp.mpf(2)))
-        return a
+    def dist_gumbel(self, a, b):
+        '''Gumbel (Generalized Extreme Value distribution Type-I)
+        distribution'''
+        return ctx_gumbel(self, a, b)
 
-#    def cplxndis2(self, z):
-#        #x = mp.mpf(x)
-#        z = self.t(z)
-#        x = 0.5 * arb().erfc(-z/mp.sqrt(mp.mpf(2)))
-#        res = self.t(x)
-#        return res
 
+# 4.5.5 Hyperexponential Distribution
 
-# %%% 4.2 Incomplete gamma functions for non-negative real arguments and
-    # parameters
+    def dist_hyperexponential(self, k, w, l):
+        '''Hyperexponential Distribution'''
+        return ctx_hyperexponential(self, k, w, l)
 
 
-# 4.2.1 Real lower non-normalised incomplete gamma function
 
-    def real_gamma_lower(self, a, x, **kwargs):
-        '''Returns the Real lower non-normalised incomplete gamma function.'''
-        res = self.real_gamma_p(a, x, **kwargs)
-        return res * self.gamma(a)
+# 4.5.6 Kumaraswamy distribution
 
+    def dist_kumaraswamy(self, a, b):
+        '''Kumaraswamy distribution'''
+        return ctx_kumaraswamy(self, a, b)
 
-# 4.2.2 Real upper non-normalised incomplete gamma function
 
-    def real_gamma_upper(self, a, x, **kwargs):
-        '''Returns the Real upper non-normalised incomplete gamma function.'''
-        res = self.real_gamma_q(a, x, **kwargs)
-        return res * self.gamma(a)
+# 4.5.7 Laplace distribution
 
+    def dist_laplace(self, a, b):
+        '''Laplace distribution'''
+        return ctx_laplace(self, a, b)
 
-# 4.2.3 Real lower normalised incomplete gamma function
 
-    def real_gamma_p(self, a, x, **kwargs):
-        '''Returns the Real lower normalised incomplete gamma function.'''
-        a = self.t(a)
-        x = self.t(x)
-        return ctxm.real_gamma_p(self, a, x, **kwargs)
+# 4.5.8 Logistic distribution
 
+    def dist_logistic(self, a, b):
+        '''Logistic distribution'''
+        return ctx_logistic(self, a, b)
 
-# 4.2.4 Real upper normalised incomplete gamma function
 
-    def real_gamma_q(self, a, x, **kwargs):
-        '''Returns the Real upper normalised incomplete gamma function.'''
-        a = self.t(a)
-        x = self.t(x)
-        return ctxm.real_gamma_q(self, a, x, **kwargs)
+# 4.5.9 Pareto distribution
 
+    def dist_pareto(self, a, b):
+        '''Pareto distribution'''
+        return ctx_pareto(self, a, b)
 
-# 4.2.5 Tricomi’s entire incomplete gamma function
 
-    def real_gamma_tricomi(self, a, x, **kwargs):
-        '''Returns Tricomi’s entire incomplete gamma function.'''
-        res = self.real_gamma_p(a, x, **kwargs)
-        return res * self.power(x, -self.t(a))
+# 4.5.10 Rayleigh distribution
 
+    def dist_rayleigh(self, b):
+        '''Rayleigh distribution'''
+        return ctx_rayleigh(self, b)
 
-# 4.2.6 Inverse of the real lower normalised incomplete gamma function
 
-    def real_gamma_p_inv(self, a, p, **kwargs):
-        '''Returns the Inverse of the real lower normalised incomplete gamma
-        function.'''
-        a = self.t(a)
-        p = self.t(p)
-        return ctxm.real_gamma_p_inv(self, a, p, **kwargs)
+# 4.5.11 Triangular Distribution
 
+    def dist_triangular(self, a, b, c):
+        '''Triangular Distribution'''
+        return ctx_triangular(self, a, b, c)
 
-# 4.2.7 Inverse of the real upper normalised incomplete gamma function
 
-    def real_gamma_q_inv(self, a, q, **kwargs):
-        '''Returns the Inverse of the real upper normalised incomplete gamma
-        function.'''
-        a = self.t(a)
-        q = self.t(q)
-        return ctxm.real_gamma_q_inv(self, a, q, **kwargs)
+# 4.5.12 Uniform distribution
 
+    def dist_uniform(self, a, b):
+        '''Uniform distribution'''
+        return ctx_uniform(self, a, b)
 
-# 4.2.8 Inverse (on parameter a) of the real lower normalised incomplete
-    # gamma function
 
-    def real_gamma_p_inva(self, x, prob, **kwargs):
-        '''Inverse (on parameter a) of the real lower normalised incomplete
-        gamma function.'''
-        x = self.t(x)
-        prob = self.t(prob)
-        return ctxm.real_gamma_p_inva(self, x, prob, **kwargs)
+# 4.5.13 Weibull distribution
 
+    def dist_weibull(self, a, b):
+        '''Weibull distribution'''
+        return ctx_weibull(self, a, b)
 
-# 4.2.9 Inverse (on parameter a) of the real upper normalised incomplete
-    # gamma function
 
-    def real_gamma_q_inva(self, x, prob, **kwargs):
-        '''Returns the Inverse (on parameter a) of the real upper normalised
-        incomplete gamma function.'''
-        x = self.t(x)
-        prob = self.t(prob)
-        return ctxm.real_gamma_q_inva(self, x, prob, **kwargs)
+# 4.5.14 Dagum (Burr Type III) distribution
 
+    def dist_dagum(self, a, b, p):
+        '''Dagum (Burr Type III) distribution'''
+        return ctx_dagum(self, a, b, p)
 
-# 4.2.10 Derivative of the incomplete gamma function
 
-    def real_gamma_derivative(self, a, x):
-        '''Returns the Derivative of the incomplete gamma function.'''
-        a = self.t(a)
-        x = self.t(x)
-        return self.exp(-x) * self.power(x, a-1) / self.gamma(a)
+# 4.5.15 (log-logistic) distribution
 
+    def dist_fisk(self, a, b):
+        '''Fisk (log-logistic) distribution'''
+        return ctx_fisk(self, a, b)
 
-# %%%  4.3 Incomplete beta functions for non-negative real arguments and
-    # parameters
 
-# 4.3.1 Non-normalised incomplete beta function
+# 4.5.15 Fréchet (Generalized Extreme Value distribution Type-II) distribution
 
-    def real_beta3(self, a, b, x, **kwargs):
-        '''Returns the Non-normalised incomplete beta function.'''
-        res = self.real_ibeta(a, b, x, **kwargs)
-        return res * self.beta(a, b)
+    def dist_frechet(self, a, b):
+        '''Fréchet (Generalized Extreme Value distribution Type-II)
+        distribution'''
+        return ctx_frechet(self, a, b)
 
 
-# 4.3.2 Non-normalised complement of the incomplete beta function
+# 4.5.15 Generalized Extreme Value (GEV) distribution
 
-    def real_betac(self, a, b, x, **kwargs):
-        '''Returns the Non-normalised complement of the incomplete beta
-        function.'''
-        res = self.real_ibetac(a, b, x, **kwargs)
-        return res * self.beta(a, b)
+    def dist_gev(self, lambda1):
+        '''Generalized Extreme Value (GEV) distribution'''
+        return ctx_gev(self, lambda1)
 
 
-# 4.3.3 Normalised incomplete beta function
+# 4.5.18 Generalized Pareto distribution
 
-    def real_ibeta(self, a, b, x, **kwargs):
-        '''Returns the Normalised incomplete beta function.'''
-        a = self.t(a)
-        b = self.t(b)
-        x = self.t(x)
-        return ctxm.real_ibeta(self, a, b, x, **kwargs)
+    def dist_genpareto(self, m, s, c):
+        '''Generalized Pareto distribution'''
+        return ctx_genpareto(self, m, s, c)
 
 
-# 4.3.4 Normalised complementory incomplete beta function
 
-    def real_ibetac(self, a, b, x, **kwargs):
-        '''Returns the Normalised complementory incomplete beta function.'''
-        a = self.t(a)
-        b = self.t(b)
-        x = self.t(x)
-        return ctxm.real_ibetac(self, a, b, x, **kwargs)
+# 4.5.18 Gompertz-Makeham distribution
 
+    def dist_gompertz(self, a, b, l):
+        '''Gompertz distribution'''
+        return ctx_gompertz(self, a, b, l)
 
-# 4.3.5 Inverse of the real normalised incomplete beta function
 
-    def real_ibeta_inv(self, a, b, prob, **kwargs):
-        '''Returns the Inverse of the real normalised incomplete beta
-        function.'''
-        a = self.t(a)
-        b = self.t(b)
-        prob = self.t(prob)
-        return ctxm.real_ibeta_inv(self, a, b, prob, **kwargs)
+# 4.5.19 Lomax distribution
 
-    def betadisx(self, LeftTail, Righttail, a, b, **kwargs):
-        '''Returns the Inverse of the real normalised incomplete beta
-        function.'''
-        a = self.t(a)
-        b = self.t(b)
-        LeftTail = self.t(LeftTail)
-        x = ctxm.real_ibeta_inv(self, a, b, LeftTail, **kwargs)
-        return x, 1-x
+    def dist_lomax(self, a, b):
+        '''Lomax distribution'''
+        return ctx_lomax(self, a, b)
 
 
-# 4.3.6 Inverse of the real normalised complementary incomplete beta function
+# 4.5.20 Shifted Gompertz distribution
 
-    def real_ibetac_inv(self, a, b, prob, **kwargs):
-        '''Returns the IInverse of the real normalised complementary incomplete
-        beta function.'''
-        a = self.t(a)
-        b = self.t(b)
-        prob = self.t(prob)
-        return ctxm.real_ibetac_inv(self, a, b, prob, **kwargs)
+    def dist_shifted_gompertz(self, a, b):
+        '''Shifted Gompertz distribution'''
+        return ctx_shifted_gompertz(self, a, b)
 
 
-# 4.3.7 Inverse (on parameter a) of the normalised incomplete beta function
+# 4.5.21 Singh-Maddala (Burr Type XII) distribution
 
-    def real_ibeta_inva(self, b, x, prob, **kwargs):
-        '''Returns the Inverse (on parameter a) of the normalised incomplete
-        beta function.'''
-        x = self.t(x)
-        b = self.t(b)
-        prob = self.t(prob)
-        return ctxm.real_ibeta_inva(self, b, x, prob, **kwargs)
+    def dist_singh_maddala(self, a, b, d):
+        '''Singh-Maddala (Burr Type XII) distribution'''
+        return ctx_singh_maddala(self, a, b, d)
 
 
-# 4.3.8 Inverse (on parameter a) of the normalised complementary incomplete
-    # beta function
 
-    def real_ibetac_inva(self, b, x, prob, **kwargs):
-        '''Returns the Inverse (on parameter a) of the normalised complementary
-        incomplete beta function.'''
-        x = self.t(x)
-        b = self.t(b)
-        prob = self.t(prob)
-        return ctxm.real_ibetac_inva(self, b, x, prob, **kwargs)
 
 
-# 4.3.9 Inverse (on parameter b) of the normalised incomplete beta function
 
-    def real_ibeta_invb(self, a, x, prob, **kwargs):
-        '''Returns the Inverse (on parameter b) of the normalised incomplete
-        beta function.'''
-        x = self.t(x)
-        a = self.t(a)
-        prob = self.t(prob)
-        return ctxm.real_ibeta_invb(self, a, x, prob, **kwargs)
+# %% 4.6 Closed form distributions, based on the error function
 
+# 4.6.1 Lévy distribution
 
-# 4.3.10 Inverse (on parameter b) of the normalised complementary incomplete
-    # beta function
+    def dist_levy(self, a, b):
+        '''Lévy distribution'''
+        return ctx_levy(self, a, b)
 
-    def real_ibetac_invb(self, a, x, prob, **kwargs):
-        '''Returns the Inverse (on parameter b) of the normalised complementary
-        incomplete beta function.'''
-        x = self.t(x)
-        a = self.t(a)
-        prob = self.t(prob)
-        return ctxm.real_ibetac_invb(self, a, x, prob, **kwargs)
+# 4.6.2 Lognormal (Johnson SL) distribution
 
+    def dist_lognormal(self, a, b):
+        '''Lognormal (Johnson SL) distribution'''
+        return ctx_lognormal(self, a, b)
 
-# 4.3.11 Derivative of the incomplete beta function
 
-    def real_ibeta_derivative(self, a, b, x):
-        '''Returns the Derivative of the incomplete beta function.'''
-        a = self.t(a)
-        b = self.t(b)
-        x = self.t(x)
-        return self.power(x, a-1) * self.power(1-x, b-1) / self.beta(a, b)
+# 4.6.3 Moyal Distribution
 
-    def betadis(self, a, b, q, p):
-        '''Returns the incomplete beta function (L, R).'''
-        L, R = ctxm.betadis(self, a, b, q, p)
-        return L, R
+    def dist_moyal(self, a, b):
+        '''Moyal Distribution'''
+        return ctx_moyal(self, a, b)
 
-    def betadis3(self, a, b, q, p):
-        '''Returns the incomplete beta function (L, R, density).'''
-        L, R, density = ctxm.betadis3(self, a, b, q, p)
-        return L, R, density
 
+# 4.6.4 Normal (Johnson SN) distribution
+
+    def dist_normal(self, a, b):
+        '''Normal (Johnson SN) distribution'''
+        return ctx_normal(self, a, b)
+
+
+# 4.6.5 Skew normal Distribution
+
+    def dist_skewnormal(self, a, b, c):
+        '''Skew normal Distribution'''
+        return ctx_skewnormal(self, a, b, c)
+
+
+# 4.6.6 Wald (or Inverse Gaussian) distribution
+
+    def dist_wald(self, a, b):
+        '''Wald (or Inverse Gaussian) distribution'''
+        return ctx_wald(self, a, b)
+
+
+
+
+
+
+# 4.6.7 Birnbaum-Saunders Distribution
+
+    def dist_birnb_saunders(self, a, b):
+        '''Birnbaum-Saunders Distribution'''
+        return ctx_birnb_saunders(self, a, b)
+
+
+# 4.6.8 Exponentially Modified Gaussian (EMG) distribution
+
+    def dist_emg(self, a, b):
+        '''Exponentially Modified Gaussian (EMG) distribution'''
+        return ctx_emg(self, a, b)
+
+
+# 4.6.9 Folded normal distribution
+
+    def dist_folded_normal(self, a, b):
+        '''Folded normal distribution'''
+        return ctx_folded_normal(self, a, b)
+
+
+# 4.6.10 Half-normal distribution
+
+    def dist_half_normal(self, a, b):
+        '''Half-normal distribution'''
+        return ctx_half_normal(self, a, b)
+
+
+# 4.6.11 Johnson SB distribution
+
+    def dist_johnson_sb(self, a, b):
+        '''Johnson SB distribution'''
+        return ctx_johnson_sb(self, a, b)
+
+
+# 4.6.12 Johnson SU distribution
+
+    def dist_johnson_su(self, a, b):
+        '''Johnson SU distribution'''
+        return ctx_johnson_su(self, a, b)
+
+# 4.6.13 Normal maximum distribution
+
+    def dist_normal_max(self, k):
+        '''Normal maximum distribution'''
+        return ctx_normal_max(self, k)
+
+
+# 4.6.14 Normal maximum modulus distribution
+
+    def dist_normal_maxmod(self, k):
+        '''Normal maximum modulus distribution'''
+        return ctx_normal_maxmod(self, k)
+
+
+
+# 4.6.15 Sinh-arcsinh normal distribution
+
+    def dist_sasnormal(self, a, b, c):
+        '''Skew normal Distribution'''
+        return ctx_sasnormal(self, a, b, c)
+
+
+# 4.6.16 Truncated normal distribution
+
+    def dist_trunc_normal(self, a, b):
+        '''Truncated normal distribution'''
+        return ctx_trunc_normal(self, a, b)
+
+
+
+
+
+
+# %% 4.7 Closed form distributions, based on the incomplete gamma function
+
+
+# 4.7.1 Chi Distribution
+
+    def dist_chi(self, nu):
+        '''Chi Distribution'''
+        return ctx_chi(self, nu)
+
+
+# 4.7.2 Chi-Squared distribution
+
+    def dist_chi2(self, nu):
+        '''Chi-Squared distribution'''
+        return ctx_chi2(self, nu)
+
+
+# 4.7.3 Gamma (Pearson Type III) distribution
+
+    def dist_gamma(self, a, b):
+        '''Gamma (Pearson Type III) distribution'''
+        return ctx_gamma(self, a, b)
+
+
+# 4.7.4 Inverse chisquared distribution
+
+    def dist_invchi2(self, a, b):
+        '''Inverse chisquared distribution'''
+        return ctx_invchi2(self, a, b)
+
+
+# 4.7.5 Inverse Gamma (Pearson Type V) distribution
+
+    def dist_invgamma(self, a, b):
+        '''Inverse Gamma (Pearson Type V) distribution'''
+        return ctx_invgamma(self, a, b)
+
+
+# 4.7.6 Maxwell Distribution
+
+    def dist_maxwell(self, b):
+        '''Maxwell Distribution'''
+        return ctx_maxwell(self, b)
+
+
+# 4.7.7 Nakagami distribution
+
+    def dist_nakagami(self, m, w):
+        '''Nakagami distribution'''
+        return ctx_nakagami(self, m, w)
+
+
+# 4.7.8 Amoroso distribution
+
+    def dist_amoroso(self, a, b):
+        '''Amoroso distribution'''
+        return ctx_amoroso(self, a, b)
+
+
+# 4.7.9 Distribution of the logarithm of a chi^2 random variable
+
+    def dist_logrv_chi2(self, nu):
+        '''Distribution of the logarithm of a chi^2 random variable'''
+        return ctx_logrv_chi2(self, nu)
+
+
+# 4.7.10 Hypoexponential distribution
+
+    def dist_hypoexp(self, n, l):
+        '''Hypoexponential distribution'''
+        return ctx_hypoexp(self, n, l)
+
+
+# 4.7.11 Lindley distribution
+
+    def dist_lindley(self, m, w):
+        '''Nakagami distribution'''
+        return ctx_lindley(self, m, w)
+
+
+# 4.7.12 Skew exponential power distribution
+
+    def dist_skew_exp_power(self, m, w):
+        '''Nakagami distribution'''
+        return ctx_skew_exp_power(self, m, w)
+
+
+# 4.7.13 Stacy (generalized gamma) distribution
+
+    def dist_stacy(self, m, w):
+        '''Stacy (generalized gamma) distribution'''
+        return ctx_stacy(self, m, w)
+
+
+
+
+# %% 4.8 Closed form distributions, based on the incomplete beta function
+
+# 4.8.1 Beta (Pearson Type I and II) distribution
+
+    def dist_beta(self, a, b):
+        '''Beta (Pearson Type I and II) distribution'''
+        return ctx_beta(self, a, b)
+
+
+# 4.8.2 Central Fisher F distribution
+
+    def dist_fisher_f(self, a, b):
+        '''Central Fisher F distribution'''
+        return ctx_fisher_f(self, a, b)
+
+
+# 4.8.3 Student t (Pearson Type VII) distribution
+
+    def dist_student_t(self, n):
+        '''Student t (Pearson Type VII) distribution'''
+        return ctx_student_t(self, n)
+
+
+# 4.8.4 Distribution of the negative logarithm of a beta variable
+
+    def dist_logrv_beta(self, a, b):
+        '''Distribution of the negative logarithm of a beta variable'''
+        return ctx_logrv_beta(self, a, b)
+
+
+# 4.8.5 Beta-prime (Pearson Type VI) distribution
+
+    def dist_beta_prime(self, a, b):
+        '''Beta-prime (Pearson Type VI) distribution'''
+        return ctx_beta_prime(self, a, b)
+
+
+# 4.8.6 Generalized Beta (Type 1) distribution
+
+    def dist_genbeta1(self, a, b):
+        '''Generalized Beta (Type 1) distribution'''
+        return ctx_genbeta1(self, a, b)
+
+
+# 4.8.7 Generalized Beta (Type 2) distribution
+
+    def dist_genbeta2(self, a, b):
+        '''Generalized Beta (Type 2) distribution'''
+        return ctx_genbeta2(self, a, b)
+
+
+# 4.8.8 Generalized logistic distribution
+
+    def dist_genlogistic(self, a, b):
+        '''Generalized logistic distribution'''
+        return ctx_genlogistic(self, a, b)
+
+
+# 4.8.9 Generalized beta-exponential distribution
+
+    def dist_gen_beta_exp(self, a, b):
+        '''Generalized beta-exponential distribution'''
+        return ctx_gen_beta_exp(self, a, b)
+
+
+
+# 4.8.10 Feller-Pareto distribution
+
+    def dist_feller_pareto(self, a, b):
+        '''Feller-Pareto distribution'''
+        return ctx_feller_pareto(self, a, b)
+
+
+
+# 4.8.11 Fisher z distribution
+
+    def dist_fisher_z(self, a, b):
+        '''Fisher z distribution'''
+        return ctx_fisher_z(self, a, b)
+
+
+# 4.8.12 Skew t-distribution
+
+    def dist_skew_t(self, n):
+        '''Student t (Pearson Type VII) distribution'''
+        return ctx_skew_t(self, n)
+
+
+# 4.8.13 Pearson’s rho distribution (under H0)
+
+    def dist_pearson_rho(self, a, b):
+        '''Pearson’s rho distribution (under H0)'''
+        return ctx_pearson_rho(self, a, b)
+
+
+
+
+
+# %% 4.9 Noncentral distribution functions
+
+
+# 4.9.1 Noncentral chi^2 distribution
+
+    def dist_chi2_nc(self, df_, lambda1_):
+        '''Noncentral Chi distribution'''
+        return ctx_chi2_nc(self, df_, lambda1_)
+
+
+# 4.9.2 Noncentral Student t distribution
+
+    def dist_student_t_nc(self, a, b):
+        '''Noncentral Student t distribution'''
+        return ctx_student_t_nc(self, a, b)
+
+
+# 4.9.3 Noncentral Fisher F distribution
+
+    def dist_fisher_f_nc(self, a, b):
+        '''Noncentral Fisher F distribution'''
+        return ctx_fisher_f_nc(self, a, b)
+
+
+# 4.9.4 Noncentral Beta Type I distribution
+
+    def dist_beta_nc_type_I(self, a, b):
+        '''Noncentral Beta Type I distribution'''
+        return ctx_beta_nc_type_I(self, a, b)
+
+
+
+# 4.9.5 Noncentral Chi distribution
+
+    def dist_chi_nc(self, a, b):
+        '''Noncentral Chi distribution'''
+        return ctx_chi_nc(self, a, b)
+
+
+# 4.9.6 Rice distribution
+
+    def dist_rice(self, a, b):
+        '''Rice distribution'''
+        return ctx_rice(self, a, b)
+
+
+# 4.9.7 Noncentral distribution of the sample correlation coefficient
+
+    def dist_pearson_rho_nc(self, a, b):
+        '''Noncentral distribution of the sample correlation coefficient'''
+        return ctx_pearson_rho_nc(self, a, b)
+
+
+# 4.9.8 Noncentral Beta Type II distribution
+
+    def dist_logrv_beta_nc_type_II(self, a, b):
+        '''Noncentral Beta Type II distribution'''
+        return ctx_logrv_beta_nc_type_II(self, a, b)
+
+
+# 4.9.9 Noncentral distribution (Type I) of Fisher’s R^2
+
+    def dist_fisher_r2(self, a, b):
+        '''Noncentral distribution (Type I) of Fisher’s R^2'''
+        return ctx_fisher_r2(self, a, b)
+
+
+# 4.9.10 Noncentral distribution (Type II) of Fisher’s R^2
+
+    def dist_logrv_fisher_1mr2(self, a, b):
+        '''Noncentral distribution (Type II) of Fisher’s R^2'''
+        return ctx_logrv_fisher_1mr2(self, a, b)
+
+
+# 4.9.11 Doubly non-central Student t distribution
+
+    def dist_student_t_2nc(self, a, b):
+        '''Doubly non-central Student t distribution'''
+        return ctx_student_t_2nc(self, a, b)
+
+
+# 4.9.12 Doubly non-central Fisher F distribution
+
+    def dist_fisher_f_2nc(self, a, b):
+        '''Doubly non-central Fisher F distribution'''
+        return ctx_fisher_f_2nc(self, a, b)
+
+
+
+
+
+
+# %% 4.10 Distributions related to multiple comparisons of means
+
+# 4.10.1 Overview and literature
+
+
+# 4.10.2 Normal maximum distribution, equicorrelated case
+
+    def dist_nmax_rho(self, k, rho):
+        '''Normal maximum distribution, equicorrelated case'''
+        return ctx_nmax_corr(self, k, rho)
+
+
+# 4.10.3 Normal maximum modulus distribution, equicorrelated case
+
+    def dist_nmm_rho(self, k, rho):
+        '''Normal maximum modulus distribution, rhoij = li*lj'''
+        return ctx_nmm_corr(self, k, rho)
+
+
+# 4.10.4 Normal maximum distribution,  rhoij = li*lj
+
+    def dist_nmax_rhoij(self, k, rho):
+        '''Normal maximum distribution, rhoij = li*lj'''
+        return ctx_nmax_corr(self, k, rho)
+
+
+# 4.10.5 Normal maximum modulus distribution,  rhoij = li*lj
+
+    def dist_nmm_rhoij(self, k, rho):
+        '''Normal maximum modulus distribution, equicorrelated case'''
+        return ctx_nmm_corr(self, k, rho)
+
+
+
+# 4.10.6 Normal range distribution
+
+    def dist_normal_range(self, k):
+        '''Normal range distribution'''
+        return ctx_normal_range(self, k)
+
+
+
+# 4.10.7 Studentized maximum distribution
+
+    def dist_smax(self, k, n):
+        '''Studentized maximum distribution'''
+        return ctx_smax(self, k, n)
+
+
+# 4.10.8 Studentized maximum modulus distribution
+
+    def dist_smm(self, k, n):
+        '''Studentized maximum modulus distribution'''
+        return ctx_smm(self, k, n)
+
+
+# 4.10.9 Distribution of Dunnett’s t, one-sided
+
+    def dist_dunnett1_t(self, k, n, rho):
+        '''Distribution of Dunnett’s t, one-sided'''
+        return ctx_dunnett1_t(self, k, n, rho)
+
+
+# 4.10.10 Distribution of Dunnett’s t, two-sided
+
+    def dist_dunnett2_t(self, k, n, rho):
+        '''Distribution of Dunnett’s t, two-sided'''
+        return ctx_dunnett2_t(self, k, n, rho)
+
+
+# 4.10.11 Distribution of Nair's t, one-sided
+
+    def dist_nair_t(self, a, b):
+        '''Distribution of Nair's t, one-sided'''
+        return ctx_nair_t(self, a, b)
+
+
+# 4.10.12 Distribution of Halperin’s t, two-sided
+
+    def dist_halperin_t(self, a, b):
+        '''Distribution of Halperin’s t, two-sided'''
+        return ctx_halperin_t(self, a, b)
+
+
+# 4.10.13 Distribution of Nelson’s h, two-sided
+
+    def dist_halperin_t(self, a, b):
+        '''Distribution of Halperin’s t, two-sided'''
+        return ctx_halperin_t(self, a, b)
+
+
+# 4.10.14 Studentized range distribution
+
+    def dist_studentized_range(self, a, b):
+        '''Studentized range distribution'''
+        return ctx_studentized_range(self, a, b)
+
+
+
+
+
+# %% 4.11 Distribution functions related to multivariate statistical analysis
+
+
+
+# 4.11.1 Distribution of the negative logarithm of a betaproduct variable
+
+    def dist_logrv_betaproduct(self, a, b):
+        '''Distribution of the negative logarithm of a betaproduct variable'''
+        return ctx_logrv_betaproduct(self, a, b)
+
+
+# 4.11.2 Distribution of the product of independent beta variables
+
+    def dist_betaproduct(self, a, b):
+        '''Distribution of the product of independent beta variables'''
+        return ctx_betaproduct(self, a, b)
+
+
+# 4.11.3 Central distribution of Wilks' Lambda
+
+    def dist_wilks_lambda(self, a, b):
+        '''Central distribution of Wilks' Lambda'''
+        return ctx_wilks_lambda(self, a, b)
+
+
+# 4.11.4 Central distribution of Wilks' Lvc
+
+    def dist_wilks_lambda(self, a, b):
+        '''Central distribution of Wilks' Lvc'''
+        return ctx_wilks_lambda(self, a, b)
+
+
+# 4.11.5 Central distribution of Wilks' Lvcm
+
+    def dist_wilks_lambda(self, a, b):
+        '''Central distribution of Wilks' Lvc'''
+        return ctx_wilks_lambda(self, a, b)
+
+
+# 4.11.6 Wilks_ip distribution
+
+    def dist_wilks_ip(self, a, b):
+        '''Wilks_ip distribution'''
+        return ctx_wilks_ip(self, a, b)
+
+
+# 4.11.7 Wilks_iblocks distribution
+
+    def dist_wilks_iblocks(self, a, b):
+        '''Wilks_iblocks distribution'''
+        return ctx_wilks_iblocks(self, a, b)
+
+
+# 4.11.8 Mauchley distribution
+
+    def dist_mauchley(self, a, b):
+        '''Bartlett distribution'''
+        return ctx_mauchley(self, a, b)
+
+
+# 4.11.9 Box_nsame_cov distribution
+
+    def dist_box_nsame_cov(self, a, b):
+        '''Wilks_iblocks distribution'''
+        return ctx_box_nsame_cov(self, a, b)
+
+
+# 4.11.10 Distribution of Box’s test of equality of k covariance matrices, unequal
+    # sample sizes
+
+    def dist_box_cov(self, a, b):
+        '''Distribution of Box’s test of equality of k covariance matrices,
+        unequal sample sizes'''
+        return ctx_box_cov(self, a, b)
+
+
+# 4.11.11 Distribution of Box’s test for same multivariate normal distributions,
+    # unequal sample sizes
+
+    def dist_box_mvn(self, a, b):
+        '''Distribution of Box’s test for same multivariate normal
+        distributions, unequal sample sizes'''
+        return ctx_box_mvn(self, a, b)
+
+
+# 4.11.12 Distribution of the modified likelihood ratio test (LRT) for a given
+    # covariance matrix
+
+    def dist_lrt_s0(self, a, b):
+        '''Distribution of the modified likelihood ratio test (LRT) for a given
+        covariance matrix'''
+        return ctx_lrt_s0(self, a, b)
+
+
+# 4.11.13 Distribution of the modified likelihood ratio test (LRT) for a given
+    # covariance matrix and mean vector
+
+    def dist_lrt_x0_s0(self, a, b):
+        '''Distribution of the modified likelihood ratio test (LRT) for a given
+        covariance matrix and mean vector'''
+        return ctx_lrt_x0_s0(self, a, b)
+
+
+# 4.11.14 Central distribution of Roy’s largest root
+
+    def dist_roy(self, a, b):
+        '''Central distribution of Roy’s largest root'''
+        return ctx_roy(self, a, b)
+
+
+# 4.11.15 Central distribution of Pillai’s V
+
+    def dist_pillai_v(self, a, b):
+        '''Central distribution of Pillai’s V'''
+        return ctx_pillai_v(self, a, b)
+
+
+# 4.11.16 Central distribution of Hotelling’s T2
+
+    def dist_hotelling_t2(self, a, b):
+        '''Central distribution of Hotelling’s T2'''
+        return ctx_hotelling_t2(self, a, b)
+
+
+# 4.11.17 Noncentral Distribution of Wilks' Lambda: MANOVA
+
+    def dist_wilks_lambda_glm(self, a, b):
+        '''Noncentral Distribution of Wilks' Lambda: MANOVA'''
+        return ctx_wilks_lambda_glm(self, a, b)
+
+
+# 4.11.18 Noncentral Distribution of  Wilks' Lambda: Canonical Correlation
+
+    def dist_wilks_lambda_corr(self, a, b):
+        '''Noncentral Distribution of  Wilks' Lambda: Canonical Correlation'''
+        return ctx_wilks_lambda_corr(self, a, b)
+
+
+
+
+
+# %% 4.12 Miscellaneous continuous distributions
+
+
+# 4.12.1 Boost: Kolmogorov-Smirnov distribution (limiting form)
+
+    def dist_kolmogorov_smirnov():
+        '''Bernoulli distribution'''
+        return dist_kolmogorov_smirnov(self, p)
+
+
+# 4.12.2 Boost: Landau Distribution
+
+    def dist_landau():
+        '''Landau Distribution'''
+        return dist_landau(self, p)
+
+
+# 4.12.3 Boost: Holtsmark distribution
+
+    def dist_holtsmark():
+        '''Landau Distribution'''
+        return dist_holtsmark(self, p)
+
+
+# 4.12.4 Boost: Map-Airy distribution
+
+    def dist_mapairy():
+        '''Landau Distribution'''
+        return dist_mapairy(self, p)
+
+
+# 4.12.5 Boost: Saspoint5 distribution
+
+    def dist_saspoint5():
+        '''Landau Distribution'''
+        return dist_saspoint5(self, p)
+
+
+
+
+
+# %% 4.13 Elementary discrete (lattice) distributions
+
+
+# 4.13.1 Bernoulli distribution
+
+    def dist_bernoulli(self, p):
+        '''Bernoulli distribution'''
+        return ctx_geometric(self, p)
+
+
+# 4.13.2 Geometric distribution
+
+    def dist_geometric(self, p):
+        '''Geometric distribution'''
+        return ctx_geometric(self, p)
+
+
+# 4.13.3 Poisson distribution
+
+    def dist_poisson(self, mu):
+        '''Poisson distribution'''
+        return ctx_poisson(self, mu)
+
+
+# 4.13.4 Binomial distribution
+
+    def dist_binomial(self, n, p):
+        '''Binomial distribution'''
+        return ctx_binomial(self, n, p)
+
+
+# 4.13.5 Negative binomial distribution
+
+    def dist_negative_binomial(self, r, p):
+        '''Negative binomial distribution'''
+        return ctx_negative_binomial(self, r, p)
+
+
+# 4.13.6 Classical hypergeometric distribution
+
+    def dist_hypergeometric(self, n, K, N):
+        '''Classical hypergeometric distribution'''
+        return ctx_hypergeometric(self, n, K, N)
+
+
+
+
+
+# %% 4.14 Discrete (lattice) distributions related to (stratified) rank tests
+
+
+# 4.14.1 Wilcoxon signed rank T distribution, continuous data
+
+    def dist_wilcoxon(self, a, b):
+        '''Wilcoxon signed rank T distribution, continuous data'''
+        return ctx_wilcoxon(self, a, b)
+
+
+# 4.14.2 Noncentral Wilcoxon signed rank T distribution, Bennett alternatives
+
+    def dist_bennett(self, a, b):
+        '''Noncentral Wilcoxon signed rank T distribution,
+        Bennett alternatives'''
+        return ctx_bennett(self, a, b)
+
+
+# 4.14.3 Mann-Whitney U distribution, continuous data
+
+    def dist_mann_whitney_u(self, a, b):
+        '''Mann-Whitney U distribution, continuous data'''
+        return ctx_mann_whitney_u(self, a, b)
+
+
+# 4.14.4 Noncentral Mann-Whitney U distribution, Lehmann alternatives
+
+    def dist_mann_whitney_u_lehmann(self, a, b):
+        '''Noncentral Mann-Whitney U distribution, Lehmann alternatives'''
+        return ctx_mann_whitney_u_lehmann(self, a, b)
+
+
+# 4.14.5 Noncentral Mann-Whitney U distribution, Milton alternatives
+
+    def dist_mann_whitney_u_milton(self, a, b):
+        '''Noncentral Mann-Whitney U distribution, Milton alternatives'''
+        return ctx_mann_whitney_u_milton(self, a, b)
+
+
+# 4.14.6 Kendall’s tau distribution, continuous data
+
+    def dist_kendall_tau(self, a, b):
+        '''Kendall’s tau distribution, continuous data'''
+        return ctx_kendall_tau(self, a, b)
+
+
+# 4.14.7 Jonckheere-Terpsta S distribution, continuous data
+
+    def dist_jterpsta_s(self, a, b):
+        '''Jonckheere-Terpsta S distribution, continuous data'''
+        return ctx_jterpsta_s(self, a, b)
+
+
+# 4.14.8 Generalized Page L distribution, continuous data
+
+    def dist_page_l(self, a, b):
+        '''Generalized Page L distribution, continuous data'''
+        return ctx_page_l(self, a, b)
+
+
+# 4.14.9 Noncentral generalized Page L distribution, Milton alternatives
+
+    def dist_page_l_nc_milton(self, a, b):
+        '''Noncentral generalized Page L distribution, Milton alternatives'''
+        return ctx_page_l_nc_milton(self, a, b)
+
+
+# %% 4.15 Discrete (non-lattice) distributions related to rank tests
+
+# 4.15.1 Cochran-Friedman-Quade distribution
+
+    def dist_friedman(self, a, b):
+        '''Cochran-Friedman-Quade distribution'''
+        return ctx_friedman(self, a, b)
+
+
+# 4.15.2 Kruskal_Wallis distribution
+
+    def dist_kruskal_wallis(self, a, b):
+        '''Kruskal_Wallis distribution'''
+        return ctx_kruskal_wallis(self, a, b)
+
+
+
+
+
+
+
+
+
+
+##
+### %% 04 Real scalar functions
+##
+##
+### %%% 4.1 Error functions for real arguments
+##
+### 4.1.1 Error function erf
+##
+##    def real_erf(self, x):
+##        '''Returns the Error function erf.'''
+##        x = self.t(x)
+##        return mp.erf(x)
+##
+##
+### 4.1.2 Complementary error function erfc
+##
+##    def real_erfc(self, x):
+##        '''Returns the Complementary error function erfc.'''
+##        x = self.t(x)
+##        return mp.erfc(x)
+##
+##
+### 4.1.3 Inverse of the real error function
+##
+##    def real_erfinv(self, prob):
+##        '''Returns the Inverse of the real error function.'''
+##        prob = self.t(prob)
+##        return mp.erfinv(prob)
+##
+##
+### 4.1.4 Inverse of the real complementory error function
+##
+##    def real_erfcinv(self, prob):
+##        '''Returns the Inverse of the real complementory error function.'''
+##        prob = self.t(prob)
+##        return mp.erfinv(1-prob)
+##
+##
+### 4.1.5 Standard normal density function
+##
+##    def ndens(self, z):
+##        '''Returns the Standard normal density function.'''
+##        z = self.t(z)
+##        a = mp.exp(-0.5*z*z)/mp.sqrt(2*mp.pi)
+##        return a
+##
+##
+### 4.1.6 Standard normal cumulative distribution function
+##
+##    def ndis(self, x):
+##        '''Returns the Standard normal cumulative distribution function.'''
+##        x = self.t(x)
+##        a = 0.5 * mp.erfc(-x/mp.sqrt(mp.mpf(2)))
+##        return a
+##
+##
+### 4.1.7 Standard normal percentage point function
+##
+##    def ndis_inv(self, q):
+##        '''Returns the Standard normal percentage point function.'''
+##        q = self.t(q)
+##        a = -mp.sqrt(2) * self.real_erfinv(2*q)
+##        return a
+##
+##    def ndisx(self, L, R):
+##        '''Returns the Standard normal percentage point function.'''
+##        return ctxm.ndisx_erf(self, L, R)
+##
+##    def cplxerfc(self, z):
+##        '''Returns the complex error function.'''
+##        z = self.t(z)
+##        x = self.real(z)
+##        if x < 0:
+##            y = -z
+##            return mp.erfc(y)
+##        else:
+##            return mp.erfc(z)
+##
+###    def cplxerfc2(self, z):
+###        z = self.t(z)
+###        res = arb().erfc(z)
+###        res = self.t(res)
+###        return res
+##
+##    def cplxndis(self, z):
+##        '''Returns the complex standard normal percentage point function.'''
+##        # x = mp.mpf(x)
+##        z = self.t(z)
+##        a = 0.5 * self.cplxerfc(-z/mp.sqrt(mp.mpf(2)))
+##        return a
+##
+###    def cplxndis2(self, z):
+###        #x = mp.mpf(x)
+###        z = self.t(z)
+###        x = 0.5 * arb().erfc(-z/mp.sqrt(mp.mpf(2)))
+###        res = self.t(x)
+###        return res
+##
+##
+### %%% 4.2 Incomplete gamma functions for non-negative real arguments and
+##    # parameters
+##
+##
+### 4.2.1 Real lower non-normalised incomplete gamma function
+##
+##    def real_gamma_lower(self, a, x, **kwargs):
+##        '''Returns the Real lower non-normalised incomplete gamma function.'''
+##        res = self.real_gamma_p(a, x, **kwargs)
+##        return res * self.gamma(a)
+##
+##
+### 4.2.2 Real upper non-normalised incomplete gamma function
+##
+##    def real_gamma_upper(self, a, x, **kwargs):
+##        '''Returns the Real upper non-normalised incomplete gamma function.'''
+##        res = self.real_gamma_q(a, x, **kwargs)
+##        return res * self.gamma(a)
+##
+##
+### 4.2.3 Real lower normalised incomplete gamma function
+##
+##    def real_gamma_p(self, a, x, **kwargs):
+##        '''Returns the Real lower normalised incomplete gamma function.'''
+##        a = self.t(a)
+##        x = self.t(x)
+##        return ctxm.real_gamma_p(self, a, x, **kwargs)
+##
+##
+### 4.2.4 Real upper normalised incomplete gamma function
+##
+##    def real_gamma_q(self, a, x, **kwargs):
+##        '''Returns the Real upper normalised incomplete gamma function.'''
+##        a = self.t(a)
+##        x = self.t(x)
+##        return ctxm.real_gamma_q(self, a, x, **kwargs)
+##
+##
+### 4.2.5 Tricomi’s entire incomplete gamma function
+##
+##    def real_gamma_tricomi(self, a, x, **kwargs):
+##        '''Returns Tricomi’s entire incomplete gamma function.'''
+##        res = self.real_gamma_p(a, x, **kwargs)
+##        return res * self.power(x, -self.t(a))
+##
+##
+### 4.2.6 Inverse of the real lower normalised incomplete gamma function
+##
+##    def real_gamma_p_inv(self, a, p, **kwargs):
+##        '''Returns the Inverse of the real lower normalised incomplete gamma
+##        function.'''
+##        a = self.t(a)
+##        p = self.t(p)
+##        return ctxm.real_gamma_p_inv(self, a, p, **kwargs)
+##
+##
+### 4.2.7 Inverse of the real upper normalised incomplete gamma function
+##
+##    def real_gamma_q_inv(self, a, q, **kwargs):
+##        '''Returns the Inverse of the real upper normalised incomplete gamma
+##        function.'''
+##        a = self.t(a)
+##        q = self.t(q)
+##        return ctxm.real_gamma_q_inv(self, a, q, **kwargs)
+##
+##
+### 4.2.8 Inverse (on parameter a) of the real lower normalised incomplete
+##    # gamma function
+##
+##    def real_gamma_p_inva(self, x, prob, **kwargs):
+##        '''Inverse (on parameter a) of the real lower normalised incomplete
+##        gamma function.'''
+##        x = self.t(x)
+##        prob = self.t(prob)
+##        return ctxm.real_gamma_p_inva(self, x, prob, **kwargs)
+##
+##
+### 4.2.9 Inverse (on parameter a) of the real upper normalised incomplete
+##    # gamma function
+##
+##    def real_gamma_q_inva(self, x, prob, **kwargs):
+##        '''Returns the Inverse (on parameter a) of the real upper normalised
+##        incomplete gamma function.'''
+##        x = self.t(x)
+##        prob = self.t(prob)
+##        return ctxm.real_gamma_q_inva(self, x, prob, **kwargs)
+##
+##
+### 4.2.10 Derivative of the incomplete gamma function
+##
+##    def real_gamma_derivative(self, a, x):
+##        '''Returns the Derivative of the incomplete gamma function.'''
+##        a = self.t(a)
+##        x = self.t(x)
+##        return self.exp(-x) * self.power(x, a-1) / self.gamma(a)
+##
+##
+### %%%  4.3 Incomplete beta functions for non-negative real arguments and
+##    # parameters
+##
+### 4.3.1 Non-normalised incomplete beta function
+##
+##    def real_beta3(self, a, b, x, **kwargs):
+##        '''Returns the Non-normalised incomplete beta function.'''
+##        res = self.real_ibeta(a, b, x, **kwargs)
+##        return res * self.beta(a, b)
+##
+##
+### 4.3.2 Non-normalised complement of the incomplete beta function
+##
+##    def real_betac(self, a, b, x, **kwargs):
+##        '''Returns the Non-normalised complement of the incomplete beta
+##        function.'''
+##        res = self.real_ibetac(a, b, x, **kwargs)
+##        return res * self.beta(a, b)
+##
+##
+### 4.3.3 Normalised incomplete beta function
+##
+##    def real_ibeta(self, a, b, x, **kwargs):
+##        '''Returns the Normalised incomplete beta function.'''
+##        a = self.t(a)
+##        b = self.t(b)
+##        x = self.t(x)
+##        return ctxm.real_ibeta(self, a, b, x, **kwargs)
+##
+##
+### 4.3.4 Normalised complementory incomplete beta function
+##
+##    def real_ibetac(self, a, b, x, **kwargs):
+##        '''Returns the Normalised complementory incomplete beta function.'''
+##        a = self.t(a)
+##        b = self.t(b)
+##        x = self.t(x)
+##        return ctxm.real_ibetac(self, a, b, x, **kwargs)
+##
+##
+### 4.3.5 Inverse of the real normalised incomplete beta function
+##
+##    def real_ibeta_inv(self, a, b, prob, **kwargs):
+##        '''Returns the Inverse of the real normalised incomplete beta
+##        function.'''
+##        a = self.t(a)
+##        b = self.t(b)
+##        prob = self.t(prob)
+##        return ctxm.real_ibeta_inv(self, a, b, prob, **kwargs)
+##
+##    def betadisx(self, LeftTail, Righttail, a, b, **kwargs):
+##        '''Returns the Inverse of the real normalised incomplete beta
+##        function.'''
+##        a = self.t(a)
+##        b = self.t(b)
+##        LeftTail = self.t(LeftTail)
+##        x = ctxm.real_ibeta_inv(self, a, b, LeftTail, **kwargs)
+##        return x, 1-x
+##
+##
+### 4.3.6 Inverse of the real normalised complementary incomplete beta function
+##
+##    def real_ibetac_inv(self, a, b, prob, **kwargs):
+##        '''Returns the IInverse of the real normalised complementary incomplete
+##        beta function.'''
+##        a = self.t(a)
+##        b = self.t(b)
+##        prob = self.t(prob)
+##        return ctxm.real_ibetac_inv(self, a, b, prob, **kwargs)
+##
+##
+### 4.3.7 Inverse (on parameter a) of the normalised incomplete beta function
+##
+##    def real_ibeta_inva(self, b, x, prob, **kwargs):
+##        '''Returns the Inverse (on parameter a) of the normalised incomplete
+##        beta function.'''
+##        x = self.t(x)
+##        b = self.t(b)
+##        prob = self.t(prob)
+##        return ctxm.real_ibeta_inva(self, b, x, prob, **kwargs)
+##
+##
+### 4.3.8 Inverse (on parameter a) of the normalised complementary incomplete
+##    # beta function
+##
+##    def real_ibetac_inva(self, b, x, prob, **kwargs):
+##        '''Returns the Inverse (on parameter a) of the normalised complementary
+##        incomplete beta function.'''
+##        x = self.t(x)
+##        b = self.t(b)
+##        prob = self.t(prob)
+##        return ctxm.real_ibetac_inva(self, b, x, prob, **kwargs)
+##
+##
+### 4.3.9 Inverse (on parameter b) of the normalised incomplete beta function
+##
+##    def real_ibeta_invb(self, a, x, prob, **kwargs):
+##        '''Returns the Inverse (on parameter b) of the normalised incomplete
+##        beta function.'''
+##        x = self.t(x)
+##        a = self.t(a)
+##        prob = self.t(prob)
+##        return ctxm.real_ibeta_invb(self, a, x, prob, **kwargs)
+##
+##
+### 4.3.10 Inverse (on parameter b) of the normalised complementary incomplete
+##    # beta function
+##
+##    def real_ibetac_invb(self, a, x, prob, **kwargs):
+##        '''Returns the Inverse (on parameter b) of the normalised complementary
+##        incomplete beta function.'''
+##        x = self.t(x)
+##        a = self.t(a)
+##        prob = self.t(prob)
+##        return ctxm.real_ibetac_invb(self, a, x, prob, **kwargs)
+##
+##
+### 4.3.11 Derivative of the incomplete beta function
+##
+##    def real_ibeta_derivative(self, a, b, x):
+##        '''Returns the Derivative of the incomplete beta function.'''
+##        a = self.t(a)
+##        b = self.t(b)
+##        x = self.t(x)
+##        return self.power(x, a-1) * self.power(1-x, b-1) / self.beta(a, b)
+##
+##    def betadis(self, a, b, q, p):
+##        '''Returns the incomplete beta function (L, R).'''
+##        L, R = ctxm.betadis(self, a, b, q, p)
+##        return L, R
+##
+##    def betadis3(self, a, b, q, p):
+##        '''Returns the incomplete beta function (L, R, density).'''
+##        L, R, density = ctxm.betadis3(self, a, b, q, p)
+##        return L, R, density
+##
 
 
 # %% 05 Numerical calculus
@@ -4963,6 +6038,10 @@ class fpm():
     def cumulants_from_rawmoments(self, mu):
         '''Calculates the cumulants from the raw moments'''
         return ctxm.cumulants_from_rawmoments(self, mu)
+
+    def cumulants_from_rawmoments_list(self, mu):
+        '''Calculates the cumulants from the raw moments'''
+        return ctxm.cumulants_from_rawmoments_list(self, mu)
 
 # 12.14.4 Calculating the cumulants from the central moments
 

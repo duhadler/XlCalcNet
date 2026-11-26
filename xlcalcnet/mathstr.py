@@ -254,6 +254,8 @@ def t_fpm(x, y=None):
 
 
 def t_mpm(x, y=None):
+##    print(x, type(x))
+##    print(y)
     if y is None:
         s = str(type(x))
         if (isinstance(x, mp.mpc)) or (isinstance(x, mp.mpf)):
@@ -279,12 +281,22 @@ def t_mpm(x, y=None):
         elif isinstance(x, iv.mpc):
             y = (iv.im(x)).mid
             x = (iv.re(x)).mid
-        elif has_gmpy2:
+        if has_gmpy2:
             if isinstance(x, gmpy2.mpfr):
                 return mp.mpf(str(x))
-            elif isinstance(x, gmpy2.mpc):
+            if isinstance(x, gmpy2.mpc):
                 y = str(x.imag)
                 x = str(x.real)
+        if has_flint:
+            if isinstance(x, flint.types.arb.arb):
+                resstr = x.str(radius=False)
+                #print("resstr:", resstr)
+                resf = mp.mpf(resstr)
+                #print("resf:", resf)
+                return resf
+            if isinstance(x, flint.types.acb.acb):
+                y = x.imag.str(radius=False)
+                x = x.real.str(radius=False)
     if y is not None:
         if not isinstance(x, mp.mpf):
             x = mp.mpf(x)

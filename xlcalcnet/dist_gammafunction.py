@@ -167,12 +167,7 @@ def chi2_cohen_cdf(self, ctx, x, nu):
 class ctx_chi2(ctx_rv_cont):
     r"""
     The **ctx_chisquare** class implements a central chi-square distribution with
-    **df** degrees of freedom.
-
-    **References**
-
-    1. Wikipedia contributors. *Chi-squared distribution. Wikipedia, the free encyclopedia*.
-       https://en.wikipedia.org/wiki/Chi-squared_distribution
+    **nu** degrees of freedom.
     """
 
     def __init__(self, ctx, nu):
@@ -191,39 +186,79 @@ class ctx_chi2(ctx_rv_cont):
         b = self.nu/2
         m = x/2
         if (m <= 0): return ctx.t(0)
-        else: return ctx.exp(ctx.ln(m) * (b-1) - \
-                     ctx.loggamma(b)-m)/2
+        else: return ctx.exp(ctx.log(m) * (b-1) - ctx.loggamma(b)-m)/2
 
     def cdf(self, x):
         ctx = self.ctx
         x = ctx.t(x)
         b = self.nu/2
         m = x/2
-        return ctx.real_gamma_p(b, m)
+        return ctx.gamma_p(b, m)
 
     def sf(self, x):
         ctx = self.ctx
         x = ctx.t(x)
         b = self.nu/2
         m = x/2
-        return ctx.real_gamma_q(b, m)
+        return ctx.gamma_q(b, m)
 
     def qtf(self, q):
         ctx = self.ctx
         q = ctx.t(q)
         b = self.nu/2
-        return 2*ctx.real_gamma_p_inv(b, q)
+        return 2*ctx.gamma_p_inv(b, q)
 
     def isf(self, q):
         ctx = self.ctx
         q = ctx.t(q)
         b = self.nu/2
-        return 2*ctx.real_gamma_q_inv(b, q)
+        return 2*ctx.gamma_q_inv(b, q)
+
+
+    def mode(self):
+        ctx = self.ctx
+        return ctx.nan
+
+
+    def median(self):
+        ctx = self.ctx
+        return ctx.nan
+
+
+    def mean(self):
+        ctx = self.ctx
+        return ctx.nan
+
+
+    def variance(self):
+        ctx = self.ctx
+        return ctx.nan
+
+
+    def stdev(self):
+        ctx = self.ctx
+        return ctx.nan
+
+
+    def skewness(self):
+        ctx = self.ctx
+        return ctx.nan
+
+
+    def kurtosis(self):
+        ctx = self.ctx
+        return ctx.nan
+
+
+    def kurtosis_excess(self):
+        ctx = self.ctx
+        return ctx.nan
+
 
     def c_x(self, t):
         ctx = self.ctx
         t = ctx.t(t)
-        return (1 - 2j*t)**(-self.nu/2)
+        return (1 - 2*ctx.j*t)**(-self.nu/2)
 
     def m_x(self, t):
         ctx = self.ctx
@@ -235,16 +270,18 @@ class ctx_chi2(ctx_rv_cont):
         t = ctx.t(t)
         return -self.nu/2 * ctx.log(1-2*t)
 
+    def moments(self, k):
+        ctx = self.ctx
+        return [ctx.t(1), ctx.t(1), ctx.t(1), ctx.t(1), ctx.t(1)]
+
+    def cumulants(self, k):
+        ctx = self.ctx
+        return [ctx.t(1), ctx.t(1), ctx.t(1), ctx.t(1), ctx.t(1)]
+
     def saddleppoint(self, x):
         ctx = self.ctx
         x = ctx.t(x)
         return 1 - self.nu/x
-
-    def moments(self, k):
-        return "Todo"
-
-    def cumulants(self, k):
-        return "Todo"
 
 
 

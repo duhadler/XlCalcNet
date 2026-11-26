@@ -14,80 +14,155 @@ class ctx_arcsine(ctx_rv_cont):
     def __init__(self, ctx, a=0, b=1):
         self.set_ctx(ctx)
 
-        self.set_rangeleft(-ctx.inf)
-        self.set_rangeright(ctx.inf)
+        self.a = ctx.t(a)
+        self.b = ctx.t(b)
+
+        self.set_rangeleft(a)
+        self.set_rangeright(b)
 
         self.set_supportleft(a)
         self.set_supportright(b)
-
-        self.a = ctx.t(a)
-        self.b = ctx.t(b)
 
 
     def pdf(self, x):
         ctx = self.ctx
         x = ctx.t(x)
-        return 1 / (ctx.pi * ctx.sqrt((x-self.a)*(self.b-x)))
+        if (x<=self.a) or (x>=self.b): return ctx.nan
+        res = 1 / (ctx.pi * ctx.sqrt((x-self.a)*(self.b-x)))
+        if ctx.imag(res) == 0: return res
+        else: return ctx.nan
+        #return 1 / (ctx.pi * ctx.sqrt((x-self.a)*(self.b-x)))
 
 
     def cdf(self, x):
         ctx = self.ctx
         x = ctx.t(x)
-        return 2 * ctx.asin(ctx.sqrt((x-self.a)/(self.b-self.a))) / ctx.pi
+        if (x<=self.a) or (x>=self.b): return ctx.nan
+        res = 2 * ctx.asin(ctx.sqrt((x-self.a)/(self.b-self.a))) / ctx.pi
+        if ctx.imag(res) == 0: return res
+        else: return ctx.nan
 
 
     def sf(self, x):
         ctx = self.ctx
         x = ctx.t(x)
-        return 2 * ctx.acos(ctx.sqrt((x-self.a)/(self.b-self.a))) / ctx.pi
+        if (x<=self.a) or (x>=self.b): return ctx.nan
+        res = 2 * ctx.acos(ctx.sqrt((x-self.a)/(self.b-self.a))) / ctx.pi
+        if ctx.imag(res) == 0: return res
+        else: return ctx.nan
 
 
     def qtf(self, q):
         ctx = self.ctx
         q = ctx.t(q)
         t = (ctx.sin(ctx.pi * q / 2))
-        return self.a + (self.b-self.a)*t * t
+        res = self.a + (self.b-self.a)*t * t
+        if ctx.imag(res) == 0: return res
+        else: return ctx.nan
 
 
     def isf(self, q):
         ctx = self.ctx
         q = ctx.t(q)
         t = (ctx.cos(ctx.pi * q / 2))
-        return self.a + (self.b-self.a)*t * t
+        res = self.a + (self.b-self.a)*t * t
+        if ctx.imag(res) == 0: return res
+        else: return ctx.nan
+
+
+
+    def mode(self):
+        ctx = self.ctx
+        return ctx.nan
+
+
+    def median(self):
+        ctx = self.ctx
+        return (self.a + self.b) / 2
+
+
+    def mean(self):
+        ctx = self.ctx
+        return (self.a + self.b) / 2
+
+
+    def variance(self):
+        ctx = self.ctx
+        return (self.b - self.a) * (self.b - self.a) / 8
+
+
+    def stdev(self):
+        ctx = self.ctx
+        return ctx.sqrt(self.variance())
+
+
+    def skewness(self):
+        ctx = self.ctx
+        return ctx.t(0)
+
+
+    def kurtosis(self):
+        ctx = self.ctx
+        return ctx.t(1.5)
+
+
+    def kurtosis_excess(self):
+        ctx = self.ctx
+        return self.kurtosis() - ctx.t(3)
+
 
 
     def c_x(self, t):
         ctx = self.ctx
+        L = (self.a + self.b) / 2
+        S = (self.b - self.a)
         t = ctx.t(t)
-        return ctx.hyp1f1(0.5, 1.0, t*1j)
+        #return ctx.hyperg_1f1(0.5, 1.0, t * ctx.j)
+        return ctx.exp(t * L * ctx.j) * ctx.hyperg_1f1(0.5, 1.0, t * S * ctx.j)
 
 
     def m_x(self, t):
         ctx = self.ctx
         t = ctx.t(t)
-        return ctx.hyp1f1(0.5, 1.0, t)
+        L = (self.a + self.b) / 2
+        S = (self.b - self.a)
+        res = ctx.exp(t * L) * ctx.hyperg_1f1(0.5, 1.0, t * S)
+        return res
 
 
     def k_x(self, t):
         ctx = self.ctx
         t = ctx.t(t)
-        return ctx.log(self.m_x(t))
+        m = self.m_x(t)
+        res = ctx.log(m)
+        return res
 
 
 
     def moments(self, k):
-        mu = [0]
-        mu[0] = 1
-        for i in range(k-1):
-            prod = 1
+        ctx = self.ctx
+        mu = []
+        #mu[0] = ctx.t(1)
+        prod = ctx.t(1)
+        #print("mu2:", mu)
+        for i in range(1, k+2):
+            #prod = ctx.t(1)
             for j1 in range(i-1):
-                prod = prod * (2*j1+1)/(2*j1+2)
+                #print("i:", i, "j1:", j1, "prod", prod)
+                prod = prod * ctx.t(2*j1+1)/ctx.t(2*j1+2)
+                #print("i:", i, "j1:", j1, "prod", prod)
             mu.append(prod)
+            #print("mu3:", mu)
+        #print("mu3:", mu)
         return mu
 
 
-    def cumulants(self, k):  # return the first k cumulants
-        return "from moments"
+    def cumulants(self, k):
+        ctx = self.ctx
+        mu = self.moments(k)
+        cum = ctx.cumulants_from_rawmoments_list(mu)
+        #print("cum:", cum)
+        return cum
 
 
 
@@ -159,19 +234,16 @@ class ctx_cauchy(ctx_rv_cont):
         return ctx.exp(self.a*t*1j - self.b*ctx.fabs(t))
 
     def m_x(self, t):
-        return None
+        return ctx.nan
 
     def k_x(self, t):
-        return None
-
-    def saddleppoint(self, x):
-        return None
+        return ctx.nan
 
     def moments(self, t):
-        return None
+        return [ctx.nan]
 
     def cumulants(self, k):
-        return None
+        return [ctx.nan]
 
 
 class ctx_dagum(ctx_rv_cont):

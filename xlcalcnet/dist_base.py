@@ -42,20 +42,17 @@ class ctx_rv_base(object):
     def ctx(self):
         return self.__ctx
 
-    @property
-    def supportleft(self):
+    def support_lower_endpoint(self):
         return self.__supportleft
 
-    @property
-    def supportright(self):
+    def support_upper_endpoint(self):
         return self.__supportright
 
-    @property
-    def rangeleft(self):
+    def range_lower_endpoint(self):
         return self.__rangeleft
 
-    @property
-    def rangeright(self):
+    #@property
+    def range_upper_endpoint(self):
         return self.__rangeright
 
 
@@ -388,7 +385,7 @@ class ctx_rv_base(object):
         1. Wikipedia contributors. *Expected value. Wikipedia, the free encyclopedia*. https://en.wikipedia.org/wiki/Expected_value
         """
         cum = self.cumulants(4)
-        return cum[0]
+        return cum[1]
 
     def variance(self):
         r"""
@@ -399,7 +396,7 @@ class ctx_rv_base(object):
         1. Wikipedia contributors. *Variance. Wikipedia, the free encyclopedia*. https://en.wikipedia.org/wiki/Variance
         """
         cum = self.cumulants(2)
-        return cum[1]
+        return cum[2]
 
     def stdev(self):
         r"""
@@ -421,6 +418,7 @@ class ctx_rv_base(object):
         """
         cum = self.cumulants(4)
         return cum[2]/self.ctx.sqrt(cum[1]*cum[1]*cum[1])
+        #return cum[3]/self.ctx.sqrt(cum[2]*cum[2]*cum[2])
 
     def kurtosis(self):
         r"""
@@ -431,6 +429,8 @@ class ctx_rv_base(object):
         1. Wikipedia contributors. *Kurtosis. Wikipedia, the free encyclopedia*. https://en.wikipedia.org/wiki/Kurtosis
         """
         cum = self.cumulants(4)
+##        k22 = cum[2] * cum[2]
+##        return ((cum[4] + 3 * k22) / k22)
         k22 = cum[1] * cum[1]
         return ((cum[3] + 3 * k22) / k22)
 

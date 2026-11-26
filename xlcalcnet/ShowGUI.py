@@ -122,6 +122,19 @@ class gui():
         return self._ctxlist_boost_real
 
 
+
+
+    def _set_ctxlist_boost2_real(self, ctxlist_boost2_real):
+        self._ctxlist_boost2_real = ctxlist_boost2_real
+
+    @property
+    def ctxlist_boost2_real(self):
+        return self._ctxlist_boost2_real
+
+
+
+
+
     def _set_ctxlist_noboost_real(self, ctxlist_noboost_real):
         self._ctxlist_noboost_real = ctxlist_noboost_real
 

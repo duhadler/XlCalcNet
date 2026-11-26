@@ -312,6 +312,21 @@ if (platform.system()=='Windows'):
     gui._set_ctxlist_boost_real(ctxlist_boost_real)
 
 
+
+    ctxlist_boost2_real = []
+    try:
+        ctxlist_boost2_real = [fpm, mpm, dpm]
+        if use_gpm: ctxlist_boost2_real.append(gpm)
+        if use_apm: ctxlist_boost2_real.append(apm)
+
+        ctxlist_boost2_real += [sreal, dreal, ereal, qreal, oreal]
+        if use_xlcalcnet2: ctxlist_boost2_real += [mreal]
+    except:
+        print("ctxlist_boost2_real is not available")
+
+    gui._set_ctxlist_boost2_real(ctxlist_boost2_real)
+
+
     ctxlist_noipm_real = []
     try:
         ctxlist_noipm_real = [fpm, mpm, dpm]

@@ -6286,6 +6286,53 @@ class ctxUtil(object):
         kappa = self.cumulants_from_rawmoments(ctx, mraw)
         return kappa
 
+
+
+
+
+
+
+
+
+
+# 13.14.3 Calculating the cumulants from the raw moments
+    def cumulants_from_rawmoments_list(self, ctx,  mu):
+        k = len(mu)
+##        kappa = [0] * (k+1)
+##        kappa[0] = 0
+##        kappa[1] = mu[1]
+##        kappa = [ctx.t(0), ctx.t(1)]
+        kappa = [ctx.t(0)]
+        for r in range(1, k+0):
+            sum1 = ctx.t(0)
+            F = ctx.t(1)
+            for j in range(1, r):
+                sum1 = sum1 + F * mu[r - j] * kappa[j]
+                F = (F * (r - j)) / j
+            diff = mu[r] - sum1
+            kappa.append(diff)
+        return kappa
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 13.14.3 Calculating the cumulants from the raw moments
     def cumulants_from_rawmoments(self, ctx,  mu):
         k = mu.rows - 1
@@ -6294,11 +6341,12 @@ class ctxUtil(object):
         for r in range(1, k+1):
             sum1 = ctx.t(0)
             F = ctx.t(1)
-            for j in range(1, r):
+            for j in range(1, r-1):
                 sum1 = sum1 + F * mu[r - j] * kappa[j]
                 F = (F * (r - j)) / j
             kappa[r] = mu[r] - sum1
         return kappa
+
 
 # 13.14.4 Calculating the cumulants from the central moments
     def cumulants_from_centralmoments(self, ctx,  mu):
